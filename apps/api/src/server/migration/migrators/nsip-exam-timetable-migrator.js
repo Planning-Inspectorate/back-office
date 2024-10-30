@@ -212,9 +212,6 @@ const formatBulletPoints = (input) => input.trim().replace(/(\r\n[?•-])/g, '\r
  * @returns {boolean}
  */
 const isDeadlineType = (examinationTimetableItemType) => {
-	const examinationItemDeadlineTypes = [
-		examTimetableItemTypes.DEADLINE,
-		examTimetableItemTypes.PROCEDURAL_DEADLINE
-	];
+	const examinationItemDeadlineTypes = [examTimetableItemTypes.DEADLINE];
 	return examinationItemDeadlineTypes.includes(examinationTimetableItemType);
 };
