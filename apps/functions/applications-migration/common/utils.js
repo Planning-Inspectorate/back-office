@@ -54,3 +54,14 @@ export const stringToStream = (string) => {
 };
 
 export const valueToArray = (value) => (value ? JSON.parse(value) : []);
+
+export const getServiceUserUnder18AndCountyValue = (value) => {
+	switch (value) {
+		case 'under18':
+			return { under18: true, addressCounty: null };
+		case 'over18':
+			return { under18: false, addressCounty: null };
+		default:
+			return { under18: null, addressCounty: value };
+	}
+};

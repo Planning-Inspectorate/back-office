@@ -1,5 +1,6 @@
 import { SynapseDB } from '../synapse-db.js';
 import { makePostRequest } from '../back-office-api-client.js';
+import { getServiceUserUnder18AndCountyValue } from '../utils.js';
 
 /**
  * Migrate service-users for a case
@@ -17,6 +18,7 @@ export const migrateServiceUsers = async (log, caseReference) => {
 		if (serviceUsers.length > 0) {
 			const mappedServiceUsers = serviceUsers.map((serviceUser) => ({
 				...serviceUser,
+				...getServiceUserUnder18AndCountyValue(serviceUser.addressCounty),
 				sourceSuid: serviceUser.sourceSuid ?? '',
 				caseReference
 			}));
