@@ -5,7 +5,6 @@ import {
 
 export const projectTestDataOdw = [
 	{
-		caseId: TEST_CONSTANTS_GENERIC.caseId,
 		caseReference: TEST_CONSTANTS_GENERIC.caseReference,
 		projectName: TEST_CONSTANTS.projectNameEnglish,
 		projectNameWelsh: TEST_CONSTANTS.projectNameWelsh,

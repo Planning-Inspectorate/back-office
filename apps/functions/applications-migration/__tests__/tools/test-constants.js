@@ -1,5 +1,4 @@
 export const TEST_CONSTANTS_GENERIC = {
-	caseId: 12345678,
 	caseReference: 'BC010001',
 	dates: {
 		date1: '2020-02-01 00:00:00.0000000',

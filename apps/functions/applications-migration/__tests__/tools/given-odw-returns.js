@@ -1,6 +1,8 @@
+// @ts-nocheck
 import { odwQueryMock } from '../setup/mock-db-queries.js';
-import { configureAlterations, makeDeepCopy } from './utils.js';
+import { configureAlterations, createIncrementingId } from './utils.js';
 import { projectTestDataOdw } from '../test-data/mock-from-odw/project-test-data.js';
+import { cloneDeep } from 'lodash-es';
 
 /**
  *
@@ -15,8 +17,11 @@ const givenOdwReturns = (data) => {
  * @param {import('./utils.js').Alterations | null} alterations
  */
 export const givenOdwReturnsProjectData = (alterations = null) => {
-	const projectData = makeDeepCopy(projectTestDataOdw);
+	const projectData = cloneDeep(projectTestDataOdw);
+	const caseId = createIncrementingId();
+	projectData[0].caseId = caseId;
 	if (alterations) configureAlterations(projectData, alterations);
 
 	givenOdwReturns(projectData);
+	return caseId;
 };

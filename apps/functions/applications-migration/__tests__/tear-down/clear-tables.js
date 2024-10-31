@@ -1,45 +1,45 @@
 import { getSequelizeInstance } from '../tools/sequelize-instance.js';
 
 export const clearNonStaticDataTables = async () => {
+	// ordering is important
 	const tablesToClear = [
-		'ApplicationDetails',
-		// 'Case',
-		'CasePublishedState',
-		'CaseStatus',
-		'Document',
+		'RepresentationAttachment',
+		'RepresentationAction',
+		'Representation',
+		'S51AdviceDocument',
+		'S51Advice',
 		'DocumentActivityLog',
 		'DocumentVersion',
-		'ExaminationTimetable',
+		'Document',
+		'RegionsOnApplicationDetails',
 		'ExaminationTimetableItem',
+		'ExaminationTimetable',
+		'Subscription',
+		'ProjectUpdateNotificationLog',
+		'ProjectUpdate',
+		'ServiceUser',
 		'GridReference',
 		'ProjectTeam',
-		'ProjectUpdate',
-		'ProjectUpdateNotificationLog',
-		'RegionsOnApplicationDetails',
-		'Representation',
-		'RepresentationAction',
-		'RepresentationAttachment',
-		'S51Advice',
-		'S51AdviceDocument',
-		// ServiceUser not included for now - doesn't have caseId property
-		'Subscription'
+		'ApplicationDetails',
+		'CaseStatus',
+		'CasePublishedState',
+		'Folder',
+		'Case'
 	];
 	const cbosDb = getSequelizeInstance();
-	const result = await cbosDb.query(
-		`
-		EXEC sp_MSforeachtable @command1="ALTER TABLE ? NOCHECK CONSTRAINT ALL"
-		${tablesToClear
-			.map(
-				(table) =>
-					'DELETE FROM [pins_development].[dbo].[' +
-					table +
-					'] WHERE id != 100000000 AND caseId != 100000000;'
-			)
-			.join('\n')}
-		EXEC sp_MSforeachtable @command1="ALTER TABLE ? CHECK CONSTRAINT ALL"
-		`
-	);
-	// add additional query to clear Case table
-	// await cbosDb.query();
-	console.log(result);
+	try {
+		console.log('Initiating DB clean up...');
+		await cbosDb.query(
+			`
+			EXEC sp_MSforeachtable @command1="ALTER TABLE ? NOCHECK CONSTRAINT ALL"
+			${tablesToClear
+				.map((table) => 'DELETE FROM [pins_development].[dbo].[' + table + '] WHERE 1=1;')
+				.join('\n')}
+			EXEC sp_MSforeachtable @command1="ALTER TABLE ? CHECK CONSTRAINT ALL"
+			`
+		);
+	} catch (/** @type {any} */ error) {
+		console.dir(error, { depth: null });
+		throw Error(error);
+	}
 };
