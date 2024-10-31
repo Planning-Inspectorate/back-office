@@ -78,7 +78,8 @@ const mapModelToServiceUserEntity = ({
 	role,
 	telephoneNumber,
 	emailAddress,
-	webAddress
+	webAddress,
+	under18
 }) => {
 	const parsedId = Number(id);
 	if (!parsedId) throw `Invalid ServiceUser ID: ${id}`;
@@ -91,7 +92,8 @@ const mapModelToServiceUserEntity = ({
 		email: emailAddress,
 		website: webAddress,
 		phoneNumber: telephoneNumber,
-		jobTitle: role
+		jobTitle: role,
+		under18
 	};
 };
 
