@@ -1,4 +1,8 @@
-import { getAllByCaseId, getFolderByNameAndCaseId } from '#repositories/folder.repository.js';
+import {
+	createCorrespondenceFolders,
+	getAllByCaseId,
+	getFolderByNameAndCaseId
+} from '#repositories/folder.repository.js';
 import { buildFolderHierarchy } from './utils.js';
 import { memoize } from 'lodash-es';
 
@@ -20,24 +24,24 @@ import { attemptPartialMapping } from './folder-name-map.js';
  * Pre-application > Developer's consultation > Statutory > PEIR
  * Pre-application > Correspondence > External
  * Pre-application > Correspondence > Internal
- * Acceptance > Correspondence > 01 - Internal
- * Acceptance > Correspondence > 02 - External
- * Pre-examination > Correspondence > 01 - Internal
- * Pre-examination > Correspondence > 02 - External
- * Examination > Correspondence > 01 - Internal
- * Examination > Correspondence > 02 - External
- * Recommendation > Correspondence > 01 - Internal
- * Recommendation > Correspondence > 02 - External
+ * Acceptance > Correspondence > Internal
+ * Acceptance > Correspondence > External
+ * Pre-examination > Correspondence > Internal
+ * Pre-examination > Correspondence > External
+ * Examination > Correspondence > Internal
+ * Examination > Correspondence > External
+ * Recommendation > Correspondence > Internal
+ * Recommendation > Correspondence > External
  * Recommendation > Documents received
  * Decision > Correspondence
- * Decision > Correspondence > 01 - Internal
- * Decision > Correspondence > 02 - External
+ * Decision > Correspondence > Internal
+ * Decision > Correspondence > External
  * Post-decision > Correspondence
- * Post-decision > Correspondence > 01 - Internal
- * Post-decision > Correspondence > 02 - External
+ * Post-decision > Correspondence > Internal
+ * Post-decision > Correspondence > External
  * Decision > SoS consultation > Correspondence
- * Decision > SoS consultation > Correspondence > 01 - Internal
- * Decision > SoS consultation > Correspondence > 02 - External
+ * Decision > SoS consultation > Correspondence > Internal
+ * Decision > SoS consultation > Correspondence > External
  * Acceptance > Drafting
  * Acceptance > Decision
  * Decision > SoS consultation > Consultation documents
@@ -100,6 +104,31 @@ export const defaultCaseFoldersForMigration = [
 					displayNameEn: 'Internal ExA meetings',
 					displayOrder: 500,
 					stage: folderDocumentCaseStageMappings.PROJECT_MANAGEMENT
+				}
+			]
+		}
+	},
+	{
+		displayNameEn: 'Correspondence',
+		displayOrder: 150,
+		stage: folderDocumentCaseStageMappings.CORRESPONDENCE,
+		childFolders: {
+			create: [
+				{
+					displayNameEn: '2023',
+					displayOrder: 100,
+					stage: folderDocumentCaseStageMappings.CORRESPONDENCE,
+					childFolders: {
+						create: createCorrespondenceFolders()
+					}
+				},
+				{
+					displayNameEn: '2024',
+					displayOrder: 200,
+					stage: folderDocumentCaseStageMappings.CORRESPONDENCE,
+					childFolders: {
+						create: createCorrespondenceFolders()
+					}
 				}
 			]
 		}
@@ -335,12 +364,12 @@ export const defaultCaseFoldersForMigration = [
 					childFolders: {
 						create: [
 							{
-								displayNameEn: '01 - Internal',
+								displayNameEn: 'Internal',
 								displayOrder: 100,
 								stage: folderDocumentCaseStageMappings.ACCEPTANCE
 							},
 							{
-								displayNameEn: '02 - External',
+								displayNameEn: 'External',
 								displayOrder: 200,
 								stage: folderDocumentCaseStageMappings.ACCEPTANCE
 							}
@@ -437,12 +466,12 @@ export const defaultCaseFoldersForMigration = [
 					childFolders: {
 						create: [
 							{
-								displayNameEn: '01 - Internal',
+								displayNameEn: 'Internal',
 								displayOrder: 100,
 								stage: folderDocumentCaseStageMappings.PRE_EXAMINATION
 							},
 							{
-								displayNameEn: '02 - External',
+								displayNameEn: 'External',
 								displayOrder: 200,
 								stage: folderDocumentCaseStageMappings.PRE_EXAMINATION
 							}
@@ -499,12 +528,12 @@ export const defaultCaseFoldersForMigration = [
 					childFolders: {
 						create: [
 							{
-								displayNameEn: '01 - Internal',
+								displayNameEn: 'Internal',
 								displayOrder: 100,
 								stage: folderDocumentCaseStageMappings.EXAMINATION
 							},
 							{
-								displayNameEn: '02 - External',
+								displayNameEn: 'External',
 								displayOrder: 200,
 								stage: folderDocumentCaseStageMappings.EXAMINATION
 							}
@@ -568,12 +597,12 @@ export const defaultCaseFoldersForMigration = [
 					childFolders: {
 						create: [
 							{
-								displayNameEn: '01 - Internal',
+								displayNameEn: 'Internal',
 								displayOrder: 100,
 								stage: folderDocumentCaseStageMappings.RECOMMENDATION
 							},
 							{
-								displayNameEn: '02 - External',
+								displayNameEn: 'External',
 								displayOrder: 200,
 								stage: folderDocumentCaseStageMappings.RECOMMENDATION
 							}
@@ -626,12 +655,12 @@ export const defaultCaseFoldersForMigration = [
 								childFolders: {
 									create: [
 										{
-											displayNameEn: '01 - Internal',
+											displayNameEn: 'Internal',
 											displayOrder: 100,
 											stage: folderDocumentCaseStageMappings.DECISION
 										},
 										{
-											displayNameEn: '02 - External',
+											displayNameEn: 'External',
 											displayOrder: 200,
 											stage: folderDocumentCaseStageMappings.DECISION
 										}
@@ -663,12 +692,12 @@ export const defaultCaseFoldersForMigration = [
 					childFolders: {
 						create: [
 							{
-								displayNameEn: '01 - Internal',
+								displayNameEn: 'Internal',
 								displayOrder: 100,
 								stage: folderDocumentCaseStageMappings.DECISION
 							},
 							{
-								displayNameEn: '02 - External',
+								displayNameEn: 'External',
 								displayOrder: 200,
 								stage: folderDocumentCaseStageMappings.DECISION
 							}
@@ -735,12 +764,12 @@ export const defaultCaseFoldersForMigration = [
 					childFolders: {
 						create: [
 							{
-								displayNameEn: '01 - Internal',
+								displayNameEn: 'Internal',
 								displayOrder: 100,
 								stage: folderDocumentCaseStageMappings.POST_DECISION
 							},
 							{
-								displayNameEn: '02 - External',
+								displayNameEn: 'External',
 								displayOrder: 200,
 								stage: folderDocumentCaseStageMappings.POST_DECISION
 							}
@@ -761,21 +790,21 @@ export const defaultCaseFoldersForMigration = [
 		childFolders: {
 			create: [
 				{
-					displayNameEn: '06 - Post-Submission Correspondence',
+					displayNameEn: 'Post-Submission Correspondence',
 					displayOrder: 100,
 					childFolders: {
 						create: [
 							{
-								displayNameEn: '02 - Pre-Exam and Exam',
+								displayNameEn: 'Pre-Exam and Exam',
 								displayOrder: 100,
 								childFolders: {
 									create: [
 										{
-											displayNameEn: '01 - Internal',
+											displayNameEn: 'Internal',
 											displayOrder: 100
 										},
 										{
-											displayNameEn: '02 - External',
+											displayNameEn: 'External',
 											displayOrder: 200
 										}
 									]
@@ -785,28 +814,28 @@ export const defaultCaseFoldersForMigration = [
 					}
 				},
 				{
-					displayNameEn: '07 - Acceptance, Pre-Exam and Exam',
+					displayNameEn: 'Acceptance, Pre-Exam and Exam',
 					displayOrder: 200,
 					childFolders: {
 						create: [
 							{
-								displayNameEn: '04 - Procedural Decisions',
+								displayNameEn: 'Procedural Decisions',
 								displayOrder: 100,
 								childFolders: {
 									create: [
 										{
-											displayNameEn: '01 - Drafts',
+											displayNameEn: 'Drafts',
 											displayOrder: 100
 										}
 									]
 								}
 							},
 							{
-								displayNameEn: '06 - EIA',
+								displayNameEn: 'EIA',
 								displayOrder: 200
 							},
 							{
-								displayNameEn: '07 - Habitat Regs',
+								displayNameEn: 'Habitat Regs',
 								displayOrder: 300
 							}
 						]
@@ -821,151 +850,140 @@ export const defaultCaseFoldersForMigration = [
  * Mapping of folder paths to their equivalent folder in Back Office
  */
 const folderMapping = {
-	'01 - Project Management': 'Project management',
-	'01 - Project Management > 01 - Fees': 'Project management > Fees',
-	'01 - Project Management > 02 - Case Management': 'Project management > Case management',
-	'01 - Project Management > 03 - Logistics': 'Project management > Logistics',
-	'01 - Project Management > 03 - Logistics > 01 - Travel':
-		'Project management > Logistics > Travel',
-	'01 - Project Management > 03 - Logistics > 02 - Programme Officer':
+	'Project Management': 'Project management',
+	'Project Management > Fees': 'Project management > Fees',
+	'Project Management > Case Management': 'Project management > Case management',
+	'Project Management > Logistics': 'Project management > Logistics',
+	'Project Management > Logistics > Travel': 'Project management > Logistics > Travel',
+	'Project Management > Logistics > Programme Officer':
 		'Project management > Logistics > Programme officer',
-	'01 - Project Management > 03 - Logistics > 03 - Welsh Translations':
-		'Project management > Logistics > Welsh',
-	'01 - Project Management > 04 - Internal ExA Meetings':
-		'Project management > Internal ExA meetings',
+	'Project Management > Logistics > Welsh Translations': 'Project management > Logistics > Welsh',
+	'Project Management > Internal ExA Meetings': 'Project management > Internal ExA meetings',
 
-	'02 - Section 51 Advice': 'S51 advice',
+	'Section 51 Advice': 'S51 advice',
 
-	'03 - Land Rights': 'Land rights',
-	'03 - Land Rights > 01 - s52': 'Land rights > S52',
-	'03 - Land Rights > 01 - s52 > 01 - Applicants Request': 'Land rights > S52 > Applicant request',
-	'03 - Land Rights > 01 - s52 > 02 - Recommendation and Authorisation':
+	'Land Rights': 'Land rights',
+	'Land Rights > s52': 'Land rights > S52',
+	'Land Rights > s52 > Applicants Request': 'Land rights > S52 > Applicant request',
+	'Land Rights > s52 > Recommendation and Authorisation':
 		'Land rights > S52 > Recommendation and authorisation',
-	'03 - Land Rights > 01 - s52 > 03 - Correspondence': 'Land rights > S52 > Correspondence',
-	'03 - Land Rights > 02 - s53': 'Land rights > S53',
-	'03 - Land Rights > 02 - s53 > 01 - Applicants Request': 'Land rights > S53 > Applicant request',
-	'03 - Land Rights > 02 - s53 > 02 - Recommendation and Authorisation':
+	'Land Rights > s52 > Correspondence': 'Land rights > S52 > Correspondence',
+	'Land Rights > s53': 'Land rights > S53',
+	'Land Rights > s53 > Applicants Request': 'Land rights > S53 > Applicant request',
+	'Land Rights > s53 > Recommendation and Authorisation':
 		'Land rights > S53 > Recommendation and authorisation',
-	'03 - Land Rights > 02 - s53 > 03 - Correspondence': 'Land rights > S53 > Correspondence',
+	'Land Rights > s53 > Correspondence': 'Land rights > S53 > Correspondence',
 
-	'04 - Transboundary': 'Transboundary',
-	'04 - Transboundary > 01 - First Screening': 'Transboundary > First screening',
-	'04 - Transboundary > 02 - Second Screening': 'Transboundary > Second screening',
+	Transboundary: 'Transboundary',
+	'Transboundary > First Screening': 'Transboundary > First screening',
+	'Transboundary > Second Screening': 'Transboundary > Second screening',
 
-	'05 - Pre-App': 'Pre-application',
-	'05 - Pre-App > 01 - Draft Docs': 'Pre-application > Draft documents',
-	'05 - Pre-App > 01 - Draft Docs > 01 - SOCC': 'Pre-application > Draft documents > SOCC',
-	'05 - Pre-App > 02 - EIA': 'Pre-application > EIA',
-	'05 - Pre-App > 02 - EIA > 01 - Screening': 'Pre-application > EIA > Screening',
-	'05 - Pre-App > 02 - EIA > 02 - Scoping': 'Pre-application > EIA > Scoping',
-	'05 - Pre-App > 02 - EIA > 02 - Scoping > 01 - Responses':
-		'Pre-application > EIA > Scoping > Responses',
-	'05 - Pre-App > 03 - Habitat Regulations': 'Pre-application > Habitat regulations',
-	'05 - Pre-App > 04 - Evidence Plans': 'Pre-application > Evidence plans',
-	'05 - Pre-App > 05 - Correspondence': 'Pre-application > Correspondence',
-	'05 - Pre-App > 05 - Correspondence > 01 - Internal':
-		'Pre-application > Correspondence > Internal',
-	'05 - Pre-App > 05 - Correspondence > 02 - External':
-		'Pre-application > Correspondence > External',
-	'05 - Pre-App > 06 - Meetings': 'Pre-application > Events / meetings',
-	'05 - Pre-App > 06 - Meetings > 01 - Outreach': 'Pre-application > Events / meetings > Outreach',
-	'05 - Pre-App > 07 - Developers Consultation': "Pre-application > Developer's consultation",
-	'05 - Pre-App > 07 - Developers Consultation > 01 - Statutory':
+	'Pre-App': 'Pre-application',
+	'Pre-App > Draft Docs': 'Pre-application > Draft documents',
+	'Pre-App > Draft Docs > SOCC': 'Pre-application > Draft documents > SOCC',
+	'Pre-App > EIA': 'Pre-application > EIA',
+	'Pre-App > EIA > Screening': 'Pre-application > EIA > Screening',
+	'Pre-App > EIA > Scoping': 'Pre-application > EIA > Scoping',
+	'Pre-App > EIA > Scoping > Responses': 'Pre-application > EIA > Scoping > Responses',
+	'Pre-App > Habitat Regulations': 'Pre-application > Habitat regulations',
+	'Pre-App > Evidence Plans': 'Pre-application > Evidence plans',
+	'Pre-App > Correspondence': 'Pre-application > Correspondence',
+	'Pre-App > Correspondence > Internal': 'Pre-application > Correspondence > Internal',
+	'Pre-App > Correspondence > External': 'Pre-application > Correspondence > External',
+	'Pre-App > Meetings': 'Pre-application > Events / meetings',
+	'Pre-App > Meetings > Outreach': 'Pre-application > Events / meetings > Outreach',
+	'Pre-App > Developers Consultation': "Pre-application > Developer's consultation",
+	'Pre-App > Developers Consultation > Statutory':
 		"Pre-application > Developer's consultation > Statutory",
-	'05 - Pre-App > 07 - Developers Consultation > 01 - Statutory > 01 - PEIR':
+	'Pre-App > Developers Consultation > Statutory > PEIR':
 		"Pre-application > Developer's consultation > Statutory > PEIR",
-	'05 - Pre-App > 07 - Developers Consultation > 02 - Non-Statutory':
+	'Pre-App > Developers Consultation > Non-Statutory':
 		"Pre-application > Developer's consultation > Non-statutory",
-	'05 - Pre-App > 07 - Developers Consultation > 03 - Consultation Feedback':
+	'Pre-App > Developers Consultation > Consultation Feedback':
 		"Pre-application > Developer's consultation > Consultation feedback",
 
-	'06 - Post-Submission Correspondence > 01 - Acceptance': 'Acceptance > Correspondence',
-	'06 - Post-Submission Correspondence > 01 - Acceptance > 01 - Internal':
-		'Acceptance > Correspondence > 01 - Internal',
-	'06 - Post-Submission Correspondence > 01 - Acceptance > 02 - External':
-		'Acceptance > Correspondence > 02 - External',
-	'06 - Post-Submission Correspondence > 03 - Recommendation': 'Recommendation > Correspondence',
-	'06 - Post-Submission Correspondence > 03 - Recommendation > 01 - Internal':
-		'Recommendation > Correspondence > 01 - Internal',
-	'06 - Post-Submission Correspondence > 03 - Recommendation > 02 - External':
-		'Recommendation > Correspondence > 02 - External',
-	'06 - Post-Submission Correspondence > 04 - Decision': 'Decision > Correspondence',
-	'06 - Post-Submission Correspondence > 04 - Decision > 01 - Internal':
-		'Decision > Correspondence > 01 - Internal',
-	'06 - Post-Submission Correspondence > 04 - Decision > 02 - External':
-		'Decision > Correspondence > 02 - External',
-	'06 - Post-Submission Correspondence > 05 - Post-Decision > 01 - Internal':
-		'Post-decision > Correspondence > 01 - Internal',
-	'06 - Post-Submission Correspondence > 05 - Post-Decision > 02 - External':
-		'Post-decision > Correspondence > 02 - External',
-	'06 - Post-Submission Correspondence > 06 - SoS': 'Decision > SoS consultation > Correspondence',
-	'06 - Post-Submission Correspondence > 06 - SoS > 01 - Internal':
-		'Decision > SoS consultation > Correspondence > 01 - Internal',
-	'06 - Post-Submission Correspondence > 06 - SoS > 02 - External':
-		'Decision > SoS consultation > Correspondence > 02 - External',
+	'Post-Submission Correspondence > Acceptance': 'Acceptance > Correspondence',
+	'Post-Submission Correspondence > Acceptance > Internal':
+		'Acceptance > Correspondence > Internal',
+	'Post-Submission Correspondence > Acceptance > External':
+		'Acceptance > Correspondence > External',
+	'Post-Submission Correspondence > Recommendation': 'Recommendation > Correspondence',
+	'Post-Submission Correspondence > Recommendation > Internal':
+		'Recommendation > Correspondence > Internal',
+	'Post-Submission Correspondence > Recommendation > External':
+		'Recommendation > Correspondence > External',
+	'Post-Submission Correspondence > Decision': 'Decision > Correspondence',
+	'Post-Submission Correspondence > Decision > Internal': 'Decision > Correspondence > Internal',
+	'Post-Submission Correspondence > Decision > External': 'Decision > Correspondence > External',
+	'Post-Submission Correspondence > Post-Decision > Internal':
+		'Post-decision > Correspondence > Internal',
+	'Post-Submission Correspondence > Post-Decision > External':
+		'Post-decision > Correspondence > External',
+	'Post-Submission Correspondence > SoS': 'Decision > SoS consultation > Correspondence',
+	'Post-Submission Correspondence > SoS > Internal':
+		'Decision > SoS consultation > Correspondence > Internal',
+	'Post-Submission Correspondence > SoS > External':
+		'Decision > SoS consultation > Correspondence > External',
 
-	'07 - Acceptance, Pre-Exam and Exam > 01 - Acceptance': 'Acceptance',
-	'07 - Acceptance, Pre-Exam and Exam > 01 - Acceptance > 01 - Application Documents':
+	'Acceptance, Pre-Exam and Exam > Acceptance': 'Acceptance',
+	'Acceptance, Pre-Exam and Exam > Acceptance > Application Documents':
 		'Acceptance > Application documents',
-	'07 - Acceptance, Pre-Exam and Exam > 01 - Acceptance > 01 - Application Documents > 01 - Application Form':
+	'Acceptance, Pre-Exam and Exam > Acceptance > Application Documents > Application Form':
 		'Acceptance > Application documents > Application form',
-	'07 - Acceptance, Pre-Exam and Exam > 01 - Acceptance > 01 - Application Documents > 02 - Compulsory Acquisition Information':
+	'Acceptance, Pre-Exam and Exam > Acceptance > Application Documents > Compulsory Acquisition Information':
 		'Acceptance > Application documents > Compulsory acquisition information',
-	'07 - Acceptance, Pre-Exam and Exam > 01 - Acceptance > 01 - Application Documents > 03 - DCO Documents':
+	'Acceptance, Pre-Exam and Exam > Acceptance > Application Documents > DCO Documents':
 		'Acceptance > Application documents > DCO documents',
-	'07 - Acceptance, Pre-Exam and Exam > 01 - Acceptance > 01 - Application Documents > 04 - Environmental Statement':
+	'Acceptance, Pre-Exam and Exam > Acceptance > Application Documents > Environmental Statement':
 		'Acceptance > Application documents > Environmental statement',
-	'07 - Acceptance, Pre-Exam and Exam > 01 - Acceptance > 01 - Application Documents > 05 - Other Documents':
+	'Acceptance, Pre-Exam and Exam > Acceptance > Application Documents > Other Documents':
 		'Acceptance > Application documents > Other documents',
-	'07 - Acceptance, Pre-Exam and Exam > 01 - Acceptance > 01 - Application Documents > 06 - Plans':
+	'Acceptance, Pre-Exam and Exam > Acceptance > Application Documents > Plans':
 		'Acceptance > Application documents > Plans',
-	'07 - Acceptance, Pre-Exam and Exam > 01 - Acceptance > 01 - Application Documents > 07 - Reports':
+	'Acceptance, Pre-Exam and Exam > Acceptance > Application Documents > Reports':
 		'Acceptance > Application documents > Reports',
-	'07 - Acceptance, Pre-Exam and Exam > 01 - Acceptance > 01 - Application Documents > 08 - Additional Reg 6 Information':
+	'Acceptance, Pre-Exam and Exam > Acceptance > Application Documents > Additional Reg 6 Information':
 		'Acceptance > Application documents > Additional Reg 6 information',
-	'07 - Acceptance, Pre-Exam and Exam > 01 - Acceptance > 02 - Adequacy of Consultation':
+	'Acceptance, Pre-Exam and Exam > Acceptance > Adequacy of Consultation':
 		'Acceptance > Adequacy of consultation',
-	'07 - Acceptance, Pre-Exam and Exam > 01 - Acceptance > 03 - Reg 5':
-		'Acceptance > Reg 5 and Reg 6',
-	'07 - Acceptance, Pre-Exam and Exam > 01 - Acceptance > 04 - EST': 'Acceptance > EST',
-	'07 - Acceptance, Pre-Exam and Exam > 01 - Acceptance > 05 - Drafting':
-		'Acceptance > Drafting and decision',
-	'07 - Acceptance, Pre-Exam and Exam > 01 - Acceptance > 06 - Decision':
-		'Acceptance > Drafting and decision',
-	'07 - Acceptance, Pre-Exam and Exam > 02 - Post Submission Changes':
+	'Acceptance, Pre-Exam and Exam > Acceptance > Reg 5': 'Acceptance > Reg 5 and Reg 6',
+	'Acceptance, Pre-Exam and Exam > Acceptance > EST': 'Acceptance > EST',
+	'Acceptance, Pre-Exam and Exam > Acceptance > Drafting': 'Acceptance > Drafting and decision',
+	'Acceptance, Pre-Exam and Exam > Acceptance > Decision': 'Acceptance > Drafting and decision',
+	'Acceptance, Pre-Exam and Exam > Post Submission Changes':
 		'Pre-examination > Additional submissions > Post submission changes',
-	'07 - Acceptance, Pre-Exam and Exam > 03 - Additional Submissions':
-		'Examination > Additional submissions',
-	'07 - Acceptance, Pre-Exam and Exam > 05 - Exam Timetable': 'Examination > Examination timetable',
-	'07 - Acceptance, Pre-Exam and Exam > 08 - Legal Advice': 'Legal advice',
-	'07 - Acceptance, Pre-Exam and Exam > 09 - Relevant Representation Attachments':
-		'Relevant representations',
+	'Acceptance, Pre-Exam and Exam > Additional Submissions': 'Examination > Additional submissions',
+	'Acceptance, Pre-Exam and Exam > Exam Timetable': 'Examination > Examination timetable',
+	'Acceptance, Pre-Exam and Exam > Legal Advice': 'Legal advice',
+	'Acceptance, Pre-Exam and Exam > Relevant Representation Attachments': 'Relevant representations',
 
-	'08 - Recommendation': 'Recommendation',
-	'08 - Recommendation > 01 - Documents Received': 'Recommendation > Documents received',
-	'08 - Recommendation > 02 - Drafting': 'Recommendation > Recommendation report > Drafts',
-	'08 - Recommendation > 03 - Final Submitted Report':
+	Recommendation: 'Recommendation',
+	'Recommendation > Documents Received': 'Recommendation > Documents received',
+	'Recommendation > Drafting': 'Recommendation > Recommendation report > Drafts',
+	'Recommendation > Final Submitted Report':
 		'Recommendation > Recommendation report > Final submitted report',
 
-	'09 - Decision': 'Decision',
-	'09 - Decision > 01 - SoS Consultation': 'Decision > SoS consultation',
-	'09 - Decision > 01 - SoS Consultation > 01 - Consultation Docs':
+	Decision: 'Decision',
+	'Decision > SoS Consultation': 'Decision > SoS consultation',
+	'Decision > SoS Consultation > Consultation Docs':
 		'Decision > SoS consultation > Consultation documents',
-	'09 - Decision > 01 - SoS Consultation > 02 - Post Exam Submissions':
+	'Decision > SoS Consultation > Post Exam Submissions':
 		'Decision > SoS consultation > Post examination submissions',
-	'09 - Decision > 02 - SoS Decision': 'Decision > SoS Decision',
+	'Decision > SoS Decision': 'Decision > SoS Decision',
 
-	'10 - Post Decision': 'Post-decision',
-	'10 - Post Decision > 01 - Feedback': 'Post-decision > Feedback',
-	'10 - Post Decision > 02 - JR': 'Post-decision > Judicial review',
-	'10 - Post Decision > 03 - Non-Material Change': 'Post-decision > Non-material change',
-	'10 - Post Decision > 03 - Non-Material Change > 01 - Application Documents':
+	'Post Decision': 'Post-decision',
+	'Post Decision > Feedback': 'Post-decision > Feedback',
+	'Post Decision > JR': 'Post-decision > Judicial review',
+	'Post Decision > Non-Material Change': 'Post-decision > Non-material change',
+	'Post Decision > Non-Material Change > Application Documents':
 		'Post-decision > Non-material change > Application documents',
-	'10 - Post Decision > 03 - Non-Material Change > 02 - Consultation Responses':
+	'Post Decision > Non-Material Change > Consultation Responses':
 		'Post-decision > Non-material change > Consultation responses',
-	'10 - Post Decision > 03 - Non-Material Change > 03 - Procedural Decisions':
+	'Post Decision > Non-Material Change > Procedural Decisions':
 		'Post-decision > Non-material change > Procedural decisions',
-	'10 - Post Decision > 04 - Costs': 'Post-decision > Costs',
+	'Post Decision > Costs': 'Post-decision > Costs',
+
+	Correspondence: 'Correspondence',
 
 	Unmapped: 'Archived documentation'
 };
@@ -974,67 +992,67 @@ const folderMapping = {
  * Mapping of Horizon folder paths to their Back Office equivalent, depending on the file's stage
  */
 const stageMap = {
-	'06 - Post-Submission Correspondence': {
+	'Post-Submission Correspondence': {
 		examination: 'Examination > Correspondence',
 		acceptance: 'Acceptance > Correspondence',
 		decision: 'Decision > Correspondence',
 		'pre-examination': 'Pre-examination > Correspondence',
 		recommendation: 'Recommendation > Correspondence',
-		null: 'Archived documentation > 06 - Post-Submission Correspondence'
+		null: 'Archived documentation > Post-Submission Correspondence'
 	},
-	'06 - Post-Submission Correspondence > 02 - Pre-Exam and Exam': {
+	'Post-Submission Correspondence > Pre-Exam and Exam': {
 		examination: 'Examination > Correspondence',
 		acceptance: 'Acceptance > Correspondence',
 		decision: 'Decision > Correspondence',
 		'pre-examination': 'Pre-examination > Correspondence',
 		recommendation: 'Recommendation > Correspondence',
-		null: 'Archived documentation > 06 - Post-Submission Correspondence > 02 - Pre-Exam and Exam'
+		null: 'Archived documentation > Post-Submission Correspondence > Pre-Exam and Exam'
 	},
-	'06 - Post-Submission Correspondence > 02 - Pre-Exam and Exam > 01 - Internal': {
-		examination: 'Examination > Correspondence > 01 - Internal',
-		acceptance: 'Acceptance > Correspondence > 01 - Internal',
-		decision: 'Decision > Correspondence > 01 - Internal',
-		'pre-examination': 'Pre-examination > Correspondence > 01 - Internal',
-		recommendation: 'Recommendation > Correspondence > 01 - Internal',
-		null: 'Archived documentation > 06 - Post-Submission Correspondence > 02 - Pre-Exam and Exam > 01 - Internal'
+	'Post-Submission Correspondence > Pre-Exam and Exam > Internal': {
+		examination: 'Examination > Correspondence > Internal',
+		acceptance: 'Acceptance > Correspondence > Internal',
+		decision: 'Decision > Correspondence > Internal',
+		'pre-examination': 'Pre-examination > Correspondence > Internal',
+		recommendation: 'Recommendation > Correspondence > Internal',
+		null: 'Archived documentation > Post-Submission Correspondence > Pre-Exam and Exam > Internal'
 	},
-	'06 - Post-Submission Correspondence > 02 - Pre-Exam and Exam > 02 - External': {
-		examination: 'Examination > Correspondence > 02 - External',
-		acceptance: 'Acceptance > Correspondence > 02 - External',
-		decision: 'Decision > Correspondence > 02 - External',
-		'pre-examination': 'Pre-examination > Correspondence > 02 - External',
-		recommendation: 'Recommendation > Correspondence > 02 - External',
-		null: 'Archived documentation > 06 - Post-Submission Correspondence > 02 - Pre-Exam and Exam > 02 - External'
+	'Post-Submission Correspondence > Pre-Exam and Exam > External': {
+		examination: 'Examination > Correspondence > External',
+		acceptance: 'Acceptance > Correspondence > External',
+		decision: 'Decision > Correspondence > External',
+		'pre-examination': 'Pre-examination > Correspondence > External',
+		recommendation: 'Recommendation > Correspondence > External',
+		null: 'Archived documentation > Post-Submission Correspondence > Pre-Exam and Exam > External'
 	},
-	'07 - Acceptance, Pre-Exam and Exam': {
+	'Acceptance, Pre-Exam and Exam': {
 		examination: 'Examination',
 		acceptance: 'Acceptance',
 		decision: 'Decision',
 		'pre-examination': 'Pre-examination',
 		recommendation: 'Recommendation',
-		null: 'Archived documentation > 07 - Acceptance, Pre-Exam and Exam'
+		null: 'Archived documentation > Acceptance, Pre-Exam and Exam'
 	},
-	'07 - Acceptance, Pre-Exam and Exam > 04 - Procedural Decisions': {
+	'Acceptance, Pre-Exam and Exam > Procedural Decisions': {
 		examination: 'Examination > Procedural decisions',
 		'pre-examination': 'Pre-examination > Procedural decisions',
-		null: 'Archived documentation > 07 - Acceptance, Pre-Exam and Exam > 04 - Procedural Decisions'
+		null: 'Archived documentation > Acceptance, Pre-Exam and Exam > Procedural Decisions'
 	},
-	'07 - Acceptance, Pre-Exam and Exam > 04 - Procedural Decisions > 01 - Drafts': {
+	'Acceptance, Pre-Exam and Exam > Procedural Decisions > Drafts': {
 		examination: 'Examination > Procedural decisions',
 		'pre-examination': 'Pre-examination > Procedural decisions',
-		null: 'Archived documentation > 07 - Acceptance, Pre-Exam and Exam > 04 - Procedural Decisions > 01 - Drafts'
+		null: 'Archived documentation > Acceptance, Pre-Exam and Exam > Procedural Decisions > Drafts'
 	},
-	'07 - Acceptance, Pre-Exam and Exam > 06 - EIA': {
+	'Acceptance, Pre-Exam and Exam > EIA': {
 		'pre-application': 'Pre-application > EIA',
 		examination: 'Examination > EIA',
 		'pre-examination': 'Pre-examination > EIA',
-		null: 'Archived documentation > 07 - Acceptance, Pre-Exam and Exam > 06 - EIA'
+		null: 'Archived documentation > Acceptance, Pre-Exam and Exam > EIA'
 	},
-	'07 - Acceptance, Pre-Exam and Exam > 07 - Habitat Regs': {
+	'Acceptance, Pre-Exam and Exam > Habitat Regs': {
 		'pre-application': 'Pre-application > Habitat regulations',
 		'pre-examination': 'Pre-examination > Habitat regulations',
 		examination: 'Examination > Habitat regulations',
-		null: 'Archived documentation > 07 - Acceptance, Pre-Exam and Exam > 07 - Habitat Regs'
+		null: 'Archived documentation > Acceptance, Pre-Exam and Exam > Habitat Regs'
 	}
 };
 
@@ -1075,7 +1093,8 @@ const getExamTimetableFolderId = memoize(async (caseId) => {
 export const getDocumentFolderId = async ({ path, documentCaseStage }, caseId) => {
 	const folders = path.split('/').slice(1); // index 0 is project name/root, not needed
 	if (folders.length === 0) throw `unexpected path format: ${path}`;
-	const documentPath = folders.join(' > ');
+	const formattedFolderNames = folders.map((folderName) => folderName.replace(/^\d+ - /, ''));
+	const documentPath = formattedFolderNames.join(' > ');
 
 	logger.info(`path: ${documentPath}, documentCaseStage: ${documentCaseStage}`);
 
@@ -1086,7 +1105,7 @@ export const getDocumentFolderId = async ({ path, documentCaseStage }, caseId) =
 
 	if (isExamTimetableSubfolder(path)) {
 		logger.info('Creating Exam Timetable subfolder');
-		return createExamTimetableSubfolder(folders, caseId);
+		return createExamTimetableSubfolder(formattedFolderNames, caseId);
 	}
 
 	let folderId;
@@ -1106,7 +1125,7 @@ export const getDocumentFolderId = async ({ path, documentCaseStage }, caseId) =
 			logger.info(
 				`Failed to partially map document path - creating folders within Archive folder: ${documentPath}`
 			);
-			folderId = await createArchivedFolders(folders, caseId);
+			folderId = await createArchivedFolders(formattedFolderNames, caseId);
 		}
 	}
 	if (!folderId) throw `folderId not found`;
@@ -1116,7 +1135,7 @@ export const getDocumentFolderId = async ({ path, documentCaseStage }, caseId) =
 
 const isExamTimetableSubfolder = (documentPath) => /Exam Timetable\/(.*)/.test(documentPath);
 
-const isS51AdviceFolder = (documentPath) => /02 - Section 51 Advice/.test(documentPath);
+const isS51AdviceFolder = (documentPath) => /Section 51 Advice/.test(documentPath);
 
 const createExamTimetableSubfolder = async (folders, caseId) => {
 	const parentFolderId = await getExamTimetableFolderId(caseId);

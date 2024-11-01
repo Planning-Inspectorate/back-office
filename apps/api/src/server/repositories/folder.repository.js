@@ -184,7 +184,7 @@ export const deleteById = (id) => {
 };
 
 /** Map months folders for internal/external correspondence */
-const createCorrespondenceFolders = () => {
+export const createCorrespondenceFolders = () => {
 	const correspondenceTypes = ['Internal', 'External'];
 	const allMonths = [
 		'01 January',
