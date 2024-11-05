@@ -1092,7 +1092,6 @@ const getExamTimetableFolderId = memoize(async (caseId) => {
  */
 export const getDocumentFolderId = async ({ path, documentCaseStage }, caseId) => {
 	const folders = path.split('/').slice(1); // index 0 is project name/root, not needed
-	if (folders.length === 0) throw `unexpected path format: ${path}`;
 	const formattedFolderNames = folders.map((folderName) => folderName.replace(/^\d+ - /, ''));
 	const documentPath = formattedFolderNames.join(' > ');
 

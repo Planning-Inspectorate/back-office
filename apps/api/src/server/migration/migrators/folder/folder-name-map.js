@@ -235,7 +235,7 @@ const traversePartialMap = (
 	}
 	if (typeof currentLevelObject === 'string') {
 		cbosPathObject.cbosPathParts.push(currentLevelObject);
-		nextLevel ? cbosPathObject.failedToMatchParts.push(nextLevel) : null;
+		nextLevel && cbosPathObject.failedToMatchParts.push(nextLevel);
 		return cbosPathObject;
 	}
 
