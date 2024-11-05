@@ -247,7 +247,7 @@ const folders = [
 	},
 	{
 		id: 100011430,
-		displayNameEn: '01 - Internal',
+		displayNameEn: 'Internal',
 		displayOrder: 100,
 		parentFolderId: 100011417,
 		caseId: 15360347,
@@ -301,7 +301,7 @@ const folders = [
 	},
 	{
 		id: 100011436,
-		displayNameEn: '02 - External',
+		displayNameEn: 'External',
 		displayOrder: 200,
 		parentFolderId: 100011413,
 		caseId: 15360347,
@@ -328,7 +328,7 @@ const folders = [
 	},
 	{
 		id: 100011439,
-		displayNameEn: '02 - External',
+		displayNameEn: 'External',
 		displayOrder: 200,
 		parentFolderId: 100011417,
 		caseId: 15360347,
@@ -355,7 +355,7 @@ const folders = [
 	},
 	{
 		id: 100011442,
-		displayNameEn: '01 - Internal',
+		displayNameEn: 'Internal',
 		displayOrder: 100,
 		parentFolderId: 100011434,
 		caseId: 15360347,
@@ -364,7 +364,7 @@ const folders = [
 	},
 	{
 		id: 100011443,
-		displayNameEn: '01 - Internal',
+		displayNameEn: 'Internal',
 		displayOrder: 100,
 		parentFolderId: 100011432,
 		caseId: 15360347,
@@ -409,7 +409,7 @@ const folders = [
 	},
 	{
 		id: 100011448,
-		displayNameEn: '01 - Internal',
+		displayNameEn: 'Internal',
 		displayOrder: 100,
 		parentFolderId: 100011440,
 		caseId: 15360347,
@@ -427,7 +427,7 @@ const folders = [
 	},
 	{
 		id: 100011450,
-		displayNameEn: '02 - External',
+		displayNameEn: 'External',
 		displayOrder: 200,
 		parentFolderId: 100011434,
 		caseId: 15360347,
@@ -445,7 +445,7 @@ const folders = [
 	},
 	{
 		id: 100011452,
-		displayNameEn: '02 - External',
+		displayNameEn: 'External',
 		displayOrder: 200,
 		parentFolderId: 100011432,
 		caseId: 15360347,
@@ -490,7 +490,7 @@ const folders = [
 	},
 	{
 		id: 100011457,
-		displayNameEn: '02 - External',
+		displayNameEn: 'External',
 		displayOrder: 200,
 		parentFolderId: 100011440,
 		caseId: 15360347,
@@ -787,7 +787,7 @@ const folders = [
 	},
 	{
 		id: 100011490,
-		displayNameEn: '01 - Internal',
+		displayNameEn: 'Internal',
 		displayOrder: 100,
 		parentFolderId: 100011482,
 		caseId: 15360347,
@@ -841,7 +841,7 @@ const folders = [
 	},
 	{
 		id: 100011496,
-		displayNameEn: '01 - Internal',
+		displayNameEn: 'Internal',
 		displayOrder: 100,
 		parentFolderId: 100011489,
 		caseId: 15360347,
@@ -850,7 +850,7 @@ const folders = [
 	},
 	{
 		id: 100011497,
-		displayNameEn: '02 - External',
+		displayNameEn: 'External',
 		displayOrder: 200,
 		parentFolderId: 100011482,
 		caseId: 15360347,
@@ -886,7 +886,7 @@ const folders = [
 	},
 	{
 		id: 100011501,
-		displayNameEn: '02 - External',
+		displayNameEn: 'External',
 		displayOrder: 200,
 		parentFolderId: 100011489,
 		caseId: 15360347,
@@ -1075,7 +1075,7 @@ describe('folder migration utils', () => {
 
 		it('returns correct folderId for path with a direct mapping', async () => {
 			const document = {
-				path: 'TR020002 - Manston Airport/05 - Pre-App > 06 - Meetings'
+				path: 'TR020002 - Manston Airport/05 - Pre-App/06 - Meetings'
 			};
 
 			const result = await getDocumentFolderId(document, 1);
@@ -1085,7 +1085,7 @@ describe('folder migration utils', () => {
 
 		it('returns correct folderId for path with a stage mapping', async () => {
 			const document = {
-				path: 'TR020002 - Manston Airport/06 - Post-Submission Correspondence > 02 - Pre-Exam and Exam > 02 - External',
+				path: 'TR020002 - Manston Airport/06 - Post-Submission Correspondence/02 - Pre-Exam and Exam/02 - External',
 				documentCaseStage: 'pre-examination'
 			};
 
