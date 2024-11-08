@@ -57,6 +57,13 @@ export const migrateS51Advice = async (s51AdviceList) => {
 
 	const { publishEvents, updateEvents } = s51AdviceList.reduce(
 		(memo, s51Advice) => {
+			const { firstName, lastName } = generateNamesFromFromField(s51Advice.from);
+			s51Advice.title = generateAdviceTitleForFo({
+				enquiryMethod: s51Advice.method,
+				enquirer: s51Advice.agent,
+				firstName,
+				lastName
+			});
 			s51Advice.status === 'published'
 				? memo.publishEvents.push(s51Advice)
 				: memo.updateEvents.push(s51Advice);
@@ -96,13 +103,7 @@ const mapModelToS51AdviceEntity = async ({
 	status,
 	redactionStatus
 }) => {
-	let firstName, lastName;
-	if (from) {
-		from = removeUnnecessarySpaces(from);
-		let otherNames;
-		[firstName, ...otherNames] = from.split(' ');
-		lastName = otherNames.join(' ');
-	}
+	const { firstName, lastName } = generateNamesFromFromField(from);
 	const referenceNumber = parseAdviceReference(adviceReference);
 
 	const caseId = await getCaseIdFromRef(caseReference);
@@ -155,6 +156,16 @@ const mapStatus = (status) =>
 		notchecked: 'not_checked'
 	}[status?.replaceAll(' ', '')]);
 
+const generateNamesFromFromField = (from) => {
+	let firstName, lastName, otherNames;
+	if (!from) {
+		return { firstName: '', lastName: '' };
+	}
+	from = removeUnnecessarySpaces(from);
+	[firstName, ...otherNames] = from.split(' ');
+	lastName = otherNames.join(' ');
+	return { firstName, lastName };
+};
 const generateAdviceTitleForFo = ({ enquiryMethod, enquirer, firstName, lastName }) => {
 	const adviceNameParams = { enquirer, firstName, lastName };
 	return enquiryMethod === 'meeting'
