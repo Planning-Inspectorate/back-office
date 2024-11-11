@@ -63,7 +63,7 @@ export const getNsipS51Advice = async (log, caseReference, synapseQuery = query)
 			adviceId: Number(row.adviceId),
 			caseId: Number(row.caseId),
 			status: mapStatus(row.status),
-			attachmentIds: valueToArray(row.attachmentIds),
+			attachmentIds: [...new Set(valueToArray(row.attachmentIds))], // deduplicate attachmentIds
 			enquiryDetails: row.enquiryDetails ?? '',
 			adviceDetails: row.adviceDetails ?? '',
 			adviceGivenBy: row.adviceGivenBy ? row.adviceGivenBy : 'Not recorded in Horizon'
