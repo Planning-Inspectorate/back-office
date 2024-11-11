@@ -60,7 +60,8 @@ export const migrateNsipDocuments = async (documents) => {
 
 		if (documentForServiceBus.publishedStatus === 'published') {
 			await broadcastNsipDocumentEvent(documentForServiceBus, EventType.Update, {
-				publishing: 'true'
+				publishing: 'true',
+				migrationPublishing: 'true'
 			});
 		}
 	}

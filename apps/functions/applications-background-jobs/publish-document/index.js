@@ -14,7 +14,17 @@ import { blobClient } from '../common/blob-client.js';
  */
 export const index = async (
 	context,
-	{ caseId, documentId, version, documentURI, documentReference, filename, originalFilename, mime }
+	{
+		caseId,
+		documentId,
+		version,
+		documentURI,
+		documentReference,
+		filename,
+		originalFilename,
+		mime,
+		migrationPublishing = false
+	}
 ) => {
 	context.log(`Publishing document ID ${documentId} at URI ${documentURI}`);
 
@@ -65,13 +75,24 @@ export const index = async (
 
 	context.log(`Making POST request to ${requestUri}`);
 
-	await requestWithApiKey
-		.post(requestUri, {
-			json: {
-				publishedBlobContainer: config.BLOB_PUBLISH_CONTAINER,
-				publishedBlobPath: publishFileName,
-				publishedDate: new Date()
-			}
-		})
-		.json();
+	if (migrationPublishing) {
+		await requestWithApiKey
+			.post(requestUri, {
+				json: {
+					publishedBlobContainer: config.BLOB_PUBLISH_CONTAINER,
+					publishedBlobPath: publishFileName
+				}
+			})
+			.json();
+	} else {
+		await requestWithApiKey
+			.post(requestUri, {
+				json: {
+					publishedBlobContainer: config.BLOB_PUBLISH_CONTAINER,
+					publishedBlobPath: publishFileName,
+					publishedDate: new Date()
+				}
+			})
+			.json();
+	}
 };
