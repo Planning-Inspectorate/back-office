@@ -189,7 +189,6 @@ export const validateDocumentToUploadProvided = composeMiddleware(
 export const validateMarkDocumentAsPublished = composeMiddleware(
 	body('.publishedBlobPath').exists().withMessage('Must provide a published blob path'),
 	body('.publishedBlobContainer').exists().withMessage('Must provide a published blob container'),
-	body('.publishedDate').exists().withMessage('Must provide a published date'),
 	validationErrorHandler
 );
 
