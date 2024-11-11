@@ -19,7 +19,7 @@ const __dirname = path.basename(url.fileURLToPath(import.meta.url));
 export function baseConfigFromEnvironment(environment) {
 	const cwd = path.join(__dirname, '..'); // web folder
 
-	const env = environment.NODE_ENV;
+	const env = environment.NODE_ENV || 'development';
 	const config = {
 		bundleAnalyzer: false, // TODO: load this from environment?
 		buildDir: path.join(cwd, '.build'),
@@ -29,7 +29,7 @@ export function baseConfigFromEnvironment(environment) {
 		isDevelopment: env === 'development' || env === 'local',
 		isTest: env === 'test',
 		isRelease: environment.APP_RELEASE,
-		gitSha:  process.env.GIT_SHA ?? 'NO GIT SHA FOUND',
+		gitSha: process.env.GIT_SHA ?? 'NO GIT SHA FOUND'
 	};
 
 	const { value: validatedConfig, error } = baseSchema.validate(config);

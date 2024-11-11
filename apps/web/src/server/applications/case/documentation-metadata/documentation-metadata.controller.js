@@ -29,7 +29,7 @@ const layouts = {
 		template: 'documentation-edit-textarea.njk'
 	},
 	interestedPartyNumber: {
-		label: 'Interested Party number',
+		label: 'Interested Party number (optional)',
 		metaDataName: 'interestedPartyNumber',
 		template: 'documentation-edit-textinput.njk'
 	},
