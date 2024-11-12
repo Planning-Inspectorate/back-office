@@ -2,6 +2,7 @@ import { Router as createRouter } from 'express';
 import { asyncHandler } from '@pins/express';
 import { postMigrateFolders, postMigrateModel } from './migration.controller.js';
 import { validateMigration } from './validate-migration.controller.js';
+import timeout from 'connect-timeout';
 
 const router = createRouter();
 
@@ -70,6 +71,7 @@ router.post(
             description: 'Models successfully migrated',
         }
 	 */
+	timeout('30m'),
 	asyncHandler(postMigrateModel)
 );
 // takes caseReference array as query parameter
@@ -103,5 +105,16 @@ router.get(
 
 	asyncHandler(validateMigration)
 );
+
+/**
+ * @type {import("express").RequestHandler<{modelType: string}, ?, any[]>}
+ */
+router.use((err, req, res, next) => {
+	if (req.timedout) {
+		res.status(503).send('Request timed out');
+	} else {
+		next(err);
+	}
+});
 
 export { router as migrationRoutes };
