@@ -13,7 +13,19 @@ export const migrationNsipDocumentsByReference = async (log, caseReference) => {
 
 		if (documents.length > 0) {
 			log.info(`Migrating ${documents.length} NSIP Documents for case ${caseReference}`);
-			await makePostRequest(log, '/migration/nsip-document', documents);
+			const batchSize = 100;
+			for (let i = 0; i < documents.length; i += batchSize) {
+				const batchEnd = Math.min(i + batchSize, documents.length);
+				log.info(`Migrating NSIP Document batch ${i + 1} to ${batchEnd}`);
+				const batch = documents.slice(i, i + batchSize);
+
+				try {
+					await makePostRequest(log, '/migration/nsip-document', batch);
+				} catch (error) {
+					log.error(`Error migrating batch starting at index ${i}: ${error.message}`);
+					// Optionally: handle retries or continue to next batch
+				}
+			}
 			log.info('Successfully migrated NSIP Document');
 		} else {
 			log.warn(`No NSIP Document found for case ${caseReference}`);
