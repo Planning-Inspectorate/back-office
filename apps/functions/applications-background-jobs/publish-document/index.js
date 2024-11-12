@@ -14,17 +14,7 @@ import { blobClient } from '../common/blob-client.js';
  */
 export const index = async (
 	context,
-	{
-		caseId,
-		documentId,
-		version,
-		documentURI,
-		documentReference,
-		filename,
-		originalFilename,
-		mime,
-		migrationPublishing = false
-	}
+	{ caseId, documentId, version, documentURI, documentReference, filename, originalFilename, mime }
 ) => {
 	context.log(`Publishing document ID ${documentId} at URI ${documentURI}`);
 
@@ -75,7 +65,9 @@ export const index = async (
 
 	context.log(`Making POST request to ${requestUri}`);
 
-	if (migrationPublishing) {
+	// Check is to maintain original publishing date when migrating docs from ODW
+	// - remove after migration is done, just keep contents of 'else' statement
+	if (context.bindingData?.applicationProperties?.migrationPublishing) {
 		await requestWithApiKey
 			.post(requestUri, {
 				json: {
