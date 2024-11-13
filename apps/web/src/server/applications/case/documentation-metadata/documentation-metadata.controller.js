@@ -7,7 +7,7 @@ import { setSessionBanner } from '../../common/services/session.service.js';
 /** @typedef {{label?: string, metaDataName: string, metaDataType?: string, hint?: string, pageTitle?: string, backLink?: string, maxLength?: number, template?: string, englishLabel?: string, metaDataEnglishName?: string, items?: {value: boolean|string, text: string, checked?: boolean}[]}} MetaDataLayoutParams */
 /** @typedef {{documentGuid: string, metaDataName: MetaDataNames}} RequestParams */
 /** @typedef {import('../../applications.types').DocumentationFile} DocumentationFile */
-/** @typedef {{caseId: number, folderId: number, documentMetaData: DocumentationFile, documentGuid: string}} ResponseLocals */
+/** @typedef {{case: {isMaterialChange: boolean}, caseId: number, folderId: number, documentMetaData: DocumentationFile, documentGuid: string}} ResponseLocals */
 
 /** @type {Record<MetaDataNames, MetaDataLayoutParams>} */
 const layouts = {
@@ -237,7 +237,7 @@ export async function updateDocumentationMetaData(request, response) {
  */
 const getLayoutParameters = (requestParameters, responseLocals) => {
 	const { documentGuid, metaDataName } = requestParameters;
-	const { caseId, folderId } = responseLocals;
+	const { caseId, folderId, case: caseData } = responseLocals;
 
 	const backLink = url('document', {
 		caseId,
@@ -249,6 +249,26 @@ const getLayoutParameters = (requestParameters, responseLocals) => {
 	const layout = layouts[metaDataName];
 	if (!layout) {
 		return null;
+	}
+
+	if (layout.metaDataName === 'documentType' && layout.items) {
+		layout.items = layout.items.map((item) => {
+			if (item.value === 'Rule 6 letter') {
+				return {
+					...item,
+					text: caseData.isMaterialChange ? 'Regulation 27 and 28 letter' : 'Rule 6 letter'
+				};
+			}
+
+			if (item.value === 'Rule 8 letter') {
+				return {
+					...item,
+					text: caseData.isMaterialChange ? 'Regulation 30 letter' : 'Rule 8 letter'
+				};
+			}
+
+			return item;
+		});
 	}
 
 	return { ...layout, backLink };
