@@ -46,10 +46,7 @@ export const getRepresentationsForCase = async (log, caseReference) => {
 			...row,
 			representationId: parseInt(row.representationId),
 			caseId: parseInt(row.caseId),
-			originalRepresentation: constructOriginalRepresentation(
-				row.originalRepresentation,
-				row.redactedRepresentation
-			),
+			...handleRepresentationText(row.originalRepresentation, row.redactedRepresentation),
 			attachmentIds: valueToArray(row.attachmentIds)
 		};
 	});
@@ -57,8 +54,21 @@ export const getRepresentationsForCase = async (log, caseReference) => {
 	return { representationEntities, count };
 };
 
-const constructOriginalRepresentation = (originalRepresentation, redactedRepresentation) => {
-	if (originalRepresentation?.trim()) return originalRepresentation.trim();
-	if (redactedRepresentation?.trim()) return redactedRepresentation.trim();
-	return 'No data in original record';
+/**
+ *
+ * @param {string | null} originalRepresentation
+ * @param {string | null} redactedRepresentation
+ */
+const handleRepresentationText = (originalRepresentation, redactedRepresentation) => {
+	const fallbackText = 'No data in original  Horizon record';
+	if (!originalRepresentation && !redactedRepresentation) {
+		return { originalRepresentation: null, redactedRepresentation: null };
+	}
+	if (!originalRepresentation && redactedRepresentation) {
+		return { originalRepresentation: fallbackText, redactedRepresentation };
+	}
+	if (originalRepresentation && !redactedRepresentation) {
+		return { originalRepresentation, redactedRepresentation: null };
+	}
+	return { originalRepresentation, redactedRepresentation };
 };
