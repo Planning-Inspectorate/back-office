@@ -139,9 +139,10 @@ const layouts = {
 				text: 'No document type'
 			}
 		],
+		pageTitle: 'Select the document type',
+		label: 'Document type',
 		metaDataName: 'documentType',
-		metaDataType: 'radios',
-		pageTitle: 'Select the document type'
+		metaDataType: 'radios'
 	}
 };
 
