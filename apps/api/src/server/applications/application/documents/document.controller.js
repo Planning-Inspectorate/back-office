@@ -577,7 +577,7 @@ export const publishDocuments = async ({ body }, response) => {
  * @type {import('express').RequestHandler}
  */
 export const markAsPublished = async (
-	{ params, body: { publishedBlobPath, publishedBlobContainer, publishedDate } },
+	{ params, body: { publishedBlobPath, publishedBlobContainer, publishedDate = null } },
 	response
 ) => {
 	const { guid, version } = params;
@@ -587,7 +587,7 @@ export const markAsPublished = async (
 		version: Number(version),
 		publishedBlobPath,
 		publishedBlobContainer,
-		publishedDate: new Date(publishedDate)
+		...(publishedDate && { publishedDate: new Date(publishedDate) })
 	});
 
 	response.send(updateResponse);

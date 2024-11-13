@@ -65,13 +65,26 @@ export const index = async (
 
 	context.log(`Making POST request to ${requestUri}`);
 
-	await requestWithApiKey
-		.post(requestUri, {
-			json: {
-				publishedBlobContainer: config.BLOB_PUBLISH_CONTAINER,
-				publishedBlobPath: publishFileName,
-				publishedDate: new Date()
-			}
-		})
-		.json();
+	// Check is to maintain original publishing date when migrating docs from ODW
+	// - remove after migration is done, just keep contents of 'else' statement
+	if (context.bindingData?.applicationProperties?.migrationPublishing) {
+		await requestWithApiKey
+			.post(requestUri, {
+				json: {
+					publishedBlobContainer: config.BLOB_PUBLISH_CONTAINER,
+					publishedBlobPath: publishFileName
+				}
+			})
+			.json();
+	} else {
+		await requestWithApiKey
+			.post(requestUri, {
+				json: {
+					publishedBlobContainer: config.BLOB_PUBLISH_CONTAINER,
+					publishedBlobPath: publishFileName,
+					publishedDate: new Date()
+				}
+			})
+			.json();
+	}
 };
