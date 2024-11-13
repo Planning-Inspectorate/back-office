@@ -60,7 +60,7 @@ export const getRepresentationsForCase = async (log, caseReference) => {
  * @param {string | null} redactedRepresentation
  */
 const handleRepresentationText = (originalRepresentation, redactedRepresentation) => {
-	const fallbackText = 'No data in original  Horizon record';
+	const fallbackText = 'No data in original Horizon record';
 	if (!originalRepresentation && !redactedRepresentation) {
 		return { originalRepresentation: null, redactedRepresentation: null };
 	}
