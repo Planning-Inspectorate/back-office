@@ -6,6 +6,7 @@ import { omit } from 'lodash-es';
 import * as documentRepository from '#repositories/document.repository.js';
 import * as representationAttachmentRepository from '#repositories/representation.repository.js';
 import { broadcastNsipRepresentationEvent } from '#infrastructure/event-broadcasters.js';
+import { representationsStatusesList } from '../../applications/application/representations/representation.validators.js';
 
 /**
  * @typedef {import('pins-data-model').Schemas.Representation} RepresentationModel
@@ -90,7 +91,7 @@ const mapModelToRepresentationEntity = async ({
 		id: representationId,
 		reference: referenceId,
 		caseId,
-		status,
+		status: mapToCbosStatus(status ?? ''),
 		originalRepresentation,
 		redactedRepresentation,
 		redacted,
@@ -115,3 +116,12 @@ const mapRepresentationRedactionAction = ({
 	actionDate: new Date(dateReceived),
 	notes: redactedNotes
 });
+
+/**
+ * @param {string} statusValue
+ */
+const mapToCbosStatus = (statusValue) => {
+	return representationsStatusesList.includes(statusValue.toUpperCase())
+		? statusValue.toUpperCase()
+		: 'UNKNOWN';
+};
