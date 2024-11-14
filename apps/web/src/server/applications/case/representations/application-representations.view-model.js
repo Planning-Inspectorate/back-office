@@ -11,7 +11,7 @@ import { repModeLinkOptions } from './utils/get-rep-mode-links.js';
  * @returns {string}
  */
 const getTitle = ({ organisationName, firstName, lastName }) =>
-	organisationName || `${firstName} ${lastName}`;
+	organisationName || `${firstName || ''} ${lastName || ''}`;
 
 const tag = 'govuk-tag';
 
