@@ -1,4 +1,5 @@
-import { DOCUMENT_TYPES } from '../../applications/constants.js';
+import { DOCUMENT_TYPES, DOCUMENT_VERSION_TYPES } from '../../applications/constants.js';
+
 import { databaseConnector } from '#utils/database-connector.js';
 import { getCaseIdFromRef } from './utils.js';
 import { map, uniq } from 'lodash-es';
@@ -6,6 +7,26 @@ import { getDocumentFolderId } from './folder/folder.js';
 import logger from '#utils/logger.js';
 import { broadcastNsipDocumentEvent } from '#infrastructure/event-broadcasters.js';
 import { EventType } from '@pins/event-client/src/event-type.js';
+
+/**
+ * Convert HZN Document Version DocumentType to CBOS Document Version DocumentType
+ */
+const hznDocVersionTypes = {
+	'DCO decision letter (SoS)(approve)': DOCUMENT_VERSION_TYPES.DCODecisionLetterApprove,
+	'DCO decision letter (SoS)(refuse)': DOCUMENT_VERSION_TYPES.DCODecisionLetterRefuse,
+	'Recording of preliminary meeting': DOCUMENT_VERSION_TYPES.EventRecording,
+	'Recording of hearing': DOCUMENT_VERSION_TYPES.EventRecording,
+	'Rule 6 letter - notification of the preliminary meeting and matters to be discussed':
+		DOCUMENT_VERSION_TYPES.Rule6Letter,
+	'Rule 6 letter - notification of the preliminary meeting and matters to be discussed (Welsh)':
+		DOCUMENT_VERSION_TYPES.Rule6Letter,
+	'Rule 8 letter - notification of timetable for the examination':
+		DOCUMENT_VERSION_TYPES.Rule8Letter,
+	'Rule 8 letter - notification of timetable for the examination (Welsh)':
+		DOCUMENT_VERSION_TYPES.Rule8Letter,
+	'Examination Library': DOCUMENT_VERSION_TYPES.ExamLibrary,
+	Library: DOCUMENT_VERSION_TYPES.ExamLibrary
+};
 
 /**
  * Handle an HTTP trigger/request to run the migration
@@ -160,10 +181,16 @@ const buildDocumentVersion = (documentGuid, document) => {
 	const isPublished = document.publishedStatus === 'published';
 	const mime = document.mime ? MIMEs[document.mime] : extractMime(document.documentURI);
 	const version = parseInt(document.version);
+	let docTypeInDocumentVersion = null;
+	if (document.documentType) {
+		if (Object.hasOwn(hznDocVersionTypes, document.documentType)) {
+			docTypeInDocumentVersion = hznDocVersionTypes[document.documentType];
+		}
+	}
 
 	return {
 		version,
-		documentType: document.documentType,
+		documentType: docTypeInDocumentVersion,
 		sourceSystem: document.sourceSystem,
 		origin: document.origin,
 		originalFilename: document.originalFilename,

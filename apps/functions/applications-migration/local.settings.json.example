@@ -1,0 +1,10 @@
+{
+	"IsEncrypted": false,
+	"Values": {
+		"FUNCTIONS_WORKER_RUNTIME": "node",
+		"AzureWebJobsStorage": "UseDevelopmentStorage=true",
+		"API_HOST": "localhost:3000",
+		"SYNAPSE_SQL_HOST": "pins-synw-odw-test-uks-ondemand.sql.azuresynapse.net",
+		"BLOB_STORAGE_ACCOUNT_CUSTOM_DOMAIN": "< get_correct_url_from_colleagues >"
+	}
+}
