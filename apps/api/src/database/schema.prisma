@@ -406,8 +406,6 @@ model ExaminationTimetableItem {
   descriptionWelsh         String?                  @db.NText
   date                     DateTime
   startDate                DateTime?
-  startTime                String? // not used anymore as we are using startDate with time
-  endTime                  String? // not used anymore as we are using date with time
   folderId                 Int
   ExaminationTimetableType ExaminationTimetableType @relation(fields: [examinationTypeId], references: [id])
   ExaminationTimetable     ExaminationTimetable     @relation(fields: [examinationTimetableId], references: [id])
