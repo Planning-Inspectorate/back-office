@@ -16,9 +16,9 @@ import { isEmpty, omitBy } from 'lodash-es';
 export const formatContactDetails = (contact = {}) => ({
 	id: contact.id,
 	organisationName: contact.organisationName || '',
-	fullName: contact.firstName || contact.lastName ? `${contact.firstName} ${contact.lastName}` : '',
-	firstName: contact.firstName,
-	lastName: contact.lastName,
+	fullName: `${contact.firstName || ''} ${contact.lastName || ''}`.trim(),
+	firstName: contact.firstName || '',
+	lastName: contact.lastName || '',
 	jobTitle: contact.jobTitle || '',
 	under18: contact.under18,
 	email: contact.email || '',
