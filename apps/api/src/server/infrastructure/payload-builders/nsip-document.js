@@ -141,8 +141,10 @@ export const mapDocumentCaseStageToSchema = (stage) => {
 
 	switch (stage) {
 		case DEVELOPERS_APPLICATION:
+		case 'DEVELOPERS_APPLICATION': // migration from ODW returns this
 			return 'developers_application';
 		case POST_DECISION:
+		case 'POST_DECISION': // migration from ODW returns this
 			// note that post decision has inconsistent format in the schema, it uses underscore instead of hyphen
 			// our DB 'Post-decision' maps to 'post_decision'
 			return 'post_decision';

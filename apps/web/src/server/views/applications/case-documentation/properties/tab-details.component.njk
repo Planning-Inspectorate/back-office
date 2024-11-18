@@ -46,7 +46,7 @@
 						{label: 'File name', value: documentationFile.fileName, link: 'name'},
 						{label: 'Description', value: documentationFile.description, link: 'description'},
 						welshDescriptionRow,
-            {label: 'Interested Party number', value: documentationFile.interestedPartyNumber, link: 'interestedPartyNumber'},
+            			{label: 'Interested Party number (optional)', value: documentationFile.interestedPartyNumber, link: 'interestedPartyNumber', classes: 'white-space--nowrap'},
 						{label: 'Who the document is from', value: documentationFile.author, link: 'author'},
 						welshFromRow,
 						{label: 'Agent (optional)', value: documentationFile.representative, link: 'agent'},
@@ -78,8 +78,9 @@
 
 		{% set row = {
 			key: {
-				text: property.label
-			},
+            text: property.label,
+            classes: property.classes
+        	},
 			value: {
 				text: property.value
 			},

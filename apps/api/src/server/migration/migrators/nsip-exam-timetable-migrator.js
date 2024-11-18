@@ -54,8 +54,11 @@ export const migrateExamTimetables = async (examTimetables) => {
 				databaseConnector.$executeRawUnsafe(statement, ...parameters)
 			]);
 		}
-		console.info(`Broadcasting exam timetable id ${id} for case ${caseId}`);
-		await BroadcastExamTimetable(id);
+		console.info(`Exam timetable published status: ${timetableModel.published}`);
+		if (timetableModel.published) {
+			console.info(`Broadcasting exam timetable id ${id} for case ${caseId}`);
+			await BroadcastExamTimetable(id);
+		}
 	}
 };
 

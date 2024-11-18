@@ -29,7 +29,7 @@ export function baseConfigFromEnvironment(environment) {
 		isDevelopment: env === 'development' || env === 'local',
 		isTest: env === 'test',
 		isRelease: environment.APP_RELEASE,
-		gitSha:  process.env.GIT_SHA ?? 'NO GIT SHA FOUND',
+		gitSha: process.env.GIT_SHA ?? 'NO GIT SHA FOUND'
 	};
 
 	const { value: validatedConfig, error } = baseSchema.validate(config);

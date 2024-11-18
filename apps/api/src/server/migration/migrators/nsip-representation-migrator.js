@@ -6,6 +6,8 @@ import { omit } from 'lodash-es';
 import * as documentRepository from '#repositories/document.repository.js';
 import * as representationAttachmentRepository from '#repositories/representation.repository.js';
 import { broadcastNsipRepresentationEvent } from '#infrastructure/event-broadcasters.js';
+import { representationsStatusesList } from '../../applications/application/representations/representation.validators.js';
+import { EventType } from '@pins/event-client';
 
 /**
  * @typedef {import('pins-data-model').Schemas.Representation} RepresentationModel
@@ -32,8 +34,10 @@ export const migrateRepresentations = async (representations) => {
 			databaseConnector.$executeRawUnsafe(representationStatement, ...representationParameters)
 		]);
 
-		console.info('Broadcasting event for representation');
-		await broadcastNsipRepresentationEvent(representationEntity);
+		if (representationEntity.status === 'PUBLISHED') {
+			console.info('Broadcasting event for representation');
+			await broadcastNsipRepresentationEvent(representationEntity, EventType.Publish);
+		}
 
 		if (representationEntity.redacted) {
 			console.info(
@@ -90,7 +94,7 @@ const mapModelToRepresentationEntity = async ({
 		id: representationId,
 		reference: referenceId,
 		caseId,
-		status,
+		status: mapToCbosStatus(status ?? ''),
 		originalRepresentation,
 		redactedRepresentation,
 		redacted,
@@ -115,3 +119,12 @@ const mapRepresentationRedactionAction = ({
 	actionDate: new Date(dateReceived),
 	notes: redactedNotes
 });
+
+/**
+ * @param {string} statusValue
+ */
+const mapToCbosStatus = (statusValue) => {
+	return representationsStatusesList.includes(statusValue.toUpperCase())
+		? statusValue.toUpperCase()
+		: 'UNKNOWN';
+};

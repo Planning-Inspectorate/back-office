@@ -29,7 +29,7 @@ const layouts = {
 		template: 'documentation-edit-textarea.njk'
 	},
 	interestedPartyNumber: {
-		label: 'Interested Party number',
+		label: 'Interested Party number (optional)',
 		metaDataName: 'interestedPartyNumber',
 		template: 'documentation-edit-textinput.njk'
 	},
@@ -139,9 +139,10 @@ const layouts = {
 				text: 'No document type'
 			}
 		],
+		pageTitle: 'Select the document type',
+		label: 'Document type',
 		metaDataName: 'documentType',
-		metaDataType: 'radios',
-		pageTitle: 'Select the document type'
+		metaDataType: 'radios'
 	}
 };
 
