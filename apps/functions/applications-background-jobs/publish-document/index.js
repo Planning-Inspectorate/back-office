@@ -8,6 +8,7 @@ import { isScannedFileHtml, isUploadedHtmlValid } from '../common/html-validatio
 import { handleHtmlValidityFail } from './src/handle-html-validity-fail.js';
 import config from '../common/config.js';
 import { blobClient } from '../common/blob-client.js';
+import { inspect } from 'util';
 
 /**
  * @type {import('@azure/functions').AzureFunction}
@@ -18,6 +19,7 @@ export const index = async (
 ) => {
 	context.log(`Publishing document ID ${documentId} at URI ${documentURI}`);
 
+	context.log(inspect(context, true, null));
 	// replace PINs domain with primary blob domain to ensure copy operation works
 	documentURI = replaceCustomDomainWithBlobDomain(documentURI);
 
