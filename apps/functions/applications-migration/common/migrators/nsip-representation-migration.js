@@ -46,7 +46,10 @@ export const getRepresentationsForCase = async (log, caseReference) => {
 			...row,
 			representationId: parseInt(row.representationId),
 			caseId: parseInt(row.caseId),
-			...handleRepresentationText(row.originalRepresentation, row.redactedRepresentation),
+			...handleRepresentationText(
+				row.originalRepresentation.trim(),
+				row.redactedRepresentation.trim()
+			),
 			attachmentIds: valueToArray(row.attachmentIds)
 		};
 	});
@@ -62,7 +65,7 @@ export const getRepresentationsForCase = async (log, caseReference) => {
 const handleRepresentationText = (originalRepresentation, redactedRepresentation) => {
 	const fallbackText = 'No data in original Horizon record';
 	if (!originalRepresentation && !redactedRepresentation) {
-		return { originalRepresentation: null, redactedRepresentation: null };
+		return { originalRepresentation: '', redactedRepresentation: null };
 	}
 	if (!originalRepresentation && redactedRepresentation) {
 		return { originalRepresentation: fallbackText, redactedRepresentation };
