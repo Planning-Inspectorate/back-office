@@ -101,7 +101,8 @@ const mapModelToS51AdviceEntity = async ({
 	adviceDate,
 	adviceDetails,
 	status,
-	redactionStatus
+	redactionStatus,
+	datePublished
 }) => {
 	const { firstName, lastName } = generateNamesFromFromField(from);
 	const referenceNumber = parseAdviceReference(adviceReference);
@@ -128,6 +129,7 @@ const mapModelToS51AdviceEntity = async ({
 		adviceDate: adviceDate || new Date(0),
 		adviceDetails: adviceDetails || '',
 		publishedStatus: mapStatus(status),
+		datePublished,
 		redactedStatus: redactionStatus,
 		referenceNumber
 	};
