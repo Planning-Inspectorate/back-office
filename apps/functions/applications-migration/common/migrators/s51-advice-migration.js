@@ -66,7 +66,8 @@ export const getNsipS51Advice = async (log, caseReference, synapseQuery = query)
 			attachmentIds: [...new Set(valueToArray(row.attachmentIds))], // deduplicate attachmentIds
 			enquiryDetails: row.enquiryDetails ?? '',
 			adviceDetails: row.adviceDetails ?? '',
-			adviceGivenBy: row.adviceGivenBy ? row.adviceGivenBy : 'Not recorded in Horizon'
+			adviceGivenBy: row.adviceGivenBy ? row.adviceGivenBy : 'Not recorded in Horizon',
+			datePublished: row.datepublished
 		};
 	});
 
