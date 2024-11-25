@@ -77,7 +77,7 @@ export const migrateNsipDocuments = async (documents) => {
 		const documentVersion = buildDocumentVersion(documentEntity.guid, document);
 		const documentForServiceBus = await createDocumentVersion(documentVersion);
 
-		await createDocumentActivityLog(documentVersion);
+		await handleCreationOfDocumentAcitivityLogs(documentVersion);
 
 		if (documentForServiceBus.publishedStatus === 'published') {
 			await broadcastNsipDocumentEvent(documentForServiceBus, EventType.Update, {
@@ -132,7 +132,28 @@ const createDocumentVersion = async (documentVersion) => {
 	});
 };
 
-const createDocumentActivityLog = async ({ documentGuid, version, dateCreated }) => {
+/**
+ *
+ * @param {object} documentVersion
+ */
+const handleCreationOfDocumentAcitivityLogs = async (documentVersion) => {
+	await createDocumentActivityLog({
+		documentGuid: documentVersion.documentGuid,
+		version: documentVersion.version,
+		status: 'uploaded',
+		activityDate: documentVersion.dateCreated
+	});
+	if (documentVersion.datePublished) {
+		await createDocumentActivityLog({
+			documentGuid: documentVersion.documentGuid,
+			version: documentVersion.version,
+			status: 'published',
+			activityDate: documentVersion.datePublished
+		});
+	}
+};
+
+const createDocumentActivityLog = async ({ documentGuid, version, status, activityDate }) => {
 	/**
 	 * @type {import('@prisma/client').Prisma.DocumentActivityLogCreateInput}
 	 */
@@ -140,13 +161,14 @@ const createDocumentActivityLog = async ({ documentGuid, version, dateCreated })
 		documentGuid,
 		version,
 		user: 'migration',
-		status: 'uploaded',
-		createdAt: new Date(dateCreated)
+		status,
+		createdAt: new Date(activityDate)
 	};
 	const existingActivityLog = await databaseConnector.documentActivityLog.findFirst({
 		where: {
 			documentGuid,
-			version
+			version,
+			status
 		}
 	});
 	if (existingActivityLog === null) {
