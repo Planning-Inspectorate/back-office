@@ -16,56 +16,41 @@
 		background: #ffef88;
 	}
 
-  .pins-row--decentered {
+  .header-container {
 	display: flex;
-  }
+	align-items: center;
+	padding: .5rem 0 1rem 0;
 
-  .pins-column {
-	&--left {
-	  height: 5.5rem;
-	  border-left: 1.85px solid pins-colours.$pins-colours-green-200;
-	  padding-left: 1.68rem;
-	  width: 35%;
-	  @media (min-width: 50em) {
-		width: 27%;
-	  }
-
-	  span {
-		font-size: 1.125rem;
-		font-family: HelveticaNeue, "Helvetica Neue", Arial, Helvetica, sans-serif;
-		display: table-caption;
-	  }
-	}
-
-	&--central {
-	  font-weight: 700;
-	  font-size: 1.5rem;
-	  width: 35%;
-	  min-width: fit-content;
-	  text-align: center;
-	}
-
-	&--right {
-	  width: 32%;
-	  display: block;
-	  align-self: center;
-	  text-align: right;
-	  > a {
-		display: block;
-		margin-left: 1.5rem;
-		line-height: 1.5rem;
-	  }
-	  @media (min-width: 50em) {
-		width: 40%;
-	    display: flex;
-		align-items: center;
-		justify-content: flex-end;
-		text-align: left;
-		> a {
-		  display: inline-flex;
+	&__logo {
+		margin-right: 1rem;
+		#pins-logo {
+			height: 80px;
+			@media (max-width: 640px ) {
+				height: 65px;
+			}
 		}
-	  }
+	}
+
+	&__text {
+		flex-grow: 1;
+		font-weight: 700;
+		font-size: 1.5rem;
+		text-align: center;
+		@media (max-width: 640px ) {
+			font-size: 1.2rem;
+		}
+	}
+
+	&__links {
+		display: flex;
+		@media (max-width: 800px ) {
+			flex-direction: column;
+		}
+
+		a {
+			margin-left: 1rem;
+			line-height: 1.5rem;
+		}
 	}
   }
-
 }
