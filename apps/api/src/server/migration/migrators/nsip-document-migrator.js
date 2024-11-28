@@ -1,4 +1,5 @@
-import { DOCUMENT_TYPES } from '../../applications/constants.js';
+import { DOCUMENT_TYPES, DOCUMENT_VERSION_TYPES } from '../../applications/constants.js';
+
 import { databaseConnector } from '#utils/database-connector.js';
 import { getCaseIdFromRef } from './utils.js';
 import { map, uniq } from 'lodash-es';
@@ -6,6 +7,26 @@ import { getDocumentFolderId } from './folder/folder.js';
 import logger from '#utils/logger.js';
 import { broadcastNsipDocumentEvent } from '#infrastructure/event-broadcasters.js';
 import { EventType } from '@pins/event-client/src/event-type.js';
+
+/**
+ * Convert HZN Document Version DocumentType to CBOS Document Version DocumentType
+ */
+const hznDocVersionTypes = {
+	'DCO decision letter (SoS)(approve)': DOCUMENT_VERSION_TYPES.DCODecisionLetterApprove,
+	'DCO decision letter (SoS)(refuse)': DOCUMENT_VERSION_TYPES.DCODecisionLetterRefuse,
+	'Recording of preliminary meeting': DOCUMENT_VERSION_TYPES.EventRecording,
+	'Recording of hearing': DOCUMENT_VERSION_TYPES.EventRecording,
+	'Rule 6 letter - notification of the preliminary meeting and matters to be discussed':
+		DOCUMENT_VERSION_TYPES.Rule6Letter,
+	'Rule 6 letter - notification of the preliminary meeting and matters to be discussed (Welsh)':
+		DOCUMENT_VERSION_TYPES.Rule6Letter,
+	'Rule 8 letter - notification of timetable for the examination':
+		DOCUMENT_VERSION_TYPES.Rule8Letter,
+	'Rule 8 letter - notification of timetable for the examination (Welsh)':
+		DOCUMENT_VERSION_TYPES.Rule8Letter,
+	'Examination Library': DOCUMENT_VERSION_TYPES.ExamLibrary,
+	Library: DOCUMENT_VERSION_TYPES.ExamLibrary
+};
 
 /**
  * Handle an HTTP trigger/request to run the migration
@@ -56,7 +77,7 @@ export const migrateNsipDocuments = async (documents) => {
 		const documentVersion = buildDocumentVersion(documentEntity.guid, document);
 		const documentForServiceBus = await createDocumentVersion(documentVersion);
 
-		await createDocumentActivityLog(documentVersion);
+		await handleCreationOfDocumentAcitivityLogs(documentVersion);
 
 		if (documentForServiceBus.publishedStatus === 'published') {
 			await broadcastNsipDocumentEvent(documentForServiceBus, EventType.Update, {
@@ -111,7 +132,28 @@ const createDocumentVersion = async (documentVersion) => {
 	});
 };
 
-const createDocumentActivityLog = async ({ documentGuid, version, dateCreated }) => {
+/**
+ *
+ * @param {object} documentVersion
+ */
+const handleCreationOfDocumentAcitivityLogs = async (documentVersion) => {
+	await createDocumentActivityLog({
+		documentGuid: documentVersion.documentGuid,
+		version: documentVersion.version,
+		status: 'uploaded',
+		activityDate: documentVersion.dateCreated
+	});
+	if (documentVersion.datePublished) {
+		await createDocumentActivityLog({
+			documentGuid: documentVersion.documentGuid,
+			version: documentVersion.version,
+			status: 'published',
+			activityDate: documentVersion.datePublished
+		});
+	}
+};
+
+const createDocumentActivityLog = async ({ documentGuid, version, status, activityDate }) => {
 	/**
 	 * @type {import('@prisma/client').Prisma.DocumentActivityLogCreateInput}
 	 */
@@ -119,13 +161,14 @@ const createDocumentActivityLog = async ({ documentGuid, version, dateCreated })
 		documentGuid,
 		version,
 		user: 'migration',
-		status: 'uploaded',
-		createdAt: new Date(dateCreated)
+		status,
+		createdAt: new Date(activityDate)
 	};
 	const existingActivityLog = await databaseConnector.documentActivityLog.findFirst({
 		where: {
 			documentGuid,
-			version
+			version,
+			status
 		}
 	});
 	if (existingActivityLog === null) {
@@ -160,10 +203,16 @@ const buildDocumentVersion = (documentGuid, document) => {
 	const isPublished = document.publishedStatus === 'published';
 	const mime = document.mime ? MIMEs[document.mime] : extractMime(document.documentURI);
 	const version = parseInt(document.version);
+	let docTypeInDocumentVersion = null;
+	if (document.documentType) {
+		if (Object.hasOwn(hznDocVersionTypes, document.documentType)) {
+			docTypeInDocumentVersion = hznDocVersionTypes[document.documentType];
+		}
+	}
 
 	return {
 		version,
-		documentType: document.documentType,
+		documentType: docTypeInDocumentVersion,
 		sourceSystem: document.sourceSystem,
 		origin: document.origin,
 		originalFilename: document.originalFilename,

@@ -3,10 +3,25 @@ export const DEFAULT_PAGE_SIZE = 25;
 
 export const SYSTEM_USER_NAME = 'System';
 
+/**
+ * These are used in documentType the Document table
+ */
 export const DOCUMENT_TYPES = {
 	Document: 'document',
 	S51Attachment: 's51-attachment',
 	RelevantRepresentation: 'relevant-representation'
+};
+
+/**
+ * These are used in documentType in the DocumentVersion table
+ */
+export const DOCUMENT_VERSION_TYPES = {
+	DCODecisionLetterApprove: 'DCO decision letter (SoS)(approve)',
+	DCODecisionLetterRefuse: 'DCO decision letter (SoS)(refuse)',
+	EventRecording: 'Event recording',
+	Rule6Letter: 'Rule 6 letter',
+	Rule8Letter: 'Rule 8 letter',
+	ExamLibrary: 'Exam library'
 };
 
 // Define all the document case stages that can be mapped to folders
