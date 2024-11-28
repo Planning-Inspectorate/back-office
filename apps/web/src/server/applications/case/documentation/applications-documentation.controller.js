@@ -252,10 +252,6 @@ export async function viewApplicationsCaseDocumentationProperties({ session }, r
 	const documentationFile = await getCaseDocumentationFileInfo(caseId, documentGuid);
 	const documentVersions = await getCaseDocumentationFileVersions(documentGuid);
 
-	if (documentationFile.stage === 'Correspondence') {
-		documentationFile.stage = '';
-	}
-
 	const updateBannerText = getSessionBanner(session);
 	const showSuccessBanner = !!updateBannerText || getSuccessBanner(session);
 
