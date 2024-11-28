@@ -750,3 +750,28 @@ export async function updateFolderDelete(request, response) {
 		})
 	);
 }
+
+/**
+ * View the move documents page
+ * @type {import('@pins/express').RenderHandler<{}, {}, {selectedFilesIds: Array<string>}, {}, {}>}
+ */
+export async function viewApplicationsCaseDocumentationMove(request, response) {
+	const { caseId, folderId } = response.locals;
+	const { body, errors: validationErrors, session, query } = request;
+	const { selectedFilesIds } = body;
+
+	if (validationErrors) {
+		const properties = await documentationFolderData(caseId, folderId, query, session);
+
+		return response.render('applications/components/folder/folder', {
+			...properties,
+			errors: validationErrors
+		});
+	}
+
+	const documentationFiles = await getCaseManyDocumentationFilesInfo(caseId, selectedFilesIds);
+
+	response.render('applications/case-documentation/documentation-move', {
+		documentationFiles
+	});
+}

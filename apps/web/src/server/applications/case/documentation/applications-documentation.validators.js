@@ -39,3 +39,7 @@ export const validateApplicationsDocumentationsFolders = createValidator(
 			'Folder name must only include letters A to Z, numbers and special characters such as spaces, underscores, hyphens and apostrophes'
 		)
 );
+
+export const validateApplicationsDocumentsToMove = createValidator(
+	body('selectedFilesIds').isArray({ min: 1 }).withMessage('Select documents to move')
+);

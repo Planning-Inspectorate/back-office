@@ -22,21 +22,21 @@ const request = supertest(app);
 
 const nocks = () => {
 	nock('http://test/').get(`/applications`).reply(200, {});
-	nock('http://test/').get('/applications/123').times(2).reply(200, fixtureCases[3]);
+	nock('http://test/').get('/applications/123').times(4).reply(200, fixtureCases[3]);
 	nock('http://test/')
 		.get('/applications/123/folders')
 		.reply(200, fixtureDocumentationTopLevelFolders);
 	nock('http://test/')
 		.get('/applications/123/folders/21')
-		.times(4)
+		.times(6)
 		.reply(200, fixtureDocumentationSingleFolder);
 	nock('http://test/')
 		.get('/applications/123/folders/21/parent-folders')
-		.times(3)
+		.times(5)
 		.reply(200, fixtureDocumentationFolderPath);
 	nock('http://test/')
 		.get('/applications/123/folders/21/sub-folders')
-		.times(3)
+		.times(5)
 		.reply(200, fixtureDocumentationSubFolders);
 
 	nock('http://test/')
@@ -511,6 +511,47 @@ describe('applications documentation', () => {
 				expect(element.innerHTML).toContain(results.items[0].fileName);
 				expect(element.innerHTML).toContain(`${results.itemCount} results`);
 				expect(element.innerHTML).toContain('Search results');
+			});
+		});
+	});
+
+	describe('Document move', () => {
+		describe('POST /case/123/project-documentation/21/sub-folder-level2/move-documents', () => {
+			beforeEach(async () => {
+				nocks();
+				nock('http://test/')
+					.post('/applications/123/folders/21/documents')
+					.reply(200, [fixtureReadyToPublishDocumentationFile]);
+				nock('http://test/')
+					.get('/applications/123/documents/properties?guids=[%221%22]&published=false')
+					.reply(200, [fixtureReadyToPublishDocumentationFile]);
+				await request.get('/applications-service/case-admin-officer');
+			});
+
+			it('should return frontend validation errors if no file is selected', async () => {
+				const response = await request
+					.post(`${baseUrl}/project-documentation/21/sub-folder-level2/move-documents`)
+					.send({
+						selectedFilesIds: []
+					});
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('Select documents to move');
+			});
+
+			it('should render the move documents page if documents are selected', async () => {
+				const response = await request
+					.post(`${baseUrl}/project-documentation/21/sub-folder-level2/move-documents`)
+					.send({
+						selectedFilesIds: ['1']
+					});
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('Move documents');
+				expect(element.innerHTML).toContain(fixtureReadyToPublishDocumentationFile.fileName);
+				expect(element.innerHTML).toContain(fixtureReadyToPublishDocumentationFile.author);
 			});
 		});
 	});

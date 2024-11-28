@@ -1,0 +1,39 @@
+{% extends "../layouts/applications.layout.njk" %}
+
+{% block pageContent %}
+	<div class="govuk-grid-row">
+		<div class="govuk-grid-column-full govuk-!-margin-top-0">
+			{% block sectionContent %}
+				<h1 class="govuk-heading-l govuk-!-margin-top-2 govuk-!-margin-bottom-9">
+                    Move documents
+                </h1>
+
+				<div class="pins-files-list" method="post">
+					<table class="govuk-table pins-files-list__table pins-files-list__table-publish pins-table">
+						<thead class="govuk-table__head govuk-body-s">
+							<tr class="govuk-table__row">
+								<th scope="col" class="govuk-table__header">File name</th>
+								<th scope="col" class="govuk-table__header">From</th>
+							</tr>
+						</thead>
+						<tbody class="govuk-table__body govuk-body-s">
+							{% for documentationFile in documentationFiles %}
+								<tr class="govuk-table__row">
+
+									<td class="govuk-table__cell govuk-body-m">
+										{{ documentationFile.fileName }}
+
+									</td>
+									<td class="govuk-table__cell govuk-body-m">
+										{{ documentationFile.author }}
+									</td>
+
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			{% endblock %}
+		</div>
+	</div>
+{% endblock %}

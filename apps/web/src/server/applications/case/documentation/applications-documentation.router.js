@@ -8,7 +8,8 @@ import {
 	validateApplicationsDocumentationsDeleteStatus,
 	validateApplicationsDocumentationsFolders,
 	validateApplicationsDocumentsToPublish,
-	validateApplicationsDocumentsToUnpublish
+	validateApplicationsDocumentsToUnpublish,
+	validateApplicationsDocumentsToMove
 } from './applications-documentation.validators.js';
 import applicationsS51Router from '../s51/applications-s51.router.js';
 import { assertFolderIsNotReps } from './applications-documentation.guard.js';
@@ -126,5 +127,12 @@ applicationsDocumentationRouter
 	.route('/:folderId/folder/delete')
 	.get(asyncHandler(controller.viewFolderDeletionPage))
 	.post(asyncHandler(controller.updateFolderDelete));
+
+applicationsDocumentationRouter
+	.route('/:folderId/:folderName/move-documents')
+	.post(
+		[locals.registerFolder, validateApplicationsDocumentsToMove],
+		asyncHandler(controller.viewApplicationsCaseDocumentationMove)
+	);
 
 export default applicationsDocumentationRouter;
