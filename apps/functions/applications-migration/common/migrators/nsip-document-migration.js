@@ -28,8 +28,10 @@ export const migrationNsipDocumentsByReference = async (log, caseReference) => {
  * @param {string} caseReference
  */
 export const getNsipDocuments = async (log, caseReference) => {
+	// Order by documentId, version, dateCreated to ensure we get the versions in order.  dateCreated is added to ensure the original is before any PDF rendition
+	// because we are going to make original v1 => v1, rendition v1 => v2, original v2 => v3, rendition v2 => v4 etc.
 	const documents = await SynapseDB.query(
-		'SELECT * FROM [odw_curated_migration_db].[dbo].[nsip_document] WHERE caseRef = ?;',
+		'SELECT * FROM [odw_curated_migration_db].[dbo].[nsip_document] WHERE caseRef = ? ORDER BY documentId, version, dateCreated;',
 		{
 			replacements: [caseReference],
 			type: QueryTypes.SELECT
@@ -38,6 +40,7 @@ export const getNsipDocuments = async (log, caseReference) => {
 	if (!documents.length) {
 		return [];
 	}
+
 	return documents.map((document) => ({
 		...document,
 		caseId: parseInt(document?.caseId),
