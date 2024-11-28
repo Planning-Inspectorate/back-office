@@ -166,6 +166,8 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             id="bulkDownload">Download selected</button>
                             <button type="submit" formaction="./unpublishing-queue"
                             class="govuk-link pins-files-list__button-link">Unpublish selected</button>
+                            <button type="submit" formaction="./move-documents"
+                            class="govuk-link pins-files-list__button-link">Move selected</button>
                         </div>
                     </div>
                 </div>
@@ -1024,6 +1026,8 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             id="bulkDownload">Download selected</button>
                             <button type="submit" formaction="./unpublishing-queue"
                             class="govuk-link pins-files-list__button-link">Unpublish selected</button>
+                            <button type="submit" formaction="./move-documents"
+                            class="govuk-link pins-files-list__button-link">Move selected</button>
                         </div>
                     </div>
                 </div>
@@ -2387,6 +2391,8 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             id="bulkDownload">Download selected</button>
                             <button type="submit" formaction="./unpublishing-queue"
                             class="govuk-link pins-files-list__button-link">Unpublish selected</button>
+                            <button type="submit" formaction="./move-documents"
+                            class="govuk-link pins-files-list__button-link">Move selected</button>
                         </div>
                     </div>
                 </div>
@@ -3267,6 +3273,8 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             id="bulkDownload">Download selected</button>
                             <button type="submit" formaction="./unpublishing-queue"
                             class="govuk-link pins-files-list__button-link">Unpublish selected</button>
+                            <button type="submit" formaction="./move-documents"
+                            class="govuk-link pins-files-list__button-link">Move selected</button>
                         </div>
                     </div>
                 </div>
@@ -4546,6 +4554,8 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             id="bulkDownload">Download selected</button>
                             <button type="submit" formaction="./unpublishing-queue"
                             class="govuk-link pins-files-list__button-link">Unpublish selected</button>
+                            <button type="submit" formaction="./move-documents"
+                            class="govuk-link pins-files-list__button-link">Move selected</button>
                         </div>
                     </div>
                 </div>
@@ -5823,6 +5833,8 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             id="bulkDownload">Download selected</button>
                             <button type="submit" formaction="./unpublishing-queue"
                             class="govuk-link pins-files-list__button-link">Unpublish selected</button>
+                            <button type="submit" formaction="./move-documents"
+                            class="govuk-link pins-files-list__button-link">Move selected</button>
                         </div>
                     </div>
                 </div>
@@ -6914,6 +6926,153 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                     </div>
                 </nav>
             </form>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`applications documentation Document move POST /case/123/project-documentation/21/sub-folder-level2/move-documents should render the move documents page if documents are selected 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <h1 class="govuk-heading-xl"></h1>
+        </div>
+    </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full govuk-!-margin-top-0">
+            <h1 class="govuk-heading-l govuk-!-margin-top-2 govuk-!-margin-bottom-9"> Move documents</h1>
+            <div class="pins-files-list" method="post">
+                <table class="govuk-table pins-files-list__table pins-files-list__table-publish pins-table">
+                    <thead class="govuk-table__head govuk-body-s">
+                        <tr class="govuk-table__row">
+                            <th scope="col" class="govuk-table__header">File name</th>
+                            <th scope="col" class="govuk-table__header">From</th>
+                        </tr>
+                    </thead>
+                    <tbody class="govuk-table__body govuk-body-s">
+                        <tr class="govuk-table__row">
+                            <td class="govuk-table__cell govuk-body-m">4 Elit sed</td>
+                            <td class="govuk-table__cell govuk-body-m">Consectetur adipiscing</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`applications documentation Document move POST /case/123/project-documentation/21/sub-folder-level2/move-documents should return frontend validation errors if no file is selected 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#selectedFilesIds">Select documents to move</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="top-errors-hook" role="alert"></div>
+    <div class="govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-left-0 govuk-!-margin-bottom-7 pins-masthead-summary">
+        <div class="govuk-grid-column-full">
+            <h4 class="govuk-heading-m"> CASE/04 </h4>
+            <h1 class="govuk-heading-xl">Title CASE/04</h1>
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-full govuk-body">Transport EN, Highways EN
+                    <br>
+                    <br><strong class="govuk-tag govuk-tag--green">Pre-Application</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <div class="pins-dashboard-list--hide-controls">
+                <div class="govuk-grid-row">
+                    <div class="govuk-grid-column-two-thirds">
+                        <h2 class="govuk-heading-l">Sub folder level 2 folder</h2>
+                    </div>
+                </div>
+                <div class="govuk-accordion" data-module="govuk-accordion" id="pins-subfolder-accordian">
+                    <div class="govuk-accordion__section">
+                        <div class="govuk-accordion__section-header">
+                            <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="pins-subfolder-accordian-heading-1"></span></h2>
+                        </div>
+                        <div id="pins-subfolder-accordian-content-1" class="govuk-accordion__section-content"
+                        aria-labelledby="pins-subfolder-accordian-heading-1">
+                            <table class="govuk-table">
+                                <tbody class="govuk-table__body">
+                                    <tr class="govuk-table__row">
+                                        <td class="govuk-table__cell"><a class="govuk-link govuk-body-m" href="/applications-service/case/123/project-documentation/21/folder/create"> Create folder</a>
+                                        </td>
+                                    </tr>
+                                    <tr class="govuk-table__row">
+                                        <td class="govuk-table__cell">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="20" viewBox="0 0 26 20"
+                                            aria-hidden="true" focusable="false" class="svg-folder-icon">
+                                                <path d="
+			M9.64475,1.25 H1.25
+			V18.75 H24.75
+			V5.25 H11.14475z" stroke="currentColor" stroke-width="2.5" stroke-linecap="butt"
+                                                fill="transparent"></path>
+                                            </svg><a class="govuk-link govuk-body-m" href="/applications-service/case/123/project-documentation/31/sub-folder-a/"> Sub folder a</a>
+                                        </td>
+                                    </tr>
+                                    <tr class="govuk-table__row">
+                                        <td class="govuk-table__cell">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="20" viewBox="0 0 26 20"
+                                            aria-hidden="true" focusable="false" class="svg-folder-icon">
+                                                <path d="
+			M9.64475,1.25 H1.25
+			V18.75 H24.75
+			V5.25 H11.14475z" stroke="currentColor" stroke-width="2.5" stroke-linecap="butt"
+                                                fill="transparent"></path>
+                                            </svg><a class="govuk-link govuk-body-m" href="/applications-service/case/123/project-documentation/32/sub-folder-b/"> Sub folder b</a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script nonce="EdcOUaJ8lczj9tIPO0lPow==">
+                let clickEventListenerAdded = false
+                		window.addEventListener("load", () => {
+                			document.querySelector("#pins-subfolder-accordian .govuk-accordion__section-heading").addEventListener("mouseenter", (event) => {
+                				if (clickEventListenerAdded) {
+                					return
+                				}
+                				event.target.getElementsByClassName("govuk-accordion__section-button")[0].addEventListener("click", (event) => {
+                					if (event.pointerType) {
+                						event.currentTarget.blur()
+                					}
+                				})
+                				clickEventListenerAdded = true
+                			})
+                		})
+            </script>
+            <div class="govuk-width-container">
+                <div class="govuk-grid-row govuk-!-margin-top-0">
+                    <div class="govuk-grid-column-two-thirds govuk-!-margin-top-0">
+                        <h3 class="govuk-heading-m">Documents</h3>
+                        <p class="govuk-body">This folder contains document(s).</p>
+                    </div>
+                </div>
+                <div class="govuk-grid-row govuk-!-margin-top-0">
+                    <div class="govuk-grid-column-two-thirds govuk-!-margin-top-0"><a class="govuk-button govuk-button--secondary govuk-!-margin-0" href="/applications-service/case/123/project-documentation/21/sub-folder-level-2/upload"> Upload files</a>
+                    </div>
+                    <div class="govuk-grid-column-one-third"><a class="govuk-link govuk-body-m govuk-!-text-align-right" href="/applications-service/case/123/project-documentation/publishing-queue"> View publishing queue</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </main>"

@@ -55,8 +55,8 @@
 					<div>
 						{{ govukButton({ text: 'Apply changes' }) }}
 						<a href="." class="govuk-link govuk-link--no-visited-state">
-													Clear selected
-												</a>
+							Clear selected
+						</a>
 					</div>
 				</div>
 			</div>
@@ -65,11 +65,15 @@
 			<div class="govuk-grid-column-one-third">
 				<div class="pins-files-list__actions">
 					<p class="govuk-heading-s">Document actions</p>
-					<button type="button" class="govuk-link pins-files-list__button-link"
-												id="bulkDownload">Download selected
-										</button>
+					<button type="button" class="govuk-link pins-files-list__button-link" id="bulkDownload">
+						Download selected
+					</button>
 					<button type="submit" formaction="./unpublishing-queue" class="govuk-link pins-files-list__button-link">
-						Unpublish selected</button>
+						Unpublish selected
+					</button>
+					<button type="submit" formaction="./move-documents" class="govuk-link pins-files-list__button-link">
+						Move selected
+					</button>
 				</div>
 			</div>
 		{% endif %}
