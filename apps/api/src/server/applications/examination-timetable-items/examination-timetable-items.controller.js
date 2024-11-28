@@ -181,6 +181,8 @@ export const createExaminationTimetableItem = async ({ body }, response) => {
 	body.examinationTimetableId = examinationTimetable.id;
 	delete body.caseId;
 	delete body.published;
+	delete body.startTime;
+	delete body.endTime;
 	const examinationTimetableItem = await examinationTimetableItemsRepository.create(body);
 
 	await service.createDeadlineSubFolders(
@@ -318,6 +320,9 @@ export const updateExaminationTimetableItem = async ({ params, body }, response)
 	if (body.descriptionWelsh) {
 		body.descriptionWelsh = mapExaminationTimetableItemDescriptionToSave(body.descriptionWelsh);
 	}
+
+	delete body.startTime;
+	delete body.endTime;
 
 	const mappedExamTimetableDetails = mapUpdateExaminationTimetableItemRequest(body);
 
