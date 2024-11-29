@@ -7140,7 +7140,7 @@ exports[`applications documentation Document properties page page should render 
                             <tr class="govuk-table__row">
                                 <td class="govuk-table__cell">1</td>
                                 <td class="govuk-table__cell"><a class="font-weight--700" href="/documents/123/download/123/version/1/preview"
-                                    class="govuk-link">test-file-1.pdf</a>
+                                    class="govuk-link"></a>
                                     <p class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>PDF,3 KB</p>
                                 </td>
                                 <td class="govuk-table__cell">
@@ -7155,7 +7155,7 @@ exports[`applications documentation Document properties page page should render 
                             <tr class="govuk-table__row">
                                 <td class="govuk-table__cell">2</td>
                                 <td class="govuk-table__cell">
-                                    <p class="font-weight--700">test-file-1.pdf</p>
+                                    <p class="font-weight--700"></p>
                                     <p class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>MP4,5 KB</p>
                                 </td>
                                 <td class="govuk-table__cell">
@@ -7307,7 +7307,7 @@ exports[`applications documentation Document properties page page should render 
                             <tr class="govuk-table__row">
                                 <td class="govuk-table__cell">1</td>
                                 <td class="govuk-table__cell"><a class="font-weight--700" href="/documents/123/download/123/version/1/preview"
-                                    class="govuk-link">test-file-1.pdf</a>
+                                    class="govuk-link"></a>
                                     <p class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>PDF,3 KB</p>
                                 </td>
                                 <td class="govuk-table__cell">
@@ -7322,7 +7322,7 @@ exports[`applications documentation Document properties page page should render 
                             <tr class="govuk-table__row">
                                 <td class="govuk-table__cell">2</td>
                                 <td class="govuk-table__cell">
-                                    <p class="font-weight--700">test-file-1.pdf</p>
+                                    <p class="font-weight--700"></p>
                                     <p class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>MP4,5 KB</p>
                                 </td>
                                 <td class="govuk-table__cell">
@@ -7472,7 +7472,7 @@ exports[`applications documentation Document properties page should not show pub
                             <tr class="govuk-table__row">
                                 <td class="govuk-table__cell">1</td>
                                 <td class="govuk-table__cell"><a class="font-weight--700" href="/documents/123/download/123/version/1/preview"
-                                    class="govuk-link">test-file-1.pdf</a>
+                                    class="govuk-link"></a>
                                     <p class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>PDF,3 KB</p>
                                 </td>
                                 <td class="govuk-table__cell">
@@ -7487,7 +7487,7 @@ exports[`applications documentation Document properties page should not show pub
                             <tr class="govuk-table__row">
                                 <td class="govuk-table__cell">2</td>
                                 <td class="govuk-table__cell">
-                                    <p class="font-weight--700">test-file-1.pdf</p>
+                                    <p class="font-weight--700"></p>
                                     <p class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>MP4,5 KB</p>
                                 </td>
                                 <td class="govuk-table__cell">
@@ -7639,7 +7639,7 @@ exports[`applications documentation Document properties page should not show pub
                             <tr class="govuk-table__row">
                                 <td class="govuk-table__cell">1</td>
                                 <td class="govuk-table__cell"><a class="font-weight--700" href="/documents/123/download/123/version/1/preview"
-                                    class="govuk-link">test-file-1.pdf</a>
+                                    class="govuk-link"></a>
                                     <p class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>PDF,3 KB</p>
                                 </td>
                                 <td class="govuk-table__cell">
@@ -7654,7 +7654,7 @@ exports[`applications documentation Document properties page should not show pub
                             <tr class="govuk-table__row">
                                 <td class="govuk-table__cell">2</td>
                                 <td class="govuk-table__cell">
-                                    <p class="font-weight--700">test-file-1.pdf</p>
+                                    <p class="font-weight--700"></p>
                                     <p class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>MP4,5 KB</p>
                                 </td>
                                 <td class="govuk-table__cell">
@@ -7804,7 +7804,7 @@ exports[`applications documentation Document properties page should show publish
                             <tr class="govuk-table__row">
                                 <td class="govuk-table__cell">1</td>
                                 <td class="govuk-table__cell"><a class="font-weight--700" href="/documents/123/download/123/version/1/preview"
-                                    class="govuk-link">test-file-1.pdf</a>
+                                    class="govuk-link"></a>
                                     <p class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>PDF,3 KB</p>
                                 </td>
                                 <td class="govuk-table__cell">
@@ -7819,7 +7819,7 @@ exports[`applications documentation Document properties page should show publish
                             <tr class="govuk-table__row">
                                 <td class="govuk-table__cell">2</td>
                                 <td class="govuk-table__cell">
-                                    <p class="font-weight--700">test-file-1.pdf</p>
+                                    <p class="font-weight--700"></p>
                                     <p class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>MP4,5 KB</p>
                                 </td>
                                 <td class="govuk-table__cell">
