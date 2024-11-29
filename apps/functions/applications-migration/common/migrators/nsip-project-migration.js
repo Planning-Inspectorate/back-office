@@ -61,6 +61,19 @@ export const getNsipProjects = async (log, caseReference, overrideMigrationStatu
 		inspectorIds: valueToArray(project.inspectorIds),
 		migrationStatus: overrideMigrationStatus ? true : Boolean(project.migrationStatus),
 		regions: valueToArray(project.regions),
-		projectType: project.projectType
+		projectType: project.projectType,
+		publishStatus: mapPublishStatus(project.publishStatus)
 	}));
+};
+
+const mapPublishStatus = (status) => {
+	switch (status) {
+		case 'depublished':
+		case 'do not publish':
+			return 'unpublished';
+		case 'not published':
+			return null;
+		default:
+			return status;
+	}
 };

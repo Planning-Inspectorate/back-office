@@ -43,8 +43,8 @@ export const getNsipDocuments = async (log, caseReference) => {
 		caseId: parseInt(document?.caseId),
 		version: parseInt(document?.version),
 		size: parseInt(document?.size),
-		origin: document?.origin === '' ? null : document?.origin,
+		origin: document?.origin?.trim() === '' ? null : document?.origin,
 		securityClassification:
-			document?.securityClassification === '' ? null : document?.securityClassification
+			document?.securityClassification?.trim() === '' ? null : document?.securityClassification
 	}));
 };

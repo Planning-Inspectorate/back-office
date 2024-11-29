@@ -20,6 +20,10 @@ In order for your local machine to be able to query the Synapse instance, you mu
 
 ```
 # set the required environment variables
+There is a settings file local.settings.json.example.
+Copy this file to local.settings.json, and make sure the settings are correct for your environment.
+You may need to check with dev colleagues for secret values.
+
 export SYNAPSE_SQL_HOST='pins-synw-odw-test-uks-ondemand.sql.azuresynapse.net'
 export API_HOST='localhost:3000'
 export BLOB_STORAGE_ACCOUNT_CUSTOM_DOMAIN=example.org
