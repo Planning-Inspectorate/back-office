@@ -259,9 +259,7 @@ const getLayoutParameters = (requestParameters, responseLocals) => {
 					...item,
 					text: caseData.isMaterialChange ? 'Regulation 27 and 28 letter' : 'Rule 6 letter'
 				};
-			}
-
-			if (item.value === 'Rule 8 letter') {
+			} else if (item.value === 'Rule 8 letter') {
 				return {
 					...item,
 					text: caseData.isMaterialChange ? 'Regulation 30 letter' : 'Rule 8 letter'
