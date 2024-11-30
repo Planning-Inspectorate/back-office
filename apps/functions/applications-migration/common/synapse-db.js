@@ -1,5 +1,5 @@
 import { DefaultAzureCredential } from '@azure/identity';
-import { Sequelize } from 'sequelize';
+import { QueryTypes, Sequelize } from 'sequelize';
 import * as tedious from 'tedious';
 import { loadSynapseConfig } from './config.js';
 
@@ -40,3 +40,16 @@ SynapseDB.beforeConnect(async (config) => {
 		config.dialectOptions.authentication.options.token = token;
 	}
 });
+
+/**
+ *
+ * @param {string} query
+ * @param {string} caseReference
+ * @returns
+ */
+export const executeOdwQuery = async (query, caseReference) => {
+	return SynapseDB.query(query, {
+		replacements: [caseReference],
+		type: QueryTypes.SELECT
+	});
+};

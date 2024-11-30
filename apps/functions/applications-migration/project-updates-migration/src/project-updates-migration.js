@@ -1,6 +1,6 @@
 import { chunk as chunkArray } from 'lodash-es';
 import { makePostRequest } from '../../common/back-office-api-client.js';
-import { executeSequelizeQuery } from './execute-sequelize-query.js';
+import { executeNiDbQuery } from './execute-sequelize-query.js';
 
 const MAX_BODY_ITEMS_LENGTH = 100;
 
@@ -83,7 +83,7 @@ export const migrateProjectUpdates = async (log, caseReferences, isWelshCase) =>
  */
 const getProjectUpdatesEnglish = async (caseReference) => {
 	// Get all of the updates (They contain three additional properties; caseName, caseDescription and caseStage (int))
-	const updates = await executeSequelizeQuery(getUpdatesQuery, [caseReference, caseReference]);
+	const updates = await executeNiDbQuery(getUpdatesQuery, [caseReference, caseReference]);
 
 	updates.forEach((update) => {
 		// @ts-ignore
@@ -103,7 +103,7 @@ const getProjectUpdatesEnglish = async (caseReference) => {
  * @param {string} caseReference
  */
 const getProjectUpdatesWelsh = async (caseReference) => {
-	return await executeSequelizeQuery(getUpdatesQueryWelsh, [caseReference, caseReference], {
+	return await executeNiDbQuery(getUpdatesQueryWelsh, [caseReference, caseReference], {
 		queryWelshDb: true
 	});
 };
@@ -112,7 +112,7 @@ const getProjectUpdatesWelsh = async (caseReference) => {
  * @param {string} caseReference
  */
 const getProjectSubscriptions = async (caseReference) => {
-	const subscribers = await executeSequelizeQuery(getSubscriptionsQuery, [caseReference]);
+	const subscribers = await executeNiDbQuery(getSubscriptionsQuery, [caseReference]);
 
 	subscribers.forEach((subscription) => {
 		// @ts-ignore
