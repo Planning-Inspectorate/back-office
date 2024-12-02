@@ -373,12 +373,14 @@ export const createDocumentVersion = async (documentToUpload, caseId, documentId
 		(/** @type {{ version: number; }} */ d) => d.version === documentFromDatabase.latestVersionId
 	);
 
+	const previousDocumentVersion = documentFromDatabase.documentVersion.pop();
 	// copy all meta data from previous version except below properties.
 	currentDocumentVersion[0].version = version;
-	currentDocumentVersion[0].fileName = fileName;
 	currentDocumentVersion[0].mime = documentToSendToDatabase.documentType;
+	currentDocumentVersion[0].fileName = previousDocumentVersion?.fileName ?? fileName;
 	currentDocumentVersion[0].size = documentToSendToDatabase.documentSize;
 	currentDocumentVersion[0].owner = documentToUpload.username;
+	currentDocumentVersion[0].originalFilename = documentToUpload.documentName;
 
 	await documentVersionRepository.upsert(currentDocumentVersion[0]);
 
