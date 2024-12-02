@@ -38,6 +38,7 @@ export function loadConfig() {
 		AUTH_REDIRECT_PATH = '/auth/redirect',
 		AUTH_TENANT_ID = '*',
 		AZURE_BLOB_STORE_HOST,
+		CACHE_CONTROL_MAX_AGE,
 		STATIC_FEATURE_FLAGS_ENABLED,
 		PINS_FEATURE_FLAG_AZURE_CONNECTION_STRING,
 		HTTP_PORT = 8080,
@@ -67,6 +68,9 @@ export function loadConfig() {
 		authRedirectPath: AUTH_REDIRECT_PATH,
 		azureKeyVaultEnabled: environment.KEY_VAULT_ENABLED && environment.KEY_VAULT_ENABLED === 'true',
 		blobStorageUrl: AZURE_BLOB_STORE_HOST,
+		cacheControl: {
+			maxAge: CACHE_CONTROL_MAX_AGE || '1d'
+		},
 		logLevelStdOut: LOG_LEVEL_STDOUT,
 		msal: {
 			clientId: AUTH_CLIENT_ID,
