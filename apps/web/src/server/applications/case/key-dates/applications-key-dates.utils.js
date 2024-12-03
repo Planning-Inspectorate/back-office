@@ -22,6 +22,6 @@ const isRelevantRepresentationsReOpened = (reOpenClosesDate) =>
  * @returns {string}
  */
 const getProjectFormLink = ({ reference }) =>
-	`${config.frontOfficeURL}/projects/${reference}/examination/have-your-say-during-examination`;
+	`${config.frontOfficeURL}/projects/${reference}/register/register-have-your-say`;
 
 export { isRelevantRepresentationsReOpened, getProjectFormLink };
