@@ -158,7 +158,8 @@ export const createFolder = async (applicationId, folderName, parentFolderId) =>
 		displayNameEn: folderName,
 		caseId: applicationId,
 		parentFolderId: parentFolderId ?? null,
-		displayOrder: 100
+		displayOrder: 100,
+		stage: await getParentFolderStage(parentFolderId)
 	};
 
 	const folder = await folderRepository.createFolder(input);
@@ -211,4 +212,14 @@ export const checkFoldersHaveNoDocuments = async (folderList) => {
 		)
 	);
 	return folderList;
+};
+
+/**
+ * @param {number | undefined} parentFolderId
+ */
+const getParentFolderStage = async (parentFolderId) => {
+	if (!parentFolderId) return null;
+
+	const folderObject = await folderRepository.getById(parentFolderId);
+	return folderObject?.stage ?? null;
 };
