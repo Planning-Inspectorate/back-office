@@ -43,7 +43,7 @@ describe('apps/web/src/server/applications/case/key-dates/applications-key-dates
 		};
 		it('should return the project form link', () => {
 			expect(getProjectFormLink(mockProjectData)).toContain(
-				'/projects/mock-reference/examination/have-your-say-during-examination'
+				'/projects/mock-reference/register/register-have-your-say'
 			);
 		});
 	});
