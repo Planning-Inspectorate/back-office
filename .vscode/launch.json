@@ -5,26 +5,20 @@
 	"version": "0.2.0",
 	"configurations": [
 		{
-			"type": "pwa-node",
-			"request": "launch",
-			"name": "Web APP: Dev",
-			"runtimeExecutable": "npm",
-			"runtimeArgs": ["run", "dev", "--inspect-brk"],
-			"skipFiles": ["<node_internals>/**"],
-			"cwd": "${workspaceFolder}/appeals/web",
-			"console": "integratedTerminal",
-			"internalConsoleOptions": "neverOpen"
+			"type": "node",
+			"request": "attach",
+			"name": "Attach to CBOS API",
+			"restart": true,
+			"port": 9229, // Default port for the --inspect flag
+			"skipFiles": ["<node_internals>/**"]
 		},
 		{
-			"type": "pwa-node",
-			"request": "launch",
-			"name": "API APP: Dev",
-			"runtimeExecutable": "npm",
-			"runtimeArgs": ["run", "dev", "--inspect-brk"],
-			"skipFiles": ["<node_internals>/**"],
-			"cwd": "${workspaceFolder}/appeals/api",
-			"console": "integratedTerminal",
-			"internalConsoleOptions": "neverOpen"
+			"type": "node",
+			"request": "attach",
+			"name": "Attach to CBOS Web",
+			"restart": true,
+			"port": 9230, // Custom port to not conflict with api
+			"skipFiles": ["<node_internals>/**"]
 		}
 	]
 }

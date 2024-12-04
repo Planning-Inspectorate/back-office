@@ -17,6 +17,7 @@
     "test:watch": "npm run test -- --watch",
     "coverage": "npm run prisma-generate && cross-env NODE_ENV=test NODE_OPTIONS=--experimental-vm-modules npx jest --forceExit --coverage",
     "dev": "cross-env TZ=utc npm run prisma-generate && nodemon --experimental-json-modules -e js ./src/server.js",
+    "dev:debug": "cross-env TZ=utc npm run prisma-generate && nodemon --inspect --experimental-json-modules -e js ./src/server.js",
     "start": "node ./src/server.js",
     "lint:js": "eslint .",
     "lint:js:fix": "eslint . --fix",

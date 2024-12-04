@@ -7,6 +7,7 @@ import { getDocumentFolderId } from './folder/folder.js';
 import logger from '#utils/logger.js';
 import { broadcastNsipDocumentEvent } from '#infrastructure/event-broadcasters.js';
 import { EventType } from '@pins/event-client/src/event-type.js';
+import { trimDocumentNameSuffix } from '#utils/file-fns.js';
 
 /**
  * Convert HZN Document Version DocumentType to CBOS Document Version DocumentType
@@ -40,27 +41,25 @@ export const migrateNsipDocuments = async (documents) => {
 	if (caseRefs.length !== 1) throw 'Expected only documents for single caseRef';
 	const caseId = await getCaseIdFromRef(caseRefs[0]);
 
-	const documentVersions = documents.reduce((memo, documentVersion) => {
-		const id = documentVersion.documentId;
-		const version = documentVersion.version;
-
-		if (!Object.hasOwn(memo, id)) memo[id] = {};
-		if (!Object.hasOwn(memo[id], version)) memo[id][version] = [];
-
-		memo[id][version].push(documentVersion);
-
-		return memo;
-	}, {});
-
+	// documents are processed in version order, with each original upload before its PDF rendition (if any)
+	// ie are going to make original v1 => v1, rendition v1 => v2, original v2 => v3, rendition v2 => v4 etc.
+	let parentDocumentId = null;
+	let parentDocFilename = null;
+	let versionNumber = 1;
 	for (const document of documents) {
-		let documentId = document.documentId;
-		let filename = document.filename;
-
 		const folderId = await getDocumentFolderId(document, caseId);
-
-		if (isPDFRendition(document, documentVersions[document.documentId][document.version])) {
-			documentId = `${documentId}-rendition`;
-			filename = `${filename} (PDF)`;
+		let documentId = document.documentId;
+		let documentFilename = trimDocumentNameSuffix(document.filename); // Display name has suffix trimmed off
+		if (documentId !== parentDocumentId) {
+			// new doc to process
+			parentDocumentId = documentId;
+			parentDocFilename = documentFilename;
+			versionNumber = document.version; // start at the same HZN version number
+		} else {
+			// new version of the same doc as previous, so increment the version number and keep the same filename as the first version
+			// @ts-ignore
+			documentFilename = parentDocFilename;
+			versionNumber++;
 		}
 
 		const documentEntity = {
@@ -72,9 +71,14 @@ export const migrateNsipDocuments = async (documents) => {
 			documentType: isS51Advice(document) ? DOCUMENT_TYPES.S51Attachment : DOCUMENT_TYPES.Document,
 			createdAt: new Date(document.dateCreated)
 		};
-		await createDocument(documentEntity);
+		await upsertDocument(documentEntity);
 
-		const documentVersion = buildDocumentVersion(documentEntity.guid, document);
+		const documentVersion = buildDocumentVersion(
+			documentEntity.guid,
+			versionNumber,
+			documentFilename,
+			document
+		);
 		const documentForServiceBus = await createDocumentVersion(documentVersion);
 
 		await handleCreationOfDocumentAcitivityLogs(documentVersion);
@@ -90,8 +94,13 @@ export const migrateNsipDocuments = async (documents) => {
 	await updateLatestVersionId(caseId);
 };
 
-const createDocument = async (documentEntity) => {
-	logger.info(`Creating Document ${documentEntity.guid}`);
+/**
+ * Upsert the Document record
+ *
+ * @param {*} documentEntity
+ */
+const upsertDocument = async (documentEntity) => {
+	logger.info(`Creating / Updating Document ${documentEntity.guid}`);
 	await databaseConnector.document.upsert({
 		where: {
 			guid: documentEntity.guid
@@ -101,9 +110,15 @@ const createDocument = async (documentEntity) => {
 	});
 };
 
+/**
+ * Upsert the DocumentVersion record
+ *
+ * @param {*} documentVersion
+ * @returns
+ */
 const createDocumentVersion = async (documentVersion) => {
 	logger.info(
-		`Creating DocumentVersion ${documentVersion.documentGuid}, ${documentVersion.version}`
+		`Creating / Updating DocumentVersion ${documentVersion.documentGuid}, ${documentVersion.version}`
 	);
 	return await databaseConnector.documentVersion.upsert({
 		where: {
@@ -185,6 +200,11 @@ const createDocumentActivityLog = async ({ documentGuid, version, status, activi
 	}
 };
 
+/**
+ * Bulk SQL update the latestVersionId for all Document records on a case by checking the latest version of each
+ *
+ * @param {number |undefined} caseId
+ */
 const updateLatestVersionId = async (caseId) => {
 	logger.info('Setting latestVersionId for all Documents');
 	const statement = `UPDATE Document
@@ -195,14 +215,22 @@ const updateLatestVersionId = async (caseId) => {
 	await databaseConnector.$executeRawUnsafe(statement, caseId);
 };
 
-const buildDocumentVersion = (documentGuid, document) => {
+/**
+ * Create the DocumentVersion record
+ *
+ * @param {string} documentGuid
+ * @param {number} versionNumber
+ * @param {string} documentFilename
+ * @param {*} document
+ * @returns
+ */
+const buildDocumentVersion = (documentGuid, versionNumber, documentFilename, document) => {
 	const uri = new URL(document.documentURI);
 	const match = uri.pathname.match(/^\/document-service-uploads(\/.*)$/);
 	if (!match) throw new Error('no path match');
 	const privateBlobPath = match[1];
 	const isPublished = document.publishedStatus === 'published';
 	const mime = document.mime ? MIMEs[document.mime] : extractMime(document.documentURI);
-	const version = parseInt(document.version);
 	let docTypeInDocumentVersion = null;
 	if (document.documentType) {
 		if (Object.hasOwn(hznDocVersionTypes, document.documentType)) {
@@ -211,11 +239,12 @@ const buildDocumentVersion = (documentGuid, document) => {
 	}
 
 	return {
-		version,
+		version: versionNumber,
 		documentType: docTypeInDocumentVersion,
 		sourceSystem: document.sourceSystem,
 		origin: document.origin,
 		originalFilename: document.originalFilename,
+		fileName: documentFilename, // the displayed file title, same for all versions
 		representative: document.representative,
 		description: document.description,
 		descriptionWelsh: document.descriptionWelsh,
@@ -230,14 +259,13 @@ const buildDocumentVersion = (documentGuid, document) => {
 		filter1: document.filter1,
 		filter1Welsh: document.filter1Welsh,
 		dateCreated: new Date(document.dateCreated),
-		datePublished: new Date(document.datePublished),
+		datePublished: document.datePublished ? new Date(document.datePublished) : null,
 		examinationRefNo: document.examinationRefNo,
 		filter2: document.filter2,
 		publishedStatus: document.publishedStatus,
 		redactedStatus: document.redactedStatus,
 		documentGuid,
 		published: isPublished,
-		fileName: document.filename,
 		horizonDataID: document.documentId,
 		stage: document.documentCaseStage,
 		redacted: document.redactedStatus === 'redacted',
@@ -245,10 +273,6 @@ const buildDocumentVersion = (documentGuid, document) => {
 		privateBlobPath
 	};
 };
-
-const isPDFRendition = (document, versions) =>
-	versions.length === 2 &&
-	(document.mime === 'pdf' || document.originalFilename.toLowerCase().endsWith('.pdf'));
 
 const isS51Advice = (document) => document.path.includes('Section 51 Advice');
 
