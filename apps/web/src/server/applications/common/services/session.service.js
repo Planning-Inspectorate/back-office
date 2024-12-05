@@ -4,6 +4,7 @@
  * @typedef {import('express-session').Session & { infoTypes?: string[] }} SessionWithApplicationsCreateApplicantInfoTypes
  * @typedef {import('express-session').Session & { filesNumberOnList?: number }} SessionWithFilesNumberOnList
  * @typedef {import('express-session').Session & { showSuccessBanner?: boolean }} SessionWithSuccessBanner
+ * @typedef {import('express-session').Session & { documentationFiles?: object[] }} SessionWithDocumentationFiles
  */
 
 // Applicant session management
@@ -192,3 +193,14 @@ export function setSessionBanner(session, banner) {
 export function deleteSessionBanner(session) {
 	delete session.banner;
 }
+
+/**
+ * Save in the session the document metadata for files selected to be moved between folders
+ *
+ * @param {SessionWithDocumentationFiles} session
+ * @param {object[]} documentationFiles
+ * @returns {void}
+ */
+export const setSessionDocumentationFiles = (session, documentationFiles) => {
+	session.documentationFiles = documentationFiles;
+};

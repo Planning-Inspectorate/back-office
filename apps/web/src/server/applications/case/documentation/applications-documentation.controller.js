@@ -8,7 +8,8 @@ import {
 	destroySuccessBanner,
 	getSessionBanner,
 	deleteSessionBanner,
-	setSessionBanner
+	setSessionBanner,
+	setSessionDocumentationFiles
 } from '../../common/services/session.service.js';
 import { buildBreadcrumbItems } from '../applications-case.locals.js';
 import {
@@ -753,11 +754,11 @@ export async function updateFolderDelete(request, response) {
 
 /**
  * View the move documents page
- * @type {import('@pins/express').RenderHandler<{}, {}, {selectedFilesIds: Array<string>}, {}, {}>}
+ * @type {import('@pins/express').RenderHandler<{}, {}, {selectedFilesIds: Array<string>}, {}, {folderId: string, folderName: string}>}
  */
 export async function viewApplicationsCaseDocumentationMove(request, response) {
 	const { caseId, folderId } = response.locals;
-	const { body, errors: validationErrors, session, query } = request;
+	const { body, errors: validationErrors, session, params, query } = request;
 	const { selectedFilesIds } = body;
 
 	if (validationErrors) {
@@ -771,7 +772,24 @@ export async function viewApplicationsCaseDocumentationMove(request, response) {
 
 	const documentationFiles = await getCaseManyDocumentationFilesInfo(caseId, selectedFilesIds);
 
+	setSessionDocumentationFiles(session, documentationFiles);
+
 	response.render('applications/case-documentation/documentation-move', {
-		documentationFiles
+		documentationFiles,
+		backLink: url('document-category', {
+			caseId: caseId,
+			documentationCategory: {
+				id: parseInt(params.folderId),
+				displayNameEn: params.folderName
+			}
+		})
 	});
+}
+
+/**
+ * View the folder list page
+ * @type {import('@pins/express').RenderHandler<*>}
+ */
+export async function viewApplicationsFolderList(request, response) {
+	response.render('applications/components/folder/folder-list');
 }
