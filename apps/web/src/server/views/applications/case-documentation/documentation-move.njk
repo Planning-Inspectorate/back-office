@@ -1,5 +1,16 @@
 {% extends "../layouts/applications.layout.njk" %}
 
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% block beforeContent %}
+<aside>
+  {{ govukBackLink({
+    text: "Back",
+    href: backLink
+  }) }}
+</aside>
+{% endblock %}
+
 {% block pageContent %}
 	<div class="govuk-grid-row">
 		<div class="govuk-grid-column-full govuk-!-margin-top-0">
@@ -36,4 +47,8 @@
 			{% endblock %}
 		</div>
 	</div>
+
+	<a href='move-documents/folder-list'>
+		{{ govukButton({ text: 'Move selected' }) }}
+	</a>
 {% endblock %}
