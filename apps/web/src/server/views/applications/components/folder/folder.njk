@@ -67,7 +67,7 @@
 								<span class="display--sr-only">Manage Documents in this location</span>
 							</caption>
 
-							{{ folderActions(isS51folder) }}
+							{{ folderActions(isS51folder, boas1TestFeatureFlagActivated) }}
 
 							{% if isS51folder %}
 								{{ folderS51Table(items, pagination, caseId, folderId, isGeneralS51folder, errors) }}
