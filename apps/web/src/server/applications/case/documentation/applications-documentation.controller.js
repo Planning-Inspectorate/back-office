@@ -8,7 +8,8 @@ import {
 	destroySuccessBanner,
 	getSessionBanner,
 	deleteSessionBanner,
-	setSessionBanner
+	setSessionBanner,
+	setSessionDocumentationFilesToMove
 } from '../../common/services/session.service.js';
 import { buildBreadcrumbItems } from '../applications-case.locals.js';
 import {
@@ -75,7 +76,7 @@ export async function viewApplicationsCaseDocumentationCategories(_, response) {
 /**
  * View a folder, showing files in the folder, and listing subfolders
  *
- * @type {import('@pins/express').RenderHandler<CaseDocumentationProps, ApplicationCaseLocals, {}, {size?: string, number?: string}, {folderName: string}>}
+ * @type {import('@pins/express').RenderHandler<*>}
  */
 export async function viewApplicationsCaseDocumentationFolder(request, response) {
 	const properties = await documentationFolderData(
@@ -87,9 +88,12 @@ export async function viewApplicationsCaseDocumentationFolder(request, response)
 	const { session } = request;
 	const sessionBannerText = getSessionBanner(session);
 
+	const boas1TestFeatureFlagActivated = featureFlagClient.isFeatureActive('boas-1-test-feature');
+
 	response.render(`applications/components/folder/folder`, {
 		...properties,
-		sessionBannerText
+		sessionBannerText,
+		boas1TestFeatureFlagActivated
 	});
 
 	deleteSessionBanner(session);
@@ -134,11 +138,14 @@ export async function updateApplicationsCaseDocumentationFolder(request, respons
 
 		properties.items.items = failedItems;
 
+		const boas1TestFeatureFlagActivated = featureFlagClient.isFeatureActive('boas-1-test-feature');
+
 		return response.render(`applications/components/folder/folder`, {
 			...properties,
 			errors: validationErrors ||
 				itemErrors || { msg: 'Something went wrong. Please, try again later.' },
-			failedItems
+			failedItems,
+			boas1TestFeatureFlagActivated
 		});
 	}
 
@@ -175,6 +182,8 @@ export async function viewApplicationsCaseDocumentationVersionUpload(_, response
  * @type {import('@pins/express').RenderHandler<{}, {}, {selectedFilesIds: Array<string>}, {}, {folderId: string, folderName: string}>}
  */
 export async function viewApplicationsCaseDocumentationUnpublishPage(request, response) {
+	const boas1TestFeatureFlagActivated = featureFlagClient.isFeatureActive('boas-1-test-feature');
+
 	if (request.errors) {
 		const properties = await documentationFolderData(
 			response.locals.caseId,
@@ -185,7 +194,8 @@ export async function viewApplicationsCaseDocumentationUnpublishPage(request, re
 
 		return response.render('applications/components/folder/folder', {
 			...properties,
-			errors: request.errors
+			errors: request.errors,
+			boas1TestFeatureFlagActivated
 		});
 	}
 
@@ -204,7 +214,8 @@ export async function viewApplicationsCaseDocumentationUnpublishPage(request, re
 
 		return response.render('applications/components/folder/folder', {
 			...properties,
-			errors: 'Your selected documents are not published so you cannot unpublish them.'
+			errors: 'Your selected documents are not published so you cannot unpublish them.',
+			boas1TestFeatureFlagActivated
 		});
 	}
 
@@ -753,25 +764,44 @@ export async function updateFolderDelete(request, response) {
 
 /**
  * View the move documents page
- * @type {import('@pins/express').RenderHandler<{}, {}, {selectedFilesIds: Array<string>}, {}, {}>}
+ * @type {import('@pins/express').RenderHandler<{}, {}, {selectedFilesIds: Array<string>}, {}, {folderId: string, folderName: string}>}
  */
 export async function viewApplicationsCaseDocumentationMove(request, response) {
 	const { caseId, folderId } = response.locals;
-	const { body, errors: validationErrors, session, query } = request;
+	const { body, errors: validationErrors, session, params, query } = request;
 	const { selectedFilesIds } = body;
+	const boas1TestFeatureFlagActivated = featureFlagClient.isFeatureActive('boas-1-test-feature');
 
 	if (validationErrors) {
 		const properties = await documentationFolderData(caseId, folderId, query, session);
 
 		return response.render('applications/components/folder/folder', {
 			...properties,
-			errors: validationErrors
+			errors: validationErrors,
+			boas1TestFeatureFlagActivated
 		});
 	}
 
 	const documentationFiles = await getCaseManyDocumentationFilesInfo(caseId, selectedFilesIds);
 
+	setSessionDocumentationFilesToMove(session, documentationFiles);
+
 	response.render('applications/case-documentation/documentation-move', {
-		documentationFiles
+		documentationFiles,
+		backLink: url('document-category', {
+			caseId: caseId,
+			documentationCategory: {
+				id: parseInt(params.folderId),
+				displayNameEn: params.folderName
+			}
+		})
 	});
+}
+
+/**
+ * View the folder list page
+ * @type {import('@pins/express').RenderHandler<*>}
+ */
+export async function viewApplicationsFolderList(request, response) {
+	response.render('applications/components/folder/folder-list');
 }

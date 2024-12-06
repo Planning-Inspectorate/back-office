@@ -1,7 +1,7 @@
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
-{% macro folderActions(isS51folder) %}
+{% macro folderActions(isS51folder, boas1TestFeatureFlagActivated) %}
 
 	<div class="govuk-grid-row govuk-!-margin-left-0 display--flex">
 		<div class="govuk-grid-column-two-thirds">
@@ -71,9 +71,11 @@
 					<button type="submit" formaction="./unpublishing-queue" class="govuk-link pins-files-list__button-link">
 						Unpublish selected
 					</button>
+					{% if boas1TestFeatureFlagActivated %}
 					<button type="submit" formaction="./move-documents" class="govuk-link pins-files-list__button-link">
 						Move selected
 					</button>
+					{% endif %}
 				</div>
 			</div>
 		{% endif %}
