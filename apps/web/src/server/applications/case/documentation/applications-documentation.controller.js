@@ -9,7 +9,7 @@ import {
 	getSessionBanner,
 	deleteSessionBanner,
 	setSessionBanner,
-	setSessionDocumentationFiles
+	setSessionDocumentationFilesToMove
 } from '../../common/services/session.service.js';
 import { buildBreadcrumbItems } from '../applications-case.locals.js';
 import {
@@ -772,7 +772,7 @@ export async function viewApplicationsCaseDocumentationMove(request, response) {
 
 	const documentationFiles = await getCaseManyDocumentationFilesInfo(caseId, selectedFilesIds);
 
-	setSessionDocumentationFiles(session, documentationFiles);
+	setSessionDocumentationFilesToMove(session, documentationFiles);
 
 	response.render('applications/case-documentation/documentation-move', {
 		documentationFiles,
