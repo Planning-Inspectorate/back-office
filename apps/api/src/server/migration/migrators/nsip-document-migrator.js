@@ -81,7 +81,7 @@ export const migrateNsipDocuments = async (documents) => {
 		);
 		const documentForServiceBus = await createDocumentVersion(documentVersion);
 
-		await handleCreationOfDocumentAcitivityLogs(documentVersion);
+		await handleCreationOfDocumentActivityLogs(documentVersion);
 
 		if (documentForServiceBus.publishedStatus === 'published') {
 			await broadcastNsipDocumentEvent(documentForServiceBus, EventType.Update, {
@@ -151,7 +151,7 @@ const createDocumentVersion = async (documentVersion) => {
  *
  * @param {object} documentVersion
  */
-const handleCreationOfDocumentAcitivityLogs = async (documentVersion) => {
+const handleCreationOfDocumentActivityLogs = async (documentVersion) => {
 	await createDocumentActivityLog({
 		documentGuid: documentVersion.documentGuid,
 		version: documentVersion.version,

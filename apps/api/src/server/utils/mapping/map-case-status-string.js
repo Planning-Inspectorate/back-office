@@ -13,6 +13,20 @@ export const caseStatusMap = {
 };
 
 /**
+ * mapping for the project case stage (CBOS and Schema - both the same) to the document case stage schema value
+ */
+export const projectCaseStageToDocumentCaseStageSchemaMap = {
+	acceptance: 'acceptance',
+	decision: 'decision',
+	examination: 'examination',
+	post_decision: 'post_decision',
+	pre_application: 'pre-application', // note change underscore in project to hyphen in document
+	pre_examination: 'pre-examination', // note change underscore in project to hyphen in document
+	recommendation: 'recommendation',
+	withdrawn: 'withdrawn'
+};
+
+/**
  *
  * @param {string} caseStatus
  * @returns {string}
