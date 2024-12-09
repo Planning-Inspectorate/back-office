@@ -1,6 +1,7 @@
 {% from "govuk/components/table/macro.njk" import govukTable %}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
 
-{% macro s51AttachmentsTab(attachments, caseId, folderId, adviceId) %}
+{% macro s51AttachmentsTab(attachments, caseId, folderId, adviceId, publishedStatus) %}
 
 	{% set attachmentsRows = [] %}
 	{% for attachment in attachments %}
@@ -24,66 +25,72 @@
 		{% endset %}
 
 		{% set activity %}
-		<p>
-			{{ attachment.dateAdded|datestamp({format: 'dd/MM/yyyy'}) }}
-		</p>
-
+			<p>
+				{{ attachment.dateAdded|datestamp({format: 'dd/MM/yyyy'}) }}
+			</p>
 		{% endset %}
 
 		{% set download %}
-		{% if isAttachmentSafe %}
-			<a class='govuk-link' href="{{ 'document-download'|url({caseId: caseId, documentGuid: attachment.documentGuid, version: attachment.version}) }}">
-          Download
-        </a>
-		{% else %}
-			<span></span>
+			{% if isAttachmentSafe %}
+				<a class='govuk-link' href="{{ 'document-download'|url({caseId: caseId, documentGuid: attachment.documentGuid, version: attachment.version}) }}">
+					Download
+				</a>
+			{% else %}
+				<span></span>
+			{% endif %}
+		{% endset %}
+
+		{% if publishedStatus !== 'published' %}
+			{% set delete %}
+				<a class='govuk-link'href='{{'s51-attachment'|url({caseId: caseId, folderId: folderId, adviceId: adviceId, documentGuid: attachment.documentGuid, step: 'delete'})}}' >
+					Delete
+				</a>
+			{% endset %}
 		{% endif %}
-		{% endset %}
-
-		{% set delete %}
-		<a class='govuk-link'href='{{'s51-attachment'|url({caseId: caseId, folderId: folderId, adviceId: adviceId, documentGuid: attachment.documentGuid, step: 'delete'})}}' >
-			Delete
-		</a>
-
-		{% endset %}
 
 		{% set status %}
-      {% set avWaiting = (attachment.status === 'awaiting_virus_check') or (attachment.status === 'awaiting_upload') %}
-      {% set avFailed = attachment.status === 'failed_virus_check' %}
-      {% if avWaiting or avFailed %}
-        <p>
-          {% if avWaiting %}
-            <strong class="govuk-tag govuk-tag--yellow">
-          {% else %}
-            <strong class="govuk-tag govuk-tag--red">
-          {% endif %}
-            {{ attachment.status|statusName }}
-          </strong>
-        </p>
-      {% endif %}
-    {% endset %}
-				{% set row = [
-					{
-						html: name
-					}, {
-						html: activity
-					}, {
-						html: status
-					}, {
-						html: download
-					}, {
-						html: delete
-					}
-				] %}
-				{% set attachmentsRows = attachmentsRows.concat([row]) %}
+			{% set avWaiting = (attachment.status === 'awaiting_virus_check') or (attachment.status === 'awaiting_upload') %}
+			{% set avFailed = attachment.status === 'failed_virus_check' %}
+				{% if avWaiting or avFailed %}
+					<p>
+					{% if avWaiting %}
+						<strong class="govuk-tag govuk-tag--yellow">
+					{% else %}
+						<strong class="govuk-tag govuk-tag--red">
+					{% endif %}
+					{{ attachment.status|statusName }}
+					</strong>
+					</p>
+				{% endif %}
+		{% endset %}
+		{% set row = [
+			{
+				html: name
+			}, {
+				html: activity
+			}, {
+				html: status
+			}, {
+				html: download
+			}, {
+				html: delete
+			}
+		] %}
+		{% set attachmentsRows = attachmentsRows.concat([row]) %}
+	{% endfor %}
 
-			{% endfor %}
+	<h4 class="govuk-heading-m govuk-!-margin-bottom-4">Attachments</h4>
+	{% if publishedStatus == 'published' %}
+		{# <p class="govuk-table__cell">You must unpublish the advice before you can delete the attachments.</p> #}
+		{{ govukWarningText({
+			text: "You must unpublish the advice before you can delete the attachments.",
+			iconFallbackText: "Warning"
+			})
+		}}
+	{% endif %}
 
-			<h4 class="govuk-heading-m govuk-!-margin-bottom-4">Attachments</h4>
-
-			{% if attachmentsRows.length > 0%}
-
-				{{ govukTable({
+	{% if attachmentsRows.length > 0%}
+		{{ govukTable({
 			classes: 'pins-file-versions-table',
             captionClasses: "govuk-table__caption--m",
             head: [
@@ -94,9 +101,9 @@
                 { text: "" }
             ],
             rows: attachmentsRows
-    }) }}
-			{% else %}
-				<p>There are no attachments on this item.</p>
-			{% endif %}
-
-		{% endmacro %}
+			})
+		}}
+	{% else %}
+		<p>There are no attachments on this item.</p>
+	{% endif %}
+{% endmacro %}
