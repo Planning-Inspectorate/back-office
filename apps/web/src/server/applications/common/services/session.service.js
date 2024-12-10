@@ -7,7 +7,7 @@
  * @typedef {import('express-session').Session & { 
  *	moveDocuments: { 
  *		documentationFilesToMove: object[],
- *		parentFolderData?: object,
+ *		parentFolderId: number,
  * 		folderList: object[],
  * 		isFolderRoot: boolean,
  * 		rootFolderList: object[]
@@ -237,15 +237,16 @@ export const getSessionMoveDocumentsFilesToMove = (session) => {
 /**
  * 
  * @param {MoveDocumentsSession} session
- * @param {{id: number}} id 
+ * @param {number} parentFolderId
  */
 
-export const setSessionMoveDocumentsParentFolderId = (session, id) => {
-	session.moveDocuments.parentFolderId = id;
+export const setSessionMoveDocumentsParentFolderId = (session, parentFolderId) => {
+	console.log('setting parent folder id;>>', parentFolderId);
+	session.moveDocuments.parentFolderId = parentFolderId;
 };
 
 export const getSessionMoveDocumentsParentFolderId = (session) => {
-	return session.moveDocuments.parentFolderData;
+	return session.moveDocuments.parentFolderId;
 };
 /**
  * Save in the session the list of folders to move the documents to
