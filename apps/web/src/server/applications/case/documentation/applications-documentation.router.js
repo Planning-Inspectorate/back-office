@@ -9,7 +9,9 @@ import {
 	validateApplicationsDocumentationsFolders,
 	validateApplicationsDocumentsToPublish,
 	validateApplicationsDocumentsToUnpublish,
-	validateApplicationsDocumentsToMove
+	validateApplicationsDocumentsToMove,
+	validateApplicationsDocumentsToMoveFolderSelection,
+	validateDocumentsToMoveToCorrespondenceNotPublished
 } from './applications-documentation.validators.js';
 import applicationsS51Router from '../s51/applications-s51.router.js';
 import { assertFolderIsNotReps } from './applications-documentation.guard.js';
@@ -137,6 +139,10 @@ applicationsDocumentationRouter
 
 applicationsDocumentationRouter
 	.route('/:folderId/:folderName/move-documents/folder-list')
-	.get(asyncHandler(controller.viewApplicationsFolderList));
+	.get(asyncHandler(controller.viewDocumentationFolderList))
+	.post(
+		[validateApplicationsDocumentsToMoveFolderSelection,
+		validateDocumentsToMoveToCorrespondenceNotPublished],
+		asyncHandler(controller.postDocumentationFolderList));
 
 export default applicationsDocumentationRouter;

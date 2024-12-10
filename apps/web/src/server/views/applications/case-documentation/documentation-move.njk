@@ -28,7 +28,7 @@
 							</tr>
 						</thead>
 						<tbody class="govuk-table__body govuk-body-s">
-							{% for documentationFile in documentationFiles %}
+							{% for documentationFile in documentationFilesToMove %}
 								<tr class="govuk-table__row">
 
 									<td class="govuk-table__cell govuk-body-m">
@@ -48,7 +48,10 @@
 		</div>
 	</div>
 
-	<a href='move-documents/folder-list'>
-		{{ govukButton({ text: 'Move selected' }) }}
-	</a>
+	{# TODO: update href to use the filter, eg 'case-view'| url({caseId:case.id, step: 'preview-and-publish'}) #}
+	{{ govukButton({ 
+			text: 'Move selected',
+			href: 'move-documents/folder-list'
+	}) }}
+
 {% endblock %}

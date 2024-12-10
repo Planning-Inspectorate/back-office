@@ -1,5 +1,6 @@
 import { createValidator } from '@pins/express';
 import { body } from 'express-validator';
+import { folderNames } from './utils/move-documents/folder-names.js';
 
 export const validateApplicationsDocumentations = createValidator(
 	body('selectedFilesIds')
@@ -43,3 +44,71 @@ export const validateApplicationsDocumentationsFolders = createValidator(
 export const validateApplicationsDocumentsToMove = createValidator(
 	body('selectedFilesIds').isArray({ min: 1 }).withMessage('Select documents to move')
 );
+
+export const validateApplicationsDocumentsToMoveFolderSelection = createValidator(
+	body('openFolder')
+	//.if(body('openFolder').exists())
+	.isLength({ min: 1 }).withMessage('Select a folder')
+);
+
+//TODO finish this
+export const checkDocumentsAreNotPublished = (req) => {
+    const filesToMove = req.session.moveDocuments?.documentationFilesToMove;
+	const rootFolderList = req.session.moveDocuments?.rootFolderList;
+	const parentFolderId = req.body.openFolder;
+
+	const correspondenceFolder = rootFolderList.find(folder => folder.displayNameEn === folderNames.correspondence)
+
+	const openedCorrespondenceFolder = correspondenceFolder?.id === parentFolderId;
+
+	//TODO access to the Correspondence folder name
+    if (openedCorrespondenceFolder) {
+        const someFilesArePublished = filesToMove.some(item => item.publishedStatus === 'published');
+        if (someFilesArePublished) {
+            throw new Error('One or more of your selected documents are published. You must unpublish the document(s) before moving them to the correspondence folder.');
+        }
+    }
+    return true;
+};
+
+export const validateDocumentsToMoveToCorrespondenceNotPublished = createValidator(
+	body('moveDocuments').custom((_, { req }) => {
+		const filesToMove = req.session.moveDocuments?.documentationFilesToMove;
+		const rootFolderList = req.session.moveDocuments?.rootFolderList;
+		const parentFolderId = req.body.openFolder;
+
+		console.log('val parentFolderId', parentFolderId);
+		
+		const correspondenceFolder = rootFolderList.find(folder => folder.displayNameEn === folderNames.correspondence)
+		console.log('val correspondenceFolder', correspondenceFolder);
+		
+		const openedCorrespondenceFolder = correspondenceFolder?.id === Number(parentFolderId);
+		console.log('val openedCorrespondenceFolder', openedCorrespondenceFolder);
+	
+		//TODO access to the Correspondence folder name
+		if (openedCorrespondenceFolder) {
+			const someFilesArePublished = filesToMove.some(item => item.publishedStatus === 'published');
+			if (someFilesArePublished) {
+				throw new Error('One or more of your selected documents are published. You must unpublish the document(s) before moving them to the correspondence folder.');
+			}
+		}
+		return true;
+	}
+	))
+
+	//  {
+	// 	id: 100030169,
+	// 	displayNameEn: 'Correspondence',
+	// 	displayOrder: 150,
+	// 	stage: 'Correspondence',
+	// 	isCustom: false,
+	// 	parentFolderId: null
+	//   }
+
+	// 'not_checked',
+	// 'checked',
+	// 'ready_to_publish',
+	// 'do_not_publish',
+	// 'publishing',
+	// 'published',
+	// 'archived'
