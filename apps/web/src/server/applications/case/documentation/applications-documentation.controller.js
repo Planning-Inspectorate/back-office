@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { BO_GENERAL_S51_CASE_REF } from '@pins/applications';
 import { sortBy } from 'lodash-es';
 import { url } from '../../../lib/nunjucks-filters/url.js';
@@ -9,7 +10,17 @@ import {
 	getSessionBanner,
 	deleteSessionBanner,
 	setSessionBanner,
-	setSessionDocumentationFilesToMove
+	startMoveDocumentsSession,
+	deleteMoveDocumentsSession,
+	getSessionMoveDocumentsFilesToMove,
+	setSessionMoveDocumentsFilesToMove,
+	getSessionMoveDocumentsParentFolderId,
+	setSessionMoveDocumentsParentFolderId,
+	setSessionMoveDocumentsFolderList,
+	getSessionMoveDocumentsFolderList,
+	setSessionMoveDocumentsIsFolderRoot,
+	getSessionMoveDocumentsIsFolderRoot,
+	setSessionMoveDocumentsRootFolderList
 } from '../../common/services/session.service.js';
 import { buildBreadcrumbItems } from '../applications-case.locals.js';
 import {
@@ -40,6 +51,7 @@ import { getPaginationLinks } from '../../common/components/pagination/paginatio
 import { featureFlagClient } from '../../../../common/feature-flags.js';
 import { validationResult } from 'express-validator';
 import logger from '../../../lib/logger.js';
+import { getFolderViewData, isFolderRoot } from './utils/move-documents/get-folder-view-data.js';
 
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
 /** @typedef {import('../applications-case.locals.js').ApplicationCaseLocals} ApplicationCaseLocals */
@@ -86,6 +98,8 @@ export async function viewApplicationsCaseDocumentationFolder(request, response)
 		request.session
 	);
 	const { session } = request;
+	
+	deleteMoveDocumentsSession(session);
 	const sessionBannerText = getSessionBanner(session);
 
 	response.render(`applications/components/folder/folder`, {
@@ -761,21 +775,31 @@ export async function viewApplicationsCaseDocumentationMove(request, response) {
 	const { body, errors: validationErrors, session, params, query } = request;
 	const { selectedFilesIds } = body;
 
+	startMoveDocumentsSession(session);
+
 	if (validationErrors) {
 		const properties = await documentationFolderData(caseId, folderId, query, session);
-
+		//fix the view, its currently a page, and not a component
 		return response.render('applications/components/folder/folder', {
 			...properties,
 			errors: validationErrors
 		});
 	}
 
-	const documentationFiles = await getCaseManyDocumentationFilesInfo(caseId, selectedFilesIds);
 
-	setSessionDocumentationFilesToMove(session, documentationFiles);
+	
+	let documentationFilesToMove = []
+
+	if(getSessionMoveDocumentsFilesToMove(session).length) {
+		documentationFilesToMove = getSessionMoveDocumentsFilesToMove(session)
+	} else {
+		documentationFilesToMove = await getCaseManyDocumentationFilesInfo(caseId, selectedFilesIds)
+		setSessionMoveDocumentsFilesToMove(session, documentationFilesToMove);
+	}
+
 
 	response.render('applications/case-documentation/documentation-move', {
-		documentationFiles,
+		documentationFilesToMove,
 		backLink: url('document-category', {
 			caseId: caseId,
 			documentationCategory: {
@@ -786,10 +810,95 @@ export async function viewApplicationsCaseDocumentationMove(request, response) {
 	});
 }
 
+
 /**
- * View the folder list page
+ * View the folders list page
  * @type {import('@pins/express').RenderHandler<*>}
  */
-export async function viewApplicationsFolderList(request, response) {
-	response.render('applications/components/folder/folder-list');
+export async function viewDocumentationFolderList(request, response) {
+	const { caseId, folderId } = response.locals;
+	const { body, errors: validationErrors, session, params, query } = request;
+
+	const parentFolderId = getSessionMoveDocumentsParentFolderId(session);
+	console.log('parentFolderId:>>', parentFolderId)
+
+	if (validationErrors) {
+		//const properties = await documentationFolderData(caseId, folderId, query, session);
+
+		return response.render('applications/components/folder/folder', {
+			//...properties,
+			errors: validationErrors
+		});
+	}
+
+	let folderList = []
+	if(parentFolderId) {
+		//get children folders
+		folderList = await getCaseFolders(caseId, parentFolderId);
+	} else {
+		//else get root folders
+		folderList = await getCaseFolders(caseId);
+	}
+
+	const isRootFolder = isFolderRoot(folderList);
+
+	setSessionMoveDocumentsFolderList(session, folderList);
+	setSessionMoveDocumentsIsFolderRoot(session, isRootFolder);
+
+	if(isRootFolder) setSessionMoveDocumentsRootFolderList(session, folderList);
+
+
+	//TODO check that published files cannot be moved into correspondence folder
+
+
+
+		//console.log('raw folderList:>>', folderList)
+		//console.log('isRootFolder:>>', isRootFolder)
+		//console.log('locals:>>', response.locals)
+		//console.log('params:>>', params)
+		//console.log('folderId:>>', folderId)
+
+		//console.log('session:>>', session.moveDocuments)
+
+	return response.render('applications/components/folder/folder-list', {
+		isRootFolder,
+		folderListViewData: getFolderViewData(folderList),
+	});
 }
+
+
+/**
+ * Post folders list page
+ * @type {import('@pins/express').RenderHandler<*>}
+ */
+export async function postDocumentationFolderList(request, response) {
+	const { body, errors: validationErrors, session } = request;
+	const { openFolder, action } = body;
+
+	const folderList = getSessionMoveDocumentsFolderList(session);
+	const folderListViewData = getFolderViewData(folderList)
+	//const getParentFolderDisplayName = folderList.find(folder => folder.id === openFolder)
+
+	console.log('body:>>', body)
+	//console.log('locals:>>', response.locals)
+
+	if (validationErrors) {
+		//const properties = await documentationFolderData(caseId, folderId, query, session);
+		console.log('yoyoyo:>>', validationErrors)
+		return response.render('applications/components/folder/folder-list', {
+			//...properties,
+			errors: validationErrors,
+			isRootFolder: getSessionMoveDocumentsIsFolderRoot(session),
+			folderListViewData,
+		});
+	}
+
+	if(action === 'moveDocuments') {
+		console.log('moving documents functionality here') 
+	} else {
+		setSessionMoveDocumentsParentFolderId(session, openFolder);
+	}
+	return response.redirect('./folder-list');
+
+}
+
