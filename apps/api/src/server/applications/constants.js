@@ -25,14 +25,14 @@ export const DOCUMENT_VERSION_TYPES = {
 };
 
 // Define all the document case stages that can be mapped to folders
-const DOCUMENT_CASE_STAGE_PRE_APPLICATION = 'Pre-application';
 const DOCUMENT_CASE_STAGE_ACCEPTANCE = 'Acceptance';
-const DOCUMENT_CASE_STAGE_DEVELOPERS_APPLICATION = "Developer's Application";
-const DOCUMENT_CASE_STAGE_PRE_EXAMINATION = 'Pre-examination';
-const DOCUMENT_CASE_STAGE_EXAMINATION = 'Examination';
-const DOCUMENT_CASE_STAGE_RECOMMENDATION = 'Recommendation';
 const DOCUMENT_CASE_STAGE_DECISION = 'Decision';
+const DOCUMENT_CASE_STAGE_DEVELOPERS_APPLICATION = "Developer's Application";
+const DOCUMENT_CASE_STAGE_EXAMINATION = 'Examination';
 const DOCUMENT_CASE_STAGE_POST_DECISION = 'Post-decision';
+const DOCUMENT_CASE_STAGE_PRE_APPLICATION = 'Pre-application';
+const DOCUMENT_CASE_STAGE_PRE_EXAMINATION = 'Pre-examination';
+const DOCUMENT_CASE_STAGE_RECOMMENDATION = 'Recommendation';
 const DOCUMENT_CASE_STAGE_S51_ADVICE = '0'; // special value required by Front Office
 
 // Define top level document case stage mappings, so we can change in one single place if needed

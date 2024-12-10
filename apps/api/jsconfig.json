@@ -5,6 +5,7 @@
 		"baseUrl": ".",
 		"paths": {
 			"#app-test": ["./src/server/app-test.js"],
+			"#api-constants": ["./src/server/applications/constants.js"],
 			"#config/*": ["./src/server/config/*"],
 			"#infrastructure/*": ["./src/server/infrastructure/*"],
 			"#middleware/*": ["./src/server/middleware/*"],

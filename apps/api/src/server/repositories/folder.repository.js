@@ -1,5 +1,5 @@
 import { databaseConnector } from '#utils/database-connector.js';
-import { folderDocumentCaseStageMappings } from '../applications/constants.js';
+import { folderDocumentCaseStageMappings } from '#api-constants';
 
 /** @typedef {import('@pins/applications.api').Schema.Folder} Folder */
 /** @typedef {import('@pins/applications').FolderTemplate} FolderTemplate */
