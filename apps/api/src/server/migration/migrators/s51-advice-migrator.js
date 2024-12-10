@@ -11,13 +11,15 @@ import { EventType } from '@pins/event-client';
 import { NSIP_S51_ADVICE } from '#infrastructure/topics.js';
 import * as documentRepository from '#repositories/document.repository.js';
 import * as s51AdviceDocumentRepository from '#repositories/s51-advice-document.repository.js';
-
+import { createDocumentVersion } from './nsip-document-migrator.js';
+import { broadcastNsipDocumentEvent } from '#infrastructure/event-broadcasters.js';
 /**
  * @param {S51AdviceModel[]} s51AdviceList
  */
 export const migrateS51Advice = async (s51AdviceList) => {
 	console.info(`Migrating ${s51AdviceList.length} S51 Advice items`);
 
+	const s51AttachmentDetails = [];
 	const promiseList = await Promise.allSettled(
 		s51AdviceList.map(async (s51Advice) => {
 			try {
@@ -43,6 +45,12 @@ export const migrateS51Advice = async (s51AdviceList) => {
 					if (!documentRow || !documentRow.guid) {
 						throw Error(`Failed to get document with ID ${attachmentId}`);
 					}
+					s51AttachmentDetails.push({
+						docGuid: documentRow.guid,
+						adviceStatus: s51Advice.status,
+						advicePublishedDate: s51Advice.datePublished,
+						latestVersionId: documentRow.latestVersionId
+					});
 					return s51AdviceDocumentRepository.upsertS51AdviceDocument(
 						s51AdviceEntity.id,
 						documentRow.guid
@@ -81,6 +89,45 @@ export const migrateS51Advice = async (s51AdviceList) => {
 
 	console.info(`Broadcasting ${publishEvents.length} S51 Advice PUBLISH events`);
 	await sendChunkedEvents(NSIP_S51_ADVICE, publishEvents, EventType.Publish);
+
+	await handleDocumentVersionUpdateForAdviceAttachments(s51AttachmentDetails);
+};
+
+/**
+ * We need to mark documents as published where the advice is published - Horizon is not doing this, so we will handle it here
+ * @param {object} attachmentDetails
+ * @returns {Promise<void>}
+ */
+const handleDocumentVersionUpdateForAdviceAttachments = async (attachmentDetails) => {
+	for await (const attachment of attachmentDetails) {
+		const docVersions = await databaseConnector.documentVersion.findMany({
+			where: {
+				documentGuid: attachment.docGuid
+			}
+		});
+
+		let latestPublishedVersion;
+		for await (let docVersion of docVersions) {
+			docVersion.stage = '0';
+			if (attachment.latestVersionId === docVersion.version) {
+				docVersion.publishedStatus = attachment.adviceStatus;
+				if (docVersion.publishedStatus === 'published') {
+					latestPublishedVersion = docVersion;
+					docVersion.datePublished = new Date(attachment.advicePublishedDate);
+				}
+			}
+			const documentForServiceBus = await createDocumentVersion(docVersion);
+			if (latestPublishedVersion) {
+				console.log(
+					`Broadcasting latest published s51 attachment guid:${latestPublishedVersion.documentGuid} and version: ${latestPublishedVersion.version}`
+				);
+				await broadcastNsipDocumentEvent(documentForServiceBus, EventType.Update, {
+					publishing: 'true',
+					migrationPublishing: 'true'
+				});
+			}
+		}
+	}
 };
 
 /**
