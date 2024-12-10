@@ -65,7 +65,7 @@ export const checkDocumentsAreNotPublished = (req) => {
     if (openedCorrespondenceFolder) {
         const someFilesArePublished = filesToMove.some(item => item.publishedStatus === 'published');
         if (someFilesArePublished) {
-            throw new Error('One or more of your selected documents are published. You must unpublish the document(s) before moving them to the correspondence folder.');
+            throw new Error('One or more of your selected documents is published. You must unpublish the document(s) before moving them to the correspondence folder.');
         }
     }
     return true;
@@ -76,12 +76,8 @@ export const validateDocumentsToMoveToCorrespondenceNotPublished = createValidat
 		const filesToMove = req.session.moveDocuments?.documentationFilesToMove;
 		const rootFolderList = req.session.moveDocuments?.rootFolderList;
 		const parentFolderId = req.body.openFolder;
-
-		console.log('val parentFolderId', parentFolderId);
 		
 		const correspondenceFolder = rootFolderList.find(folder => folder.displayNameEn === folderNames.correspondence)
-		console.log('val correspondenceFolder', correspondenceFolder);
-		
 		const openedCorrespondenceFolder = correspondenceFolder?.id === Number(parentFolderId);
 		console.log('val openedCorrespondenceFolder', openedCorrespondenceFolder);
 	

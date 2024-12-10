@@ -896,7 +896,7 @@ export async function postDocumentationFolderList(request, response) {
 	if(action === 'moveDocuments') {
 		console.log('moving documents functionality here') 
 	} else {
-		setSessionMoveDocumentsParentFolderId(session, openFolder);
+		setSessionMoveDocumentsParentFolderId(session, Number(openFolder));
 	}
 	return response.redirect('./folder-list');
 
