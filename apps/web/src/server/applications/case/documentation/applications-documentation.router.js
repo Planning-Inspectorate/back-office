@@ -138,7 +138,7 @@ applicationsDocumentationRouter
 	);
 
 applicationsDocumentationRouter
-	.route('/:folderId/:folderName/move-documents/folder-list')
+	.route('/:folderId/:folderName/move-documents/folder-explorer')
 	.get(asyncHandler(controller.viewDocumentationFolderList))
 	.post(
 		[validateApplicationsDocumentsToMoveFolderSelection,
