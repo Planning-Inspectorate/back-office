@@ -779,7 +779,6 @@ export async function viewApplicationsCaseDocumentationMove(request, response) {
 
 	if (validationErrors) {
 		const properties = await documentationFolderData(caseId, folderId, query, session);
-		//fix the view, its currently a page, and not a component
 		return response.render('applications/components/folder/folder', {
 			...properties,
 			errors: validationErrors
@@ -846,21 +845,14 @@ export async function viewDocumentationFolderList(request, response) {
 	setSessionMoveDocumentsIsFolderRoot(session, isRootFolder);
 
 	if(isRootFolder) setSessionMoveDocumentsRootFolderList(session, folderList);
-
-
-	//TODO check that published files cannot be moved into correspondence folder
-
-
-
 		//console.log('raw folderList:>>', folderList)
 		//console.log('isRootFolder:>>', isRootFolder)
 		//console.log('locals:>>', response.locals)
 		//console.log('params:>>', params)
 		//console.log('folderId:>>', folderId)
-
 		//console.log('session:>>', session.moveDocuments)
 
-	return response.render('applications/components/folder/folder-list', {
+	return response.render('applications/case-documentation/move-documents/folder-explorer', {
 		isRootFolder,
 		folderListViewData: getFolderViewData(folderList),
 	});
@@ -885,7 +877,7 @@ export async function postDocumentationFolderList(request, response) {
 	if (validationErrors) {
 		//const properties = await documentationFolderData(caseId, folderId, query, session);
 		console.log('yoyoyo:>>', validationErrors)
-		return response.render('applications/components/folder/folder-list', {
+		return response.render('applications/case-documentation/move-documents/folder-explorer', {
 			//...properties,
 			errors: validationErrors,
 			isRootFolder: getSessionMoveDocumentsIsFolderRoot(session),
@@ -898,7 +890,7 @@ export async function postDocumentationFolderList(request, response) {
 	} else {
 		setSessionMoveDocumentsParentFolderId(session, Number(openFolder));
 	}
-	return response.redirect('./folder-list');
+	return response.redirect('./folder-explorer');
 
 }
 
