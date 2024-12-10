@@ -1,5 +1,5 @@
 # Stage 1/2 - Builder
-FROM node:20-alpine AS pins-web-builder
+FROM node:20-alpine3.20 AS pins-web-builder
 
 RUN apk update
 
@@ -30,7 +30,7 @@ RUN npm run build:release
 # --------------------------------
 
 # Stage 2/2 - App run
-FROM node:20-alpine
+FROM node:20-alpine3.20
 
 ARG GIT_SHA
 

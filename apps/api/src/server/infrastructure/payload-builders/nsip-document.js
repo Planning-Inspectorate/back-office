@@ -1,6 +1,9 @@
 import { pick } from 'lodash-es';
 import config from '#config/config.js';
-import { folderDocumentCaseStageMappings } from '../../applications/constants.js';
+import {
+	mapDocumentCaseStageToSchema,
+	mapProjectCaseStageToDocumentCaseStageSchema
+} from '#utils/mapping/map-case-status.js';
 
 const NSIP_CASETYPE = 'nsip';
 
@@ -57,18 +60,17 @@ export const buildNsipDocumentPayload = (docVersionWithFullDetails, filePath = '
 	})();
 
 	const documentCaseStage = (() => {
-		let status = docVersionWithFullDetails.stage;
-		if (status) {
-			return mapDocumentCaseStageToSchema(status.toUpperCase().replace('-', '_'));
+		let docCaseStage = docVersionWithFullDetails.stage;
+		if (docCaseStage) {
+			return mapDocumentCaseStageToSchema(docCaseStage);
 		}
 
-		// Default to case stage if document stage was blank
-		status = document.folder?.case?.CaseStatus?.find((cs) => cs.valid)?.status;
-		if (!status) {
+		// Default to Project Case stage if document case stage was blank
+		let caseStage = document.folder?.case?.CaseStatus?.find((cs) => cs.valid)?.status;
+		if (!caseStage) {
 			return null;
 		}
-
-		return mapDocumentCaseStageToSchema(status);
+		return mapProjectCaseStageToDocumentCaseStageSchema(caseStage);
 	})();
 
 	return {
@@ -122,35 +124,6 @@ export const buildNsipDocumentPayload = (docVersionWithFullDetails, filePath = '
 		]),
 		documentCaseStage
 	};
-};
-
-/**
- * convert our DB Document Version stage value into the event schema value
- *
- * @param {string |null} stage
- * @returns
- */
-export const mapDocumentCaseStageToSchema = (stage) => {
-	// conversion is mostly just changing to all lower case
-
-	if (!stage) {
-		return null;
-	}
-
-	const { DEVELOPERS_APPLICATION, POST_DECISION } = folderDocumentCaseStageMappings;
-
-	switch (stage) {
-		case DEVELOPERS_APPLICATION:
-		case 'DEVELOPERS_APPLICATION': // migration from ODW returns this
-			return 'developers_application';
-		case POST_DECISION:
-		case 'POST_DECISION': // migration from ODW returns this
-			// note that post decision has inconsistent format in the schema, it uses underscore instead of hyphen
-			// our DB 'Post-decision' maps to 'post_decision'
-			return 'post_decision';
-		default:
-			return stage.toLowerCase().replace(/_/g, '-');
-	}
 };
 
 /**
