@@ -116,7 +116,7 @@ const upsertDocument = async (documentEntity) => {
  * @param {*} documentVersion
  * @returns
  */
-const createDocumentVersion = async (documentVersion) => {
+export const createDocumentVersion = async (documentVersion) => {
 	logger.info(
 		`Creating / Updating DocumentVersion ${documentVersion.documentGuid}, ${documentVersion.version}`
 	);
@@ -224,7 +224,7 @@ const updateLatestVersionId = async (caseId) => {
  * @param {*} document
  * @returns
  */
-const buildDocumentVersion = (documentGuid, versionNumber, documentFilename, document) => {
+export const buildDocumentVersion = (documentGuid, versionNumber, documentFilename, document) => {
 	const uri = new URL(document.documentURI);
 	const match = uri.pathname.match(/^\/document-service-uploads(\/.*)$/);
 	if (!match) throw new Error('no path match');
