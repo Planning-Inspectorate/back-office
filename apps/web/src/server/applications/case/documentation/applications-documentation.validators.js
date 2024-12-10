@@ -72,16 +72,15 @@ export const checkDocumentsAreNotPublished = (req) => {
 };
 
 export const validateDocumentsToMoveToCorrespondenceNotPublished = createValidator(
-	body('moveDocuments').custom((_, { req }) => {
+	body('openFolder').custom((_, { req }) => {
 		const filesToMove = req.session.moveDocuments?.documentationFilesToMove;
 		const rootFolderList = req.session.moveDocuments?.rootFolderList;
 		const parentFolderId = req.body.openFolder;
-		
+
 		const correspondenceFolder = rootFolderList.find(folder => folder.displayNameEn === folderNames.correspondence)
 		const openedCorrespondenceFolder = correspondenceFolder?.id === Number(parentFolderId);
 		console.log('val openedCorrespondenceFolder', openedCorrespondenceFolder);
 	
-		//TODO access to the Correspondence folder name
 		if (openedCorrespondenceFolder) {
 			const someFilesArePublished = filesToMove.some(item => item.publishedStatus === 'published');
 			if (someFilesArePublished) {
@@ -91,20 +90,3 @@ export const validateDocumentsToMoveToCorrespondenceNotPublished = createValidat
 		return true;
 	}
 	))
-
-	//  {
-	// 	id: 100030169,
-	// 	displayNameEn: 'Correspondence',
-	// 	displayOrder: 150,
-	// 	stage: 'Correspondence',
-	// 	isCustom: false,
-	// 	parentFolderId: null
-	//   }
-
-	// 'not_checked',
-	// 'checked',
-	// 'ready_to_publish',
-	// 'do_not_publish',
-	// 'publishing',
-	// 'published',
-	// 'archived'
