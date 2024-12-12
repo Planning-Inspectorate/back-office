@@ -106,8 +106,8 @@ model ApplicationDetails {
   id                                                Int                           @id @default(autoincrement())
   caseId                                            Int                           @unique
   subSectorId                                       Int?
-  locationDescription                               String?
-  locationDescriptionWelsh                          String?
+  locationDescription                               String?                       @db.VarChar(2000)
+  locationDescriptionWelsh                          String?                       @db.VarChar(2000)
   zoomLevelId                                       Int?
   caseEmail                                         String?
   // Key Dates
