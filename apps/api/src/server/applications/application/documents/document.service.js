@@ -598,28 +598,6 @@ export const publishDocumentVersions = async (documentVersionIds) => {
 };
 
 /**
- * @param {{reference: string | null}[]} documents
- * @returns {number}
- */
-export const getNextDocumentReferenceIndex = (documents) => {
-	if (documents.length === 0) return 1;
-
-	const references = documents.flatMap((d) => {
-		if (!d.reference) return [];
-
-		const match = d.reference.match(/-(\d+)/);
-		if (!match) return [];
-
-		const index = Number(match[1]);
-		if (isNaN(index)) return [];
-
-		return index;
-	});
-
-	return Math.max(...references) + 1;
-};
-
-/**
  * @param {string} reference
  * @returns {number | null}
  * */

@@ -66,7 +66,7 @@ export const migrateNsipDocuments = async (documents) => {
 			guid: documentId,
 			caseId,
 			folderId,
-			documentReference: document.documentReference,
+			documentReference: document.documentReference || `${document.caseRef}-M-${documentId}`,
 			fromFrontOffice: false,
 			documentType: isS51Advice(document) ? DOCUMENT_TYPES.S51Attachment : DOCUMENT_TYPES.Document,
 			createdAt: new Date(document.dateCreated)
