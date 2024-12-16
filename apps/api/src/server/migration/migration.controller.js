@@ -34,9 +34,11 @@ export const postMigrateModel = async ({ body, params: { modelType } }, response
 	const progressInterval = setInterval(() => {
 		progressMessageCount++;
 		response.write(`Still processing... (${progressMessageCount * 10} seconds elapsed)\n)`);
+		response.flush();
 	}, 10000);
 
 	try {
+		response.flushHeaders();
 		response.write(`Starting migration for model type: ${modelType}...\n`);
 		await migrator(body);
 		// await new Promise((resolve) => {
@@ -46,6 +48,7 @@ export const postMigrateModel = async ({ body, params: { modelType } }, response
 		// });
 
 		response.write(`Migration completed successfully.\n`);
+		response.flush();
 	} catch (error) {
 		// response.write(`Error during migration: ${error.message}\n`);
 		throw Error(`Error during migration: ${error.message}`);
