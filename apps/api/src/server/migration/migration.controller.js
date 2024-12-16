@@ -16,16 +16,43 @@ export const postMigrateModel = async ({ body, params: { modelType } }, response
 
 	for (const model of body) {
 		if (!validator(model)) {
-			throw Error(JSON.stringify({
-				message: `Model ${modelType} failed validation`,
-				validationErrors: validator.errors
-			}));
+			throw Error(
+				JSON.stringify({
+					message: `Model ${modelType} failed validation`,
+					validationErrors: validator.errors
+				})
+			);
 		}
 	}
+	// await migrator(body);
+	// response.sendStatus(200);
 
-	await migrator(body);
+	// this method doesn't handle errors!! NEED TO HANDLE
+	response.writeHead(200, { 'Content-Type': 'text/plain', 'transfer-encoding': 'chunked' });
 
-	response.sendStatus(200);
+	let progressMessageCount = 0;
+	const progressInterval = setInterval(() => {
+		progressMessageCount++;
+		response.write(`Still processing... (${progressMessageCount * 10} seconds elapsed)\n)`);
+	}, 10000);
+
+	try {
+		response.write(`Starting migration for model type: ${modelType}...\n`);
+		await migrator(body);
+		// await new Promise((resolve) => {
+		// 	setTimeout(() => {
+		// 		resolve(console.log('doing stuff'));
+		// 	}, 40000);
+		// });
+
+		response.write(`Migration completed successfully.\n`);
+	} catch (error) {
+		// response.write(`Error during migration: ${error.message}\n`);
+		throw Error(`Error during migration: ${error.message}`);
+	} finally {
+		clearInterval(progressInterval);
+		response.end();
+	}
 };
 
 /**
