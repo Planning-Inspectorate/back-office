@@ -14,6 +14,7 @@ const headers = { 'Content-Type': 'application/json; charset=utf-8' };
  */
 export const handleMigrationWithResponse = async (
 	context,
+	req,
 	{
 		caseReferences,
 		migrationFunction,
@@ -22,6 +23,8 @@ export const handleMigrationWithResponse = async (
 		migrationOverwrite = false
 	}
 ) => {
+	context.log('req : ', req);
+	context.log({ caseReferences });
 	const validationError = validateRequest(caseReferences, allowCaseReferencesArray);
 	if (!migrationOverwrite) {
 		const areCasesMigrated = await getCaseMigrationStatuses(context.log, caseReferences);

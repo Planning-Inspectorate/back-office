@@ -5,11 +5,21 @@ import { handleMigrationWithResponse } from '../common/handle-migration-with-res
  * @param {import("@azure/functions").Context} context
  * @param {import("@azure/functions").HttpRequest} req
  */
-export default async (context, { body: { caseReference, migrationOverwrite = false } }) => {
-	await handleMigrationWithResponse(context, {
-		caseReferences: caseReference,
+export default async (
+	context,
+	req
+	// { body: { caseReference, migrationOverwrite = false } }
+) => {
+	context.log('CONTEXT1: ' + JSON.stringify(context));
+	context.log('CONTEXT2: ' + JSON.stringify(context.res));
+	context.log('REQ1: ' + JSON.stringify(req));
+	context.log('REQ2: ' + JSON.stringify(req.raw));
+	const caseRef = req.body.caseReference;
+	context.log({ caseRef });
+	await handleMigrationWithResponse(context, req, {
+		caseReferences: caseRef,
 		entityName: 'document',
-		migrationFunction: () => migrationNsipDocumentsByReference(context.log, caseReference),
-		migrationOverwrite
+		migrationFunction: () => migrationNsipDocumentsByReference(context.log, req.body.caseReference),
+		migrationOverwrite: req.body.migrationOverwrite
 	});
 };
