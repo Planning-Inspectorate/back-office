@@ -40,22 +40,24 @@ export const migrateS51Advice = async (s51AdviceList) => {
 					databaseConnector.$executeRawUnsafe(s51AdviceStatement, ...s51AdviceParameters)
 				]);
 
-				for await (const attachmentId of s51Advice.attachmentIds) {
-					const documentRow = await documentRepository.getById(attachmentId);
-					if (!documentRow || !documentRow.guid) {
-						throw Error(`Failed to get document with ID ${attachmentId}`);
-					}
-					s51AttachmentDetails.push({
-						docGuid: documentRow.guid,
-						adviceStatus: s51Advice.status,
-						advicePublishedDate: s51Advice.datePublished,
-						latestVersionId: documentRow.latestVersionId
-					});
-					return s51AdviceDocumentRepository.upsertS51AdviceDocument(
-						s51AdviceEntity.id,
-						documentRow.guid
-					);
-				}
+				await Promise.all(
+					s51Advice.attachmentIds.map(async (attachmentId) => {
+						const documentRow = await documentRepository.getById(attachmentId);
+						if (!documentRow || !documentRow.guid) {
+							throw Error(`Failed to get document with ID ${attachmentId}`);
+						}
+						s51AttachmentDetails.push({
+							docGuid: documentRow.guid,
+							adviceStatus: s51Advice.status,
+							advicePublishedDate: s51Advice.datePublished,
+							latestVersionId: documentRow.latestVersionId
+						});
+						return s51AdviceDocumentRepository.upsertS51AdviceDocument(
+							s51AdviceEntity.id,
+							documentRow.guid
+						);
+					})
+				);
 			} catch (error) {
 				throw Error(`Failed to process S51Advice with ID ${s51Advice.adviceId}: ${error.message}`);
 			}
@@ -95,39 +97,42 @@ export const migrateS51Advice = async (s51AdviceList) => {
 
 /**
  * We need to mark documents as published where the advice is published - Horizon is not doing this, so we will handle it here
- * @param {object} attachmentDetails
- * @returns {Promise<void>}
+ * @param {object[]} attachmentDetails
  */
 const handleDocumentVersionUpdateForAdviceAttachments = async (attachmentDetails) => {
-	for await (const attachment of attachmentDetails) {
-		const docVersions = await databaseConnector.documentVersion.findMany({
-			where: {
-				documentGuid: attachment.docGuid
-			}
-		});
-
-		let latestPublishedVersion;
-		for await (let docVersion of docVersions) {
-			docVersion.stage = '0';
-			if (attachment.latestVersionId === docVersion.version) {
-				docVersion.publishedStatus = attachment.adviceStatus;
-				if (docVersion.publishedStatus === 'published') {
-					latestPublishedVersion = docVersion;
-					docVersion.datePublished = new Date(attachment.advicePublishedDate);
+	return Promise.all(
+		attachmentDetails.map(async (attachment) => {
+			const docVersions = await databaseConnector.documentVersion.findMany({
+				where: {
+					documentGuid: attachment.docGuid
 				}
-			}
-			const documentForServiceBus = await createDocumentVersion(docVersion);
-			if (latestPublishedVersion) {
-				console.log(
-					`Broadcasting latest published s51 attachment guid:${latestPublishedVersion.documentGuid} and version: ${latestPublishedVersion.version}`
-				);
-				await broadcastNsipDocumentEvent(documentForServiceBus, EventType.Update, {
-					publishing: 'true',
-					migrationPublishing: 'true'
-				});
-			}
-		}
-	}
+			});
+
+			return Promise.all(
+				docVersions.map(async (docVersion) => {
+					let latestPublishedVersion;
+					docVersion.stage = '0';
+					if (attachment.latestVersionId === docVersion.version) {
+						docVersion.publishedStatus = attachment.adviceStatus;
+						if (docVersion.publishedStatus === 'published') {
+							latestPublishedVersion = docVersion;
+							docVersion.datePublished = new Date(attachment.advicePublishedDate);
+						}
+					}
+					const documentForServiceBus = await createDocumentVersion(docVersion);
+					if (latestPublishedVersion) {
+						console.log(
+							`Broadcasting latest published s51 attachment guid:${latestPublishedVersion.documentGuid} and version: ${latestPublishedVersion.version}`
+						);
+						await broadcastNsipDocumentEvent(documentForServiceBus, EventType.Update, {
+							publishing: 'true',
+							migrationPublishing: 'true'
+						});
+					}
+				})
+			);
+		})
+	);
 };
 
 /**

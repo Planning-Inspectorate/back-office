@@ -8,9 +8,11 @@ import * as representationAttachmentRepository from '#repositories/representatio
 import { broadcastNsipRepresentationEvent } from '#infrastructure/event-broadcasters.js';
 import { representationsStatusesList } from '../../applications/application/representations/representation.validators.js';
 import { EventType } from '@pins/event-client';
+import { createDocumentVersion } from './nsip-document-migrator.js';
+import { broadcastNsipDocumentEvent } from '#infrastructure/event-broadcasters.js';
 
 /**
- * @typedef {import('pins-data-model').Schemas.Representation} RepresentationModel
+ * @typedef {import("pins-data-model").Schemas.Representation} RepresentationModel
  * @param {RepresentationModel[]} representations
  */
 export const migrateRepresentations = async (representations) => {
@@ -52,12 +54,18 @@ export const migrateRepresentations = async (representations) => {
 				await databaseConnector.representationAction.create({ data: redaction });
 			}
 		}
+		const representationAttachmentDetails = [];
 		await Promise.all(
 			representation.attachmentIds.map(async (attachmentId) => {
 				return documentRepository.getById(attachmentId).then((documentRow) => {
 					if (!documentRow || !documentRow.guid) {
 						throw Error(`Failed to get document with ID ${attachmentId}`);
 					}
+					representationAttachmentDetails.push({
+						docGuid: documentRow.guid,
+						representationStatus: representation.status,
+						latestVersionId: documentRow.latestVersionId
+					});
 
 					return representationAttachmentRepository.upsertApplicationRepresentationAttachment(
 						representationEntity.id,
@@ -66,11 +74,51 @@ export const migrateRepresentations = async (representations) => {
 				});
 			})
 		);
+		await handleDocumentVersionUpdateForRepresentationAttachments(representationAttachmentDetails);
 	}
 };
 
 /**
- * @typedef {import('apps/api/src/database/schema.d.ts').Representation} Representation
+ * We need to mark documents as published where the representation is published - Horizon is not doing this, so we will handle it here
+ * @param {object[]} attachmentDetails
+ */
+const handleDocumentVersionUpdateForRepresentationAttachments = async (attachmentDetails) => {
+	return Promise.all(
+		attachmentDetails.map(async (attachmentDetail) => {
+			const docVersions = await databaseConnector.documentVersion.findMany({
+				where: {
+					documentGuid: attachmentDetail.docGuid
+				}
+			});
+			return Promise.all(
+				docVersions.map(async (docVersion) => {
+					let latestPublishedVersion;
+					docVersion.stage = '0';
+					if (
+						attachmentDetail.latestVersionId === docVersion.version &&
+						attachmentDetail.representationStatus === 'published'
+					) {
+						docVersion.publishedStatus = 'published';
+						latestPublishedVersion = docVersion;
+					}
+					const documentForServiceBus = await createDocumentVersion(docVersion);
+					if (latestPublishedVersion) {
+						console.log(
+							`Broadcasting latest representation attachment guid:${latestPublishedVersion.documentGuid} and version: ${latestPublishedVersion.version}`
+						);
+						await broadcastNsipDocumentEvent(documentForServiceBus, EventType.Update, {
+							publishing: 'true',
+							migrationPublishing: 'true'
+						});
+					}
+				})
+			);
+		})
+	);
+};
+
+/**
+ * @typedef {import("apps/api/src/database/schema.d.ts").Representation} Representation
  * @param {RepresentationModel} representation
  * @returns {Representation}
  */
