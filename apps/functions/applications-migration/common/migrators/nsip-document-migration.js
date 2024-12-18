@@ -7,21 +7,20 @@ import { makePostRequestStreamResponse } from '../back-office-api-client.js';
  * @param {string} caseReference
  */
 export const migrationNsipDocumentsByReference = async (log, caseReference) => {
-	try {
-		log.info(`Migrating NSIP Documents for case ${caseReference}`);
-		const documents = await getNsipDocuments(log, caseReference);
+	// log.info(`Fetching NSIP Documents for case ${caseReference} from ODW`);
+	console.log(`Fetching NSIP Documents for case ${caseReference} from ODW`);
+	const documents = await getNsipDocuments(log, caseReference);
 
-		if (documents.length > 0) {
-			log.info(`Migrating ${documents.length} NSIP Documents for case ${caseReference}`);
-			// const result = await makePostRequest(log, '/migration/nsip-document', documents);
-			await makePostRequestStreamResponse(log, '/migration/nsip-document', documents);
-			log.info('Successfully migrated NSIP Document');
-		} else {
-			log.warn(`No NSIP Document found for case ${caseReference}`);
-		}
-	} catch (e) {
-		throw new Error(`Failed to migrate NSIP Document for case ${caseReference}`, { cause: e });
+	if (!documents.length) {
+		log.warn(`No NSIP Document found for case ${caseReference}`);
+		return null;
 	}
+
+	// log.info(`Migrating ${documents.length} NSIP Documents for case ${caseReference}`);
+	console.log(`Migrating ${documents.length} NSIP Documents for case ${caseReference}`);
+	// const result = await makePostRequest(log, '/migration/nsip-document', documents);
+	return makePostRequestStreamResponse(log, '/migration/nsip-document', documents);
+	// log.info('Successfully migrated NSIP Document');
 };
 
 /**

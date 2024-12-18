@@ -41,12 +41,6 @@ export const postMigrateModel = async ({ body, params: { modelType } }, response
 		response.flushHeaders();
 		response.write(`Starting migration for model type: ${modelType}...\n`);
 		await migrator(body);
-		// await new Promise((resolve) => {
-		// 	setTimeout(() => {
-		// 		resolve(console.log('doing stuff'));
-		// 	}, 40000);
-		// });
-
 		response.write(`Migration completed successfully.\n`);
 		response.flush();
 	} catch (error) {
