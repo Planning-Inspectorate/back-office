@@ -80,35 +80,41 @@ export const migrateRepresentations = async (representations) => {
 
 /**
  * We need to mark documents as published where the representation is published - Horizon is not doing this, so we will handle it here
- * @param {object} attachmentDetails
- * @returns {Promise<void>}
+ * @param {object[]} attachmentDetails
  */
 const handleDocumentVersionUpdateForRepresentationAttachments = async (attachmentDetails) => {
-	for await (const attachmentDetail of attachmentDetails) {
-		const docVersions = await databaseConnector.documentVersion.findMany({
-			where: {
-				documentGuid: attachmentDetail.docGuid
-			}
-		});
-		let latestPublishedVersion;
-		for await (let docVersion of docVersions) {
-			docVersion.stage = '0';
-			if (attachmentDetail.latestVersionId === docVersion.version && attachmentDetail.representationStatus === 'published') {
-				docVersion.publishedStatus = 'published'
-				latestPublishedVersion = docVersion;
-			}
-			const documentForServiceBus = await createDocumentVersion(docVersion);
-			if (latestPublishedVersion) {
-				console.log(
-					`Broadcasting latest representation attachment guid:${latestPublishedVersion.documentGuid} and version: ${latestPublishedVersion.version}`
-				);
-				await broadcastNsipDocumentEvent(documentForServiceBus, EventType.Update, {
-					publishing: 'true',
-					migrationPublishing: 'true'
-				});
-			}
-		}
-	}
+	return Promise.all(
+		attachmentDetails.map(async (attachmentDetail) => {
+			const docVersions = await databaseConnector.documentVersion.findMany({
+				where: {
+					documentGuid: attachmentDetail.docGuid
+				}
+			});
+			return Promise.all(
+				docVersions.map(async (docVersion) => {
+					let latestPublishedVersion;
+					docVersion.stage = '0';
+					if (
+						attachmentDetail.latestVersionId === docVersion.version &&
+						attachmentDetail.representationStatus === 'published'
+					) {
+						docVersion.publishedStatus = 'published';
+						latestPublishedVersion = docVersion;
+					}
+					const documentForServiceBus = await createDocumentVersion(docVersion);
+					if (latestPublishedVersion) {
+						console.log(
+							`Broadcasting latest representation attachment guid:${latestPublishedVersion.documentGuid} and version: ${latestPublishedVersion.version}`
+						);
+						await broadcastNsipDocumentEvent(documentForServiceBus, EventType.Update, {
+							publishing: 'true',
+							migrationPublishing: 'true'
+						});
+					}
+				})
+			);
+		})
+	);
 };
 
 /**
