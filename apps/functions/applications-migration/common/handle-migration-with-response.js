@@ -1,7 +1,7 @@
+import { Writable } from 'stream';
 import { makeGetRequest } from './back-office-api-client.js';
 import { validateMigration } from './validate-migration.js';
 
-const headers = { 'Content-Type': 'application/json; charset=utf-8' };
 /**
  * Wrapper function for migration functions that handles error handling and sends useful responses.
  * @param {import('@azure/functions').Context} context - The Azure function context object.
@@ -23,46 +23,45 @@ export const handleMigrationWithResponse = async (
 		migrationOverwrite = false
 	}
 ) => {
-	context.log('req : ', req);
-	context.log({ caseReferences });
-	const validationError = validateRequest(caseReferences, allowCaseReferencesArray);
-	if (!migrationOverwrite) {
-		const areCasesMigrated = await getCaseMigrationStatuses(context.log, caseReferences);
-		if (areCasesMigrated.areMigrated) {
-			context.res = {
-				status: 200,
-				body: {
-					migration: areCasesMigrated.error
-				},
-				headers
-			};
-			return;
-		}
-	}
+	// context.log('req : ', req);
+	// context.log({ caseReferences });
+	// const validationError = validateRequest(caseReferences, allowCaseReferencesArray);
+	// if (!migrationOverwrite) {
+	// 	const areCasesMigrated = await getCaseMigrationStatuses(context.log, caseReferences);
+	// 	if (areCasesMigrated.areMigrated) {
+	// 		context.res = {
+	// 			status: 200,
+	// 			body: {
+	// 				migration: areCasesMigrated.error
+	// 			}
+	// 			// headers
+	// 		};
+	// 		return;
+	// 	}
+	// }
 
-	if (validationError) {
-		context.res = {
-			status: validationError.status,
-			body: { message: validationError.message }
-		};
-		return;
-	}
-
-	context.log(`Starting migration for ${entityName}s:`, JSON.stringify(caseReferences));
+	// if (validationError) {
+	// 	context.res = {
+	// 		status: validationError.status,
+	// 		body: { message: validationError.message }
+	// 	};
+	// 	return;
+	// }
 
 	try {
-		await migrationFunction();
+		context.log('Starting migration...');
+		console.dir(context);
+
+		const requestStream = await migrationFunction();
+		// Set headers for chunked transfer encoding
 		context.res = {
 			status: 200,
-			body: {
-				migration: `Successfully ran migration for ${entityName}`,
-				validation:
-					entityName === 'case'
-						? await validateMigration(context.log, [caseReferences].flat())
-						: null
-			},
-			headers
+			headers: {
+				'Content-Type': 'text/plain',
+				'Transfer-Encoding': 'chunked'
+			}
 		};
+		return await req.body.pipeTo(Writable.toWeb(requestStream));
 	} catch (error) {
 		context.log.error(`Failed to run migration for ${entityName}`, error);
 
@@ -82,8 +81,7 @@ export const handleMigrationWithResponse = async (
 
 		context.res = {
 			status: 500,
-			body: responseBody,
-			headers
+			body: { message: `Miration failed: ${error.message}` }
 		};
 	}
 };
