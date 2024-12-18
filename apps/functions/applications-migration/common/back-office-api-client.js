@@ -38,6 +38,49 @@ export const makePostRequest = (logger, path, body) => {
 	});
 };
 
+/**
+ * Makes a POST request and processes streaming responses with `got`.
+ */
+export const makePostRequestStreamResponse = async (logger, path, body) => {
+	const requestUri = constructUri(path);
+	const request = constructAuthenticatedRequest();
+
+	// logger.info(`Making POST request to ${requestUri}`);
+	console.log(`Making POST request to ${requestUri}`);
+	return request.stream.post(requestUri, {
+		json: body,
+		headers: { 'Content-Type': 'application/json' }
+	});
+
+	// try {
+	// 	// Correct usage for streaming response
+	// 	const stream = request.stream.post(requestUri, {
+	// 		json: body,
+	// 		headers: { 'Content-Type': 'application/json' }
+	// 	});
+
+	// 	stream.on('data', (chunk) => {
+	// 		// Process each chunk of data as it arrives
+	// 		logger.info(chunk.toString());
+	// 	});
+
+	// 	await new Promise((resolve, reject) => {
+	// 		stream.on('end', () => {
+	// 			logger.info('Response fully received');
+	// 			resolve();
+	// 		});
+
+	// 		stream.on('error', (error) => {
+	// 			logger.error(`Error occurred: ${error.message}`);
+	// 			reject(error);
+	// 		});
+	// 	});
+	// } catch (error) {
+	// 	logger.error(`Request failed: ${error.message}`);
+	// 	throw error;
+	// }
+};
+
 const constructAuthenticatedRequest = () => {
 	const serviceName = 'function';
 	const authenticatedRequest = got.extend({
