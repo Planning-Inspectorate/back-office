@@ -135,4 +135,8 @@ applicationsDocumentationRouter
 		asyncHandler(controller.viewApplicationsCaseDocumentationMove)
 	);
 
+applicationsDocumentationRouter
+	.route('/:folderId/:folderName/move-documents/folder-list')
+	.get(asyncHandler(controller.viewApplicationsFolderList));
+
 export default applicationsDocumentationRouter;
