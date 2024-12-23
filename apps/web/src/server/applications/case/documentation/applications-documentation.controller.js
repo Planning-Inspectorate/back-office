@@ -802,7 +802,7 @@ export async function viewAndPostApplicationsCaseDocumentationMove(request, resp
 		);
 	}
 
-	response.render('applications/case-documentation/documentation-move', {
+	response.render('applications/case-documentation/move-documents/document-list', {
 		documentationFilesToMove,
 		backLink: url('document-category', {
 			caseId: caseId,
