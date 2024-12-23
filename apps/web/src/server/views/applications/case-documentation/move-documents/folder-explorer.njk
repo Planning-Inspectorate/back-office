@@ -3,8 +3,18 @@
 {% from "../../components/status-tag.component.njk" import statusTag %}
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
 
 {% set serviceName = case.title %}
+
+{% block beforeContent %}
+	<aside>
+	{{ govukBackLink({
+		text: "Back",
+		href: backLink
+	}) }}
+	</aside>
+{% endblock %}
 
 {% block pageHeading %}
 	<div class="govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-left-0 govuk-!-margin-bottom-7 pins-masthead-summary">
@@ -32,27 +42,27 @@
 {% endblock %}
 
 {% block pageContent %}
-			{% if not isRootFolder %}
-				BREADCRUMBS here
-			{% endif %}
 	<div class="govuk-grid-row">
 		<div class="govuk-grid-column-full">
 			<h1 class="govuk-heading-l govuk-!-margin-top-2 govuk-!-margin-bottom-9">Move documents</h1>
-			{% if isRootFolder %}
+			{% if  not isRootFolder %}
+								{{ govukBreadcrumbs({
+							items: breadcrumbItems
+							}) }}
+			{% else %}
 				<h3 class="govuk-heading-m">Project documentation</h3>
 			{% endif %}
 
 			<form method="post">
 				{% if not isRootFolder %}
 					{{ govukButton({
-						text: 'Move documents here',
-						name: 'action',
-						value: 'moveDocuments',
-						classes: 'govuk-button--secondary'
+						text: "Move documents here",
+						name: "action",
+						value: "moveDocuments",
+						classes: "govuk-button--secondary"
 					}) }}
 				{% endif %}
 			</form>
-
 
 			<form method="post">
 				{{ govukRadios({
@@ -63,13 +73,13 @@
 
 				{% if folderListViewData | length %}
 					{{ govukButton({
-						text: 'Open folder',
-						classes: 'govuk-button--secondary govuk-!-margin-top-5'
+						text: "Open folder",
+						classes: "govuk-button--secondary govuk-!-margin-top-5"
 					}) }}
 				{% endif %}
 			</form>
 
 		</div>
 	</div>
-	
+
 {% endblock %}
