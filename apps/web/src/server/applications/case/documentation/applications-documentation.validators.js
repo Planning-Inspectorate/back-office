@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { createValidator } from '@pins/express';
 import { body } from 'express-validator';
 import { folderNames } from './utils/move-documents/folder-names.js';
@@ -46,29 +47,34 @@ export const validateApplicationsDocumentsToMove = createValidator(
 );
 
 export const validateApplicationsDocumentsToMoveFolderSelection = createValidator(
-	body('openFolder')
-	//.if(body('openFolder').exists())
-	.isLength({ min: 1 }).withMessage('Select a folder')
+	body('openFolder').custom((value, { req }) => {
+		if (!req.body.openFolder && req.body.action !== 'moveDocuments') {
+			throw new Error('Select a folder');
+		}
+		return true;
+	})
 );
 
-//TODO finish this
 export const checkDocumentsAreNotPublished = (req) => {
-    const filesToMove = req.session.moveDocuments?.documentationFilesToMove;
+	const filesToMove = req.session.moveDocuments?.documentationFilesToMove;
 	const rootFolderList = req.session.moveDocuments?.rootFolderList;
 	const parentFolderId = req.body.openFolder;
 
-	const correspondenceFolder = rootFolderList.find(folder => folder.displayNameEn === folderNames.correspondence)
+	const correspondenceFolder = rootFolderList.find(
+		(folder) => folder.displayNameEn === folderNames.correspondence
+	);
 
 	const openedCorrespondenceFolder = correspondenceFolder?.id === parentFolderId;
 
-	//TODO access to the Correspondence folder name
-    if (openedCorrespondenceFolder) {
-        const someFilesArePublished = filesToMove.some(item => item.publishedStatus === 'published');
-        if (someFilesArePublished) {
-            throw new Error('One or more of your selected documents is published. You must unpublish the document(s) before moving them to the correspondence folder.');
-        }
-    }
-    return true;
+	if (openedCorrespondenceFolder) {
+		const someFilesArePublished = filesToMove.some((item) => item.publishedStatus === 'published');
+		if (someFilesArePublished) {
+			throw new Error(
+				'One or more of your selected documents is published. You must unpublish the document(s) before moving them to the correspondence folder.'
+			);
+		}
+	}
+	return true;
 };
 
 export const validateDocumentsToMoveToCorrespondenceNotPublished = createValidator(
@@ -77,16 +83,21 @@ export const validateDocumentsToMoveToCorrespondenceNotPublished = createValidat
 		const rootFolderList = req.session.moveDocuments?.rootFolderList;
 		const parentFolderId = req.body.openFolder;
 
-		const correspondenceFolder = rootFolderList.find(folder => folder.displayNameEn === folderNames.correspondence)
+		const correspondenceFolder = rootFolderList.find(
+			(folder) => folder.displayNameEn === folderNames.correspondence
+		);
 		const openedCorrespondenceFolder = correspondenceFolder?.id === Number(parentFolderId);
-		console.log('val openedCorrespondenceFolder', openedCorrespondenceFolder);
-	
+
 		if (openedCorrespondenceFolder) {
-			const someFilesArePublished = filesToMove.some(item => item.publishedStatus === 'published');
+			const someFilesArePublished = filesToMove.some(
+				(item) => item.publishedStatus === 'published'
+			);
 			if (someFilesArePublished) {
-				throw new Error('One or more of your selected documents are published. You must unpublish the document(s) before moving them to the correspondence folder.');
+				throw new Error(
+					'One or more of your selected documents are published. You must unpublish the document(s) before moving them to the correspondence folder.'
+				);
 			}
 		}
 		return true;
-	}
-	))
+	})
+);

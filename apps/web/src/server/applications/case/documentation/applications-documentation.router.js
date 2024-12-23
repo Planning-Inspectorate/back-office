@@ -132,17 +132,21 @@ applicationsDocumentationRouter
 
 applicationsDocumentationRouter
 	.route('/:folderId/:folderName/move-documents')
+	.get(asyncHandler(controller.viewAndPostApplicationsCaseDocumentationMove))
 	.post(
 		[locals.registerFolder, validateApplicationsDocumentsToMove],
-		asyncHandler(controller.viewApplicationsCaseDocumentationMove)
+		asyncHandler(controller.viewAndPostApplicationsCaseDocumentationMove)
 	);
 
 applicationsDocumentationRouter
 	.route('/:folderId/:folderName/move-documents/folder-explorer')
-	.get(asyncHandler(controller.viewDocumentationFolderList))
+	.get(asyncHandler(controller.viewDocumentationFolderExplorer))
 	.post(
-		[validateApplicationsDocumentsToMoveFolderSelection,
-		validateDocumentsToMoveToCorrespondenceNotPublished],
-		asyncHandler(controller.postDocumentationFolderList));
+		[
+			validateApplicationsDocumentsToMoveFolderSelection,
+			validateDocumentsToMoveToCorrespondenceNotPublished
+		],
+		asyncHandler(controller.postDocumentationFolderList)
+	);
 
 export default applicationsDocumentationRouter;

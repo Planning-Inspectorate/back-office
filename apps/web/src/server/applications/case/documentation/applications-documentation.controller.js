@@ -1,4 +1,3 @@
-// @ts-nocheck
 import { BO_GENERAL_S51_CASE_REF } from '@pins/applications';
 import { sortBy } from 'lodash-es';
 import { url } from '../../../lib/nunjucks-filters/url.js';
@@ -9,18 +8,7 @@ import {
 	destroySuccessBanner,
 	getSessionBanner,
 	deleteSessionBanner,
-	setSessionBanner,
-	startMoveDocumentsSession,
-	deleteMoveDocumentsSession,
-	getSessionMoveDocumentsFilesToMove,
-	setSessionMoveDocumentsFilesToMove,
-	getSessionMoveDocumentsParentFolderId,
-	setSessionMoveDocumentsParentFolderId,
-	setSessionMoveDocumentsFolderList,
-	getSessionMoveDocumentsFolderList,
-	setSessionMoveDocumentsIsFolderRoot,
-	getSessionMoveDocumentsIsFolderRoot,
-	setSessionMoveDocumentsRootFolderList
+	setSessionBanner
 } from '../../common/services/session.service.js';
 import { buildBreadcrumbItems } from '../applications-case.locals.js';
 import {
@@ -41,17 +29,13 @@ import {
 	renameFolder,
 	deleteFolder
 } from './applications-documentation.service.js';
-import {
-	destroySessionFolderPage,
-	getSessionFolderPage,
-	setSessionFolderPage
-} from './applications-documentation.session.js';
+import documentationSessionHandlers from './applications-documentation.session.js';
 import { paginationParams } from '../../../lib/pagination-params.js';
 import { getPaginationLinks } from '../../common/components/pagination/pagination-links.js';
 import { featureFlagClient } from '../../../../common/feature-flags.js';
 import { validationResult } from 'express-validator';
 import logger from '../../../lib/logger.js';
-import { getFolderViewData, isFolderRoot } from './utils/move-documents/get-folder-view-data.js';
+import utils from './utils/move-documents/utils.js';
 
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
 /** @typedef {import('../applications-case.locals.js').ApplicationCaseLocals} ApplicationCaseLocals */
@@ -98,8 +82,9 @@ export async function viewApplicationsCaseDocumentationFolder(request, response)
 		request.session
 	);
 	const { session } = request;
-	
-	deleteMoveDocumentsSession(session);
+
+	documentationSessionHandlers.deleteMoveDocumentsSession(session);
+
 	const sessionBannerText = getSessionBanner(session);
 
 	response.render(`applications/components/folder/folder`, {
@@ -347,7 +332,9 @@ export async function viewApplicationsCaseDocumentationPublishingQueue(request, 
 	const currentPageNumber = Number.parseInt(request.query.number || '1', 10);
 	const { caseId } = response.locals;
 	const documentationFiles = await getCaseDocumentationReadyToPublish(caseId, currentPageNumber);
-	const backLink = getSessionFolderPage(request.session) ?? url('document-category', { caseId });
+	const backLink =
+		documentationSessionHandlers.getSessionFolderPage(request.session) ??
+		url('document-category', { caseId });
 	const paginationButtons = getPaginationButtonData(
 		currentPageNumber,
 		documentationFiles.pageCount
@@ -388,7 +375,7 @@ export async function updateApplicationsCaseDocumentationPublish(request, respon
 		? { errors: validationErrors }
 		: await publishCaseDocumentationFiles(caseId, items, username);
 
-	const backLinkFolder = getSessionFolderPage(session) ?? '';
+	const backLinkFolder = documentationSessionHandlers.getSessionFolderPage(session) ?? '';
 	const backLink = backLinkFolder ?? url('document-category', { caseId });
 
 	// re-display publishing queue page, with error messages
@@ -458,7 +445,7 @@ export async function postUnpublishDocuments({ body, session }, response) {
 		});
 	}
 
-	const backLinkFolder = getSessionFolderPage(session) ?? '';
+	const backLinkFolder = documentationSessionHandlers.getSessionFolderPage(session) ?? '';
 	const backlinkFolderId = getFolderIdFromFolderPath(backLinkFolder);
 	const backlinkFolderBreadcrumbItems = await buildBreadcrumbItems(caseId, backlinkFolderId);
 
@@ -508,8 +495,8 @@ const documentationFolderData = async (caseId, folderId, query = {}, session) =>
 	setSessionFilesNumberOnList(session, size);
 
 	// clear session folder back link
-	destroySessionFolderPage(session);
-	setSessionFolderPage(
+	documentationSessionHandlers.destroySessionFolderPage(session);
+	documentationSessionHandlers.setSessionFolderPage(
 		session,
 		url('document-category', {
 			caseId,
@@ -614,7 +601,9 @@ export async function viewApplicationsCaseDocumentationSearchPage(
  */
 export async function viewFolderCreationPage(request, response) {
 	const { caseId } = response.locals;
-	const backLink = getSessionFolderPage(request.session) ?? url('document-category', { caseId });
+	const backLink =
+		documentationSessionHandlers.getSessionFolderPage(request.session) ??
+		url('document-category', { caseId });
 	return response.render('applications/components/folder/folder-create', {
 		backLink
 	});
@@ -625,7 +614,9 @@ export async function viewFolderCreationPage(request, response) {
  */
 export async function viewFolderRenamePage(request, response) {
 	const { caseId } = response.locals;
-	const backLink = getSessionFolderPage(request.session) ?? url('document-category', { caseId });
+	const backLink =
+		documentationSessionHandlers.getSessionFolderPage(request.session) ??
+		url('document-category', { caseId });
 
 	const folder = await getCaseFolder(caseId, parseInt(request.params.folderId));
 	const currentName = folder?.displayNameEn;
@@ -644,7 +635,9 @@ export async function viewFolderDeletionPage(request, response) {
 	const { folderId } = request.params;
 
 	const folderObject = await getCaseFolder(caseId, parseInt(folderId));
-	const backLink = getSessionFolderPage(request.session) ?? url('document-category', { caseId });
+	const backLink =
+		documentationSessionHandlers.getSessionFolderPage(request.session) ??
+		url('document-category', { caseId });
 
 	return response.render('applications/components/folder/folder-delete', {
 		backLink,
@@ -663,7 +656,9 @@ export async function updateFolderCreate(request, response) {
 	const validationError = validationResult(request);
 	if (!validationError.isEmpty()) {
 		const { caseId } = response.locals;
-		const backLink = getSessionFolderPage(request.session) ?? url('document-category', { caseId });
+		const backLink =
+			documentationSessionHandlers.getSessionFolderPage(request.session) ??
+			url('document-category', { caseId });
 
 		return response.render(`applications/components/folder/folder-create`, {
 			backLink,
@@ -678,7 +673,9 @@ export async function updateFolderCreate(request, response) {
 
 	const { errors } = await createFolder(caseId, folderName, parseInt(folderId));
 	if (errors) {
-		const backLink = getSessionFolderPage(request.session) ?? url('document-category', { caseId });
+		const backLink =
+			documentationSessionHandlers.getSessionFolderPage(request.session) ??
+			url('document-category', { caseId });
 		return response.render('applications/components/folder/folder-create', {
 			backLink,
 			errors: [errors] || [{ msg: 'Something went wrong. Please, try again later.' }]
@@ -695,7 +692,9 @@ export async function updateFolderCreate(request, response) {
 export async function updateFolderRename(request, response) {
 	async function returnToRenameForm() {
 		const { caseId } = response.locals;
-		const backLink = getSessionFolderPage(request.session) ?? url('document-category', { caseId });
+		const backLink =
+			documentationSessionHandlers.getSessionFolderPage(request.session) ??
+			url('document-category', { caseId });
 
 		const folder = await getCaseFolder(caseId, parseInt(request.params.folderId));
 		const currentName = folder?.displayNameEn;
@@ -738,7 +737,9 @@ export async function updateFolderDelete(request, response) {
 		logger.error(
 			'No parentFolderId found - illegal action of deleting root folder, stopping deletion'
 		);
-		const backLink = getSessionFolderPage(request.session) ?? url('document-category', { caseId });
+		const backLink =
+			documentationSessionHandlers.getSessionFolderPage(request.session) ??
+			url('document-category', { caseId });
 		return response.render('applications/components/folder/folder-delete', {
 			backLink,
 			errors: [{ msg: 'Folder has no parent. You cannot delete root folders' }]
@@ -748,7 +749,9 @@ export async function updateFolderDelete(request, response) {
 
 	const { errors } = await deleteFolder(caseId, parseInt(folderId));
 	if (errors) {
-		const backLink = getSessionFolderPage(request.session) ?? url('document-category', { caseId });
+		const backLink =
+			documentationSessionHandlers.getSessionFolderPage(request.session) ??
+			url('document-category', { caseId });
 		return response.render('applications/components/folder/folder-delete', {
 			backLink,
 			errors: [errors] || [{ msg: 'Something went wrong. Please, try again later.' }]
@@ -770,32 +773,34 @@ export async function updateFolderDelete(request, response) {
  * View the move documents page
  * @type {import('@pins/express').RenderHandler<{}, {}, {selectedFilesIds: Array<string>}, {}, {folderId: string, folderName: string}>}
  */
-export async function viewApplicationsCaseDocumentationMove(request, response) {
-	const { caseId, folderId } = response.locals;
+export async function viewAndPostApplicationsCaseDocumentationMove(request, response) {
+	const { caseId } = response.locals;
 	const { body, errors: validationErrors, session, params, query } = request;
+	const { folderId } = params;
 	const { selectedFilesIds } = body;
 
-	startMoveDocumentsSession(session);
+	documentationSessionHandlers.startMoveDocumentsSession(session);
 
 	if (validationErrors) {
-		const properties = await documentationFolderData(caseId, folderId, query, session);
+		const properties = await documentationFolderData(caseId, Number(folderId), query, session);
 		return response.render('applications/components/folder/folder', {
 			...properties,
 			errors: validationErrors
 		});
 	}
 
+	let documentationFilesToMove = [];
 
-	
-	let documentationFilesToMove = []
-
-	if(getSessionMoveDocumentsFilesToMove(session).length) {
-		documentationFilesToMove = getSessionMoveDocumentsFilesToMove(session)
+	if (documentationSessionHandlers.getSessionMoveDocumentsFilesToMove(session).length) {
+		documentationFilesToMove =
+			documentationSessionHandlers.getSessionMoveDocumentsFilesToMove(session);
 	} else {
-		documentationFilesToMove = await getCaseManyDocumentationFilesInfo(caseId, selectedFilesIds)
-		setSessionMoveDocumentsFilesToMove(session, documentationFilesToMove);
+		documentationFilesToMove = await getCaseManyDocumentationFilesInfo(caseId, selectedFilesIds);
+		documentationSessionHandlers.setSessionMoveDocumentsFilesToMove(
+			session,
+			documentationFilesToMove
+		);
 	}
-
 
 	response.render('applications/case-documentation/documentation-move', {
 		documentationFilesToMove,
@@ -809,88 +814,78 @@ export async function viewApplicationsCaseDocumentationMove(request, response) {
 	});
 }
 
-
 /**
- * View the folders list page
- * @type {import('@pins/express').RenderHandler<*>}
+ * View the folder explorer page that allows drilling into subfolders
+ * @type {import('@pins/express').RenderHandler<{}, {}, {}, {parentFolderName: string, parentFolderId: string}>}
  */
-export async function viewDocumentationFolderList(request, response) {
-	const { caseId, folderId } = response.locals;
-	const { body, errors: validationErrors, session, params, query } = request;
+export async function viewDocumentationFolderExplorer(request, response) {
+	const { caseId } = response.locals;
+	const { session, query, params } = request;
+	const { parentFolderId, parentFolderName } = query;
 
-	const parentFolderId = getSessionMoveDocumentsParentFolderId(session);
-	console.log('parentFolderId:>>', parentFolderId)
+	const folderList = await utils.getFolderList(caseId, Number(parentFolderId));
+	const isRootFolder = utils.isFolderRoot(folderList);
+	const breadcrumbItems = utils.buildMoveDocumentsBreadcrumbItems(
+		session,
+		Number(parentFolderId),
+		parentFolderName
+	);
+	const backLink = utils.getBackLinkUrlFromBreadcrumbs(
+		breadcrumbItems,
+		caseId,
+		Number(params.folderId),
+		params.folderName
+	);
 
-	if (validationErrors) {
-		//const properties = await documentationFolderData(caseId, folderId, query, session);
+	documentationSessionHandlers.setSessionMoveDocumentsBreadcrumbs(session, breadcrumbItems);
+	documentationSessionHandlers.setSessionMoveDocumentsFolderList(session, folderList);
+	documentationSessionHandlers.setSessionMoveDocumentsIsFolderRoot(session, isRootFolder);
 
-		return response.render('applications/components/folder/folder', {
-			//...properties,
-			errors: validationErrors
-		});
-	}
-
-	let folderList = []
-	if(parentFolderId) {
-		//get children folders
-		folderList = await getCaseFolders(caseId, parentFolderId);
-	} else {
-		//else get root folders
-		folderList = await getCaseFolders(caseId);
-	}
-
-	const isRootFolder = isFolderRoot(folderList);
-
-	setSessionMoveDocumentsFolderList(session, folderList);
-	setSessionMoveDocumentsIsFolderRoot(session, isRootFolder);
-
-	if(isRootFolder) setSessionMoveDocumentsRootFolderList(session, folderList);
-		//console.log('raw folderList:>>', folderList)
-		//console.log('isRootFolder:>>', isRootFolder)
-		//console.log('locals:>>', response.locals)
-		//console.log('params:>>', params)
-		//console.log('folderId:>>', folderId)
-		//console.log('session:>>', session.moveDocuments)
+	if (isRootFolder)
+		documentationSessionHandlers.setSessionMoveDocumentsRootFolderList(session, folderList);
 
 	return response.render('applications/case-documentation/move-documents/folder-explorer', {
-		isRootFolder,
-		folderListViewData: getFolderViewData(folderList),
+		backLink,
+		breadcrumbItems,
+		folderListViewData: utils.getFolderViewData(folderList),
+		isRootFolder
 	});
 }
 
-
 /**
  * Post folders list page
- * @type {import('@pins/express').RenderHandler<*>}
+ * @type {import('@pins/express').RenderHandler<{}, {}, {action: string, openFolder: string}, {}>}
  */
 export async function postDocumentationFolderList(request, response) {
-	const { body, errors: validationErrors, session } = request;
-	const { openFolder, action } = body;
+	const { caseId } = response.locals;
+	const { body, errors: validationErrors, session, params } = request;
+	const { action } = body;
 
-	const folderList = getSessionMoveDocumentsFolderList(session);
-	const folderListViewData = getFolderViewData(folderList)
-	//const getParentFolderDisplayName = folderList.find(folder => folder.id === openFolder)
-
-	console.log('body:>>', body)
-	//console.log('locals:>>', response.locals)
+	const openFolderId = Number(body.openFolder);
+	const folderList = documentationSessionHandlers.getSessionMoveDocumentsFolderList(session);
+	const folderListViewData = utils.getFolderViewData(folderList);
+	const parentFolderName = utils.getFolderNameById(folderList, openFolderId);
 
 	if (validationErrors) {
-		//const properties = await documentationFolderData(caseId, folderId, query, session);
-		console.log('yoyoyo:>>', validationErrors)
-		return response.render('applications/case-documentation/move-documents/folder-explorer', {
+		return response.render(`applications/case-documentation/move-documents/folder-explorer`, {
 			//...properties,
+			backLink: utils.getBackLinkUrlFromBreadcrumbs(
+				null,
+				caseId,
+				Number(params.folderId),
+				params.folderName
+			),
 			errors: validationErrors,
-			isRootFolder: getSessionMoveDocumentsIsFolderRoot(session),
-			folderListViewData,
+			isRootFolder: documentationSessionHandlers.getSessionMoveDocumentsIsFolderRoot(session),
+			folderListViewData
 		});
 	}
 
-	if(action === 'moveDocuments') {
-		console.log('moving documents functionality here') 
+	if (action === 'moveDocuments') {
+		//TODO
 	} else {
-		setSessionMoveDocumentsParentFolderId(session, Number(openFolder));
+		return response.redirect(
+			`./folder-explorer?parentFolderId=${openFolderId}&parentFolderName=${parentFolderName}`
+		);
 	}
-	return response.redirect('./folder-explorer');
-
 }
-
