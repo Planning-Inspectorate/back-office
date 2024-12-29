@@ -52,12 +52,10 @@ import { getRedactionStatus, validateDocumentVersionMetadataBody } from './docum
 export const createDocumentsOnCase = async ({ params, body }, response) => {
 	const documentsToUpload = body[''];
 
-	const lastDocumentsInCase = await documentRepository.getByCaseId({
-		caseId: /** @type {number} */ (params.id),
-		skipValue: 0,
-		pageSize: 1
-	});
-	const lastDocument = lastDocumentsInCase?.[0];
+	const latestDocumentReference =
+		await documentRepository.getLatestDocReferenceByCaseIdExcludingMigrated({
+			caseId: /** @type {number} */ (params.id)
+		});
 
 	const theCase = await caseRepository.getById(params.id, {
 		applicationDetails: true,
@@ -68,8 +66,8 @@ export const createDocumentsOnCase = async ({ params, body }, response) => {
 		throw new BackOfficeAppError(`Received null when retrieving case with ID ${params.id}`, 404);
 	}
 
-	const lastReferenceIndex = lastDocument?.documentReference
-		? getIndexFromReference(lastDocument.documentReference)
+	const lastReferenceIndex = latestDocumentReference
+		? getIndexFromReference(latestDocumentReference)
 		: 1;
 	let nextReferenceIndex = lastReferenceIndex ? lastReferenceIndex + 1 : 1;
 

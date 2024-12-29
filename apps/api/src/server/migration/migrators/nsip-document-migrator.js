@@ -66,7 +66,7 @@ export const migrateNsipDocuments = async (documents) => {
 			guid: documentId,
 			caseId,
 			folderId,
-			documentReference: document.documentReference,
+			documentReference: document.documentReference || `${document.caseRef}-M-${documentId}`,
 			fromFrontOffice: false,
 			documentType: isS51Advice(document) ? DOCUMENT_TYPES.S51Attachment : DOCUMENT_TYPES.Document,
 			createdAt: new Date(document.dateCreated)
@@ -116,7 +116,7 @@ const upsertDocument = async (documentEntity) => {
  * @param {*} documentVersion
  * @returns
  */
-const createDocumentVersion = async (documentVersion) => {
+export const createDocumentVersion = async (documentVersion) => {
 	logger.info(
 		`Creating / Updating DocumentVersion ${documentVersion.documentGuid}, ${documentVersion.version}`
 	);
@@ -224,7 +224,7 @@ const updateLatestVersionId = async (caseId) => {
  * @param {*} document
  * @returns
  */
-const buildDocumentVersion = (documentGuid, versionNumber, documentFilename, document) => {
+export const buildDocumentVersion = (documentGuid, versionNumber, documentFilename, document) => {
 	const uri = new URL(document.documentURI);
 	const match = uri.pathname.match(/^\/document-service-uploads(\/.*)$/);
 	if (!match) throw new Error('no path match');
