@@ -555,26 +555,6 @@ describe('applications documentation', () => {
 			});
 		});
 	});
-
-	describe('Move documents folder list page', () => {
-		describe('GET /case/123/project-documentation/21/sub-folder-level2/move-documents/folder-list', () => {
-			beforeEach(async () => {
-				nocks();
-				await request.get('/applications-service/case-admin-officer');
-			});
-
-			it('should render the move documents folder list page', async () => {
-				const response = await request.get(
-					`${baseUrl}/project-documentation/21/sub-folder-level2/move-documents/folder-list`
-				);
-				const element = parseHtml(response.text);
-
-				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain('Move documents');
-				expect(element.innerHTML).toContain('Project documentation');
-			});
-		});
-	});
 });
 
 const {

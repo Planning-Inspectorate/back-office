@@ -822,7 +822,6 @@ export async function viewDocumentationFolderExplorer(request, response) {
 	const { caseId } = response.locals;
 	const { session, query, params } = request;
 	const { parentFolderId, parentFolderName } = query;
-
 	const folderList = await utils.getFolderList(caseId, Number(parentFolderId));
 	const isRootFolder = utils.isFolderRoot(folderList);
 	const breadcrumbItems = utils.buildMoveDocumentsBreadcrumbItems(
@@ -853,13 +852,12 @@ export async function viewDocumentationFolderExplorer(request, response) {
 }
 
 /**
- * Post folders list page
+ * Post folder explorer page that allows drilling into subfolders
  * @type {import('@pins/express').RenderHandler<{}, {}, {action: string, openFolder: string}, {}>}
  */
-export async function postDocumentationFolderList(request, response) {
+export async function postDocumentationFolderExplorer(request, response) {
 	const { caseId } = response.locals;
 	const { body, errors: validationErrors, session, params } = request;
-	const { action } = body;
 
 	const openFolderId = Number(body.openFolder);
 	const folderList = documentationSessionHandlers.getSessionMoveDocumentsFolderList(session);
@@ -868,7 +866,6 @@ export async function postDocumentationFolderList(request, response) {
 
 	if (validationErrors) {
 		return response.render(`applications/case-documentation/move-documents/folder-explorer`, {
-			//...properties,
 			backLink: utils.getBackLinkUrlFromBreadcrumbs(
 				null,
 				caseId,
@@ -881,7 +878,7 @@ export async function postDocumentationFolderList(request, response) {
 		});
 	}
 
-	if (action === 'moveDocuments') {
+	if (body.action === 'moveDocuments') {
 		//TODO
 	} else {
 		return response.redirect(

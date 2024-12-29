@@ -146,7 +146,7 @@ applicationsDocumentationRouter
 			validateApplicationsDocumentsToMoveFolderSelection,
 			validateDocumentsToMoveToCorrespondenceNotPublished
 		],
-		asyncHandler(controller.postDocumentationFolderList)
+		asyncHandler(controller.postDocumentationFolderExplorer)
 	);
 
 export default applicationsDocumentationRouter;

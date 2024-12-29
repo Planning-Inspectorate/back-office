@@ -22421,7 +22421,8 @@ exports[`applications documentation Move documents file list page POST /case/123
                 </table>
             </div>
         </div>
-    </div><a href='move-documents/folder-list'><button class="govuk-button" data-module="govuk-button"> Move selected</button></a>
+    </div><a href="move-documents/folder-explorer" role="button" draggable="false"
+    class="govuk-button" data-module="govuk-button"> Move selected</a>
 </main>"
 `;
 
@@ -22538,24 +22539,5 @@ exports[`applications documentation Move documents file list page POST /case/123
             </div>
         </div>
     </div>
-</main>"
-`;
-
-exports[`applications documentation Move documents folder list page GET /case/123/project-documentation/21/sub-folder-level2/move-documents/folder-list should render the move documents folder list page 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
-    <div class="govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-left-0 govuk-!-margin-bottom-7 pins-masthead-summary">
-        <div class="govuk-grid-column-full">
-            <h4 class="govuk-heading-m"> CASE/04 </h4>
-            <h1 class="govuk-heading-xl">Title CASE/04</h1>
-            <div class="govuk-grid-row">
-                <div class="govuk-grid-column-full govuk-body">Transport EN, Highways EN
-                    <br>
-                    <br><strong class="govuk-tag govuk-tag--green">Pre-Application</strong>
-                </div>
-            </div>
-        </div>
-    </div>
-    <h1 class="govuk-heading-l govuk-!-margin-top-2 govuk-!-margin-bottom-9">Move documents</h1>
-    <h3 class="govuk-heading-m">Project documentation</h3>
 </main>"
 `;
