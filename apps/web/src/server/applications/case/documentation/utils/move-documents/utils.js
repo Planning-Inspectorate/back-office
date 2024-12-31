@@ -114,7 +114,7 @@ const buildMoveDocumentsBreadcrumbItems = (session, parentFolderId, parentFolder
 };
 
 /**
- * @param {{href: string, text: string}[] | null} breadcrumbItems
+ * @param {{href: string, html: string, id:number}[] | null} breadcrumbItems
  * @param {number} caseId
  * @param {number} folderId
  * @param {string} folderName
