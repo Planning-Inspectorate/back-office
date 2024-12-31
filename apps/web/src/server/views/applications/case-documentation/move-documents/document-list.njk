@@ -48,10 +48,9 @@
 		</div>
 	</div>
 
-	{# TODO: update href to use the filter, eg 'case-view'| url({caseId:case.id, step: 'preview-and-publish'}) #}
 	{{ govukButton({ 
-			text: 'Move selected',
-			href: 'move-documents/folder-explorer'
+			text: 'Move documents',
+			href: './move-documents/folder-explorer'
 	}) }}
 
 {% endblock %}
