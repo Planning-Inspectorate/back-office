@@ -46,9 +46,10 @@
 		<div class="govuk-grid-column-full">
 			<h1 class="govuk-heading-l govuk-!-margin-top-2 govuk-!-margin-bottom-9">Move documents</h1>
 			{% if  not isRootFolder %}
-								{{ govukBreadcrumbs({
-							items: breadcrumbItems
-							}) }}
+				{{ govukBreadcrumbs({
+					items: breadcrumbItems,
+					classes: "govuk-!-margin-bottom-6"
+				}) }}
 			{% else %}
 				<h3 class="govuk-heading-m">Project documentation</h3>
 			{% endif %}

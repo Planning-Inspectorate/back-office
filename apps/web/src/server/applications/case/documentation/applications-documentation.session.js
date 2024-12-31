@@ -7,7 +7,7 @@
  * 		folderList?: object[],
  * 		isFolderRoot?: boolean,
  * 		rootFolderList?: object[]
- * 		breadcrumbs?: {href: string, text: string}[]
+ * 		breadcrumbs?: {href: string, html: string, id:number}[]
  *	}
  * }} SessionWithMoveDocuments
  */
@@ -127,7 +127,7 @@ const getSessionMoveDocumentsIsFolderRoot = (session) => {
 /**
  * Save in the session the breadcrumbs for the move documents page
  * @param {SessionWithMoveDocuments} session
- * @param {{href: string, text: string}[]} breadcrumbItems
+ * @param {{href: string, html: string, id:number}[]} breadcrumbItems
  */
 
 const setSessionMoveDocumentsBreadcrumbs = (session, breadcrumbItems) => {
@@ -136,7 +136,7 @@ const setSessionMoveDocumentsBreadcrumbs = (session, breadcrumbItems) => {
 
 /**
  * @param {SessionWithMoveDocuments} session
- * @returns {{href: string, text: string}[]|undefined}
+ * @returns {{href: string, html: string, id:number}[]|undefined}
  */
 const getSessionMoveDocumentsBreadcrumbs = (session) => {
 	return session.moveDocuments?.breadcrumbs;
