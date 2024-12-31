@@ -63,7 +63,7 @@ const getFolderNameById = (folderList, openFolderId) =>
  * @param {*} session
  * @param {number} parentFolderId
  * @param {string|undefined} parentFolderName
- * @returns {{href: string, text: string}[]}
+ * @returns {{href: string, html: string, id:number}[]}
 
  */
 
@@ -77,18 +77,19 @@ const buildMoveDocumentsBreadcrumbItems = (session, parentFolderId, parentFolder
 
 	//add root folder to crumbs, if it's not there already
 	const rootFolderIndex = breadcrumbItems.findIndex(
-		(item) => item.text === 'Project documentation'
+		(item) => item.id === 0
 	);
 	if (rootFolderIndex === -1) {
 		breadcrumbItems.unshift({
 			href: `./folder-explorer`,
-			text: 'Project documentation'
+			html: 'Project documentation',
+			id: 0,
 		});
 	}
 
 	if (parentFolderId && parentFolderName) {
 		//if the current parentId is in breadcrumbs, user went back to previous folder so we trim to that point
-		const parentFolderIndex = breadcrumbItems.findIndex((item) => item.text === parentFolderName);
+		const parentFolderIndex = breadcrumbItems.findIndex((item) => item.id === parentFolderId);
 		if (parentFolderIndex > -1) {
 			breadcrumbItems.splice(parentFolderIndex + 1);
 		} else {
@@ -97,10 +98,17 @@ const buildMoveDocumentsBreadcrumbItems = (session, parentFolderId, parentFolder
 				href: encodeURI(
 					`./folder-explorer?parentFolderId=${parentFolderId}&parentFolderName=${parentFolderName}`
 				),
-				text: parentFolderName
+				html: parentFolderName,
+				id: parentFolderId,
 			});
 		}
 	}
+
+	breadcrumbItems.forEach((item) => {
+		if (!item.html.includes('<span class="folder-icon">')) {
+			item.html = `<span class="folder-icon"></span>${item.html}`;
+		}
+	});
 
 	return breadcrumbItems;
 };

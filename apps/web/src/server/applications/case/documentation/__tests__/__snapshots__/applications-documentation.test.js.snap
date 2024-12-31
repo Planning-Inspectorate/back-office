@@ -22421,8 +22421,8 @@ exports[`applications documentation Move documents file list page POST /case/123
                 </table>
             </div>
         </div>
-    </div><a href="move-documents/folder-explorer" role="button" draggable="false"
-    class="govuk-button" data-module="govuk-button"> Move selected</a>
+    </div><a href="./move-documents/folder-explorer" role="button" draggable="false"
+    class="govuk-button" data-module="govuk-button"> Move documents</a>
 </main>"
 `;
 
