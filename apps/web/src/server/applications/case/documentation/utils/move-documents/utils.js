@@ -76,14 +76,12 @@ const buildMoveDocumentsBreadcrumbItems = (session, parentFolderId, parentFolder
 	const breadcrumbItems = [...currentBreadcrumbs];
 
 	//add root folder to crumbs, if it's not there already
-	const rootFolderIndex = breadcrumbItems.findIndex(
-		(item) => item.id === 0
-	);
+	const rootFolderIndex = breadcrumbItems.findIndex((item) => item.id === 0);
 	if (rootFolderIndex === -1) {
 		breadcrumbItems.unshift({
 			href: `./folder-explorer`,
 			html: 'Project documentation',
-			id: 0,
+			id: 0
 		});
 	}
 
@@ -99,7 +97,7 @@ const buildMoveDocumentsBreadcrumbItems = (session, parentFolderId, parentFolder
 					`./folder-explorer?parentFolderId=${parentFolderId}&parentFolderName=${parentFolderName}`
 				),
 				html: parentFolderName,
-				id: parentFolderId,
+				id: parentFolderId
 			});
 		}
 	}
@@ -114,7 +112,7 @@ const buildMoveDocumentsBreadcrumbItems = (session, parentFolderId, parentFolder
 };
 
 /**
- * @param {{href: string, html: string, id:number}[] | null} breadcrumbItems
+ * @param {{href: string, html: string, id:number}[] | undefined} breadcrumbItems
  * @param {number} caseId
  * @param {number} folderId
  * @param {string} folderName

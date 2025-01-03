@@ -820,25 +820,17 @@ export async function viewAndPostApplicationsCaseDocumentationMove(request, resp
  */
 export async function viewDocumentationFolderExplorer(request, response) {
 	const { caseId } = response.locals;
-	const { session, query, params } = request;
-	const { parentFolderId, parentFolderName } = query;
-	const folderList = await utils.getFolderList(caseId, Number(parentFolderId));
-	const isRootFolder = utils.isFolderRoot(folderList);
-	const breadcrumbItems = utils.buildMoveDocumentsBreadcrumbItems(
-		session,
-		Number(parentFolderId),
-		parentFolderName
-	);
+	const { session, params } = request;
+
+	const folderList = documentationSessionHandlers.getSessionMoveDocumentsFolderList(session);
+	const breadcrumbItems = documentationSessionHandlers.getSessionMoveDocumentsBreadcrumbs(session);
+	const isRootFolder = documentationSessionHandlers.getSessionMoveDocumentsIsFolderRoot(session);
 	const backLink = utils.getBackLinkUrlFromBreadcrumbs(
 		breadcrumbItems,
 		caseId,
 		Number(params.folderId),
 		params.folderName
 	);
-
-	documentationSessionHandlers.setSessionMoveDocumentsBreadcrumbs(session, breadcrumbItems);
-	documentationSessionHandlers.setSessionMoveDocumentsFolderList(session, folderList);
-	documentationSessionHandlers.setSessionMoveDocumentsIsFolderRoot(session, isRootFolder);
 
 	if (isRootFolder)
 		documentationSessionHandlers.setSessionMoveDocumentsRootFolderList(session, folderList);
@@ -867,7 +859,7 @@ export async function postDocumentationFolderExplorer(request, response) {
 	if (validationErrors) {
 		return response.render(`applications/case-documentation/move-documents/folder-explorer`, {
 			backLink: utils.getBackLinkUrlFromBreadcrumbs(
-				null,
+				undefined,
 				caseId,
 				Number(params.folderId),
 				params.folderName
