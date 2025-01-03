@@ -1,6 +1,6 @@
-import { Writable } from 'stream';
-import { makeGetRequest } from './back-office-api-client.js';
-import { validateMigration } from './validate-migration.js';
+// import { Writable } from 'stream';
+// import { makeGetRequest } from './back-office-api-client.js';
+// import { validateMigration } from './validate-migration.js';
 
 /**
  * Wrapper function for migration functions that handles error handling and sends useful responses.
@@ -13,15 +13,15 @@ import { validateMigration } from './validate-migration.js';
  * @param {boolean} [params.migrationOverwrite=false] - Whether to overwrite existing migration data.
  */
 export const handleMigrationWithResponse = async (
-	context,
-	req,
-	{
-		caseReferences,
-		migrationFunction,
-		entityName,
-		allowCaseReferencesArray = false,
-		migrationOverwrite = false
-	}
+	context
+	// req,
+	// {
+	// 	caseReferences,
+	// 	migrationFunction,
+	// 	entityName,
+	// 	allowCaseReferencesArray = false,
+	// 	migrationOverwrite = false
+	// }
 ) => {
 	// context.log('req : ', req);
 	// context.log({ caseReferences });
@@ -48,93 +48,94 @@ export const handleMigrationWithResponse = async (
 	// 	return;
 	// }
 
-	try {
-		context.log('Starting migration...');
-		console.dir(context);
-
-		const requestStream = await migrationFunction();
-		// Set headers for chunked transfer encoding
-		context.res = {
-			status: 200,
-			headers: {
-				'Content-Type': 'text/plain',
-				'Transfer-Encoding': 'chunked'
-			}
-		};
-		return await req.body.pipeTo(Writable.toWeb(requestStream));
-	} catch (error) {
-		context.log.error(`Failed to run migration for ${entityName}`, error);
-
-		let responseBody;
-		if (error?.cause?.response?.body) {
-			responseBody = {
-				message: error.message,
-				...JSON.parse(error.cause.response.body)
-			};
-		} else {
-			responseBody = {
-				message: `Failed to run migration for ${entityName} with error: ${
-					error?.cause?.message || error?.message
-				}`
-			};
-		}
-
-		context.res = {
-			status: 500,
-			body: { message: `Miration failed: ${error.message}` }
-		};
-	}
+	// try {
+	context.log('Starting migration...');
 };
+// 		console.dir(context);
 
-/**
- *
- * @param {string | string[]} caseReferences
- * @param {boolean} allowCaseReferencesArray
- */
-const validateRequest = (caseReferences, allowCaseReferencesArray) => {
-	if (!caseReferences || caseReferences.length === 0) {
-		return {
-			status: 400,
-			message:
-				'Invalid request: You must provide a single "caseReference" as a string' +
-				(allowCaseReferencesArray ? ' or "caseReferences" as a non-empty array of strings.' : '')
-		};
-	}
+// 		const requestStream = await migrationFunction();
+// 		// Set headers for chunked transfer encoding
+// 		context.res = {
+// 			status: 200,
+// 			headers: {
+// 				'Content-Type': 'text/plain',
+// 				'Transfer-Encoding': 'chunked'
+// 			}
+// 		};
+// 		return await req.body.pipeTo(Writable.toWeb(requestStream));
+// 	} catch (error) {
+// 		context.log.error(`Failed to run migration for ${entityName}`, error);
 
-	if (!allowCaseReferencesArray && Array.isArray(caseReferences)) {
-		return {
-			status: 400,
-			message: 'Invalid request: You must provide a single "caseReference" as a string'
-		};
-	}
-};
+// 		let responseBody;
+// 		if (error?.cause?.response?.body) {
+// 			responseBody = {
+// 				message: error.message,
+// 				...JSON.parse(error.cause.response.body)
+// 			};
+// 		} else {
+// 			responseBody = {
+// 				message: `Failed to run migration for ${entityName} with error: ${
+// 					error?.cause?.message || error?.message
+// 				}`
+// 			};
+// 		}
 
-const getCaseMigrationStatuses = async (logger, caseReferences) => {
-	if (!Array.isArray(caseReferences)) {
-		caseReferences = [caseReferences];
-	}
-	const migrationStatuses = {
-		areMigrated: false,
-		error: 'The following cases are already migrated: '
-	};
-	for (const caseReference of caseReferences) {
-		try {
-			const { migrationStatus } = await makeGetRequest(
-				logger,
-				`/applications/reference/${caseReference}`
-			);
-			logger.info(`migrationStatus set to ${migrationStatus}`);
-			if (migrationStatus) {
-				migrationStatuses.areMigrated = true;
-				migrationStatuses.error = migrationStatuses.error + caseReference + ', ';
-			}
-		} catch (error) {
-			logger.info(
-				`Case with caseReference ${caseReference} not found in CBOS. Continuing with migration`
-			);
-		}
-	}
-	migrationStatuses.error =
-		migrationStatuses.error + 'Set "migrationOverwrite": true in request body to force migration.';
-	return migrationStatuses;
-};
+// 		context.res = {
+// 			status: 500,
+// 			body: { message: `Miration failed: ${error.message}` }
+// 		};
+// 	}
+// };
+
+// /**
+//  *
+//  * @param {string | string[]} caseReferences
+//  * @param {boolean} allowCaseReferencesArray
+//  */
+// const validateRequest = (caseReferences, allowCaseReferencesArray) => {
+// 	if (!caseReferences || caseReferences.length === 0) {
+// 		return {
+// 			status: 400,
+// 			message:
+// 				'Invalid request: You must provide a single "caseReference" as a string' +
+// 				(allowCaseReferencesArray ? ' or "caseReferences" as a non-empty array of strings.' : '')
+// 		};
+// 	}
+
+// 	if (!allowCaseReferencesArray && Array.isArray(caseReferences)) {
+// 		return {
+// 			status: 400,
+// 			message: 'Invalid request: You must provide a single "caseReference" as a string'
+// 		};
+// 	}
+// };
+
+// const getCaseMigrationStatuses = async (logger, caseReferences) => {
+// 	if (!Array.isArray(caseReferences)) {
+// 		caseReferences = [caseReferences];
+// 	}
+// 	const migrationStatuses = {
+// 		areMigrated: false,
+// 		error: 'The following cases are already migrated: '
+// 	};
+// 	for (const caseReference of caseReferences) {
+// 		try {
+// 			const { migrationStatus } = await makeGetRequest(
+// 				logger,
+// 				`/applications/reference/${caseReference}`
+// 			);
+// 			logger.info(`migrationStatus set to ${migrationStatus}`);
+// 			if (migrationStatus) {
+// 				migrationStatuses.areMigrated = true;
+// 				migrationStatuses.error = migrationStatuses.error + caseReference + ', ';
+// 			}
+// 		} catch (error) {
+// 			logger.info(
+// 				`Case with caseReference ${caseReference} not found in CBOS. Continuing with migration`
+// 			);
+// 		}
+// 	}
+// 	migrationStatuses.error =
+// 		migrationStatuses.error + 'Set "migrationOverwrite": true in request body to force migration.';
+// 	return migrationStatuses;
+// };
