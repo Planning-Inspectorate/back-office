@@ -12,20 +12,46 @@ export const postMigrateModel = async ({ body, params: { modelType } }, response
 		throw Error(`Unsupported model type ${modelType}`);
 	}
 
-	const { migrator, validator } = migrationMap;
+	// const { migrator, validator } = migrationMap;
+	const { validator } = migrationMap;
 
 	for (const model of body) {
 		if (!validator(model)) {
-			throw Error(JSON.stringify({
-				message: `Model ${modelType} failed validation`,
-				validationErrors: validator.errors
-			}));
+			throw Error(
+				JSON.stringify({
+					message: `Model ${modelType} failed validation`,
+					validationErrors: validator.errors
+				})
+			);
 		}
 	}
 
-	await migrator(body);
+	response.writeHead(200, { 'Content-Type': 'text/plain', 'transfer-encoding': 'chunked' });
 
-	response.sendStatus(200);
+	let progressMessageCount = 0;
+	const progressInterval = setInterval(() => {
+		progressMessageCount++;
+		response.write(`Still processing... (${progressMessageCount * 10} seconds elapsed)\n`);
+		response.flush();
+	}, 10000);
+
+	try {
+		response.flushHeaders();
+		response.write(`Starting migration for model type: ${modelType}...(not really)\n`);
+		response.flush();
+		await new Promise((resolve) =>
+			setTimeout(() => {
+				resolve('done');
+			}, 600000)
+		);
+		response.write(`Migration completed successfully.\n`);
+		response.flush();
+	} catch (error) {
+		throw Error(`Error during migration: ${error.message}`);
+	} finally {
+		clearInterval(progressInterval);
+		response.end();
+	}
 };
 
 /**

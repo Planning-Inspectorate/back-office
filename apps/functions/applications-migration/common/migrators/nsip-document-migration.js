@@ -1,26 +1,62 @@
 import { SynapseDB } from '../synapse-db.js';
 import { QueryTypes } from 'sequelize';
-import { makePostRequest } from '../back-office-api-client.js';
+import { makePostRequestStreamResponse } from '../back-office-api-client.js';
 
 /**
  * @param {import('@azure/functions').Logger} log
  * @param {string} caseReference
  */
 export const migrationNsipDocumentsByReference = async (log, caseReference) => {
-	try {
-		log.info(`Migrating NSIP Documents for case ${caseReference}`);
-		const documents = await getNsipDocuments(log, caseReference);
-
-		if (documents.length > 0) {
-			log.info(`Migrating ${documents.length} NSIP Documents for case ${caseReference}`);
-			await makePostRequest(log, '/migration/nsip-document', documents);
-			log.info('Successfully migrated NSIP Document');
-		} else {
-			log.warn(`No NSIP Document found for case ${caseReference}`);
+	console.log(`Fetching NSIP Documents for case ${caseReference} from ODW`);
+	const documents = [
+		{
+			documentId: '15122335',
+			caseId: 100002560,
+			caseRef: 'BC0110039',
+			documentReference: 'BC0110039-000053',
+			version: 1,
+			examinationRefNo: null,
+			filename: 'test',
+			originalFilename: 'test',
+			size: 110155,
+			mime: 'pdf',
+			documentURI: 'https://test.uri.',
+			publishedDocumentURI: null,
+			path: 'test/path',
+			virusCheckStatus: 'scanned',
+			fileMD5: 'a1e7f707c045e76240effa1ff45e7252',
+			dateCreated: '2016-04-06 19:12:39.0000000',
+			lastModified: '2016-04-06 19:12:39.0000000',
+			caseType: 'nsip',
+			redactedStatus: null,
+			publishedStatus: 'published',
+			datePublished: '2015-02-11 00:00:00.0000000',
+			documentType: 'Environmental Impact Assessment',
+			securityClassification: null,
+			sourceSystem: 'horizon',
+			origin: null,
+			owner: 'horizontest\\\\admin',
+			author: null,
+			authorWelsh: null,
+			representative: null,
+			description: null,
+			descriptionWelsh: null,
+			documentCaseStage: 'pre-application',
+			filter1: 'Environmental Impact Assessment',
+			filter1Welsh: null,
+			filter2: null,
+			horizonFolderId: '15120278',
+			transcriptId: null
 		}
-	} catch (e) {
-		throw new Error(`Failed to migrate NSIP Document for case ${caseReference}`, { cause: e });
+	];
+
+	if (!documents.length) {
+		log.warn(`No NSIP Document found for case ${caseReference}`);
+		return null;
 	}
+
+	console.log(`Migrating ${documents.length} NSIP Documents for case ${caseReference}`);
+	return makePostRequestStreamResponse(log, '/migration/nsip-document', documents);
 };
 
 /**

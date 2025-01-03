@@ -1,15 +1,30 @@
 import { migrationNsipDocumentsByReference } from '../common/migrators/nsip-document-migration.js';
-import { handleMigrationWithResponse } from '../common/handle-migration-with-response.js';
+import { app } from '@azure/functions';
+import { Readable } from 'stream';
 
-/**
- * @param {import("@azure/functions").Context} context
- * @param {import("@azure/functions").HttpRequest} req
- */
-export default async (context, { body: { caseReference, migrationOverwrite = false } }) => {
-	await handleMigrationWithResponse(context, {
-		caseReferences: caseReference,
-		entityName: 'document',
-		migrationFunction: () => migrationNsipDocumentsByReference(context.log, caseReference),
-		migrationOverwrite
-	});
-};
+app.setup({ enableHttpStream: true });
+app.http('nsip-document-migration', {
+	methods: ['POST'],
+	authLevel: 'anonymous',
+	handler: async (request, context) => {
+		const stream = await migrationNsipDocumentsByReference(
+			context.log,
+			request.params.caseReference
+		);
+
+		const responseStream = Readable.from(
+			(async function* () {
+				for await (const chunk of stream) {
+					console.log(chunk.toString());
+					yield chunk;
+				}
+				console.log('Stream ended');
+			})()
+		);
+
+		return {
+			headers: { 'Content-Type': 'application/event-stream' },
+			body: responseStream
+		};
+	}
+});
