@@ -64,7 +64,6 @@ describe('utils.js', () => {
 
 	describe('#buildMoveDocumentsBreadcrumbItems', () => {
 		it('should return empty array if the are no breadcrumbs in the session', () => {
-			//documentationSessionHandlers.getSessionMoveDocumentsBreadcrumbs = jest.fn().mockReturnValue(null);
 			const result = utils.buildMoveDocumentsBreadcrumbItems(mockSession, 1, 'Folder 1');
 
 			expect(result).toEqual([]);
@@ -80,8 +79,6 @@ describe('utils.js', () => {
 			mockSession.moveDocuments.breadcrumbs = [];
 
 			const result = utils.buildMoveDocumentsBreadcrumbItems(mockSession, 1, 'Folder 1');
-			console.log('test res:>> ', result);
-			//FINISHED THIS, strat with next
 			expect(result[0]).toEqual({
 				href: './folder-explorer',
 				html: '<span class="folder-icon"></span>Project documentation',
@@ -92,14 +89,30 @@ describe('utils.js', () => {
 		it('should trim breadcrumbs to current folder (user went back to previous folder)', () => {
 			mockSession.moveDocuments.breadcrumbs = [
 				{ href: './folder-explorer', html: 'Project documentation', id: 0 },
-				{ href: './folder-explorer?parentFolderId=1&parentFolderName=Folder 1', html: 'Folder 1', id: 1 },
-				{ href: './folder-explorer?parentFolderId=2&parentFolderName=Folder 2', html: 'Folder 2', id: 2 }
+				{
+					href: './folder-explorer?parentFolderId=1&parentFolderName=Folder 1',
+					html: 'Folder 1',
+					id: 1
+				},
+				{
+					href: './folder-explorer?parentFolderId=2&parentFolderName=Folder 2',
+					html: 'Folder 2',
+					id: 2
+				}
 			];
 			const result = utils.buildMoveDocumentsBreadcrumbItems(mockSession, 1, 'Folder 1');
 
 			expect(result).toEqual([
-				{ href: './folder-explorer', html: '<span class="folder-icon"></span>Project documentation', id: 0 },
-				{ href: './folder-explorer?parentFolderId=1&parentFolderName=Folder 1', html: '<span class="folder-icon"></span>Folder 1', id: 1 }
+				{
+					href: './folder-explorer',
+					html: '<span class="folder-icon"></span>Project documentation',
+					id: 0
+				},
+				{
+					href: './folder-explorer?parentFolderId=1&parentFolderName=Folder 1',
+					html: '<span class="folder-icon"></span>Folder 1',
+					id: 1
+				}
 			]);
 		});
 	});
@@ -108,7 +121,7 @@ describe('utils.js', () => {
 		describe('if there are no breadcrumb items', () => {
 			it('should return baseURL/move-documents if the are no breadcrumbs', () => {
 				const result = utils.getBackLinkUrlFromBreadcrumbs(null, 1, 1, 'Folder 1');
-	
+
 				expect(result).toBe(
 					'/applications-service/case/1/project-documentation/1/folder-1/move-documents'
 				);
@@ -119,16 +132,18 @@ describe('utils.js', () => {
 			it('should return base URL/move-documents and folder page params for the second to last item from existing breadcrumbs', () => {
 				const breadcrumbItems = [
 					{ href: './folder-explorer', text: 'Project documentation' },
-					{ href: './folder-explorer?parentFolderId=1&parentFolderName=Folder 1', text: 'Folder 1' },
+					{
+						href: './folder-explorer?parentFolderId=1&parentFolderName=Folder 1',
+						text: 'Folder 1'
+					},
 					{ href: './folder-explorer?parentFolderId=2&parentFolderName=Folder 2', text: 'Folder 2' }
 				];
 				const result = utils.getBackLinkUrlFromBreadcrumbs(breadcrumbItems, 111111, 1, 'Folder 1');
-	
+
 				expect(result).toBe(
 					'/applications-service/case/111111/project-documentation/1/folder-1/move-documents/folder-explorer?parentFolderId=1&parentFolderName=Folder 1'
 				);
 			});
 		});
-
 	});
 });

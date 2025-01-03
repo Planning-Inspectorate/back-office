@@ -50,28 +50,34 @@ describe('Move documents:', () => {
 			const mockBackLink =
 				'/applications-service/case/1/project-documentation/100000000/mock-parent-folder-name/move-documents/folder-explorer';
 
-			utils.getFolderList = jest.fn().mockResolvedValue(mockFolderList);
-			utils.isFolderRoot = jest.fn().mockReturnValue(false);
-			utils.buildMoveDocumentsBreadcrumbItems = jest.fn().mockReturnValue(mockBreadcrumbItems);
 			utils.getBackLinkUrlFromBreadcrumbs = jest.fn().mockReturnValue(mockBackLink);
-			utils.folderListViewData = jest.fn().mockReturnValue([]);
+			utils.getFolderViewData = jest.fn().mockReturnValue([
+				{
+					text: 'Mock child folder name',
+					value: 111111111
+				}
+			]);
 
-			sessionHandlers.setSessionMoveDocumentsBreadcrumbs = jest.fn();
-			sessionHandlers.setSessionMoveDocumentsFolderList = jest.fn();
-			sessionHandlers.setSessionMoveDocumentsIsFolderRoot = jest.fn();
+			sessionHandlers.getSessionMoveDocumentsFolderList = jest
+				.fn()
+				.mockResolvedValue(mockFolderList);
+			sessionHandlers.getSessionMoveDocumentsBreadcrumbs = jest
+				.fn()
+				.mockReturnValue(mockBreadcrumbItems);
+			sessionHandlers.getSessionMoveDocumentsIsFolderRoot = jest.fn().mockReturnValue(false);
 
 			await viewDocumentationFolderExplorer(request, response);
 
-			expect(utils.getFolderList).toHaveBeenCalledWith(
-				response.locals.caseId,
-				Number(request.query.parentFolderId)
+			expect(sessionHandlers.getSessionMoveDocumentsFolderList).toHaveBeenCalledWith(
+				request.session
 			);
-			expect(utils.buildMoveDocumentsBreadcrumbItems).toHaveBeenCalledWith(
-				request.session,
-				Number(request.query.parentFolderId),
-				'Mock parent folder name'
+			expect(sessionHandlers.getSessionMoveDocumentsBreadcrumbs).toHaveBeenCalledWith(
+				request.session
 			);
-			expect(utils.isFolderRoot).toHaveBeenCalledWith(mockFolderList);
+			expect(sessionHandlers.getSessionMoveDocumentsIsFolderRoot).toHaveBeenCalledWith(
+				request.session
+			);
+
 			expect(utils.getBackLinkUrlFromBreadcrumbs).toHaveBeenCalledWith(
 				mockBreadcrumbItems,
 				response.locals.caseId,
@@ -79,18 +85,6 @@ describe('Move documents:', () => {
 				request.params.folderName
 			);
 
-			expect(sessionHandlers.setSessionMoveDocumentsBreadcrumbs).toHaveBeenCalledWith(
-				request.session,
-				mockBreadcrumbItems
-			);
-			expect(sessionHandlers.setSessionMoveDocumentsFolderList).toHaveBeenCalledWith(
-				request.session,
-				mockFolderList
-			);
-			expect(sessionHandlers.setSessionMoveDocumentsIsFolderRoot).toHaveBeenCalledWith(
-				request.session,
-				utils.isFolderRoot(mockFolderList)
-			);
 			expect(response.render).toHaveBeenCalledWith(
 				'applications/case-documentation/move-documents/folder-explorer',
 				{
@@ -131,10 +125,17 @@ describe('Move documents:', () => {
 				locals: { caseId: 1 },
 				redirect: jest.fn()
 			};
-		});
 
-		afterEach(() => {
-			jest.resetAllMocks();
+			sessionHandlers.getSessionMoveDocumentsFolderList = jest
+				.fn()
+				.mockResolvedValue(mockFolderList);
+			utils.getFolderViewData = jest.fn().mockReturnValue([
+				{
+					text: 'Mock child folder name',
+					value: 111111111
+				}
+			]);
+			utils.getFolderNameById = jest.fn().mockReturnValue('Mock child folder name');
 		});
 
 		it('should render error message if no folders where selected to open', async () => {

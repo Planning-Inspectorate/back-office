@@ -15,6 +15,7 @@ import {
 } from './applications-documentation.validators.js';
 import applicationsS51Router from '../s51/applications-s51.router.js';
 import { assertFolderIsNotReps } from './applications-documentation.guard.js';
+import { moveDocumentsMiddleware } from './middleware/move-documents/session.middleware.js';
 
 const applicationsDocumentationRouter = createRouter({ mergeParams: true });
 
@@ -140,9 +141,10 @@ applicationsDocumentationRouter
 
 applicationsDocumentationRouter
 	.route('/:folderId/:folderName/move-documents/folder-explorer')
-	.get(asyncHandler(controller.viewDocumentationFolderExplorer))
+	.get(moveDocumentsMiddleware, asyncHandler(controller.viewDocumentationFolderExplorer))
 	.post(
 		[
+			moveDocumentsMiddleware,
 			validateApplicationsDocumentsToMoveFolderSelection,
 			validateDocumentsToMoveToCorrespondenceNotPublished
 		],
