@@ -9,5 +9,6 @@ export default {
 			lines: 73,
 			statements: 73
 		}
-	}
+	},
+	coveragePathIgnorePatterns: ['<rootDir>/src/server/migration/*']
 };
