@@ -1,4 +1,15 @@
-{% extends "../layouts/applications.layout.njk" %}
+{% extends "../../layouts/applications.layout.njk" %}
+
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% block beforeContent %}
+<aside>
+  {{ govukBackLink({
+    text: "Back",
+    href: backLink
+  }) }}
+</aside>
+{% endblock %}
 
 {% block pageContent %}
 	<div class="govuk-grid-row">
@@ -17,7 +28,7 @@
 							</tr>
 						</thead>
 						<tbody class="govuk-table__body govuk-body-s">
-							{% for documentationFile in documentationFiles %}
+							{% for documentationFile in documentationFilesToMove %}
 								<tr class="govuk-table__row">
 
 									<td class="govuk-table__cell govuk-body-m">
@@ -36,4 +47,10 @@
 			{% endblock %}
 		</div>
 	</div>
+
+	{{ govukButton({ 
+			text: 'Move documents',
+			href: './move-documents/folder-explorer'
+	}) }}
+
 {% endblock %}

@@ -1,6 +1,6 @@
 import { SynapseDB } from '../synapse-db.js';
 import { QueryTypes } from 'sequelize';
-import { makePostRequest } from '../back-office-api-client.js';
+import { makePostRequestStreamResponse } from '../back-office-api-client.js';
 
 /**
  * @param {import('@azure/functions').Logger} log
@@ -13,7 +13,7 @@ export const migrationNsipDocumentsByReference = async (log, caseReference) => {
 
 		if (documents.length > 0) {
 			log.info(`Migrating ${documents.length} NSIP Documents for case ${caseReference}`);
-			await makePostRequest(log, '/migration/nsip-document', documents);
+			await makePostRequestStreamResponse(log, '/migration/nsip-document', documents);
 			log.info('Successfully migrated NSIP Document');
 		} else {
 			log.warn(`No NSIP Document found for case ${caseReference}`);
