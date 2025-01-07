@@ -8,11 +8,17 @@ import { migrateServiceUsers } from './migrators/service-user-migrator.js';
 import { migrateExamTimetables } from './migrators/nsip-exam-timetable-migrator.js';
 import { migrateS51Advice } from './migrators/s51-advice-migrator.js';
 import { migrateRepresentations } from './migrators/nsip-representation-migrator.js';
-import { migrateNsipDocuments } from './migrators/nsip-document-migrator.js'
+import { migrateNsipDocuments } from './migrators/nsip-document-migrator.js';
+/**
+ * @callback UpdateProgress
+ * @param {number} index
+ * @param {number} total
+ */
 
 /**
  * @callback Migrator
  * @param {any[]} models
+ * @param {UpdateProgress?} updateProgress
  * @returns {Promise<void>}
  */
 
