@@ -40,10 +40,6 @@ describe('Edit a case', () => {
 	});
 
 	it('Should be able to edit material change field', () => {
-		if (!Cypress.env('featureFlags')['applics-156-material-changes']) {
-			return;
-		}
-
 		casePage.clickChangeLink('Is this an application for a material change?');
 		page.selectRadioButtonByValue('Yes');
 		page.clickButtonByText('Save changes');

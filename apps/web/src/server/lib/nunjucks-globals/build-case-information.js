@@ -45,17 +45,13 @@ export const buildCaseInformation = (params, isWelsh) => [
 		title: 'Reference number',
 		text: params.case.reference
 	},
-	...(featureFlagClient.isFeatureActive('applics-156-material-changes')
-		? [
-				{
-					title: 'Is this an application for a material change?',
-					text: params.case.isMaterialChange
-						? isMaterialChangeStaticDataViewModel[0].text
-						: isMaterialChangeStaticDataViewModel[1].text,
-					url: 'material-change'
-				}
-		  ]
-		: []),
+	{
+		title: 'Is this an application for a material change?',
+		text: params.case.isMaterialChange
+			? isMaterialChangeStaticDataViewModel[0].text
+			: isMaterialChangeStaticDataViewModel[1].text,
+		url: 'material-change'
+	},
 	...(params.keyMembers?.caseManager
 		? [
 				{
