@@ -56,7 +56,7 @@ export class RepresentationPage extends Page {
 	fillRepresentationDetails() {
 		var dt = new Date();
 		let day = dt.getDay();
-		let mon = dt.getMonth();
+		let mon = dt.getMonth() + 1;
 		let year = dt.getFullYear() - 1;
 
 		this.elements.firstName().type('Representation First Name');
@@ -87,7 +87,7 @@ export class RepresentationPage extends Page {
 	publishUnpublshRepresentations() {
 		var dtrep = new Date();
 		let dayrp = dtrep.getDay().toString().padStart(2, '0');
-		let monrp = dtrep.getMonth().toString().padStart(2, '0');
+		let monrp = (dtrep.getMonth() + 1).toString().padStart(2, '0');
 		let yearrp = dtrep.getFullYear().toString().padStart(2, '0');
 		this.elements.reviewLink().click();
 		this.elements.statusLink().click();
