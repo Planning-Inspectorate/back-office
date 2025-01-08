@@ -1392,11 +1392,10 @@ exports[`S51 Advice S51 creation journey Method GET /case/123/project-documentat
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <form method="post" action="" novalidate="novalidate" class="pins-applications-create govuk-!-margin-top-6">
         <div class="govuk-form-group">
-            <fieldset class="govuk-fieldset" aria-describedby="enquiryMethod-hint">
+            <fieldset class="govuk-fieldset">
                 <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
                     <h1 class="govuk-fieldset__heading"> Select the method of enquiry</h1>
                 </legend>
-                <div id="enquiryMethod-hint" class="govuk-hint">How was the enquiry made?</div>
                 <div class="govuk-radios" data-module="govuk-radios">
                     <div class="govuk-radios__item">
                         <input class="govuk-radios__input" id="enquiryMethod" name="enquiryMethod"
