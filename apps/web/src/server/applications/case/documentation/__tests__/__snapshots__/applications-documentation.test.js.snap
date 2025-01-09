@@ -166,7 +166,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             id="bulkDownload">Download selected</button>
                             <button type="submit" formaction="./unpublishing-queue"
                             class="govuk-link pins-files-list__button-link">Unpublish selected</button>
-                            <button type="submit" formaction="./move-documents"
+                            <button type="submit" formaction="/applications-service/case/123/project-documentation/21/sub-folder-level2/move-documents"
                             class="govuk-link pins-files-list__button-link">Move selected</button>
                         </div>
                     </div>
@@ -1026,7 +1026,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             id="bulkDownload">Download selected</button>
                             <button type="submit" formaction="./unpublishing-queue"
                             class="govuk-link pins-files-list__button-link">Unpublish selected</button>
-                            <button type="submit" formaction="./move-documents"
+                            <button type="submit" formaction="/applications-service/case/123/project-documentation/21/sub-folder-level2/move-documents"
                             class="govuk-link pins-files-list__button-link">Move selected</button>
                         </div>
                     </div>
@@ -2391,7 +2391,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             id="bulkDownload">Download selected</button>
                             <button type="submit" formaction="./unpublishing-queue"
                             class="govuk-link pins-files-list__button-link">Unpublish selected</button>
-                            <button type="submit" formaction="./move-documents"
+                            <button type="submit" formaction="/applications-service/case/123/project-documentation/21/sub-folder-level2/move-documents"
                             class="govuk-link pins-files-list__button-link">Move selected</button>
                         </div>
                     </div>
@@ -3273,7 +3273,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             id="bulkDownload">Download selected</button>
                             <button type="submit" formaction="./unpublishing-queue"
                             class="govuk-link pins-files-list__button-link">Unpublish selected</button>
-                            <button type="submit" formaction="./move-documents"
+                            <button type="submit" formaction="/applications-service/case/123/project-documentation/21//move-documents"
                             class="govuk-link pins-files-list__button-link">Move selected</button>
                         </div>
                     </div>
@@ -4554,7 +4554,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             id="bulkDownload">Download selected</button>
                             <button type="submit" formaction="./unpublishing-queue"
                             class="govuk-link pins-files-list__button-link">Unpublish selected</button>
-                            <button type="submit" formaction="./move-documents"
+                            <button type="submit" formaction="/applications-service/case/123/project-documentation/21//move-documents"
                             class="govuk-link pins-files-list__button-link">Move selected</button>
                         </div>
                     </div>
@@ -5833,7 +5833,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             id="bulkDownload">Download selected</button>
                             <button type="submit" formaction="./unpublishing-queue"
                             class="govuk-link pins-files-list__button-link">Unpublish selected</button>
-                            <button type="submit" formaction="./move-documents"
+                            <button type="submit" formaction="/applications-service/case/123/project-documentation/21//move-documents"
                             class="govuk-link pins-files-list__button-link">Move selected</button>
                         </div>
                     </div>
@@ -22421,8 +22421,8 @@ exports[`applications documentation Move documents file list page POST /case/123
                 </table>
             </div>
         </div>
-    </div><a href="./move-documents/folder-explorer" role="button" draggable="false"
-    class="govuk-button" data-module="govuk-button"> Move documents</a>
+    </div><a href="/applications-service/case/123/project-documentation/21/sub-folder-level2/move-documents/folder-explorer"
+    role="button" draggable="false" class="govuk-button" data-module="govuk-button"> Move documents</a>
 </main>"
 `;
 

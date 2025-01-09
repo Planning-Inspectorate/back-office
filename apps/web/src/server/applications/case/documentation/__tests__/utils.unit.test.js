@@ -1,9 +1,32 @@
 //@ts-nocheck
-import utils from './utils';
+import { jest } from '@jest/globals';
+import utils from '../utils/move-documents/utils.js';
+import documentationSessionHandlers from '../applications-documentation.session.js';
 
 const mockSession = {
 	moveDocuments: {}
 };
+
+const mockFilesToMove = [
+	{
+		documentGuid: 'g-u-i-d1',
+		fileName: 'file-name1'
+	},
+	{
+		documentGuid: 'g-u-i-d2',
+		fileName: 'file-name2'
+	}
+];
+
+const mockParentFolder = {
+	id: 111111111,
+	displayNameEn: 'Mock child folder name',
+	displayOrder: 100,
+	stage: null,
+	isCustom: true,
+	parentFolderId: 100000000
+};
+
 describe('utils.js', () => {
 	describe('#getFolderViewData', () => {
 		it('should map folder view data to expected format', () => {
@@ -143,6 +166,28 @@ describe('utils.js', () => {
 				expect(result).toBe(
 					'/applications-service/case/111111/project-documentation/1/folder-1/move-documents/folder-explorer?parentFolderId=1&parentFolderName=Folder 1'
 				);
+			});
+		});
+	});
+
+	describe('#getMoveDocumentsPayload', () => {
+		it('should create payload object from session data', () => {
+			documentationSessionHandlers.getSessionMoveDocumentsFilesToMove = jest
+				.fn()
+				.mockReturnValue(mockFilesToMove);
+			documentationSessionHandlers.getSessionMoveDocumentsParentFolder = jest
+				.fn()
+				.mockReturnValue(mockParentFolder);
+
+			const result = utils.getMoveDocumentsPayload(mockSession);
+
+			expect(result).toEqual({
+				destinationFolderId: 111111111,
+				destinationFolderStage: null,
+				documents: {
+					'g-u-i-d1': 'file-name1',
+					'g-u-i-d2': 'file-name2'
+				}
 			});
 		});
 	});

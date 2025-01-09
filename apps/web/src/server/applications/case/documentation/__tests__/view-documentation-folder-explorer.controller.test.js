@@ -166,7 +166,12 @@ describe('Move documents:', () => {
 			);
 		});
 
-		it('should redirect to folder explorer with correct query parameters', async () => {
+		it('should redirect to folder explorer with correct query parameters when opening folders', async () => {
+			request.body.openFolder = '111111111';
+			sessionHandlers.getSessionMoveDocumentsFolderList = jest
+				.fn()
+				.mockResolvedValue(mockFolderList);
+
 			await postDocumentationFolderExplorer(request, response);
 
 			expect(response.redirect).toHaveBeenCalledWith(
