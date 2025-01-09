@@ -2,7 +2,7 @@
 
 {% from "./folder-header.component.njk" import folderHeader %}
 {% from "./folder-status.component.njk" import folderStatus %}
-{% from "./folder-actions.component.njk" import folderActions %}
+{% from "./folder-actions.component.njk" import folderActions with context %}
 {% from "../../case-documentation/documentation-table.njk" import folderDocumentsTable %}
 {% from "../../case-s51/s51-table.njk" import folderS51Table %}
 
@@ -38,18 +38,19 @@
 			items: breadcrumbItems
 		}) }}
 	{% endif %}
-{% endblock %}
-
-{% block pageContent %}
 	{% if sessionBannerText %}
 		{% set sessionBannerHtml %}
 			<p class="govuk-notification-banner__heading">{{ sessionBannerText }}</p>
 		{% endset %}
 		{{ govukNotificationBanner({
 			type: 'success',
-			html: sessionBannerHtml
+			html: sessionBannerHtml,
+			classes: 'pins-folder-success-banner'
 		}) }}
 	{% endif %}
+{% endblock %}
+
+{% block pageContent %}
 	<div class="govuk-grid-row">
 		<div class="govuk-grid-column-full">
 			{% block sectionContent %}

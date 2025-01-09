@@ -27,7 +27,8 @@ import {
 	getCaseManyDocumentationFilesInfo,
 	searchDocuments,
 	renameFolder,
-	deleteFolder
+	deleteFolder,
+	updateDocumentsFolderId
 } from './applications-documentation.service.js';
 import documentationSessionHandlers from './applications-documentation.session.js';
 import { paginationParams } from '../../../lib/pagination-params.js';
@@ -87,9 +88,13 @@ export async function viewApplicationsCaseDocumentationFolder(request, response)
 
 	const sessionBannerText = getSessionBanner(session);
 
+	/**
+	 * @typedef {Object} CaseDocumentationProps
+	 */
 	response.render(`applications/components/folder/folder`, {
 		...properties,
-		sessionBannerText
+		sessionBannerText,
+		activeFolderSlug: request.params.folderName
 	});
 
 	deleteSessionBanner(session);
@@ -804,6 +809,7 @@ export async function viewAndPostApplicationsCaseDocumentationMove(request, resp
 
 	response.render('applications/case-documentation/move-documents/document-list', {
 		documentationFilesToMove,
+		activeFolderSlug: request.params.folderName,
 		backLink: url('document-category', {
 			caseId: caseId,
 			documentationCategory: {
@@ -848,13 +854,39 @@ export async function viewDocumentationFolderExplorer(request, response) {
  * @type {import('@pins/express').RenderHandler<{}, {}, {action: string, openFolder: string}, {}>}
  */
 export async function postDocumentationFolderExplorer(request, response) {
-	const { caseId } = response.locals;
-	const { body, errors: validationErrors, session, params } = request;
+	const { caseId, serviceUrl } = response.locals;
+	const { body, session, params } = request;
+	let validationErrors = request.errors;
 
 	const openFolderId = Number(body.openFolder);
 	const folderList = documentationSessionHandlers.getSessionMoveDocumentsFolderList(session);
 	const folderListViewData = utils.getFolderViewData(folderList);
 	const parentFolderName = utils.getFolderNameById(folderList, openFolderId);
+	const breadcrumbItems = documentationSessionHandlers.getSessionMoveDocumentsBreadcrumbs(session);
+
+	console.log('validationErrors:>>', validationErrors);
+
+	if (body.action === 'moveDocuments') {
+		const destinationFolder =
+			documentationSessionHandlers.getSessionMoveDocumentsParentFolder(session);
+		const payload = utils.getMoveDocumentsPayload(session);
+		console.log('payload:>>', payload);
+		const { errors: updateErrors } = await updateDocumentsFolderId(caseId, payload);
+
+		if (updateErrors) {
+			validationErrors = updateErrors;
+			console.log('moveDocuments errors:>>', updateErrors);
+		} else {
+			setSessionBanner(
+				session,
+				`Selected documents moved to the ${destinationFolder?.displayNameEn} folder`
+			);
+
+			return response.redirect(
+				`${serviceUrl}/case/${caseId}/project-documentation/${params.folderId}/${params.folderName}`
+			);
+		}
+	}
 
 	if (validationErrors) {
 		return response.render(`applications/case-documentation/move-documents/folder-explorer`, {
@@ -864,17 +896,19 @@ export async function postDocumentationFolderExplorer(request, response) {
 				Number(params.folderId),
 				params.folderName
 			),
+			breadcrumbItems,
 			errors: validationErrors,
-			isRootFolder: documentationSessionHandlers.getSessionMoveDocumentsIsFolderRoot(session),
-			folderListViewData
+			folderListViewData,
+			isRootFolder: documentationSessionHandlers.getSessionMoveDocumentsIsFolderRoot(session)
 		});
 	}
 
-	if (body.action === 'moveDocuments') {
-		//TODO
-	} else {
-		return response.redirect(
-			`./folder-explorer?parentFolderId=${openFolderId}&parentFolderName=${parentFolderName}`
-		);
-	}
+	const parentFolder = folderList.find(
+		(/** @type {{id: Number}} */ folder) => folder.id === openFolderId
+	);
+	documentationSessionHandlers.setSessionMoveDocumentsParentFolder(session, parentFolder);
+
+	return response.redirect(
+		`./folder-explorer?parentFolderId=${openFolderId}&parentFolderName=${parentFolderName}`
+	);
 }

@@ -85,6 +85,29 @@ export const updateCaseDocumentationFiles = async (caseId, { status, redacted, d
 };
 
 /**
+ * Update folderId for a documents to 'move it' to another folder
+ * @param {number} caseId
+ * @param {{documents: {[key: string]: string}, destinationFolderId: number|undefined, destinationFolderStage: string|null|undefined}} payload
+ * @returns}
+ * */
+export const updateDocumentsFolderId = async (
+	caseId,
+	{ documents, destinationFolderId, destinationFolderStage }
+) => {
+	try {
+		return await patch(`applications/${caseId}/move-documents`, {
+			json: {
+				documents,
+				destinationFolderId,
+				destinationFolderStage
+			}
+		});
+	} catch (/** @type {*} */ error) {
+		return { errors: { msg: 'One or more of your documents cannot be moved' } };
+	}
+};
+
+/**
  * @param {number} caseId
  * @param {string[]} documentGuids
  * @returns {Promise<{errors: {guid: string, msg: string}[]}>};

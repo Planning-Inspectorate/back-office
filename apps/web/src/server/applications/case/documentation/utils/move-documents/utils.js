@@ -141,6 +141,32 @@ const getBackLinkUrlFromBreadcrumbs = (breadcrumbItems, caseId, folderId, folder
 	return backLink;
 };
 
+/**
+ * @param {*} session
+ * @returns {{documents: {[key: string]: string}, destinationFolderId: number|undefined, destinationFolderStage: string|null|undefined}}
+ */
+
+const getMoveDocumentsPayload = (session) => {
+	const documentsToMove = documentationSessionHandlers.getSessionMoveDocumentsFilesToMove(session);
+	const destinationFolder =
+		documentationSessionHandlers.getSessionMoveDocumentsParentFolder(session);
+
+	let payload = {
+		/**
+		 * @type {{[key: string]: string}}
+		 */
+		documents: {},
+		destinationFolderId: destinationFolder?.id,
+		destinationFolderStage: destinationFolder?.stage
+	};
+
+	documentsToMove.forEach((file) => {
+		payload.documents[file.documentGuid] = file.fileName;
+	});
+
+	return payload;
+};
+
 export default {
 	getFolderList,
 	isFolderRoot,
@@ -148,5 +174,6 @@ export default {
 	getBackLinkUrlFromBreadcrumbs,
 	getFolderNameById,
 	getFolderViewData,
-	formatFolderList
+	formatFolderList,
+	getMoveDocumentsPayload
 };
