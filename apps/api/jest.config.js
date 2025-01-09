@@ -3,7 +3,6 @@ export default {
 	transform: {},
 	moduleNameMapper: { '^uuid$': 'uuid' },
 	setupFilesAfterEnv: ['<rootDir>/setup-tests.js'],
-	coveragePathIgnorePatterns: ['src/server/migration'],
 	coverageThreshold: {
 		global: {
 			branches: 60,
