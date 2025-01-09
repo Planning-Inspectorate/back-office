@@ -1916,6 +1916,64 @@
 				}
 			}
 		},
+		"/applications/{id}/move-documents": {
+			"patch": {
+				"tags": ["Applications"],
+				"description": "Moves documents to another folder",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application ID"
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Document and destination folder details:",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/MoveDocumentsRequestBody"
+						}
+					},
+					{
+						"name": "x-service-name",
+						"in": "header",
+						"type": "string",
+						"description": "Service name header",
+						"default": "swagger"
+					},
+					{
+						"name": "x-api-key",
+						"in": "header",
+						"type": "string",
+						"description": "API key header",
+						"default": "123"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Documents folder id and stage updated",
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "object",
+								"properties": {
+									"count": {
+										"type": "number",
+										"example": 1
+									}
+								}
+							},
+							"xml": {
+								"name": "main"
+							}
+						}
+					}
+				}
+			}
+		},
 		"/applications/{id}/documents/{guid}/version/{version}/mark-as-published": {
 			"post": {
 				"tags": ["Applications"],
@@ -9792,6 +9850,27 @@
 					}
 				}
 			}
+		},
+		"MoveDocumentsRequestBody": {
+			"type": "object",
+			"properties": {
+				"documents": {
+					"type": "object",
+					"description": "Key value pairs of document guids and their file names",
+					"example": "{\"<file_guid>\": \"fileName\"}"
+				},
+				"folderId": {
+					"type": "integer",
+					"description": "Destination folder id to move the documents to",
+					"example": 1
+				},
+				"folderStage": {
+					"type": "string",
+					"description": "Stage of the destination folder",
+					"example": "Acceptance"
+				}
+			},
+			"required": ["document", "folderId", "folderStage"]
 		}
 	}
 }

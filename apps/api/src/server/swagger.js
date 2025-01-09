@@ -3053,6 +3053,27 @@ export const spec = {
 					}
 				}
 			}
+		},
+		MoveDocumentsRequestBody: {
+			type: 'object',
+			properties: {
+				documents: {
+					type: 'object',
+					description: 'Key value pairs of document guids and their file names',
+					example: '{"<file_guid>": "fileName"}'
+				},
+				folderId: {
+					type: 'integer',
+					description: 'Destination folder id to move the documents to',
+					example: 1
+				},
+				folderStage: {
+					type: 'string',
+					description: 'Stage of the destination folder',
+					example: 'Acceptance'
+				}
+			},
+			required: ['document', 'folderId', 'folderStage']
 		}
 	},
 	components: {}
