@@ -279,6 +279,38 @@ export const update = (documentId, documentDetails) => {
 };
 
 /**
+ * Update the folderId and stage for an array of documents by guid
+ * @param {string[]} documentGuids
+ * @param {number} folderId
+ * @param {string|null} folderStage
+ * @returns {Promise<*>}
+ */
+export const updateDocumentsFolderId = (documentGuids, folderId, folderStage) => {
+	return databaseConnector.$transaction([
+		databaseConnector.document.updateMany({
+			where: {
+				guid: {
+					in: documentGuids
+				}
+			},
+			data: {
+				folderId
+			}
+		}),
+		databaseConnector.documentVersion.updateMany({
+			where: {
+				documentGuid: {
+					in: documentGuids
+				}
+			},
+			data: {
+				stage: folderStage
+			}
+		})
+	]);
+};
+
+/**
  *  Soft-Deletes a document from the database based on its `guid`
  *
  * @async

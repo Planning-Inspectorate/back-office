@@ -21,10 +21,12 @@ import {
 	markAsUnpublished,
 	unpublishDocuments,
 	searchDocuments,
-	getManyDocumentsProperties
+	getManyDocumentsProperties,
+	moveDocumentsToAnotherFolder
 } from './document.controller.js';
 import {
 	validateDocumentIds,
+	validateDocumentsToMove,
 	validateDocumentsToUpdateProvided,
 	validateDocumentsToUploadProvided,
 	validateDocumentToUploadProvided,
@@ -264,6 +266,45 @@ router.patch(
 	validateDocumentIds,
 	trimUnexpectedRequestParameters,
 	asyncHandler(updateDocuments)
+);
+
+router.patch(
+	'/:id/move-documents',
+	/*
+		#swagger.tags = ['Applications']
+		#swagger.path = '/applications/{id}/move-documents'
+		#swagger.description = 'Moves documents to another folder'
+		#swagger.parameters['id'] = {
+			in: 'path',
+			description: 'Application ID',
+			required: true,
+			type: 'integer'
+		}
+		#swagger.parameters['body'] = {
+			in: 'body',
+			description: 'Document and destination folder details:',
+			required: true,
+			schema: { $ref: '#/definitions/MoveDocumentsRequestBody' }
+		}
+		#swagger.parameters['x-service-name'] = {
+			in: 'header',
+			type: 'string',
+			description: 'Service name header',
+			default: 'swagger'
+		}
+		#swagger.parameters['x-api-key'] = {
+			in: 'header',
+			type: 'string',
+			description: 'API key header',
+			default: '123'
+		}
+        #swagger.responses[200] = {
+            description: 'Documents folder id and stage updated',
+            schema: [ { count: 1 }, { count: 1 } ]
+        }
+	*/
+	validateDocumentsToMove,
+	asyncHandler(moveDocumentsToAnotherFolder)
 );
 
 router.post(
