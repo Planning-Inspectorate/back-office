@@ -917,6 +917,27 @@ export const getDocumentsInCase = async (
 };
 
 /**
+ * Updates the documents folderId and stage to 'move' document to another folder
+ * @param {string[]} documentGuids
+ * @param {number} folderId
+ * @param {string|null} folderStage
+ * @returns {Promise<Record<string, any>>}
+ */
+
+export const updateDocumentsFolderId = async (documentGuids, folderId, folderStage) => {
+	try {
+		return await documentRepository.updateDocumentsFolderId(documentGuids, folderId, folderStage);
+	} catch (error) {
+		logger.error(`Failed to update documents folder id: ${error}`);
+		return {
+			errors: {
+				msg: 'One or more of your documents cannot be moved'
+			}
+		};
+	}
+};
+
+/**
  * soft deletes a document
  *
  * @param {string} guid

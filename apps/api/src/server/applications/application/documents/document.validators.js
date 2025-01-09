@@ -202,6 +202,13 @@ export const validateDocumentIds = composeMiddleware(
 	validationErrorHandler
 );
 
+export const validateDocumentsToMove = composeMiddleware(
+	body('documents').exists().withMessage('Must provide documents to move'),
+	body('destinationFolderId').exists().withMessage('Must provide a destination folder id'),
+	body('destinationFolderStage').exists().withMessage('Must provide a destination folder stage'),
+	validationErrorHandler
+);
+
 /**
  * Verifies if the given array of document GUIDs have the correct meta set, so that they are ready to publish.
  * For S51 Advice documents, skipRequiredPropertyChecks is true to skip the mandatory field checks
