@@ -8,14 +8,6 @@ exports[`applications representations GET /applications-service/:caseId/relevant
             <p class="govuk-body">mock title</p><strong class="govuk-heading-s"><strong class="govuk-tag govuk-tag--">in test</strong></strong>
         </div>
     </div>
-    <div class="govuk-breadcrumbs govuk-!-margin-bottom-5">
-        <ol class="govuk-breadcrumbs__list">
-            <li class="govuk-breadcrumbs__list-item"><a class="govuk-breadcrumbs__link" href="/applications-service/case/1/project-documentation">Project documentation</a>
-            </li>
-            <li class="govuk-breadcrumbs__list-item"><a class="govuk-breadcrumbs__link" href="#">Relevant representations</a>
-            </li>
-        </ol>
-    </div>
     <div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title"
     data-module="govuk-notification-banner" id="unpublished-changes-banner">
         <div class="govuk-notification-banner__header">
@@ -198,14 +190,6 @@ exports[`applications representations GET /applications-service/:id/relevant-rep
             <h1 class="govuk-heading-xl govuk-!-margin-bottom-3"> mock title </h1>
             <p class="govuk-body">mock title</p><strong class="govuk-heading-s"><strong class="govuk-tag govuk-tag--">in test</strong></strong>
         </div>
-    </div>
-    <div class="govuk-breadcrumbs govuk-!-margin-bottom-5">
-        <ol class="govuk-breadcrumbs__list">
-            <li class="govuk-breadcrumbs__list-item"><a class="govuk-breadcrumbs__link" href="/applications-service/case/1/project-documentation">Project documentation</a>
-            </li>
-            <li class="govuk-breadcrumbs__list-item"><a class="govuk-breadcrumbs__link" href="#">Relevant representations</a>
-            </li>
-        </ol>
     </div>
     <div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title"
     data-module="govuk-notification-banner" id="unpublished-changes-banner">
