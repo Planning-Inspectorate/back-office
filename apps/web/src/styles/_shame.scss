@@ -7,3 +7,9 @@
 html:has(#rr-table) {
   scroll-behavior: unset;
 }
+
+.pins-folder-success-banner {
+  .govuk-notification-banner__heading {
+    max-width: 100%
+  }
+}
