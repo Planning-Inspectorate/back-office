@@ -859,24 +859,24 @@ export async function postDocumentationFolderExplorer(request, response) {
 	let validationErrors = request.errors;
 
 	const openFolderId = Number(body.openFolder);
-	const folderList = documentationSessionHandlers.getSessionMoveDocumentsFolderList(session);
+	const folderList = await documentationSessionHandlers.getSessionMoveDocumentsFolderList(session);
 	const folderListViewData = utils.getFolderViewData(folderList);
 	const parentFolderName = utils.getFolderNameById(folderList, openFolderId);
 	const breadcrumbItems = documentationSessionHandlers.getSessionMoveDocumentsBreadcrumbs(session);
 
-	console.log('validationErrors:>>', validationErrors);
-
 	if (body.action === 'moveDocuments') {
+		console.log('yoyo1');
 		const destinationFolder =
 			documentationSessionHandlers.getSessionMoveDocumentsParentFolder(session);
 		const payload = utils.getMoveDocumentsPayload(session);
-		console.log('payload:>>', payload);
+		console.log('yoyo2');
 		const { errors: updateErrors } = await updateDocumentsFolderId(caseId, payload);
-
+		console.log('yoyo3');
 		if (updateErrors) {
+			console.log('yoyo4 errors:', updateErrors);
 			validationErrors = updateErrors;
-			console.log('moveDocuments errors:>>', updateErrors);
 		} else {
+			console.log('yoyo4');
 			setSessionBanner(
 				session,
 				`Selected documents moved to the ${destinationFolder?.displayNameEn} folder`
