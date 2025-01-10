@@ -1,5 +1,5 @@
 import { SynapseDB } from '../synapse-db.js';
-import { makePostRequest } from '../back-office-api-client.js';
+import { makePostRequestStreamResponse } from '../back-office-api-client.js';
 import { getServiceUserUnder18AndCountyValue } from '../utils.js';
 
 /**
@@ -22,7 +22,7 @@ export const migrateServiceUsers = async (log, caseReference) => {
 				sourceSuid: serviceUser.sourceSuid ?? '',
 				caseReference
 			}));
-			await makePostRequest(log, '/migration/service-user', mappedServiceUsers);
+			return makePostRequestStreamResponse(log, '/migration/service-user', mappedServiceUsers);
 		}
 	} catch (e) {
 		throw new Error(`Failed to migrate Service User for case ${caseReference}`, { cause: e });

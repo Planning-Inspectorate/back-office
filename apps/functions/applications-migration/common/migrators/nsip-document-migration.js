@@ -6,15 +6,14 @@ import { makePostRequestStreamResponse } from '../back-office-api-client.js';
  * @param {import('@azure/functions').Logger} log
  * @param {string} caseReference
  */
-export const migrationNsipDocumentsByReference = async (log, caseReference) => {
+export const migrateNsipDocumentsByReference = async (log, caseReference) => {
 	try {
 		log.info(`Migrating NSIP Documents for case ${caseReference}`);
 		const documents = await getNsipDocuments(log, caseReference);
 
 		if (documents.length > 0) {
 			log.info(`Migrating ${documents.length} NSIP Documents for case ${caseReference}`);
-			await makePostRequestStreamResponse(log, '/migration/nsip-document', documents);
-			log.info('Successfully migrated NSIP Document');
+			return makePostRequestStreamResponse(log, '/migration/nsip-document', documents);
 		} else {
 			log.warn(`No NSIP Document found for case ${caseReference}`);
 		}

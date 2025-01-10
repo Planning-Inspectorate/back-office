@@ -1,5 +1,5 @@
 import { SynapseDB } from '../synapse-db.js';
-import { makePostRequest } from '../back-office-api-client.js';
+import { makePostRequestStreamResponse } from '../back-office-api-client.js';
 import { pick } from 'lodash-es';
 import { BO_GENERAL_S51_CASE_REF, ODW_GENERAL_S51_CASE_REF } from '@pins/applications';
 import { valueToArray } from '../utils.js';
@@ -21,7 +21,7 @@ export const migrateS51AdviceForCase = async (log, caseReference, synapseQuery =
 			`found ${count} S51 Advice: ${JSON.stringify(s51AdviceEntities.map((u) => u.adviceId))}`
 		);
 		if (s51AdviceEntities.length > 0) {
-			await makePostRequest(log, '/migration/s51-advice', s51AdviceEntities);
+			return makePostRequestStreamResponse(log, '/migration/s51-advice', s51AdviceEntities);
 		}
 	} catch (e) {
 		throw new Error(`Failed to migrate S51 Advice for case ${caseReference}`, { cause: e });

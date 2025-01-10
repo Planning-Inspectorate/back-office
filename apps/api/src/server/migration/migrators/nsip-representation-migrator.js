@@ -14,11 +14,12 @@ import { broadcastNsipDocumentEvent } from '#infrastructure/event-broadcasters.j
 /**
  * @typedef {import("pins-data-model").Schemas.Representation} RepresentationModel
  * @param {RepresentationModel[]} representations
+ * @param {Function} updateProgress
  */
-export const migrateRepresentations = async (representations) => {
+export const migrateRepresentations = async (representations, updateProgress) => {
 	console.info(`Migrating ${representations.length} Representations`);
 
-	for (const representation of representations) {
+	for (const [index, representation] of representations.entries()) {
 		const representationEntity = await mapModelToRepresentationEntity(representation);
 
 		if (representationEntity.id >= MigratedEntityIdCeiling) {
@@ -75,6 +76,7 @@ export const migrateRepresentations = async (representations) => {
 			})
 		);
 		await handleDocumentVersionUpdateForRepresentationAttachments(representationAttachmentDetails);
+		updateProgress(index, representations.length);
 	}
 };
 

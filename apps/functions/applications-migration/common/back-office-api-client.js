@@ -41,37 +41,30 @@ export const makePostRequest = (logger, path, body) => {
 /**
  * Makes a POST request and processes streaming responses with `got`.
  */
-export const makePostRequestStreamResponse = async (logger, path, body) => {
+export const makePostRequestStreamResponse = (logger, path, body) => {
 	const requestUri = constructUri(path);
 	const request = constructAuthenticatedRequest();
 
 	logger.info(`Making POST request to ${requestUri}`);
 
-	try {
-		const stream = request.stream.post(requestUri, {
-			json: body,
-			headers: { 'Content-Type': 'application/json' }
-		});
+	const stream = request.stream.post(requestUri, {
+		json: body,
+		headers: { 'Content-Type': 'application/json' }
+	});
 
-		await new Promise((resolve, reject) => {
-			stream.on('data', (chunk) => {
-				logger.info(chunk.toString());
-			});
+	stream.on('data', (chunk) => {
+		logger.info(chunk.toString());
+	});
 
-			stream.on('end', () => {
-				logger.info('Response fully received');
-				resolve();
-			});
+	stream.on('end', () => {
+		logger.info('Response fully received');
+	});
 
-			stream.on('error', (error) => {
-				logger.error(`Error occurred during migration: ${error.cause}`);
-				reject(error);
-			});
-		});
-	} catch (error) {
-		logger.error(`Request failed: ${error.message}`);
-		throw error;
-	}
+	stream.on('error', (error) => {
+		logger.error(`Error occurred during migration: ${JSON.stringify(error, null, 2)}`);
+	});
+
+	return stream;
 };
 
 const constructAuthenticatedRequest = () => {

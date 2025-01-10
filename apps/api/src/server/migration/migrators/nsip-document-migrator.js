@@ -33,6 +33,7 @@ const hznDocVersionTypes = {
  * Handle an HTTP trigger/request to run the migration
  *
  * @param {import('pins-data-model').Schemas.NSIPDocument[]} documents
+ * @param {Function} updateProgress
  */
 export const migrateNsipDocuments = async (documents, updateProgress) => {
 	logger.info(`Migrating ${documents.length} documents`);

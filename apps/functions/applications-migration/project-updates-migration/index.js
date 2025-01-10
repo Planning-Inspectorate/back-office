@@ -1,19 +1,32 @@
 import { migrateProjectUpdates } from './src/project-updates-migration.js';
-import { handleMigrationWithResponse } from '../common/handle-migration-with-response.js';
+import {
+	handleMigrationWithResponse,
+	handleRequestValidation
+} from '../common/handle-migration-with-response.js';
+import { app } from '@azure/functions';
+import { toBoolean } from '../common/utils.js';
 
-/**
- * @param {import("@azure/functions").Context} context
- * @param {import("@azure/functions").HttpRequest} req
- */
-export default async (
-	context,
-	{ body: { caseReferences, migrationOverwrite = false, isWelshCase = false } }
-) => {
-	await handleMigrationWithResponse(context, {
-		caseReferences,
-		entityName: 'project update',
-		migrationFunction: () => migrateProjectUpdates(context.log, caseReferences, isWelshCase),
-		migrationOverwrite,
-		allowCaseReferencesArray: true
-	});
-};
+app.setup({ enableHttpStream: true });
+app.http('project-updates-migration', {
+	methods: ['POST'],
+	/**
+	 * @param {import('@azure/functions').HttpRequest} request
+	 * @param {import('@azure/functions').InvocationContext} context
+	 */
+	handler: async (request, context) => {
+		const { caseReferences, isWelshCase, migrationOverwrite } = await request.json();
+		const entityName = 'Project Updates';
+		const validationErrorResponse = await handleRequestValidation(context, {
+			entityName,
+			caseReferences,
+			migrationOverwrite: toBoolean(migrationOverwrite)
+		});
+		if (validationErrorResponse) return validationErrorResponse;
+
+		return handleMigrationWithResponse(context, {
+			caseReferences: request.params.caseReference,
+			entityName,
+			migrationStream: () => migrateProjectUpdates(context, caseReferences, toBoolean(isWelshCase))
+		});
+	}
+});

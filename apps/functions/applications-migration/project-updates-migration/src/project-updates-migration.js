@@ -1,13 +1,11 @@
-import { chunk as chunkArray } from 'lodash-es';
-import { makePostRequest } from '../../common/back-office-api-client.js';
+import { makePostRequestStreamResponse } from '../../common/back-office-api-client.js';
 import { executeSequelizeQuery } from './execute-sequelize-query.js';
-
-const MAX_BODY_ITEMS_LENGTH = 100;
+import { Readable } from 'stream';
 
 /**
  * Handle an HTTP trigger/request to run the migration
  *
- * @param {import('@azure/functions').Logger} log
+ * @param {import("@azure/functions").Logger} log
  * @param {string[]} caseReferences
  * @param {boolean} isWelshCase
  */
@@ -38,38 +36,51 @@ export const migrateProjectUpdates = async (log, caseReferences, isWelshCase) =>
 			if (updates.length > 0) {
 				log.info(`Migrating ${updates.length} project updates for case ${caseReference}`);
 
-				const chunkedUpdates = chunkArray(updates, MAX_BODY_ITEMS_LENGTH);
-				for (const chunk of chunkedUpdates) {
-					await makePostRequest(log, '/migration/nsip-project-update', chunk);
-				}
+				const updatesStream = makePostRequestStreamResponse(
+					log,
+					'/migration/nsip-project-update',
+					updates
+				);
 
-				log.info('Successfully migrated project updates');
+				return Readable.from(
+					(async function* () {
+						for await (const chunk of updatesStream) {
+							yield chunk;
+						}
+						log.info('Successfully migrated project updates');
+
+						const subscriptions = await getProjectSubscriptions(caseReference);
+
+						if (subscriptions.length > 0) {
+							log.info(`Migrating ${subscriptions.length} subscriptions for case ${caseReference}`);
+
+							const mappedSubscriptions = subscriptions.map((sub) => ({
+								subscriptionId: sub.subscriptionId ?? null,
+								caseReference: sub.caseReference,
+								emailAddress: sub.emailAddress,
+								subscriptionType: sub.subscriptionType,
+								startDate: sub.startDate ?? null,
+								endDate: sub.endDate ?? null,
+								language: sub.language ?? null
+							}));
+
+							const subStream = makePostRequestStreamResponse(
+								log,
+								'/migration/nsip-subscription',
+								mappedSubscriptions
+							);
+
+							for await (const subChunk of subStream) {
+								yield subChunk;
+							}
+							log.info('Successfully migrated subscriptions');
+						} else {
+							log.warn(`No subscriptions found for case ${caseReference}`);
+						}
+					})()
+				);
 			} else {
 				log.warn(`No updates found for case ${caseReference}`);
-			}
-
-			const subscriptions = await getProjectSubscriptions(caseReference);
-
-			if (subscriptions.length > 0) {
-				log.info(`Migrating ${subscriptions.length} project updates for case ${caseReference}`);
-
-				const mappedSubscriptions = subscriptions.map((sub) => ({
-					subscriptionId: sub.subscriptionId ?? null,
-					caseReference: sub.caseReference,
-					emailAddress: sub.emailAddress,
-					subscriptionType: sub.subscriptionType,
-					startDate: sub.startDate ?? null,
-					endDate: sub.endDate ?? null,
-					language: sub.language ?? null
-				}));
-				const chunkedSubscriptions = chunkArray(mappedSubscriptions, MAX_BODY_ITEMS_LENGTH);
-				for (const chunk of chunkedSubscriptions) {
-					await makePostRequest(log, '/migration/nsip-subscription', chunk);
-				}
-
-				log.info('Successfully migrated subscriptions');
-			} else {
-				log.warn(`No subscriptions found for case ${caseReference}`);
 			}
 		} catch (e) {
 			log.error(`Failed to migrate project updates for case ${caseReference}`, e);
@@ -175,65 +186,67 @@ const subscriptionTypes = {
 };
 
 const getUpdatesQuery = `
-SELECT p.id,
-       pr.casereference AS caseReference,
-       p.post_date      AS updateDate,
-       p.post_title     AS updateName,
-       p.post_content   AS updateContentEnglish,
-       p.post_status    AS updateStatus,
-       -- Additional columns we need to migrate to create cases
-       pr.projectname   AS caseName,
-       pr.summary       AS caseDescription,
-       pr.stage         AS caseStageId
-FROM   ipclive.wp_posts p
-       INNER JOIN ipclive.wp_term_relationships r ON r.object_id = p.id
-       INNER JOIN ipclive.wp_terms t ON r.term_taxonomy_id = t.term_id
-       INNER JOIN ipclive.wp_ipc_projects pr ON LEFT(t.name, 8) = pr.casereference
-WHERE  p.post_type = 'ipc_project_update'
-       AND p.post_status IN( 'publish', 'draft' )
-       AND pr.casereference = ?
-GROUP  BY id
-UNION
-SELECT *
-FROM ipclive.vw_projectUpdateMigration
-WHERE casereference = ?;`;
+  SELECT p.id,
+		 pr.casereference AS caseReference,
+		 p.post_date      AS updateDate,
+		 p.post_title     AS updateName,
+		 p.post_content   AS updateContentEnglish,
+		 p.post_status    AS updateStatus,
+		 -- Additional columns we need to migrate to create cases
+		 pr.projectname   AS caseName,
+		 pr.summary       AS caseDescription,
+		 pr.stage         AS caseStageId
+  FROM ipclive.wp_posts p
+		 INNER JOIN ipclive.wp_term_relationships r ON r.object_id = p.id
+		 INNER JOIN ipclive.wp_terms t ON r.term_taxonomy_id = t.term_id
+		 INNER JOIN ipclive.wp_ipc_projects pr ON LEFT (t.name, 8) = pr.casereference
+  WHERE p.post_type = 'ipc_project_update'
+	AND p.post_status IN ( 'publish'
+	  , 'draft' )
+	AND pr.casereference = ?
+  GROUP BY id
+  UNION
+  SELECT *
+  FROM ipclive.vw_projectUpdateMigration
+  WHERE casereference = ?;`;
 
 const getUpdatesQueryWelsh = `
-SELECT p.id,
-       pr.casereference AS caseReference,
-       p.post_date      AS updateDate,
-       p.post_title     AS updateName,
-       p.post_content   AS updateContentWelsh,
-       p.post_status    AS updateStatus,
-       -- Additional columns we need to migrate to create cases
-       pr.projectname   AS caseName,
-       pr.summary       AS caseDescription,
-       pr.stage         AS caseStageId
-FROM   ipccy.wp_posts p
-       INNER JOIN ipccy.wp_term_relationships r ON r.object_id = p.id
-       INNER JOIN ipccy.wp_terms t ON r.term_taxonomy_id = t.term_id
-       INNER JOIN ipccy.wp_ipc_projects pr ON LEFT(t.name, 8) = pr.casereference
-WHERE  p.post_type = 'ipc_project_update'
-       AND p.post_status IN( 'publish', 'draft' )
-       AND pr.casereference = ?
-GROUP  BY id
-UNION
-SELECT *
-FROM ipccy.vw_projectUpdateMigration_cy
-WHERE casereference = ?;`;
+  SELECT p.id,
+		 pr.casereference AS caseReference,
+		 p.post_date      AS updateDate,
+		 p.post_title     AS updateName,
+		 p.post_content   AS updateContentWelsh,
+		 p.post_status    AS updateStatus,
+		 -- Additional columns we need to migrate to create cases
+		 pr.projectname   AS caseName,
+		 pr.summary       AS caseDescription,
+		 pr.stage         AS caseStageId
+  FROM ipccy.wp_posts p
+		 INNER JOIN ipccy.wp_term_relationships r ON r.object_id = p.id
+		 INNER JOIN ipccy.wp_terms t ON r.term_taxonomy_id = t.term_id
+		 INNER JOIN ipccy.wp_ipc_projects pr ON LEFT (t.name, 8) = pr.casereference
+  WHERE p.post_type = 'ipc_project_update'
+	AND p.post_status IN ( 'publish'
+	  , 'draft' )
+	AND pr.casereference = ?
+  GROUP BY id
+  UNION
+  SELECT *
+  FROM ipccy.vw_projectUpdateMigration_cy
+  WHERE casereference = ?;`;
 
 const getSubscriptionsQuery = `
-SELECT s.user_id   AS subscriptionId,
-       s.case_reference     AS caseReference,
-       s.useremail          AS emailAddress,
-       sc.subscription_type AS subscriptionType,
-       sc.subscription_date AS startDate,
-       -- Additional columns we need to migrate to create cases
-       pr.projectname   AS caseName,
-       pr.summary       AS caseDescription,
-       pr.stage         AS caseStage
-FROM   ipclive.wp_ipc_subscribers s
-       INNER JOIN ipclive.wp_ipc_subscriptions sc ON s.user_id = sc.user_id
-       INNER JOIN ipclive.wp_ipc_projects pr ON s.case_reference = pr.casereference
-WHERE  verified = 1
-AND s.case_reference = ?;`;
+  SELECT s.user_id            AS subscriptionId,
+		 s.case_reference     AS caseReference,
+		 s.useremail          AS emailAddress,
+		 sc.subscription_type AS subscriptionType,
+		 sc.subscription_date AS startDate,
+		 -- Additional columns we need to migrate to create cases
+		 pr.projectname       AS caseName,
+		 pr.summary           AS caseDescription,
+		 pr.stage             AS caseStage
+  FROM ipclive.wp_ipc_subscribers s
+		 INNER JOIN ipclive.wp_ipc_subscriptions sc ON s.user_id = sc.user_id
+		 INNER JOIN ipclive.wp_ipc_projects pr ON s.case_reference = pr.casereference
+  WHERE verified = 1
+	AND s.case_reference = ?;`;

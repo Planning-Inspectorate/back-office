@@ -1,4 +1,4 @@
-import { makePostRequest } from '../back-office-api-client.js';
+import { makePostRequestStreamResponse } from '../back-office-api-client.js';
 import { SynapseDB } from '../synapse-db.js';
 import { QueryTypes } from 'sequelize';
 
@@ -16,10 +16,7 @@ export const migrateExamTimetablesForCase = async (log, caseReference) => {
 
 		if (examTimetable) {
 			log.info(`Migrating Exam Timetable Items for case ${caseReference}`);
-
-			await makePostRequest(log, '/migration/nsip-exam-timetable', [examTimetable]);
-
-			log.info(`Successfully migrated Exam Timetable for case ${caseReference}`);
+			return makePostRequestStreamResponse(log, '/migration/nsip-exam-timetable', [examTimetable]);
 		} else {
 			log.warn(`No Exam Timetable found for case ${caseReference}`);
 		}
@@ -49,7 +46,6 @@ export const getExamTimetable = async (log, caseReference) => {
 	}
 
 	const examTimetableItem = timetableItems[0]; // should only be one item
-	log.info(`Retrieved Timetable Items ${JSON.stringify(examTimetableItem)}`);
 	return mapTimetableFromItems(examTimetableItem);
 };
 

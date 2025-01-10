@@ -65,3 +65,12 @@ export const getServiceUserUnder18AndCountyValue = (value) => {
 			return { under18: null, addressCounty: value };
 	}
 };
+
+/**
+ *
+ * @param {string | boolean} value
+ * @returns
+ */
+export const toBoolean = (value) => {
+	return value === true || value?.toLowerCase() === 'true';
+};
