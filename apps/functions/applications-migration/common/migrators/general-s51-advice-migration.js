@@ -7,7 +7,7 @@ import { ODW_GENERAL_S51_CASE_REF } from '@pins/applications';
 export const migrateGeneralS51Advice = async (logger) => {
 	try {
 		logger.info('Migrating all General S51 Advice: ');
-		await migrateS51AdviceForCase(logger, ODW_GENERAL_S51_CASE_REF);
+		return migrateS51AdviceForCase(logger, ODW_GENERAL_S51_CASE_REF);
 	} catch (error) {
 		logger.error(`Error occurred during GeneralS51 Advice migration`, error);
 		throw error;

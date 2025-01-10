@@ -1,67 +1,60 @@
 import { makeGetRequest } from './back-office-api-client.js';
-import { validateMigration } from './validate-migration.js';
 
 const headers = { 'Content-Type': 'application/json; charset=utf-8' };
+
+export const handleRequestValidation = async (
+	context,
+	{ entityName, caseReferences, isSingleCaseReference = true, migrationOverwrite = false }
+) => {
+	context.log(`Starting validation for ${entityName}s:`, JSON.stringify(caseReferences));
+
+	const requestValidator = isSingleCaseReference
+		? validateCaseReferenceParam
+		: validateCaseReferenceListParam;
+	const validationError = requestValidator(caseReferences);
+	if (validationError) {
+		return {
+			headers,
+			status: validationError.status,
+			jsonBody: { message: validationError.message }
+		};
+	}
+	if (!migrationOverwrite) {
+		const areCasesMigrated = await getCaseMigrationStatuses(context, caseReferences);
+		if (areCasesMigrated.areMigrated) {
+			return {
+				headers,
+				status: 200,
+				jsonBody: {
+					migration: areCasesMigrated.error
+				}
+			};
+		}
+	}
+	return null;
+};
+
 /**
  * Wrapper function for migration functions that handles error handling and sends useful responses.
- * @param {import('@azure/functions').Context} context - The Azure function context object.
+ * @param {import("@azure/functions").Context} context - The Azure function context object.
  * @param {Object} params - The parameters object.
  * @param {string | string[]} params.caseReferences - The case reference(s) to be migrated.
- * @param {Function} params.migrationFunction - The migration function to be executed.
+ * @param {Function} params.migrationStream - The migration function to be executed.
  * @param {string} params.entityName - The name of the entity being migrated.
- * @param {boolean} [params.allowCaseReferencesArray=false] - Whether to allow multiple case references as an array.
- * @param {boolean} [params.migrationOverwrite=false] - Whether to overwrite existing migration data.
  */
 export const handleMigrationWithResponse = async (
 	context,
-	{
-		caseReferences,
-		migrationFunction,
-		entityName,
-		allowCaseReferencesArray = false,
-		migrationOverwrite = false
-	}
+	{ caseReferences, migrationStream, entityName }
 ) => {
-	const validationError = validateRequest(caseReferences, allowCaseReferencesArray);
-	if (!migrationOverwrite) {
-		const areCasesMigrated = await getCaseMigrationStatuses(context.log, caseReferences);
-		if (areCasesMigrated.areMigrated) {
-			context.res = {
-				status: 200,
-				body: {
-					migration: areCasesMigrated.error
-				},
-				headers
-			};
-			return;
-		}
-	}
-
-	if (validationError) {
-		context.res = {
-			status: validationError.status,
-			body: { message: validationError.message }
-		};
-		return;
-	}
-
 	context.log(`Starting migration for ${entityName}s:`, JSON.stringify(caseReferences));
-
 	try {
-		await migrationFunction();
-		context.res = {
+		return {
+			headers: { 'Content-Type': 'application/event-stream' },
 			status: 200,
-			body: {
-				migration: `Successfully ran migration for ${entityName}`,
-				validation:
-					entityName === 'case'
-						? await validateMigration(context.log, [caseReferences].flat())
-						: null
-			},
-			headers
+			body: await migrationStream()
 		};
 	} catch (error) {
-		context.log.error(`Failed to run migration for ${entityName}`, error);
+		context.error(`Failed to run migration for ${entityName}`, error);
 
 		let responseBody;
 		if (error?.cause?.response?.body) {
@@ -77,9 +70,9 @@ export const handleMigrationWithResponse = async (
 			};
 		}
 
-		context.res = {
+		return {
 			status: 500,
-			body: responseBody,
+			jsonBody: responseBody,
 			headers
 		};
 	}
@@ -87,23 +80,25 @@ export const handleMigrationWithResponse = async (
 
 /**
  *
- * @param {string | string[]} caseReferences
- * @param {boolean} allowCaseReferencesArray
+ * @param {string} caseReference
  */
-const validateRequest = (caseReferences, allowCaseReferencesArray) => {
-	if (!caseReferences || caseReferences.length === 0) {
-		return {
-			status: 400,
-			message:
-				'Invalid request: You must provide a single "caseReference" as a string' +
-				(allowCaseReferencesArray ? ' or "caseReferences" as a non-empty array of strings.' : '')
-		};
-	}
-
-	if (!allowCaseReferencesArray && Array.isArray(caseReferences)) {
+const validateCaseReferenceParam = (caseReference) => {
+	if (!caseReference || caseReference === ' ') {
 		return {
 			status: 400,
 			message: 'Invalid request: You must provide a single "caseReference" as a string'
+		};
+	}
+};
+/**
+ *
+ * @param {string[]} caseReferences
+ */
+const validateCaseReferenceListParam = (caseReferences) => {
+	if (!Array.isArray(caseReferences) || caseReferences.length === 0) {
+		return {
+			status: 400,
+			message: 'Invalid request: You must provide an array of caseReferences'
 		};
 	}
 };

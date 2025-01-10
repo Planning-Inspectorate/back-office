@@ -1,15 +1,20 @@
 import { ODW_GENERAL_S51_CASE_REF } from '@pins/applications';
 import { handleMigrationWithResponse } from '../common/handle-migration-with-response.js';
 import { migrateGeneralS51Advice } from '../common/migrators/general-s51-advice-migration.js';
+import { app } from '@azure/functions';
 
-/**
- * @param {import('@azure/functions').Context} context
- */
-export default async (context) => {
-	await handleMigrationWithResponse(context, {
-		caseReferences: ODW_GENERAL_S51_CASE_REF,
-		migrationFunction: () => migrateGeneralS51Advice(context.log),
-		entityName: 'General S51 Advice',
-		migrationOverwrite: false
-	});
-};
+app.setup({ enableHttpStream: true });
+app.http('general-s51-advice-migration', {
+	methods: ['POST'],
+	/**
+	 * @param {import('@azure/functions').HttpRequest} request
+	 * @param {import('@azure/functions').InvocationContext} context
+	 */
+	handler: async (request, context) => {
+		return handleMigrationWithResponse(context, {
+			caseReferences: ODW_GENERAL_S51_CASE_REF,
+			entityName: 'General S51 Advice',
+			migrationStream: () => migrateGeneralS51Advice(context)
+		});
+	}
+});

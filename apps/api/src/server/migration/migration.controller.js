@@ -14,49 +14,44 @@ export const postMigrateModel = async ({ body, params: { modelType } }, response
 
 	const { migrator, validator } = migrationMap;
 
+	const caseReference = extractCaseReferenceFromBody(body);
+	response.writeHead(200, { 'Content-Type': 'text/plain', 'transfer-encoding': 'chunked' });
+
 	for (const model of body) {
 		if (!validator(model)) {
-			throw Error(
-				JSON.stringify({
-					message: `Model ${modelType} failed validation`,
-					validationErrors: validator.errors
-				})
-			);
+			response.write(`Model ${modelType} failed validation\n`);
+			response.write(`${JSON.stringify(validator.errors, null, 2)}\n`);
+			response.end();
+			return;
 		}
 	}
 
-	// temporary for docs until response streaming is implemented everywhere
-	if (modelType === 'nsip-document') {
-		response.writeHead(200, { 'Content-Type': 'text/plain', 'transfer-encoding': 'chunked' });
-		let progressMessageCount = 0;
-		let currentIndex = 0;
-		let totalCount = 0;
-		const progressInterval = setInterval(() => {
-			progressMessageCount++;
-			response.write(`Still processing... (${progressMessageCount * 10} seconds elapsed)\n`);
-			response.write(`Completed ${currentIndex} of ${totalCount} ${modelType}\n`);
-			response.flush();
-		}, 10000);
+	let progressMessageCount = 0;
+	let currentIndex = 0;
+	let totalCount = 0;
+	const progressInterval = setInterval(() => {
+		progressMessageCount++;
+		response.write(`still processing... (${progressMessageCount * 10} seconds elapsed)\n`);
+		response.write(`completed ${currentIndex} of ${totalCount} ${modelType}\n`);
+		response.flush();
+	}, 10000);
 
-		let err;
-		try {
-			response.write(`Starting migration for model type: ${modelType}...\n`);
-			await migrator(body, (index, total) => {
-				currentIndex = index;
-				totalCount = total;
-			});
-		} catch (error) {
-			logger.error(`Error during migration of ${modelType}: ${error}`);
-			err = error;
-		} finally {
-			response.end(
-				err ? `Error during migration of ${modelType}: ${err}` : 'Migration completed successfully.'
-			);
-			clearInterval(progressInterval);
-		}
-	} else {
-		await migrator(body);
-		response.sendStatus(200);
+	try {
+		response.write(
+			`\nStarting migration for model type: ${modelType} for case ${caseReference}...\n`
+		);
+		response.flush();
+		await migrator(body, (index, total) => {
+			currentIndex = index;
+			totalCount = total;
+		});
+		response.write(`Completed migration of ${modelType} successfully for case ${caseReference}.\n`);
+	} catch (error) {
+		logger.error(`Error during migration of ${modelType} for case ${caseReference}: ${error}`);
+		response.write(`Error during migration of ${modelType} for case ${caseReference}: ${error}\n`);
+	} finally {
+		response.end();
+		clearInterval(progressInterval);
 	}
 };
 
@@ -65,6 +60,9 @@ export const postMigrateModel = async ({ body, params: { modelType } }, response
  */
 export const postMigrateFolders = async ({ body }, response) => {
 	await migrateFolders(logger, body.caseReference);
-
 	response.sendStatus(200);
+};
+
+const extractCaseReferenceFromBody = (body) => {
+	return body.caseReference || body.caseRef || body[0]?.caseReference || body[0]?.caseRef;
 };
