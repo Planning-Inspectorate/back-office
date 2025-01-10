@@ -557,11 +557,6 @@ export async function updateApplicationsEditCaseZoomLevel(request, response) {
  * {}, {}, {}, {}>}
  */
 export async function viewApplicationsEditIsMaterialChange(request, response) {
-	if (!featureFlagClient.isFeatureActive('applics-156-material-changes')) {
-		const referrerURL = request.header('Referrer') || '/';
-		return response.redirect(referrerURL);
-	}
-
 	const {
 		currentCase: { isMaterialChange }
 	} = response.locals;

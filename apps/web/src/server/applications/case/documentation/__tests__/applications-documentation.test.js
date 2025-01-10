@@ -515,7 +515,7 @@ describe('applications documentation', () => {
 		});
 	});
 
-	describe('Document move', () => {
+	describe('Move documents file list page', () => {
 		describe('POST /case/123/project-documentation/21/sub-folder-level2/move-documents', () => {
 			beforeEach(async () => {
 				nocks();
@@ -540,7 +540,7 @@ describe('applications documentation', () => {
 				expect(element.innerHTML).toContain('Select documents to move');
 			});
 
-			it('should render the move documents page if documents are selected', async () => {
+			it('should render the move documents file list page if documents are selected', async () => {
 				const response = await request
 					.post(`${baseUrl}/project-documentation/21/sub-folder-level2/move-documents`)
 					.send({

@@ -37,15 +37,11 @@ const fullParams = {
 
 const fullResult = [
 	{ title: 'Reference number', text: 'TEST_REFERENCE' },
-	...(featureFlagClient.isFeatureActive('applics-156-material-changes')
-		? [
-				{
-					text: 'Yes',
-					title: 'Is this an application for a material change?',
-					url: 'material-change'
-				}
-		  ]
-		: []),
+	{
+		title: 'Is this an application for a material change?',
+		text: 'Yes',
+		url: 'material-change'
+	},
 	{ title: 'Case manager', text: 'Test case manager' },
 	{ title: 'NSIP officers', text: 'NSIP Officer 1, NSIP Officer 2' },
 	{ title: 'Sector', text: 'Test sector' },

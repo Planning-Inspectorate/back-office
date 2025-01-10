@@ -1,0 +1,86 @@
+{% extends "../../layouts/applications.layout.njk" %}
+
+{% from "../../components/status-tag.component.njk" import statusTag %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
+
+{% set serviceName = case.title %}
+
+{% block beforeContent %}
+	<aside>
+	{{ govukBackLink({
+		text: "Back",
+		href: backLink
+	}) }}
+	</aside>
+{% endblock %}
+
+{% block pageHeading %}
+	<div class="govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-left-0 govuk-!-margin-bottom-7 pins-masthead-summary">
+		<div class="govuk-grid-column-full">
+			<h4 class="govuk-heading-m">
+				{{ case.reference }}
+			</h4>
+			<h1 class="govuk-heading-xl">
+				{% if pageCaption %}
+					<span class="govuk-caption-xl">{{ pageCaption }}</span>
+				{% endif %}{{ pageHeading or serviceName or pageTitle }}
+			</h1>
+
+			{% block pageHeadingData %}
+				<div class="govuk-grid-row">
+					<div class="govuk-grid-column-full govuk-body">
+						{{ case.sector.displayNameEn }}, {{ case.subSector.displayNameEn }}
+						<br><br>
+						{{ statusTag(case.status) }}
+					</div>
+				</div>
+			{% endblock %}
+		</div>
+	</div>
+{% endblock %}
+
+{% block pageContent %}
+	<div class="govuk-grid-row">
+		<div class="govuk-grid-column-full">
+			<h1 class="govuk-heading-l govuk-!-margin-top-2 govuk-!-margin-bottom-9">Move documents</h1>
+			{% if  not isRootFolder %}
+				{{ govukBreadcrumbs({
+					items: breadcrumbItems,
+					classes: "govuk-!-margin-bottom-6"
+				}) }}
+			{% else %}
+				<h3 class="govuk-heading-m">Project documentation</h3>
+			{% endif %}
+
+			<form method="post">
+				{% if not isRootFolder %}
+					{{ govukButton({
+						text: "Move documents here",
+						name: "action",
+						value: "moveDocuments",
+						classes: "govuk-button--secondary"
+					}) }}
+				{% endif %}
+			</form>
+
+			<form method="post">
+				{{ govukRadios({
+						name: "openFolder",
+						items: folderListViewData,
+						errorMessage: errors.openFolder | errorMessage
+					}) }}
+
+				{% if folderListViewData | length %}
+					{{ govukButton({
+						text: "Open folder",
+						classes: "govuk-button--secondary govuk-!-margin-top-5"
+					}) }}
+				{% endif %}
+			</form>
+
+		</div>
+	</div>
+
+{% endblock %}

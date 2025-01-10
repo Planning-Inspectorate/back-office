@@ -1,5 +1,7 @@
+//@ts-nocheck
 import { createValidator } from '@pins/express';
 import { body } from 'express-validator';
+import { folderNames } from './utils/move-documents/folder-names.js';
 
 export const validateApplicationsDocumentations = createValidator(
 	body('selectedFilesIds')
@@ -42,4 +44,60 @@ export const validateApplicationsDocumentationsFolders = createValidator(
 
 export const validateApplicationsDocumentsToMove = createValidator(
 	body('selectedFilesIds').isArray({ min: 1 }).withMessage('Select documents to move')
+);
+
+export const validateApplicationsDocumentsToMoveFolderSelection = createValidator(
+	body('openFolder').custom((value, { req }) => {
+		if (!req.body.openFolder && req.body.action !== 'moveDocuments') {
+			throw new Error('Select a folder');
+		}
+		return true;
+	})
+);
+
+export const checkDocumentsAreNotPublished = (req) => {
+	const filesToMove = req.session.moveDocuments?.documentationFilesToMove;
+	const rootFolderList = req.session.moveDocuments?.rootFolderList;
+	const parentFolderId = req.body.openFolder;
+
+	const correspondenceFolder = rootFolderList.find(
+		(folder) => folder.displayNameEn === folderNames.correspondence
+	);
+
+	const openedCorrespondenceFolder = correspondenceFolder?.id === parentFolderId;
+
+	if (openedCorrespondenceFolder) {
+		const someFilesArePublished = filesToMove.some((item) => item.publishedStatus === 'published');
+		if (someFilesArePublished) {
+			throw new Error(
+				'One or more of your selected documents is published. You must unpublish the document(s) before moving them to the correspondence folder.'
+			);
+		}
+	}
+	return true;
+};
+
+export const validateDocumentsToMoveToCorrespondenceNotPublished = createValidator(
+	body('openFolder').custom((_, { req }) => {
+		const filesToMove = req.session.moveDocuments?.documentationFilesToMove;
+		const rootFolderList = req.session.moveDocuments?.rootFolderList;
+		const parentFolderId = req.body.openFolder;
+
+		const correspondenceFolder = rootFolderList.find(
+			(folder) => folder.displayNameEn === folderNames.correspondence
+		);
+		const openedCorrespondenceFolder = correspondenceFolder?.id === Number(parentFolderId);
+
+		if (openedCorrespondenceFolder) {
+			const someFilesArePublished = filesToMove.some(
+				(item) => item.publishedStatus === 'published'
+			);
+			if (someFilesArePublished) {
+				throw new Error(
+					'One or more of your selected documents are published. You must unpublish the document(s) before moving them to the correspondence folder.'
+				);
+			}
+		}
+		return true;
+	})
 );

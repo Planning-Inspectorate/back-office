@@ -34,7 +34,7 @@ const hznDocVersionTypes = {
  *
  * @param {import('pins-data-model').Schemas.NSIPDocument[]} documents
  */
-export const migrateNsipDocuments = async (documents) => {
+export const migrateNsipDocuments = async (documents, updateProgress) => {
 	logger.info(`Migrating ${documents.length} documents`);
 
 	const caseRefs = uniq(map(documents, 'caseRef'));
@@ -46,7 +46,7 @@ export const migrateNsipDocuments = async (documents) => {
 	let parentDocumentId = null;
 	let parentDocFilename = null;
 	let versionNumber = 1;
-	for (const document of documents) {
+	for (const [index, document] of documents.entries()) {
 		const folderId = await getDocumentFolderId(document, caseId);
 		let documentId = document.documentId;
 		let documentFilename = trimDocumentNameSuffix(document.filename); // Display name has suffix trimmed off
@@ -66,7 +66,7 @@ export const migrateNsipDocuments = async (documents) => {
 			guid: documentId,
 			caseId,
 			folderId,
-			documentReference: document.documentReference,
+			documentReference: document.documentReference || `${document.caseRef}-M-${documentId}`,
 			fromFrontOffice: false,
 			documentType: isS51Advice(document) ? DOCUMENT_TYPES.S51Attachment : DOCUMENT_TYPES.Document,
 			createdAt: new Date(document.dateCreated)
@@ -89,6 +89,7 @@ export const migrateNsipDocuments = async (documents) => {
 				migrationPublishing: 'true'
 			});
 		}
+		updateProgress(index, documents.length);
 	}
 
 	await updateLatestVersionId(caseId);
