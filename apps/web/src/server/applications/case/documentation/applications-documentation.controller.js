@@ -790,6 +790,7 @@ export async function viewAndPostApplicationsCaseDocumentationMove(request, resp
 		const properties = await documentationFolderData(caseId, Number(folderId), query, session);
 		return response.render('applications/components/folder/folder', {
 			...properties,
+			activeFolderSlug: request.params.folderName,
 			errors: validationErrors
 		});
 	}
@@ -800,7 +801,11 @@ export async function viewAndPostApplicationsCaseDocumentationMove(request, resp
 		documentationFilesToMove =
 			documentationSessionHandlers.getSessionMoveDocumentsFilesToMove(session);
 	} else {
-		documentationFilesToMove = await getCaseManyDocumentationFilesInfo(caseId, selectedFilesIds);
+		const getCaseDocumentationFileInfoPromises = selectedFilesIds.map((documentGuid) =>
+			getCaseDocumentationFileInfo(caseId, documentGuid)
+		);
+		documentationFilesToMove = await Promise.all(getCaseDocumentationFileInfoPromises);
+
 		documentationSessionHandlers.setSessionMoveDocumentsFilesToMove(
 			session,
 			documentationFilesToMove
@@ -868,8 +873,12 @@ export async function postDocumentationFolderExplorer(request, response) {
 		const destinationFolder =
 			documentationSessionHandlers.getSessionMoveDocumentsParentFolder(session);
 		const payload = utils.getMoveDocumentsPayload(session);
+		console.log('payload', payload);
+
 		const { errors: updateErrors } = await updateDocumentsFolderId(caseId, payload);
+
 		if (updateErrors) {
+			console.log('updateErrors:>>', updateErrors);
 			validationErrors = updateErrors;
 		} else {
 			setSessionBanner(
@@ -886,7 +895,7 @@ export async function postDocumentationFolderExplorer(request, response) {
 	if (validationErrors) {
 		return response.render(`applications/case-documentation/move-documents/folder-explorer`, {
 			backLink: utils.getBackLinkUrlFromBreadcrumbs(
-				undefined,
+				breadcrumbItems,
 				caseId,
 				Number(params.folderId),
 				params.folderName

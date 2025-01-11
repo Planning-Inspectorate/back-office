@@ -2944,11 +2944,23 @@ export interface ApplicationKeyDates {
 }
 
 export interface MoveDocumentsRequestBody {
-	/**
-	 * Key value pairs of document guids and their file names
-	 * @example "{"<file_guid>": "fileName"}"
-	 */
-	documents?: object;
+	documents?: {
+		/**
+		 * Document guid
+		 * @example "00000000-a173-47e2-b4b2-ce7064e0468a"
+		 */
+		documentGuid?: string;
+		/**
+		 * Name of the file
+		 * @example "file-name"
+		 */
+		fileName?: string;
+		/**
+		 * Version number of the document
+		 * @example "1"
+		 */
+		version?: number;
+	}[];
 	/**
 	 * Destination folder id to move the documents to
 	 * @example 1

@@ -185,11 +185,13 @@ export const updateDocuments = async ({ body }, response) => {
 	logger.info(`Updated all ${documents.length} documents`);
 	response.send(results);
 };
-
+/**
+ * @type {import('express').RequestHandler<{id: number}, any, any, any>}
+ * */
 export const moveDocumentsToAnotherFolder = async ({ body }, response) => {
 	const { documents, destinationFolderId, destinationFolderStage } = body;
 
-	const documentNamesToMove = Object.values(documents);
+	const documentNamesToMove = documents.map((document) => document.fileName);
 	const destinationFolderDocuments = await documentRepository.getDocumentsInFolder(
 		destinationFolderId
 	);
@@ -217,15 +219,21 @@ export const moveDocumentsToAnotherFolder = async ({ body }, response) => {
 		});
 	}
 
-	const documentGuids = Object.keys(documents);
-
-	const updateDocuments = await updateDocumentsFolderId(
-		documentGuids,
+	const updateDocuments = await updateDocumentsFolderId({
+		documents,
 		destinationFolderId,
 		destinationFolderStage
-	);
+	});
 
-	return response.send(updateDocuments);
+	if (updateDocuments[0].count === 0 || updateDocuments[1].count === 0) {
+		return response.send({
+			errors: {
+				msg: 'One or more of your documents cannot be moved'
+			}
+		});
+	}
+
+	response.send(updateDocuments);
 };
 
 /**

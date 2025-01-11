@@ -9855,9 +9855,27 @@
 			"type": "object",
 			"properties": {
 				"documents": {
-					"type": "object",
-					"description": "Key value pairs of document guids and their file names",
-					"example": "{\"<file_guid>\": \"fileName\"}"
+					"type": "array",
+					"items": {
+						"type": "object",
+						"properties": {
+							"documentGuid": {
+								"type": "string",
+								"description": "Document guid",
+								"example": "00000000-a173-47e2-b4b2-ce7064e0468a"
+							},
+							"fileName": {
+								"type": "string",
+								"description": "Name of the file",
+								"example": "file-name"
+							},
+							"version": {
+								"type": "number",
+								"description": "Version number of the document",
+								"example": "1"
+							}
+						}
+					}
 				},
 				"folderId": {
 					"type": "integer",
