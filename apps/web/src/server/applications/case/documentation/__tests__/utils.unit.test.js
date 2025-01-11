@@ -10,11 +10,13 @@ const mockSession = {
 const mockFilesToMove = [
 	{
 		documentGuid: 'g-u-i-d1',
-		fileName: 'file-name1'
+		fileName: 'file-name1',
+		version: 2
 	},
 	{
 		documentGuid: 'g-u-i-d2',
-		fileName: 'file-name2'
+		fileName: 'file-name2',
+		version: 1
 	}
 ];
 
@@ -184,10 +186,18 @@ describe('utils.js', () => {
 			expect(result).toEqual({
 				destinationFolderId: 111111111,
 				destinationFolderStage: null,
-				documents: {
-					'g-u-i-d1': 'file-name1',
-					'g-u-i-d2': 'file-name2'
-				}
+				documents: [
+					{
+						documentGuid: 'g-u-i-d1',
+						fileName: 'file-name1',
+						version: 2
+					},
+					{
+						documentGuid: 'g-u-i-d2',
+						fileName: 'file-name2',
+						version: 1
+					}
+				]
 			});
 		});
 	});

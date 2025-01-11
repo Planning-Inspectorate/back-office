@@ -143,28 +143,32 @@ const getBackLinkUrlFromBreadcrumbs = (breadcrumbItems, caseId, folderId, folder
 
 /**
  * @param {*} session
- * @returns {{documents: {[key: string]: string}, destinationFolderId: number|undefined, destinationFolderStage: string|null|undefined}}
+ * @returns {{destinationFolderId: number|undefined, destinationFolderStage: string|undefined|null, documents: {documentGuid: string, fileName: string, version: number}[]}}
  */
-
 const getMoveDocumentsPayload = (session) => {
 	const documentsToMove = documentationSessionHandlers.getSessionMoveDocumentsFilesToMove(session);
 	const destinationFolder =
 		documentationSessionHandlers.getSessionMoveDocumentsParentFolder(session);
 
-	let payload = {
+	const moveDocumentsPayload = {
 		/**
-		 * @type {{[key: string]: string}}
+		 * @type {{documentGuid: string, fileName: string, version: number}[]}
 		 */
-		documents: {},
+		documents: [],
 		destinationFolderId: destinationFolder?.id,
 		destinationFolderStage: destinationFolder?.stage
 	};
 
-	documentsToMove.forEach((file) => {
-		payload.documents[file.documentGuid] = file.fileName;
+	moveDocumentsPayload.documents = documentsToMove.map((document) => {
+		return {
+			documentGuid: document.documentGuid,
+			fileName: document.fileName,
+			// @ts-ignore
+			version: document.version
+		};
 	});
 
-	return payload;
+	return moveDocumentsPayload;
 };
 
 export default {

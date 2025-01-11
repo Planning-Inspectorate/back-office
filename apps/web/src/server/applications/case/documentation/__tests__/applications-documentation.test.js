@@ -523,8 +523,8 @@ describe('applications documentation', () => {
 					.post('/applications/123/folders/21/documents')
 					.reply(200, [fixtureReadyToPublishDocumentationFile]);
 				nock('http://test/')
-					.get('/applications/123/documents/properties?guids=[%221%22]&published=false')
-					.reply(200, [fixtureReadyToPublishDocumentationFile]);
+					.get('/applications/123/documents/1/properties')
+					.reply(200, fixtureReadyToPublishDocumentationFile);
 				await request.get('/applications-service/case-admin-officer');
 			});
 

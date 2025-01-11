@@ -87,8 +87,8 @@ export const updateCaseDocumentationFiles = async (caseId, { status, redacted, d
 /**
  * Update folderId for a documents to 'move it' to another folder
  * @param {number} caseId
- * @param {{documents: {[key: string]: string}, destinationFolderId: number|undefined, destinationFolderStage: string|null|undefined}} payload
- * @returns}
+ * @param {{destinationFolderId: number|undefined, destinationFolderStage: string|undefined|null, documents: {documentGuid: string, fileName: string, version: number}[]}} _
+ * @returns
  * */
 export const updateDocumentsFolderId = async (
 	caseId,
@@ -103,6 +103,7 @@ export const updateDocumentsFolderId = async (
 			}
 		});
 	} catch (/** @type {*} */ error) {
+		logger.error(`[API] ${JSON.stringify(error?.response?.body?.errors) || 'Unknow error'}`);
 		return { errors: { msg: 'One or more of your documents cannot be moved' } };
 	}
 };
@@ -155,6 +156,7 @@ export const getCaseManyDocumentationFilesInfo = async (
 
 /**
  * Get the blob storage info for the file with the given GUID
+ * Warning: This function does not return newest versions of the documents
  *
  * @param {number} caseId
  * @param {string} fileGuid

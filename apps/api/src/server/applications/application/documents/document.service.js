@@ -918,15 +918,13 @@ export const getDocumentsInCase = async (
 
 /**
  * Updates the documents folderId and stage to 'move' document to another folder
- * @param {string[]} documentGuids
- * @param {number} folderId
- * @param {string|null} folderStage
+ * @param   {{documents: {documentGuid: string, fileName: string, version: number}[], destinationFolderId: number, destinationFolderStage: string}} payload
  * @returns {Promise<Record<string, any>>}
  */
 
-export const updateDocumentsFolderId = async (documentGuids, folderId, folderStage) => {
+export const updateDocumentsFolderId = async (payload) => {
 	try {
-		return await documentRepository.updateDocumentsFolderId(documentGuids, folderId, folderStage);
+		return await documentRepository.updateDocumentsFolderId(payload);
 	} catch (error) {
 		logger.error(`Failed to update documents folder id: ${error}`);
 		return {
