@@ -10,10 +10,28 @@
 {% from "applications/representations/components/pre-search.component.njk" import preSearch %}
 {% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
 
+{% block beforeContent %}
+    <aside>
+	    {{ govukBreadcrumbs({
+		    classes: "govuk-!-margin-top-0 govuk-!-margin-bottom-2",
+		    items: [
+			    {
+				    text: "Project documentation",
+				    href: "/applications-service/case/" + caseId + "/project-documentation"
+			    },
+			    {
+				    text: "Relevant representations",
+				    href: "#"
+			    }
+		    ]
+	    }) }}
+    </aside>
+{% endblock %}
+
 {% block pageHeading %}
 {% endblock %}
 
-{% block pageContent %}
+{% block pageContent %}	
 	<div class="govuk-!-margin-left-0 govuk-!-margin-bottom-7">
 		<div class="pins-masthead-summary govuk-!-padding-4 govuk-!-padding-top-9 govuk-!-padding-bottom-2">
 			<span class="govuk-caption-xl"> {{ caseReference.reference }} </span>
@@ -28,20 +46,6 @@
 			</strong>
 		</div>
 	</div>
-
-	{{ govukBreadcrumbs({
-		classes: "govuk-!-margin-bottom-5",
-		items: [
-			{
-				text: "Project documentation",
-				href: "/applications-service/case/" + caseId + "/project-documentation"
-			},
-			{
-				text: "Relevant representations",
-				href: "#"
-			}
-		]
-	}) }}
 
 	{% if publishedRepsCount > 0 %}
 		{% set successBannerHtml %}
