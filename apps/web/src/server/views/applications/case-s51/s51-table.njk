@@ -108,7 +108,10 @@
 						{{ item.publishedStatus|statusName }}
 					</td>
 					<td class="govuk-table__cell">
-						<a href='{{'s51-item'|url({caseId: caseId, folderId: folderId, adviceId: item.id, step: 'properties'})}}' id='{{ editLinkId }}' class='govuk-link'>View/edit advice</a>
+						<a href='{{'s51-item'|url({caseId: caseId, folderId: folderId, adviceId: item.id, step: 'properties'})}}' id='{{ editLinkId }}' class='govuk-link'>
+							View/edit advice
+							<span class="govuk-visually-hidden">{{ item.title }}</span>
+						</a>
 					</td>
 				</tr>
 			{% endfor %}
