@@ -112,6 +112,7 @@
                                     <td class="govuk-table__cell">
                                         <a href="{{ 'document'|url({caseId: caseId, folderId: documentationFile.folderId, documentGuid: documentationFile.documentGuid, step: 'properties'}) }}" class='govuk-link govuk-body-s'>
                                             View/Edit properties
+                                            <span class="govuk-visually-hidden">{{ documentationFile.fileName }}</span>
                                         </a>
                                     </td>
                                     <td class="govuk-table__cell">
