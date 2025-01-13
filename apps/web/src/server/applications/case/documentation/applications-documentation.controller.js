@@ -873,12 +873,10 @@ export async function postDocumentationFolderExplorer(request, response) {
 		const destinationFolder =
 			documentationSessionHandlers.getSessionMoveDocumentsParentFolder(session);
 		const payload = utils.getMoveDocumentsPayload(session);
-		console.log('payload', payload);
 
 		const { errors: updateErrors } = await updateDocumentsFolderId(caseId, payload);
 
 		if (updateErrors) {
-			console.log('updateErrors:>>', updateErrors);
 			validationErrors = updateErrors;
 		} else {
 			setSessionBanner(
