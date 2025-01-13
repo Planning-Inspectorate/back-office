@@ -21,7 +21,7 @@
     "rollup": "node ./scripts/rollup/bundle-js.js",
     "sass": "node ./scripts/rollup/compile-css.js",
     "start": "node ./src/server/server.js",
-    "test": "cross-env NODE_ENV=test NODE_OPTIONS=\"--experimental-vm-modules --max-old-space-size=8192\" npx jest  --coverage",
+    "test": "cross-env NODE_ENV=test NODE_OPTIONS=\"--experimental-vm-modules --max-old-space-size=8192\" npx jest  --coverage --runInBand --logHeapUsage",
     "test:cov": "cross-env NODE_ENV=test NODE_OPTIONS=--experimental-vm-modules npx jest --coverage",
 		"test:nocov": "cross-env NODE_ENV=test NODE_OPTIONS=\"--experimental-vm-modules --max-old-space-size=8192\" npx jest",
     "tscheck": "npx tsc -p jsconfig.json --maxNodeModuleJsDepth 0",
