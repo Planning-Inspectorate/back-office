@@ -45,7 +45,6 @@ export class RepresentationPage extends Page {
 			cy.get(
 				'body > div:nth-child(4) > main:nth-child(2) > form:nth-child(2) > div:nth-child(3) > fieldset:nth-child(1) > div:nth-child(3) > div:nth-child(1) > div:nth-child(3) > input:nth-child(2'
 			),
-		viewPublishQueue: () => cy.get('#main-content > form:nth-child(4) > p:nth-child(2) > a'),
 		statusVerify: () => cy.get('#list-convictions-status-1'),
 		optionStatusInvalid: () => cy.get('#changeStatus')
 	};
@@ -105,7 +104,7 @@ export class RepresentationPage extends Page {
 		this.clickSaveAndReturn();
 		searchResultsPage.clickLinkByText('Project documentation');
 		searchResultsPage.clickLinkByText('Relevant representations');
-		this.elements.viewPublishQueue().click();
+		this.clickLinkByText('View publishing queue');
 		this.clickButtonByText('Publish representations');
 		this.elements.statusVerify().contains('PUBLISHED');
 		this.elements.reviewLink().click();
