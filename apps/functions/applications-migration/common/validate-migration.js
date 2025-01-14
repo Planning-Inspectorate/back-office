@@ -110,7 +110,7 @@ const getDiff = (caseReferences, odwData, boData) => {
 				odwCaseData.documents,
 				boCaseData.documents,
 				'documentId',
-				'guid'
+				'documentGuid'
 			),
 			s51Advice: getEntityDiffCounts(odwCaseData.s51Advice, boCaseData.s51Advice, 'adviceId', 'id'),
 			examTimetableItems: getEntityDiffCounts(
@@ -149,7 +149,7 @@ const getEntityDiffCounts = (
 	const boLength = boEntities.length;
 	const odwLength = odwEntities.length;
 
-	const message = boLength === odwLength ? 'Data is consistent' : 'Data is inconsistent';
+	const message = boLength === odwLength ? '✅ Data is consistent' : '❌ Data is inconsistent';
 	return {
 		message,
 		boLength,

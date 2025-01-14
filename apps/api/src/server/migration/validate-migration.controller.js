@@ -2,7 +2,7 @@ import { getByRef as getCaseByRef, getById as getCaseById } from '#repositories/
 import { getManyS51AdviceOnCase as getS51AdviceByCaseId } from '#repositories/s51-advice.repository.js';
 import { getByCaseId as getRepresentationsByCaseId } from '#repositories/representation.repository.js';
 import { getByCaseId as getExamTimetableByCaseId } from '#repositories/examination-timetable.repository.js';
-import { getByCaseId as getDocumentsByCaseId } from '#repositories/document.repository.js';
+import { getDocumentVersionsByCaseId } from '#repositories/document.repository.js';
 import { getByExaminationTimetableId as getExamTimetableItems } from '#repositories/examination-timetable-items.repository.js';
 import { getByCaseId as getServiceUsersByCaseId } from '#repositories/service-user.repository.js';
 import { buildNsipProjectPayload } from '#infrastructure/payload-builders/nsip-project.js';
@@ -50,7 +50,7 @@ export const validateMigration = async (req, res) => {
 
 		const allEntities = await Promise.all([
 			getS51AdviceByCaseId({ caseId, skipValue: 0, pageSize: MAX_VALUE }),
-			getDocumentsByCaseId({ caseId, skipValue: 0, pageSize: MAX_VALUE }),
+			getDocumentVersionsByCaseId(caseId),
 			getRepresentationsByCaseId(caseId, { page: 1, pageSize: MAX_VALUE }, {}),
 			getExamTimetableByCaseId(caseId),
 			getServiceUsersByCaseId(caseId)

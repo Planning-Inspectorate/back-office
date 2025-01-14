@@ -58,6 +58,37 @@ export const getByCaseId = ({ caseId, skipValue, pageSize }) => {
 	});
 };
 
+export const getDocumentVersionsByCaseId = async (caseId) => {
+	try {
+		const documents = await databaseConnector.document.findMany({
+			where: {
+				caseId: caseId,
+				isDeleted: false
+			},
+			select: {
+				guid: true
+			}
+		});
+
+		const documentGuids = documents.map((doc) => doc.guid);
+		if (documentGuids.length === 0) {
+			return [];
+		}
+
+		return databaseConnector.documentVersion.findMany({
+			where: {
+				documentGuid: {
+					in: documentGuids
+				},
+				isDeleted: false
+			}
+		});
+	} catch (error) {
+		console.error('Error fetching document versions:', error);
+		throw error;
+	}
+};
+
 /**
  * Get latest document reference (excluding ones from migration (with -M-)
  *
