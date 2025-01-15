@@ -13,6 +13,7 @@ import {
 	buildTrainingCasesWhereClause,
 	whereNotGeneralS51AdviceCase
 } from '../case.repository.js';
+import { stopWords } from '#utils/stop-words.js';
 
 /**
  *
@@ -22,6 +23,7 @@ import {
  * @returns {object}
  */
 const expectedSearchParameters = (skip, take, query) => {
+	const terms = query.split(' ').filter((term) => !stopWords.includes(term.toLowerCase()));
 	const whereTrainingCriteria = buildTrainingCasesWhereClause();
 	return {
 		skip,
@@ -38,13 +40,19 @@ const expectedSearchParameters = (skip, take, query) => {
 				{
 					OR: [
 						{
-							title: { contains: query }
+							AND: terms.map((term) => ({
+								title: { contains: term }
+							}))
 						},
 						{
-							reference: { contains: query }
+							AND: terms.map((term) => ({
+								reference: { contains: term }
+							}))
 						},
 						{
-							description: { contains: query }
+							AND: terms.map((term) => ({
+								description: { contains: term }
+							}))
 						}
 					]
 				}
@@ -154,13 +162,13 @@ describe('Case Repository', () => {
 						{
 							OR: [
 								{
-									title: { contains: query }
+									AND: [{ title: { contains: 'test' } }]
 								},
 								{
-									reference: { contains: query }
+									AND: [{ reference: { contains: 'test' } }]
 								},
 								{
-									description: { contains: query }
+									AND: [{ description: { contains: 'test' } }]
 								}
 							]
 						}

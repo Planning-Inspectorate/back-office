@@ -4,6 +4,7 @@ import {
 	buildTrainingCasesWhereClause,
 	whereNotGeneralS51AdviceCase
 } from '#repositories/case.repository.js';
+import { stopWords } from '#utils/stop-words.js';
 const { databaseConnector } = await import('#utils/database-connector.js');
 
 const searchString = 'EN010003 - NI Case 3 Name';
@@ -28,6 +29,7 @@ const application = applicationFactoryForTests({
  * @returns {object}
  */
 const expectedSearchParameters = (skip, take, query) => {
+	const terms = query.split(' ').filter((term) => !stopWords.includes(term.toLowerCase()));
 	const whereTrainingCriteria = buildTrainingCasesWhereClause();
 	return {
 		skip,
@@ -44,13 +46,19 @@ const expectedSearchParameters = (skip, take, query) => {
 				{
 					OR: [
 						{
-							title: { contains: query }
+							AND: terms.map((term) => ({
+								title: { contains: term }
+							}))
 						},
 						{
-							reference: { contains: query }
+							AND: terms.map((term) => ({
+								reference: { contains: term }
+							}))
 						},
 						{
-							description: { contains: query }
+							AND: terms.map((term) => ({
+								description: { contains: term }
+							}))
 						}
 					]
 				}

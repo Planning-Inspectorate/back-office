@@ -6,6 +6,7 @@ import url from 'node:url';
 import { databaseConnector } from '#utils/database-connector.js';
 import { separateStatusesToSaveAndInvalidate } from './separate-statuses-to-save-and-invalidate.js';
 import { featureFlagClient } from '#utils/feature-flags.js';
+import { getSearchTermArrayExcludingStopWords } from '#utils/stop-words.js';
 
 const DEFAULT_CASE_CREATE_STATUS = 'draft';
 
@@ -127,6 +128,7 @@ export const getByStatus = (statusArray) => {
  * @returns {import('@prisma/client').PrismaPromise<import('@pins/applications.api').Schema.Case[]>}
  */
 export const getBySearchCriteria = (query, skipValue, pageSize) => {
+	const terms = getSearchTermArrayExcludingStopWords(query);
 	return databaseConnector.case.findMany({
 		skip: skipValue,
 		take: pageSize,
@@ -142,13 +144,19 @@ export const getBySearchCriteria = (query, skipValue, pageSize) => {
 				{
 					OR: [
 						{
-							title: { contains: query }
+							AND: terms.map((term) => ({
+								title: { contains: term }
+							}))
 						},
 						{
-							reference: { contains: query }
+							AND: terms.map((term) => ({
+								reference: { contains: term }
+							}))
 						},
 						{
-							description: { contains: query }
+							AND: terms.map((term) => ({
+								description: { contains: term }
+							}))
 						}
 					]
 				}
@@ -178,6 +186,7 @@ export const getBySearchCriteria = (query, skipValue, pageSize) => {
  * @returns {import('@prisma/client').PrismaPromise<number>}
  */
 export const getApplicationsCountBySearchCriteria = (query) => {
+	const terms = getSearchTermArrayExcludingStopWords(query);
 	return databaseConnector.case.count({
 		where: {
 			AND: [
@@ -186,13 +195,19 @@ export const getApplicationsCountBySearchCriteria = (query) => {
 				{
 					OR: [
 						{
-							title: { contains: query }
+							AND: terms.map((term) => ({
+								title: { contains: term }
+							}))
 						},
 						{
-							reference: { contains: query }
+							AND: terms.map((term) => ({
+								reference: { contains: term }
+							}))
 						},
 						{
-							description: { contains: query }
+							AND: terms.map((term) => ({
+								description: { contains: term }
+							}))
 						}
 					]
 				}
