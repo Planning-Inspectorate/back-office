@@ -2,8 +2,8 @@
  * @typedef {import('express-session').Session & { folderPage?: string }} SessionWithFolderPage
  * @typedef {import('express-session').Session & {
  *	moveDocuments?: {
- *		documentationFilesToMove?: object[],
- *		parentFolderId?: number|undefined|null,
+ *		documentationFilesToMove?: {documentGuid: string, fileName: string}[],
+ *		parentFolder?: {id: number, displayNameEn: string, stage: string|null|undefined},
  * 		folderList?: object[],
  * 		isFolderRoot?: boolean,
  * 		rootFolderList?: object[]
@@ -52,7 +52,7 @@ const startMoveDocumentsSession = (session) => {
  * Save in the session the document metadata for files selected to be moved between folders
  *
  * @param {SessionWithMoveDocuments} session
- * @param {object[]} documentationFiles
+ * @param {{documentGuid: string, fileName: string}[]} documentationFiles
  * @returns {void}
  */
 const setSessionMoveDocumentsFilesToMove = (session, documentationFiles) => {
@@ -63,7 +63,7 @@ const setSessionMoveDocumentsFilesToMove = (session, documentationFiles) => {
  * Get the documents data for the files selected to be moved between folders
  *
  * @param {SessionWithMoveDocuments} session
- * @returns {object[]}
+ * @returns
  */
 
 const getSessionMoveDocumentsFilesToMove = (session) => {
@@ -87,6 +87,23 @@ const setSessionMoveDocumentsFolderList = (session, folderList) => {
  */
 const getSessionMoveDocumentsFolderList = (session) => {
 	return session.moveDocuments?.folderList;
+};
+
+/**
+ * Save parent folder data in session
+ * @param {SessionWithMoveDocuments} session
+ * @param {*} parentFolder
+ **/
+const setSessionMoveDocumentsParentFolder = (session, parentFolder) => {
+	session.moveDocuments && (session.moveDocuments.parentFolder = parentFolder);
+};
+
+/**
+ * @param {SessionWithMoveDocuments} session
+ * @returns
+ */
+const getSessionMoveDocumentsParentFolder = (session) => {
+	return session.moveDocuments?.parentFolder;
 };
 
 /**
@@ -159,6 +176,8 @@ export default {
 	setSessionMoveDocumentsFilesToMove,
 	getSessionMoveDocumentsFilesToMove,
 	setSessionMoveDocumentsFolderList,
+	getSessionMoveDocumentsParentFolder,
+	setSessionMoveDocumentsParentFolder,
 	getSessionMoveDocumentsFolderList,
 	setSessionMoveDocumentsRootFolderList,
 	getSessionMoveDocumentsRootFolderList,

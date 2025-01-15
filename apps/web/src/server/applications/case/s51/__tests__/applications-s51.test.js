@@ -296,7 +296,7 @@ describe('S51 Advice', () => {
 						buildPageTitle(['Select the method of enquiry', 'Title CASE/04'])
 					);
 					expect(element.innerHTML).toMatchSnapshot();
-					expect(element.innerHTML).toContain('How was the enquiry made?');
+					expect(element.innerHTML).toContain('Select the method of enquiry');
 
 					const backElement = parseHtml(response.text, { rootElement: '.govuk-back-link' });
 					expect(backElement.innerHTML).toContain(`"${baseUrl}/create/enquirer"`);

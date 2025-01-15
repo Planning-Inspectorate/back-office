@@ -2,6 +2,8 @@
 
 {% from "govuk/components/button/macro.njk" import govukButton %}
 
+{% set folderExplorerURL = 'move-documents'|url({caseId: caseId, folderId: folderId, folderName: activeFolderSlug }) + '/folder-explorer' %}
+
 {% block beforeContent %}
 <aside>
   {{ govukBackLink({
@@ -50,7 +52,7 @@
 
 	{{ govukButton({ 
 			text: 'Move documents',
-			href: './move-documents/folder-explorer'
+			href: folderExplorerURL
 	}) }}
 
 {% endblock %}

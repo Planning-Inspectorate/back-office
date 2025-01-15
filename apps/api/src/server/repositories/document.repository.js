@@ -58,6 +58,37 @@ export const getByCaseId = ({ caseId, skipValue, pageSize }) => {
 	});
 };
 
+export const getDocumentVersionsByCaseId = async (caseId) => {
+	try {
+		const documents = await databaseConnector.document.findMany({
+			where: {
+				caseId: caseId,
+				isDeleted: false
+			},
+			select: {
+				guid: true
+			}
+		});
+
+		const documentGuids = documents.map((doc) => doc.guid);
+		if (documentGuids.length === 0) {
+			return [];
+		}
+
+		return databaseConnector.documentVersion.findMany({
+			where: {
+				documentGuid: {
+					in: documentGuids
+				},
+				isDeleted: false
+			}
+		});
+	} catch (error) {
+		console.error('Error fetching document versions:', error);
+		throw error;
+	}
+};
+
 /**
  * Get latest document reference (excluding ones from migration (with -M-)
  *
@@ -276,6 +307,42 @@ export const update = (documentId, documentDetails) => {
 		},
 		data: documentDetails
 	});
+};
+
+/**
+ * Update the folderId and stage for an array of documents by guid
+ * @param   {{documents: {documentGuid: string, fileName: string, version: number}[], destinationFolderId: number, destinationFolderStage: string}} payload
+ * @returns {Promise<*>}
+ */
+
+export const updateDocumentsFolderId = ({
+	destinationFolderId,
+	destinationFolderStage,
+	documents
+}) => {
+	return databaseConnector.$transaction([
+		databaseConnector.document.updateMany({
+			where: {
+				guid: {
+					in: documents.map((document) => document.documentGuid)
+				}
+			},
+			data: {
+				folderId: destinationFolderId
+			}
+		}),
+		...documents.map((document) =>
+			databaseConnector.documentVersion.updateMany({
+				where: {
+					documentGuid: document.documentGuid,
+					version: document.version
+				},
+				data: {
+					stage: destinationFolderStage
+				}
+			})
+		)
+	]);
 };
 
 /**

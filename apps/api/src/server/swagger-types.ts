@@ -2942,3 +2942,33 @@ export interface ApplicationKeyDates {
 		dateProjectWithdrawn?: number;
 	};
 }
+
+export interface MoveDocumentsRequestBody {
+	documents?: {
+		/**
+		 * Document guid
+		 * @example "00000000-a173-47e2-b4b2-ce7064e0468a"
+		 */
+		documentGuid?: string;
+		/**
+		 * Name of the file
+		 * @example "file-name"
+		 */
+		fileName?: string;
+		/**
+		 * Version number of the document
+		 * @example "1"
+		 */
+		version?: number;
+	}[];
+	/**
+	 * Destination folder id to move the documents to
+	 * @example 1
+	 */
+	folderId: number;
+	/**
+	 * Stage of the destination folder
+	 * @example "Acceptance"
+	 */
+	folderStage: string;
+}

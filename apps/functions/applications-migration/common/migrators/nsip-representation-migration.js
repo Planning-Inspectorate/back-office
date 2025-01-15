@@ -1,5 +1,5 @@
 import { SynapseDB } from '../synapse-db.js';
-import { makePostRequest } from '../back-office-api-client.js';
+import { makePostRequestStreamResponse } from '../back-office-api-client.js';
 import { valueToArray } from '../utils.js';
 
 const query = `SELECT *
@@ -12,7 +12,7 @@ const query = `SELECT *
  * @param {import('@azure/functions').Logger} log
  * @param {string} caseReference
  */
-export const migrationRepresentationsForCase = async (log, caseReference) => {
+export const migrateRepresentationsForCase = async (log, caseReference) => {
 	try {
 		log.info(`reading Representations with caseReference ${caseReference}`);
 		const { representationEntities, count } = await getRepresentationsForCase(log, caseReference);
@@ -23,7 +23,11 @@ export const migrationRepresentationsForCase = async (log, caseReference) => {
 			)}`
 		);
 		if (representationEntities.length > 0) {
-			await makePostRequest(log, '/migration/nsip-representation', representationEntities);
+			return makePostRequestStreamResponse(
+				log,
+				'/migration/nsip-representation',
+				representationEntities
+			);
 		}
 	} catch (e) {
 		throw new Error(`Failed to migrate Representations for case ${caseReference}`, { cause: e });

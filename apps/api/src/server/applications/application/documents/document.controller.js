@@ -28,7 +28,8 @@ import {
 	upsertDocumentVersionAndReturnDetails,
 	unpublishDocuments as unpublishDocumentGuids,
 	deleteDocument,
-	revertDocumentStatusToPrevious
+	revertDocumentStatusToPrevious,
+	updateDocumentsFolderId
 } from './document.service.js';
 import { getRedactionStatus, validateDocumentVersionMetadataBody } from './document.validators.js';
 
@@ -183,6 +184,56 @@ export const updateDocuments = async ({ body }, response) => {
 
 	logger.info(`Updated all ${documents.length} documents`);
 	response.send(results);
+};
+/**
+ * @type {import('express').RequestHandler<{id: number}, any, any, any>}
+ * */
+export const moveDocumentsToAnotherFolder = async ({ body }, response) => {
+	const { documents, destinationFolderId, destinationFolderStage } = body;
+
+	const documentNamesToMove = documents.map((document) => document.fileName);
+	const destinationFolderDocuments = await documentRepository.getDocumentsInFolder(
+		destinationFolderId
+	);
+	const duplicateDocuments = documentNamesToMove.filter((documentToMoveName) =>
+		destinationFolderDocuments.some(
+			(destinationFolderDocument) =>
+				destinationFolderDocument.latestDocumentVersion.fileName === documentToMoveName
+		)
+	);
+
+	if (duplicateDocuments.length) {
+		let duplicateFileNames = {};
+
+		duplicateDocuments.forEach((documentName, index) => {
+			let key = `duplicateName${index}`;
+			duplicateFileNames[key] = `- ${documentName}`;
+		});
+
+		return response.send({
+			errors: {
+				duplicateNamesError:
+					'Following files cannot be moved because there are already files within the same folder with the same name:',
+				...duplicateFileNames
+			}
+		});
+	}
+
+	const updateDocuments = await updateDocumentsFolderId({
+		documents,
+		destinationFolderId,
+		destinationFolderStage
+	});
+
+	if (updateDocuments[0].count === 0 || updateDocuments[1].count === 0) {
+		return response.send({
+			errors: {
+				msg: 'One or more of your documents cannot be moved'
+			}
+		});
+	}
+
+	response.send(updateDocuments);
 };
 
 /**

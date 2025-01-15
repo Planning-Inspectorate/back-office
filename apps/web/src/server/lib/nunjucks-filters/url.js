@@ -53,6 +53,7 @@ export const url = (key, filterArguments = {}) => {
 
 	const caseId = getArgument('caseId', filterArguments);
 	const folderId = getArgument('folderId', filterArguments);
+	const folderName = getArgument('folderName', filterArguments);
 	const documentGuid = getArgument('documentGuid', filterArguments);
 	const timetableId = getArgument('timetableId', filterArguments);
 	const adviceId = getArgument('adviceId', filterArguments);
@@ -89,6 +90,8 @@ export const url = (key, filterArguments = {}) => {
 			return `${domainUrl}/case/${caseId}/project-documentation/publishing-queue`;
 		case 'documents-search':
 			return `${domainUrl}/case/${caseId}/project-documentation/search-results`;
+		case 'move-documents':
+			return `${domainUrl}/case/${caseId}/project-documentation/${folderId}/${folderName}/move-documents`;
 		case 'folder-create':
 			return `${domainUrl}/case/${caseId}/project-documentation/${folderId}/folder/create`;
 		case 'folder-rename':

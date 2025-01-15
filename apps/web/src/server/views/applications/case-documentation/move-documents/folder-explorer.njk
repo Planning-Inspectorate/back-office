@@ -60,10 +60,15 @@
 						text: "Move documents here",
 						name: "action",
 						value: "moveDocuments",
-						classes: "govuk-button--secondary"
+						classes: "govuk-button--secondary govuk-!-margin-bottom-2"
 					}) }}
 				{% endif %}
 			</form>
+
+			{% if  not isRootFolder and folderListViewData | length %}
+				<hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+				<p class="govuk-body govuk-!-margin-bottom-6">or open subfolder:</p>
+			{% endif %}
 
 			<form method="post">
 				{{ govukRadios({
