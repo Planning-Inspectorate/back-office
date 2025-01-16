@@ -100,7 +100,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
             <form class="pins-files-list" method="post">
                 <caption><span class="display--sr-only">Manage Documents in this location</span>
                 </caption>
-                <div class="govuk-grid-row govuk-!-margin-left-0 display--flex">
+                <div class="govuk-grid-row display--flex">
                     <div class="govuk-grid-column-two-thirds">
                         <div class="pins-files-list__statuses">
                             <h3 class="govuk-heading-s">Statuses</h3>
@@ -154,7 +154,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                                     </div>
                                 </div>
                                 <div>
-                                    <button class="govuk-button" data-module="govuk-button">Apply changes</button><a href="." class="govuk-link govuk-link--no-visited-state"> Clear selected</a>
+                                    <button class="govuk-button" data-module="govuk-button">Apply changes</button><a href="." class="govuk-link govuk-link--no-visited-state govuk-!-margin-top-0"> Clear selected</a>
                                 </div>
                             </div>
                         </div>
@@ -960,7 +960,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
             <form class="pins-files-list" method="post">
                 <caption><span class="display--sr-only">Manage Documents in this location</span>
                 </caption>
-                <div class="govuk-grid-row govuk-!-margin-left-0 display--flex">
+                <div class="govuk-grid-row display--flex">
                     <div class="govuk-grid-column-two-thirds">
                         <div class="pins-files-list__statuses">
                             <h3 class="govuk-heading-s">Statuses</h3>
@@ -1014,7 +1014,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                                     </div>
                                 </div>
                                 <div>
-                                    <button class="govuk-button" data-module="govuk-button">Apply changes</button><a href="." class="govuk-link govuk-link--no-visited-state"> Clear selected</a>
+                                    <button class="govuk-button" data-module="govuk-button">Apply changes</button><a href="." class="govuk-link govuk-link--no-visited-state govuk-!-margin-top-0"> Clear selected</a>
                                 </div>
                             </div>
                         </div>
@@ -2325,7 +2325,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
             <form class="pins-files-list" method="post">
                 <caption><span class="display--sr-only">Manage Documents in this location</span>
                 </caption>
-                <div class="govuk-grid-row govuk-!-margin-left-0 display--flex">
+                <div class="govuk-grid-row display--flex">
                     <div class="govuk-grid-column-two-thirds">
                         <div class="pins-files-list__statuses">
                             <h3 class="govuk-heading-s">Statuses</h3>
@@ -2379,7 +2379,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                                     </div>
                                 </div>
                                 <div>
-                                    <button class="govuk-button" data-module="govuk-button">Apply changes</button><a href="." class="govuk-link govuk-link--no-visited-state"> Clear selected</a>
+                                    <button class="govuk-button" data-module="govuk-button">Apply changes</button><a href="." class="govuk-link govuk-link--no-visited-state govuk-!-margin-top-0"> Clear selected</a>
                                 </div>
                             </div>
                         </div>
@@ -3207,7 +3207,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
             <form class="pins-files-list" method="post">
                 <caption><span class="display--sr-only">Manage Documents in this location</span>
                 </caption>
-                <div class="govuk-grid-row govuk-!-margin-left-0 display--flex">
+                <div class="govuk-grid-row display--flex">
                     <div class="govuk-grid-column-two-thirds">
                         <div class="pins-files-list__statuses">
                             <h3 class="govuk-heading-s">Statuses</h3>
@@ -3261,7 +3261,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                                     </div>
                                 </div>
                                 <div>
-                                    <button class="govuk-button" data-module="govuk-button">Apply changes</button><a href="." class="govuk-link govuk-link--no-visited-state"> Clear selected</a>
+                                    <button class="govuk-button" data-module="govuk-button">Apply changes</button><a href="." class="govuk-link govuk-link--no-visited-state govuk-!-margin-top-0"> Clear selected</a>
                                 </div>
                             </div>
                         </div>
@@ -3273,7 +3273,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             id="bulkDownload">Download selected</button>
                             <button type="submit" formaction="./unpublishing-queue"
                             class="govuk-link pins-files-list__button-link">Unpublish selected</button>
-                            <button type="submit" formaction="/applications-service/case/123/project-documentation/21//move-documents"
+                            <button type="submit" formaction="/applications-service/case/123/project-documentation/21/sub-folder-level2/move-documents"
                             class="govuk-link pins-files-list__button-link">Move selected</button>
                         </div>
                     </div>
@@ -4488,7 +4488,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
             <form class="pins-files-list" method="post">
                 <caption><span class="display--sr-only">Manage Documents in this location</span>
                 </caption>
-                <div class="govuk-grid-row govuk-!-margin-left-0 display--flex">
+                <div class="govuk-grid-row display--flex">
                     <div class="govuk-grid-column-two-thirds">
                         <div class="pins-files-list__statuses">
                             <h3 class="govuk-heading-s">Statuses</h3>
@@ -4542,7 +4542,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                                     </div>
                                 </div>
                                 <div>
-                                    <button class="govuk-button" data-module="govuk-button">Apply changes</button><a href="." class="govuk-link govuk-link--no-visited-state"> Clear selected</a>
+                                    <button class="govuk-button" data-module="govuk-button">Apply changes</button><a href="." class="govuk-link govuk-link--no-visited-state govuk-!-margin-top-0"> Clear selected</a>
                                 </div>
                             </div>
                         </div>
@@ -4554,7 +4554,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             id="bulkDownload">Download selected</button>
                             <button type="submit" formaction="./unpublishing-queue"
                             class="govuk-link pins-files-list__button-link">Unpublish selected</button>
-                            <button type="submit" formaction="/applications-service/case/123/project-documentation/21//move-documents"
+                            <button type="submit" formaction="/applications-service/case/123/project-documentation/21/sub-folder-level2/move-documents"
                             class="govuk-link pins-files-list__button-link">Move selected</button>
                         </div>
                     </div>
@@ -5767,7 +5767,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
             <form class="pins-files-list" method="post">
                 <caption><span class="display--sr-only">Manage Documents in this location</span>
                 </caption>
-                <div class="govuk-grid-row govuk-!-margin-left-0 display--flex">
+                <div class="govuk-grid-row display--flex">
                     <div class="govuk-grid-column-two-thirds">
                         <div class="pins-files-list__statuses">
                             <h3 class="govuk-heading-s">Statuses</h3>
@@ -5821,7 +5821,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                                     </div>
                                 </div>
                                 <div>
-                                    <button class="govuk-button" data-module="govuk-button">Apply changes</button><a href="." class="govuk-link govuk-link--no-visited-state"> Clear selected</a>
+                                    <button class="govuk-button" data-module="govuk-button">Apply changes</button><a href="." class="govuk-link govuk-link--no-visited-state govuk-!-margin-top-0"> Clear selected</a>
                                 </div>
                             </div>
                         </div>
@@ -5833,7 +5833,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                             id="bulkDownload">Download selected</button>
                             <button type="submit" formaction="./unpublishing-queue"
                             class="govuk-link pins-files-list__button-link">Unpublish selected</button>
-                            <button type="submit" formaction="/applications-service/case/123/project-documentation/21//move-documents"
+                            <button type="submit" formaction="/applications-service/case/123/project-documentation/21/sub-folder-level2/move-documents"
                             class="govuk-link pins-files-list__button-link">Move selected</button>
                         </div>
                     </div>

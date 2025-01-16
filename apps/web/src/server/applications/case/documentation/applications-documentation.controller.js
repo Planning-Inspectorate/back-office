@@ -141,6 +141,7 @@ export async function updateApplicationsCaseDocumentationFolder(request, respons
 
 		return response.render(`applications/components/folder/folder`, {
 			...properties,
+			activeFolderSlug: request.params.folderName,
 			errors: validationErrors ||
 				itemErrors || { msg: 'Something went wrong. Please, try again later.' },
 			failedItems
@@ -190,6 +191,7 @@ export async function viewApplicationsCaseDocumentationUnpublishPage(request, re
 
 		return response.render('applications/components/folder/folder', {
 			...properties,
+			activeFolderSlug: request.params.folderName,
 			errors: request.errors
 		});
 	}
@@ -209,6 +211,7 @@ export async function viewApplicationsCaseDocumentationUnpublishPage(request, re
 
 		return response.render('applications/components/folder/folder', {
 			...properties,
+			activeFolderSlug: request.params.folderName,
 			errors: 'Your selected documents are not published so you cannot unpublish them.'
 		});
 	}
