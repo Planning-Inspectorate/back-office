@@ -7,7 +7,7 @@
 export const buildErrorBanner = (errorMessage) => {
 	return `
 	<div class="govuk-grid-row">
-        <div class="govuk-grid-column-two-thirds">
+        <div class="govuk-grid-column-full">
           <div class="govuk-error-summary" aria-labelledby="error-summary-title" data-module="govuk-error-summary">
   				<h2 class="govuk-error-summary__title" id="error-summary-title">
     				There is a problem
