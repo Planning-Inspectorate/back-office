@@ -17,6 +17,7 @@ describe('redact-representation view-models', () => {
 				backLinkUrl:
 					'/applications-service/case/1/relevant-representations/1/representation-details',
 				caseId: '1',
+				organisationOrFullname: 'Mrs Sue',
 				originalRepresentation:
 					'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla con.',
 				projectName: 'mock case reference title',

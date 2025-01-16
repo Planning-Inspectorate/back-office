@@ -5,7 +5,7 @@
 {% from "applications/components/status-tag.component.njk" import statusTag %}
 
 {% block pageHeading %}
-	<h1 class="govuk-heading-l govuk-!-margin-bottom-2">{{ redactedBy }}</h1>
+	<h1 class="govuk-heading-l govuk-!-margin-bottom-2">{{ organisationOrFullname }}</h1>
 
 	{{ statusTag(statusText) }}
 
