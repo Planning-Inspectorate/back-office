@@ -254,7 +254,7 @@ exports[`/applications-service/case/1/relevant-representations/1/representation-
     <dl     class="govuk-summary-list govuk-!-margin-bottom-9">
         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> a doc</dt>
             <dd class="govuk-summary-list__value"></dd>
-            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/1/project-documentation//document//properties"> View/edit properties</a>
+            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/1/project-documentation//document//properties"> View/edit properties<span class="govuk-visually-hidden">a doc</span></a>
             </dd>
         </div>
         </dl>
@@ -503,7 +503,7 @@ exports[`/applications-service/case/1/relevant-representations/1/representation-
     <dl     class="govuk-summary-list govuk-!-margin-bottom-9">
         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> a doc</dt>
             <dd class="govuk-summary-list__value"></dd>
-            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/1/project-documentation//document//properties"> View/edit properties</a>
+            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/1/project-documentation//document//properties"> View/edit properties<span class="govuk-visually-hidden">a doc</span></a>
             </dd>
         </div>
         </dl>

@@ -120,7 +120,8 @@
 												{
 													classes: 'govuk-body-s',
 													href: 'document'|url({caseId: caseId, folderId: folderId, documentGuid: item.documentGuid, step: 'properties'}),
-													text:'View/Edit properties'
+													text:'View/Edit properties',
+													visuallyHiddenText: item.fileName
 												},
 												true
 											) }}
