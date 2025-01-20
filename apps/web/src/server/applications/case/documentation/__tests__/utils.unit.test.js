@@ -201,4 +201,31 @@ describe('utils.js', () => {
 			});
 		});
 	});
+
+	describe('#getFolderExplorerURL', () => {
+		it('should return the correct URL when all parameters are provided', () => {
+			const result = utils.getFolderExplorerURL(1, 2, 'Test');
+			expect(result).toBe(
+				'/applications-service/case/1/project-documentation/2/Test/move-documents/folder-explorer'
+			);
+		});
+
+		it('should throw an error when caseId is missing', () => {
+			expect(() => utils.getFolderExplorerURL(null, 2, 'Test')).toThrow(
+				'Missing required parameters to get folder explorer URL'
+			);
+		});
+
+		it('should throw an error when folderId is missing', () => {
+			expect(() => utils.getFolderExplorerURL(1, null, 'Test')).toThrow(
+				'Missing required parameters to get folder explorer URL'
+			);
+		});
+
+		it('should throw an error when folder name is missing', () => {
+			expect(() => utils.getFolderExplorerURL(1, 2, null)).toThrow(
+				'Missing required parameters to get folder explorer URL'
+			);
+		});
+	});
 });
