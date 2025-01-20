@@ -35,7 +35,13 @@
 
 				{{timetableItemSummary(timetableItem, isCaseWelsh)}}
 
-				{{ govukButton({ text: 'Delete timetable item', classes: 'govuk-!-margin-top-6 govuk-button--warning'}) }}
+				{{ govukButton(
+								{ 
+									text: 'Delete timetable item', 
+									visuallyHiddenText: timetableItem.name,
+									classes: 'govuk-!-margin-top-6 govuk-button--warning'
+								}
+							) }}
 			</form>
 		</div>
 	</div>

@@ -198,7 +198,7 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                 </td>
                                 <td class="govuk-table__cell"><a class='govuk-link' href="/documents/123/download/1/version/1/"> Download</a>
                                 </td>
-                                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/attachments/1/delete'> Delete</a>
+                                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/attachments/1/delete'> Delete<span class="govuk-visually-hidden">Minim veniam quis nostrud</span></a>
                                 </td>
                             </tr>
                             <tr class="govuk-table__row">
@@ -215,7 +215,7 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                 </td>
                                 <td class="govuk-table__cell"><a class='govuk-link' href="/documents/123/download/1/version/1/"> Download</a>
                                 </td>
-                                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/attachments/1/delete'> Delete</a>
+                                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/attachments/1/delete'> Delete<span class="govuk-visually-hidden">Nostrud exercitation ullamco laboris</span></a>
                                 </td>
                             </tr>
                             <tr class="govuk-table__row">
@@ -231,7 +231,7 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                 </td>
                                 <td class="govuk-table__cell"><a class='govuk-link' href="/documents/123/download/1/version/1/"> Download</a>
                                 </td>
-                                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/attachments/1/delete'> Delete</a>
+                                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/attachments/1/delete'> Delete<span class="govuk-visually-hidden">Elit sed</span></a>
                                 </td>
                             </tr>
                             <tr class="govuk-table__row">
@@ -248,7 +248,7 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                 </td>
                                 <td class="govuk-table__cell"><a class='govuk-link' href="/documents/123/download/1/version/1/"> Download</a>
                                 </td>
-                                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/attachments/1/delete'> Delete</a>
+                                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/attachments/1/delete'> Delete<span class="govuk-visually-hidden">Minim veniam quis nostrud</span></a>
                                 </td>
                             </tr>
                             <tr class="govuk-table__row">
@@ -264,7 +264,7 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                 </td>
                                 <td class="govuk-table__cell"><a class='govuk-link' href="/documents/123/download/1/version/1/"> Download</a>
                                 </td>
-                                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/attachments/1/delete'> Delete</a>
+                                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/attachments/1/delete'> Delete<span class="govuk-visually-hidden">Magna aliqua Ut</span></a>
                                 </td>
                             </tr>
                             <tr class="govuk-table__row">
@@ -280,7 +280,7 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                 </td>
                                 <td class="govuk-table__cell"><a class='govuk-link' href="/documents/123/download/1/version/1/"> Download</a>
                                 </td>
-                                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/attachments/1/delete'> Delete</a>
+                                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/attachments/1/delete'> Delete<span class="govuk-visually-hidden">Enim ad minim veniam</span></a>
                                 </td>
                             </tr>
                             <tr class="govuk-table__row">
@@ -297,7 +297,7 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                 </td>
                                 <td class="govuk-table__cell"><a class='govuk-link' href="/documents/123/download/1/version/1/"> Download</a>
                                 </td>
-                                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/attachments/1/delete'> Delete</a>
+                                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/attachments/1/delete'> Delete<span class="govuk-visually-hidden">Dolor sit</span></a>
                                 </td>
                             </tr>
                             <tr class="govuk-table__row">
@@ -314,7 +314,7 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                 </td>
                                 <td class="govuk-table__cell"><a class='govuk-link' href="/documents/123/download/1/version/1/"> Download</a>
                                 </td>
-                                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/attachments/1/delete'> Delete</a>
+                                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/attachments/1/delete'> Delete<span class="govuk-visually-hidden">Lorem ipsum</span></a>
                                 </td>
                             </tr>
                             <tr class="govuk-table__row">
@@ -330,7 +330,7 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                 </td>
                                 <td class="govuk-table__cell"><a class='govuk-link' href="/documents/123/download/1/version/1/"> Download</a>
                                 </td>
-                                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/attachments/1/delete'> Delete</a>
+                                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/attachments/1/delete'> Delete<span class="govuk-visually-hidden">Do eiusmod</span></a>
                                 </td>
                             </tr>
                             <tr class="govuk-table__row">
@@ -346,7 +346,7 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                 </td>
                                 <td class="govuk-table__cell"><a class='govuk-link' href="/documents/123/download/1/version/1/"> Download</a>
                                 </td>
-                                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/attachments/1/delete'> Delete</a>
+                                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/attachments/1/delete'> Delete<span class="govuk-visually-hidden">Aliqua Ut enim</span></a>
                                 </td>
                             </tr>
                             <tr class="govuk-table__row">
@@ -363,7 +363,7 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                 </td>
                                 <td class="govuk-table__cell"><a class='govuk-link' href="/documents/123/download/1/version/1/"> Download</a>
                                 </td>
-                                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/attachments/1/delete'> Delete</a>
+                                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/attachments/1/delete'> Delete<span class="govuk-visually-hidden">Ullamco laboris nisi ut</span></a>
                                 </td>
                             </tr>
                             <tr class="govuk-table__row">
@@ -379,7 +379,7 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                 </td>
                                 <td class="govuk-table__cell"><a class='govuk-link' href="/documents/123/download/1/version/1/"> Download</a>
                                 </td>
-                                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/attachments/1/delete'> Delete</a>
+                                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/attachments/1/delete'> Delete<span class="govuk-visually-hidden">Do eiusmod</span></a>
                                 </td>
                             </tr>
                             <tr class="govuk-table__row">
@@ -396,7 +396,7 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                 </td>
                                 <td class="govuk-table__cell"><a class='govuk-link' href="/documents/123/download/1/version/1/"> Download</a>
                                 </td>
-                                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/attachments/1/delete'> Delete</a>
+                                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/attachments/1/delete'> Delete<span class="govuk-visually-hidden">Quis nostrud exercitation ullamco</span></a>
                                 </td>
                             </tr>
                             <tr class="govuk-table__row">
@@ -412,7 +412,7 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                 </td>
                                 <td class="govuk-table__cell"><a class='govuk-link' href="/documents/123/download/1/version/1/"> Download</a>
                                 </td>
-                                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/attachments/1/delete'> Delete</a>
+                                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/attachments/1/delete'> Delete<span class="govuk-visually-hidden">Do eiusmod</span></a>
                                 </td>
                             </tr>
                             <tr class="govuk-table__row">
@@ -429,7 +429,7 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                 </td>
                                 <td class="govuk-table__cell"><a class='govuk-link' href="/documents/123/download/1/version/1/"> Download</a>
                                 </td>
-                                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/attachments/1/delete'> Delete</a>
+                                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/attachments/1/delete'> Delete<span class="govuk-visually-hidden">Lorem ipsum</span></a>
                                 </td>
                             </tr>
                             <tr class="govuk-table__row">
@@ -445,7 +445,7 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                 </td>
                                 <td class="govuk-table__cell"><a class='govuk-link' href="/documents/123/download/1/version/1/"> Download</a>
                                 </td>
-                                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/attachments/1/delete'> Delete</a>
+                                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/attachments/1/delete'> Delete<span class="govuk-visually-hidden">Ad minim veniam quis</span></a>
                                 </td>
                             </tr>
                             <tr class="govuk-table__row">
@@ -461,7 +461,7 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                 </td>
                                 <td class="govuk-table__cell"><a class='govuk-link' href="/documents/123/download/1/version/1/"> Download</a>
                                 </td>
-                                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/attachments/1/delete'> Delete</a>
+                                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/attachments/1/delete'> Delete<span class="govuk-visually-hidden">Dolore magna aliqua</span></a>
                                 </td>
                             </tr>
                             <tr class="govuk-table__row">
@@ -477,7 +477,7 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                 </td>
                                 <td class="govuk-table__cell"><a class='govuk-link' href="/documents/123/download/1/version/1/"> Download</a>
                                 </td>
-                                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/attachments/1/delete'> Delete</a>
+                                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/attachments/1/delete'> Delete<span class="govuk-visually-hidden">Eiusmod tempor incididunt</span></a>
                                 </td>
                             </tr>
                             <tr class="govuk-table__row">
@@ -493,7 +493,7 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                 </td>
                                 <td class="govuk-table__cell"><a class='govuk-link' href="/documents/123/download/1/version/1/"> Download</a>
                                 </td>
-                                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/attachments/1/delete'> Delete</a>
+                                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/attachments/1/delete'> Delete<span class="govuk-visually-hidden">Eiusmod tempor incididunt</span></a>
                                 </td>
                             </tr>
                             <tr class="govuk-table__row">
@@ -509,7 +509,7 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                 </td>
                                 <td class="govuk-table__cell"><a class='govuk-link' href="/documents/123/download/1/version/1/"> Download</a>
                                 </td>
-                                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/attachments/1/delete'> Delete</a>
+                                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/attachments/1/delete'> Delete<span class="govuk-visually-hidden">Labore et dolore</span></a>
                                 </td>
                             </tr>
                         </tbody>
@@ -632,7 +632,7 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                 </td>
                                 <td class="govuk-table__cell"><a class='govuk-link' href="/documents/123/download/1/version/1/"> Download</a>
                                 </td>
-                                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/attachments/1/delete'> Delete</a>
+                                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/attachments/1/delete'> Delete<span class="govuk-visually-hidden">Minim veniam quis nostrud</span></a>
                                 </td>
                             </tr>
                             <tr class="govuk-table__row">
@@ -649,7 +649,7 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                 </td>
                                 <td class="govuk-table__cell"><a class='govuk-link' href="/documents/123/download/1/version/1/"> Download</a>
                                 </td>
-                                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/attachments/1/delete'> Delete</a>
+                                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/attachments/1/delete'> Delete<span class="govuk-visually-hidden">Nostrud exercitation ullamco laboris</span></a>
                                 </td>
                             </tr>
                             <tr class="govuk-table__row">
@@ -665,7 +665,7 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                 </td>
                                 <td class="govuk-table__cell"><a class='govuk-link' href="/documents/123/download/1/version/1/"> Download</a>
                                 </td>
-                                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/attachments/1/delete'> Delete</a>
+                                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/attachments/1/delete'> Delete<span class="govuk-visually-hidden">Elit sed</span></a>
                                 </td>
                             </tr>
                             <tr class="govuk-table__row">
@@ -682,7 +682,7 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                 </td>
                                 <td class="govuk-table__cell"><a class='govuk-link' href="/documents/123/download/1/version/1/"> Download</a>
                                 </td>
-                                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/attachments/1/delete'> Delete</a>
+                                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/attachments/1/delete'> Delete<span class="govuk-visually-hidden">Minim veniam quis nostrud</span></a>
                                 </td>
                             </tr>
                             <tr class="govuk-table__row">
@@ -698,7 +698,7 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                 </td>
                                 <td class="govuk-table__cell"><a class='govuk-link' href="/documents/123/download/1/version/1/"> Download</a>
                                 </td>
-                                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/attachments/1/delete'> Delete</a>
+                                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/attachments/1/delete'> Delete<span class="govuk-visually-hidden">Magna aliqua Ut</span></a>
                                 </td>
                             </tr>
                             <tr class="govuk-table__row">
@@ -714,7 +714,7 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                 </td>
                                 <td class="govuk-table__cell"><a class='govuk-link' href="/documents/123/download/1/version/1/"> Download</a>
                                 </td>
-                                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/attachments/1/delete'> Delete</a>
+                                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/attachments/1/delete'> Delete<span class="govuk-visually-hidden">Enim ad minim veniam</span></a>
                                 </td>
                             </tr>
                             <tr class="govuk-table__row">
@@ -731,7 +731,7 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                 </td>
                                 <td class="govuk-table__cell"><a class='govuk-link' href="/documents/123/download/1/version/1/"> Download</a>
                                 </td>
-                                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/attachments/1/delete'> Delete</a>
+                                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/attachments/1/delete'> Delete<span class="govuk-visually-hidden">Dolor sit</span></a>
                                 </td>
                             </tr>
                             <tr class="govuk-table__row">
@@ -748,7 +748,7 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                 </td>
                                 <td class="govuk-table__cell"><a class='govuk-link' href="/documents/123/download/1/version/1/"> Download</a>
                                 </td>
-                                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/attachments/1/delete'> Delete</a>
+                                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/attachments/1/delete'> Delete<span class="govuk-visually-hidden">Lorem ipsum</span></a>
                                 </td>
                             </tr>
                             <tr class="govuk-table__row">
@@ -764,7 +764,7 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                 </td>
                                 <td class="govuk-table__cell"><a class='govuk-link' href="/documents/123/download/1/version/1/"> Download</a>
                                 </td>
-                                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/attachments/1/delete'> Delete</a>
+                                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/attachments/1/delete'> Delete<span class="govuk-visually-hidden">Do eiusmod</span></a>
                                 </td>
                             </tr>
                             <tr class="govuk-table__row">
@@ -780,7 +780,7 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                 </td>
                                 <td class="govuk-table__cell"><a class='govuk-link' href="/documents/123/download/1/version/1/"> Download</a>
                                 </td>
-                                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/attachments/1/delete'> Delete</a>
+                                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/attachments/1/delete'> Delete<span class="govuk-visually-hidden">Aliqua Ut enim</span></a>
                                 </td>
                             </tr>
                             <tr class="govuk-table__row">
@@ -797,7 +797,7 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                 </td>
                                 <td class="govuk-table__cell"><a class='govuk-link' href="/documents/123/download/1/version/1/"> Download</a>
                                 </td>
-                                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/attachments/1/delete'> Delete</a>
+                                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/attachments/1/delete'> Delete<span class="govuk-visually-hidden">Ullamco laboris nisi ut</span></a>
                                 </td>
                             </tr>
                             <tr class="govuk-table__row">
@@ -813,7 +813,7 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                 </td>
                                 <td class="govuk-table__cell"><a class='govuk-link' href="/documents/123/download/1/version/1/"> Download</a>
                                 </td>
-                                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/attachments/1/delete'> Delete</a>
+                                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/attachments/1/delete'> Delete<span class="govuk-visually-hidden">Do eiusmod</span></a>
                                 </td>
                             </tr>
                             <tr class="govuk-table__row">
@@ -830,7 +830,7 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                 </td>
                                 <td class="govuk-table__cell"><a class='govuk-link' href="/documents/123/download/1/version/1/"> Download</a>
                                 </td>
-                                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/attachments/1/delete'> Delete</a>
+                                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/attachments/1/delete'> Delete<span class="govuk-visually-hidden">Quis nostrud exercitation ullamco</span></a>
                                 </td>
                             </tr>
                             <tr class="govuk-table__row">
@@ -846,7 +846,7 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                 </td>
                                 <td class="govuk-table__cell"><a class='govuk-link' href="/documents/123/download/1/version/1/"> Download</a>
                                 </td>
-                                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/attachments/1/delete'> Delete</a>
+                                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/attachments/1/delete'> Delete<span class="govuk-visually-hidden">Do eiusmod</span></a>
                                 </td>
                             </tr>
                             <tr class="govuk-table__row">
@@ -863,7 +863,7 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                 </td>
                                 <td class="govuk-table__cell"><a class='govuk-link' href="/documents/123/download/1/version/1/"> Download</a>
                                 </td>
-                                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/attachments/1/delete'> Delete</a>
+                                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/attachments/1/delete'> Delete<span class="govuk-visually-hidden">Lorem ipsum</span></a>
                                 </td>
                             </tr>
                             <tr class="govuk-table__row">
@@ -879,7 +879,7 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                 </td>
                                 <td class="govuk-table__cell"><a class='govuk-link' href="/documents/123/download/1/version/1/"> Download</a>
                                 </td>
-                                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/attachments/1/delete'> Delete</a>
+                                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/attachments/1/delete'> Delete<span class="govuk-visually-hidden">Ad minim veniam quis</span></a>
                                 </td>
                             </tr>
                             <tr class="govuk-table__row">
@@ -895,7 +895,7 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                 </td>
                                 <td class="govuk-table__cell"><a class='govuk-link' href="/documents/123/download/1/version/1/"> Download</a>
                                 </td>
-                                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/attachments/1/delete'> Delete</a>
+                                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/attachments/1/delete'> Delete<span class="govuk-visually-hidden">Dolore magna aliqua</span></a>
                                 </td>
                             </tr>
                             <tr class="govuk-table__row">
@@ -911,7 +911,7 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                 </td>
                                 <td class="govuk-table__cell"><a class='govuk-link' href="/documents/123/download/1/version/1/"> Download</a>
                                 </td>
-                                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/attachments/1/delete'> Delete</a>
+                                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/attachments/1/delete'> Delete<span class="govuk-visually-hidden">Eiusmod tempor incididunt</span></a>
                                 </td>
                             </tr>
                             <tr class="govuk-table__row">
@@ -927,7 +927,7 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                 </td>
                                 <td class="govuk-table__cell"><a class='govuk-link' href="/documents/123/download/1/version/1/"> Download</a>
                                 </td>
-                                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/attachments/1/delete'> Delete</a>
+                                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/attachments/1/delete'> Delete<span class="govuk-visually-hidden">Eiusmod tempor incididunt</span></a>
                                 </td>
                             </tr>
                             <tr class="govuk-table__row">
@@ -943,7 +943,7 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                                 </td>
                                 <td class="govuk-table__cell"><a class='govuk-link' href="/documents/123/download/1/version/1/"> Download</a>
                                 </td>
-                                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/attachments/1/delete'> Delete</a>
+                                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-documentation/21/s51-advice/1/attachments/1/delete'> Delete<span class="govuk-visually-hidden">Labore et dolore</span></a>
                                 </td>
                             </tr>
                         </tbody>

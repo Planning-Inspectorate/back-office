@@ -59,6 +59,12 @@
 				]
 			}) }}
 
-		{{ govukButton({ text: 'Delete', classes: 'govuk-!-margin-top-6 govuk-button--warning'}) }}
+		{{ govukButton(
+						{ 
+							text: 'Delete', 
+							visuallyHiddenText: s51Advice.title,
+							classes: 'govuk-!-margin-top-6 govuk-button--warning'
+						}
+					) }}
 	</form>
 {% endblock %}
