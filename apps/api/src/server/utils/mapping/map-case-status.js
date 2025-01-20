@@ -41,7 +41,8 @@ export const mapDocumentCaseStageToSchema = (stage) => {
 		return null;
 	}
 
-	const { DEVELOPERS_APPLICATION, POST_DECISION } = folderDocumentCaseStageMappings;
+	const { DEVELOPERS_APPLICATION, POST_DECISION, RELEVANT_REPRESENTATIONS } =
+		folderDocumentCaseStageMappings;
 
 	// mostly the schema value is just the lower equivalent, with some exceptions:
 	switch (stage) {
@@ -51,6 +52,8 @@ export const mapDocumentCaseStageToSchema = (stage) => {
 			// note that post decision has inconsistent format in the schema, it uses underscore instead of hyphen
 			// our DB 'Post-decision' maps to 'post_decision'
 			return 'post_decision';
+		case RELEVANT_REPRESENTATIONS:
+			return '0'; // special value required by Front Office
 		default:
 			return stage.toLowerCase();
 	}
