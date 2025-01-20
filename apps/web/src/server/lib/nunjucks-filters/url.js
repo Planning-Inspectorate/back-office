@@ -6,6 +6,7 @@ import slugify from 'slugify';
  * @typedef {object} urlFilterArguments
  * @property {number=} caseId
  * @property {number=} folderId
+ * @property {string=} folderName
  * @property {number=} representationId
  * @property {number=} projectUpdateId
  * @property {string=} documentGuid

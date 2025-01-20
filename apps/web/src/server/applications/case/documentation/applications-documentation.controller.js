@@ -36,7 +36,7 @@ import { getPaginationLinks } from '../../common/components/pagination/paginatio
 import { featureFlagClient } from '../../../../common/feature-flags.js';
 import { validationResult } from 'express-validator';
 import logger from '../../../lib/logger.js';
-import utils from './utils/move-documents/utils.js';
+import moveDocumentsUtils from './utils/move-documents/utils.js';
 
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
 /** @typedef {import('../applications-case.locals.js').ApplicationCaseLocals} ApplicationCaseLocals */
@@ -784,7 +784,7 @@ export async function updateFolderDelete(request, response) {
 export async function viewAndPostApplicationsCaseDocumentationMove(request, response) {
 	const { caseId } = response.locals;
 	const { body, errors: validationErrors, session, params, query } = request;
-	const { folderId } = params;
+	const { folderId, folderName } = params;
 	const { selectedFilesIds } = body;
 
 	documentationSessionHandlers.startMoveDocumentsSession(session);
@@ -793,7 +793,7 @@ export async function viewAndPostApplicationsCaseDocumentationMove(request, resp
 		const properties = await documentationFolderData(caseId, Number(folderId), query, session);
 		return response.render('applications/components/folder/folder', {
 			...properties,
-			activeFolderSlug: request.params.folderName,
+			activeFolderSlug: folderName,
 			errors: validationErrors
 		});
 	}
@@ -818,6 +818,11 @@ export async function viewAndPostApplicationsCaseDocumentationMove(request, resp
 	response.render('applications/case-documentation/move-documents/document-list', {
 		documentationFilesToMove,
 		activeFolderSlug: request.params.folderName,
+		folderExplorerURL: moveDocumentsUtils.getFolderExplorerURL(
+			caseId,
+			Number(folderId),
+			folderName
+		),
 		backLink: url('document-category', {
 			caseId: caseId,
 			documentationCategory: {
@@ -839,7 +844,7 @@ export async function viewDocumentationFolderExplorer(request, response) {
 	const folderList = documentationSessionHandlers.getSessionMoveDocumentsFolderList(session);
 	const breadcrumbItems = documentationSessionHandlers.getSessionMoveDocumentsBreadcrumbs(session);
 	const isRootFolder = documentationSessionHandlers.getSessionMoveDocumentsIsFolderRoot(session);
-	const backLink = utils.getBackLinkUrlFromBreadcrumbs(
+	const backLink = moveDocumentsUtils.getBackLinkUrlFromBreadcrumbs(
 		breadcrumbItems,
 		caseId,
 		Number(params.folderId),
@@ -852,7 +857,7 @@ export async function viewDocumentationFolderExplorer(request, response) {
 	return response.render('applications/case-documentation/move-documents/folder-explorer', {
 		backLink,
 		breadcrumbItems,
-		folderListViewData: utils.getFolderViewData(folderList),
+		folderListViewData: moveDocumentsUtils.getFolderViewData(folderList),
 		isRootFolder
 	});
 }
@@ -868,14 +873,14 @@ export async function postDocumentationFolderExplorer(request, response) {
 
 	const openFolderId = Number(body.openFolder);
 	const folderList = await documentationSessionHandlers.getSessionMoveDocumentsFolderList(session);
-	const folderListViewData = utils.getFolderViewData(folderList);
-	const parentFolderName = utils.getFolderNameById(folderList, openFolderId);
+	const folderListViewData = moveDocumentsUtils.getFolderViewData(folderList);
+	const parentFolderName = moveDocumentsUtils.getFolderNameById(folderList, openFolderId);
 	const breadcrumbItems = documentationSessionHandlers.getSessionMoveDocumentsBreadcrumbs(session);
 
 	if (body.action === 'moveDocuments') {
 		const destinationFolder =
 			documentationSessionHandlers.getSessionMoveDocumentsParentFolder(session);
-		const payload = utils.getMoveDocumentsPayload(session);
+		const payload = moveDocumentsUtils.getMoveDocumentsPayload(session);
 
 		const { errors: updateErrors } = await updateDocumentsFolderId(caseId, payload);
 
@@ -895,7 +900,7 @@ export async function postDocumentationFolderExplorer(request, response) {
 
 	if (validationErrors) {
 		return response.render(`applications/case-documentation/move-documents/folder-explorer`, {
-			backLink: utils.getBackLinkUrlFromBreadcrumbs(
+			backLink: moveDocumentsUtils.getBackLinkUrlFromBreadcrumbs(
 				breadcrumbItems,
 				caseId,
 				Number(params.folderId),

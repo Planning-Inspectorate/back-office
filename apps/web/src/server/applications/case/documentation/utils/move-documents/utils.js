@@ -171,6 +171,26 @@ const getMoveDocumentsPayload = (session) => {
 	return moveDocumentsPayload;
 };
 
+/**
+ * @param {number} caseId
+ * @param {number} folderId
+ * @param {string} folderName
+ * @returns {string}
+ */
+
+const getFolderExplorerURL = (caseId, folderId, folderName) => {
+	if (!caseId || !folderId || !folderName) {
+		throw new Error('Missing required parameters to get folder explorer URL');
+	}
+	const baseMoveDocumentsUrl = url('move-documents', {
+		caseId,
+		folderId,
+		folderName
+	});
+
+	return `${baseMoveDocumentsUrl}/folder-explorer`;
+};
+
 export default {
 	getFolderList,
 	isFolderRoot,
@@ -179,5 +199,6 @@ export default {
 	getFolderNameById,
 	getFolderViewData,
 	formatFolderList,
-	getMoveDocumentsPayload
+	getMoveDocumentsPayload,
+	getFolderExplorerURL
 };
