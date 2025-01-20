@@ -6,6 +6,13 @@
 				"isEnabled": true,
 				"excludedTypes": "Request"
 			}
+		},
+		"logLevel": {
+			"default": "Information",
+			"Host": "Information",
+			"Function": "Debug",
+			"Worker": "Debug",
+			"Microsoft": "Warning"
 		}
 	},
 	"extensionBundle": {
