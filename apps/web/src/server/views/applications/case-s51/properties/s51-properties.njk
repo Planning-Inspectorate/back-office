@@ -94,6 +94,7 @@
 						{{ govukButton({
 							element: 'a',
 							text: "Delete",
+							visuallyHiddenText: s51Advice.title,
 							href: 's51-item'|url({caseId: caseId, folderId: folderId, adviceId: s51Advice.id, step: 'delete'}),
 							classes: "govuk-button--secondary"
 						}) }}
