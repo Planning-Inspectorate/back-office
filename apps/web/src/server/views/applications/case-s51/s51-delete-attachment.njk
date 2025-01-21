@@ -51,12 +51,6 @@
 				]
 			}) }}
 
-        {{ govukButton(
-						{ 
-							text: 'Delete', 
-							visuallyHiddenText: attachment.documentName,
-							classes: 'govuk-!-margin-top-6 govuk-button--warning'
-						}
-					) }}
+        {{ govukButton({ text: 'Delete', classes: 'govuk-!-margin-top-6 govuk-button--warning'}) }}
     </form>
 {% endblock %}
