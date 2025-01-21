@@ -8,13 +8,7 @@
 {% endblock %}
 
 {% block formSubmitButton %}
-		{{ govukButton(
-						{ 
-							text: 'Delete folder', 
-							visuallyHiddenText: folderName,
-							classes: "govuk-button--warning pins-folder-button-delete" 
-						}
-					) }}
+		{{ govukButton({ text: 'Delete folder', classes: "govuk-button--warning pins-folder-button-delete" }) }}
 		<a class="govuk-link govuk-body-m" href="{{ backLink }}">
 			Cancel
 		</a>

@@ -77,13 +77,7 @@
 				text: "This will delete all versions of this document.",
 				iconFallbackText: "Warning"
 			}) }}
-            {{ govukButton(
-                            { 
-                                text: "Delete",  
-                                visuallyHiddenText: documentationFile.fileName,
-                                classes: "govuk-button--warning" 
-                            }
-                        ) }}
+            {{ govukButton({ text: "Delete",  classes: "govuk-button--warning" }) }}
         </form>
     </div>
 {% endblock %}

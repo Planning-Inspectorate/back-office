@@ -105,7 +105,6 @@
 							{{ govukButton({
 								element: 'a',
 								text: "Delete",
-								visuallyHiddenText: documentationFile.fileName,
 								href: 'document'|url({caseId: caseId, folderId: folderId, documentGuid: documentationFile.documentGuid, step: 'delete'}),
 								classes: "govuk-button--secondary"
 							}) }}
