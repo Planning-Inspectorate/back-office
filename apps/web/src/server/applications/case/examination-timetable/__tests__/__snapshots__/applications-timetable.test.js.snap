@@ -3365,7 +3365,7 @@ exports[`Examination timetable page GET /case/123/examination-timetable should s
                         </div>
                         <div id="accordion-pre-examination-content-1" class="govuk-accordion__section-content"
                         aria-labelledby="accordion-pre-examination-heading-1">
-                            <div class="top-right-link"><a class="govuk-link" href="/applications-service/case/123/examination-timetable/item/delete/2"> Delete timetable item</a>
+                            <div class="top-right-link"><a class="govuk-link" href="/applications-service/case/123/examination-timetable/item/delete/2">Delete timetable item</a>
                             </div>
                             <dl class="govuk-summary-list">
                                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Item type</dt>
@@ -3422,7 +3422,7 @@ exports[`Examination timetable page GET /case/123/examination-timetable should s
                             </div>
                             <div id="accordion-examination-content-1" class="govuk-accordion__section-content"
                             aria-labelledby="accordion-examination-heading-1">
-                                <div class="top-right-link"><a class="govuk-link" href="/applications-service/case/123/examination-timetable/item/delete/1"> Delete timetable item</a>
+                                <div class="top-right-link"><a class="govuk-link" href="/applications-service/case/123/examination-timetable/item/delete/1">Delete timetable item</a>
                                 </div>
                                 <dl class="govuk-summary-list">
                                     <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Item type</dt>
@@ -3724,7 +3724,7 @@ exports[`Publish examination timetable preview page GET /case/123/examination-ti
                 </div>
                 <div id="accordion-pre-examination-content-1" class="govuk-accordion__section-content"
                 aria-labelledby="accordion-pre-examination-heading-1">
-                    <div class="top-right-link"><a class="govuk-link" href="/applications-service/case/123/examination-timetable/item/delete/2"> Delete timetable item</a>
+                    <div class="top-right-link"><a class="govuk-link" href="/applications-service/case/123/examination-timetable/item/delete/2">Delete timetable item</a>
                     </div>
                     <dl class="govuk-summary-list">
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Item type</dt>
@@ -3781,7 +3781,7 @@ exports[`Publish examination timetable preview page GET /case/123/examination-ti
                     </div>
                     <div id="accordion-examination-content-1" class="govuk-accordion__section-content"
                     aria-labelledby="accordion-examination-heading-1">
-                        <div class="top-right-link"><a class="govuk-link" href="/applications-service/case/123/examination-timetable/item/delete/1"> Delete timetable item</a>
+                        <div class="top-right-link"><a class="govuk-link" href="/applications-service/case/123/examination-timetable/item/delete/1">Delete timetable item</a>
                         </div>
                         <dl class="govuk-summary-list">
                             <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Item type</dt>
@@ -3903,7 +3903,7 @@ exports[`Unpublish examination timetable preview page GET /case/123/examination-
                 </div>
                 <div id="accordion-pre-examination-content-1" class="govuk-accordion__section-content"
                 aria-labelledby="accordion-pre-examination-heading-1">
-                    <div class="top-right-link"><a class="govuk-link" href="/applications-service/case/123/examination-timetable/item/delete/2"> Delete timetable item</a>
+                    <div class="top-right-link"><a class="govuk-link" href="/applications-service/case/123/examination-timetable/item/delete/2">Delete timetable item</a>
                     </div>
                     <dl class="govuk-summary-list">
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Item type</dt>
@@ -3960,7 +3960,7 @@ exports[`Unpublish examination timetable preview page GET /case/123/examination-
                     </div>
                     <div id="accordion-examination-content-1" class="govuk-accordion__section-content"
                     aria-labelledby="accordion-examination-heading-1">
-                        <div class="top-right-link"><a class="govuk-link" href="/applications-service/case/123/examination-timetable/item/delete/1"> Delete timetable item</a>
+                        <div class="top-right-link"><a class="govuk-link" href="/applications-service/case/123/examination-timetable/item/delete/1">Delete timetable item</a>
                         </div>
                         <dl class="govuk-summary-list">
                             <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Item type</dt>
