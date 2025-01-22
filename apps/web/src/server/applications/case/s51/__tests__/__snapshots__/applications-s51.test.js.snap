@@ -1902,7 +1902,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Ut enim ad</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Ut enim ad</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -1929,7 +1929,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Minim veniam quis nostrud</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/1'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Minim veniam quis nostrud</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -1956,7 +1956,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Nostrud exercitation ullamco laboris</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/2'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Nostrud exercitation ullamco laboris</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -1983,7 +1983,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Elit sed</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/3'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Elit sed</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -2010,7 +2010,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Minim veniam quis nostrud</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/4'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Minim veniam quis nostrud</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -2037,7 +2037,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Magna aliqua Ut</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/5'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Magna aliqua Ut</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -2064,7 +2064,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Enim ad minim veniam</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/6'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Enim ad minim veniam</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -2091,7 +2091,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Dolor sit</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/7'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Dolor sit</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -2118,7 +2118,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Lorem ipsum</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/8'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Lorem ipsum</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -2145,7 +2145,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Do eiusmod</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/9'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Do eiusmod</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -2172,7 +2172,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Aliqua Ut enim</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/10'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Aliqua Ut enim</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -2199,7 +2199,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Ullamco laboris nisi ut</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/11'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Ullamco laboris nisi ut</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -2226,7 +2226,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Do eiusmod</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/12'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Do eiusmod</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -2253,7 +2253,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Quis nostrud exercitation ullamco</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/13'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Quis nostrud exercitation ullamco</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -2280,7 +2280,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Do eiusmod</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/14'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Do eiusmod</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -2307,7 +2307,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Lorem ipsum</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/15'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Lorem ipsum</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -2334,7 +2334,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Ad minim veniam quis</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/16'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Ad minim veniam quis</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -2361,7 +2361,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Dolore magna aliqua</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/17'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Dolore magna aliqua</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -2388,7 +2388,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Eiusmod tempor incididunt</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/18'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Eiusmod tempor incididunt</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -2415,7 +2415,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Eiusmod tempor incididunt</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/19'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Eiusmod tempor incididunt</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -2442,7 +2442,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Labore et dolore</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/20'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Labore et dolore</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -2469,7 +2469,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Enim ad minim veniam</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/21'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Enim ad minim veniam</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -2496,7 +2496,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Nisi ut aliquip ex</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/22'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Nisi ut aliquip ex</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -2523,7 +2523,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Incididunt ut labore</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/23'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Incididunt ut labore</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -2550,7 +2550,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Ullamco laboris nisi ut</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/24'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Ullamco laboris nisi ut</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -2577,7 +2577,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Ut enim ad</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/25'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Ut enim ad</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -2604,7 +2604,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Ut labore et</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/26'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Ut labore et</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -2631,7 +2631,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Labore et dolore</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/27'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Labore et dolore</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -2658,7 +2658,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Et dolore magna</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/28'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Et dolore magna</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -2685,7 +2685,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Ad minim veniam quis</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/29'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Ad minim veniam quis</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -2712,7 +2712,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Elit sed</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/30'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Elit sed</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -2739,7 +2739,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Veniam quis nostrud exercitation</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/31'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Veniam quis nostrud exercitation</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -2766,7 +2766,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Et dolore magna</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/32'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Et dolore magna</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -2793,7 +2793,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Ut labore et</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/33'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Ut labore et</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -2820,7 +2820,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Dolore magna aliqua</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/34'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Dolore magna aliqua</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -2847,7 +2847,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Veniam quis nostrud exercitation</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/35'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Veniam quis nostrud exercitation</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -2874,7 +2874,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Elit sed</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/36'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Elit sed</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -2901,7 +2901,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Nostrud exercitation ullamco laboris</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/37'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Nostrud exercitation ullamco laboris</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -2928,7 +2928,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Ad minim veniam quis</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/38'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Ad minim veniam quis</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -2955,7 +2955,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Minim veniam quis nostrud</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/39'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Minim veniam quis nostrud</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -2982,7 +2982,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Dolor sit</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/40'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Dolor sit</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -3009,7 +3009,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Ut labore et</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/41'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Ut labore et</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -3036,7 +3036,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Consectetur adipiscing</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/42'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Consectetur adipiscing</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -3063,7 +3063,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Ipsum dolor</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/43'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Ipsum dolor</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -3090,7 +3090,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Consectetur adipiscing</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/44'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Consectetur adipiscing</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -3117,7 +3117,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Dolore magna aliqua</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/45'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Dolore magna aliqua</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -3144,7 +3144,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Consectetur adipiscing</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/46'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Consectetur adipiscing</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -3171,7 +3171,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Et dolore magna</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/47'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Et dolore magna</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -3198,7 +3198,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Sit amet</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/48'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Sit amet</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -3225,7 +3225,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Ad minim veniam quis</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/49'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Ad minim veniam quis</span></a>
                             </td>
                         </tr>
                     </tbody>
@@ -3345,7 +3345,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Ut enim ad</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Ut enim ad</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -3372,7 +3372,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Minim veniam quis nostrud</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/1'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Minim veniam quis nostrud</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -3399,7 +3399,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Nostrud exercitation ullamco laboris</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/2'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Nostrud exercitation ullamco laboris</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -3426,7 +3426,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Elit sed</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/3'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Elit sed</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -3453,7 +3453,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Minim veniam quis nostrud</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/4'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Minim veniam quis nostrud</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -3480,7 +3480,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Magna aliqua Ut</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/5'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Magna aliqua Ut</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -3507,7 +3507,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Enim ad minim veniam</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/6'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Enim ad minim veniam</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -3534,7 +3534,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Dolor sit</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/7'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Dolor sit</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -3561,7 +3561,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Lorem ipsum</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/8'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Lorem ipsum</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -3588,7 +3588,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Do eiusmod</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/9'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Do eiusmod</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -3615,7 +3615,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Aliqua Ut enim</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/10'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Aliqua Ut enim</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -3642,7 +3642,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Ullamco laboris nisi ut</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/11'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Ullamco laboris nisi ut</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -3669,7 +3669,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Do eiusmod</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/12'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Do eiusmod</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -3696,7 +3696,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Quis nostrud exercitation ullamco</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/13'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Quis nostrud exercitation ullamco</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -3723,7 +3723,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Do eiusmod</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/14'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Do eiusmod</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -3750,7 +3750,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Lorem ipsum</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/15'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Lorem ipsum</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -3777,7 +3777,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Ad minim veniam quis</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/16'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Ad minim veniam quis</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -3804,7 +3804,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Dolore magna aliqua</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/17'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Dolore magna aliqua</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -3831,7 +3831,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Eiusmod tempor incididunt</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/18'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Eiusmod tempor incididunt</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -3858,7 +3858,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Eiusmod tempor incididunt</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/19'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Eiusmod tempor incididunt</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -3885,7 +3885,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Labore et dolore</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/20'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Labore et dolore</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -3912,7 +3912,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Enim ad minim veniam</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/21'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Enim ad minim veniam</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -3939,7 +3939,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Nisi ut aliquip ex</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/22'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Nisi ut aliquip ex</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -3966,7 +3966,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Incididunt ut labore</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/23'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Incididunt ut labore</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -3993,7 +3993,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Ullamco laboris nisi ut</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/24'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Ullamco laboris nisi ut</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -4020,7 +4020,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Ut enim ad</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/25'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Ut enim ad</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -4047,7 +4047,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Ut labore et</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/26'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Ut labore et</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -4074,7 +4074,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Labore et dolore</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/27'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Labore et dolore</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -4101,7 +4101,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Et dolore magna</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/28'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Et dolore magna</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -4128,7 +4128,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Ad minim veniam quis</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/29'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Ad minim veniam quis</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -4155,7 +4155,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Elit sed</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/30'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Elit sed</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -4182,7 +4182,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Veniam quis nostrud exercitation</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/31'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Veniam quis nostrud exercitation</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -4209,7 +4209,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Et dolore magna</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/32'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Et dolore magna</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -4236,7 +4236,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Ut labore et</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/33'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Ut labore et</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -4263,7 +4263,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Dolore magna aliqua</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/34'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Dolore magna aliqua</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -4290,7 +4290,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Veniam quis nostrud exercitation</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/35'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Veniam quis nostrud exercitation</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -4317,7 +4317,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Elit sed</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/36'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Elit sed</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -4344,7 +4344,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Nostrud exercitation ullamco laboris</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/37'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Nostrud exercitation ullamco laboris</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -4371,7 +4371,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Ad minim veniam quis</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/38'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Ad minim veniam quis</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -4398,7 +4398,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Minim veniam quis nostrud</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/39'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Minim veniam quis nostrud</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -4425,7 +4425,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Dolor sit</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/40'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Dolor sit</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -4452,7 +4452,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Ut labore et</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/41'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Ut labore et</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -4479,7 +4479,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Consectetur adipiscing</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/42'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Consectetur adipiscing</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -4506,7 +4506,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Ipsum dolor</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/43'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Ipsum dolor</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -4533,7 +4533,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Consectetur adipiscing</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/44'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Consectetur adipiscing</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -4560,7 +4560,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Dolore magna aliqua</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/45'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Dolore magna aliqua</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -4587,7 +4587,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Consectetur adipiscing</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/46'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Consectetur adipiscing</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -4614,7 +4614,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Et dolore magna</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/47'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Et dolore magna</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -4641,7 +4641,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Sit amet</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/48'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Sit amet</span></a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -4668,7 +4668,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                                 class='govuk-link'> View/edit details<span class="govuk-visually-hidden">Ad minim veniam quis</span></a>
                             </td>
                             <td class="govuk-table__cell"><a href='/applications-service/case/123/project-documentation/21/s51-advice/publishing-queue/remove/49'
-                                class='govuk-link'> Remove</a>
+                                class='govuk-link'> Remove<span class="govuk-visually-hidden">Ad minim veniam quis</span></a>
                             </td>
                         </tr>
                     </tbody>

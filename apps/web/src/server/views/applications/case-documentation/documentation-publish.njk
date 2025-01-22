@@ -118,6 +118,7 @@
                                     <td class="govuk-table__cell">
                                         <a href="{{ 'document'|url({caseId: caseId, folderId: documentationFile.folderId, documentGuid: documentationFile.documentGuid, step: 'remove-from-publishing-queue'}) }}" class='govuk-link govuk-body-s'>
                                             Remove
+                                            <span class="govuk-visually-hidden">{{ documentationFile.fileName }}</span>
                                         </a>
                                     </td>
                                 </tr>
