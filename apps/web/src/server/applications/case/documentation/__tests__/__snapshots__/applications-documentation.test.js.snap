@@ -22044,175 +22044,175 @@ exports[`applications documentation Document search GET /case/123/project-docume
                     <td class="govuk-table__cell"></td>
                     <td class="govuk-table__cell"><strong>1 Ut enim ad</strong>
                     </td>
-                    <td class="govuk-table__cell"><a class="govuk-link" href="/applications-service/case/123/project-documentation/11/document/0/properties"> View</a>
+                    <td class="govuk-table__cell"><a class="govuk-link" href="/applications-service/case/123/project-documentation/11/document/0/properties"> View<span class="govuk-visually-hidden">1 Ut enim ad</span></a>
                     </td>
                 </tr>
                 <tr class="govuk-table__row">
                     <td class="govuk-table__cell"></td>
                     <td class="govuk-table__cell"><strong>2 Minim veniam quis nostrud</strong>
                     </td>
-                    <td class="govuk-table__cell"><a class="govuk-link" href="/applications-service/case/123/project-documentation/11/document/1/properties"> View</a>
+                    <td class="govuk-table__cell"><a class="govuk-link" href="/applications-service/case/123/project-documentation/11/document/1/properties"> View<span class="govuk-visually-hidden">2 Minim veniam quis nostrud</span></a>
                     </td>
                 </tr>
                 <tr class="govuk-table__row">
                     <td class="govuk-table__cell"></td>
                     <td class="govuk-table__cell"><strong>3 Nostrud exercitation ullamco laboris</strong>
                     </td>
-                    <td class="govuk-table__cell"><a class="govuk-link" href="/applications-service/case/123/project-documentation/11/document/2/properties"> View</a>
+                    <td class="govuk-table__cell"><a class="govuk-link" href="/applications-service/case/123/project-documentation/11/document/2/properties"> View<span class="govuk-visually-hidden">3 Nostrud exercitation ullamco laboris</span></a>
                     </td>
                 </tr>
                 <tr class="govuk-table__row">
                     <td class="govuk-table__cell"></td>
                     <td class="govuk-table__cell"><strong>4 Elit sed</strong>
                     </td>
-                    <td class="govuk-table__cell"><a class="govuk-link" href="/applications-service/case/123/project-documentation/11/document/3/properties"> View</a>
+                    <td class="govuk-table__cell"><a class="govuk-link" href="/applications-service/case/123/project-documentation/11/document/3/properties"> View<span class="govuk-visually-hidden">4 Elit sed</span></a>
                     </td>
                 </tr>
                 <tr class="govuk-table__row">
                     <td class="govuk-table__cell"></td>
                     <td class="govuk-table__cell"><strong>5 Minim veniam quis nostrud</strong>
                     </td>
-                    <td class="govuk-table__cell"><a class="govuk-link" href="/applications-service/case/123/project-documentation/11/document/4/properties"> View</a>
+                    <td class="govuk-table__cell"><a class="govuk-link" href="/applications-service/case/123/project-documentation/11/document/4/properties"> View<span class="govuk-visually-hidden">5 Minim veniam quis nostrud</span></a>
                     </td>
                 </tr>
                 <tr class="govuk-table__row">
                     <td class="govuk-table__cell"></td>
                     <td class="govuk-table__cell"><strong>6 Magna aliqua Ut</strong>
                     </td>
-                    <td class="govuk-table__cell"><a class="govuk-link" href="/applications-service/case/123/project-documentation/11/document/5/properties"> View</a>
+                    <td class="govuk-table__cell"><a class="govuk-link" href="/applications-service/case/123/project-documentation/11/document/5/properties"> View<span class="govuk-visually-hidden">6 Magna aliqua Ut</span></a>
                     </td>
                 </tr>
                 <tr class="govuk-table__row">
                     <td class="govuk-table__cell"></td>
                     <td class="govuk-table__cell"><strong>7 Enim ad minim veniam</strong>
                     </td>
-                    <td class="govuk-table__cell"><a class="govuk-link" href="/applications-service/case/123/project-documentation/11/document/6/properties"> View</a>
+                    <td class="govuk-table__cell"><a class="govuk-link" href="/applications-service/case/123/project-documentation/11/document/6/properties"> View<span class="govuk-visually-hidden">7 Enim ad minim veniam</span></a>
                     </td>
                 </tr>
                 <tr class="govuk-table__row">
                     <td class="govuk-table__cell"></td>
                     <td class="govuk-table__cell"><strong>8 Dolor sit</strong>
                     </td>
-                    <td class="govuk-table__cell"><a class="govuk-link" href="/applications-service/case/123/project-documentation/11/document/7/properties"> View</a>
+                    <td class="govuk-table__cell"><a class="govuk-link" href="/applications-service/case/123/project-documentation/11/document/7/properties"> View<span class="govuk-visually-hidden">8 Dolor sit</span></a>
                     </td>
                 </tr>
                 <tr class="govuk-table__row">
                     <td class="govuk-table__cell"></td>
                     <td class="govuk-table__cell"><strong>9 Lorem ipsum</strong>
                     </td>
-                    <td class="govuk-table__cell"><a class="govuk-link" href="/applications-service/case/123/project-documentation/11/document/8/properties"> View</a>
+                    <td class="govuk-table__cell"><a class="govuk-link" href="/applications-service/case/123/project-documentation/11/document/8/properties"> View<span class="govuk-visually-hidden">9 Lorem ipsum</span></a>
                     </td>
                 </tr>
                 <tr class="govuk-table__row">
                     <td class="govuk-table__cell"></td>
                     <td class="govuk-table__cell"><strong>10 Do eiusmod</strong>
                     </td>
-                    <td class="govuk-table__cell"><a class="govuk-link" href="/applications-service/case/123/project-documentation/11/document/9/properties"> View</a>
+                    <td class="govuk-table__cell"><a class="govuk-link" href="/applications-service/case/123/project-documentation/11/document/9/properties"> View<span class="govuk-visually-hidden">10 Do eiusmod</span></a>
                     </td>
                 </tr>
                 <tr class="govuk-table__row">
                     <td class="govuk-table__cell"></td>
                     <td class="govuk-table__cell"><strong>11 Aliqua Ut enim</strong>
                     </td>
-                    <td class="govuk-table__cell"><a class="govuk-link" href="/applications-service/case/123/project-documentation/11/document/10/properties"> View</a>
+                    <td class="govuk-table__cell"><a class="govuk-link" href="/applications-service/case/123/project-documentation/11/document/10/properties"> View<span class="govuk-visually-hidden">11 Aliqua Ut enim</span></a>
                     </td>
                 </tr>
                 <tr class="govuk-table__row">
                     <td class="govuk-table__cell"></td>
                     <td class="govuk-table__cell"><strong>12 Ullamco laboris nisi ut</strong>
                     </td>
-                    <td class="govuk-table__cell"><a class="govuk-link" href="/applications-service/case/123/project-documentation/11/document/11/properties"> View</a>
+                    <td class="govuk-table__cell"><a class="govuk-link" href="/applications-service/case/123/project-documentation/11/document/11/properties"> View<span class="govuk-visually-hidden">12 Ullamco laboris nisi ut</span></a>
                     </td>
                 </tr>
                 <tr class="govuk-table__row">
                     <td class="govuk-table__cell"></td>
                     <td class="govuk-table__cell"><strong>13 Do eiusmod</strong>
                     </td>
-                    <td class="govuk-table__cell"><a class="govuk-link" href="/applications-service/case/123/project-documentation/11/document/12/properties"> View</a>
+                    <td class="govuk-table__cell"><a class="govuk-link" href="/applications-service/case/123/project-documentation/11/document/12/properties"> View<span class="govuk-visually-hidden">13 Do eiusmod</span></a>
                     </td>
                 </tr>
                 <tr class="govuk-table__row">
                     <td class="govuk-table__cell"></td>
                     <td class="govuk-table__cell"><strong>14 Quis nostrud exercitation ullamco</strong>
                     </td>
-                    <td class="govuk-table__cell"><a class="govuk-link" href="/applications-service/case/123/project-documentation/11/document/13/properties"> View</a>
+                    <td class="govuk-table__cell"><a class="govuk-link" href="/applications-service/case/123/project-documentation/11/document/13/properties"> View<span class="govuk-visually-hidden">14 Quis nostrud exercitation ullamco</span></a>
                     </td>
                 </tr>
                 <tr class="govuk-table__row">
                     <td class="govuk-table__cell"></td>
                     <td class="govuk-table__cell"><strong>15 Do eiusmod</strong>
                     </td>
-                    <td class="govuk-table__cell"><a class="govuk-link" href="/applications-service/case/123/project-documentation/11/document/14/properties"> View</a>
+                    <td class="govuk-table__cell"><a class="govuk-link" href="/applications-service/case/123/project-documentation/11/document/14/properties"> View<span class="govuk-visually-hidden">15 Do eiusmod</span></a>
                     </td>
                 </tr>
                 <tr class="govuk-table__row">
                     <td class="govuk-table__cell"></td>
                     <td class="govuk-table__cell"><strong>16 Lorem ipsum</strong>
                     </td>
-                    <td class="govuk-table__cell"><a class="govuk-link" href="/applications-service/case/123/project-documentation/11/document/15/properties"> View</a>
+                    <td class="govuk-table__cell"><a class="govuk-link" href="/applications-service/case/123/project-documentation/11/document/15/properties"> View<span class="govuk-visually-hidden">16 Lorem ipsum</span></a>
                     </td>
                 </tr>
                 <tr class="govuk-table__row">
                     <td class="govuk-table__cell"></td>
                     <td class="govuk-table__cell"><strong>17 Ad minim veniam quis</strong>
                     </td>
-                    <td class="govuk-table__cell"><a class="govuk-link" href="/applications-service/case/123/project-documentation/11/document/16/properties"> View</a>
+                    <td class="govuk-table__cell"><a class="govuk-link" href="/applications-service/case/123/project-documentation/11/document/16/properties"> View<span class="govuk-visually-hidden">17 Ad minim veniam quis</span></a>
                     </td>
                 </tr>
                 <tr class="govuk-table__row">
                     <td class="govuk-table__cell"></td>
                     <td class="govuk-table__cell"><strong>18 Dolore magna aliqua</strong>
                     </td>
-                    <td class="govuk-table__cell"><a class="govuk-link" href="/applications-service/case/123/project-documentation/11/document/17/properties"> View</a>
+                    <td class="govuk-table__cell"><a class="govuk-link" href="/applications-service/case/123/project-documentation/11/document/17/properties"> View<span class="govuk-visually-hidden">18 Dolore magna aliqua</span></a>
                     </td>
                 </tr>
                 <tr class="govuk-table__row">
                     <td class="govuk-table__cell"></td>
                     <td class="govuk-table__cell"><strong>19 Eiusmod tempor incididunt</strong>
                     </td>
-                    <td class="govuk-table__cell"><a class="govuk-link" href="/applications-service/case/123/project-documentation/11/document/18/properties"> View</a>
+                    <td class="govuk-table__cell"><a class="govuk-link" href="/applications-service/case/123/project-documentation/11/document/18/properties"> View<span class="govuk-visually-hidden">19 Eiusmod tempor incididunt</span></a>
                     </td>
                 </tr>
                 <tr class="govuk-table__row">
                     <td class="govuk-table__cell"></td>
                     <td class="govuk-table__cell"><strong>20 Eiusmod tempor incididunt</strong>
                     </td>
-                    <td class="govuk-table__cell"><a class="govuk-link" href="/applications-service/case/123/project-documentation/11/document/19/properties"> View</a>
+                    <td class="govuk-table__cell"><a class="govuk-link" href="/applications-service/case/123/project-documentation/11/document/19/properties"> View<span class="govuk-visually-hidden">20 Eiusmod tempor incididunt</span></a>
                     </td>
                 </tr>
                 <tr class="govuk-table__row">
                     <td class="govuk-table__cell"></td>
                     <td class="govuk-table__cell"><strong>21 Labore et dolore</strong>
                     </td>
-                    <td class="govuk-table__cell"><a class="govuk-link" href="/applications-service/case/123/project-documentation/11/document/20/properties"> View</a>
+                    <td class="govuk-table__cell"><a class="govuk-link" href="/applications-service/case/123/project-documentation/11/document/20/properties"> View<span class="govuk-visually-hidden">21 Labore et dolore</span></a>
                     </td>
                 </tr>
                 <tr class="govuk-table__row">
                     <td class="govuk-table__cell"></td>
                     <td class="govuk-table__cell"><strong>22 Enim ad minim veniam</strong>
                     </td>
-                    <td class="govuk-table__cell"><a class="govuk-link" href="/applications-service/case/123/project-documentation/11/document/21/properties"> View</a>
+                    <td class="govuk-table__cell"><a class="govuk-link" href="/applications-service/case/123/project-documentation/11/document/21/properties"> View<span class="govuk-visually-hidden">22 Enim ad minim veniam</span></a>
                     </td>
                 </tr>
                 <tr class="govuk-table__row">
                     <td class="govuk-table__cell"></td>
                     <td class="govuk-table__cell"><strong>23 Nisi ut aliquip ex</strong>
                     </td>
-                    <td class="govuk-table__cell"><a class="govuk-link" href="/applications-service/case/123/project-documentation/11/document/22/properties"> View</a>
+                    <td class="govuk-table__cell"><a class="govuk-link" href="/applications-service/case/123/project-documentation/11/document/22/properties"> View<span class="govuk-visually-hidden">23 Nisi ut aliquip ex</span></a>
                     </td>
                 </tr>
                 <tr class="govuk-table__row">
                     <td class="govuk-table__cell"></td>
                     <td class="govuk-table__cell"><strong>24 Incididunt ut labore</strong>
                     </td>
-                    <td class="govuk-table__cell"><a class="govuk-link" href="/applications-service/case/123/project-documentation/11/document/23/properties"> View</a>
+                    <td class="govuk-table__cell"><a class="govuk-link" href="/applications-service/case/123/project-documentation/11/document/23/properties"> View<span class="govuk-visually-hidden">24 Incididunt ut labore</span></a>
                     </td>
                 </tr>
                 <tr class="govuk-table__row">
                     <td class="govuk-table__cell"></td>
                     <td class="govuk-table__cell"><strong>25 Ullamco laboris nisi ut</strong>
                     </td>
-                    <td class="govuk-table__cell"><a class="govuk-link" href="/applications-service/case/123/project-documentation/11/document/24/properties"> View</a>
+                    <td class="govuk-table__cell"><a class="govuk-link" href="/applications-service/case/123/project-documentation/11/document/24/properties"> View<span class="govuk-visually-hidden">25 Ullamco laboris nisi ut</span></a>
                     </td>
                 </tr>
             </tbody>
