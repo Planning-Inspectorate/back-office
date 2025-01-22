@@ -44,6 +44,7 @@
 			{% set delete %}
 				<a class='govuk-link'href='{{'s51-attachment'|url({caseId: caseId, folderId: folderId, adviceId: adviceId, documentGuid: attachment.documentGuid, step: 'delete'})}}' >
 					Delete
+					<span class="govuk-visually-hidden">{{ attachment.documentName }}</span>
 				</a>
 			{% endset %}
 		{% endif %}
