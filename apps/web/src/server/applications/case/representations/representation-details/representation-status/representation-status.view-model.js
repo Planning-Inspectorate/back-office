@@ -8,10 +8,10 @@ import { formatContactDetails } from '../../representation/representation.utilit
 
 /**
  * @param {string} status
- * @param {string|boolean} isStatusEdit
  * @returns {Array<Object>}
  */
-const getRadioItems = (status, isStatusEdit) => {
+
+const getRadioItems = (status) => {
 	const optionsList = [
 		{
 			value: repStatusMap.awaitingReview,
@@ -41,7 +41,7 @@ const getRadioItems = (status, isStatusEdit) => {
 	];
 
 	return optionsList.map((option) => {
-		if (!!isStatusEdit && option.value === status) {
+		if (option.value === status) {
 			option.checked = true;
 		}
 		return option;
@@ -71,8 +71,7 @@ export const getRepresentationStatusViewModel = (
 		repId,
 		orgOrName: represented.organisationName ? represented.organisationName : represented.fullName,
 		pageHeading: 'Change status',
-		status,
-		radioItems: getRadioItems(status, isStatusEdit),
+		radioItems: getRadioItems(status),
 		backLinkUrl: getRepresentationDetailsPageUrl(caseId, repId)
 	};
 };

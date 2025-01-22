@@ -2,8 +2,8 @@
 
 exports[`Change representation status page GET /applications-service/case/1/relevant-representations/1/representations-details/change-status should render the page 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main"><span class="govuk-caption-l">Mrs Sue</span>
-    <h1 class="govuk-heading-l govuk-!-margin-bottom-2">Change status</h1><strong class="govuk-heading-s govuk-!-margin-bottom-6"><strong class="govuk-tag govuk-tag--grey">awaiting review</strong></strong>
-    <div     class="govuk-grid-row">
+    <h1 class="govuk-heading-l govuk-!-margin-bottom-2">Change status</h1>
+    <div class="govuk-grid-row">
         <div class="govuk-grid-column-one-half">
             <form method="post" novalidate>
                 <div class="govuk-form-group">
@@ -11,7 +11,7 @@ exports[`Change representation status page GET /applications-service/case/1/rele
                         <div class="govuk-radios" data-module="govuk-radios">
                             <div class="govuk-radios__item">
                                 <input class="govuk-radios__input" id="changeStatus" name="changeStatus"
-                                type="radio" value="AWAITING_REVIEW">
+                                type="radio" value="AWAITING_REVIEW" checked>
                                 <label class="govuk-label govuk-radios__label" for="changeStatus">Awaiting review</label>
                             </div>
                             <div class="govuk-radios__item">
@@ -40,6 +40,6 @@ exports[`Change representation status page GET /applications-service/case/1/rele
                 <button type="submit" class="govuk-button govuk-!-margin-top-3" data-module="govuk-button">Continue</button>
             </form>
         </div>
-        </div>
+    </div>
 </main>"
 `;

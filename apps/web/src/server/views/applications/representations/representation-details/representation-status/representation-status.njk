@@ -4,7 +4,6 @@
 {% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
-{% from "../components/representation-status-tag.njk" import representationStatusTag %}
 
 {% block pageHeading %}
 {% endblock %}
@@ -14,7 +13,6 @@
 
 	<span class="govuk-caption-l">{{ orgOrName}}</span>
     <h1 class="govuk-heading-l govuk-!-margin-bottom-2">{{ pageHeading }}</h1>
-    <strong class="govuk-heading-s govuk-!-margin-bottom-6">{{ representationStatusTag(status) }}</strong>
 
 	<div class="govuk-grid-row">
 		<div class="govuk-grid-column-one-half">
