@@ -50,7 +50,7 @@
 						caseId: caseId,
 						userId: teamMember.id,
 						step: 'remove'
-						})}}'>Remove</a>
+						})}}'>Remove<span class="govuk-visually-hidden">{{ teamMember.givenName }} {{ teamMember.surname }}</span></a>
 			{% endset %}
 
 			{% set row = [
