@@ -12,7 +12,7 @@ describe('Map Application Representation Download', () => {
 				representative: { address: {} }
 			}
 		]);
-		expect(response).toEqual('1234, ,, , ,,,,,,\n');
+		expect(response).toEqual('1234,,,, ,,,,,,\n');
 	});
 	it('should map the first element if the second element (agent) is not in the contacts array', () => {
 		const response = mapRepToCsv([
