@@ -95,7 +95,7 @@ export const queryApplications = async ({ params }, response) => {
 
 	const application = await getCaseByRef(String(params.reference));
 	if (!application) {
-		response.end(404);
+		response.status(404).end();
 		return;
 	}
 

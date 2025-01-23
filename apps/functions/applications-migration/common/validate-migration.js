@@ -137,8 +137,8 @@ const getEntityDiffCounts = (
 	comparisonKeyOdw,
 	comparisonKeyBo
 ) => {
-	const odwEntitiesIds = odwEntities.map((entity) => entity[comparisonKeyOdw].toString());
-	const boEntitiesIds = boEntities.map((entity) => entity[comparisonKeyBo].toString());
+	const odwEntitiesIds = odwEntities.map((entity) => entity[comparisonKeyOdw]?.toString());
+	const boEntitiesIds = boEntities.map((entity) => entity[comparisonKeyBo]?.toString());
 
 	const odwEntitiesIdsSet = new Set(odwEntitiesIds);
 	const boEntitiesIdsSet = new Set(boEntitiesIds);

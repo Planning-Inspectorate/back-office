@@ -10,6 +10,8 @@ import { representationsStatusesList } from '../../applications/application/repr
 import { EventType } from '@pins/event-client';
 import { createDocumentVersion } from './nsip-document-migrator.js';
 import { broadcastNsipDocumentEvent } from '#infrastructure/event-broadcasters.js';
+import { folderDocumentCaseStageMappings } from '#api-constants';
+import { getOrgNameOrName } from '../../applications/application/representations/download/utils/map-rep-to-csv.js';
 
 /**
  * @typedef {import("pins-data-model").Schemas.Representation} RepresentationModel
@@ -65,7 +67,8 @@ export const migrateRepresentations = async (representations, updateProgress) =>
 					representationAttachmentDetails.push({
 						docGuid: documentRow.guid,
 						representationStatus: representation.status,
-						latestVersionId: documentRow.latestVersionId
+						latestVersionId: documentRow.latestVersionId,
+						representedId: representation.representedId
 					});
 
 					return representationAttachmentRepository.upsertApplicationRepresentationAttachment(
@@ -95,7 +98,12 @@ const handleDocumentVersionUpdateForRepresentationAttachments = async (attachmen
 			return Promise.all(
 				docVersions.map(async (docVersion) => {
 					let latestPublishedVersion;
-					docVersion.stage = '0';
+					docVersion.stage = folderDocumentCaseStageMappings.RELEVANT_REPRESENTATIONS;
+					docVersion.filter1 = folderDocumentCaseStageMappings.RELEVANT_REPRESENTATIONS;
+					docVersion.author = await getRepresentationAttachmentAuthor(
+						docVersion.author,
+						attachmentDetail.representedId
+					);
 					if (
 						attachmentDetail.latestVersionId === docVersion.version &&
 						attachmentDetail.representationStatus === 'published'
@@ -117,6 +125,23 @@ const handleDocumentVersionUpdateForRepresentationAttachments = async (attachmen
 			);
 		})
 	);
+};
+
+/**
+ *
+ * @param {string} documentVersionAuthor
+ * @param {string} representedId
+ * @returns {Promise<string>}
+ */
+const getRepresentationAttachmentAuthor = async (documentVersionAuthor, representedId) => {
+	if (documentVersionAuthor) return documentVersionAuthor;
+	if (!representedId) return '';
+	else {
+		const representedUser = await databaseConnector.serviceUser.findUnique({
+			where: { id: parseInt(representedId) }
+		});
+		return representedUser ? getOrgNameOrName(representedUser) : '';
+	}
 };
 
 /**
