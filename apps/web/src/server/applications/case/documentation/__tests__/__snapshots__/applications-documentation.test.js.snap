@@ -7161,7 +7161,7 @@ exports[`applications documentation Document properties page page should render 
                                     <p class='govuk-!-margin-top-2 pins-document-activity-unpublished'><strong>Unpublished:</strong> 14:09, 03 Jul 2023, John Doe</p>
                                 </td>
                                 <td class="govuk-table__cell">Unredacted</td>
-                                <td class="govuk-table__cell"><a href='/documents/123/download/123/version/1/'> Download</a>
+                                <td class="govuk-table__cell"><a href='/documents/123/download/123/version/1/'> Download<span class="govuk-visually-hidden"></span></a>
                                 </td>
                             </tr>
                             <tr class="govuk-table__row">
@@ -7175,7 +7175,7 @@ exports[`applications documentation Document properties page page should render 
                                     <p class='govuk-!-margin-top-2 pins-document-activity-published'><strong>Published:</strong> Not published</p>
                                 </td>
                                 <td class="govuk-table__cell">Unredacted</td>
-                                <td class="govuk-table__cell"><a href='/documents/123/download/456/version/2/'> Download</a>
+                                <td class="govuk-table__cell"><a href='/documents/123/download/456/version/2/'> Download<span class="govuk-visually-hidden"></span></a>
                                 </td>
                             </tr>
                         </tbody>
@@ -7328,7 +7328,7 @@ exports[`applications documentation Document properties page page should render 
                                     <p class='govuk-!-margin-top-2 pins-document-activity-unpublished'><strong>Unpublished:</strong> 14:09, 03 Jul 2023, John Doe</p>
                                 </td>
                                 <td class="govuk-table__cell">Unredacted</td>
-                                <td class="govuk-table__cell"><a href='/documents/123/download/123/version/1/'> Download</a>
+                                <td class="govuk-table__cell"><a href='/documents/123/download/123/version/1/'> Download<span class="govuk-visually-hidden"></span></a>
                                 </td>
                             </tr>
                             <tr class="govuk-table__row">
@@ -7342,7 +7342,7 @@ exports[`applications documentation Document properties page page should render 
                                     <p class='govuk-!-margin-top-2 pins-document-activity-published'><strong>Published:</strong> Not published</p>
                                 </td>
                                 <td class="govuk-table__cell">Unredacted</td>
-                                <td class="govuk-table__cell"><a href='/documents/123/download/456/version/2/'> Download</a>
+                                <td class="govuk-table__cell"><a href='/documents/123/download/456/version/2/'> Download<span class="govuk-visually-hidden"></span></a>
                                 </td>
                             </tr>
                         </tbody>
@@ -7493,7 +7493,7 @@ exports[`applications documentation Document properties page should not show pub
                                     <p class='govuk-!-margin-top-2 pins-document-activity-unpublished'><strong>Unpublished:</strong> 14:09, 03 Jul 2023, John Doe</p>
                                 </td>
                                 <td class="govuk-table__cell">Unredacted</td>
-                                <td class="govuk-table__cell"><a href='/documents/123/download/123/version/1/'> Download</a>
+                                <td class="govuk-table__cell"><a href='/documents/123/download/123/version/1/'> Download<span class="govuk-visually-hidden"></span></a>
                                 </td>
                             </tr>
                             <tr class="govuk-table__row">
@@ -7507,7 +7507,7 @@ exports[`applications documentation Document properties page should not show pub
                                     <p class='govuk-!-margin-top-2 pins-document-activity-published'><strong>Published:</strong> Not published</p>
                                 </td>
                                 <td class="govuk-table__cell">Unredacted</td>
-                                <td class="govuk-table__cell"><a href='/documents/123/download/456/version/2/'> Download</a>
+                                <td class="govuk-table__cell"><a href='/documents/123/download/456/version/2/'> Download<span class="govuk-visually-hidden"></span></a>
                                 </td>
                             </tr>
                         </tbody>
@@ -7660,7 +7660,7 @@ exports[`applications documentation Document properties page should not show pub
                                     <p class='govuk-!-margin-top-2 pins-document-activity-unpublished'><strong>Unpublished:</strong> 14:09, 03 Jul 2023, John Doe</p>
                                 </td>
                                 <td class="govuk-table__cell">Unredacted</td>
-                                <td class="govuk-table__cell"><a href='/documents/123/download/123/version/1/'> Download</a>
+                                <td class="govuk-table__cell"><a href='/documents/123/download/123/version/1/'> Download<span class="govuk-visually-hidden"></span></a>
                                 </td>
                             </tr>
                             <tr class="govuk-table__row">
@@ -7674,7 +7674,7 @@ exports[`applications documentation Document properties page should not show pub
                                     <p class='govuk-!-margin-top-2 pins-document-activity-published'><strong>Published:</strong> Not published</p>
                                 </td>
                                 <td class="govuk-table__cell">Unredacted</td>
-                                <td class="govuk-table__cell"><a href='/documents/123/download/456/version/2/'> Download</a>
+                                <td class="govuk-table__cell"><a href='/documents/123/download/456/version/2/'> Download<span class="govuk-visually-hidden"></span></a>
                                 </td>
                             </tr>
                         </tbody>
@@ -7825,7 +7825,7 @@ exports[`applications documentation Document properties page should show publish
                                     <p class='govuk-!-margin-top-2 pins-document-activity-unpublished'><strong>Unpublished:</strong> 14:09, 03 Jul 2023, John Doe</p>
                                 </td>
                                 <td class="govuk-table__cell">Unredacted</td>
-                                <td class="govuk-table__cell"><a href='/documents/123/download/123/version/1/'> Download</a>
+                                <td class="govuk-table__cell"><a href='/documents/123/download/123/version/1/'> Download<span class="govuk-visually-hidden"></span></a>
                                 </td>
                             </tr>
                             <tr class="govuk-table__row">
@@ -7839,7 +7839,7 @@ exports[`applications documentation Document properties page should show publish
                                     <p class='govuk-!-margin-top-2 pins-document-activity-published'><strong>Published:</strong> Not published</p>
                                 </td>
                                 <td class="govuk-table__cell">Unredacted</td>
-                                <td class="govuk-table__cell"><a href='/documents/123/download/456/version/2/'> Download</a>
+                                <td class="govuk-table__cell"><a href='/documents/123/download/456/version/2/'> Download<span class="govuk-visually-hidden"></span></a>
                                 </td>
                             </tr>
                         </tbody>
