@@ -85,6 +85,18 @@ export const upsert = ({ documentGuid, version = 1, transcriptGuid, ...metadata 
 };
 
 /**
+ * @param {string} documentGuid
+ * @param {int} version
+ * @param {DocumentVersion} metadata
+ * @returns {import('@prisma/client').PrismaPromise<DocumentVersionWithDocumentAndFolder>} */
+export const updateDocumentVersion = async (documentGuid, version, metadata) => {
+	return databaseConnector.documentVersion.update({
+		where: { documentGuid_version: { documentGuid, version } },
+		data: metadata
+	});
+};
+
+/**
  *
  * @param {{guid: string, status: string, version?: number }} documentStatusUpdate
  * @returns {import('@prisma/client').PrismaPromise<DocumentVersionWithDocumentAndFolder>}

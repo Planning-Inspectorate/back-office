@@ -1,7 +1,7 @@
 import { stringify } from 'csv-stringify/sync';
 
-const getOrgNameOrName = ({ organisationName, firstName = '', lastName = '' }) =>
-	organisationName ? organisationName : `${firstName} ${lastName}`;
+export const getOrgNameOrName = ({ organisationName, firstName = '', lastName = '' }) =>
+	organisationName ? organisationName : `${firstName} ${lastName}`.trim();
 
 const addressLineTwo = ({ addressLine1 = '', addressLine2 = '' }) =>
 	`${addressLine1} ${addressLine2}`;
