@@ -42,7 +42,7 @@
 						caseId: caseId,
 						userId: teamMember.id,
 						step: 'choose-role'
-						})}}'>Change role </a>
+						})}}'>Change role<span class="govuk-visually-hidden">for {{ teamMember.givenName }} {{ teamMember.surname }}</span></a>
 			{% endset %}
 
 			{% set teamMemberDeletePageUrl %}

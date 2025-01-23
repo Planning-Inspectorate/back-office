@@ -427,7 +427,7 @@ exports[`Project team List page GET /case/123/project-team/ should render the pa
                         <td class="govuk-table__cell"><strong>Inspector</strong>
                         </td>
                         <td class="govuk-table__cell">Do Do</td>
-                        <td class="govuk-table__cell"><a class='govuk-link govuk-!-margin-right-3' href='/applications-service/case/123/project-team/1/choose-role'>Change role </a>
+                        <td class="govuk-table__cell"><a class='govuk-link govuk-!-margin-right-3' href='/applications-service/case/123/project-team/1/choose-role'>Change role<span class="govuk-visually-hidden">for Do Do</span></a>
                             <a                             class='govuk-link' href='/applications-service/case/123/project-team/1/remove'>Remove<span class="govuk-visually-hidden">Do Do</span>
                                 </a>
                         </td>
