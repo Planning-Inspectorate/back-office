@@ -83,6 +83,11 @@ const clientActions = (uploadForm) => {
 			return { message: 'NAME_SINGLE_FILE' };
 		}
 
+		//disallow en dash and em dash in file names
+		if (selectedFile.name.includes('–') || selectedFile.name.includes('—')) {
+			return { message: 'NAME_DASH_SINGLE_FILE' };
+		}
+
 		const type =
 			selectedFile.type ||
 			(() => {
