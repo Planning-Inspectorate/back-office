@@ -13,7 +13,7 @@ import {
  * @returns {{pageHeading: String, radioItems: Object[]}} page heading and title
  */
 const getPageContentByStatus = (newStatus) => {
-	let pageHeading = 'Notes';
+	let pageHeading = 'Notes (optional)';
 	/** @type {Object[]} */
 	let radioItems = [];
 
@@ -74,7 +74,7 @@ const getPageContentByStatus = (newStatus) => {
 			break;
 
 		default:
-			pageHeading = 'Notes';
+			pageHeading = 'Notes (optional)';
 			radioItems = [];
 			break;
 	}
