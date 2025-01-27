@@ -74,11 +74,18 @@ describe('Change representation status page', () => {
 			await request.get('/applications-service/');
 		});
 
-		it('should show validation error if no option was selected (except for WITHDRAWN and AWAITING_REVIEW)', async () => {
+		it('should show specified validation error if no option was selected and status is REFERRED', async () => {
+			const response = await request.post(`${baseUrl}?changeStatus=REFERRED`).send({});
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toContain('Select who you are referring the representation to');
+		});
+
+		it('should show specified validation error if no option was selected and status is INVALID', async () => {
 			const response = await request.post(`${baseUrl}?changeStatus=INVALID`).send({});
 			const element = parseHtml(response.text);
 
-			expect(element.innerHTML).toContain('Select one option');
+			expect(element.innerHTML).toContain('Select the reason why the representation is invalid');
 		});
 	});
 });

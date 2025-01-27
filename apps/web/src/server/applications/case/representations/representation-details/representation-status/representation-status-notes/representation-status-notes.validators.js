@@ -9,8 +9,11 @@ const validateStatusChange = createValidator(
 			//radio items are not rendered for those statuses and validation can be skipped
 			if (newStatus === 'WITHDRAWN' || newStatus === 'AWAITING_REVIEW') {
 				return true;
+			} else if (newStatus === 'REFERRED') {
+				throw new Error(`Select who you are referring the representation to`);
+			} else if (newStatus === 'INVALID') {
+				throw new Error(`Select the reason why the representation is invalid`);
 			}
-			throw new Error(`Select one option`);
 		}
 
 		return true;
