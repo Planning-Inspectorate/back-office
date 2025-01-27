@@ -13,6 +13,7 @@ import { app } from '@azure/functions';
 import { Readable } from 'stream';
 import { validateMigration } from '../common/validate-migration.js';
 import { toBoolean } from '../common/utils.js';
+import { getArchiveFolderInfo } from '../common/get-archive-folder-info.js';
 
 app.setup({ enableHttpStream: true });
 app.http('migrate-case', {
@@ -36,7 +37,8 @@ app.http('migrate-case', {
 		return handleMigrationWithResponse(context, {
 			caseReferences: caseReferences,
 			entityName,
-			migrationStream:  () => migrateCase(context, caseReferences, toBoolean(dryRun), toBoolean(isWelshCase))
+			migrationStream: () =>
+				migrateCase(context, caseReferences, toBoolean(dryRun), toBoolean(isWelshCase))
 		});
 	}
 });
@@ -95,7 +97,11 @@ const migrateCase = async (log, caseReferenceList, dryRun = false, isWelshCase =
 			}
 			yield '\nStarting validation process...\n';
 			const validationResult = await validateMigration(log, caseReferenceList);
-			yield 'Validation result: \n' + JSON.stringify(validationResult, null, 2);
+			yield 'Validation Result: \n' + JSON.stringify(validationResult, null, 2);
+			yield '\nGetting archive folder information... \n';
+			const folderInformationResult = await getArchiveFolderInfo(log, caseReferenceList);
+			yield `Archive Folder Information is in format {folderPath}: {documentCount} \n`;
+			yield 'Archive Folder Information: \n' + JSON.stringify(folderInformationResult, null, 2);
 		})()
 	);
 };
