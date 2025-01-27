@@ -55,6 +55,7 @@
 		{% if isNotDisabled %}
 			<a href='{{ 'document-download'|url({caseId: caseId, documentGuid: documentVersion.documentGuid, version: documentVersion.version}) }}'>
 				Download
+				<span class="govuk-visually-hidden">{{ documentVersion.originalFilename }}</span>
 			</a>
 		{% endif %}
 		{% endset %}

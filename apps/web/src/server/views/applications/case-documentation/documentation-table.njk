@@ -131,7 +131,8 @@
 													classes: 'govuk-body-s',
 													data: ['download-', item.documentGuid]|join,
 													href: 'document-download'|url({caseId: caseId, documentGuid: item.documentGuid, version: item.version}),
-													text:'Download'
+													text:'Download',
+													visuallyHiddenText: item.fileName
 												},
 												isNotDisabled
 											) }}
