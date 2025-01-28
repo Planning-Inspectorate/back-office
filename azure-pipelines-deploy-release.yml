@@ -40,7 +40,7 @@ resources:
       type: github
       endpoint: Planning-Inspectorate
       name: Planning-Inspectorate/common-pipeline-templates
-      ref: refs/tags/release/3.18.2
+      ref: refs/tags/release/3.20.0
   pipelines:
     - pipeline: build
       source: Back Office Build
@@ -65,21 +65,21 @@ extends:
           - name: Stage API
             condition: eq(${{ parameters.deployAPI }}, 'true')
             steps:
-              - template: ../steps/azure_web_app_deploy.yml
+              - template: ../steps/azure_web_app_deploy_slot.yml
                 parameters:
                   appName: pins-app-back-office-api-$(ENVIRONMENT)-$(REGION_SHORT)-001
                   appResourceGroup: $(resourceGroup)
-                  appSlotName: staging
+                  slot: staging
                   azurecrName: $(azurecrName)
                   repository: back-office/back-office-api
           - name: Stage Web
             condition: eq(${{ parameters.deployWeb }}, 'true')
             steps:
-              - template: ../steps/azure_web_app_deploy.yml
+              - template: ../steps/azure_web_app_deploy_slot.yml
                 parameters:
                   appName: pins-app-back-office-wfe-$(ENVIRONMENT)-$(REGION_SHORT)-001
                   appResourceGroup: $(resourceGroup)
-                  appSlotName: staging
+                  slot: staging
                   azurecrName: $(azurecrName)
                   repository: back-office/back-office-web
       - name: Deploy
