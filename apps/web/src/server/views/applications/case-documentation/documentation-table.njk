@@ -148,7 +148,7 @@
 		{% macro createOptionalLink(params, isLink) %}
 			{% if isLink %}
 				{% set dataAction = ["data-action=", params.data]|join if params.data else "" %}
-				<a {{ dataAction }} class="govuk-link {{ params.classes }}" href="{{ params.href }}">{{ params.text }}</a>
+				<a {{ dataAction }} class="govuk-link {{ params.classes }}" href="{{ params.href }}">{{ params.text }}<span class="govuk-visually-hidden">{{ params.visuallyHiddenText }}</span></a>
 			{% else %}
 				<p class="{{ params.classes }}">{{ params.text }}
 				</p>
