@@ -15,7 +15,8 @@ export const errorMessage = (type, replaceValue) => {
 		TIMEOUT: 'There was a timeout and your files could not be uploaded, try again',
 		NO_FILE: 'Select a file',
 		GENERIC_SINGLE_FILE: `{REPLACE_VALUE} could not be added, try again`,
-		NAME_SINGLE_FILE: `{REPLACE_VALUE} could not be added because the file name is too long or contains special characters. Rename the file and try and upload again.`,
+		NAME_SINGLE_FILE: `{REPLACE_VALUE} could not be added because the file name is too long or contains special characters. Rename the file and try again.`,
+		NAME_DASH_SINGLE_FILE: `{REPLACE_VALUE} could not be added because the file name contains a long dash character. Rename the file and try again.`,
 		TYPE_SINGLE_FILE: `{REPLACE_VALUE} could not be added because it is not an allowed file type`,
 		TYPE_INVALID_FILE_CONTENT: `{REPLACE_VALUE} could not be added because the content is not valid for the file type`,
 		CONFLICT:

@@ -2,6 +2,7 @@ import { Router as createRouter } from 'express';
 import { asyncHandler } from '@pins/express';
 import { postMigrateFolders, postMigrateModel } from './migration.controller.js';
 import { validateMigration } from './validate-migration.controller.js';
+import { getArchiveFolderInformation } from './archive-folder-info.controller.js';
 
 const router = createRouter();
 
@@ -102,6 +103,36 @@ router.get(
 			*/
 
 	asyncHandler(validateMigration)
+);
+
+router.get(
+	'/archive-folder-info',
+	/*
+				#swagger.tags = ['Migration']
+				#swagger.path =  'migration/archive-folder-info'
+				#swagger.description = 'Validate migration'
+				#swagger.parameters['query'] = {
+						caseReferences: 'TR020002,TR020003'
+				}
+				#swagger.parameters['x-service-name'] = {
+			in: 'header',
+			type: 'string',
+			description: 'Service name header',
+			default: 'swagger'
+		}
+		#swagger.parameters['x-api-key'] = {
+			in: 'header',
+			type: 'string',
+			description: 'API key header',
+			default: '123'
+		}
+				#swagger.responses[200] = {
+						description: '',
+            schema: { }
+				}
+			*/
+
+	asyncHandler(getArchiveFolderInformation)
 );
 
 export { router as migrationRoutes };

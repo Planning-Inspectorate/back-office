@@ -23,9 +23,18 @@ const existingRepresentations = [
 ];
 
 describe('Post Application Representation Attachment', () => {
-	beforeAll(() => {
+	beforeEach(() => {
 		databaseConnector.representation.findMany.mockResolvedValue(existingRepresentations);
-		databaseConnector.representation.findUnique.mockResolvedValue(existingRepresentations[0]);
+		databaseConnector.representation.findUnique
+			.mockResolvedValueOnce(existingRepresentations[0]) // addApplicationRepresentationAttachment
+			.mockResolvedValueOnce({
+				// updateLatestDocumentVersion
+				represented: {
+					organisationName: 'example organisation',
+					firstName: 'John',
+					lastName: 'Doe'
+				}
+			});
 	});
 
 	it('Post Representation Attachment', async () => {
