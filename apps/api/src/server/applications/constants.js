@@ -54,3 +54,14 @@ export const folderDocumentCaseStageMappings = {
 	DECISION: DOCUMENT_CASE_STAGE_DECISION,
 	POST_DECISION: DOCUMENT_CASE_STAGE_POST_DECISION
 };
+
+/**
+ * who is making the representation?
+ * Stored in CBOS field Representation.representedType,
+ * and in ODW as representationFrom
+ */
+export const REPRESENTATION_FROM_TYPE = {
+	AGENT: 'AGENT',
+	ORGANISATION: 'ORGANISATION',
+	PERSON: 'PERSON'
+};

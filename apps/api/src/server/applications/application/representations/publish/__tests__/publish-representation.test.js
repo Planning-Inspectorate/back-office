@@ -18,7 +18,7 @@ const representations = [
 		redacted: true,
 		userId: null,
 		received: new Date('2023-08-11T10:52:56.516Z'),
-		type: null,
+		type: 'Members of the public/businesses',
 		user: null,
 		attachments: [
 			{
@@ -86,7 +86,7 @@ const representations = [
 		redacted: false,
 		userId: null,
 		received: new Date('2023-08-11T10:52:56.516Z'),
-		type: null,
+		type: 'Members of the public/businesses',
 		user: null,
 		attachments: [],
 		case: {
@@ -98,7 +98,7 @@ const representations = [
 			publishedAt: null,
 			title: 'Office Use Test Application 1'
 		},
-		representedType: undefined, // this is not captured if rep has representative/agent
+		representedType: 'AGENT',
 		represented: {
 			id: 10381,
 			representationId: 6579,
@@ -145,8 +145,12 @@ const representations = [
 	}
 ];
 
+/**
+ * This holds the array of obj with values after they have been mapped through the payload builder
+ */
 const expectedNsipRepresentationPayload = buildPayloadEventsForSchema(NSIP_REPRESENTATION, [
 	{
+		representationId: 6409,
 		attachmentIds: ['8e706443-3404-4b89-9fda-280ab7fd6b68'],
 		caseRef: 'BC0110001',
 		caseId: 151,
@@ -158,11 +162,11 @@ const expectedNsipRepresentationPayload = buildPayloadEventsForSchema(NSIP_REPRE
 		redactedBy: 'Bloggs, Joe',
 		redactedNotes: 'some redaction notes',
 		referenceId: 'BC0110001-55',
-		representationId: 6409,
 		representedId: '10105',
 		status: 'published',
-		registerFor: 'ORGANISATION',
-		representationFrom: 'ORGANISATION'
+		registerFor: null,
+		representationFrom: 'ORGANISATION',
+		representationType: 'Members of the Public/Businesses'
 	},
 	{
 		attachmentIds: [],
@@ -177,7 +181,9 @@ const expectedNsipRepresentationPayload = buildPayloadEventsForSchema(NSIP_REPRE
 		representativeId: '10382',
 		representedId: '10381',
 		status: 'published',
-		representationFrom: 'AGENT'
+		registerFor: null,
+		representationFrom: 'AGENT',
+		representationType: 'Members of the Public/Businesses'
 	}
 ]);
 
