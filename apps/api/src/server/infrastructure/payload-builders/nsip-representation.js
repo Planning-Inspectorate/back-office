@@ -35,7 +35,7 @@ export const buildNsipRepresentationPayload = (representation) => {
 		representedId: representation.represented?.id.toString() ?? null,
 		representativeId:
 			representation.representedType == REPRESENTATION_FROM_TYPE.AGENT
-				? representation.representative?.id.toString()
+				? representation.representative?.id?.toString()
 				: null,
 		representationFrom: representation.representedType ?? null,
 		registerFor: null, // unused in CBOS - used in FO journey only
