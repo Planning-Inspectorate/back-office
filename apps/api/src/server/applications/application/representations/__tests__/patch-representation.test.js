@@ -18,6 +18,7 @@ const existingRepresentations = [
 		received: new Date('2023-03-14T14:28:25.704Z'),
 		originalRepresentation: 'the original representation',
 		redactedRepresentation: 'redacted version',
+		representedType: 'AGENT',
 		case: { id: 1, reference: 'BC0110001' },
 		representationActions: [
 			{
