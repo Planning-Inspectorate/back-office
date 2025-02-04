@@ -62,7 +62,7 @@ describe('Document Properties', () => {
 		documentPropertiesPage.verifyPageTitle(`Document properties - ${projectInfo.projectName}`);
 		documentPropertiesPage.updateDocumentProperty('File name', 'filename');
 		documentPropertiesPage.updateDocumentProperty('Description', 'description', 'textarea');
-		documentPropertiesPage.updateDocumentProperty('Interested Party number', 'IP1234');
+		documentPropertiesPage.updateDocumentProperty('IP number', 'IP1234');
 		documentPropertiesPage.updateDocumentProperty('Who the document is from', 'from', 'textarea');
 		documentPropertiesPage.updateDocumentProperty('Agent (optional)', 'agent');
 		documentPropertiesPage.updateDocumentProperty('Webfilter', 'webfilter', 'textarea');

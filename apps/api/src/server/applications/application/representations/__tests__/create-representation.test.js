@@ -269,7 +269,8 @@ describe('Create Representation', () => {
 		const createdRepresentationFullDetailsWithUsers = {
 			...createdRepresentationFullDetails,
 			representative: representativeRec,
-			represented: representedRec
+			represented: representedRec,
+			representedType: 'AGENT'
 		};
 
 		databaseConnector.representation.findFirst

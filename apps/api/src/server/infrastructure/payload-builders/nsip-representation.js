@@ -7,11 +7,12 @@
  */
 
 import { buildServiceUserPayload } from '#infrastructure/payload-builders/service-user.js';
+import { REPRESENTATION_FROM_TYPE } from '#api-constants';
 
 /**
  * Build Representation message event payload
  *
- * @param {function(RepresentationModel): Representation} representation
+ * @param {RepresentationWithFullDetails} representation
  * @returns {NSIPRepresentationSchema}
  */
 export const buildNsipRepresentationPayload = (representation) => {
@@ -32,11 +33,12 @@ export const buildNsipRepresentationPayload = (representation) => {
 		originalRepresentation: representation.originalRepresentation,
 		representationType: mapRepresentationTypeToSchema(representation.type),
 		representedId: representation.represented?.id.toString() ?? null,
-		representativeId: representation.representative?.id.toString() ?? null,
-		representationFrom: representation.representative?.id
-			? 'AGENT'
-			: representation.representedType ?? null,
-		registerFor: representation.representedType ?? null,
+		representativeId:
+			representation.representedType == REPRESENTATION_FROM_TYPE.AGENT
+				? representation.representative?.id?.toString()
+				: null,
+		representationFrom: representation.representedType ?? null,
+		registerFor: null, // unused in CBOS - used in FO journey only
 		dateReceived: representation.received?.toISOString() ?? '',
 		attachmentIds: representation.attachments?.map((attachment) => attachment.documentGuid)
 	};

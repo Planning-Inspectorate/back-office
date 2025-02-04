@@ -16,6 +16,8 @@ const existingRepresentations = [
 		received: new Date('2023-03-14T14:28:25.704Z'),
 		originalRepresentation: 'the original representation',
 		redactedRepresentation: 'redacted version',
+		type: 'Members of the public/businesses',
+		representedType: 'AGENT',
 		case: { id: 1, reference: 'BC0110001' },
 		representationActions: [],
 		represented: {
@@ -68,7 +70,9 @@ const existingRepresentations = [
 		reference: 'BC0110001-55',
 		status: 'PUBLISHED',
 		redacted: true,
-		received: new Date('2023-08-11T10:52:56.516Z')
+		received: new Date('2023-08-11T10:52:56.516Z'),
+		type: 'Members of the public/businesses',
+		representedType: 'AGENT'
 	}
 ];
 
@@ -84,6 +88,7 @@ const expectedRepresentationUpdatePayload = buildPayloadEventsForSchema(NSIP_REP
 	representedId: '10381',
 	representativeId: '10382',
 	representationFrom: 'AGENT',
+	representationType: 'Members of the Public/Businesses',
 	dateReceived: '2023-03-14T14:28:25.704Z',
 	attachmentIds: [],
 	redactedRepresentation: 'redacted version'
