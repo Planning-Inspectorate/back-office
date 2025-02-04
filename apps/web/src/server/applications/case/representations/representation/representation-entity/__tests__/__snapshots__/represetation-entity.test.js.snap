@@ -24,7 +24,7 @@ exports[`Representation representation type GET /applications-service/case/1/rel
                             </div>
                             <div class="govuk-radios__item">
                                 <input class="govuk-radios__input" id="representationEntity-3" name="representationEntity"
-                                type="radio" value="AGENT" checked>
+                                type="radio" value="AGENT">
                                 <label class="govuk-label govuk-radios__label" for="representationEntity-3">A representative on behalf of another person, family group or organisation</label>
                             </div>
                         </div>
@@ -77,7 +77,7 @@ exports[`Representation representation type POST /applications-service/case/1/re
                             </div>
                             <div class="govuk-radios__item">
                                 <input class="govuk-radios__input" id="representationEntity-3" name="representationEntity"
-                                type="radio" value="AGENT" checked>
+                                type="radio" value="AGENT">
                                 <label class="govuk-label govuk-radios__label" for="representationEntity-3">A representative on behalf of another person, family group or organisation</label>
                             </div>
                 </div>

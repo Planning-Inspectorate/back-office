@@ -15,7 +15,7 @@ export const representationDetailsFixture = {
 		'(Redacted) Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla con.',
 	user: null,
 	type: 'Local authorities',
-	representedType: undefined,
+	representedType: 'AGENT',
 	represented: {
 		id: 1,
 		firstName: 'Mrs',

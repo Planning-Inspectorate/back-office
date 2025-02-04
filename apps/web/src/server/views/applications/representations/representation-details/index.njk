@@ -26,10 +26,13 @@
       {% else %}
         {{ representationDetailsHeading(organisationOrFullname, representation.status, case.projectName) }}
       {% endif %}
+
       {% include "./includes/represented-details.include.njk" %}
-      {% if representedType == 'AGENT' %}
+
+      {% if representation.representedType == 'AGENT' %}
         {% include "./includes/representative-details.include.njk" %}
       {% endif %}
+      
       {% if representation.status == 'DRAFT' %}
         {% include "./includes/check/representation.include.njk" %}
         {% include "./includes/check/attachments.include.njk" %}
