@@ -32,7 +32,7 @@ const hznDocVersionTypes = {
 /**
  * Handle an HTTP trigger/request to run the migration
  *
- * @param {import('pins-data-model').Schemas.NSIPDocument[]} documents
+ * @param {import("pins-data-model").Schemas.NSIPDocument[]} documents
  * @param {Function} updateProgress
  */
 export const migrateNsipDocuments = async (documents, updateProgress) => {
@@ -94,6 +94,7 @@ export const migrateNsipDocuments = async (documents, updateProgress) => {
 	}
 
 	await updateLatestVersionId(caseId);
+	await updatePreviousVersionsToUnpublished(caseId);
 };
 
 /**
@@ -172,7 +173,7 @@ const handleCreationOfDocumentActivityLogs = async (documentVersion) => {
 
 const createDocumentActivityLog = async ({ documentGuid, version, status, activityDate }) => {
 	/**
-	 * @type {import('@prisma/client').Prisma.DocumentActivityLogCreateInput}
+	 * @type {import("@prisma/client").Prisma.DocumentActivityLogCreateInput}
 	 */
 	const activityLog = {
 		documentGuid,
@@ -210,11 +211,51 @@ const createDocumentActivityLog = async ({ documentGuid, version, status, activi
 const updateLatestVersionId = async (caseId) => {
 	logger.info('Setting latestVersionId for all Documents');
 	const statement = `UPDATE Document
-					   SET Document.latestVersionId = (SELECT MAX(DocumentVersion.version)
-													   FROM DocumentVersion
-													   WHERE Document.guid = DocumentVersion.documentGuid)
-					   WHERE caseId = @P1;`;
+					 SET Document.latestVersionId = (SELECT MAX(DocumentVersion.version)
+													 FROM DocumentVersion
+													 WHERE Document.guid = DocumentVersion.documentGuid)
+					 WHERE caseId = @P1;`;
 	await databaseConnector.$executeRawUnsafe(statement, caseId);
+};
+
+const updatePreviousVersionsToUnpublished = async (caseId) => {
+	const documents = await databaseConnector.document.findMany({
+		where: { caseId: caseId },
+		include: {
+			documentVersion: true
+		}
+	});
+
+	if (!documents.length) return;
+	const updates = [];
+
+	for (const doc of documents) {
+		const unpublishedVersions = doc.documentVersion.filter(
+			(v) => v.publishedStatus === 'unpublished'
+		);
+		if (!unpublishedVersions.length) continue;
+		const highestUnpublishedVersionNumber = Math.max(...unpublishedVersions.map((v) => v.version));
+		if (highestUnpublishedVersionNumber === 1) continue;
+
+		updates.push(
+			databaseConnector.documentVersion.updateMany({
+				where: {
+					documentGuid: doc.guid,
+					version: {
+						lt: highestUnpublishedVersionNumber
+					},
+					publishedStatus: 'published'
+				},
+				data: {
+					publishedStatus: 'unpublished'
+				}
+			})
+		);
+	}
+
+	if (updates.length > 0) {
+		await databaseConnector.$transaction(updates);
+	}
 };
 
 /**
