@@ -14,6 +14,7 @@ import { Readable } from 'stream';
 import { validateMigration } from '../common/validate-migration.js';
 import { toBoolean } from '../common/utils.js';
 import { getArchiveFolderInfo } from '../common/get-archive-folder-info.js';
+import { startMigrationCleanup } from '../common/migration-cleanup.js';
 
 app.setup({ enableHttpStream: true });
 app.http('migrate-case', {
@@ -68,10 +69,13 @@ const migrateCase = async (log, caseReferenceList, dryRun = false, isWelshCase =
 			caseReferenceTaskList.push(() => migrateProjectUpdates(log, [caseReference], isWelshCase));
 		}
 
+		caseReferenceTaskList.push(() => startMigrationCleanup(log, caseReference));
+
 		// re-run the nsip-project migration to update the status and broadcast
 		if (!dryRun) {
 			caseReferenceTaskList.push(() => migrateNsipProjectByReference(log, caseReference, true));
 		}
+
 		listOfCaseReferenceTasks.push(caseReferenceTaskList);
 	});
 
