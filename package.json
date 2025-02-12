@@ -116,7 +116,7 @@
 		"response-time": "2.3.2",
 		"sanitize-html": "^2.12.1",
 		"sequelize": "^6.33.0",
-		"serve-static": "1.15.0",
+		"serve-static": "1.16.0",
 		"slugify": "^1.6.5",
 		"stub-azure-function-context": "^2.0.0-alpha.4",
 		"supertest": "^6.3.3",
