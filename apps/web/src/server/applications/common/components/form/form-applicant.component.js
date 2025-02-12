@@ -37,7 +37,11 @@ export async function applicantOrganisationNameData(request, locals) {
  * @param {Record<string, any>} locals
  * @returns {Promise<{properties:ApplicationsCreateApplicantOrganisationNameProps, updatedCaseId?:number }>}
  */
-export async function applicantOrganisationNameDataUpdate({ body }, locals) {
+
+export async function applicantOrganisationNameDataUpdate(
+	{ errors: validationErrors, body },
+	locals
+) {
 	const { caseId, applicantId: id } = locals;
 	const organisationName = body['applicant.organisationName'];
 	const applicantInfo = { id, organisationName };
@@ -48,7 +52,7 @@ export async function applicantOrganisationNameDataUpdate({ body }, locals) {
 
 	return {
 		properties: {
-			errors,
+			errors: validationErrors || errors,
 			values: { 'applicant.organisationName': organisationName }
 		},
 		updatedCaseId

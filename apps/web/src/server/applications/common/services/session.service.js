@@ -9,6 +9,15 @@
 // Applicant session management
 
 /**
+ * Save in the session the applicant organisation name.
+ *
+ * @param {SessionWithApplicationsCreateApplicantInfoTypes} session
+ */
+export const setSessionApplicantOrganisationName = (session) => {
+	session.infoTypes = ['applicant-organisation-name'];
+};
+
+/**
  * Save in the session the list of information types to be provided in the create-new-applicant form.
  *
  * @param {SessionWithApplicationsCreateApplicantInfoTypes} session
@@ -16,7 +25,7 @@
  * @returns {void}
  */
 export const setSessionApplicantInfoTypes = (session, infoTypes) => {
-	session.infoTypes = ['applicant-information-types', ...infoTypes];
+	session.infoTypes = ['applicant-organisation-name', 'applicant-information-types', ...infoTypes];
 };
 
 /**
