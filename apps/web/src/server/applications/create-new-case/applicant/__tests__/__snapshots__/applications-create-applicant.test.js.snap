@@ -173,6 +173,62 @@ exports[`applications create applicant Applicant email POST /application-email W
 </main>"
 `;
 
+exports[`applications create applicant Applicant organisation name GET /applicant-organisation-name should render the page 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <h1 class="govuk-heading-l govuk-!-margin-bottom-3"> Enter the Applicant’s organisation</h1>
+    <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
+        <div class="govuk-form-group">
+            <label class="govuk-label govuk-visually-hidden" for="applicant.organisationName">Applicant organisation name</label>
+            <input class="govuk-input govuk-!-width-one-third"
+            id="applicant.organisationName" name="applicant.organisationName" type="text"
+            value="Org name">
+        </div>
+        <div class="govuk-grid-row">
+            <div class="govuk-button-group govuk-grid-column-one-half">
+                <button class="govuk-button" data-module="govuk-button">Save and continue</button>
+            </div>
+        </div>
+    </form>
+</main>"
+`;
+
+exports[`applications create applicant Applicant organisation name POST /applicant-organisation-name Web-side validation: should show validation errors if the field is empty 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#applicant.organisationName">Enter the Applicant’s organisation</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h1 class="govuk-heading-l govuk-!-margin-bottom-3"> Enter the Applicant’s organisation</h1>
+    <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
+        <div class="govuk-form-group govuk-form-group--error">
+            <label class="govuk-label govuk-visually-hidden" for="applicant.organisationName">Applicant organisation name</label>
+            <p id="applicant.organisationName-error"
+            class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> Enter the Applicant’s
+                organisation</p>
+            <input class="govuk-input govuk-!-width-one-third govuk-input--error"
+            id="applicant.organisationName" name="applicant.organisationName" type="text"
+            aria-describedby="applicant.organisationName-error">
+        </div>
+        <div class="govuk-grid-row">
+            <div class="govuk-button-group govuk-grid-column-one-half">
+                <button class="govuk-button" data-module="govuk-button">Save and continue</button>
+            </div>
+        </div>
+    </form>
+</main>"
+`;
+
 exports[`applications create applicant Applicant telephone number GET /applicant-telephone-number should render the page when resumed or if there is data in the session 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <h1 class="govuk-heading-l govuk-!-margin-bottom-3"> Enter the Applicant’s phone number (optional)</h1>
@@ -320,55 +376,31 @@ exports[`applications create applicant GET /applicant-information-types should r
                 <div class="govuk-checkboxes" data-module="govuk-checkboxes">
                     <div class="govuk-checkboxes__item">
                         <input class="govuk-checkboxes__input" id="selectedApplicantInfoTypes"
-                        name="selectedApplicantInfoTypes[]" type="checkbox" value="applicant-organisation-name">
-                        <label class="govuk-label govuk-checkboxes__label" for="selectedApplicantInfoTypes">Organisation name</label>
+                        name="selectedApplicantInfoTypes[]" type="checkbox" value="applicant-full-name">
+                        <label class="govuk-label govuk-checkboxes__label" for="selectedApplicantInfoTypes">Applicant’s contact name</label>
                     </div>
                     <div class="govuk-checkboxes__item">
                         <input class="govuk-checkboxes__input" id="selectedApplicantInfoTypes-2"
-                        name="selectedApplicantInfoTypes[]" type="checkbox" value="applicant-full-name">
-                        <label class="govuk-label govuk-checkboxes__label" for="selectedApplicantInfoTypes-2">Applicant’s contact name</label>
+                        name="selectedApplicantInfoTypes[]" type="checkbox" value="applicant-address">
+                        <label class="govuk-label govuk-checkboxes__label" for="selectedApplicantInfoTypes-2">Address</label>
                     </div>
                     <div class="govuk-checkboxes__item">
                         <input class="govuk-checkboxes__input" id="selectedApplicantInfoTypes-3"
-                        name="selectedApplicantInfoTypes[]" type="checkbox" value="applicant-address">
-                        <label class="govuk-label govuk-checkboxes__label" for="selectedApplicantInfoTypes-3">Address</label>
+                        name="selectedApplicantInfoTypes[]" type="checkbox" value="applicant-website">
+                        <label class="govuk-label govuk-checkboxes__label" for="selectedApplicantInfoTypes-3">Website</label>
                     </div>
                     <div class="govuk-checkboxes__item">
                         <input class="govuk-checkboxes__input" id="selectedApplicantInfoTypes-4"
-                        name="selectedApplicantInfoTypes[]" type="checkbox" value="applicant-website">
-                        <label class="govuk-label govuk-checkboxes__label" for="selectedApplicantInfoTypes-4">Website</label>
+                        name="selectedApplicantInfoTypes[]" type="checkbox" value="applicant-email">
+                        <label class="govuk-label govuk-checkboxes__label" for="selectedApplicantInfoTypes-4">Email address</label>
                     </div>
                     <div class="govuk-checkboxes__item">
                         <input class="govuk-checkboxes__input" id="selectedApplicantInfoTypes-5"
-                        name="selectedApplicantInfoTypes[]" type="checkbox" value="applicant-email">
-                        <label class="govuk-label govuk-checkboxes__label" for="selectedApplicantInfoTypes-5">Email address</label>
-                    </div>
-                    <div class="govuk-checkboxes__item">
-                        <input class="govuk-checkboxes__input" id="selectedApplicantInfoTypes-6"
                         name="selectedApplicantInfoTypes[]" type="checkbox" value="applicant-telephone-number">
-                        <label class="govuk-label govuk-checkboxes__label" for="selectedApplicantInfoTypes-6">Telephone number</label>
+                        <label class="govuk-label govuk-checkboxes__label" for="selectedApplicantInfoTypes-5">Telephone number</label>
                     </div>
                 </div>
             </fieldset>
-        </div>
-        <div class="govuk-grid-row">
-            <div class="govuk-button-group govuk-grid-column-one-half">
-                <button class="govuk-button" data-module="govuk-button">Save and continue</button>
-            </div>
-        </div>
-    </form>
-</main>"
-`;
-
-exports[`applications create applicant GET /applicant-organisation-name should render the page when resumed or when there is session data 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
-    <h1 class="govuk-heading-l govuk-!-margin-bottom-3"> Enter the Applicant’s organisation (optional)</h1>
-    <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
-        <div class="govuk-form-group">
-            <label class="govuk-label govuk-visually-hidden" for="applicant.organisationName">Applicant organisation name</label>
-            <input class="govuk-input govuk-!-width-one-third"
-            id="applicant.organisationName" name="applicant.organisationName" type="text"
-            value="Org name">
         </div>
         <div class="govuk-grid-row">
             <div class="govuk-button-group govuk-grid-column-one-half">

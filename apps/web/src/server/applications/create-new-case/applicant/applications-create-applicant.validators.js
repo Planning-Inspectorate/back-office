@@ -49,3 +49,10 @@ export const validateApplicationsCreateApplicantPostCode = createValidator(
 		.withMessage('Enter a valid postcode'),
 	body('apiReference').trim().not().equals('-1').withMessage('Choose an address from the list')
 );
+
+export const validateApplicationsCreateApplicantOrganisationName = createValidator(
+	body('applicant.organisationName')
+		.trim()
+		.isLength({ min: 1 })
+		.withMessage('Enter the Applicant’s organisation')
+);

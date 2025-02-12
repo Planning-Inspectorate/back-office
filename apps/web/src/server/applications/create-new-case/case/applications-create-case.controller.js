@@ -18,8 +18,8 @@ import {
 } from '../../common/components/form/form-case.component.js';
 import {
 	destroySessionCaseSectorName,
-	getSessionCaseHasNeverBeenResumed,
-	setSessionCaseSectorName
+	setSessionCaseSectorName,
+	setSessionApplicantOrganisationName
 } from '../../common/services/session.service.js';
 
 /** @typedef {import('./applications-create-case.types.js').ApplicationsCreateCaseNameProps} ApplicationsCreateCaseNameProps */
@@ -330,6 +330,7 @@ export async function viewApplicationsCreateCaseTeamEmail(request, response) {
  * {}, ApplicationsCreateCaseTeamEmailBody, {}, {edit?: string}>}
  */
 export async function updateApplicationsCreateCaseTeamEmail(request, response) {
+	const { session } = request;
 	const { properties, updatedCaseId } = await caseTeamEmailDataUpdate(request, response.locals);
 
 	if (properties && (properties?.errors || !updatedCaseId)) {
@@ -342,9 +343,9 @@ export async function updateApplicationsCreateCaseTeamEmail(request, response) {
 		);
 	}
 
-	const nextPath = getSessionCaseHasNeverBeenResumed(request.session)
-		? 'applicant-information-types'
-		: 'applicant-organisation-name';
+	setSessionApplicantOrganisationName(session);
 
-	response.redirect(`/applications-service/create-new-case/${updatedCaseId}/${nextPath}`);
+	response.redirect(
+		`/applications-service/create-new-case/${updatedCaseId}/applicant-organisation-name`
+	);
 }

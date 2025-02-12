@@ -15,11 +15,6 @@ import {
 export const getAllApplicantInfoTypes = () => {
 	return [
 		{
-			name: 'applicant-organisation-name',
-			displayNameEn: 'Organisation name',
-			displayNameCy: 'Organisation name'
-		},
-		{
 			name: 'applicant-full-name',
 			displayNameEn: 'Applicant’s contact name',
 			displayNameCy: 'Applicant’s contact name'
@@ -49,6 +44,7 @@ export const getAllApplicantInfoTypes = () => {
 export function getAllowedDestinationPath({ session, path, goToNextPage }) {
 	const canShowInfoTypesPage = getSessionCaseHasNeverBeenResumed(session);
 	const allApplicantPaths = [
+		'applicant-organisation-name',
 		canShowInfoTypesPage ? 'applicant-information-types' : 'team-email',
 		...getAllApplicantInfoTypes().map((infoType) => infoType.name),
 		'key-dates'

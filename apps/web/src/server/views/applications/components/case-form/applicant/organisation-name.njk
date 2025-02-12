@@ -9,6 +9,7 @@
 		id: "applicant.organisationName",
 		name: "applicant.organisationName",
 		classes: "govuk-!-width-one-third",
-		value: values['applicant.organisationName']
+		value: values['applicant.organisationName'],
+		errorMessage: errors['applicant.organisationName'] | errorMessage
 	}) }}
 {% endmacro %}

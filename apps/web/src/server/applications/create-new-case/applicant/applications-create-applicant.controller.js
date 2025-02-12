@@ -15,7 +15,8 @@ import {
 } from '../../common/components/form/form-applicant.component.js';
 import {
 	getSessionApplicantInfoTypes,
-	setSessionApplicantInfoTypes
+	setSessionApplicantInfoTypes,
+	getSessionCaseHasNeverBeenResumed
 } from '../../common/services/session.service.js';
 import * as applicationsCreateApplicantService from './applications-create-applicant.service.js';
 
@@ -40,7 +41,7 @@ const infoTypesLayout = {
 	components: ['info-types']
 };
 const organisationNameLayout = {
-	pageTitle: 'Enter the Applicant’s organisation (optional)',
+	pageTitle: 'Enter the Applicant’s organisation',
 	components: ['organisation-name']
 };
 const fullNameLayout = {
@@ -63,6 +64,48 @@ const addressLayout = {
 	pageTitle: 'Enter the Applicant’s address (optional)',
 	components: ['address']
 };
+
+/**
+ * View the form step for the applicant organisation name
+ *
+ * @type {import('@pins/express').RenderHandler<ApplicationsCreateApplicantOrganisationNameProps, {}, {}, {}, {edit?: string}>}
+ */
+export async function viewApplicationsCreateApplicantOrganisationName(request, response) {
+	const properties = await applicantOrganisationNameData(request, response.locals);
+
+	response.render('applications/components/case-form/case-form-layout', {
+		...properties,
+		layout: { ...organisationNameLayout, isEdit: !!request.params.edit }
+	});
+}
+
+/**
+ * Update the applicant organisation name
+ *
+ * @type {import('@pins/express').RenderHandler<ApplicationsCreateApplicantOrganisationNameProps, {}, ApplicationsCreateApplicantOrganisationNameBody, {}, {edit?: string}>}
+ */
+export async function updateApplicationsCreateApplicantOrganisationName(request, response) {
+	const { properties, updatedCaseId } = await applicantOrganisationNameDataUpdate(
+		request,
+		response.locals
+	);
+
+	if (properties.errors || !updatedCaseId) {
+		return handleErrors(properties, organisationNameLayout, response);
+	}
+
+	if (request.params.edit) {
+		return response.redirect(
+			`/applications-service/create-new-case/${updatedCaseId}/check-your-answers`
+		);
+	}
+
+	const nextPath = getSessionCaseHasNeverBeenResumed(request.session)
+		? 'applicant-information-types'
+		: 'applicant-full-name';
+
+	response.redirect(`/applications-service/create-new-case/${updatedCaseId}/${nextPath}`);
+}
 
 /**
  * View the form step for the applicant information types
@@ -99,45 +142,6 @@ export async function updateApplicationsCreateApplicantTypes({ path, session, bo
 	setSessionApplicantInfoTypes(session, selectedApplicantInfoTypes || []);
 
 	goToNextStep(caseId, path, session, response);
-}
-
-/**
- * View the form step for the applicant organisation name
- *
- * @type {import('@pins/express').RenderHandler<ApplicationsCreateApplicantOrganisationNameProps, {}, {}, {}, {edit?: string}>}
- */
-export async function viewApplicationsCreateApplicantOrganisationName(request, response) {
-	const properties = await applicantOrganisationNameData(request, response.locals);
-
-	response.render('applications/components/case-form/case-form-layout', {
-		...properties,
-		layout: { ...organisationNameLayout, isEdit: !!request.params.edit }
-	});
-}
-
-/**
- * Update the applicant organisation name
- *
- * @type {import('@pins/express').RenderHandler<ApplicationsCreateApplicantOrganisationNameProps, {}, ApplicationsCreateApplicantOrganisationNameBody, {}, {edit?: string}>}
- */
-export async function updateApplicationsCreateApplicantOrganisationName(request, response) {
-	const { path, session } = request;
-	const { properties, updatedCaseId } = await applicantOrganisationNameDataUpdate(
-		request,
-		response.locals
-	);
-
-	if (properties.errors || !updatedCaseId) {
-		return handleErrors(properties, organisationNameLayout, response);
-	}
-
-	if (request.params.edit) {
-		return response.redirect(
-			`/applications-service/create-new-case/${updatedCaseId}/check-your-answers`
-		);
-	}
-
-	goToNextStep(updatedCaseId, path, session, response);
 }
 
 /**
@@ -215,8 +219,7 @@ export async function updateApplicationsCreateApplicantEmail(request, response) 
 /**
  * View the form step for the applicant address
  *
- * @type {import('@pins/express').RenderHandler<ApplicationsCreateApplicantAddressProps,
-  {}, {}, {postcode: string}, {edit?: string}>}
+ * @type {import('@pins/express').RenderHandler<ApplicationsCreateApplicantAddressProps, {}, {}, {postcode: string}, {edit?: string}>}
  */
 export async function viewApplicationsCreateApplicantAddress(request, response) {
 	const properties = await applicantAddressData(request, response.locals);
