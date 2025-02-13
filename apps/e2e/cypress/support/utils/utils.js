@@ -14,10 +14,7 @@ const caseIsWelsh = (projectInformation) => {
 const validateProjectOverview = (projectInformation, mandatoryOnly = false) => {
 	if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
 		casePage.validateSummaryItem('Reference number', Cypress.env('currentCreatedCase'));
-		casePage.validateSummaryItem(
-			'Organisation name',
-			mandatoryOnly ? '' : projectInformation.orgName
-		);
+		casePage.validateSummaryItem('Organisation name', projectInformation.orgName);
 		casePage.validateSummaryItem(
 			'Website',
 			mandatoryOnly ? '' : projectInformation.applicantWebsite
@@ -31,7 +28,7 @@ const validateProjectOverview = (projectInformation, mandatoryOnly = false) => {
 		casePage.validateSummaryItem(
 			'Applicant information',
 			mandatoryOnly
-				? ''
+				? `${projectInformation.orgName}`
 				: `${projectInformation.orgName}${projectInformation.applicantEmail}${projectInformation.applicantPhoneNumber}`
 		);
 		casePage.validateSummaryItem(
@@ -76,7 +73,6 @@ const validateProjectDetailsSection = (projectInformation, mandatoryOnly = false
 		'Grid references',
 		`${projectInformation.gridRefEasting} (Easting)${projectInformation.gridRefNorthing} (Northing)`
 	);
-	//casePage.checkProjectAnswer('Regions', projectInformation.regions.join(','));
 	casePage.checkProjectAnswer(
 		'Map zoom level',
 		mandatoryOnly ? 'None' : projectInformation.zoomLevel
@@ -88,11 +84,7 @@ const validateApplicantInfoSection = (
 	mandatoryOnly = false,
 	updated = false
 ) => {
-	casePage.checkProjectAnswer(
-		'Organisation name',
-		mandatoryOnly ? '' : projectInformation.orgName,
-		true
-	);
+	casePage.checkProjectAnswer('Organisation name', projectInformation.orgName);
 	casePage.checkProjectAnswer(
 		'Website',
 		mandatoryOnly ? '' : projectInformation.applicantWebsite,

@@ -49,9 +49,9 @@ export class CreateCasePage extends Page {
 		if (!mandatoryOnly) {
 			this.sections.projectEmail.fillCaseEmail(projectInformation.projectEmail);
 			this.clickSaveAndContinue();
-			this.sections.applicantInformationAvailable.chooseAll();
-			this.clickSaveAndContinue();
 			this.sections.applicantOrganisation.fillOrganisationName(projectInformation.orgName);
+			this.clickSaveAndContinue();
+			this.sections.applicantInformationAvailable.chooseAll();
 			this.clickSaveAndContinue();
 			this.sections.applicantName.fillApplicantFirstName(projectInformation.applicantFirstName);
 			this.sections.applicantName.fillApplicantLastName(projectInformation.applicantLastName);
@@ -67,6 +67,8 @@ export class CreateCasePage extends Page {
 			this.sections.applicantPhoneNumber.fillPhoneNumber(projectInformation.applicantPhoneNumber);
 			this.clickSaveAndContinue();
 		} else {
+			this.clickSaveAndContinue();
+			this.sections.applicantOrganisation.fillOrganisationName(projectInformation.orgName);
 			this.clickSaveAndContinue();
 			this.clickSaveAndContinue();
 		}
