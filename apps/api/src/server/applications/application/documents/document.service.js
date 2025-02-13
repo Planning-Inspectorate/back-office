@@ -387,6 +387,11 @@ export const createDocumentVersion = async (documentToUpload, caseId, documentId
 	currentDocumentVersion[0].size = documentToSendToDatabase.documentSize;
 	currentDocumentVersion[0].owner = documentToUpload.username;
 	currentDocumentVersion[0].originalFilename = documentToUpload.documentName;
+	currentDocumentVersion[0].datePublished = null;
+	currentDocumentVersion[0].publishedBlobPath = null;
+	currentDocumentVersion[0].publishedBlobContainer = null;
+	currentDocumentVersion[0].publishedStatusPrev = null;
+	currentDocumentVersion[0].redactedStatus = null;
 
 	await documentVersionRepository.upsert(currentDocumentVersion[0]);
 
