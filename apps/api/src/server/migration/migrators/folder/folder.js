@@ -1091,6 +1091,9 @@ const getExamTimetableFolderId = memoize(async (caseId) => {
  * @return {Promise<number>}
  */
 export const getDocumentFolderId = async ({ path, documentCaseStage }, caseId) => {
+	if (!path) {
+		throw new Error('No path - please migrate from AIE first');
+	}
 	const folders = path.split('/').slice(1); // index 0 is project name/root, not needed
 	const formattedFolderNames = folders.map((folderName) => folderName.replace(/^\d+ - /, ''));
 	const documentPath = formattedFolderNames.join(' > ');
