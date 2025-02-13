@@ -25,7 +25,7 @@ export const DOCUMENT_VERSION_TYPES = {
 };
 
 // Define all the document case stages that can be mapped to folders
-const DOCUMENT_CASE_STAGE_ACCEPTANCE = 'Acceptance';
+export const DOCUMENT_CASE_STAGE_ACCEPTANCE = 'Acceptance';
 const DOCUMENT_CASE_STAGE_DECISION = 'Decision';
 const DOCUMENT_CASE_STAGE_DEVELOPERS_APPLICATION = "Developer's Application";
 const DOCUMENT_CASE_STAGE_EXAMINATION = 'Examination';
@@ -53,6 +53,33 @@ export const folderDocumentCaseStageMappings = {
 	RECOMMENDATION: DOCUMENT_CASE_STAGE_RECOMMENDATION,
 	DECISION: DOCUMENT_CASE_STAGE_DECISION,
 	POST_DECISION: DOCUMENT_CASE_STAGE_POST_DECISION
+};
+
+export const ACCEPTANCE_STAGE_SUBFOLDERS = {
+	EVENTS_MEETINGS: 'Events / meetings',
+	CORRESPONDENCE: 'Correspondence',
+	EST: 'EST',
+	APPLICATION_DOCUMENTS: 'Application documents',
+	ADEQUACY_OF_CONSULTATION: 'Adequacy of consultation',
+	REG_5_AND_6: 'Reg 5 and Reg 6',
+	DRAFTING_AND_DECISION: 'Drafting and decision'
+};
+
+//Document folder structure
+//to be expanded as needed, ideally covering all the document case stages
+export const DOCUMENTS_FOLDER_MAP = {
+	[DOCUMENT_CASE_STAGE_ACCEPTANCE]: {
+		[ACCEPTANCE_STAGE_SUBFOLDERS.APPLICATION_DOCUMENTS]: {
+			APPLICATION_FORM: 'Application form',
+			COMPULSORY_ACQUISITION_INFORMATION: 'Compulsory acquisition information',
+			DCO_DOCUMENTS: 'DCO documents',
+			ENVIRONMENTAL_STATEMENT: 'Environmental statement',
+			OTHER_DOCUMENTS: 'Other documents',
+			PLANS: 'Plans',
+			REPORTS: 'Reports',
+			ADDITIONAL_REG_6_INFORMATION: 'Additional Reg 6 information'
+		}
+	}
 };
 
 /**

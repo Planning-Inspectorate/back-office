@@ -9,7 +9,10 @@ const { eventClient } = await import('#infrastructure/event-client.js');
 
 const application = {
 	id: 1,
-	reference: 'case reference'
+	reference: 'case reference',
+	applicant: {
+		organisationName: 'organisation name'
+	}
 };
 
 const updatedDocResponse = {
@@ -118,6 +121,7 @@ describe('Create documents', () => {
 		// GIVEN
 		databaseConnector.case.findUnique.mockResolvedValue(application);
 
+		databaseConnector.folder.findMany.mockResolvedValue([{ id: 1, displayNameEn: 'folder 1' }]);
 		databaseConnector.folder.findUnique.mockResolvedValue({ id: 1, caseId: 1 });
 		databaseConnector.document.create.mockResolvedValue({ id: 1, guid, name: 'test doc' });
 		databaseConnector.document.findFirst.mockResolvedValueOnce(null);
@@ -179,7 +183,9 @@ describe('Create documents', () => {
 				fileName: 'test doc',
 				mime: 'application/pdf',
 				size: 1024,
-				version: 1
+				version: 1,
+				author: 'organisation name',
+				filter1: ''
 			},
 			include: {
 				Document: { include: { folder: { include: { case: { include: { CaseStatus: true } } } } } }
@@ -189,7 +195,9 @@ describe('Create documents', () => {
 				originalFilename: 'test doc',
 				mime: 'application/pdf',
 				size: 1024,
-				version: 1
+				version: 1,
+				author: 'organisation name',
+				filter1: ''
 			},
 			where: { documentGuid_version: { documentGuid: 'some-guid', version: 1 } }
 		});
