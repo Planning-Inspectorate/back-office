@@ -33,6 +33,8 @@ describe('Create Case with sector as training', () => {
 		createCasePage.clickSaveAndContinue();
 		createCasePage.clickSaveAndContinue();
 		createCasePage.clickSaveAndContinue();
+		createCasePage.sections.applicantOrganisation.fillOrganisationName(projectInfo.orgName);
+		createCasePage.clickSaveAndContinue();
 		createCasePage.clickSaveAndContinue();
 		createCasePage.clickSaveAndContinue();
 		createCasePage.clickButtonByText('I accept - confirm creation of a new case');
