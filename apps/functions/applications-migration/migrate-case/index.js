@@ -114,7 +114,7 @@ const migrateCase = async (log, caseReferenceList, dryRun = false, isWelshCase =
  *
  * @param {Readable | undefined} stream
  */
-async function* handleEntityStream(stream) {
+export async function* handleEntityStream(stream) {
 	if (!stream) {
 		yield 'No stream received';
 		return;

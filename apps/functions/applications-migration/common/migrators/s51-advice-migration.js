@@ -11,11 +11,16 @@ const query = 'SELECT * FROM [odw_curated_migration_db].[dbo].[s51_advice] WHERE
  *
  * @param {import('@azure/functions').Logger} log
  * @param {string} caseReference
+ * @param {boolean} isGeneralS51Advice
  */
-export const migrateS51AdviceForCase = async (log, caseReference, synapseQuery = query) => {
+export const migrateS51AdviceForCase = async (log, caseReference, isGeneralS51Advice = false) => {
 	try {
 		log.info(`reading S51 Advice with caseReference ${caseReference}`);
-		const { s51AdviceEntities, count } = await getNsipS51Advice(log, caseReference, synapseQuery);
+		const { s51AdviceEntities, count } = await getNsipS51Advice(
+			log,
+			caseReference,
+			isGeneralS51Advice
+		);
 
 		log.info(
 			`found ${count} S51 Advice: ${JSON.stringify(s51AdviceEntities.map((u) => u.adviceId))}`
@@ -32,16 +37,17 @@ export const migrateS51AdviceForCase = async (log, caseReference, synapseQuery =
  * Get S51 Advice for a case
  * @param {import('@azure/functions').Logger} log
  * @param {string} caseReference
+ * @param {boolean} isGeneralS51Advice
  */
-export const getNsipS51Advice = async (log, caseReference, synapseQuery = query) => {
+export const getNsipS51Advice = async (log, caseReference, isGeneralS51Advice = false) => {
 	log.info(`Getting S51 Advice for case ${caseReference}`);
 
-	const [s51AdviceRows, count] = await SynapseDB.query(synapseQuery, {
+	const [s51AdviceRows, count] = await SynapseDB.query(query, {
 		replacements: [caseReference]
 	});
 
 	const s51AdviceEntities = s51AdviceRows.map((row) => {
-		if (caseReference === ODW_GENERAL_S51_CASE_REF) {
+		if (isGeneralS51Advice && caseReference === ODW_GENERAL_S51_CASE_REF) {
 			row.adviceReference = row.adviceReference.replace(
 				ODW_GENERAL_S51_CASE_REF,
 				BO_GENERAL_S51_CASE_REF
