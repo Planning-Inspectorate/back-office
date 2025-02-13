@@ -29,7 +29,8 @@ import {
 	unpublishDocuments as unpublishDocumentGuids,
 	deleteDocument,
 	revertDocumentStatusToPrevious,
-	updateDocumentsFolderId
+	updateDocumentsFolderId,
+	getDocumentWebfilter
 } from './document.service.js';
 import { getRedactionStatus, validateDocumentVersionMetadataBody } from './document.validators.js';
 
@@ -60,6 +61,7 @@ export const createDocumentsOnCase = async ({ params, body }, response) => {
 
 	const theCase = await caseRepository.getById(params.id, {
 		applicationDetails: true,
+		applicant: true,
 		gridReference: true
 	});
 
@@ -77,12 +79,15 @@ export const createDocumentsOnCase = async ({ params, body }, response) => {
 		(doc) => remainder.includes(doc.documentName)
 	);
 
-	// loop thru the docs to add full document references eg BC0110001-000001, BC0110001-000002
+	// loop thru the docs to:
+	// - add full document references eg BC0110001-000001, BC0110001-000002
+	// - add webfilter and author
 	for (const doc of filteredToUpload) {
 		doc.documentReference = makeDocumentReference(theCase.reference, nextReferenceIndex);
+		doc.filter1 = await getDocumentWebfilter(params.id, doc.folderId);
+		doc.author = theCase.applicant?.organisationName || '';
 		nextReferenceIndex++;
 	}
-
 	// create document, documentVersion etc records for the array of docs
 	const { response: dbResponse, failedDocuments } = await createDocuments(
 		filteredToUpload,

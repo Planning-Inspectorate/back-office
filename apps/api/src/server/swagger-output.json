@@ -141,6 +141,46 @@
 				}
 			}
 		},
+		"migration/archive-folder-info": {
+			"get": {
+				"tags": ["Migration"],
+				"description": "Validate migration",
+				"parameters": [
+					{
+						"name": "query",
+						"caseReferences": "TR020002,TR020003",
+						"in": "query",
+						"type": "string"
+					},
+					{
+						"name": "x-service-name",
+						"in": "header",
+						"type": "string",
+						"description": "Service name header",
+						"default": "swagger"
+					},
+					{
+						"name": "x-api-key",
+						"in": "header",
+						"type": "string",
+						"description": "API key header",
+						"default": "123"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"type": "object",
+							"properties": {},
+							"xml": {
+								"name": "main"
+							}
+						}
+					}
+				}
+			}
+		},
 		"/applications/": {
 			"get": {
 				"tags": ["Applications"],
@@ -6813,6 +6853,11 @@
 				"username": {
 					"type": "string",
 					"description": "Username",
+					"example": "John Keats"
+				},
+				"author": {
+					"type": "string",
+					"description": "Author",
 					"example": "John Keats"
 				},
 				"documentReference": {
