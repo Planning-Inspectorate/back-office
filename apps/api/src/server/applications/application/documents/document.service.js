@@ -375,25 +375,25 @@ export const createDocumentVersion = async (documentToUpload, caseId, documentId
 
 	const { documentVersion } = documentFromDatabase;
 
-	const currentDocumentVersion = documentVersion.filter(
+	const newDocumentVersion = documentVersion.filter(
 		(/** @type {{ version: number; }} */ d) => d.version === documentFromDatabase.latestVersionId
-	);
+	)[0];
 
 	const previousDocumentVersion = documentFromDatabase.documentVersion.pop();
 	// copy all meta data from previous version except below properties.
-	currentDocumentVersion[0].version = version;
-	currentDocumentVersion[0].mime = documentToSendToDatabase.documentType;
-	currentDocumentVersion[0].fileName = previousDocumentVersion?.fileName ?? fileName;
-	currentDocumentVersion[0].size = documentToSendToDatabase.documentSize;
-	currentDocumentVersion[0].owner = documentToUpload.username;
-	currentDocumentVersion[0].originalFilename = documentToUpload.documentName;
-	currentDocumentVersion[0].datePublished = null;
-	currentDocumentVersion[0].publishedBlobPath = null;
-	currentDocumentVersion[0].publishedBlobContainer = null;
-	currentDocumentVersion[0].publishedStatusPrev = null;
-	currentDocumentVersion[0].redactedStatus = null;
+	newDocumentVersion.version = version;
+	newDocumentVersion.mime = documentToSendToDatabase.documentType;
+	newDocumentVersion.fileName = previousDocumentVersion?.fileName ?? fileName;
+	newDocumentVersion.size = documentToSendToDatabase.documentSize;
+	newDocumentVersion.owner = documentToUpload.username;
+	newDocumentVersion.originalFilename = documentToUpload.documentName;
+	newDocumentVersion.datePublished = null;
+	newDocumentVersion.publishedBlobPath = null;
+	newDocumentVersion.publishedBlobContainer = null;
+	newDocumentVersion.publishedStatusPrev = null;
+	newDocumentVersion.redactedStatus = null;
 
-	await documentVersionRepository.upsert(currentDocumentVersion[0]);
+	await documentVersionRepository.upsert(newDocumentVersion);
 
 	await documentActivityLogRepository.create({
 		documentGuid: documentId,
