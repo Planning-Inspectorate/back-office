@@ -178,7 +178,7 @@ const mapModelToRepresentationEntity = async ({
 		unpublishedUpdates: false,
 		representativeId: representativeId ? parseInt(representativeId) : null,
 		representedId,
-		representedType: representationFrom
+		representedType: representativeId ? 'AGENT' : representationFrom
 	};
 };
 
