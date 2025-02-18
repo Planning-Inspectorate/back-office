@@ -106,7 +106,7 @@ const handleDocumentVersionUpdateForRepresentationAttachments = async (attachmen
 					);
 					if (
 						attachmentDetail.latestVersionId === docVersion.version &&
-						attachmentDetail.representationStatus === 'published'
+						attachmentDetail.representationStatus?.toLowerCase() === 'published'
 					) {
 						docVersion.publishedStatus = 'published';
 						latestPublishedVersion = docVersion;
