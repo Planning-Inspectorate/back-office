@@ -13,6 +13,7 @@ export const validateApplicationsCreateCaseName = createValidator(
 
 export const validateApplicationsCreateCaseNameWelsh = createValidator(
 	body('titleWelsh')
+		.if(body('titleWelsh').exists())
 		.trim()
 		.isLength({ min: 1 })
 		.withMessage('Enter project name in Welsh')
@@ -31,6 +32,7 @@ export const validateApplicationsCreateCaseDescription = createValidator(
 
 export const validateApplicationsCreateCaseDescriptionWelsh = createValidator(
 	body('descriptionWelsh')
+		.if(body('descriptionWelsh').exists())
 		.trim()
 		.isLength({ min: 1 })
 		.withMessage('Enter project description in Welsh')
@@ -66,6 +68,7 @@ export const validateApplicationsCreateCaseLocation = createValidator(
 
 export const validateApplicationsCreateCaseLocationWelsh = createValidator(
 	body('geographicalInformation.locationDescriptionWelsh')
+		.if(body('geographicalInformation.locationDescriptionWelsh').exists())
 		.trim()
 		.isLength({ min: 1 })
 		.withMessage(getErrorMessageCaseCreate('projectLocationWelsh'))
@@ -112,4 +115,11 @@ export const validateApplicationsCreateCaseStage = createValidator(
 		.withMessage('Set a stage for the case')
 		.isLength({ max: 50 })
 		.withMessage('The case stage must be 50 characters or fewer')
+);
+
+export const validateApplicationsCreateCaseOrganisationName = createValidator(
+	body('organisationName')
+		.trim()
+		.isLength({ min: 1 })
+		.withMessage('You must enter the Applicant’s organisation to publish the project')
 );
