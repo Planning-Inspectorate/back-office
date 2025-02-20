@@ -264,7 +264,7 @@ export const publishCaseDocumentationFiles = async (caseId, documents, username)
 		return { documents: publishedDocuments };
 	} catch (/** @type {*} */ error) {
 		// log out the actual publishing errors
-		logger.error(`[API] ${error?.response?.body?.errors || 'Unknow error'}`);
+		logger.error(`[API] ${error?.response?.body?.errors || 'Unknown error'}`);
 		return { errors: { msg: 'Your documents could not be published, please try again' } };
 	}
 };
