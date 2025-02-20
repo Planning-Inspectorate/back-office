@@ -17,6 +17,7 @@
 	<h2 class="govuk-heading-m">{{pageTitle}}</h2>
 	<div class="govuk-!-margin-top-6">
 		<form method="post">
+      <input type="hidden" value="{{ case.applicant.organisationName }}" name="organisationName" >
       {% if ('applic-55-welsh-translation' | isFeatureActive) %}
         {% set buttonText = 'Publish latest changes' if case.publishedDate and case.hasUnpublishedChanges else 'Publish project' %}
 
@@ -31,7 +32,7 @@
         {% else %}
           {{ govukButton({
             text: buttonText,
-            href: 'case-view'| url({caseId:case.id, step: 'preview-and-publish'})
+            attributes: { formaction: 'case-view'| url({caseId:case.id, step: 'overview'})}
           }) }}
         {% endif %}
       {% else %}

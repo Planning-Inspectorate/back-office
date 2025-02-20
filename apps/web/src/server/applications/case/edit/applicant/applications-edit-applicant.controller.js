@@ -34,7 +34,7 @@ import { getUpdatedField } from '../applications-edit.service.js';
 /** @typedef {import('../../../create-new-case/applicant/applications-create-applicant.types.js').ApplicationsCreateApplicantAddressBody} ApplicationsCreateApplicantAddressBody */
 
 const organisationNameLayout = {
-	pageTitle: 'Enter the Applicant’s organisation (optional)',
+	pageTitle: 'Enter the Applicant’s organisation',
 	components: ['organisation-name'],
 	isEdit: true
 };

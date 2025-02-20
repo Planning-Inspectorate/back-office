@@ -113,7 +113,7 @@ exports[`applications create applicant GET edit/applicant-full-name should rende
 
 exports[`applications create applicant GET edit/applicant-organisation-name should render the page 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
-    <h1 class="govuk-heading-l govuk-!-margin-bottom-3"> Enter the Applicant’s organisation (optional)</h1>
+    <h1 class="govuk-heading-l govuk-!-margin-bottom-3"> Enter the Applicant’s organisation</h1>
     <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
         <div class="govuk-form-group">
             <label class="govuk-label govuk-visually-hidden" for="applicant.organisationName">Applicant organisation name</label>

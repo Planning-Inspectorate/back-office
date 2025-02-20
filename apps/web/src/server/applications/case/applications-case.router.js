@@ -57,6 +57,7 @@ applicationsCaseSummaryRouter
 		)
 	)
 	.post(
+		[validators.validateApplicationsCreateCaseOrganisationName],
 		[validators.validateApplicationsCreateCaseNameWelsh],
 		[validators.validateApplicationsCreateCaseDescriptionWelsh],
 		[validators.validateApplicationsCreateCaseLocationWelsh],
