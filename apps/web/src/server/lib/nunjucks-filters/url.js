@@ -133,6 +133,8 @@ export const url = (key, filterArguments = {}) => {
 			return `${domainUrl}/case/${caseId}/examination-timetable/${step}`;
 		case 'timetable-item':
 			return `${domainUrl}/case/${caseId}/examination-timetable/item/${step}/${timetableId}`;
+		case 'representations':
+			return `${domainUrl}/case/${caseId}/relevant-representations`;
 		case 'representation-details':
 			return `${domainUrl}/case/${caseId}/relevant-representations/${representationId}/representation-details`;
 		case 'redact-representation':
