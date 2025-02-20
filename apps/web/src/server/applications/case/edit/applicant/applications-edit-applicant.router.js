@@ -15,7 +15,10 @@ applicationsEditApplicantRouter
 		registerCaseWithQuery(['applicant']),
 		asyncHandler(controller.viewApplicationsEditApplicantOrganisationName)
 	)
-	.post(asyncHandler(controller.updateApplicationsEditApplicantOrganisationName));
+	.post(
+		validators.validateApplicationsCreateApplicantOrganisationName,
+		asyncHandler(controller.updateApplicationsEditApplicantOrganisationName)
+	);
 
 applicationsEditApplicantRouter
 	.route('/applicant-full-name')
