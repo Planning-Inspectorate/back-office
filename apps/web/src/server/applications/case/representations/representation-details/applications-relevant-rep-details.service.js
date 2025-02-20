@@ -12,11 +12,11 @@ export const getRepresentationDetails = async (caseId, representationId) => {
 
 /**
  *
- * @param {string} caseId
+ * @param {number} caseId
  * @return {Promise<*>}
  */
 export const getRelevantRepFolder = async (caseId) => {
-	const folders = await getCaseFolders(Number(caseId));
+	const folders = await getCaseFolders(caseId);
 	return folders.find((folder) => folder.displayNameEn === 'Relevant representations');
 };
 

@@ -1,5 +1,5 @@
 import { BO_GENERAL_S51_CASE_REF } from '@pins/applications';
-import { sortBy } from 'lodash-es';
+import { isEmpty, sortBy } from 'lodash-es';
 import { url } from '../../../lib/nunjucks-filters/url.js';
 import {
 	getSessionFilesNumberOnList,
@@ -37,6 +37,7 @@ import { featureFlagClient } from '../../../../common/feature-flags.js';
 import { validationResult } from 'express-validator';
 import logger from '../../../lib/logger.js';
 import moveDocumentsUtils from './utils/move-documents/utils.js';
+import { getRelevantRepFolder } from '../representations/representation-details/applications-relevant-rep-details.service.js';
 
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
 /** @typedef {import('../applications-case.locals.js').ApplicationCaseLocals} ApplicationCaseLocals */
@@ -48,6 +49,7 @@ import moveDocumentsUtils from './utils/move-documents/utils.js';
 /** @typedef {import('./applications-documentation.types').CaseDocumentationBody} CaseDocumentationBody */
 /** @typedef {import('./applications-documentation.types').CaseDocumentationProps} CaseDocumentationProps */
 /** @typedef {import('./applications-documentation.types').PaginationButtons} PaginationButtons */
+
 /** @typedef {import('../../applications.types').PaginatedResponse<DocumentationFile>} PaginatedDocumentationFiles */
 
 /**
@@ -384,7 +386,7 @@ export async function updateApplicationsCaseDocumentationPublish(request, respon
 		: await publishCaseDocumentationFiles(caseId, items, username);
 
 	const backLinkFolder = documentationSessionHandlers.getSessionFolderPage(session) ?? '';
-	const backLink = backLinkFolder ?? url('document-category', { caseId });
+	const backLink = isEmpty(backLinkFolder) ? url('document-category', { caseId }) : backLinkFolder;
 
 	// re-display publishing queue page, with error messages
 	if (validationErrors || apiErrors) {
@@ -407,7 +409,9 @@ export async function updateApplicationsCaseDocumentationPublish(request, respon
 	// and get the breadcrumbs for the folder that was being viewed before publishing queue
 	// 	so we can put the link up on the success page, and they can return there
 	const { title: caseName, reference: caseReference } = response.locals.case;
-	const backlinkFolderId = getFolderIdFromFolderPath(backLinkFolder);
+	const backlinkFolderId = isRelevantRepresentationsPath(backLinkFolder)
+		? await getRelevantRepresentationsFolderId(caseId)
+		: getFolderIdFromFolderPath(backLinkFolder);
 	const backlinkFolderBreadcrumbItems = await buildBreadcrumbItems(caseId, backlinkFolderId);
 
 	response.render(`applications/case-documentation/documentation-success-banner`, {
@@ -538,6 +542,15 @@ const documentationFolderData = async (caseId, folderId, query = {}, session) =>
 };
 
 /**
+ * test folder path to see if it is relevant reps folder
+ *
+ * @param {string} folderPath
+ * @returns {boolean}
+ */
+const isRelevantRepresentationsPath = (folderPath) =>
+	/\/relevant-representations$/.test(folderPath);
+
+/**
  * Gets the id of the current folder from the folder path
  * eg for /applications-service/case/1/project-documentation/55/responses/
  * it will return 55
@@ -552,6 +565,16 @@ const getFolderIdFromFolderPath = (folderPath) => {
 	const folderId = Number.parseInt(folderIdString, 10);
 
 	return folderId;
+};
+
+/**
+ * get rel reps folder id
+ * @param caseId {number}
+ * @return {Promise<Number>}
+ */
+const getRelevantRepresentationsFolderId = async (caseId) => {
+	const folder = await getRelevantRepFolder(caseId);
+	return folder?.id;
 };
 
 /**

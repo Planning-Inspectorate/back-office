@@ -25,7 +25,7 @@ export const getRepresentationDetailsViewModel = async (
 	selectedOptionsText: getSelectedOptionsText(representation),
 	representationExcerpts: getRepresentationExcerpts(representation),
 	representationWorkflowValues: getRepresentationWorkflowValues(representation),
-	relevantRepDocumentFolder: await getRelevantRepFolder(caseId),
+	relevantRepDocumentFolder: await getRelevantRepFolder(Number(caseId)),
 	organisationOrFullname: getOrganisationOrFullname(representation.represented),
 	repModePageURLs: getRepModePageURLs(representation),
 	depublishedRepresentation: depublished === 'true'
