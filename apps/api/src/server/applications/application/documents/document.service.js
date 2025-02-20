@@ -1,7 +1,11 @@
 import {
+	ACCEPTANCE_STAGE_SUBFOLDERS,
 	DEFAULT_PAGE_NUMBER,
 	DEFAULT_PAGE_SIZE,
+	DOCUMENT_CASE_STAGE_ACCEPTANCE,
 	DOCUMENT_TYPES,
+	DOCUMENTS_FOLDER_MAP,
+	folderDocumentCaseStageMappings,
 	SYSTEM_USER_NAME
 } from '../../constants.js';
 import { PromisePool } from '@supercharge/promise-pool/dist/promise-pool.js';
@@ -17,7 +21,7 @@ import BackOfficeAppError from '#utils/app-error.js';
 import logger from '#utils/logger.js';
 import { mapSingleDocumentDetailsFromVersion } from '#utils/mapping/map-document-details.js';
 import { EventType } from '@pins/event-client';
-import { getFolder } from '../file-folders/folders.service.js';
+import { getFolder, getFolderPath } from '../file-folders/folders.service.js';
 import config from '#config/config.js';
 import { verifyAllDocumentsHaveRequiredPropertiesForPublishing } from './document.validators.js';
 import { applicationStates } from '../../state-machine/application.machine.js';
@@ -75,7 +79,8 @@ const mapDocumentsToSendToDatabase = (caseId, documents) =>
 		documentReference: document.documentReference,
 		fromFrontOffice: document.fromFrontOffice ?? false,
 		fileRowId: document.fileRowId,
-		username: document.username
+		username: document.username,
+		author: document.author
 	}));
 
 /**
@@ -161,6 +166,7 @@ const attemptInsertDocuments = async (caseId, documents, isS51) => {
 				mime: documentToDB.documentType,
 				size: documentToDB.documentSize,
 				owner: documentToDB.username,
+				author: documentToDB.author,
 				stage: stage,
 				version: 1,
 				...(config.virusScanningDisabled && {
@@ -369,20 +375,25 @@ export const createDocumentVersion = async (documentToUpload, caseId, documentId
 
 	const { documentVersion } = documentFromDatabase;
 
-	const currentDocumentVersion = documentVersion.filter(
+	const newDocumentVersion = documentVersion.filter(
 		(/** @type {{ version: number; }} */ d) => d.version === documentFromDatabase.latestVersionId
-	);
+	)[0];
 
 	const previousDocumentVersion = documentFromDatabase.documentVersion.pop();
 	// copy all meta data from previous version except below properties.
-	currentDocumentVersion[0].version = version;
-	currentDocumentVersion[0].mime = documentToSendToDatabase.documentType;
-	currentDocumentVersion[0].fileName = previousDocumentVersion?.fileName ?? fileName;
-	currentDocumentVersion[0].size = documentToSendToDatabase.documentSize;
-	currentDocumentVersion[0].owner = documentToUpload.username;
-	currentDocumentVersion[0].originalFilename = documentToUpload.documentName;
+	newDocumentVersion.version = version;
+	newDocumentVersion.mime = documentToSendToDatabase.documentType;
+	newDocumentVersion.fileName = previousDocumentVersion?.fileName ?? fileName;
+	newDocumentVersion.size = documentToSendToDatabase.documentSize;
+	newDocumentVersion.owner = documentToUpload.username;
+	newDocumentVersion.originalFilename = documentToUpload.documentName;
+	newDocumentVersion.datePublished = null;
+	newDocumentVersion.publishedBlobPath = null;
+	newDocumentVersion.publishedBlobContainer = null;
+	newDocumentVersion.publishedStatusPrev = null;
+	newDocumentVersion.redactedStatus = null;
 
-	await documentVersionRepository.upsert(currentDocumentVersion[0]);
+	await documentVersionRepository.upsert(newDocumentVersion);
 
 	await documentActivityLogRepository.create({
 		documentGuid: documentId,
@@ -617,6 +628,95 @@ export const getIndexFromReference = (reference) => {
  */
 export const makeDocumentReference = (caseId, index) =>
 	`${caseId}-${index.toString().padStart(6, '0')}`;
+
+/**
+ * @param {{displayNameEn: string, id: number}[]} folderPath
+ * @returns {boolean}
+ */
+
+export const isFolderApplicationDocuments = (folderPath) => {
+	const requiredNames = [
+		folderDocumentCaseStageMappings.ACCEPTANCE, //Acceptance
+		ACCEPTANCE_STAGE_SUBFOLDERS.APPLICATION_DOCUMENTS //Application Documents
+	];
+	const displayNames = folderPath.map((folder) => folder.displayNameEn);
+
+	return requiredNames.every((name) => displayNames.includes(name));
+};
+
+/**
+ *
+ * @param {{displayNameEn: string, id: number}[]} folderPath
+ * @returns
+ */
+
+export const getApplicationDocumentWebfilter = (folderPath) => {
+	const {
+		APPLICATION_FORM,
+		COMPULSORY_ACQUISITION_INFORMATION,
+		DCO_DOCUMENTS,
+		ENVIRONMENTAL_STATEMENT,
+		OTHER_DOCUMENTS,
+		PLANS,
+		REPORTS,
+		ADDITIONAL_REG_6_INFORMATION
+	} =
+		DOCUMENTS_FOLDER_MAP[DOCUMENT_CASE_STAGE_ACCEPTANCE][
+			ACCEPTANCE_STAGE_SUBFOLDERS.APPLICATION_DOCUMENTS
+		];
+
+	let webfilter = '';
+
+	switch (folderPath[2].displayNameEn) {
+		case APPLICATION_FORM:
+			webfilter = APPLICATION_FORM;
+			break;
+		case COMPULSORY_ACQUISITION_INFORMATION:
+			webfilter = 'Adequacy of Consultation Representation';
+			break;
+		case DCO_DOCUMENTS:
+			webfilter = 'Draft Development Consent Order';
+			break;
+		case ENVIRONMENTAL_STATEMENT:
+			webfilter = ENVIRONMENTAL_STATEMENT;
+			break;
+		case OTHER_DOCUMENTS:
+			webfilter = OTHER_DOCUMENTS;
+			break;
+		case PLANS:
+			webfilter = PLANS;
+			break;
+		case REPORTS:
+			webfilter = REPORTS;
+			break;
+		case ADDITIONAL_REG_6_INFORMATION:
+			webfilter = 'Additional Reg 6 Information';
+			break;
+		default:
+			webfilter = '';
+	}
+
+	return webfilter;
+};
+
+/**
+ * @param {number} caseId
+ * @param {number} folderId
+ * @returns {Promise<string>}
+ *
+ * */
+export const getDocumentWebfilter = async (caseId, folderId) => {
+	const folderPath = await getFolderPath(caseId, folderId);
+
+	let webfilter = '';
+
+	if (!folderPath) return '';
+	const isApplicationDocumentsFolder = isFolderApplicationDocuments(folderPath);
+
+	if (isApplicationDocumentsFolder) webfilter = getApplicationDocumentWebfilter(folderPath);
+
+	return webfilter;
+};
 
 /**
  *

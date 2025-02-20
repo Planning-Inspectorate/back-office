@@ -106,7 +106,7 @@ const handleDocumentVersionUpdateForRepresentationAttachments = async (attachmen
 					);
 					if (
 						attachmentDetail.latestVersionId === docVersion.version &&
-						attachmentDetail.representationStatus === 'published'
+						attachmentDetail.representationStatus?.toLowerCase() === 'published'
 					) {
 						docVersion.publishedStatus = 'published';
 						latestPublishedVersion = docVersion;
@@ -174,12 +174,22 @@ const mapModelToRepresentationEntity = async ({
 		redactedRepresentation,
 		redacted,
 		received: new Date(dateReceived),
-		type: representationType,
+		type: dataModelToCBOSMap[representationType],
 		unpublishedUpdates: false,
 		representativeId: representativeId ? parseInt(representativeId) : null,
 		representedId,
-		representedType: representationFrom
+		representedType: representativeId ? 'AGENT' : representationFrom
 	};
+};
+
+const dataModelToCBOSMap = {
+	'Local Authorities': 'Local authorities',
+	'Parish Councils': 'Parish councils',
+	'Members of the Public/Businesses': 'Members of the public/businesses',
+	'Statutory Consultees': 'Statutory consultees',
+	'Non-Statutory Organisations': 'Non-statutory organisations',
+	null: null
+	// CBOS doesn't have "Another Individual" and "Public & Businesses"
 };
 
 const mapRepresentationRedactionAction = ({

@@ -84,6 +84,15 @@ describe('Create A Case', () => {
 			createCasePage.clickSaveAndContinue();
 			applicationsHomePage.verifyPageTitle('Enter the project email (optional) - Create new case');
 			createCasePage.clickSaveAndContinue();
+			applicationsHomePage.verifyPageTitle('Enter the Applicant’s organisation - Create new case');
+			createCasePage.clickSaveAndContinue();
+			applicationsHomePage.verifyPageTitle('Enter the Applicant’s organisation - Create new case', {
+				error: true
+			});
+			createCasePage.validateErrorMessageCountOnPage(1);
+			createCasePage.validateErrorMessage('Enter the Applicant’s organisation');
+			createCasePage.sections.applicantOrganisation.fillOrganisationName(projectInfo.orgName);
+			createCasePage.clickSaveAndContinue();
 			applicationsHomePage.verifyPageTitle(
 				'Choose the Applicant information you have available - Create new case'
 			);

@@ -646,6 +646,11 @@ export interface DocumentToSaveExtended {
 	 */
 	username: string;
 	/**
+	 * Author
+	 * @example "John Keats"
+	 */
+	author?: string;
+	/**
 	 * Document unique reference
 	 * @example "BC011001-123456"
 	 */

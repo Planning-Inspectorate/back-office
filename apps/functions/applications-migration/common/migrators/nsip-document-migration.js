@@ -1,6 +1,7 @@
 import { SynapseDB } from '../synapse-db.js';
 import { QueryTypes } from 'sequelize';
 import { makePostRequestStreamResponse } from '../back-office-api-client.js';
+import { BO_GENERAL_S51_CASE_REF } from '@pins/applications';
 
 /**
  * @param {import('@azure/functions').Logger} log
@@ -47,6 +48,7 @@ export const getNsipDocuments = async (log, caseReference) => {
 		size: parseInt(document?.size),
 		origin: document?.origin?.trim() === '' ? null : document?.origin,
 		securityClassification:
-			document?.securityClassification?.trim() === '' ? null : document?.securityClassification
+			document?.securityClassification?.trim() === '' ? null : document?.securityClassification,
+		path: caseReference === BO_GENERAL_S51_CASE_REF ? 'Section 51 Advice' : document.path
 	}));
 };

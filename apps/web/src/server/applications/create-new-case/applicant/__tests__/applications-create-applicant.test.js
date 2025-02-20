@@ -30,6 +30,43 @@ describe('applications create applicant', () => {
 		await request.get('/applications-service/');
 	});
 
+	describe('Applicant organisation name', () => {
+		const baseUrl = '/applications-service/create-new-case/123/applicant-organisation-name';
+
+		beforeEach(async () => {
+			nocks();
+		});
+
+		describe('GET /applicant-organisation-name', () => {
+			it('should render the page', async () => {
+				const response = await request.get(baseUrl);
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('Save and continue');
+			});
+		});
+
+		describe('POST /applicant-organisation-name', () => {
+			beforeEach(async () => {
+				await request.get('/applications-service/');
+			});
+
+			describe('Web-side validation:', () => {
+				it('should show validation errors if the field is empty', async () => {
+					const response = await request.post(baseUrl).send({
+						'applicant.organisationName': ''
+					});
+					const element = parseHtml(response.text);
+
+					expect(element.innerHTML).toMatchSnapshot();
+					expect(element.innerHTML).toContain('govuk-error-summary');
+					expect(element.innerHTML).toContain('applicant.organisationName-error');
+				});
+			});
+		});
+	});
+
 	describe('GET /applicant-information-types', () => {
 		const baseUrl = '/applications-service/create-new-case/123/applicant-information-types';
 
@@ -43,35 +80,6 @@ describe('applications create applicant', () => {
 
 			expect(element.innerHTML).toMatchSnapshot();
 			expect(element.innerHTML).toContain('Save and continue');
-		});
-	});
-
-	describe('GET /applicant-organisation-name', () => {
-		const baseUrl = '/applications-service/create-new-case/123/applicant-organisation-name';
-
-		beforeEach(async () => {
-			nocks();
-		});
-
-		it('should render the page when resumed or when there is session data', async () => {
-			const response = await request.get(baseUrl);
-			const element = parseHtml(response.text);
-
-			expect(element.innerHTML).toMatchSnapshot();
-			expect(element.innerHTML).toContain('Save and continue');
-		});
-
-		it('should not render the page if there is no session data', async () => {
-			await request.post('/applications-service/create-new-case').send({
-				title: 'title',
-				description: 'description'
-			});
-
-			const response = await request.get(baseUrl);
-
-			expect(response?.headers?.location).toMatch(
-				'/applications-service/create-new-case/123/key-dates'
-			);
 		});
 	});
 

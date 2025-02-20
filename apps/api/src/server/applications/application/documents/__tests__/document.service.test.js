@@ -1,8 +1,12 @@
-import { jest } from '@jest/globals';
+import { describe, jest } from '@jest/globals';
 import config from '#config/config.js';
 const { databaseConnector } = await import('#utils/database-connector.js');
 
-import { createDocumentVersion } from '../document.service.js';
+import {
+	createDocumentVersion,
+	getApplicationDocumentWebfilter,
+	isFolderApplicationDocuments
+} from '../document.service.js';
 import { extractYouTubeURLFromHTML } from '../../../documents/documents.service.js';
 
 /**
@@ -296,6 +300,115 @@ describe('Document service test', () => {
 			expect(() => {
 				extractYouTubeURLFromHTML(html);
 			}).toThrow(`iframe src is not a YouTube URL: ${invalidUrl}`);
+		});
+	});
+
+	describe('#isFolderApplicationDocuments', () => {
+		it('should return FALSE when folder is not within Acceptance > Application documents', () => {
+			const folderPath = [
+				{ displayNameEn: 'Acceptance', id: 1 },
+				{ displayNameEn: 'Not Application documents', id: 2 }
+			];
+
+			expect(isFolderApplicationDocuments(folderPath)).toBe(false);
+		});
+		it('should return TRUE when folder is contained within Acceptance > Application documents', () => {
+			const folderPath = [
+				{ displayNameEn: 'Acceptance', id: 1 },
+				{ displayNameEn: 'Application documents', id: 2 }
+			];
+			expect(isFolderApplicationDocuments(folderPath)).toBe(true);
+		});
+	});
+	describe('#getApplicationDocumentWebfilter', () => {
+		it('should return correct webfilter for APPLICATION_FORM folder', () => {
+			const folderPath = [
+				{ displayNameEn: 'Acceptance', id: 1 },
+				{ displayNameEn: 'Application documents', id: 2 },
+				{ displayNameEn: 'Application form', id: 3 }
+			];
+			const result = getApplicationDocumentWebfilter(folderPath);
+			expect(result).toBe('Application form');
+		});
+
+		it('should return correct webfilter for COMPULSORY_ACQUISITION_INFORMATION folder', () => {
+			const folderPath = [
+				{ displayNameEn: 'Acceptance', id: 1 },
+				{ displayNameEn: 'Application documents', id: 2 },
+				{ displayNameEn: 'Compulsory acquisition information', id: 3 }
+			];
+			const result = getApplicationDocumentWebfilter(folderPath);
+			expect(result).toBe('Adequacy of Consultation Representation');
+		});
+
+		it('should return correct webfilter for DCO_DOCUMENTS folder', () => {
+			const folderPath = [
+				{ displayNameEn: 'Acceptance', id: 1 },
+				{ displayNameEn: 'Application documents', id: 2 },
+				{ displayNameEn: 'DCO documents', id: 3 }
+			];
+			const result = getApplicationDocumentWebfilter(folderPath);
+			expect(result).toBe('Draft Development Consent Order');
+		});
+
+		it('should return correct webfilter for ENVIRONMENTAL_STATEMENT folder', () => {
+			const folderPath = [
+				{ displayNameEn: 'Acceptance', id: 1 },
+				{ displayNameEn: 'Application documents', id: 2 },
+				{ displayNameEn: 'Environmental statement', id: 3 }
+			];
+			const result = getApplicationDocumentWebfilter(folderPath);
+			expect(result).toBe('Environmental statement');
+		});
+
+		it('should return correct webfilter for OTHER_DOCUMENTS folder', () => {
+			const folderPath = [
+				{ displayNameEn: 'Acceptance', id: 1 },
+				{ displayNameEn: 'Application documents', id: 2 },
+				{ displayNameEn: 'Other documents', id: 3 }
+			];
+			const result = getApplicationDocumentWebfilter(folderPath);
+			expect(result).toBe('Other documents');
+		});
+
+		it('should return correct webfilter for PLANS folder', () => {
+			const folderPath = [
+				{ displayNameEn: 'Acceptance', id: 1 },
+				{ displayNameEn: 'Application documents', id: 2 },
+				{ displayNameEn: 'Plans', id: 3 }
+			];
+			const result = getApplicationDocumentWebfilter(folderPath);
+			expect(result).toBe('Plans');
+		});
+
+		it('should return correct webfilter for REPORTS folder', () => {
+			const folderPath = [
+				{ displayNameEn: 'Acceptance', id: 1 },
+				{ displayNameEn: 'Application documents', id: 2 },
+				{ displayNameEn: 'Reports', id: 3 }
+			];
+			const result = getApplicationDocumentWebfilter(folderPath);
+			expect(result).toBe('Reports');
+		});
+
+		it('should return correct webfilter for ADDITIONAL_REG_6_INFORMATION folder', () => {
+			const folderPath = [
+				{ displayNameEn: 'Acceptance', id: 1 },
+				{ displayNameEn: 'Application documents', id: 2 },
+				{ displayNameEn: 'Additional Reg 6 information', id: 3 }
+			];
+			const result = getApplicationDocumentWebfilter(folderPath);
+			expect(result).toBe('Additional Reg 6 Information');
+		});
+
+		it('should return empty string for a unknown folder', () => {
+			const folderPath = [
+				{ displayNameEn: 'Acceptance', id: 1 },
+				{ displayNameEn: 'Application documents', id: 2 },
+				{ displayNameEn: 'UNKNOWN FOLDER', id: 3 }
+			];
+			const result = getApplicationDocumentWebfilter(folderPath);
+			expect(result).toBe('');
 		});
 	});
 });

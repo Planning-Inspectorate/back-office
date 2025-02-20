@@ -71,13 +71,12 @@ export const getFolderByName = async (caseId, folderName, parentFolderId) => {
 /**
  * Returns parent folder path as an ordered array for a folder on a case
  *
- * @param {number} id
+ * @param {number} caseId
  * @param {number} folderId
  * @returns {Promise<FolderDetails[] |null>}
  */
-export const getFolderPath = async (id, folderId) => {
-	const folders = await folderRepository.getFolderPath(id, folderId);
-
+export const getFolderPath = async (caseId, folderId) => {
+	const folders = await folderRepository.getFolderPath(caseId, folderId);
 	// @ts-ignore
 	return mapBreadcrumbFolderDetails(folders);
 };
