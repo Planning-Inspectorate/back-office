@@ -49,6 +49,18 @@ export const getNsipDocuments = async (log, caseReference) => {
 		origin: document?.origin?.trim() === '' ? null : document?.origin,
 		securityClassification:
 			document?.securityClassification?.trim() === '' ? null : document?.securityClassification,
-		path: caseReference === BO_GENERAL_S51_CASE_REF ? 'Section 51 Advice' : document.path
+		path: caseReference === BO_GENERAL_S51_CASE_REF ? 'Section 51 Advice' : document.path,
+		publishedStatus: correctPublishedStatus(document?.publishedStatus)
 	}));
+};
+
+const correctPublishedStatus = (publishedStatus) => {
+	switch (publishedStatus) {
+		case 'queried':
+			return null;
+		case 'ready_to_depublish':
+			return 'unpublished';
+		default:
+			return publishedStatus;
+	}
 };
