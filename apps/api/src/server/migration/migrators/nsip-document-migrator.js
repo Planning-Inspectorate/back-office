@@ -80,21 +80,15 @@ export const migrateNsipDocuments = async (documents, updateProgress) => {
 			documentFilename,
 			document
 		);
-		const documentForServiceBus = await createDocumentVersion(documentVersion);
 
+		await createDocumentVersion(documentVersion);
 		await handleCreationOfDocumentActivityLogs(documentVersion);
-
-		if (documentForServiceBus.publishedStatus === 'published') {
-			await broadcastNsipDocumentEvent(documentForServiceBus, EventType.Update, {
-				publishing: 'true',
-				migrationPublishing: 'true'
-			});
-		}
 		updateProgress(index, documents.length);
 	}
 
-	await updateLatestVersionId(caseId);
 	await updatePreviousVersionsToUnpublished(caseId);
+	await updateLatestVersionId(caseId);
+	await broadcastAllPublishedDocuments(caseId);
 };
 
 /**
@@ -218,6 +212,11 @@ const updateLatestVersionId = async (caseId) => {
 	await databaseConnector.$executeRawUnsafe(statement, caseId);
 };
 
+/**
+ * Bulk update all previous documentVersions to unpublished where a more recent version is unpublished
+ * @param {number |undefined} caseId
+ * @returns {Promise<void>}
+ */
 const updatePreviousVersionsToUnpublished = async (caseId) => {
 	const documents = await databaseConnector.document.findMany({
 		where: { caseId: caseId },
@@ -255,6 +254,36 @@ const updatePreviousVersionsToUnpublished = async (caseId) => {
 
 	if (updates.length > 0) {
 		await databaseConnector.$transaction(updates);
+	}
+};
+
+/**
+ * Broadcast publish document versions for caseId
+ * @param {number |undefined} caseId
+ * @returns {Promise<void>}
+ */
+const broadcastAllPublishedDocuments = async (caseId) => {
+	const documents = await databaseConnector.document.findMany({
+		where: { caseId: caseId },
+		include: {
+			documentVersion: true
+		}
+	});
+
+	if (!documents.length) return;
+
+	for (const doc of documents) {
+		const publishedVersions = doc.documentVersion.filter((v) => v.publishedStatus === 'published');
+		if (!publishedVersions.length) continue;
+		const highestPublishedVersion = publishedVersions.reduce(
+			(max, version) => (version.version > max.version ? version : max),
+			publishedVersions[0]
+		);
+		const documentForServiceBus = await createDocumentVersion(highestPublishedVersion);
+		await broadcastNsipDocumentEvent(documentForServiceBus, EventType.Update, {
+			publishing: 'true',
+			migrationPublishing: 'true'
+		});
 	}
 };
 
