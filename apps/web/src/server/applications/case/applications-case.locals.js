@@ -108,11 +108,15 @@ export const registerDocumentGuid = async ({ params }, response, next) => {
  * @returns {Promise<BreadcrumbItem[]>}
  */
 export const buildBreadcrumbItems = async (caseId, folderId) => {
-	const folderPath = await getCaseDocumentationFolderPath(caseId, folderId);
-	const folderItems = folderPath.map((folder) => ({
-		href: url('document-category', { caseId, documentationCategory: folder }),
-		text: folder.displayNameEn
-	}));
+	/** @type {BreadcrumbItem[]} **/
+	let folderItems = [];
+	if (folderId) {
+		const folderPath = await getCaseDocumentationFolderPath(caseId, folderId);
+		folderItems = folderPath.map((folder) => ({
+			href: url('document-category', { caseId, documentationCategory: folder }),
+			text: folder.displayNameEn
+		}));
+	}
 
 	return [
 		{

@@ -16,6 +16,8 @@ import { tableSortLinks } from './utils/table.js';
 import { isRelevantRepsPeriodClosed } from './utils/is-relevant-reps-period-closed.js';
 import { getPublishQueueUrl } from './utils/get-publish-queue-url.js';
 import { getKeyDates } from './utils/get-key-dates.js';
+import documentationSessionHandlers from '../documentation/applications-documentation.session.js';
+import { url } from '../../../lib/nunjucks-filters/index.js';
 
 const view = 'applications/representations/representations.njk';
 
@@ -23,12 +25,19 @@ const view = 'applications/representations/representations.njk';
  * @param {import('express').Request} req
  * @param {import('express').Response} res
  */
-export async function relevantRepsApplications({ query }, res) {
+export async function relevantRepsApplications({ query, session }, res) {
 	const { caseId } = res.locals;
 	const {
 		locals: { serviceUrl }
 	} = res;
 	hasSearchUpdated(query);
+
+	documentationSessionHandlers.setSessionFolderPage(
+		session,
+		url('representations', {
+			caseId
+		})
+	);
 
 	const {
 		searchTerm,
