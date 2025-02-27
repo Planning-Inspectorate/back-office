@@ -969,7 +969,7 @@ const folderMapping = {
 		'Decision > SoS consultation > Consultation documents',
 	'Decision > SoS Consultation > Post Exam Submissions':
 		'Decision > SoS consultation > Post examination submissions',
-	'Decision > SoS Decision': 'Decision > SoS Decision',
+	'Decision > SoS Decision': 'Decision > SoS decision',
 
 	'Post Decision': 'Post-decision',
 	'Post Decision > Feedback': 'Post-decision > Feedback',

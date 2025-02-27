@@ -33,55 +33,55 @@ export const migrateProjectUpdates = async (log, caseReferences, isWelshCase) =>
 				updateContentWelsh: welshUpdates[i]?.updateContentWelsh || null
 			}));
 
-			if (updates.length > 0) {
-				log.info(`Migrating ${updates.length} project updates for case ${caseReference}`);
+			return Readable.from(
+				(async function* () {
+					if (updates.length > 0) {
+						log.info(`Migrating ${updates.length} project updates for case ${caseReference}`);
 
-				const updatesStream = makePostRequestStreamResponse(
-					log,
-					'/migration/nsip-project-update',
-					updates
-				);
+						const updatesStream = makePostRequestStreamResponse(
+							log,
+							'/migration/nsip-project-update',
+							updates
+						);
 
-				return Readable.from(
-					(async function* () {
 						for await (const chunk of updatesStream) {
 							yield chunk;
 						}
 						log.info('Successfully migrated project updates');
+					} else {
+						log.warn(`No updates found for case ${caseReference}`);
+					}
 
-						const subscriptions = await getProjectSubscriptions(caseReference);
+					const subscriptions = await getProjectSubscriptions(caseReference);
 
-						if (subscriptions.length > 0) {
-							log.info(`Migrating ${subscriptions.length} subscriptions for case ${caseReference}`);
+					if (subscriptions.length > 0) {
+						log.info(`Migrating ${subscriptions.length} subscriptions for case ${caseReference}`);
 
-							const mappedSubscriptions = subscriptions.map((sub) => ({
-								subscriptionId: sub.subscriptionId ?? null,
-								caseReference: sub.caseReference,
-								emailAddress: sub.emailAddress,
-								subscriptionType: sub.subscriptionType,
-								startDate: sub.startDate ?? null,
-								endDate: sub.endDate ?? null,
-								language: sub.language ?? null
-							}));
+						const mappedSubscriptions = subscriptions.map((sub) => ({
+							subscriptionId: sub.subscriptionId ?? null,
+							caseReference: sub.caseReference,
+							emailAddress: sub.emailAddress,
+							subscriptionType: sub.subscriptionType,
+							startDate: sub.startDate ?? null,
+							endDate: sub.endDate ?? null,
+							language: sub.language ?? null
+						}));
 
-							const subStream = makePostRequestStreamResponse(
-								log,
-								'/migration/nsip-subscription',
-								mappedSubscriptions
-							);
+						const subStream = makePostRequestStreamResponse(
+							log,
+							'/migration/nsip-subscription',
+							mappedSubscriptions
+						);
 
-							for await (const subChunk of subStream) {
-								yield subChunk;
-							}
-							log.info('Successfully migrated subscriptions');
-						} else {
-							log.warn(`No subscriptions found for case ${caseReference}`);
+						for await (const subChunk of subStream) {
+							yield subChunk;
 						}
-					})()
-				);
-			} else {
-				log.warn(`No updates found for case ${caseReference}`);
-			}
+						log.info('Successfully migrated subscriptions');
+					} else {
+						log.warn(`No subscriptions found for case ${caseReference}`);
+					}
+				})()
+			);
 		} catch (e) {
 			log.error(`Failed to migrate project updates for case ${caseReference}`, e);
 			throw e;
