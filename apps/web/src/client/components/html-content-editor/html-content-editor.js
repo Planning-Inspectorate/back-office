@@ -25,6 +25,7 @@ function initHtmlContentEditor() {
 			usageStatistics: false,
 			hideModeSwitch: true,
 			toolbarItems: [['bold', 'link', 'ul']],
+			autofocus: false,
 			events: {
 				keydown(_, ev) {
 					// there is no option not to handle tab, but this is an accessibility issue
