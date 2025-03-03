@@ -87,7 +87,7 @@
 		"express-session": "1.17.2",
 		"express-validator": "6.14.2",
 		"got": "^12.5.3",
-		"govuk-frontend": "4.6.0",
+		"govuk-frontend": "5.8.0",
 		"helmet": "5.1.0",
 		"html": "^1.0.0",
 		"humps": "^2.0.1",
