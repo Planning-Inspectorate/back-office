@@ -776,7 +776,7 @@ const getTimetableRows = (timetableItem) => {
 };
 
 /**
- * Prepare the payload for the description
+ * Prepare examination timetable description payload
  * @param {string|undefined} descriptionBody
  * @returns {string}
  */
@@ -784,9 +784,10 @@ const prepareDescriptionPayload = (descriptionBody) => {
 	if (typeof descriptionBody !== 'string') {
 		throw new Error('Description body must be a string');
 	}
+
 	const splitDescription = sanitizeHtml(descriptionBody, {}).split('*');
 	const preText = splitDescription.shift();
-	const bulletPoints = splitDescription;
+	const bulletPoints = splitDescription.map((bullet) => bullet.replace(/[\n\r]/g, ''));
 
 	return JSON.stringify({ preText, bulletPoints });
 };
