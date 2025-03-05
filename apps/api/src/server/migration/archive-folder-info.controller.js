@@ -1,12 +1,10 @@
 import {
-	getDocumentsInFolder,
 	getFolderByName,
 	getFolderPath
 } from '../applications/application/file-folders/folders.service.js';
 import { getByRef as getCaseByRef } from '#repositories/case.repository.js';
 import { getFoldersByParentId } from '#repositories/folder.repository.js';
-
-const MAX_VALUE = 99999;
+import { getDocumentsCountInFolder } from '#repositories/document.repository.js';
 
 /**
  * @type {import("express").RequestHandler<{modelType: string}, ?, any[]>}
@@ -38,7 +36,7 @@ export const getArchiveFolderInformation = async (req, res) => {
 const getAllFolderIdsWithDocCounts = async (caseId, folderId) => {
 	const result = [];
 	const childFolders = await getFoldersByParentId(folderId);
-	const { itemCount: documentCount } = await getDocumentsInFolder(folderId, 1, MAX_VALUE);
+	const documentCount = await getDocumentsCountInFolder(folderId);
 	if (documentCount !== 0) {
 		const folderPathDetails = await getFolderPath(caseId, folderId);
 		const folderPath = folderPathDetails.reduce((accum, pathDetails) => {
