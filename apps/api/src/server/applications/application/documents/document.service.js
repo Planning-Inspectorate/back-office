@@ -80,7 +80,8 @@ const mapDocumentsToSendToDatabase = (caseId, documents) =>
 		fromFrontOffice: document.fromFrontOffice ?? false,
 		fileRowId: document.fileRowId,
 		username: document.username,
-		author: document.author
+		author: document.author,
+		authorWelsh: document.authorWelsh
 	}));
 
 /**
@@ -167,6 +168,7 @@ const attemptInsertDocuments = async (caseId, documents, isS51) => {
 				size: documentToDB.documentSize,
 				owner: documentToDB.username,
 				author: documentToDB.author,
+				authorWelsh: documentToDB.authorWelsh,
 				stage: stage,
 				version: 1,
 				...(config.virusScanningDisabled && {
@@ -665,35 +667,47 @@ export const getApplicationDocumentWebfilter = (folderPath) => {
 			ACCEPTANCE_STAGE_SUBFOLDERS.APPLICATION_DOCUMENTS
 		];
 
-	let webfilter = '';
+	let webfilter = {
+		en: '',
+		cy: ''
+	};
 
 	switch (folderPath[2].displayNameEn) {
 		case APPLICATION_FORM:
-			webfilter = APPLICATION_FORM;
+			webfilter.en = APPLICATION_FORM;
+			webfilter.cy = 'Ffurflen Gais';
 			break;
 		case COMPULSORY_ACQUISITION_INFORMATION:
-			webfilter = 'Adequacy of Consultation Representation';
+			webfilter.en = 'Adequacy of Consultation Representation';
+			webfilter.cy = 'Cynrychiolaeth Digonolrwydd Ymgynghori';
 			break;
 		case DCO_DOCUMENTS:
-			webfilter = 'Draft Development Consent Order';
+			webfilter.en = 'Draft Development Consent Order';
+			webfilter.cy = 'Gorchymyn Caniatâd Datblygu Drafft';
 			break;
 		case ENVIRONMENTAL_STATEMENT:
-			webfilter = ENVIRONMENTAL_STATEMENT;
+			webfilter.en = ENVIRONMENTAL_STATEMENT;
+			webfilter.cy = 'Datganiad Amgylcheddol';
 			break;
 		case OTHER_DOCUMENTS:
-			webfilter = OTHER_DOCUMENTS;
+			webfilter.en = OTHER_DOCUMENTS;
+			webfilter.cy = 'Dogfennau Eraill';
 			break;
 		case PLANS:
-			webfilter = PLANS;
+			webfilter.en = PLANS;
+			webfilter.cy = 'Cynlluniau';
 			break;
 		case REPORTS:
-			webfilter = REPORTS;
+			webfilter.en = REPORTS;
+			webfilter.cy = 'Adroddiadau';
 			break;
 		case ADDITIONAL_REG_6_INFORMATION:
-			webfilter = 'Additional Reg 6 Information';
+			webfilter.en = 'Additional Reg 6 Information';
+			webfilter.cy = 'Gwybodaeth Ychwanegol Rheoliad 6';
 			break;
 		default:
-			webfilter = '';
+			webfilter.en = '';
+			webfilter.cy = '';
 	}
 
 	return webfilter;
@@ -702,15 +716,19 @@ export const getApplicationDocumentWebfilter = (folderPath) => {
 /**
  * @param {number} caseId
  * @param {number} folderId
- * @returns {Promise<string>}
+ * @returns {Promise<{en: string, cy: string}>}
  *
  * */
 export const getDocumentWebfilter = async (caseId, folderId) => {
 	const folderPath = await getFolderPath(caseId, folderId);
 
-	let webfilter = '';
+	let webfilter = {
+		en: '',
+		cy: ''
+	};
 
-	if (!folderPath) return '';
+	if (!folderPath) return webfilter;
+
 	const isApplicationDocumentsFolder = isFolderApplicationDocuments(folderPath);
 
 	if (isApplicationDocumentsFolder) webfilter = getApplicationDocumentWebfilter(folderPath);
