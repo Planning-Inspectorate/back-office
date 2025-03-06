@@ -62,8 +62,14 @@ export const createDocumentsOnCase = async ({ params, body }, response) => {
 	const theCase = await caseRepository.getById(params.id, {
 		applicationDetails: true,
 		applicant: true,
-		gridReference: true
+		gridReference: true,
+		regions: true
 	});
+
+	const caseRegions = theCase?.ApplicationDetails?.regions || [];
+	const isCaseWelsh = Boolean(
+		caseRegions.find((caseRegion) => caseRegion?.region.name?.toLowerCase() === 'wales')
+	);
 
 	if (!theCase?.reference) {
 		throw new BackOfficeAppError(`Received null when retrieving case with ID ${params.id}`, 404);
@@ -83,10 +89,19 @@ export const createDocumentsOnCase = async ({ params, body }, response) => {
 	// - add full document references eg BC0110001-000001, BC0110001-000002
 	// - add webfilter and author
 	for (const doc of filteredToUpload) {
+		//since createDocumentsOnCase can create documents in multiple folders in one go,
+		//we need to get the webfilter for each document
+		const webfilter = await getDocumentWebfilter(params.id, doc.folderId);
+
 		doc.documentReference = makeDocumentReference(theCase.reference, nextReferenceIndex);
-		doc.filter1 = await getDocumentWebfilter(params.id, doc.folderId);
+		doc.filter1 = webfilter.en;
 		doc.author = theCase.applicant?.organisationName || '';
 		nextReferenceIndex++;
+
+		if (isCaseWelsh) {
+			doc.filter1Welsh = webfilter.cy;
+			doc.authorWelsh = theCase.applicant?.organisationName || '';
+		}
 	}
 	// create document, documentVersion etc records for the array of docs
 	const { response: dbResponse, failedDocuments } = await createDocuments(

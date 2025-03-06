@@ -328,7 +328,7 @@ describe('Document service test', () => {
 				{ displayNameEn: 'Application form', id: 3 }
 			];
 			const result = getApplicationDocumentWebfilter(folderPath);
-			expect(result).toBe('Application form');
+			expect(result).toEqual({ cy: 'Ffurflen Gais', en: 'Application form' });
 		});
 
 		it('should return correct webfilter for COMPULSORY_ACQUISITION_INFORMATION folder', () => {
@@ -338,7 +338,10 @@ describe('Document service test', () => {
 				{ displayNameEn: 'Compulsory acquisition information', id: 3 }
 			];
 			const result = getApplicationDocumentWebfilter(folderPath);
-			expect(result).toBe('Adequacy of Consultation Representation');
+			expect(result).toEqual({
+				cy: 'Cynrychiolaeth Digonolrwydd Ymgynghori',
+				en: 'Adequacy of Consultation Representation'
+			});
 		});
 
 		it('should return correct webfilter for DCO_DOCUMENTS folder', () => {
@@ -348,7 +351,10 @@ describe('Document service test', () => {
 				{ displayNameEn: 'DCO documents', id: 3 }
 			];
 			const result = getApplicationDocumentWebfilter(folderPath);
-			expect(result).toBe('Draft Development Consent Order');
+			expect(result).toEqual({
+				cy: 'Gorchymyn Caniatâd Datblygu Drafft',
+				en: 'Draft Development Consent Order'
+			});
 		});
 
 		it('should return correct webfilter for ENVIRONMENTAL_STATEMENT folder', () => {
@@ -358,7 +364,7 @@ describe('Document service test', () => {
 				{ displayNameEn: 'Environmental statement', id: 3 }
 			];
 			const result = getApplicationDocumentWebfilter(folderPath);
-			expect(result).toBe('Environmental statement');
+			expect(result).toEqual({ cy: 'Datganiad Amgylcheddol', en: 'Environmental statement' });
 		});
 
 		it('should return correct webfilter for OTHER_DOCUMENTS folder', () => {
@@ -368,7 +374,7 @@ describe('Document service test', () => {
 				{ displayNameEn: 'Other documents', id: 3 }
 			];
 			const result = getApplicationDocumentWebfilter(folderPath);
-			expect(result).toBe('Other documents');
+			expect(result).toEqual({ cy: 'Dogfennau Eraill', en: 'Other documents' });
 		});
 
 		it('should return correct webfilter for PLANS folder', () => {
@@ -378,7 +384,7 @@ describe('Document service test', () => {
 				{ displayNameEn: 'Plans', id: 3 }
 			];
 			const result = getApplicationDocumentWebfilter(folderPath);
-			expect(result).toBe('Plans');
+			expect(result).toEqual({ cy: 'Cynlluniau', en: 'Plans' });
 		});
 
 		it('should return correct webfilter for REPORTS folder', () => {
@@ -388,7 +394,7 @@ describe('Document service test', () => {
 				{ displayNameEn: 'Reports', id: 3 }
 			];
 			const result = getApplicationDocumentWebfilter(folderPath);
-			expect(result).toBe('Reports');
+			expect(result).toEqual({ cy: 'Adroddiadau', en: 'Reports' });
 		});
 
 		it('should return correct webfilter for ADDITIONAL_REG_6_INFORMATION folder', () => {
@@ -398,7 +404,10 @@ describe('Document service test', () => {
 				{ displayNameEn: 'Additional Reg 6 information', id: 3 }
 			];
 			const result = getApplicationDocumentWebfilter(folderPath);
-			expect(result).toBe('Additional Reg 6 Information');
+			expect(result).toEqual({
+				cy: 'Gwybodaeth Ychwanegol Rheoliad 6',
+				en: 'Additional Reg 6 Information'
+			});
 		});
 
 		it('should return empty string for a unknown folder', () => {
@@ -408,7 +417,7 @@ describe('Document service test', () => {
 				{ displayNameEn: 'UNKNOWN FOLDER', id: 3 }
 			];
 			const result = getApplicationDocumentWebfilter(folderPath);
-			expect(result).toBe('');
+			expect(result).toEqual({ cy: '', en: '' });
 		});
 	});
 });

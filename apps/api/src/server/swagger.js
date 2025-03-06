@@ -615,6 +615,7 @@ export const spec = {
 				fileRowId: { type: 'string', description: '', example: 'file_row_1585663020000_7945' },
 				username: { type: 'string', description: 'Username', example: 'John Keats' },
 				author: { type: 'string', description: 'Author', example: 'John Keats' },
+				authorWelsh: { type: 'string', description: 'Author', example: 'Tom Jones' },
 				documentReference: {
 					type: 'string',
 					description: 'Document unique reference',
