@@ -113,7 +113,8 @@ describe('applications documentation', () => {
 				};
 
 				nock('http://test/')
-					.post('/applications/123/folders/21/documents')
+					.get('/applications/123/folders/21/documents')
+					.query({ pageSize: 50, pageNumber: 1, sortBy: '-dateCreated' })
 					.reply(200, fixturePaginatedDocumentationFilesEmpty);
 
 				const response = await request.get(`${baseUrl}/project-documentation/21/no-documents`);
@@ -126,7 +127,8 @@ describe('applications documentation', () => {
 
 			it('should render the page with default pagination if there is no data in the session', async () => {
 				nock('http://test/')
-					.post('/applications/123/folders/21/documents')
+					.get('/applications/123/folders/21/documents')
+					.query({ pageSize: 50, pageNumber: 1, sortBy: '-dateCreated' })
 					.reply(200, fixturePaginatedDocumentationFiles(1, 50));
 
 				const response = await request.get(`${baseUrl}/project-documentation/21/sub-folder-level2`);
@@ -139,7 +141,8 @@ describe('applications documentation', () => {
 
 			it('should render the page with the right number of files', async () => {
 				nock('http://test/')
-					.post('/applications/123/folders/21/documents')
+					.get('/applications/123/folders/21/documents')
+					.query({ pageSize: 30, pageNumber: 2, sortBy: '-dateCreated' })
 					.reply(200, fixturePaginatedDocumentationFiles(2, 30));
 
 				const response = await request.get(
@@ -153,7 +156,8 @@ describe('applications documentation', () => {
 
 			it('should render the page with custom pagination if there is data in the session', async () => {
 				nock('http://test/')
-					.post('/applications/123/folders/21/documents')
+					.get('/applications/123/folders/21/documents')
+					.query({ pageSize: 30, pageNumber: 1, sortBy: '-dateCreated' })
 					.times(2)
 					.reply(200, fixturePaginatedDocumentationFiles(1, 30));
 
@@ -171,14 +175,15 @@ describe('applications documentation', () => {
 			beforeEach(async () => {
 				nocks();
 				nock('http://test/')
-					.post('/applications/123/folders/21/documents')
+					.get('/applications/123/folders/21/documents')
+					.query({ pageSize: 50, pageNumber: 1, sortBy: '-dateCreated' })
 					.reply(200, fixturePaginatedDocumentationFiles(1, 50));
 				await request.get('/applications-service/case-admin-officer');
 			});
 
 			it('should display an error if no documents are selected', async () => {
 				const response = await request
-					.post(`${baseUrl}/project-documentation/21/sub-folder-level2`)
+					.get(`${baseUrl}/project-documentation/21/sub-folder-level2`)
 					.send({
 						selectedFilesIds: []
 					});
@@ -520,7 +525,8 @@ describe('applications documentation', () => {
 			beforeEach(async () => {
 				nocks();
 				nock('http://test/')
-					.post('/applications/123/folders/21/documents')
+					.get('/applications/123/folders/21/documents')
+					.query({ pageSize: 50, pageNumber: 1, sortBy: '-dateCreated' })
 					.reply(200, [fixtureReadyToPublishDocumentationFile]);
 				nock('http://test/')
 					.get('/applications/123/documents/1/properties')

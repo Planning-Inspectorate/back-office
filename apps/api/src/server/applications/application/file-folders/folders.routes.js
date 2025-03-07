@@ -10,7 +10,11 @@ import {
 	getSingleFolder,
 	updateFolder
 } from './folders.controller.js';
-import { validateCreateBody, validateFolderId } from './folders.validation.js';
+import {
+	validateCreateBody,
+	validateFolderDocumentsSortBy,
+	validateFolderId
+} from './folders.validation.js';
 
 const router = createRouter();
 
@@ -175,7 +179,7 @@ router.get(
 	asyncHandler(getFolderPathList)
 );
 
-router.post(
+router.get(
 	'/:id/folders/:folderId/documents',
 	/*
         #swagger.tags = ['Applications']
@@ -218,6 +222,7 @@ router.post(
     */
 	validateApplicationId,
 	validateFolderId,
+	validateFolderDocumentsSortBy,
 	asyncHandler(getDocuments)
 );
 

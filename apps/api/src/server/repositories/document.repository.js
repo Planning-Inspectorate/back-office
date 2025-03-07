@@ -367,22 +367,21 @@ export const deleteDocument = (documentGuid) => {
  * @returns {import('@prisma/client').PrismaPromise<Document[]>}
  */
 export const getDocumentsInFolder = (folderId, options = {}) => {
+	const orderBy = options.orderBy || {
+		createdAt: 'desc'
+	};
 	return databaseConnector.document.findMany({
 		include: {
 			documentVersion: true,
 			latestDocumentVersion: true,
 			folder: true
 		},
-		orderBy: [
-			{
-				createdAt: 'desc'
-			}
-		],
 		where: {
 			folderId,
 			isDeleted: false
 		},
-		...options
+		...options,
+		orderBy,
 	});
 };
 
