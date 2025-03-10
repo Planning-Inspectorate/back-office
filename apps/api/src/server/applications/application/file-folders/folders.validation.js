@@ -30,6 +30,23 @@ export const validateFolderId = composeMiddleware(
 	validationErrorHandler
 );
 
+export const validateFolderDocumentsSortBy = composeMiddleware(
+	param('sortBy')
+		.isIn([
+			'redactedStatus',
+			'-redactedStatus',
+			'fileName',
+			'-fileName',
+			'dateCreated',
+			'-dateCreated',
+			'publishedStatus',
+			'-publishedStatus'
+		])
+		.withMessage(
+			'Sort by must be either redactedStatus, -redactedStatus, fileName, -fileName, dateCreated, -dateCreated, publishedStatus, -publishedStatus'
+		)
+);
+
 export const validateCreateBody = composeMiddleware(
 	body('name').exists().withMessage('Folder must have a name'),
 	body('parentFolderId')

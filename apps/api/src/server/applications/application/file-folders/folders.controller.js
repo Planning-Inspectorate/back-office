@@ -56,10 +56,14 @@ export const getFolderPathList = async ({ params }, response) => {
  *
  * @type {import('express').RequestHandler<{ folderId: number }, ?, {pageNumber?: number, pageSize?: number}, any>}
  */
-export const getDocuments = async ({ params, body }, response) => {
-	const { pageNumber, pageSize } = body;
-	const paginatedDocuments = await getDocumentsInFolder(params.folderId, pageNumber, pageSize);
-
+export const getDocuments = async ({ params, query }, response) => {
+	const { pageNumber, pageSize, sortBy } = query;
+	const paginatedDocuments = await getDocumentsInFolder(
+		params.folderId,
+		Number(pageNumber),
+		Number(pageSize),
+		sortBy
+	);
 	response.send(paginatedDocuments);
 };
 

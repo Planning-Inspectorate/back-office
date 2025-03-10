@@ -10,7 +10,11 @@ import {
 	getSingleFolder,
 	updateFolder
 } from './folders.controller.js';
-import { validateCreateBody, validateFolderId } from './folders.validation.js';
+import {
+	validateCreateBody,
+	validateFolderDocumentsSortBy,
+	validateFolderId
+} from './folders.validation.js';
 
 const router = createRouter();
 
@@ -175,7 +179,7 @@ router.get(
 	asyncHandler(getFolderPathList)
 );
 
-router.post(
+router.get(
 	'/:id/folders/:folderId/documents',
 	/*
         #swagger.tags = ['Applications']
@@ -193,11 +197,25 @@ router.post(
 			required: true,
 			type: 'integer'
 		}
-		#swagger.parameters['body'] = {
-			in: 'body',
-			description: 'document pagination parameters',
-			schema: { $ref: '#/definitions/PaginationRequestBody' },
-			required: true
+		#swagger.parameters['sortBy'] = {
+						in: 'query',
+						description: 'Sort by field',
+						required: false,
+						type: 'string',
+		}
+		#swagger.parameters['pageNumber'] = {
+						in: 'query',
+						description: 'Page number',
+						required: false,
+						type: 'integer',
+						default: 1
+		}
+		#swagger.parameters['pageSize'] = {
+						in: 'query',
+						description: 'Page size',
+						required: false,
+						type: 'integer',
+						default: 25
 		}
 		#swagger.parameters['x-service-name'] = {
 			in: 'header',
@@ -218,6 +236,7 @@ router.post(
     */
 	validateApplicationId,
 	validateFolderId,
+	validateFolderDocumentsSortBy,
 	asyncHandler(getDocuments)
 );
 
