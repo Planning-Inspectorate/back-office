@@ -1,7 +1,7 @@
 {% from "govuk/components/select/macro.njk" import govukSelect %}
 {% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
 
-{% macro folderDocumentsTable(items, pagination, caseId, folderId) %}
+{% macro folderDocumentsTable(items, pagination, caseId, folderId, table) %}
 
 	<div class="pins-files-list__info govuk-body">
 		<h3 class="govuk-heading-s">Select documents to make changes to statuses</h3>
@@ -28,15 +28,23 @@
 								</p>
 	</div>
 
-	<table class="govuk-table pins-files-list__table pins-table">
+	<table id="doc-table" class="govuk-table pins-files-list__table pins-table">
 		<thead class="govuk-table__head govuk-body-s">
-			<tr class="govuk-table__row">
-				<th scope="col" class="govuk-table__header">Select</th>
-				<th scope="col" class="govuk-table__header">Document information</th>
-				<th scope="col" class="govuk-table__header">Date received</th>
-				<th scope="col" class="govuk-table__header">Redaction</th>
-				<th scope="col" class="govuk-table__header">Status</th>
-				<th scope="col" class="govuk-table__header">Actions</th>
+		<tr class="govuk-table__row">
+			<th scope="col" class="govuk-table__header">Select</th>
+				{% for sortItem in  table.sortLinks %}
+					<th scope="col" class="govuk-table__header">
+						{% if sortItem.value %}
+							<a href="{{ sortItem.link }}#doc-table"
+							   class="sort-table__link {% if sortItem.isDescending %} sort-table__link--descending  {% endif %}">
+								{{ sortItem.text }}
+								<span class="sort-table__link-icon {% if sortItem.active or sortItem.isDescending %} sort-table__link-icon--big {% else %} sort-table__link-icon--small {% endif %}"></span>
+							</a>
+						{% else %}
+							{{ sortItem.text }}
+						{% endif %}
+					</th>
+				{% endfor %}
 			</tr>
 		</thead>
 		<tbody class="govuk-table__body govuk-body-s">
