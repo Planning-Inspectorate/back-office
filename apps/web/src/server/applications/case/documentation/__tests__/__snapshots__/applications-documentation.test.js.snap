@@ -190,14 +190,18 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                     </div>
                     <p><span id="selectedFilesNumber">0</span> document(s) selected</p>
                 </div>
-                <table class="govuk-table pins-files-list__table pins-table">
+                <table id="doc-table" class="govuk-table pins-files-list__table pins-table">
                     <thead class="govuk-table__head govuk-body-s">
                         <tr class="govuk-table__row">
                             <th scope="col" class="govuk-table__header">Select</th>
-                            <th scope="col" class="govuk-table__header">Document information</th>
-                            <th scope="col" class="govuk-table__header">Date received</th>
-                            <th scope="col" class="govuk-table__header">Redaction</th>
-                            <th scope="col" class="govuk-table__header">Status</th>
+                            <th scope="col" class="govuk-table__header"><a href="?page=1&amp;sortBy=fileName#doc-table" class="sort-table__link "> Document information<span class="sort-table__link-icon  sort-table__link-icon--small "></span></a>
+                            </th>
+                            <th scope="col" class="govuk-table__header"><a href="?page=1&amp;sortBy=dateCreated#doc-table" class="sort-table__link "> Date received<span class="sort-table__link-icon  sort-table__link-icon--small "></span></a>
+                            </th>
+                            <th scope="col" class="govuk-table__header"><a href="?page=1&amp;sortBy=redactedStatus#doc-table" class="sort-table__link "> Redaction<span class="sort-table__link-icon  sort-table__link-icon--small "></span></a>
+                            </th>
+                            <th scope="col" class="govuk-table__header"><a href="?page=1&amp;sortBy=publishedStatus#doc-table" class="sort-table__link "> Status<span class="sort-table__link-icon  sort-table__link-icon--small "></span></a>
+                            </th>
                             <th scope="col" class="govuk-table__header">Actions</th>
                         </tr>
                     </thead>
@@ -1070,14 +1074,18 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                     </div>
                     <p><span id="selectedFilesNumber">0</span> document(s) selected</p>
                 </div>
-                <table class="govuk-table pins-files-list__table pins-table">
+                <table id="doc-table" class="govuk-table pins-files-list__table pins-table">
                     <thead class="govuk-table__head govuk-body-s">
                         <tr class="govuk-table__row">
                             <th scope="col" class="govuk-table__header">Select</th>
-                            <th scope="col" class="govuk-table__header">Document information</th>
-                            <th scope="col" class="govuk-table__header">Date received</th>
-                            <th scope="col" class="govuk-table__header">Redaction</th>
-                            <th scope="col" class="govuk-table__header">Status</th>
+                            <th scope="col" class="govuk-table__header"><a href="?page=1&amp;sortBy=fileName#doc-table" class="sort-table__link "> Document information<span class="sort-table__link-icon  sort-table__link-icon--small "></span></a>
+                            </th>
+                            <th scope="col" class="govuk-table__header"><a href="?page=1&amp;sortBy=dateCreated#doc-table" class="sort-table__link "> Date received<span class="sort-table__link-icon  sort-table__link-icon--small "></span></a>
+                            </th>
+                            <th scope="col" class="govuk-table__header"><a href="?page=1&amp;sortBy=redactedStatus#doc-table" class="sort-table__link "> Redaction<span class="sort-table__link-icon  sort-table__link-icon--small "></span></a>
+                            </th>
+                            <th scope="col" class="govuk-table__header"><a href="?page=1&amp;sortBy=publishedStatus#doc-table" class="sort-table__link "> Status<span class="sort-table__link-icon  sort-table__link-icon--small "></span></a>
+                            </th>
                             <th scope="col" class="govuk-table__header">Actions</th>
                         </tr>
                     </thead>
@@ -2469,14 +2477,22 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                     </div>
                     <p><span id="selectedFilesNumber">0</span> document(s) selected</p>
                 </div>
-                <table class="govuk-table pins-files-list__table pins-table">
+                <table id="doc-table" class="govuk-table pins-files-list__table pins-table">
                     <thead class="govuk-table__head govuk-body-s">
                         <tr class="govuk-table__row">
                             <th scope="col" class="govuk-table__header">Select</th>
-                            <th scope="col" class="govuk-table__header">Document information</th>
-                            <th scope="col" class="govuk-table__header">Date received</th>
-                            <th scope="col" class="govuk-table__header">Redaction</th>
-                            <th scope="col" class="govuk-table__header">Status</th>
+                            <th scope="col" class="govuk-table__header"><a href="?number=2&amp;size=30&amp;page=1&amp;sortBy=fileName#doc-table"
+                                class="sort-table__link "> Document information<span class="sort-table__link-icon  sort-table__link-icon--small "></span></a>
+                            </th>
+                            <th scope="col" class="govuk-table__header"><a href="?number=2&amp;size=30&amp;page=1&amp;sortBy=dateCreated#doc-table"
+                                class="sort-table__link "> Date received<span class="sort-table__link-icon  sort-table__link-icon--small "></span></a>
+                            </th>
+                            <th scope="col" class="govuk-table__header"><a href="?number=2&amp;size=30&amp;page=1&amp;sortBy=redactedStatus#doc-table"
+                                class="sort-table__link "> Redaction<span class="sort-table__link-icon  sort-table__link-icon--small "></span></a>
+                            </th>
+                            <th scope="col" class="govuk-table__header"><a href="?number=2&amp;size=30&amp;page=1&amp;sortBy=publishedStatus#doc-table"
+                                class="sort-table__link "> Status<span class="sort-table__link-icon  sort-table__link-icon--small "></span></a>
+                            </th>
                             <th scope="col" class="govuk-table__header">Actions</th>
                         </tr>
                     </thead>
@@ -3371,15 +3387,10 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                     </div>
                     <p><span id="selectedFilesNumber">0</span> document(s) selected</p>
                 </div>
-                <table class="govuk-table pins-files-list__table pins-table">
+                <table id="doc-table" class="govuk-table pins-files-list__table pins-table">
                     <thead class="govuk-table__head govuk-body-s">
                         <tr class="govuk-table__row">
                             <th scope="col" class="govuk-table__header">Select</th>
-                            <th scope="col" class="govuk-table__header">Document information</th>
-                            <th scope="col" class="govuk-table__header">Date received</th>
-                            <th scope="col" class="govuk-table__header">Redaction</th>
-                            <th scope="col" class="govuk-table__header">Status</th>
-                            <th scope="col" class="govuk-table__header">Actions</th>
                         </tr>
                     </thead>
                     <tbody class="govuk-table__body govuk-body-s">
@@ -4481,23 +4492,6 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
 
 exports[`applications documentation /case/123/project-documentation/21/sub-folder-level2 POST should display an error if no documents are selected 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
-    <div class="govuk-grid-row">
-        <div class="govuk-grid-column-full">
-            <div class="govuk-error-summary" data-module="govuk-error-summary">
-                <div role="alert">
-                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
-                    <div class="govuk-error-summary__body">
-                        <ul class="govuk-list govuk-error-summary__list">
-                            <li><a href="#selectedFilesIds">Select documents to make changes to statuses</a>
-                            </li>
-                            <li><a href="#isRedacted">Select a status to apply a change</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
     <div class="top-errors-hook" role="alert"></div>
     <div class="govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-left-0 govuk-!-margin-bottom-7 pins-masthead-summary">
         <div class="govuk-grid-column-full">
@@ -4686,14 +4680,18 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                     </div>
                     <p><span id="selectedFilesNumber">0</span> document(s) selected</p>
                 </div>
-                <table class="govuk-table pins-files-list__table pins-table">
+                <table id="doc-table" class="govuk-table pins-files-list__table pins-table">
                     <thead class="govuk-table__head govuk-body-s">
                         <tr class="govuk-table__row">
                             <th scope="col" class="govuk-table__header">Select</th>
-                            <th scope="col" class="govuk-table__header">Document information</th>
-                            <th scope="col" class="govuk-table__header">Date received</th>
-                            <th scope="col" class="govuk-table__header">Redaction</th>
-                            <th scope="col" class="govuk-table__header">Status</th>
+                            <th scope="col" class="govuk-table__header"><a href="?page=1&amp;sortBy=fileName#doc-table" class="sort-table__link "> Document information<span class="sort-table__link-icon  sort-table__link-icon--small "></span></a>
+                            </th>
+                            <th scope="col" class="govuk-table__header"><a href="?page=1&amp;sortBy=dateCreated#doc-table" class="sort-table__link "> Date received<span class="sort-table__link-icon  sort-table__link-icon--small "></span></a>
+                            </th>
+                            <th scope="col" class="govuk-table__header"><a href="?page=1&amp;sortBy=redactedStatus#doc-table" class="sort-table__link "> Redaction<span class="sort-table__link-icon  sort-table__link-icon--small "></span></a>
+                            </th>
+                            <th scope="col" class="govuk-table__header"><a href="?page=1&amp;sortBy=publishedStatus#doc-table" class="sort-table__link "> Status<span class="sort-table__link-icon  sort-table__link-icon--small "></span></a>
+                            </th>
                             <th scope="col" class="govuk-table__header">Actions</th>
                         </tr>
                     </thead>
@@ -5999,15 +5997,10 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                     </div>
                     <p><span id="selectedFilesNumber">0</span> document(s) selected</p>
                 </div>
-                <table class="govuk-table pins-files-list__table pins-table">
+                <table id="doc-table" class="govuk-table pins-files-list__table pins-table">
                     <thead class="govuk-table__head govuk-body-s">
                         <tr class="govuk-table__row">
                             <th scope="col" class="govuk-table__header">Select</th>
-                            <th scope="col" class="govuk-table__header">Document information</th>
-                            <th scope="col" class="govuk-table__header">Date received</th>
-                            <th scope="col" class="govuk-table__header">Redaction</th>
-                            <th scope="col" class="govuk-table__header">Status</th>
-                            <th scope="col" class="govuk-table__header">Actions</th>
                         </tr>
                     </thead>
                     <tbody class="govuk-table__body govuk-body-s">

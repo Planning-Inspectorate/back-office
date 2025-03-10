@@ -38,6 +38,7 @@ import { validationResult } from 'express-validator';
 import logger from '../../../lib/logger.js';
 import moveDocumentsUtils from './utils/move-documents/utils.js';
 import { getRelevantRepFolder } from '../representations/representation-details/applications-relevant-rep-details.service.js';
+import { tableSortLinks } from './utils/table.js';
 
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
 /** @typedef {import('../applications-case.locals.js').ApplicationCaseLocals} ApplicationCaseLocals */
@@ -96,7 +97,10 @@ export async function viewApplicationsCaseDocumentationFolder(request, response)
 	response.render(`applications/components/folder/folder`, {
 		...properties,
 		sessionBannerText,
-		activeFolderSlug: request.params.folderName
+		activeFolderSlug: request.params.folderName,
+		table: {
+			sortLinks: tableSortLinks(request.query)
+		}
 	});
 
 	deleteSessionBanner(session);
@@ -477,13 +481,12 @@ export async function postUnpublishDocuments({ body, session }, response) {
  *
  * @param {number} caseId
  * @param {number} folderId
- * @param {{ number?: string, size?: string }} query
+ * @param {{ number?: string, size?: string, sortBy?: string }} query
  * @param {SessionWithFilesNumberOnList} session
  * @returns {Promise<CaseDocumentationProps>}
  */
 const documentationFolderData = async (caseId, folderId, query = {}, session) => {
 	const number = Number(query.number || '1');
-
 	const sizeInSession = getSessionFilesNumberOnList(session);
 
 	/** @type {number | null} */
@@ -528,7 +531,8 @@ const documentationFolderData = async (caseId, folderId, query = {}, session) =>
 		caseId,
 		folderId,
 		size,
-		number
+		number,
+		query.sortBy || '-dateCreated'
 	);
 
 	const pagination = paginationParams(size, number, documentationFiles.pageCount);
@@ -817,7 +821,10 @@ export async function viewAndPostApplicationsCaseDocumentationMove(request, resp
 		return response.render('applications/components/folder/folder', {
 			...properties,
 			activeFolderSlug: folderName,
-			errors: validationErrors
+			errors: validationErrors,
+			table: {
+				sortLinks: tableSortLinks(request.query)
+			}
 		});
 	}
 

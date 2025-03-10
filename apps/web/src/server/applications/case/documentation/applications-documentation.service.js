@@ -1,5 +1,6 @@
 import logger from '../../../lib/logger.js';
 import { deleteRequest, get, patch, post } from '../../../lib/request.js';
+import { buildQueryString } from '../../common/components/build-query-string.js';
 
 /**
  * @typedef {import('@pins/express').ValidationErrors} ValidationErrors
@@ -52,15 +53,22 @@ export const getCaseDocumentationFolderPath = (caseId, folderId) => {
  * @param {number} folderId
  * @param {number} pageSize
  * @param {number} pageNumber
+ * @param {string} sortBy
  * @returns {Promise<PaginatedDocumentationFiles>}
  */
-export const getCaseDocumentationFilesInFolder = async (caseId, folderId, pageSize, pageNumber) => {
-	return post(`applications/${caseId}/folders/${folderId}/documents`, {
-		json: {
-			pageSize,
-			pageNumber
-		}
+export const getCaseDocumentationFilesInFolder = async (
+	caseId,
+	folderId,
+	pageSize,
+	pageNumber,
+	sortBy
+) => {
+	const queryString = buildQueryString({
+		pageSize,
+		pageNumber,
+		sortBy
 	});
+	return get(`applications/${caseId}/folders/${folderId}/documents?${queryString}`);
 };
 
 /**

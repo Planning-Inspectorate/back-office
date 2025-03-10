@@ -57,6 +57,46 @@
 				}
 			}
 		},
+		"migration/cleanup": {
+			"post": {
+				"tags": ["Migration"],
+				"description": "Cleanup migration data",
+				"parameters": [
+					{
+						"name": "query",
+						"caseReferences": "TR020002,TR020003",
+						"in": "query",
+						"type": "string"
+					},
+					{
+						"name": "x-service-name",
+						"in": "header",
+						"type": "string",
+						"description": "Service name header",
+						"default": "swagger"
+					},
+					{
+						"name": "x-api-key",
+						"in": "header",
+						"type": "string",
+						"description": "API key header",
+						"default": "123"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"type": "object",
+							"properties": {},
+							"xml": {
+								"name": "main"
+							}
+						}
+					}
+				}
+			}
+		},
 		"/migration/{modelType}": {
 			"post": {
 				"tags": ["Migration"],
@@ -144,7 +184,7 @@
 		"migration/archive-folder-info": {
 			"get": {
 				"tags": ["Migration"],
-				"description": "Validate migration",
+				"description": "Get archive folder information",
 				"parameters": [
 					{
 						"name": "query",
@@ -2974,7 +3014,7 @@
 			}
 		},
 		"/applications/{id}/folders/{folderId}/documents": {
-			"post": {
+			"get": {
 				"tags": ["Applications"],
 				"description": "Gets paginated array of documents in a folder on a case",
 				"parameters": [
@@ -2993,13 +3033,27 @@
 						"description": "Id of current folder"
 					},
 					{
-						"name": "body",
-						"in": "body",
-						"description": "document pagination parameters",
-						"schema": {
-							"$ref": "#/definitions/PaginationRequestBody"
-						},
-						"required": true
+						"name": "sortBy",
+						"in": "query",
+						"description": "Sort by field",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "pageNumber",
+						"in": "query",
+						"description": "Page number",
+						"required": false,
+						"type": "integer",
+						"default": 1
+					},
+					{
+						"name": "pageSize",
+						"in": "query",
+						"description": "Page size",
+						"required": false,
+						"type": "integer",
+						"default": 25
 					},
 					{
 						"name": "x-service-name",
