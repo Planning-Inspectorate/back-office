@@ -3014,7 +3014,7 @@
 			}
 		},
 		"/applications/{id}/folders/{folderId}/documents": {
-			"post": {
+			"get": {
 				"tags": ["Applications"],
 				"description": "Gets paginated array of documents in a folder on a case",
 				"parameters": [
@@ -3033,13 +3033,27 @@
 						"description": "Id of current folder"
 					},
 					{
-						"name": "body",
-						"in": "body",
-						"description": "document pagination parameters",
-						"schema": {
-							"$ref": "#/definitions/PaginationRequestBody"
-						},
-						"required": true
+						"name": "sortBy",
+						"in": "query",
+						"description": "Sort by field",
+						"required": false,
+						"type": "string"
+					},
+					{
+						"name": "pageNumber",
+						"in": "query",
+						"description": "Page number",
+						"required": false,
+						"type": "integer",
+						"default": 1
+					},
+					{
+						"name": "pageSize",
+						"in": "query",
+						"description": "Page size",
+						"required": false,
+						"type": "integer",
+						"default": 25
 					},
 					{
 						"name": "x-service-name",

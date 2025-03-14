@@ -73,7 +73,7 @@
 							{% if isS51folder %}
 								{{ folderS51Table(items, pagination, caseId, folderId, isGeneralS51folder, errors) }}
 							{% else %}
-								{{ folderDocumentsTable(items, pagination, caseId, folderId) }}
+								{{ folderDocumentsTable(items, pagination, caseId, folderId, table) }}
 							{% endif %}
 
 							{% if items.itemCount > items.pageDefaultSize %}

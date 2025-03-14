@@ -82,19 +82,37 @@ export const getFolderPath = async (caseId, folderId) => {
 };
 
 /**
+ * Returns the orderBy field and direction given a sortBy value
+ * @param {string} sortBy
+ */
+const getOrderBy = (sortBy = '-dateCreated') => {
+	const sortDirection = sortBy.startsWith('-') ? 'desc' : 'asc';
+	const sortField = sortBy.replace('-', '');
+
+	return [
+		{ latestDocumentVersion: { [sortField]: sortDirection } },
+		// If the sort field is not dateCreated, then sort by dateCreated as a secondary sort field
+		...(sortField !== 'dateCreated' ? [{ latestDocumentVersion: { dateCreated: 'desc' } }] : [])
+	]
+};
+
+/**
  * Returns paginated array of documents in a folder on a case
  *
  * @param {number} folderId
  * @param {number} pageNumber
  * @param {number} pageSize
+ * @param {string} sortBy
  * @returns {Promise<PaginatedDocumentDetails>}
  */
-export const getDocumentsInFolder = async (folderId, pageNumber = 1, pageSize = 50) => {
+export const getDocumentsInFolder = async (folderId, pageNumber = 1, pageSize = 50, sortBy) => {
 	const skipValue = getSkipValue(pageNumber, pageSize);
+	const orderBy = getOrderBy(sortBy);
 	const documentsCount = await documentRepository.getDocumentsCountInFolder(folderId);
 	const documents = await documentRepository.getDocumentsInFolder(folderId, {
 		skip: skipValue,
-		take: pageSize
+		take: pageSize,
+		orderBy
 	});
 
 	// @ts-ignore
