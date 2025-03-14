@@ -19,7 +19,7 @@ const {
 		ACCEPTANCE_STAGE_SUBFOLDERS.APPLICATION_DOCUMENTS
 	];
 
-const mapApplicationDocumnetsFolderNames = {
+const mapApplicationDocumentsFolderNames = {
 	[APPLICATION_FORM]: {
 		en: 'Application Form',
 		cy: applicationDocumentsFolderNamesCy[APPLICATION_FORM]
@@ -63,6 +63,6 @@ const mapApplicationDocumnetsFolderNames = {
 
 export const getApplicationDocumentsFolderName = (folderName, lang) => {
 	return lang
-		? mapApplicationDocumnetsFolderNames[folderName][lang]
-		: mapApplicationDocumnetsFolderNames[folderName];
+		? mapApplicationDocumentsFolderNames[folderName][lang]
+		: mapApplicationDocumentsFolderNames[folderName];
 };
