@@ -2,9 +2,7 @@ import {
 	ACCEPTANCE_STAGE_SUBFOLDERS,
 	DEFAULT_PAGE_NUMBER,
 	DEFAULT_PAGE_SIZE,
-	DOCUMENT_CASE_STAGE_ACCEPTANCE,
 	DOCUMENT_TYPES,
-	DOCUMENTS_FOLDER_MAP,
 	folderDocumentCaseStageMappings,
 	SYSTEM_USER_NAME
 } from '../../constants.js';
@@ -27,6 +25,7 @@ import { verifyAllDocumentsHaveRequiredPropertiesForPublishing } from './documen
 import { applicationStates } from '../../state-machine/application.machine.js';
 import { broadcastNsipDocumentEvent } from '#infrastructure/event-broadcasters.js';
 import { featureFlagClient } from '#utils/feature-flags.js';
+import { getApplicationDocumentsFolderName } from '#utils/mapping/map-document-folder-names.js';
 
 /**
  * @typedef {import('@prisma/client').DocumentVersion} DocumentVersion
@@ -653,64 +652,9 @@ export const isFolderApplicationDocuments = (folderPath) => {
  */
 
 export const getApplicationDocumentWebfilter = (folderPath) => {
-	const {
-		APPLICATION_FORM,
-		COMPULSORY_ACQUISITION_INFORMATION,
-		DCO_DOCUMENTS,
-		ENVIRONMENTAL_STATEMENT,
-		OTHER_DOCUMENTS,
-		PLANS,
-		REPORTS,
-		ADDITIONAL_REG_6_INFORMATION
-	} =
-		DOCUMENTS_FOLDER_MAP[DOCUMENT_CASE_STAGE_ACCEPTANCE][
-			ACCEPTANCE_STAGE_SUBFOLDERS.APPLICATION_DOCUMENTS
-		];
+	const folderName = folderPath[2].displayNameEn;
 
-	let webfilter = {
-		en: '',
-		cy: ''
-	};
-
-	switch (folderPath[2].displayNameEn) {
-		case APPLICATION_FORM:
-			webfilter.en = APPLICATION_FORM;
-			webfilter.cy = 'Ffurflen Gais';
-			break;
-		case COMPULSORY_ACQUISITION_INFORMATION:
-			webfilter.en = 'Adequacy of Consultation Representation';
-			webfilter.cy = 'Cynrychiolaeth Digonolrwydd Ymgynghori';
-			break;
-		case DCO_DOCUMENTS:
-			webfilter.en = 'Draft Development Consent Order';
-			webfilter.cy = 'Gorchymyn Caniatâd Datblygu Drafft';
-			break;
-		case ENVIRONMENTAL_STATEMENT:
-			webfilter.en = ENVIRONMENTAL_STATEMENT;
-			webfilter.cy = 'Datganiad Amgylcheddol';
-			break;
-		case OTHER_DOCUMENTS:
-			webfilter.en = OTHER_DOCUMENTS;
-			webfilter.cy = 'Dogfennau Eraill';
-			break;
-		case PLANS:
-			webfilter.en = PLANS;
-			webfilter.cy = 'Cynlluniau';
-			break;
-		case REPORTS:
-			webfilter.en = REPORTS;
-			webfilter.cy = 'Adroddiadau';
-			break;
-		case ADDITIONAL_REG_6_INFORMATION:
-			webfilter.en = 'Additional Reg 6 Information';
-			webfilter.cy = 'Gwybodaeth Ychwanegol Rheoliad 6';
-			break;
-		default:
-			webfilter.en = '';
-			webfilter.cy = '';
-	}
-
-	return webfilter;
+	return getApplicationDocumentsFolderName(folderName);
 };
 
 /**
@@ -730,7 +674,6 @@ export const getDocumentWebfilter = async (caseId, folderId) => {
 	if (!folderPath) return webfilter;
 
 	const isApplicationDocumentsFolder = isFolderApplicationDocuments(folderPath);
-
 	if (isApplicationDocumentsFolder) webfilter = getApplicationDocumentWebfilter(folderPath);
 
 	return webfilter;
