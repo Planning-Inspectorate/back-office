@@ -26,8 +26,9 @@ export const migrationCleanup = async (req, res) => {
 
 	try {
 		const caseId = await getCaseIdByRef(caseReference);
-		await cleanupLooseS51Attachments(caseId, res);
-		await convertOldHtmlToNewHtmlDocuments(caseId, res);
+		// todo commented for testing purposes
+		// await cleanupLooseS51Attachments(caseId, res);
+		// await convertOldHtmlToNewHtmlDocuments(caseId, res);
 		// note: any other cleanup tasks can be added here in the future
 	} catch (error) {
 		logger.error(`Error during migration cleanup: ${error}`);
