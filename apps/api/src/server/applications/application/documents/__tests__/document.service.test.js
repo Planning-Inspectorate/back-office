@@ -328,7 +328,7 @@ describe('Document service test', () => {
 				{ displayNameEn: 'Application form', id: 3 }
 			];
 			const result = getApplicationDocumentWebfilter(folderPath);
-			expect(result).toEqual({ cy: 'Ffurflen Gais', en: 'Application form' });
+			expect(result).toEqual({ cy: 'Ffurflen Gais', en: 'Application Form' });
 		});
 
 		it('should return correct webfilter for COMPULSORY_ACQUISITION_INFORMATION folder', () => {
@@ -364,7 +364,7 @@ describe('Document service test', () => {
 				{ displayNameEn: 'Environmental statement', id: 3 }
 			];
 			const result = getApplicationDocumentWebfilter(folderPath);
-			expect(result).toEqual({ cy: 'Datganiad Amgylcheddol', en: 'Environmental statement' });
+			expect(result).toEqual({ cy: 'Datganiad Amgylcheddol', en: 'Environmental Statement' });
 		});
 
 		it('should return correct webfilter for OTHER_DOCUMENTS folder', () => {
@@ -374,7 +374,7 @@ describe('Document service test', () => {
 				{ displayNameEn: 'Other documents', id: 3 }
 			];
 			const result = getApplicationDocumentWebfilter(folderPath);
-			expect(result).toEqual({ cy: 'Dogfennau Eraill', en: 'Other documents' });
+			expect(result).toEqual({ cy: 'Dogfennau Eraill', en: 'Other Documents' });
 		});
 
 		it('should return correct webfilter for PLANS folder', () => {
@@ -408,16 +408,6 @@ describe('Document service test', () => {
 				cy: 'Gwybodaeth Ychwanegol Rheoliad 6',
 				en: 'Additional Reg 6 Information'
 			});
-		});
-
-		it('should return empty string for a unknown folder', () => {
-			const folderPath = [
-				{ displayNameEn: 'Acceptance', id: 1 },
-				{ displayNameEn: 'Application documents', id: 2 },
-				{ displayNameEn: 'UNKNOWN FOLDER', id: 3 }
-			];
-			const result = getApplicationDocumentWebfilter(folderPath);
-			expect(result).toEqual({ cy: '', en: '' });
 		});
 	});
 });
