@@ -85,10 +85,6 @@ export const migrateNsipDocuments = async (documents, updateProgress) => {
 		await handleCreationOfDocumentActivityLogs(documentVersion);
 		updateProgress(index, documents.length);
 	}
-
-	await updatePreviousVersionsToUnpublished(caseId);
-	await updateLatestVersionId(caseId);
-	await broadcastAllPublishedDocuments(caseId);
 };
 
 /**
@@ -202,7 +198,7 @@ const createDocumentActivityLog = async ({ documentGuid, version, status, activi
  *
  * @param {number |undefined} caseId
  */
-const updateLatestVersionId = async (caseId) => {
+export const updateLatestVersionId = async (caseId) => {
 	logger.info('Setting latestVersionId for all Documents');
 	const statement = `UPDATE Document
 					 SET Document.latestVersionId = (SELECT MAX(DocumentVersion.version)
@@ -217,7 +213,7 @@ const updateLatestVersionId = async (caseId) => {
  * @param {number |undefined} caseId
  * @returns {Promise<void>}
  */
-const updatePreviousVersionsToUnpublished = async (caseId) => {
+export const updatePreviousVersionsToUnpublished = async (caseId) => {
 	const documents = await databaseConnector.document.findMany({
 		where: { caseId: caseId },
 		include: {
@@ -262,7 +258,7 @@ const updatePreviousVersionsToUnpublished = async (caseId) => {
  * @param {number |undefined} caseId
  * @returns {Promise<void>}
  */
-const broadcastAllPublishedDocuments = async (caseId) => {
+export const broadcastAllPublishedDocuments = async (caseId) => {
 	const documents = await databaseConnector.document.findMany({
 		where: { caseId: caseId },
 		include: {
