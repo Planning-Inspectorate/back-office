@@ -68,6 +68,20 @@ const descriptionValidationChain = (data, isMandatory) =>
 					.trim()
 					.isLength({ min: 1 })
 					.withMessage('You must enter the timetable item description')
+					.custom((value) => {
+						if (!value.includes('*')) {
+							throw new Error(
+								'You must use a bullet point for each deadline item denoted by an asterisk'
+							);
+						}
+						const regex = /^[^*]*[a-zA-Z][^*]*\*/ms;
+						if (!regex.test(value)) {
+							throw new Error(
+								'You must enter the deadline description before the deadline item(s)'
+							);
+						}
+						return true;
+					})
 		  ]
 		: [];
 
