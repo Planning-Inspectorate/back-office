@@ -565,7 +565,11 @@ export async function postApplicationsCaseTimetableItemDescriptionWelsh(
 	response
 ) {
 	const timetableId = parseInt(params.timetableId);
-	const { description, submissions } = await getCaseTimetableItemById(timetableId);
+	const { description, submissions, ExaminationTimetableType } = await getCaseTimetableItemById(
+		timetableId
+	);
+
+	const timetableItemType = ExaminationTimetableType.templateType;
 
 	// if there are submissions against timetable item, we shouldn't edit it
 	if (submissions) {
@@ -582,6 +586,21 @@ export async function postApplicationsCaseTimetableItemDescriptionWelsh(
 				location: 'body'
 			},
 			...errors //errors from validator should supersede bullet point error
+		};
+	}
+
+	if (
+		!validateWelshItemDescriptionFormat(body.descriptionWelsh) &&
+		(timetableItemType === 'deadline' || timetableItemType === 'procedural-deadline')
+	) {
+		errors = {
+			descriptionWelsh: {
+				value: body.descriptionWelsh,
+				msg: 'You must enter the deadline description in Welsh before the deadline item(s) in Welsh',
+				param: 'descriptionWelsh',
+				location: 'body'
+			},
+			...errors
 		};
 	}
 
@@ -805,4 +824,15 @@ const validateWelshItemDescriptionBulletPoints = (englishDescription, welshDescr
 	const { bulletPoints: welshBulletPointsArr } = JSON.parse(welshDescription);
 
 	return englishBulletPointsArr.length === welshBulletPointsArr.length;
+};
+
+/**
+ * @param {string|undefined} welshDescriptionBody
+ * @returns {boolean}
+ */
+const validateWelshItemDescriptionFormat = (welshDescriptionBody) => {
+	const welshDescription = prepareDescriptionPayload(welshDescriptionBody);
+	const parsedWelshDescription = JSON.parse(welshDescription);
+
+	return parsedWelshDescription.preText;
 };

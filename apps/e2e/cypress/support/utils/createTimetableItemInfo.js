@@ -8,7 +8,8 @@ export const timetableItem = () => {
 
 	const itemName = `Test_Item_${now}`;
 	Cypress.env('currentCreatedItem', itemName);
-	const description = 'Exam time table example';
+	const description = `Exam timetable description
+  * Exam timetable item`;
 
 	const dayAsInteger = faker.datatype.number({
 		min: 10,

@@ -83,7 +83,7 @@ describe('Smoke tests', { browser: '!electron' }, () => {
 		examTimetablePage.checkAnswer('Item name', options.itemName);
 		examTimetablePage.checkAnswer('Start time', options.startTimeFormatted);
 		examTimetablePage.checkAnswer('End time', options.endTimeFormatted);
-		examTimetablePage.checkAnswer('Timetable item description', options.description);
+		examTimetablePage.checkTimetableDescription('Timetable item description', options.description);
 		examTimetablePage.clickButtonByText('Save item');
 		examTimetablePage.validateSuccessPanelTitle(texts.successMessageText);
 		examTimetablePage.clickLinkByText('Go back to examination timetable');

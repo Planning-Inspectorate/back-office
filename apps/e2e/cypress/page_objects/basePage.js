@@ -140,6 +140,14 @@ export class Page {
 		});
 	}
 
+	checkTimetableDescription(question) {
+		this.basePageElements.answerCell(question).then(($elem) => {
+			cy.wrap($elem)
+				.invoke('text')
+				.then((text) => expect(text.trim()).to.contains('Exam timetable description'));
+		});
+	}
+
 	checkPartialAnswer(question, answer) {
 		this.basePageElements.answerCell(question).then(($elem) => {
 			cy.wrap($elem)

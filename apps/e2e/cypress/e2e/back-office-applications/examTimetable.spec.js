@@ -137,7 +137,7 @@ describe('Examination Timetable', () => {
 		examTimetablePage.checkAnswer('Item name', options.itemName);
 		examTimetablePage.checkAnswer('Start time', options.startTimeFormatted);
 		examTimetablePage.checkAnswer('End time', options.endTimeFormatted);
-		examTimetablePage.checkAnswer('Timetable item description', options.description);
+		examTimetablePage.checkTimetableDescription('Timetable item description', options.description);
 		examTimetablePage.clickButtonByText('Save item');
 		examTimetablePage.validateSuccessPanelTitle(texts.successMessageText);
 		examTimetablePage.validateSuccessPanelBody(projectInfo.projectName);
@@ -156,7 +156,7 @@ describe('Examination Timetable', () => {
 		examTimetablePage.checkAnswer('End date', options.endDateFullDeadLine);
 		examTimetablePage.checkAnswer('Start time', options.startTimeFormatted);
 		examTimetablePage.checkAnswer('End time', options.endTimeFormatted);
-		examTimetablePage.checkAnswer('Timetable item description', options.description);
+		examTimetablePage.checkTimetableDescription('Timetable item description', options.description);
 		examTimetablePage.clickButtonByText('Save item');
 		examTimetablePage.validateSuccessPanelTitle(texts.successMessageText);
 		examTimetablePage.validateSuccessPanelBody(projectInfo.projectName);
@@ -172,7 +172,7 @@ describe('Examination Timetable', () => {
 		examTimetablePage.checkAnswer('Item type', 'Issued By');
 		examTimetablePage.checkAnswer('Item name', options.itemName);
 		examTimetablePage.checkAnswer('Date', options.startDateFullDeadLine);
-		examTimetablePage.checkAnswer('Timetable item description', options.description);
+		examTimetablePage.checkTimetableDescription('Timetable item description', options.description);
 		examTimetablePage.clickButtonByText('Save item');
 		examTimetablePage.validateSuccessPanelTitle(texts.successMessageText);
 		examTimetablePage.validateSuccessPanelBody(projectInfo.projectName);
@@ -190,7 +190,7 @@ describe('Examination Timetable', () => {
 		examTimetablePage.checkAnswer('Date', options.startDateFullDeadLine);
 		examTimetablePage.checkAnswer('Start time', options.startTimeFormatted);
 		examTimetablePage.checkAnswer('End time', options.endTimeFormatted);
-		examTimetablePage.checkAnswer('Timetable item description', options.description);
+		examTimetablePage.checkTimetableDescription('Timetable item description', options.description);
 		examTimetablePage.clickButtonByText('Save item');
 		examTimetablePage.validateSuccessPanelTitle(texts.successMessageText);
 		examTimetablePage.clickLinkByText('Go back to examination timetable');
