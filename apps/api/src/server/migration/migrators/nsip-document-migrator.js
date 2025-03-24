@@ -85,7 +85,6 @@ export const migrateNsipDocuments = async (documents, updateProgress) => {
 		await handleCreationOfDocumentActivityLogs(documentVersion);
 		updateProgress(index, documents.length);
 	}
-
 	await updatePreviousVersionsToUnpublished(caseId);
 	await updateLatestVersionId(caseId);
 	await broadcastAllPublishedDocuments(caseId);
