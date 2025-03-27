@@ -349,7 +349,7 @@ export const createDocumentVersion = async (
 	documentToUpload,
 	caseId,
 	documentId,
-	isMigrationPublish
+	isMigrationPublish = false
 ) => {
 	// Step 1: Retrieve the case object associated with the provided caseId
 	logger.info(`Retrieving case for caseId ${caseId} ${documentId}...`);
@@ -457,7 +457,7 @@ export const createDocumentVersion = async (
 	createdVersionWithDocInfo.Document.latestVersionId = thisVersionId;
 
 	// broadcast event - ignoring if doc is on non Training cases
-	if (!isMigrationPublish) {
+	if (isMigrationPublish) {
 		await broadcastNsipDocumentEvent(createdVersionWithDocInfo, EventType.Update, {
 			publishing: 'true',
 			migrationPublishing: 'true'
