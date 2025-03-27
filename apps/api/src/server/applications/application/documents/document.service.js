@@ -342,9 +342,15 @@ export const createDocuments = async (documentsToUpload, caseId, isS51) => {
  * @param {{documentName: string, folderId: number, documentType: string, documentSize: number, username: string, documentReference: string}} documentToUpload
  * @param {number} caseId
  * @param {string} documentId
+ * @param {boolean} isMigrationPublish
  * @returns {Promise<DocumentAndBlobInfoManyResponse>}}
  */
-export const createDocumentVersion = async (documentToUpload, caseId, documentId) => {
+export const createDocumentVersion = async (
+	documentToUpload,
+	caseId,
+	documentId,
+	isMigrationPublish
+) => {
 	// Step 1: Retrieve the case object associated with the provided caseId
 	logger.info(`Retrieving case for caseId ${caseId} ${documentId}...`);
 	const caseForDocuments = await caseRepository.getById(caseId, { sector: true });
@@ -400,7 +406,11 @@ export const createDocumentVersion = async (documentToUpload, caseId, documentId
 		documentGuid: documentId,
 		version,
 		user: documentToUpload.username,
-		status: 'uploaded'
+		status: 'uploaded',
+		createdAt:
+			isMigrationPublish && previousDocumentVersion?.dateCreated
+				? previousDocumentVersion.dateCreated
+				: new Date()
 	});
 
 	// Step 6: Map document to the format expected to get blob storage properties
@@ -447,7 +457,14 @@ export const createDocumentVersion = async (documentToUpload, caseId, documentId
 	createdVersionWithDocInfo.Document.latestVersionId = thisVersionId;
 
 	// broadcast event - ignoring if doc is on non Training cases
-	await broadcastNsipDocumentEvent(createdVersionWithDocInfo, EventType.Update);
+	if (!isMigrationPublish) {
+		await broadcastNsipDocumentEvent(createdVersionWithDocInfo, EventType.Update, {
+			publishing: 'true',
+			migrationPublishing: 'true'
+		});
+	} else {
+		await broadcastNsipDocumentEvent(createdVersionWithDocInfo, EventType.Update);
+	}
 
 	// Step 8: Return information about the uploaded document version and its storage location
 	logger.info(`Returning updated document with blob storage properties...`);

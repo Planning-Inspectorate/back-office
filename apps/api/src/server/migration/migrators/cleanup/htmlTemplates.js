@@ -1,10 +1,10 @@
 import { BlobStorageClient } from '@pins/blob-storage-client';
-import {
-	createDocumentVersion,
-	getDocumentsInCase
-} from "../../../applications/application/documents/document.service.js";
+import { getDocumentsInCase } from '../../../applications/application/documents/document.service.js';
 import { Readable } from 'stream';
-import { extractYouTubeURLFromHTML, renderYouTubeTemplate } from "../../../applications/documents/documents.service.js";
+import {
+	extractYouTubeURLFromHTML,
+	renderYouTubeTemplate
+} from '../../../applications/documents/documents.service.js';
 import config from '../../../config/config.js';
 
 const privateBlobContainer = 'document-service-uploads';
@@ -51,8 +51,8 @@ export const getHtmlDocumentVersions = async (caseId) => {
 };
 
 const getBlobClient = () => {
-	return BlobStorageClient.fromUrl(config.blobStorageUrl)
-}
+	return BlobStorageClient.fromUrl(config.blobStorageUrl);
+};
 /**
  *
  * @param {string} blobName
@@ -82,16 +82,6 @@ export const processHtml = (guid, htmlString, res) => {
 
 	const youtubeUrl = extractYouTubeURLFromHTML(htmlString);
 	return renderYouTubeTemplate(youtubeUrl);
-};
-
-/**
- *
- * @param {number} applicationId
- * @param {string} documentGuid
- * @param {*} versionProperties
- */
-export const addDocumentVersion = (applicationId, documentGuid, versionProperties) => {
-  return createDocumentVersion(versionProperties, applicationId, documentGuid);
 };
 
 /**
