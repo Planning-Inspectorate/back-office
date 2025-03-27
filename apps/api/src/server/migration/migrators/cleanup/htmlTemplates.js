@@ -80,6 +80,12 @@ export const processHtml = (guid, htmlString, res) => {
 		throw Error('No YouTube video found in document');
 	}
 
+	// New templates include `div class="video-container"` so we can ignore them
+	if (htmlString.includes('video-container')) {
+		res.write(`Document ${guid} already has a YouTube video template`);
+		return ''
+	}
+
 	const youtubeUrl = extractYouTubeURLFromHTML(htmlString);
 	return renderYouTubeTemplate(youtubeUrl);
 };

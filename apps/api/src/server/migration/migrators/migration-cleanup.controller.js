@@ -13,13 +13,14 @@ import {
 	downloadHtmlBlob
 } from './cleanup/htmlTemplates.js';
 import { databaseConnector } from '#utils/database-connector.js';
-import { createDocumentVersion } from 'src/server/applications/application/documents/document.service.js';
+import { createDocumentVersion } from '../../applications/application/documents/document.service.js';
 
 /**
  * @type {import("express").RequestHandler<{modelType: string}, ?, any[]>}
  */
 export const migrationCleanup = async (req, res) => {
 	const caseReference = req.body.caseReference;
+	const skipHtmlTransform = req.body.skipHtmlTransform;
 
 	res.writeHead(200, { 'Content-Type': 'text/plain', 'transfer-encoding': 'chunked' });
 	res.write(`\nStarting migration cleanup for ${caseReference} ...\n`);
@@ -28,7 +29,9 @@ export const migrationCleanup = async (req, res) => {
 	try {
 		const caseId = await getCaseIdByRef(caseReference);
 		await cleanupLooseS51Attachments(caseId, res);
-		await convertOldHtmlToNewHtmlDocuments(caseId, res);
+		if (!skipHtmlTransform) {
+			await convertOldHtmlToNewHtmlDocuments(caseId, res);
+		}
 		// note: any other cleanup tasks can be added here in the future
 	} catch (error) {
 		logger.error(`Error during migration cleanup: ${error}`);
@@ -100,29 +103,35 @@ const convertOldHtmlToNewHtmlDocuments = async (caseId, res) => {
 			.join(', ')}\n`
 	);
 
+	let convertedCount = 0;
 	await Promise.all(
 		htmlDocumentVersions.map((htmlDocumentVersion) => {
 			return downloadHtmlBlob(htmlDocumentVersion.privateBlobPath)
 				.then((originalHtmlString) =>
 					processHtml(htmlDocumentVersion.documentGuid, originalHtmlString, res)
 				)
-				.then((html) => uploadNewFileVersion(htmlDocumentVersion.privateBlobPath, html))
-				.then((uploadFileVersionResponse) =>
-					createDocumentVersion(
-						{
-							documentName: htmlDocumentVersion.originalFilename,
-							documentSize: uploadFileVersionResponse.blobSize,
-							documentType: htmlDocumentVersion.mime,
-							folderId: htmlDocumentVersion.folderId,
-							privateBlobPath: uploadFileVersionResponse.newBlobName,
-							username: htmlDocumentVersion.owner
-						},
-						caseId,
-						htmlDocumentVersion.documentGuid,
-						true
-					)
-				);
+				.then((html) => {
+					// exit early if this is already a new template
+					if (!html) return
+					convertedCount++;
+					return uploadNewFileVersion(htmlDocumentVersion.privateBlobPath, html)
+						.then((uploadFileVersionResponse) =>
+							createDocumentVersion(
+								{
+									documentName: htmlDocumentVersion.originalFilename,
+									documentSize: uploadFileVersionResponse.blobSize,
+									documentType: htmlDocumentVersion.mime,
+									folderId: htmlDocumentVersion.folderId,
+									privateBlobPath: uploadFileVersionResponse.newBlobName,
+									username: htmlDocumentVersion.owner
+								},
+								caseId,
+								htmlDocumentVersion.documentGuid,
+								true
+							)
+						);
+				});
 		})
 	);
-	res.write(`Converted ${htmlDocumentVersions.length} documents.\n`);
+	res.write(`Converted ${convertedCount} of ${htmlDocumentVersions.length} documents.\n`);
 };
