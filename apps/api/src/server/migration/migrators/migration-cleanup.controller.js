@@ -9,11 +9,11 @@ import * as documentRepository from '#repositories/document.repository.js';
 import {
 	getHtmlDocumentVersions,
 	processHtml,
-	addDocumentVersion,
 	uploadNewFileVersion,
 	downloadHtmlBlob
 } from './cleanup/htmlTemplates.js';
 import { databaseConnector } from '#utils/database-connector.js';
+import { createDocumentVersion } from 'src/server/applications/application/documents/document.service.js';
 
 /**
  * @type {import("express").RequestHandler<{modelType: string}, ?, any[]>}
@@ -108,14 +108,19 @@ const convertOldHtmlToNewHtmlDocuments = async (caseId, res) => {
 				)
 				.then((html) => uploadNewFileVersion(htmlDocumentVersion.privateBlobPath, html))
 				.then((uploadFileVersionResponse) =>
-					addDocumentVersion(caseId, htmlDocumentVersion.documentGuid, {
-						documentName: htmlDocumentVersion.fileName,
-						documentSize: uploadFileVersionResponse.blobSize,
-						documentType: htmlDocumentVersion.mime,
-						folderId: htmlDocumentVersion.folderId,
-						privateBlobPath: uploadFileVersionResponse.newBlobName,
-						username: htmlDocumentVersion.owner
-					})
+					createDocumentVersion(
+						{
+							documentName: htmlDocumentVersion.originalFilename,
+							documentSize: uploadFileVersionResponse.blobSize,
+							documentType: htmlDocumentVersion.mime,
+							folderId: htmlDocumentVersion.folderId,
+							privateBlobPath: uploadFileVersionResponse.newBlobName,
+							username: htmlDocumentVersion.owner
+						},
+						caseId,
+						htmlDocumentVersion.documentGuid,
+						true
+					)
 				);
 		})
 	);
