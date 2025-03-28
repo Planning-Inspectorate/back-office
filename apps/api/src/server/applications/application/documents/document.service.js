@@ -26,6 +26,9 @@ import { applicationStates } from '../../state-machine/application.machine.js';
 import { broadcastNsipDocumentEvent } from '#infrastructure/event-broadcasters.js';
 import { featureFlagClient } from '#utils/feature-flags.js';
 import { getApplicationDocumentsFolderName } from '#utils/mapping/map-document-folder-names.js';
+import {
+	handleCreationOfDocumentActivityLogs,
+} from '../../../migration/migrators/nsip-document-migrator.js';
 
 /**
  * @typedef {import('@prisma/client').DocumentVersion} DocumentVersion
@@ -342,9 +345,15 @@ export const createDocuments = async (documentsToUpload, caseId, isS51) => {
  * @param {{documentName: string, folderId: number, documentType: string, documentSize: number, username: string, documentReference: string}} documentToUpload
  * @param {number} caseId
  * @param {string} documentId
+ * @param {boolean} isMigrationPublish
  * @returns {Promise<DocumentAndBlobInfoManyResponse>}}
  */
-export const createDocumentVersion = async (documentToUpload, caseId, documentId) => {
+export const createDocumentVersion = async (
+	documentToUpload,
+	caseId,
+	documentId,
+	isMigrationPublish = false
+) => {
 	// Step 1: Retrieve the case object associated with the provided caseId
 	logger.info(`Retrieving case for caseId ${caseId} ${documentId}...`);
 	const caseForDocuments = await caseRepository.getById(caseId, { sector: true });
@@ -388,20 +397,27 @@ export const createDocumentVersion = async (documentToUpload, caseId, documentId
 	newDocumentVersion.size = documentToSendToDatabase.documentSize;
 	newDocumentVersion.owner = documentToUpload.username;
 	newDocumentVersion.originalFilename = documentToUpload.documentName;
-	newDocumentVersion.datePublished = null;
+	newDocumentVersion.datePublished = isMigrationPublish ? previousDocumentVersion.publishedDate : null;
 	newDocumentVersion.publishedBlobPath = null;
 	newDocumentVersion.publishedBlobContainer = null;
 	newDocumentVersion.publishedStatusPrev = null;
 	newDocumentVersion.redactedStatus = null;
 
+
 	await documentVersionRepository.upsert(newDocumentVersion);
 
-	await documentActivityLogRepository.create({
-		documentGuid: documentId,
-		version,
-		user: documentToUpload.username,
-		status: 'uploaded'
-	});
+
+	if (isMigrationPublish) {
+		await handleCreationOfDocumentActivityLogs(newDocumentVersion);
+	} else {
+		await documentActivityLogRepository.create({
+			documentGuid: documentId,
+			version,
+			user: documentToUpload.username,
+			status: 'uploaded',
+		});
+	}
+
 
 	// Step 6: Map document to the format expected to get blob storage properties
 	logger.info(`Mapping document to blob storage format...`);
@@ -447,7 +463,14 @@ export const createDocumentVersion = async (documentToUpload, caseId, documentId
 	createdVersionWithDocInfo.Document.latestVersionId = thisVersionId;
 
 	// broadcast event - ignoring if doc is on non Training cases
-	await broadcastNsipDocumentEvent(createdVersionWithDocInfo, EventType.Update);
+	if (isMigrationPublish) {
+		await broadcastNsipDocumentEvent(createdVersionWithDocInfo, EventType.Update, {
+			publishing: 'true',
+			migrationPublishing: 'true'
+		});
+	} else {
+		await broadcastNsipDocumentEvent(createdVersionWithDocInfo, EventType.Update);
+	}
 
 	// Step 8: Return information about the uploaded document version and its storage location
 	logger.info(`Returning updated document with blob storage properties...`);

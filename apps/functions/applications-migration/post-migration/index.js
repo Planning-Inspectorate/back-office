@@ -20,12 +20,12 @@ app.http('post-migration', {
 	 */
 	handler: async (request, context) => {
 		// @ts-ignore
-		const { caseReferences } = await request.json();
-		const entityName = 'cleanup';
+		const { caseReferences, skipHtmlTransform } = await request.json();
+		const entityName = 'post-migration';
 		return handleMigrationWithResponse(context, {
 			caseReferences: caseReferences,
 			entityName,
-			migrationStream: () => runPostMigrationTasks(context, caseReferences)
+			migrationStream: () => runPostMigrationTasks(context, caseReferences, skipHtmlTransform)
 		});
 	}
 });
@@ -35,12 +35,13 @@ app.http('post-migration', {
  *
  * @param {import("@azure/functions").InvocationContext} log
  * @param {string[]} caseReferenceList
+ * @param {boolean} skipHtmlTransform
  */
-const runPostMigrationTasks = async (log, caseReferenceList) => {
+const runPostMigrationTasks = async (log, caseReferenceList, skipHtmlTransform) => {
 	/** @type {Function[][]} */
 	const listOfCaseReferenceTasks = [];
 	caseReferenceList.forEach((caseReference) => {
-		const caseReferenceTaskList = [() => startMigrationCleanup(log, caseReference)];
+		const caseReferenceTaskList = [() => startMigrationCleanup(log, caseReference, skipHtmlTransform)];
 		listOfCaseReferenceTasks.push(caseReferenceTaskList);
 	});
 

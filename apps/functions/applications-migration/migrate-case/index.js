@@ -25,7 +25,7 @@ app.http('migrate-case', {
 	 */
 	handler: async (request, context) => {
 		// @ts-ignore
-		const { caseReferences, migrationOverwrite, isWelshCase, dryRun } = await request.json();
+		const { caseReferences, migrationOverwrite, isWelshCase, dryRun, skipHtmlTransform } = await request.json();
 		const entityName = 'case';
 		const validationErrorResponse = await handleRequestValidation(context, {
 			entityName,
@@ -39,7 +39,7 @@ app.http('migrate-case', {
 			caseReferences: caseReferences,
 			entityName,
 			migrationStream: () =>
-				migrateCase(context, caseReferences, toBoolean(dryRun), toBoolean(isWelshCase))
+				migrateCase(context, caseReferences, toBoolean(dryRun), toBoolean(isWelshCase), toBoolean(skipHtmlTransform))
 		});
 	}
 });
@@ -51,8 +51,9 @@ app.http('migrate-case', {
  * @param {string[]} caseReferenceList
  * @param {boolean} dryRun
  * @param {boolean} isWelshCase
+ * @param {boolean} skipHtmlTransform
  */
-const migrateCase = async (log, caseReferenceList, dryRun = false, isWelshCase = false) => {
+const migrateCase = async (log, caseReferenceList, dryRun = false, isWelshCase = false, skipHtmlTransform = false) => {
 	/** @type {Function[][]} */
 	const listOfCaseReferenceTasks = [];
 	caseReferenceList.forEach((caseReference) => {
@@ -69,7 +70,7 @@ const migrateCase = async (log, caseReferenceList, dryRun = false, isWelshCase =
 			caseReferenceTaskList.push(() => migrateProjectUpdates(log, [caseReference], isWelshCase));
 		}
 
-		caseReferenceTaskList.push(() => startMigrationCleanup(log, caseReference));
+		caseReferenceTaskList.push(() => startMigrationCleanup(log, caseReference, skipHtmlTransform));
 
 		// re-run the nsip-project migration to update the status and broadcast
 		if (!dryRun) {

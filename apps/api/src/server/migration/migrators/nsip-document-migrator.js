@@ -85,7 +85,6 @@ export const migrateNsipDocuments = async (documents, updateProgress) => {
 		await handleCreationOfDocumentActivityLogs(documentVersion);
 		updateProgress(index, documents.length);
 	}
-
 	await updatePreviousVersionsToUnpublished(caseId);
 	await updateLatestVersionId(caseId);
 	await broadcastAllPublishedDocuments(caseId);
@@ -148,7 +147,7 @@ export const createDocumentVersion = async (documentVersion) => {
  *
  * @param {object} documentVersion
  */
-const handleCreationOfDocumentActivityLogs = async (documentVersion) => {
+export const handleCreationOfDocumentActivityLogs = async (documentVersion) => {
 	await createDocumentActivityLog({
 		documentGuid: documentVersion.documentGuid,
 		version: documentVersion.version,
