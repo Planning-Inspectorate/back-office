@@ -147,7 +147,7 @@ export const createDocumentVersion = async (documentVersion) => {
  *
  * @param {object} documentVersion
  */
-const handleCreationOfDocumentActivityLogs = async (documentVersion) => {
+export const handleCreationOfDocumentActivityLogs = async (documentVersion) => {
 	await createDocumentActivityLog({
 		documentGuid: documentVersion.documentGuid,
 		version: documentVersion.version,

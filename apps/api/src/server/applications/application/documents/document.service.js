@@ -26,6 +26,9 @@ import { applicationStates } from '../../state-machine/application.machine.js';
 import { broadcastNsipDocumentEvent } from '#infrastructure/event-broadcasters.js';
 import { featureFlagClient } from '#utils/feature-flags.js';
 import { getApplicationDocumentsFolderName } from '#utils/mapping/map-document-folder-names.js';
+import {
+	handleCreationOfDocumentActivityLogs,
+} from '../../../migration/migrators/nsip-document-migrator.js';
 
 /**
  * @typedef {import('@prisma/client').DocumentVersion} DocumentVersion
@@ -394,24 +397,27 @@ export const createDocumentVersion = async (
 	newDocumentVersion.size = documentToSendToDatabase.documentSize;
 	newDocumentVersion.owner = documentToUpload.username;
 	newDocumentVersion.originalFilename = documentToUpload.documentName;
-	newDocumentVersion.datePublished = null;
+	newDocumentVersion.datePublished = isMigrationPublish ? previousDocumentVersion.publishedDate : null;
 	newDocumentVersion.publishedBlobPath = null;
 	newDocumentVersion.publishedBlobContainer = null;
 	newDocumentVersion.publishedStatusPrev = null;
 	newDocumentVersion.redactedStatus = null;
 
+
 	await documentVersionRepository.upsert(newDocumentVersion);
 
-	await documentActivityLogRepository.create({
-		documentGuid: documentId,
-		version,
-		user: documentToUpload.username,
-		status: 'uploaded',
-		createdAt:
-			isMigrationPublish && previousDocumentVersion?.dateCreated
-				? previousDocumentVersion.dateCreated
-				: new Date()
-	});
+
+	if (isMigrationPublish) {
+		await handleCreationOfDocumentActivityLogs(newDocumentVersion);
+	} else {
+		await documentActivityLogRepository.create({
+			documentGuid: documentId,
+			version,
+			user: documentToUpload.username,
+			status: 'uploaded',
+		});
+	}
+
 
 	// Step 6: Map document to the format expected to get blob storage properties
 	logger.info(`Mapping document to blob storage format...`);
