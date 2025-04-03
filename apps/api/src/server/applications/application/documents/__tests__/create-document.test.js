@@ -183,9 +183,7 @@ describe('Create documents', () => {
 				fileName: 'test doc',
 				mime: 'application/pdf',
 				size: 1024,
-				version: 1,
-				author: 'organisation name',
-				filter1: ''
+				version: 1
 			},
 			include: {
 				Document: { include: { folder: { include: { case: { include: { CaseStatus: true } } } } } }
@@ -195,9 +193,7 @@ describe('Create documents', () => {
 				originalFilename: 'test doc',
 				mime: 'application/pdf',
 				size: 1024,
-				version: 1,
-				author: 'organisation name',
-				filter1: ''
+				version: 1
 			},
 			where: { documentGuid_version: { documentGuid: 'some-guid', version: 1 } }
 		});
