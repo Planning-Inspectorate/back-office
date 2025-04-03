@@ -3,6 +3,7 @@ import { getDocumentsInCase } from '../../../applications/application/documents/
 import { Readable } from 'stream';
 import {
 	extractYouTubeURLFromHTML,
+	extractYouTubeTitleFromHTML,
 	renderYouTubeTemplate
 } from '../../../applications/documents/documents.service.js';
 import config from '../../../config/config.js';
@@ -53,6 +54,7 @@ export const getHtmlDocumentVersions = async (caseId) => {
 const getBlobClient = () => {
 	return BlobStorageClient.fromUrl(config.blobStorageUrl);
 };
+
 /**
  *
  * @param {string} blobName
@@ -70,6 +72,8 @@ export const downloadHtmlBlob = async (blobName) => {
 };
 
 /**
+ * convert an old HZN version HTML Template into the new CBOS version
+ *
  * @param {string} guid
  * @param {string} htmlString
  * @param {import("express").Response} res
@@ -83,11 +87,14 @@ export const processHtml = (guid, htmlString, res) => {
 	// New templates include `div class="video-container"` so we can ignore them
 	if (htmlString.includes('video-container')) {
 		res.write(`Document ${guid} already has a YouTube video template`);
-		return ''
+		return '';
 	}
 
+	// extract the you tube url and the title from the html.  ONly poss in migration as we have an unsanitised version
 	const youtubeUrl = extractYouTubeURLFromHTML(htmlString);
-	return renderYouTubeTemplate(youtubeUrl);
+	const htmlTitle = extractYouTubeTitleFromHTML(htmlString);
+
+	return renderYouTubeTemplate(youtubeUrl, htmlTitle);
 };
 
 /**

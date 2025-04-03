@@ -75,10 +75,50 @@ export const extractYouTubeURLFromHTML = (originalHtml) => {
 };
 
 /**
- * Render HTML YouTube template for Front Office
+ * Try to get the title from html template (old HZN version).
+ * Currently only working for migration, as the UI upload version sanitises the html and removes all but the iframe attr
+ *
+ * @param {string} html
+ */
+export const extractYouTubeTitleFromHTML = (html) => {
+	let htmlTitle = '';
+	/* and try to extract the title
+
+	 should look like this:
+        <p>
+
+          <!-- ************************************ -->
+
+          <!-- Recording details -->
+
+          <span style="text-align:center"><strong>Here is the title to display</strong></span>
+
+        </p>
+	*/
+	//	console.log('\n\n==============================================\n\nhtml:', JSON.stringify(html));
+	if (html.includes('Recording details')) {
+		console.log('Recording details found in old HTML template');
+		const titleSection = html.substring(html.indexOf('Recording details'), html.indexOf('</span>'));
+		if (titleSection.includes('<span style="text-align:center"><strong>')) {
+			htmlTitle = titleSection
+				.substring(titleSection.indexOf('<strong>') + 8, titleSection.indexOf('</strong>'))
+				.trim();
+		}
+	}
+	return htmlTitle;
+};
+
+/**
+ * Render HTML YouTube template for Front Office, inserting YouTube URL and Title
  *
  * @param {string} youtubeUrl
+ * @param {string |undefined} htmlTitle
  * @returns {string}
  * */
-export const renderYouTubeTemplate = (youtubeUrl) =>
-	YouTubeHTMLTemplate.replace('{{youtubeUrl}}', youtubeUrl);
+export const renderYouTubeTemplate = (youtubeUrl, htmlTitle = 'Video title') => {
+	let newHTML = YouTubeHTMLTemplate;
+	newHTML = newHTML.replace('{{youtubeUrl}}', youtubeUrl);
+	newHTML = newHTML.replace('{{htmlTitle}}', htmlTitle);
+
+	return newHTML;
+};
