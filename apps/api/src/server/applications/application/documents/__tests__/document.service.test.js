@@ -7,7 +7,11 @@ import {
 	getApplicationDocumentWebfilter,
 	isFolderApplicationDocuments
 } from '../document.service.js';
-import { extractYouTubeURLFromHTML } from '../../../documents/documents.service.js';
+import {
+	extractYouTubeTitleFromHTML,
+	extractYouTubeURLFromHTML,
+	renderYouTubeTemplate
+} from '../../../documents/documents.service.js';
 
 /**
  * @type {Object<string, any>}
@@ -279,6 +283,27 @@ describe('Document service test', () => {
 			expect(src).toEqual(expectedSrc);
 		});
 
+		it('correctly extracts a valid youtube src from an iframe tag and gets the video title within an html document', () => {
+			const expectedSrc = 'https://www.youtube.com/embed/hHEvsjxSbU8?si=-eTnuGjPKCN8PRgI';
+			const html = `<html lang="en"><body>
+			<div id="ipc_project_headline">
+        	<img class="icon" alt="information icon" src="/wp-content/themes/nip/images/icons/information.png"><div class="ipc_activity_notice" style="<div style=" margin-top:="" 0px;'="">
+				<p>
+
+				<!-- ************************************ -->
+
+				<!-- Recording details -->
+
+				<span style="text-align:center"><strong>Here is the title to display</strong></span>
+
+				</p>
+				<iframe class="dummy-class" src="${expectedSrc}" id="dummy-id"></iframe></body></html>`;
+			const src = extractYouTubeURLFromHTML(html);
+			expect(src).toEqual(expectedSrc);
+			const htmlTitle = extractYouTubeTitleFromHTML(html);
+			expect(htmlTitle).toEqual('Here is the title to display');
+		});
+
 		it('fails when there is no iframe in the html', () => {
 			const expectedSrc = 'https://www.youtube.com/embed/hHEvsjxSbU8?si=-eTnuGjPKCN8PRgI';
 			const html = `<HTML LANG='en'><BODY><IMG class='dummy-class' src='${expectedSrc}' id='dummy-id'></IMG></BODY></HTML>`;
@@ -300,6 +325,27 @@ describe('Document service test', () => {
 			expect(() => {
 				extractYouTubeURLFromHTML(html);
 			}).toThrow(`iframe src is not a YouTube URL: ${invalidUrl}`);
+		});
+	});
+
+	describe('Render New YouTube Template', () => {
+		it('correctly renders a youtube template with the correct url and title', () => {
+			const src = 'https://www.youtube.com/embed/xxx';
+			const title = 'Here is the title to display';
+			const renderedTemplate = renderYouTubeTemplate(src, title);
+			expect(renderedTemplate).toContain(`src="https://www.youtube.com/embed/xxx"`);
+			expect(renderedTemplate).not.toContain('{{youtubeUrl}}');
+			expect(renderedTemplate).toContain(`<h1>${title}</h1>`);
+			expect(renderedTemplate).not.toContain(`{{htmlTitle}}`);
+		});
+
+		it('correctly renders a youtube template with the correct url and no title', () => {
+			const src = 'https://www.youtube.com/embed/xxx';
+			const renderedTemplate = renderYouTubeTemplate(src);
+			expect(renderedTemplate).toContain(`src="https://www.youtube.com/embed/xxx"`);
+			expect(renderedTemplate).not.toContain('{{youtubeUrl}}');
+			expect(renderedTemplate).toContain(`<h1>Video title</h1>`);
+			expect(renderedTemplate).not.toContain(`{{htmlTitle}}`);
 		});
 	});
 

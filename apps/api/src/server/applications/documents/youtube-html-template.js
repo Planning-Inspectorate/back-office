@@ -115,7 +115,7 @@ export const YouTubeHTMLTemplate = `
 <main>
 	<div class="container">
 		<!-- Update page heading below  -->
-		<h1>Video title</h1>
+		<h1>{{htmlTitle}}</h1>
 
 		<div class="video-container">
 			<!-- Update embed video iframe src below -->
