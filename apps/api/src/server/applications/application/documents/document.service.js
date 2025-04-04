@@ -657,7 +657,6 @@ export const makeDocumentReference = (caseId, index) =>
  * @param {{displayNameEn: string, id: number}[]} folderPath
  * @returns {boolean}
  */
-
 export const isFolderApplicationDocuments = (folderPath) => {
 	const requiredNames = [
 		folderDocumentCaseStageMappings.ACCEPTANCE, //Acceptance
@@ -671,35 +670,54 @@ export const isFolderApplicationDocuments = (folderPath) => {
 /**
  *
  * @param {{displayNameEn: string, id: number}[]} folderPath
- * @returns
+ * @returns {{cy: string, en: string}}
  */
-
 export const getApplicationDocumentWebfilter = (folderPath) => {
-	const folderName = folderPath[2].displayNameEn;
+	const folderName = folderPath[2]?.displayNameEn;
+	const defaultWebfilter = {
+		cy: '',
+		en: ''
+	};
 
-	return getApplicationDocumentsFolderName(folderName);
+	return getApplicationDocumentsFolderName(folderName) ?? defaultWebfilter;
 };
 
 /**
- * @param {number} caseId
- * @param {number} folderId
- * @returns {Promise<{en: string, cy: string}>}
  *
+ * @param {object} applicantData
+ * @returns {{cy: string, en: string}}
+ */
+const getApplicationDocumentAuthor = (applicantData) => {
+	return {
+		en: applicantData?.organisationName || '',
+		cy: applicantData?.organisationName || ''
+	};
+};
+
+/**
+ * @param {object} caseData
+ * @param {number} folderId
+ * @returns {Promise<{webfilter: {en: string, cy: string} | undefined, author: {en: string, cy: string}|undefined} | {}>}
  * */
-export const getDocumentWebfilter = async (caseId, folderId) => {
+export const getDocumentMetadataByFolderName = async (caseData, folderId) => {
+	const caseId = caseData.id;
+	const applicantData = caseData.applicant;
 	const folderPath = await getFolderPath(caseId, folderId);
 
-	let webfilter = {
-		en: '',
-		cy: ''
-	};
-
-	if (!folderPath) return webfilter;
+	let documentMetadata = {};
+	if (!folderPath) return documentMetadata; //error out here instead
 
 	const isApplicationDocumentsFolder = isFolderApplicationDocuments(folderPath);
-	if (isApplicationDocumentsFolder) webfilter = getApplicationDocumentWebfilter(folderPath);
 
-	return webfilter;
+	if (isApplicationDocumentsFolder) {
+		documentMetadata.webfilter = getApplicationDocumentWebfilter(folderPath);
+		documentMetadata.author = getApplicationDocumentAuthor(applicantData);
+
+		return documentMetadata;
+	}
+
+	//return empty default
+	return documentMetadata;
 };
 
 /**

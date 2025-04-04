@@ -30,7 +30,7 @@ import {
 	deleteDocument,
 	revertDocumentStatusToPrevious,
 	updateDocumentsFolderId,
-	getDocumentWebfilter
+	getDocumentMetadataByFolderName
 } from './document.service.js';
 import { getRedactionStatus, validateDocumentVersionMetadataBody } from './document.validators.js';
 
@@ -88,20 +88,25 @@ export const createDocumentsOnCase = async ({ params, body }, response) => {
 	// loop thru the docs to:
 	// - add full document references eg BC0110001-000001, BC0110001-000002
 	// - add webfilter and author
+
+	let previousFolderId = null;
+	let documentMetadata = null;
 	for (const doc of filteredToUpload) {
 		//since createDocumentsOnCase can create documents in multiple folders in one go,
-		//we need to get the webfilter for each document
-		const webfilter = await getDocumentWebfilter(params.id, doc.folderId);
+		//we need to get the metadata for each document, but to avoid repeated api calls, we only call the api when the folderId changes
+		if (doc.folderId !== previousFolderId) {
+			documentMetadata = await getDocumentMetadataByFolderName(theCase, doc.folderId);
+			previousFolderId = doc.folderId;
+		}
 
 		doc.documentReference = makeDocumentReference(theCase.reference, nextReferenceIndex);
-		doc.filter1 = webfilter.en;
-		doc.author = theCase.applicant?.organisationName || '';
-		nextReferenceIndex++;
+		if (documentMetadata?.webfilter?.en) doc.filter1 = documentMetadata?.webfilter?.en;
+		if (documentMetadata?.author?.en) doc.author = documentMetadata?.author?.en;
+		if (isCaseWelsh && documentMetadata?.webfilter?.cy)
+			doc.filter1Welsh = documentMetadata?.webfilter?.cy;
+		if (isCaseWelsh && documentMetadata?.author?.cy) doc.authorWelsh = documentMetadata?.author?.cy;
 
-		if (isCaseWelsh) {
-			doc.filter1Welsh = webfilter.cy;
-			doc.authorWelsh = theCase.applicant?.organisationName || '';
-		}
+		nextReferenceIndex++;
 	}
 	// create document, documentVersion etc records for the array of docs
 	const { response: dbResponse, failedDocuments } = await createDocuments(
