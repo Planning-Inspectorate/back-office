@@ -70,6 +70,7 @@ export interface EnvironmentConfig extends BaseEnvironmentConfig {
 	frontOfficeURL: string;
 	featureFlagConnectionString: string;
 	featureFlagsStatic: string;
+	customFeaturesByCase: object;
 }
 
 export function loadConfig(): EnvironmentConfig;

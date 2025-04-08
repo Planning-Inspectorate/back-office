@@ -5,6 +5,7 @@
 {% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
 {% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
 {% from "../../components/status-tag.component.njk" import statusTag %}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
 
 
 {% set serviceName = case.title %}
@@ -37,6 +38,14 @@
 							<div class="govuk-grid-column-full govuk-body">
 								{{ case.sector.displayNameEn }}, {{ case.subSector.displayNameEn }}
 								<br><br>
+
+								{% if  customFeaturesByCase.sensitiveCases | includes(case.reference) %}
+									{{ govukWarningText({
+										text: "OFFICIAL SENSITIVE. This project should only be accessed by those expressly appointed to the project. Do not view, download, copy, share or publish any documents or information without express authorisation.",
+										iconFallbackText: "Warning"
+									}) }}
+								{% endif %}
+
 								{{ statusTag(case.status) }}
 							</div>
 						</div>
