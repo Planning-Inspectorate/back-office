@@ -3,6 +3,12 @@ import schema from './schema.js';
 import { baseConfigFromEnvironment } from './base-config.js';
 
 /**
+ * @param {string | undefined} str
+ * @returns {string[]}
+ */
+const splitStringToArray = (str) => str?.split(',').map((s) => s.trim()) || [];
+
+/**
  * @typedef {import('./config.js').EnvironmentConfig} EnvironmentConfig
  */
 
@@ -55,7 +61,8 @@ export function loadConfig() {
 		OS_PLACES_API_KEY,
 		DUMMY_ADDRESS_DATA,
 		DUMMY_USER_DATA,
-		FRONT_OFFICE_URL
+		FRONT_OFFICE_URL,
+		SENSITIVE_APPLICATION_CASE_REFERENCES
 	} = environment;
 
 	const config = {
@@ -98,6 +105,9 @@ export function loadConfig() {
 				caseTeamGroupId: APPLICATIONS_CASETEAM_GROUP_ID,
 				inspectorGroupId: APPLICATIONS_INSPECTOR_GROUP_ID
 			}
+		},
+		customFeaturesByCase: {
+			sensitiveCases: splitStringToArray(SENSITIVE_APPLICATION_CASE_REFERENCES)
 		},
 		featureFlagsStatic: STATIC_FEATURE_FLAGS_ENABLED,
 		featureFlagConnectionString: PINS_FEATURE_FLAG_AZURE_CONNECTION_STRING,

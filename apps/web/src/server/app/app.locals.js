@@ -1,4 +1,5 @@
 import pino from '../lib/logger.js';
+import config from '@pins/applications.web/environment/config.js';
 
 /**
  * Validate and register the adviceId for the upload file
@@ -39,7 +40,7 @@ export const registerDownloadParams = ({ params }, response, next) => {
 };
 
 /**
- * Determine web environment from hostname
+ * Determine web environment from hostname and
  *
  * @type {import('express').RequestHandler<*, *, *, *, *>}
  */
@@ -49,6 +50,17 @@ export const setWebEnvironmentLocals = ({ hostname }, response, next) => {
 	if (hostname.includes('training')) env = 'training';
 
 	response.locals.webEnvironment = env;
+
+	next();
+};
+
+/**
+ * Set custom flag/feature data to be globally available in the templates
+ *
+ * @type {import('express').RequestHandler<*, *, *, *, *>}
+ */
+export const setCustomFeaturesByCaseLocals = (request, response, next) => {
+	response.locals.customFeaturesByCase = config?.customFeaturesByCase || {};
 
 	next();
 };

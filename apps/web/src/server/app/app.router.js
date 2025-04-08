@@ -21,7 +21,12 @@ import {
 	postValidateFileSignatures,
 	postProcessHTMLFile
 } from './components/file-uploader.component.js';
-import { registerAdviceId, registerDownloadParams, setWebEnvironmentLocals } from './app.locals.js';
+import {
+	registerAdviceId,
+	registerDownloadParams,
+	setCustomFeaturesByCaseLocals,
+	setWebEnvironmentLocals
+} from './app.locals.js';
 import { registerCaseId } from '../applications/create-new-case/applications-create.locals.js';
 import { registerDocumentGuid } from '../applications/case/applications-case.locals.js';
 
@@ -59,6 +64,9 @@ router.use(assertGroupAccess(...groupIds));
 
 // Add web environment values to locals
 router.use(setWebEnvironmentLocals);
+
+// Add globally available local values
+router.use(setCustomFeaturesByCaseLocals);
 
 router.route('/').get(viewHomepage);
 router.route('/auth/signout').get(asyncHandler(handleSignout));

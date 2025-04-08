@@ -12,7 +12,7 @@ export const baseSchema = joi
 		isDevelopment: joi.boolean(),
 		isTest: joi.boolean(),
 		isRelease: joi.boolean().optional(),
-		gitSha: joi.string().optional(),
+		gitSha: joi.string().optional()
 	})
 	.options({ presence: 'required' }); // all required by default
 
@@ -66,6 +66,9 @@ export default baseSchema
 					.options({ presence: 'required' })
 			})
 			.options({ presence: 'required' }),
+		customFeaturesByCase: joi.object({
+			sensitiveCases: joi.array().optional()
+		}),
 		featureFlagConnectionString: joi.string().optional(),
 		featureFlagsStatic: joi.string().optional(),
 		dummyAddressData: joi.boolean().optional(),
