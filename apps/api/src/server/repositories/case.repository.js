@@ -47,15 +47,16 @@ export const buildTrainingCasesWhereClause = () => {
 		if (featureFlagClient) {
 			dontIncludeTrainingCases = featureFlagClient.isFeatureActive('applics-1036-training-sector');
 			logger.info(
-				'Checking for applics-1036-training-sector Feature Flag - result: ',
-				featureFlagClient.isFeatureActive('applics-1036-training-sector')
+				`Checking for applics-1036-training-sector Feature Flag - result: ${featureFlagClient.isFeatureActive(
+					'applics-1036-training-sector'
+				)}`
 			);
 		} else {
 			logger.info('Checking for applics-1036-training-sector Feature Flag - not available');
 		}
 	} catch (error) {
 		// If the feature flag client is not available, default to excluding training cases
-		logger.info('Checking for applics-1036-training-sector Feature Flag - error', error);
+		logger.info(`Checking for applics-1036-training-sector Feature Flag - error: ${error}`);
 	}
 
 	if (dontIncludeTrainingCases) {
