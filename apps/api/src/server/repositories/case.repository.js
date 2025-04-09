@@ -7,6 +7,7 @@ import { databaseConnector } from '#utils/database-connector.js';
 import { separateStatusesToSaveAndInvalidate } from './separate-statuses-to-save-and-invalidate.js';
 import { featureFlagClient } from '#utils/feature-flags.js';
 import { getSearchTermArrayExcludingStopWords } from '#utils/stop-words.js';
+import logger from '#utils/logger.js';
 
 const DEFAULT_CASE_CREATE_STATUS = 'draft';
 
@@ -40,7 +41,25 @@ export const whereNotGeneralS51AdviceCase = {
 // where clause to exclude TRAINING cases unless the feature flag is active
 export const buildTrainingCasesWhereClause = () => {
 	let whereTrainingClause = {};
-	if (!featureFlagClient.isFeatureActive('applics-1036-training-sector')) {
+	let dontIncludeTrainingCases = true;
+	logger.info('Checking for applics-1036-training-sector Feature Flag');
+	try {
+		if (featureFlagClient) {
+			dontIncludeTrainingCases = featureFlagClient.isFeatureActive('applics-1036-training-sector');
+			logger.info(
+				'Checking for applics-1036-training-sector Feature Flag - result: ',
+				featureFlagClient.isFeatureActive('applics-1036-training-sector')
+			);
+		} else {
+			logger.info('Checking for applics-1036-training-sector Feature Flag - not available');
+		}
+	} catch (error) {
+		// If the feature flag client is not available, default to excluding training cases
+		logger.info('Checking for applics-1036-training-sector Feature Flag - error', error);
+	}
+
+	if (dontIncludeTrainingCases) {
+		logger.info('Excluding training cases from query');
 		whereTrainingClause = {
 			OR: [
 				{
