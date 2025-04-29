@@ -6,6 +6,7 @@ import * as folderRepository from '#repositories/folder.repository.js';
 import { publish as BroadcastExamTimetable } from '../../applications/examination-timetable-items/examination-timetable-items.service.js';
 import { handleDateTimeToUTC, mapDateTimesToCorrectFields } from '#utils/migration-dates.js';
 import { examTimetableItemTypes } from '@pins/examination-timetable-utils';
+
 /**
  * Migrate NSIP Exam Timetable
  *
@@ -63,9 +64,11 @@ export const migrateExamTimetables = async (examTimetables) => {
 };
 
 /**
- * TODO: We have a dependency on nsip-folder being migrated (where the individual timetable item folders will be migrated)
+ * Gets the parent Examination Timetable folder ID for the case - the folder where all the sub folders for each exam item will be.
+ * Note: We have a dependency on nsip-folder being migrated (where the individual timetable item folders will be migrated)
  * For now, newly created projects get an 'Examination timetable' folder by default - so we can test Exam TT migration against cases which
  * are created manually on the portal.
+ * There is a separate task in post migration cleanup to correct the exam item records to point to the correct folder, and create a new one if missing.
  *
  * @param {number} caseId
  * @returns {Promise<number>} examTimetableFolderId
@@ -73,7 +76,7 @@ export const migrateExamTimetables = async (examTimetables) => {
 const getExamTimetableFolderId = async (caseId) => {
 	const examinationFolder = await folderRepository.getFolderByNameAndCaseId(
 		caseId,
-		'Examination timetable' // TODO: we'll need to make sure the Examination timetable folder is properly migrated
+		'Examination timetable' // Note: we'll need to make sure the Examination timetable folder is properly migrated - performed in post migration cleanup
 	);
 
 	if (!examinationFolder) {

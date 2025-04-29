@@ -35,20 +35,27 @@ router.post(
         #swagger.responses[200] = {
             description: 'Models successfully migrated',
         }
-	 */
+	*/
 	asyncHandler(postMigrateFolders)
 );
 
 router.post(
 	'/cleanup',
 	/*
-				#swagger.tags = ['Migration']
-				#swagger.path =  'migration/cleanup'
-				#swagger.description = 'Cleanup migration data'
-				#swagger.parameters['query'] = {
-						caseReferences: 'TR020002,TR020003'
-				}
-				#swagger.parameters['x-service-name'] = {
+		#swagger.tags = ['Migration']
+		#swagger.path = '/migration/cleanup'
+		#swagger.description = 'Cleanup migration data for a case'
+		#swagger.parameters['body'] = {
+			in: 'body',
+			description: 'Case migration paremeters',
+			schema: {
+				caseReference: 'EN070007',
+				skipLooseS51Attachments: false,
+				skipHtmlTransform: false,
+				skipFixExamFolders: false
+			}
+		}
+		#swagger.parameters['x-service-name'] = {
 			in: 'header',
 			type: 'string',
 			description: 'Service name header',
@@ -60,12 +67,11 @@ router.post(
 			description: 'API key header',
 			default: '123'
 		}
-				#swagger.responses[200] = {
-						description: '',
+		#swagger.responses[200] = {
+			description: '',
             schema: { }
-				}
-			*/
-
+		}
+	*/
 	asyncHandler(migrationCleanup)
 );
 
@@ -74,7 +80,7 @@ router.post(
 	/*
         #swagger.tags = ['Migration']
         #swagger.path =  '/migration/{modelType}'
-        #swagger.description = 'Updates document status from state machine'
+        #swagger.description = 'Case Migration'
         #swagger.parameters['modelType'] = {
             in: 'path',
             description: 'Model type to migrate',
@@ -101,7 +107,7 @@ router.post(
         #swagger.responses[200] = {
             description: 'Models successfully migrated',
         }
-	 */
+	*/
 	asyncHandler(postMigrateModel)
 );
 // takes caseReference array as query parameter
@@ -109,13 +115,13 @@ router.post(
 router.get(
 	'/validate',
 	/*
-				#swagger.tags = ['Migration']
-				#swagger.path =  '/migration/validate'
-				#swagger.description = 'Validate migration'
-				#swagger.parameters['query'] = {
-						caseReferences: 'TR020002,TR020003'
-				}
-				#swagger.parameters['x-service-name'] = {
+		#swagger.tags = ['Migration']
+		#swagger.path =  '/migration/validate'
+		#swagger.description = 'Validate migration'
+		#swagger.parameters['query'] = {
+			caseReferences: 'TR020002,TR020003'
+		}
+		#swagger.parameters['x-service-name'] = {
 			in: 'header',
 			type: 'string',
 			description: 'Service name header',
@@ -127,25 +133,24 @@ router.get(
 			description: 'API key header',
 			default: '123'
 		}
-				#swagger.responses[200] = {
-						description: 'Document status updated',
+		#swagger.responses[200] = {
+			description: 'Document status updated',
             schema: { }
-				}
-			*/
-
+		}
+	*/
 	asyncHandler(validateMigration)
 );
 
 router.get(
 	'/archive-folder-info',
 	/*
-				#swagger.tags = ['Migration']
-				#swagger.path =  'migration/archive-folder-info'
-				#swagger.description = 'Get archive folder information'
-				#swagger.parameters['query'] = {
-						caseReferences: 'TR020002,TR020003'
-				}
-				#swagger.parameters['x-service-name'] = {
+		#swagger.tags = ['Migration']
+		#swagger.path =  'migration/archive-folder-info'
+		#swagger.description = 'Get archive folder information'
+		#swagger.parameters['query'] = {
+				caseReferences: 'TR020002,TR020003'
+		}
+		#swagger.parameters['x-service-name'] = {
 			in: 'header',
 			type: 'string',
 			description: 'Service name header',
@@ -157,12 +162,11 @@ router.get(
 			description: 'API key header',
 			default: '123'
 		}
-				#swagger.responses[200] = {
-						description: '',
-            schema: { }
-				}
-			*/
-
+		#swagger.responses[200] = {
+			description: '',
+			schema: { }
+		}
+	*/
 	asyncHandler(getArchiveFolderInformation)
 );
 
