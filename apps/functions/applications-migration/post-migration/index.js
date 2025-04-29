@@ -20,28 +20,53 @@ app.http('post-migration', {
 	 */
 	handler: async (request, context) => {
 		// @ts-ignore
-		const { caseReferences, skipHtmlTransform } = await request.json();
+		const { caseReferences, skipLooseS51Attachments, skipHtmlTransform, skipFixExamFolders } =
+			await request.json();
 		const entityName = 'post-migration';
 		return handleMigrationWithResponse(context, {
 			caseReferences: caseReferences,
 			entityName,
-			migrationStream: () => runPostMigrationTasks(context, caseReferences, skipHtmlTransform)
+			migrationStream: () =>
+				runPostMigrationTasks(
+					context,
+					caseReferences,
+					skipLooseS51Attachments,
+					skipHtmlTransform,
+					skipFixExamFolders
+				)
 		});
 	}
 });
 
 /**
- * Migrate a whole case
+ * Performs post migration tasks for the given case references
  *
  * @param {import("@azure/functions").InvocationContext} log
  * @param {string[]} caseReferenceList
+ * @param {boolean} skipLooseS51Attachments
  * @param {boolean} skipHtmlTransform
+ * @param {boolean} skipFixExamFolders
  */
-const runPostMigrationTasks = async (log, caseReferenceList, skipHtmlTransform) => {
+const runPostMigrationTasks = async (
+	log,
+	caseReferenceList,
+	skipLooseS51Attachments,
+	skipHtmlTransform,
+	skipFixExamFolders
+) => {
 	/** @type {Function[][]} */
 	const listOfCaseReferenceTasks = [];
 	caseReferenceList.forEach((caseReference) => {
-		const caseReferenceTaskList = [() => startMigrationCleanup(log, caseReference, skipHtmlTransform)];
+		const caseReferenceTaskList = [
+			() =>
+				startMigrationCleanup(
+					log,
+					caseReference,
+					skipLooseS51Attachments,
+					skipHtmlTransform,
+					skipFixExamFolders
+				)
+		];
 		listOfCaseReferenceTasks.push(caseReferenceTaskList);
 	});
 

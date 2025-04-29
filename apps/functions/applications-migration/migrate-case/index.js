@@ -25,7 +25,15 @@ app.http('migrate-case', {
 	 */
 	handler: async (request, context) => {
 		// @ts-ignore
-		const { caseReferences, migrationOverwrite, isWelshCase, dryRun, skipHtmlTransform } = await request.json();
+		const {
+			caseReferences,
+			migrationOverwrite,
+			isWelshCase,
+			dryRun,
+			skipLooseS51Attachments,
+			skipHtmlTransform,
+			skipFixExamFolders
+		} = await request.json();
 		const entityName = 'case';
 		const validationErrorResponse = await handleRequestValidation(context, {
 			entityName,
@@ -39,7 +47,15 @@ app.http('migrate-case', {
 			caseReferences: caseReferences,
 			entityName,
 			migrationStream: () =>
-				migrateCase(context, caseReferences, toBoolean(dryRun), toBoolean(isWelshCase), toBoolean(skipHtmlTransform))
+				migrateCase(
+					context,
+					caseReferences,
+					toBoolean(dryRun),
+					toBoolean(isWelshCase),
+					toBoolean(skipLooseS51Attachments),
+					toBoolean(skipHtmlTransform),
+					toBoolean(skipFixExamFolders)
+				)
 		});
 	}
 });
@@ -51,9 +67,19 @@ app.http('migrate-case', {
  * @param {string[]} caseReferenceList
  * @param {boolean} dryRun
  * @param {boolean} isWelshCase
+ * @param {boolean} skipLooseS51Attachments
  * @param {boolean} skipHtmlTransform
+ * @param {boolean} skipFixExamFolders
  */
-const migrateCase = async (log, caseReferenceList, dryRun = false, isWelshCase = false, skipHtmlTransform = false) => {
+const migrateCase = async (
+	log,
+	caseReferenceList,
+	dryRun = false,
+	isWelshCase = false,
+	skipLooseS51Attachments = false,
+	skipHtmlTransform = false,
+	skipFixExamFolders = false
+) => {
 	/** @type {Function[][]} */
 	const listOfCaseReferenceTasks = [];
 	caseReferenceList.forEach((caseReference) => {
@@ -70,7 +96,15 @@ const migrateCase = async (log, caseReferenceList, dryRun = false, isWelshCase =
 			caseReferenceTaskList.push(() => migrateProjectUpdates(log, [caseReference], isWelshCase));
 		}
 
-		caseReferenceTaskList.push(() => startMigrationCleanup(log, caseReference, skipHtmlTransform));
+		caseReferenceTaskList.push(() =>
+			startMigrationCleanup(
+				log,
+				caseReference,
+				skipLooseS51Attachments,
+				skipHtmlTransform,
+				skipFixExamFolders
+			)
+		);
 
 		// re-run the nsip-project migration to update the status and broadcast
 		if (!dryRun) {
