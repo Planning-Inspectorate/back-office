@@ -5,6 +5,7 @@ import {
 	getFolderByName
 } from '../../applications/application/file-folders/folders.service.js';
 import { getByRef as getCaseByRef } from '#repositories/case.repository.js';
+import { getByCaseId as getExamTimetableByCaseId } from '#repositories/examination-timetable.repository.js';
 import * as documentRepository from '#repositories/document.repository.js';
 import {
 	getHtmlDocumentVersions,
@@ -20,17 +21,27 @@ import { createDocumentVersion } from '../../applications/application/documents/
  */
 export const migrationCleanup = async (req, res) => {
 	const caseReference = req.body.caseReference;
+	const skipLooseS51Attachments = req.body.skipLooseS51Attachments;
 	const skipHtmlTransform = req.body.skipHtmlTransform;
+	const skipFixExamFolders = req.body.skipFixExamFolders;
 
 	res.writeHead(200, { 'Content-Type': 'text/plain', 'transfer-encoding': 'chunked' });
 	res.write(`\nStarting migration cleanup for ${caseReference} ...\n`);
+	res.write(`Settings: : skipLooseS51Attachments: ${skipLooseS51Attachments}\n`);
+	res.write(`Settings: : skipHtmlTransform: ${skipHtmlTransform}\n`);
+	res.write(`Settings: : skipFixExamFolders: ${skipFixExamFolders}\n`);
 	res.flush();
 
 	try {
 		const caseId = await getCaseIdByRef(caseReference);
-		await cleanupLooseS51Attachments(caseId, res);
+		if (!skipLooseS51Attachments) {
+			await cleanupLooseS51Attachments(caseId, res);
+		}
 		if (!skipHtmlTransform) {
 			await convertOldHtmlToNewHtmlDocuments(caseId, res);
+		}
+		if (!skipFixExamFolders) {
+			await correctExamTimetableFolders(caseId, res);
 		}
 		// note: any other cleanup tasks can be added here in the future
 	} catch (error) {
@@ -42,11 +53,22 @@ export const migrationCleanup = async (req, res) => {
 	}
 };
 
+/**
+ *
+ * @param {string} caseReference
+ * @returns number
+ */
 const getCaseIdByRef = async (caseReference) => {
 	const project = await getCaseByRef(caseReference);
 	return project.id;
 };
 
+/**
+ * Move all unattached s51 attachments, in the wrong place, to an archive folder
+ *
+ * @param {number} caseId
+ * @param {*} res
+ */
 const cleanupLooseS51Attachments = async (caseId, res) => {
 	const s51UnattachedFolderName = 'S51 Unattached';
 	const archiveFolderName = 'Archived Documentation';
@@ -86,6 +108,12 @@ const cleanupLooseS51Attachments = async (caseId, res) => {
 	res.flush();
 };
 
+/**
+ * Convert all old HZN HTML documents that point to YouTube videos, to the new CBOS format
+ * @param {number} caseId
+ * @param {*} res
+ * @returns
+ */
 const convertOldHtmlToNewHtmlDocuments = async (caseId, res) => {
 	res.write(`Starting to convert old html documents to new html documents...\n`);
 	res.flush();
@@ -112,10 +140,10 @@ const convertOldHtmlToNewHtmlDocuments = async (caseId, res) => {
 				)
 				.then((html) => {
 					// exit early if this is already a new template
-					if (!html) return
+					if (!html) return;
 					convertedCount++;
-					return uploadNewFileVersion(htmlDocumentVersion.privateBlobPath, html)
-						.then((uploadFileVersionResponse) =>
+					return uploadNewFileVersion(htmlDocumentVersion.privateBlobPath, html).then(
+						(uploadFileVersionResponse) =>
 							createDocumentVersion(
 								{
 									documentName: htmlDocumentVersion.originalFilename,
@@ -129,9 +157,125 @@ const convertOldHtmlToNewHtmlDocuments = async (caseId, res) => {
 								htmlDocumentVersion.documentGuid,
 								true
 							)
-						);
+					);
 				});
 		})
 	);
 	res.write(`Converted ${convertedCount} of ${htmlDocumentVersions.length} documents.\n`);
+};
+
+/**
+ * After migration, the exam timetable items were all incorrectly pointing to the main exam timetable folder,
+ * this tries to match them to the correct folder for each exam item, and create the folder if it does not exist.
+ * folder names are in old HZN format - <yyyymmdd> <item_name>
+ *
+ * @param {number} caseId
+ * @param {*} res
+ * @returns
+ */
+const correctExamTimetableFolders = async (caseId, res) => {
+	const examTimetableFolderName = 'Examination Timetable';
+
+	res.write(`Starting to fix exam timetable foldersfor caseId ${caseId} ...\n`);
+
+	// get the Examination Timetable main folder
+	const { id: examTimetableFolderId } = await getFolderByName(caseId, examTimetableFolderName);
+	if (!examTimetableFolderId) {
+		res.write(`Examination Timetable folder with id ${examTimetableFolderId} does not exist.\n`);
+		return;
+	}
+	res.write(`Examination Timetable folder with id ${examTimetableFolderId} found.\n`);
+
+	const examTimetable = await getExamTimetableByCaseId(caseId);
+	if (!examTimetable) {
+		res.write(`Examination Timetable with id ${examTimetable.id} does not exist.\n`);
+		return;
+	}
+	const examTimetableId = examTimetable.id;
+	res.write(`Examination Timetable with id ${examTimetableId} found.\n`);
+	// work through the exam timetable items
+	const examTimetableItems = await databaseConnector.$queryRaw`
+		SELECT *
+		FROM ExaminationTimetableItem
+		WHERE examinationTimetableId = ${examTimetableId} AND folderId = ${examTimetableFolderId}
+	`;
+	// res.write(`Examination Timetable Items ${JSON.stringify(examTimetableItems)}\n`);
+	if (examTimetableItems.length === 0) {
+		res.write(`No incorrect exam timetable items found.\n`);
+		return;
+	}
+	res.write(
+		`Examination Timetable Items with incorrect folder ids: ${examTimetableItems.length} found.\n`
+	);
+
+	for (const item of examTimetableItems) {
+		const { id: itemId, folderId, name, date: itemDate } = item;
+		// res.write(`Exam timetable item ${itemId} with folder id ${folderId} and name ${name} found.\n`);
+		if (folderId == examTimetableFolderId) {
+			res.write('----------------------------------------------------\n');
+			res.write(
+				`Examination timetable item ${itemId} ${name} incorrectly pointed to main timetable folder.\n`
+			);
+
+			// now try to see if the folder it should point to already exists
+			res.write(
+				`Checking if folder for ${itemDate
+					.toISOString()
+					.substr(0, 10)} in ${itemDate.toISOString()} exists...\n`
+			);
+
+			// CBOS format - proper CBOS folder names in format dd mmm yyyy - <item_name>
+			// const folderNameCBOSFormat = `${formatDate(itemDate, true)} - ${name}`;
+
+			// HZN format - Folder called "<yyyymmdd> <item_name>
+			const formattedDate = itemDate.toISOString().substr(0, 10).replace(/-/g, ''); // eg 20250131
+			const expectedFolderName = `${formattedDate} ${name}`;
+
+			//const expectedFolderName = `${name}`;
+			const matchingFolder = await getFolderByName(
+				caseId,
+				expectedFolderName,
+				examTimetableFolderId
+			);
+
+			if (!matchingFolder) {
+				res.write(`Examination timetable item CBOS folder ${expectedFolderName} does not exist.\n`);
+
+				res.write(`Creating folder ${expectedFolderName}...\n`);
+				const newFolder = await createFolder(caseId, expectedFolderName, examTimetableFolderId);
+				res.write(`Created folder ${JSON.stringify(newFolder)} with id ${newFolder.id}.\n`);
+
+				// now correct the exam item to reference the new folder
+				if (!newFolder) {
+					res.write(`WARN ++++++++++: Failed to create folder ${expectedFolderName}.\n`);
+				} else {
+					res.write(`Updating timetable item ${itemId} to match folder to ${newFolder.id}.\n`);
+					await databaseConnector.$executeRaw`
+						UPDATE ExaminationTimetableItem
+						SET folderId = ${newFolder.id}
+						WHERE id = ${itemId}
+					`;
+					res.write(`Updated timetable item ${itemId} to match folder to ${newFolder.id}.\n`);
+				}
+			} else {
+				// folder does exist - update the id in the timetable item to match it.
+				res.write(
+					`==== match found: Examination timetable item folder ${expectedFolderName} already exists - id ${matchingFolder.id}.\n`
+				);
+				// now correct the exam item to reference the correct folder
+				res.write(
+					`Updating timetable item ${itemId} to match folder to ${matchingFolder.id} ...\n`
+				);
+				await databaseConnector.$executeRaw`
+					UPDATE ExaminationTimetableItem
+					SET folderId = ${matchingFolder.id}
+					WHERE id = ${itemId}
+				`;
+				res.write(`Updated timetable item ${itemId} to match folder to ${matchingFolder.id}.\n`);
+			}
+		}
+	}
+
+	res.write(`Fixed exam timetable folders.\n`);
+	res.flush();
 };

@@ -57,16 +57,36 @@
 				}
 			}
 		},
-		"migration/cleanup": {
+		"/migration/cleanup": {
 			"post": {
 				"tags": ["Migration"],
-				"description": "Cleanup migration data",
+				"description": "Cleanup migration data for a case",
 				"parameters": [
 					{
-						"name": "query",
-						"caseReferences": "TR020002,TR020003",
-						"in": "query",
-						"type": "string"
+						"name": "body",
+						"in": "body",
+						"description": "Case migration paremeters",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"caseReference": {
+									"type": "string",
+									"example": "EN070007"
+								},
+								"skipLooseS51Attachments": {
+									"type": "boolean",
+									"example": false
+								},
+								"skipHtmlTransform": {
+									"type": "boolean",
+									"example": false
+								},
+								"skipFixExamFolders": {
+									"type": "boolean",
+									"example": false
+								}
+							}
+						}
 					},
 					{
 						"name": "x-service-name",
@@ -100,7 +120,7 @@
 		"/migration/{modelType}": {
 			"post": {
 				"tags": ["Migration"],
-				"description": "Updates document status from state machine",
+				"description": "Case Migration",
 				"parameters": [
 					{
 						"name": "modelType",
