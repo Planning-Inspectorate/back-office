@@ -7,7 +7,7 @@ import { getDocumentFolderId } from './folder/folder.js';
 import logger from '#utils/logger.js';
 import { broadcastNsipDocumentEvent } from '#infrastructure/event-broadcasters.js';
 import { EventType } from '@pins/event-client/src/event-type.js';
-import { trimDocumentNameSuffix } from '#utils/file-fns.js';
+import { trimDocumentNameKnownSuffix } from '#utils/file-fns.js';
 
 /**
  * Convert HZN Document Version DocumentType to CBOS Document Version DocumentType
@@ -30,7 +30,8 @@ const hznDocVersionTypes = {
 };
 
 /**
- * Handle an HTTP trigger/request to run the migration
+ * Handle an HTTP trigger/request to run the migration.
+ * Migrates NSIP documents
  *
  * @param {import("pins-data-model").Schemas.NSIPDocument[]} documents
  * @param {Function} updateProgress
@@ -44,22 +45,20 @@ export const migrateNsipDocuments = async (documents, updateProgress) => {
 
 	// documents are processed in version order, with each original upload before its PDF rendition (if any)
 	// ie are going to make original v1 => v1, rendition v1 => v2, original v2 => v3, rendition v2 => v4 etc.
+
+	// After Apr 2025 change to HZN View and ODW, both originalFileName and filename (ie the displayed and editable title) are separate incoming fields now
 	let parentDocumentId = null;
-	let parentDocFilename = null;
 	let versionNumber = 1;
 	for (const [index, document] of documents.entries()) {
 		const folderId = await getDocumentFolderId(document, caseId);
 		let documentId = document.documentId;
-		let documentFilename = trimDocumentNameSuffix(document.filename); // Display name has suffix trimmed off
+		let documentFilename = trimDocumentNameKnownSuffix(document.filename); // take HZN display name and trim off file suffix if in known list
 		if (documentId !== parentDocumentId) {
 			// new doc to process
 			parentDocumentId = documentId;
-			parentDocFilename = documentFilename;
 			versionNumber = document.version; // start at the same HZN version number
 		} else {
-			// new version of the same doc as previous, so increment the version number and keep the same filename as the first version
-			// @ts-ignore
-			documentFilename = parentDocFilename;
+			// new version of the same doc as previous, so increment the version number
 			versionNumber++;
 		}
 
@@ -287,7 +286,7 @@ const broadcastAllPublishedDocuments = async (caseId) => {
 };
 
 /**
- * Create the DocumentVersion record
+ * Create the DocumentVersion record for a migrating document
  *
  * @param {string} documentGuid
  * @param {number} versionNumber
