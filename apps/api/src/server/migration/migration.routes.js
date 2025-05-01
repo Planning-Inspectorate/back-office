@@ -47,7 +47,7 @@ router.post(
 		#swagger.description = 'Cleanup migration data for a case'
 		#swagger.parameters['body'] = {
 			in: 'body',
-			description: 'Case migration paremeters',
+			description: 'Case migration parameters',
 			schema: {
 				caseReference: 'EN070007',
 				skipLooseS51Attachments: false,

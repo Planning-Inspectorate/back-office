@@ -176,7 +176,7 @@ const convertOldHtmlToNewHtmlDocuments = async (caseId, res) => {
 const correctExamTimetableFolders = async (caseId, res) => {
 	const examTimetableFolderName = 'Examination Timetable';
 
-	res.write(`Starting to fix exam timetable foldersfor caseId ${caseId} ...\n`);
+	res.write(`Starting to fix exam timetable folders for caseId ${caseId} ...\n`);
 
 	// get the Examination Timetable main folder
 	const { id: examTimetableFolderId } = await getFolderByName(caseId, examTimetableFolderName);
@@ -211,7 +211,7 @@ const correctExamTimetableFolders = async (caseId, res) => {
 	for (const item of examTimetableItems) {
 		const { id: itemId, folderId, name, date: itemDate } = item;
 		// res.write(`Exam timetable item ${itemId} with folder id ${folderId} and name ${name} found.\n`);
-		if (folderId == examTimetableFolderId) {
+		if (folderId === examTimetableFolderId) {
 			res.write('----------------------------------------------------\n');
 			res.write(
 				`Examination timetable item ${itemId} ${name} incorrectly pointed to main timetable folder.\n`

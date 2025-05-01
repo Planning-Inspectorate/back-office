@@ -65,7 +65,7 @@
 					{
 						"name": "body",
 						"in": "body",
-						"description": "Case migration paremeters",
+						"description": "Case migration parameters",
 						"schema": {
 							"type": "object",
 							"properties": {
