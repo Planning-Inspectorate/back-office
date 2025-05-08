@@ -47,6 +47,10 @@
 								{% endif %}
 
 								{{ statusTag(case.status) }}
+
+								{% if case.publishedDate %}
+									<a href="{{ frontOfficeProjectUrl | safe }}" class="govuk-link govuk-!-margin-left-4" rel="noreferrer noopener" target="_blank">View published project page (opens in new tab)</a>
+								{% endif %}
 							</div>
 						</div>
 				{% endblock %}
