@@ -6,6 +6,7 @@ import {
 	getCaseFolder
 } from './documentation/applications-documentation.service.js';
 import { featureFlagClient } from '../../../common/feature-flags.js';
+import config from '../../../../environment/config.js';
 
 /**
  * @typedef {object} ApplicationCaseLocals
@@ -46,6 +47,8 @@ export const registerCase = async (request, response, next) => {
 		pino.error('[WEB] Trying to load a non-draft page for a draft case');
 		return response.render(`app/404.njk`);
 	}
+
+	response.locals.frontOfficeProjectUrl = `${config.frontOfficeURL}/projects/${response.locals.case.reference}`;
 
 	next();
 };
