@@ -155,8 +155,9 @@ export const createExaminationTimetableItem = async ({ body }, response) => {
 				: examinationFolder.stage,
 		displayOrder
 	};
+	const isCustom = false;
 
-	const itemFolder = await folderRepository.createFolder(folder);
+	const itemFolder = await folderRepository.createFolder(folder, isCustom);
 	if (!itemFolder) {
 		throw new BackOfficeAppError('Failed to create sub folder for the examination item.', 500);
 	}

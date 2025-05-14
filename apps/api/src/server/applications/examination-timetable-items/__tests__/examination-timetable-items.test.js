@@ -370,7 +370,7 @@ describe('Test examination timetable items API', () => {
 				stage: 'Examination',
 				parentFolderId: 1,
 				displayOrder: 20230227,
-				isCustom: true
+				isCustom: false
 			}
 		});
 		expect(databaseConnector.examinationTimetable.create).toHaveBeenCalledTimes(1);
@@ -406,7 +406,7 @@ describe('Test examination timetable items API', () => {
 				stage: 'Pre-examination',
 				parentFolderId: 1,
 				displayOrder: 20230227,
-				isCustom: true
+				isCustom: false
 			}
 		});
 		expect(databaseConnector.examinationTimetable.create).toHaveBeenCalledTimes(1);
@@ -481,7 +481,7 @@ describe('Test examination timetable items API', () => {
 				displayNameEn: '27 Feb 2023 - Examination Timetable Item',
 				parentFolderId: 1,
 				stage: 'Examination',
-				isCustom: true
+				isCustom: false
 			}
 		});
 
@@ -490,7 +490,7 @@ describe('Test examination timetable items API', () => {
 			displayOrder: 100,
 			parentFolderId: 1,
 			stage: 'Examination',
-			isCustom: true
+			isCustom: false
 		};
 
 		expect(databaseConnector.folder.create).toHaveBeenNthCalledWith(2, {
@@ -805,7 +805,7 @@ describe('Test examination timetable items API', () => {
 			displayOrder: 100,
 			parentFolderId: 1234,
 			stage: 'Examination',
-			isCustom: true
+			isCustom: false
 		};
 
 		expect(databaseConnector.folder.create).toHaveBeenNthCalledWith(1, {
