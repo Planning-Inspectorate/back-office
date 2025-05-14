@@ -240,7 +240,8 @@ export const createDeadlineSubFolders = async (
 		stage,
 		displayOrder: 100
 	};
-	createFolderPromise.push(folderRepository.createFolder(otherFolder));
+	const isCustom = false;
+	createFolderPromise.push(folderRepository.createFolder(otherFolder, isCustom));
 
 	if (!description?.bulletPoints || description?.bulletPoints?.length === 0) {
 		logger.info('No bulletpoints');
@@ -255,7 +256,8 @@ export const createDeadlineSubFolders = async (
 			stage,
 			displayOrder: 100
 		};
-		createFolderPromise.push(folderRepository.createFolder(subFolder));
+		const isCustom = false;
+		createFolderPromise.push(folderRepository.createFolder(subFolder, isCustom));
 	});
 
 	logger.info('Create sub folders');
