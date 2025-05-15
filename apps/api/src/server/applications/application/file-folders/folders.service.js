@@ -93,7 +93,7 @@ const getOrderBy = (sortBy = '-dateCreated') => {
 		{ latestDocumentVersion: { [sortField]: sortDirection } },
 		// If the sort field is not dateCreated, then sort by dateCreated as a secondary sort field
 		...(sortField !== 'dateCreated' ? [{ latestDocumentVersion: { dateCreated: 'desc' } }] : [])
-	]
+	];
 };
 
 /**
@@ -168,14 +168,20 @@ export const getChildFolders = async (folderId) => {
  * @param {number} applicationId
  * @param {string} folderName
  * @param {number} [parentFolderId]
+ * @param {number} [displayOrder]
  * @returns {Promise<FolderDetails>}
  * */
-export const createFolder = async (applicationId, folderName, parentFolderId) => {
+export const createFolder = async (
+	applicationId,
+	folderName,
+	parentFolderId,
+	displayOrder = 100
+) => {
 	const input = {
 		displayNameEn: folderName,
 		caseId: applicationId,
 		parentFolderId: parentFolderId ?? null,
-		displayOrder: 100,
+		displayOrder: displayOrder,
 		stage: await getParentFolderStage(parentFolderId)
 	};
 
