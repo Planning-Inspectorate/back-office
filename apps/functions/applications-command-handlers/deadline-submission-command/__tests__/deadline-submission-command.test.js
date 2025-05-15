@@ -9,8 +9,18 @@ describe('deadline-submission-command', () => {
 	const mockSendEvents = jest.fn();
 
 	beforeEach(() => {
+		// assumptions:
+		/* case id = 1
+		 * exam timetable item id = 1
+		 * exam item folder id = 1
+		 * exam sub item folder id = 2
+		 * unassigned folder id = 3
+		 */
 		api.getCaseID = jest.fn().mockResolvedValue(1);
-		api.getFolderID = jest.fn().mockResolvedValue(1);
+		api.examTimetableItemFolderExists = jest.fn().mockResolvedValue(true);
+		api.getExamTimetableLineItemFolderID = jest.fn().mockResolvedValue(2);
+		// api.getOrCreateUnassignedFolderId = jest.fn().mockResolvedValue(3);
+
 		api.getTimetableItem = jest.fn().mockResolvedValue({
 			id: 1,
 			name: 'timetableItemName',
@@ -60,7 +70,7 @@ describe('deadline-submission-command', () => {
 				filter1Welsh: 'timetableItemName Welsh',
 				documentType: 'application/octet-stream',
 				documentSize: 1,
-				folderID: 1,
+				folderID: 2,
 				userEmail: mockMsg.email
 			})
 		);

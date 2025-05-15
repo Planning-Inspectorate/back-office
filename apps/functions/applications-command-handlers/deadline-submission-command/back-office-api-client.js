@@ -1,6 +1,7 @@
 import config from './config.js';
 import { requestWithApiKey } from '../common/backend-api-request.js';
 
+const UNASSIGNED_FOLDER_NAME = 'Unassigned';
 /** @typedef {{ id: number, displayNameEn: string }} FolderJSON */
 /** @typedef {import('./lib.js').ExaminationTimetableItem} ExaminationTimetableItem */
 
@@ -75,37 +76,61 @@ async function submitDocument({
 }
 
 /**
+ * Checks if the exam item folder exists for a given case ID and timetable item folder id - eg folder id for Deadline 1
  *
  * @param {number} caseID
+ * @param {number} examItemFolderId
  * @param {string} timetableItemName
- * @param {string} lineItem
- * @returns {Promise<number>}
+ * @returns {Promise<boolean>}
  * */
-async function getFolderID(caseID, timetableItemName, lineItem) {
-	/** @type {FolderJSON[]} */
-	const folders = await (async () => {
+async function examTimetableItemFolderExists(caseID, examItemFolderId, timetableItemName) {
+	/** @type {FolderJSON} */
+	const examItemfolder = await (async () => {
 		try {
 			return await requestWithApiKey
-				.get(`https://${config.apiHost}/applications/${caseID}/folders?all=true`)
+				.get(`https://${config.apiHost}/applications/${caseID}/folders/${examItemFolderId}`)
 				.json();
 		} catch (err) {
-			throw new Error(`fetching folders failed for case ID ${caseID} with error: ${err}`);
+			throw new Error(
+				`fetching matching deadline folder failed for case ID ${caseID} and folder ID ${examItemFolderId} with error: ${err}`
+			);
 		}
 	})();
 
-	const folder = folders.find((f) => f.displayNameEn.endsWith(timetableItemName));
-	if (!folder) {
-		throw new Error(`No folder found with name '${timetableItemName}'`);
+	if (!examItemfolder) {
+		throw new Error(`No matching exam item folder found with ID '${examItemFolderId}'`);
 	}
 
+	if (!examItemfolder.displayNameEn.endsWith(timetableItemName)) {
+		throw new Error(
+			`folder name ${examItemfolder.displayNameEn} does not match expected exam item name '${timetableItemName}'`
+		);
+	}
+
+	return true;
+}
+
+/**
+ * Gets the Exam Timetable sub item / line item folder ID for a given case ID, timetable item id, and line item name
+ *
+ * @param {number} caseID
+ * @param {number} timetableItemFolderId
+ * @param {string} lineItem
+ * @returns {Promise<number>}
+ * */
+async function getExamTimetableLineItemFolderID(caseID, timetableItemFolderId, lineItem) {
 	/** @type {FolderJSON[]} */
 	const subfolders = await (async () => {
 		try {
 			return await requestWithApiKey
-				.get(`https://${config.apiHost}/applications/${caseID}/folders/${folder.id}/sub-folders`)
+				.get(
+					`https://${config.apiHost}/applications/${caseID}/folders/${timetableItemFolderId}/sub-folders`
+				)
 				.json();
 		} catch (err) {
-			throw new Error(`fetching subfolders failed for folder ID ${folder.id} with error: ${err}`);
+			throw new Error(
+				`fetching subfolders failed for folder ID ${timetableItemFolderId} with error: ${err}`
+			);
 		}
 	})();
 
@@ -118,6 +143,56 @@ async function getFolderID(caseID, timetableItemName, lineItem) {
 }
 
 /**
+ * Get the Id of the Unassigned folder for a timetable item, or create it if it doesn't exist
+ *
+ * @param {number} caseID
+ * @param {number} timetableItemFolderId
+ * @param {import('@azure/functions').Context} context
+ * @returns
+ */
+async function getOrCreateUnassignedFolderId(caseID, timetableItemFolderId, context) {
+	/** @type {FolderJSON[]} */
+	const subfolders = await (async () => {
+		try {
+			return await requestWithApiKey
+				.get(
+					`https://${config.apiHost}/applications/${caseID}/folders/${timetableItemFolderId}/sub-folders`
+				)
+				.json();
+		} catch (err) {
+			throw new Error(
+				`Unassigned folder: fetching subfolders failed for folder ID ${timetableItemFolderId} with error: ${err}`
+			);
+		}
+	})();
+
+	let unassignedFolder = subfolders.find((f) => f.displayNameEn === UNASSIGNED_FOLDER_NAME);
+	if (!unassignedFolder) {
+		context.log(
+			`No Unassigned folder found in parent folder ID ${timetableItemFolderId}, creating it...`
+		);
+		unassignedFolder = await requestWithApiKey
+			.post(`https://${config.apiHost}/applications/${caseID}/create-folder`, {
+				json: {
+					parentFolderId: timetableItemFolderId,
+					name: UNASSIGNED_FOLDER_NAME
+				}
+			})
+			.json();
+		if (!unassignedFolder) {
+			throw new Error(
+				`Unassigned folder: Failed to create Unassigned folder in parent folder ID ${timetableItemFolderId}`
+			);
+		}
+		context.log(`Unassigned folder created with ID ${unassignedFolder.id}`);
+	}
+
+	return unassignedFolder.id;
+}
+
+/**
+ * Get an Exam timetable item by case ID and timetable item name
+ *
  * @param {number} caseID
  * @param {string} timetableItemName
  * @returns {Promise<ExaminationTimetableItem | null>}
@@ -164,8 +239,10 @@ async function populateDocumentMetadata(
 
 export default {
 	getCaseID,
-	getFolderID,
+	examTimetableItemFolderExists,
+	getExamTimetableLineItemFolderID,
 	getTimetableItem,
+	getOrCreateUnassignedFolderId,
 	submitDocument,
 	populateDocumentMetadata
 };

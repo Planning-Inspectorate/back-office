@@ -5,6 +5,7 @@
  * @property {string | null} nameWelsh
  * @property {string} description
  * @property {string | null} descriptionWelsh
+ * @property {number} folderId
  * */
 
 /**
