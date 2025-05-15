@@ -72,5 +72,11 @@ export const getServiceUserUnder18AndCountyValue = (value) => {
  * @returns
  */
 export const toBoolean = (value) => {
-	return value === true || value?.toLowerCase() === 'true';
+	let isBool = false;
+	if (typeof value === 'boolean') {
+		isBool = value;
+	} else if (typeof value === 'string' && value.length > 0) {
+		isBool = value.toLowerCase() === 'true';
+	}
+	return isBool;
 };

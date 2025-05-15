@@ -16,6 +16,8 @@ import {
 import { databaseConnector } from '#utils/database-connector.js';
 import { createDocumentVersion } from '../../applications/application/documents/document.service.js';
 
+const EXAMINATION_STAGE = 'Examination';
+
 /**
  * @type {import("express").RequestHandler<{modelType: string}, ?, any[]>}
  */
@@ -167,7 +169,8 @@ const convertOldHtmlToNewHtmlDocuments = async (caseId, res) => {
 /**
  * After migration, the exam timetable items were all incorrectly pointing to the main exam timetable folder,
  * this tries to match them to the correct folder for each exam item, and create the folder if it does not exist.
- * folder names are in old HZN format - <yyyymmdd> <item_name>
+ * folder names are in old HZN format - <yyyymmdd> <item_name>.
+ * Also corrects the folder stage, displayOrder and isCustom values on existing matching folders
  *
  * @param {number} caseId
  * @param {*} res
@@ -242,7 +245,12 @@ const correctExamTimetableFolders = async (caseId, res) => {
 				res.write(`Examination timetable item CBOS folder ${expectedFolderName} does not exist.\n`);
 
 				res.write(`Creating folder ${expectedFolderName}...\n`);
-				const newFolder = await createFolder(caseId, expectedFolderName, examTimetableFolderId);
+				const newFolder = await createFolder(
+					caseId,
+					expectedFolderName,
+					examTimetableFolderId,
+					formattedDate
+				);
 				res.write(`Created folder ${JSON.stringify(newFolder)} with id ${newFolder.id}.\n`);
 
 				// now correct the exam item to reference the new folder
@@ -272,6 +280,40 @@ const correctExamTimetableFolders = async (caseId, res) => {
 					WHERE id = ${itemId}
 				`;
 				res.write(`Updated timetable item ${itemId} to match folder to ${matchingFolder.id}.\n`);
+
+				// and check the exam timetable item folder has the correct stage, displayOrder and isCustom set
+				let folderUpdateRequired = false;
+				let updateCodes = [];
+				if (matchingFolder.stage !== EXAMINATION_STAGE) {
+					folderUpdateRequired = true;
+					updateCodes.push(`stage = '${EXAMINATION_STAGE}'`);
+				}
+				if (matchingFolder.displayOrder !== formattedDate) {
+					folderUpdateRequired = true;
+					updateCodes.push(`displayOrder = '${formattedDate}'`);
+				}
+				if (matchingFolder.isCustom !== true) {
+					folderUpdateRequired = true;
+					updateCodes.push(`isCustom = true`);
+				}
+
+				if (folderUpdateRequired) {
+					const updateCodeLine = updateCodes.join(', ');
+
+					try {
+						await databaseConnector.$executeRaw`
+						UPDATE Folder
+						SET ${updateCodeLine}
+						WHERE id = ${matchingFolder.id}
+					`;
+						res.write(`Updated folder ${matchingFolder.id} to SET: ${updateCodeLine}.\n`);
+					} catch (err) {
+						// warn only, and continue with fixes
+						res.write(
+							`WARN ++++++++++: Failed to update exam folder ${matchingFolder.id}: ${err.message}\n`
+						);
+					}
+				}
 			}
 		}
 	}
