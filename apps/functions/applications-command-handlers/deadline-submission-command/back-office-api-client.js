@@ -185,7 +185,7 @@ async function getUnassignedFolderId(caseID, timetableItemFolderId, context) {
 async function getOrCreateUnassignedFolderId(caseID, timetableItemFolderId, context) {
 	// try to get the Unassigned folder ID
 	let unassignedFolderId = await getUnassignedFolderId(caseID, timetableItemFolderId, context);
-	if (!unassignedFolderId && unassignedFolderId > 0) {
+	if (!unassignedFolderId) {
 		context.log(`Unassigned folder not initially found, creating it...`);
 
 		try {
