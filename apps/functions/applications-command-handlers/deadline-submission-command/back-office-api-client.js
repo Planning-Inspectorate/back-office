@@ -173,7 +173,7 @@ async function getOrCreateUnassignedFolderId(caseID, timetableItemFolderId, cont
 		);
 		try {
 			unassignedFolder = await requestWithApiKey
-				.post(`https://${config.apiHost}/applications/${caseID}/create-folder`, {
+				.post(`https://${config.apiHost}/applications/${caseID}/folders/create-folder`, {
 					json: {
 						parentFolderId: timetableItemFolderId,
 						name: UNASSIGNED_FOLDER_NAME
