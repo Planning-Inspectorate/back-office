@@ -171,23 +171,28 @@ async function getOrCreateUnassignedFolderId(caseID, timetableItemFolderId, cont
 		context.log(
 			`No Unassigned folder found in parent folder ID ${timetableItemFolderId}, creating it...`
 		);
-		unassignedFolder = await requestWithApiKey
-			.post(`https://${config.apiHost}/applications/${caseID}/create-folder`, {
-				json: {
-					parentFolderId: timetableItemFolderId,
-					name: UNASSIGNED_FOLDER_NAME
-				}
-			})
-			.json();
-		if (!unassignedFolder) {
+		try {
+			unassignedFolder = await requestWithApiKey
+				.post(`https://${config.apiHost}/applications/${caseID}/create-folder`, {
+					json: {
+						parentFolderId: timetableItemFolderId,
+						name: UNASSIGNED_FOLDER_NAME
+					}
+				})
+				.json();
+			context.log(`Unassigned folder creation response: ${unassignedFolder}`);
+		} catch (err) {
+			context.log(
+				`Unassigned folder: Error creating Unassigned folder in parent folder ID ${timetableItemFolderId}: ${err}`
+			);
 			throw new Error(
-				`Unassigned folder: Failed to create Unassigned folder in parent folder ID ${timetableItemFolderId}`
+				`Unassigned folder: Failed to create Unassigned folder in parent folder ID ${timetableItemFolderId}: Error: ${err}`
 			);
 		}
-		context.log(`Unassigned folder created with ID ${unassignedFolder.id}`);
+		context.log(`Unassigned folder created with ID ${unassignedFolder?.id}`);
 	}
 
-	return unassignedFolder.id;
+	return unassignedFolder?.id;
 }
 
 /**
