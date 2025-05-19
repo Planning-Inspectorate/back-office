@@ -143,14 +143,15 @@ async function getExamTimetableLineItemFolderID(caseID, timetableItemFolderId, l
 }
 
 /**
- * Get the Id of the Unassigned folder for a timetable item, or create it if it doesn't exist
+ * Get the Id of the Unassigned folder for a timetable item
+ * or null if it doesn't exist
  *
  * @param {number} caseID
  * @param {number} timetableItemFolderId
  * @param {import('@azure/functions').Context} context
- * @returns
+ * @returns {Promise<number | null>}
  */
-async function getOrCreateUnassignedFolderId(caseID, timetableItemFolderId, context) {
+async function getUnassignedFolderId(caseID, timetableItemFolderId, context) {
 	/** @type {FolderJSON[]} */
 	const subfolders = await (async () => {
 		try {
@@ -167,12 +168,28 @@ async function getOrCreateUnassignedFolderId(caseID, timetableItemFolderId, cont
 	})();
 
 	let unassignedFolder = subfolders.find((f) => f.displayNameEn === UNASSIGNED_FOLDER_NAME);
-	if (!unassignedFolder) {
-		context.log(
-			`No Unassigned folder found in parent folder ID ${timetableItemFolderId}, creating it...`
-		);
+	if (!unassignedFolder || unassignedFolder.id === 0) {
+		context.log(`No Unassigned folder found in parent folder ID ${timetableItemFolderId}`);
+	}
+	return unassignedFolder?.id ?? null;
+}
+
+/**
+ * Get the Id of the Unassigned folder for a timetable item, or create it if it doesn't exist
+ *
+ * @param {number} caseID
+ * @param {number} timetableItemFolderId
+ * @param {import('@azure/functions').Context} context
+ * @returns
+ */
+async function getOrCreateUnassignedFolderId(caseID, timetableItemFolderId, context) {
+	// try to get the Unassigned folder ID
+	let unassignedFolderId = await getUnassignedFolderId(caseID, timetableItemFolderId, context);
+	if (!unassignedFolderId && unassignedFolderId > 0) {
+		context.log(`Unassigned folder not initially found, creating it...`);
+
 		try {
-			unassignedFolder = await requestWithApiKey
+			let unassignedFolder = await requestWithApiKey
 				.post(`https://${config.apiHost}/applications/${caseID}/folders/create-folder`, {
 					json: {
 						parentFolderId: timetableItemFolderId,
@@ -180,19 +197,31 @@ async function getOrCreateUnassignedFolderId(caseID, timetableItemFolderId, cont
 					}
 				})
 				.json();
-			context.log(`Unassigned folder creation response: ${unassignedFolder}`);
+			context.log(`Unassigned folder creation response: ${JSON.stringify(unassignedFolder)}`);
+			if (unassignedFolder && unassignedFolder.id) {
+				unassignedFolderId = unassignedFolder.id;
+				context.log(`Unassigned folder created with ID ${unassignedFolderId}`);
+			}
 		} catch (err) {
 			context.log(
 				`Unassigned folder: Error creating Unassigned folder in parent folder ID ${timetableItemFolderId}: ${err}`
 			);
-			throw new Error(
-				`Unassigned folder: Failed to create Unassigned folder in parent folder ID ${timetableItemFolderId}: Error: ${err}`
-			);
-		}
-		context.log(`Unassigned folder created with ID ${unassignedFolder?.id}`);
-	}
 
-	return unassignedFolder?.id;
+			// in case of a concurrency error, try to get the folder again
+			unassignedFolderId = await getUnassignedFolderId(caseID, timetableItemFolderId, context);
+			if (unassignedFolderId) {
+				context.log(`Unassigned folder found after creation attempt, ID: ${unassignedFolderId}`);
+			} else {
+				context.log(`Unassigned folder not found after creation attempt`);
+				throw new Error(
+					`Unassigned folder: Failed to create Unassigned folder in parent folder ID ${timetableItemFolderId}: Error: ${err}`
+				);
+			}
+		}
+	} else {
+		context.log(`Unassigned folder found with ID ${unassignedFolderId}`);
+	}
+	return unassignedFolderId;
 }
 
 /**
