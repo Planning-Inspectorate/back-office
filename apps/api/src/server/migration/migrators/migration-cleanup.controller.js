@@ -282,6 +282,7 @@ const correctExamTimetableFolders = async (caseId, res) => {
 				res.write(`Updated timetable item ${itemId} to match folder to ${matchingFolder.id}.\n`);
 
 				// and check the exam timetable item folder has the correct stage, displayOrder and isCustom set
+				// stage = Examination, displayOrder = <formattedDate>, isCustom = false
 				let folderUpdateRequired = false;
 				let updateCodes = [];
 				if (matchingFolder.stage !== EXAMINATION_STAGE) {
@@ -292,9 +293,9 @@ const correctExamTimetableFolders = async (caseId, res) => {
 					folderUpdateRequired = true;
 					updateCodes.push(`displayOrder = '${formattedDate}'`);
 				}
-				if (matchingFolder.isCustom !== true) {
+				if (matchingFolder.isCustom !== false) {
 					folderUpdateRequired = true;
-					updateCodes.push(`isCustom = true`);
+					updateCodes.push(`isCustom = false`);
 				}
 
 				if (folderUpdateRequired) {
