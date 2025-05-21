@@ -257,7 +257,7 @@ const correctExamTimetableFolders = async (caseId, res) => {
 					caseId,
 					expectedFolderName,
 					examTimetableFolderId,
-					formattedDate
+					Number(formattedDate)
 				);
 				res.write(`Created folder ${JSON.stringify(newFolder)} with id ${newFolder.id}.\n`);
 
@@ -297,7 +297,7 @@ const correctExamTimetableFolders = async (caseId, res) => {
 					folderUpdateRequired = true;
 					updateCodes.push(`stage = '${EXAMINATION_STAGE}'`);
 				}
-				if (matchingFolder.displayOrder !== formattedDate) {
+				if (matchingFolder.displayOrder !== Number(formattedDate)) {
 					folderUpdateRequired = true;
 					updateCodes.push(`displayOrder = ${formattedDate}`);
 				}
@@ -308,12 +308,14 @@ const correctExamTimetableFolders = async (caseId, res) => {
 
 				if (folderUpdateRequired) {
 					const updateCodeLine = updateCodes.join(', ');
-
+					res.write(
+						`Updating folder ${matchingFolder.id} to SET: ${updateCodeLine} WHERE id = ${matchingFolder.id} ...\n`
+					);
 					try {
 						await databaseConnector.$executeRaw`
 						UPDATE Folder
 						SET ${updateCodeLine}
-						WHERE id = ${matchingFolder.id}
+						WHERE id = ${matchingFolder.id};
 					`;
 						res.write(`Updated folder ${matchingFolder.id} to SET: ${updateCodeLine}.\n`);
 					} catch (err) {
