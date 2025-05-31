@@ -6,6 +6,7 @@ import * as documentRepository from '#repositories/document.repository.js';
 import * as folderRepository from '#repositories/folder.repository.js';
 import * as caseRepository from '#repositories/case.repository.js';
 import logger from '#utils/logger.js';
+import pMap from 'p-map';
 import { EventType } from '@pins/event-client';
 import { verifyNotTrainingExamTimetable } from './examination-timetable-items.validators.js';
 import { buildFoldersPayload } from '#infrastructure/payload-builders/folder.js';
@@ -337,8 +338,12 @@ export const validateSubmissions = async (timetableItem, caseId) => {
 		return false;
 	}
 
-	const subfoldersDocuments = await Promise.all(
-		subFolders.map((subFolder) => documentRepository.countDocumentsInFolder(subFolder.id))
+	const subfoldersDocuments = await pMap(
+		subFolders,
+		(subFolder) => documentRepository.countDocumentsInFolder(subFolder.id),
+		// Limit concurrency to 3 to avoid overwhelming the database with too many simultaneous queries [applics-1549].
+		//TODO: this can be increased, once we up the prisma connection pool limit
+		{ concurrency: 3 }
 	);
 
 	if (subfoldersDocuments.some((sd) => sd > 0)) {

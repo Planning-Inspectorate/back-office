@@ -6,6 +6,7 @@ import * as caseRepository from '#repositories/case.repository.js';
 import BackOfficeAppError from '#utils/app-error.js';
 import { format } from 'date-fns';
 import logger from '#utils/logger.js';
+import pMap from 'p-map';
 import { mapUpdateExaminationTimetableItemRequest } from '#utils/mapping/map-examination-timetable-item.js';
 import {
 	mapExaminationTimetableItemDescriptionToSave,
@@ -42,25 +43,23 @@ export const getExaminationTimetableItems = async ({ params }, response) => {
 		return;
 	}
 
-	const examinationTimetableItemsForCase = await Promise.all(
-		examinationTimetableItems.map(
-			(item) =>
-				new Promise((resolve, reject) => {
-					service
-						.validateSubmissions(item, examinationTimetable.caseId)
-						.then((submissions) =>
-							resolve({
-								...item,
-								submissions,
-								description: mapExaminationTimetableItemDescriptionToView(item.description),
-								descriptionWelsh: item.descriptionWelsh
-									? mapExaminationTimetableItemDescriptionToView(item.descriptionWelsh)
-									: null
-							})
-						)
-						.catch(reject);
-				})
-		)
+	const examinationTimetableItemsForCase = await pMap(
+		examinationTimetableItems,
+		async (item) => {
+			const submissions = await service.validateSubmissions(item, examinationTimetable.caseId);
+
+			return {
+				...item,
+				submissions,
+				description: mapExaminationTimetableItemDescriptionToView(item.description),
+				descriptionWelsh: item.descriptionWelsh
+					? mapExaminationTimetableItemDescriptionToView(item.descriptionWelsh)
+					: null
+			};
+		},
+		//We limit the concurrency to 1 to avoid flooding prisma with too many requests at once,
+		//as this function has multiple calls to the database nested within it [applics-1549].
+		{ concurrency: 1 }
 	);
 
 	const examinationTimetableResponse = {
