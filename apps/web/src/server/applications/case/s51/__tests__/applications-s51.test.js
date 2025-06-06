@@ -1,3 +1,4 @@
+import { jest } from '@jest/globals';
 import { parseHtml } from '@pins/platform';
 import nock from 'nock';
 import supertest from 'supertest';
@@ -37,6 +38,8 @@ const nocks = () => {
 };
 
 const projectName = 'Title CASE/04';
+
+const mockDate = new Date('2023-11-01T00:00:00Z');
 
 describe('S51 Advice', () => {
 	beforeEach(installMockApi);
@@ -672,6 +675,15 @@ describe('S51 Advice', () => {
 		});
 
 		describe('GET /case/123/project-documentation/21/s51-advice/1/attachments/:documentGuid/delete', () => {
+			beforeAll(() => {
+				jest.useFakeTimers({ advanceTimers: true }).setSystemTime(mockDate);
+			});
+
+			afterAll(() => {
+				jest.runOnlyPendingTimers();
+				jest.useRealTimers();
+			});
+
 			it('should render the page', async () => {
 				const documentGuid = createS51Advice({ id: 1 }).attachments[0].documentGuid;
 				const response = await request.get(`${baseUrl}/1/attachments/${documentGuid}/delete`);
