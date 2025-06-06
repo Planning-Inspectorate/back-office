@@ -15,6 +15,9 @@ import {
 } from './cleanup/htmlTemplates.js';
 import { databaseConnector } from '#utils/database-connector.js';
 import { createDocumentVersion } from '../../applications/application/documents/document.service.js';
+import { formatInTimeZone } from 'date-fns-tz';
+
+const EXAMINATION_STAGE = 'Examination';
 
 /**
  * @type {import("express").RequestHandler<{modelType: string}, ?, any[]>}
@@ -167,7 +170,8 @@ const convertOldHtmlToNewHtmlDocuments = async (caseId, res) => {
 /**
  * After migration, the exam timetable items were all incorrectly pointing to the main exam timetable folder,
  * this tries to match them to the correct folder for each exam item, and create the folder if it does not exist.
- * folder names are in old HZN format - <yyyymmdd> <item_name>
+ * folder names are in old HZN format - <yyyymmdd> <item_name>.
+ * Also corrects the folder stage, displayOrder and isCustom values on existing matching folders
  *
  * @param {number} caseId
  * @param {*} res
@@ -208,6 +212,13 @@ const correctExamTimetableFolders = async (caseId, res) => {
 		`Examination Timetable Items with incorrect folder ids: ${examTimetableItems.length} found.\n`
 	);
 
+	// BST Summer time date issue:
+	// exam timetable folders made by HZN are named using local date, but the migration process stores dates in UTC.
+	// eg: exam timetable with date 13 Oct 2025 00:00:00 will be migrated into cbos as 12 Oct 2025 23:59:00 UTC.
+	// so when we try to find matching folder here, we need to make into local time to search for folder <20251013 - Deadline Name>
+	const timezone = 'Europe/London';
+	const folderDateFormat = 'yyyyMMdd';
+
 	for (const item of examTimetableItems) {
 		const { id: itemId, folderId, name, date: itemDate } = item;
 		// res.write(`Exam timetable item ${itemId} with folder id ${folderId} and name ${name} found.\n`);
@@ -228,7 +239,7 @@ const correctExamTimetableFolders = async (caseId, res) => {
 			// const folderNameCBOSFormat = `${formatDate(itemDate, true)} - ${name}`;
 
 			// HZN format - Folder called "<yyyymmdd> <item_name>
-			const formattedDate = itemDate.toISOString().substr(0, 10).replace(/-/g, ''); // eg 20250131
+			const formattedDate = formatInTimeZone(itemDate, timezone, folderDateFormat); // eg 20250131
 			const expectedFolderName = `${formattedDate} ${name}`;
 
 			//const expectedFolderName = `${name}`;
@@ -242,7 +253,12 @@ const correctExamTimetableFolders = async (caseId, res) => {
 				res.write(`Examination timetable item CBOS folder ${expectedFolderName} does not exist.\n`);
 
 				res.write(`Creating folder ${expectedFolderName}...\n`);
-				const newFolder = await createFolder(caseId, expectedFolderName, examTimetableFolderId);
+				const newFolder = await createFolder(
+					caseId,
+					expectedFolderName,
+					examTimetableFolderId,
+					Number(formattedDate)
+				);
 				res.write(`Created folder ${JSON.stringify(newFolder)} with id ${newFolder.id}.\n`);
 
 				// now correct the exam item to reference the new folder
@@ -272,6 +288,43 @@ const correctExamTimetableFolders = async (caseId, res) => {
 					WHERE id = ${itemId}
 				`;
 				res.write(`Updated timetable item ${itemId} to match folder to ${matchingFolder.id}.\n`);
+
+				// and check the exam timetable item folder has the correct stage, displayOrder and isCustom set
+				// stage = Examination, displayOrder = <formattedDate>, isCustom = false (bitfield 0)
+				let folderUpdateRequired = false;
+				let updateCodes = [];
+				if (matchingFolder.stage !== EXAMINATION_STAGE) {
+					folderUpdateRequired = true;
+					updateCodes.push(`stage = '${EXAMINATION_STAGE}'`);
+				}
+				if (matchingFolder.displayOrder !== Number(formattedDate)) {
+					folderUpdateRequired = true;
+					updateCodes.push(`displayOrder = ${formattedDate}`);
+				}
+				if (matchingFolder.isCustom !== false) {
+					folderUpdateRequired = true;
+					updateCodes.push(`isCustom = 0`);
+				}
+
+				if (folderUpdateRequired) {
+					const updateCodeLine = updateCodes.join(', ');
+					res.write(
+						`Updating folder ${matchingFolder.id} to SET: ${updateCodeLine} WHERE id = ${matchingFolder.id} ...\n`
+					);
+					try {
+						await databaseConnector.$executeRaw`
+						UPDATE Folder
+						SET ${updateCodeLine}
+						WHERE id = ${matchingFolder.id};
+					`;
+						res.write(`Updated folder ${matchingFolder.id} to SET: ${updateCodeLine}.\n`);
+					} catch (err) {
+						// warn only, and continue with fixes
+						res.write(
+							`WARN ++++++++++: Failed to update exam folder ${matchingFolder.id}: ${err.message}\n`
+						);
+					}
+				}
 			}
 		}
 	}

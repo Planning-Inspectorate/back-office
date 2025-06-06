@@ -44,7 +44,38 @@ async function run(context, msg) {
 	const sourceBlobName = `${msg.blobGuid}/${msg.documentName}`;
 
 	const properties = await blob.getBlobProperties(submissionsContainer, sourceBlobName);
-	const folderID = await api.getFolderID(caseID, msg.deadline, msg.submissionType);
+
+	// Check if the matching folder ID exists for the timetable item
+	const examItemfolderExists = await api.examTimetableItemFolderExists(
+		caseID,
+		timetableItem.folderId,
+		msg.deadline
+	);
+	if (!examItemfolderExists) {
+		throw new Error(
+			`Exam Item folder does not exist for case ID ${caseID} and folder ID ${timetableItem.folderId}`
+		);
+	}
+
+	// get the correct sub item folder ID
+	let examLineItemFolderID;
+	try {
+		examLineItemFolderID = await api.getExamTimetableLineItemFolderID(
+			caseID,
+			timetableItem.folderId,
+			msg.submissionType
+		);
+	} catch (err) {
+		context.log(
+			`Error getting Exam Item Sub Item folder ID for ${msg.submissionType} in Folder ${timetableItem.folderId} : ${err}`
+		);
+		// get the high level Unassigned folder, or create it if it doesn't exist
+		examLineItemFolderID = await api.getOrCreateUnassignedFolderId(
+			caseID,
+			timetableItem.folderId,
+			context
+		);
+	}
 
 	const { privateBlobContainer, documents } = await api.submitDocument({
 		caseID,
@@ -55,7 +86,7 @@ async function run(context, msg) {
 		filter1Welsh: nameWelsh,
 		documentType: properties?.contentType ?? 'application/octet-stream',
 		documentSize: properties?.contentLength ?? 0,
-		folderID,
+		folderID: examLineItemFolderID,
 		userEmail: msg.email
 	});
 
@@ -93,8 +124,9 @@ async function run(context, msg) {
 }
 
 /**
+ * Handle a Have Your Say submission on an Exam deadline, from Front Office
  *
- * @param {import('@azure/functions').Context} context
+ * @param {import('@azure/functions').Context} context	// Note that context log messages are written to the Fns Aps Invocation Logs
  * @param {NewDeadlineSubmission} msg
  */
 export default async function (context, msg) {

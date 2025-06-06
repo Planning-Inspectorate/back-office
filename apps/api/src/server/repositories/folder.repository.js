@@ -143,15 +143,16 @@ export const getFoldersByParentId = (parentFolderId, options = null) => {
 
 /**
  * @param {Object} folder
+ * @param {boolean} isCustom
  * @param {string} folder.displayNameEn
  * @param {number} folder.caseId
  * @param {number|null} folder.parentFolderId
  * @param {number|null} folder.displayOrder
  * @returns {Promise<(Folder |null)>}
  */
-export const createFolder = (folder) => {
+export const createFolder = (folder, isCustom = true) => {
 	return databaseConnector.folder.create({
-		data: { ...folder, isCustom: true }
+		data: { ...folder, isCustom }
 	});
 };
 
