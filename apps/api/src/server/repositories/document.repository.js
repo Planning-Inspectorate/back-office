@@ -381,7 +381,7 @@ export const getDocumentsInFolder = (folderId, options = {}) => {
 			isDeleted: false
 		},
 		...options,
-		orderBy,
+		orderBy
 	});
 };
 
@@ -670,7 +670,7 @@ export const getInFolderByName = (folderId, fileName, includeDeleted) =>
 	databaseConnector.document.findFirst({
 		where: {
 			folderId,
-			latestDocumentVersion: { originalFilename: fileName },
+			latestDocumentVersion: { fileName: fileName },
 			...(includeDeleted ? {} : { isDeleted: false })
 		}
 	});

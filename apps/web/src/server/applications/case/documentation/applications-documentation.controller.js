@@ -8,7 +8,10 @@ import {
 	destroySuccessBanner,
 	getSessionBanner,
 	deleteSessionBanner,
-	setSessionBanner
+	setSessionBanner,
+	setSessionDocumentNameOnDeletion,
+	getSessionDocumentNameOnDeletion,
+	deleteSessionDocumentNameOnDeletion
 } from '../../common/services/session.service.js';
 import { buildBreadcrumbItems } from '../applications-case.locals.js';
 import {
@@ -39,6 +42,8 @@ import logger from '../../../lib/logger.js';
 import moveDocumentsUtils from './utils/move-documents/utils.js';
 import { getRelevantRepFolder } from '../representations/representation-details/applications-relevant-rep-details.service.js';
 import { tableSortLinks } from './utils/table.js';
+import { generateDocumentNameOnDeletion } from './utils/generate-document-name-on-deletion.js';
+import { updateDocumentMetaData } from '../documentation-metadata/documentation-metadata.service.js';
 
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
 /** @typedef {import('../applications-case.locals.js').ApplicationCaseLocals} ApplicationCaseLocals */
@@ -284,9 +289,9 @@ export async function viewApplicationsCaseDocumentationProperties({ session }, r
 /**
  * View the documentation pages
  *
- * @type {import('@pins/express').RenderHandler<{documentationFile: DocumentationFile, warningText: string|null}, {}>}
+ * @type {import('@pins/express').RenderHandler<{documentationFile: DocumentationFile, warningText: string|null, documentNameOnDeletion: string}, {}>}
  */
-export async function viewApplicationsCaseDocumentationPages({ params }, response) {
+export async function viewApplicationsCaseDocumentationPages({ params, session }, response) {
 	const { action } = params;
 	if (!['delete', 'edit', 'publish', 'unpublish', 'upload'].includes(action)) {
 		return response.render('apps/500.njk');
@@ -301,9 +306,15 @@ export async function viewApplicationsCaseDocumentationPages({ params }, respons
 		? 'This document is in the publishing queue ready to be published.'
 		: null;
 
+	const documentNameOnDeletion = generateDocumentNameOnDeletion(
+		documentationFile?.fileName || 'document'
+	);
+	setSessionDocumentNameOnDeletion(session, documentNameOnDeletion);
+
 	response.render(`applications/case-documentation/documentation-${action}`, {
 		documentationFile,
-		warningText
+		warningText,
+		documentNameOnDeletion
 	});
 }
 
@@ -313,12 +324,13 @@ export async function viewApplicationsCaseDocumentationPages({ params }, respons
  * @type {import('@pins/express').RenderHandler<{documentationFile?: DocumentationFile, errors?: ValidationErrors} | {serviceName?: string, successMessage?: string}, {}>}
  */
 export async function updateApplicationsCaseDocumentationDelete(
-	{ errors: validationErrors },
+	{ errors: validationErrors, session },
 	response
 ) {
 	const { caseId, documentGuid } = response.locals;
 	const { title: caseName, reference: caseReference } = response.locals.case;
 	const documentationFile = await getCaseDocumentationFileInfo(caseId, documentGuid);
+	const documentNameOnDeletion = getSessionDocumentNameOnDeletion(session);
 
 	const { errors } = validationErrors
 		? { errors: validationErrors }
@@ -330,6 +342,10 @@ export async function updateApplicationsCaseDocumentationDelete(
 			errors
 		});
 	}
+
+	await updateDocumentMetaData(caseId, documentGuid, { fileName: documentNameOnDeletion });
+
+	deleteSessionDocumentNameOnDeletion(session);
 
 	response.render(`applications/case-documentation/documentation-success-banner`, {
 		serviceName: 'Document successfully deleted',
