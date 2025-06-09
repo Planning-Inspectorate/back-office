@@ -108,6 +108,7 @@
 		"notifications-node-client": "^7.0.3",
 		"nunjucks": "^3.2.4",
 		"p-map": "^7.0.3",
+		"pdf.js-extract": "^0.2.1",
 		"pino": "^8.1.0",
 		"pino-http": "^8.1.0",
 		"pino-pretty": "^8.1.0",
