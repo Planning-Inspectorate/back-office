@@ -12,6 +12,26 @@ export const getPreviousPageUrl = (caseId, representationId) =>
 	});
 
 /**
+ * @typedef {import('@azure/ai-text-analytics').PiiEntity & {accepted?: boolean}} RedactionSuggestion
+ */
+
+/**
+ * @typedef {Object} RedactRepresentationViewModel
+ * @property {string} caseId
+ * @property {string} representationId
+ * @property {string} backLinkUrl
+ * @property {string} originalRepresentation
+ * @property {string} redactedRepresentation
+ * @property {string?} notes
+ * @property {string?} redactedBy
+ * @property {string} projectName
+ * @property {string} statusText
+ * @property {string?} organisationOrFullname
+ * @property {string} [containerSize]
+ * @property {RedactionSuggestion[]} [redactionSuggestions]
+ */
+
+/**
  * @param {string} caseId
  * @param {string} representationId
  * @param {object} representation
@@ -25,8 +45,7 @@ export const getPreviousPageUrl = (caseId, representationId) =>
  * @param {string?} representation.represented.organisationName
  * @param {string} projectName
  * @param {string} statusText
- * @returns {{ caseId: string, representationId: string, backLinkUrl: string, originalRepresentation: string, redactedRepresentation: string, notes: string?, redactedBy: string?, projectName: string, statusText: string, organisationOrFullname: string? }}
- *
+ * @returns {RedactRepresentationViewModel}
  */
 export const getRedactRepresentationViewModel = (
 	caseId,
