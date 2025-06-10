@@ -1,4 +1,5 @@
 import { databaseConnector } from '#utils/database-connector.js';
+import { getFileNameWithoutSuffix } from '../applications/application/documents/document.service.js';
 
 /**
  * @typedef {import('@prisma/client').Document} Document
@@ -667,11 +668,11 @@ export const getDocumentsCountInByPublishStatus = (caseId) => {
  * @returns {import('@prisma/client').PrismaPromise<Document | null>}
  */
 export const getInFolderByName = (folderId, fileName, includeDeleted) => {
-	const trimmedFileName = fileName.slice(0, fileName.lastIndexOf('.'));
+	const fileNameWithoutSuffix = getFileNameWithoutSuffix(fileName);
 	return databaseConnector.document.findFirst({
 		where: {
 			folderId,
-			latestDocumentVersion: { fileName: trimmedFileName },
+			latestDocumentVersion: { fileName: fileNameWithoutSuffix },
 			...(includeDeleted ? {} : { isDeleted: false })
 		}
 	});

@@ -1,4 +1,5 @@
 import { databaseConnector } from '../utils/database-connector.js';
+import { getFileNameWithoutSuffix } from '../applications/application/documents/document.service.js';
 
 /**
  * @typedef {import('@prisma/client').Prisma.S51AdviceDocumentGetPayload<{include: {Document: {include: {latestDocumentVersion: true }} }}>} S51AdviceDocumentWithLatestVersion
@@ -43,13 +44,13 @@ export const getForAdvice = (adviceId) =>
  * @returns {import('@prisma/client').PrismaPromise<import('@pins/applications.api').Schema.S51AdviceDocument | null>}
  * */
 export const getDocumentInAdviceByName = (adviceId, documentName) => {
-	const trimmedDocumentName = documentName.slice(0, documentName.lastIndexOf('.'));
+	const fileNameWithoutSuffix = getFileNameWithoutSuffix(documentName);
 	return databaseConnector.s51AdviceDocument.findFirst({
 		where: {
 			adviceId,
 			Document: {
 				latestDocumentVersion: {
-					fileName: trimmedDocumentName
+					fileName: fileNameWithoutSuffix
 				}
 			}
 		}
