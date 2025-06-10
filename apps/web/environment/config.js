@@ -43,6 +43,7 @@ export function loadConfig() {
 		AUTH_DISABLED,
 		AUTH_REDIRECT_PATH = '/auth/redirect',
 		AUTH_TENANT_ID = '*',
+		AZURE_AI_LANGUAGE_ENDPOINT,
 		AZURE_BLOB_STORE_HOST,
 		CACHE_CONTROL_MAX_AGE,
 		STATIC_FEATURE_FLAGS_ENABLED,
@@ -73,6 +74,9 @@ export function loadConfig() {
 		authDisabled: AUTH_DISABLED,
 		authDisabledGroupIds: AUTH_DISABLED_GROUP_IDS.split(','),
 		authRedirectPath: AUTH_REDIRECT_PATH,
+		azureAiLanguage: {
+			endpoint: AZURE_AI_LANGUAGE_ENDPOINT
+		},
 		azureKeyVaultEnabled: environment.KEY_VAULT_ENABLED && environment.KEY_VAULT_ENABLED === 'true',
 		blobStorageUrl: AZURE_BLOB_STORE_HOST,
 		cacheControl: {

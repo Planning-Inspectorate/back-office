@@ -29,6 +29,9 @@ export interface EnvironmentConfig extends BaseEnvironmentConfig {
 	authDisabledGroupIds: string[];
 	// redirect path for MSAL auth, defaults to /auth/redirect
 	authRedirectPath: string;
+	azureAiLanguage: {
+		endpoint: string;
+	};
 	azureKeyVaultEnabled: boolean;
 	blobStorageUrl: string;
 	cacheControl: {
