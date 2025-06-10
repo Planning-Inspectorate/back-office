@@ -16,10 +16,13 @@ import {
 import { paginationParams } from '../../../lib/pagination-params.js';
 import {
 	deleteSessionBanner,
+	deleteSessionDocumentNameOnDeletion,
 	destroySuccessBanner,
 	getSessionBanner,
+	getSessionDocumentNameOnDeletion,
 	getSuccessBanner,
 	setSessionBanner,
+	setSessionDocumentNameOnDeletion,
 	setSuccessBanner
 } from '../../common/services/session.service.js';
 import { deleteCaseDocumentationFile } from '../documentation/applications-documentation.service.js';
@@ -30,6 +33,8 @@ import {
 	mapUpdateBodyToPayload
 } from './applications-s51.mapper.js';
 import addEnteredDateToValidationErrors from '../../../lib/add-entered-date-to-validation-errors.js';
+import { generateDocumentNameOnDeletion } from '../documentation/utils/generate-document-name-on-deletion.js';
+import { updateDocumentMetaData } from '../documentation-metadata/documentation-metadata.service.js';
 
 /** @typedef {import('./applications-s51.types.js').ApplicationsS51CreateBody} ApplicationsS51CreateBody */
 /** @typedef {import('./applications-s51.types.js').ApplicationsS51CreatePayload} ApplicationsS51CreatePayload */
@@ -393,9 +398,10 @@ export async function deleteApplicationsCaseS51({ params }, response) {
 /**
  * View page for deleting S51 attachment
  *
- * @type {import('@pins/express').RenderHandler<{}, {}, ApplicationsS51CreateBody, {}, {adviceId: string, attachmentId: string, folderId: string}>}
+ * @type {import('@pins/express').RenderHandler<{}, {}, ApplicationsS51CreateBody, {}, {adviceId: string, attachmentId: string, folderId: string, documentNameOnDeletion: string}>}
  */
-export async function viewApplicationsCaseS51AttachmentDelete({ params }, response) {
+export async function viewApplicationsCaseS51AttachmentDelete(request, response) {
+	const { params, session } = request;
 	const { adviceId, attachmentId, folderId } = params;
 	const { caseId } = response.locals;
 
@@ -404,10 +410,16 @@ export async function viewApplicationsCaseS51AttachmentDelete({ params }, respon
 		(attachment) => attachment.documentGuid === attachmentId
 	);
 
+	const documentNameOnDeletion = generateDocumentNameOnDeletion(
+		attachmentToDelete?.documentName || 'document'
+	);
+	setSessionDocumentNameOnDeletion(session, documentNameOnDeletion);
+
 	response.render('applications/case-s51/s51-delete-attachment.njk', {
 		attachment: attachmentToDelete,
 		adviceId: adviceId,
-		folderId: folderId
+		folderId: folderId,
+		documentNameOnDeletion: documentNameOnDeletion
 	});
 }
 
@@ -416,9 +428,11 @@ export async function viewApplicationsCaseS51AttachmentDelete({ params }, respon
  *
  * @type {import('@pins/express').RenderHandler<{}, {}, {documentName: string, dateAdded: string}, {}, {adviceId: string, attachmentId: string}>}
  */
-export async function deleteApplicationsCaseS51Attachment({ params, body }, response) {
+export async function deleteApplicationsCaseS51Attachment(request, response) {
+	const { params, body, session } = request;
 	const { adviceId, attachmentId } = params;
 	const { caseId } = response.locals;
+	const documentNameOnDeletion = getSessionDocumentNameOnDeletion(session);
 
 	// NOTE: whilst this soft deletes the document, it does NOT delete the record from the associative table S51AdviceDocument.  This is just in case we want to undelete the doc.
 	const { errors: apiErrors } = await deleteCaseDocumentationFile(
@@ -434,6 +448,10 @@ export async function deleteApplicationsCaseS51Attachment({ params, body }, resp
 			errors: apiErrors
 		});
 	}
+
+	await updateDocumentMetaData(caseId, attachmentId, { fileName: documentNameOnDeletion });
+
+	deleteSessionDocumentNameOnDeletion(session);
 
 	return response.render('applications/case-s51/s51-attachment-successfully-deleted');
 }

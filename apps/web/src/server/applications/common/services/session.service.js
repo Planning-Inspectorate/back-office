@@ -4,6 +4,7 @@
  * @typedef {import('express-session').Session & { infoTypes?: string[] }} SessionWithApplicationsCreateApplicantInfoTypes
  * @typedef {import('express-session').Session & { filesNumberOnList?: number }} SessionWithFilesNumberOnList
  * @typedef {import('express-session').Session & { showSuccessBanner?: boolean }} SessionWithSuccessBanner
+ * @typedef {import('express-session').Session & { documentNameOnDeletion?: string }} SessionWithDocumentNameOnDeletion
  */
 
 // Applicant session management
@@ -200,4 +201,34 @@ export function setSessionBanner(session, banner) {
  */
 export function deleteSessionBanner(session) {
 	delete session.banner;
+}
+
+// Renaming documents on deletion
+
+/**
+ * Set the document name to be used when deleting a document in the session.
+ * @param {SessionWithDocumentNameOnDeletion} session
+ * @param {string} documentNameOnDeletion
+ * @returns {void}
+ */
+export function setSessionDocumentNameOnDeletion(session, documentNameOnDeletion) {
+	session.documentNameOnDeletion = documentNameOnDeletion;
+}
+
+/**
+ * Get the document name to be used when deleting a document from the session.
+ * @param {SessionWithDocumentNameOnDeletion} session
+ * @returns {string|undefined}
+ */
+export function getSessionDocumentNameOnDeletion(session) {
+	return session.documentNameOnDeletion;
+}
+
+/**
+ * Delete the document name from the session.
+ * @param {SessionWithDocumentNameOnDeletion} session
+ * @returns {void}
+ */
+export function deleteSessionDocumentNameOnDeletion(session) {
+	delete session.documentNameOnDeletion;
 }
