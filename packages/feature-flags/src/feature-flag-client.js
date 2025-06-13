@@ -11,41 +11,51 @@ import staticFlags from './static-feature-flags.js';
  * @typedef {{ debug: LoggerFn, error: LoggerFn }} Logger
  * */
 
-/**
- * @param {Logger} logger
- * @param {string} [connectionString]
- * @param {boolean} [useStaticFlags]
- * */
-export function FeatureFlagClient(logger, connectionString, useStaticFlags) {
-	/** @type {import('@azure/app-configuration').AppConfigurationClient | undefined} */
-	this.client = (() => {
-		if (!connectionString) {
-			return;
-		}
+export class FeatureFlagClient {
+	/**
+	 * @param {Logger} logger
+	 * @param {string} [connectionString]
+	 * @param {boolean} [useStaticFlags]
+	 * */
+	constructor(logger, connectionString, useStaticFlags) {
+		/** @type {import('@azure/app-configuration').AppConfigurationClient | undefined} */
+		this.client = (() => {
+			if (!connectionString) {
+				return;
+			}
 
-		try {
-			return new AppConfigurationClient(connectionString);
-		} catch (err) {
-			logger.debug('Failed to create AppConfigurationClient due to error:');
-			logger.debug(err);
+			try {
+				return new AppConfigurationClient(connectionString);
+			} catch (err) {
+				logger.debug('Failed to create AppConfigurationClient due to error:');
+				logger.debug(err);
 
-			return;
-		}
-	})();
+				return;
+			}
+		})();
 
-	/** @type {Record<string, boolean>} */
-	this.featureFlags = {};
+		/** @type {Record<string, boolean>} */
+		this.featureFlags = {};
+
+		this._logger = logger;
+		this._useStaticFlags = useStaticFlags;
+	}
+
+	/** @type {(flagName: string) => boolean} */
+	isFeatureActive(flagName) {
+		return this.featureFlags[flagName] ?? false;
+	}
 
 	/** @type {() => Promise<void>} */
-	this.loadFlags = async () => {
-		if (useStaticFlags) {
-			logger.debug('returning static feature flags (STATIC_FEATURE_FLAGS_ENABLED=true)');
+	async loadFlags() {
+		if (this._useStaticFlags) {
+			this._logger.debug('returning static feature flags (STATIC_FEATURE_FLAGS_ENABLED=true)');
 			this.featureFlags = staticFlags;
 			return;
 		}
 
 		if (!this.client) {
-			logger.debug(
+			this._logger.debug(
 				'Cannot load flags because no Azure App Config client exists. Returning an empty object.'
 			);
 			this.featureFlags = {};
@@ -78,8 +88,5 @@ export function FeatureFlagClient(logger, connectionString, useStaticFlags) {
 		}
 
 		this.featureFlags = flags;
-	};
-
-	/** @type {(flagName: string) => boolean} */
-	this.isFeatureActive = (flagName) => this.featureFlags[flagName] ?? false;
+	}
 }
