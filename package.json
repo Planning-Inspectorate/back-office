@@ -26,7 +26,6 @@
 		"test": "dotenv turbo run test -- --concurrency=2",
 		"tscheck": "turbo run prisma-generate --concurrency=1 && turbo run tscheck --parallel --filter=!@pins/applications.api",
 		"dev": "turbo run dev --filter=./apps/* --no-cache --parallel --continue",
-		"test": "turbo run test --filter=./apps/*",
 		"web": "npm run dev --workspace=@pins/applications.web",
 		"api": "npm run dev --workspace=@pins/applications.api",
 		"api:test": "npm run start:test --workspace=@pins/applications.api-testing",
