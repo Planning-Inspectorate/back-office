@@ -83,3 +83,17 @@ export const trimDocumentNameKnownSuffix = (documentNameWithExtension) => {
 	// if the file extension is not in the known extensions list, return the original name
 	return documentNameWithExtension;
 };
+
+/**
+ * Removes all multiple spaces from a string, and trims
+ *
+ * @param {string} str
+ * @returns {string}
+ */
+export const removeMultipleSpacesAndTrim = (str) => {
+	if (str === null || str === undefined) {
+		return str;
+	} else {
+		return str.replace(/\s+/gm, ' ').trim();
+	}
+};
