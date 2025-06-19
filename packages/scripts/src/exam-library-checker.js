@@ -1,27 +1,80 @@
 import { PDFExtract } from 'pdf.js-extract';
 
-export async function examLibraryChecker() {
-	const reference = 'TR010031';
+// create an array of HTML constants
+export const HTML_CODES = {
+	HTML_200_OK: 200,
+	HTML_301_MOVED_PERMANENTLY: 301,
+	HTML_404_NOT_FOUND: 404,
+	HTML_429_TOO_MANY_REQUESTS: 429
+};
 
-	const examLibraryPdf = await fetchExamLibraryPdf(reference);
-	const allNiLinks = await extractLinksFromPdf(examLibraryPdf);
+export async function examLibraryChecker() {
+	const DoRedirectTest = false;
+	const DoBlobStoreTest = true;
+
+	const caseReference = 'EN010109';
+
+	console.log(
+		`-----------------------------------------\nStarting Exam Library Checker on case ${caseReference}`
+	);
+	const examLibraryPdf = await fetchExamLibraryPdf(caseReference);
+	let allNiLinks = await extractLinksFromPdf(examLibraryPdf);
 	console.log(`Extracted ${allNiLinks.length} document links`);
 
+	// example link :     'https://infrastructure.planninginspectorate.gov.uk/wp-content/ipc/uploads/projects/TR010031/TR010031-000621-A1B2CH%20-%20Reg%209%20Section%2056%20Notice.pdf';
+	// blob changes to :   https://nsip-documents.planninginspectorate.gov.uk/published-documents/TR010031-000621-A1B2CH%20-%20Reg%209%20Section%2056%20Notice.pdf
+
+	// check that all docs are permanently redirected
+	if (DoRedirectTest) {
+		const totalDocsNotRedirected = await checkAllRedirectStatus(allNiLinks);
+		if (totalDocsNotRedirected === 0) {
+			console.log(`Checking Permanent Redirects - total failed=${totalDocsNotRedirected}`);
+		}
+	}
+
+	// now check if docs can be returned when mapping to the new location (ie CBOS Blob store)
+	if (DoBlobStoreTest) {
+		const OldNIPath = `https://infrastructure.planninginspectorate.gov.uk/wp-content/ipc/uploads/projects/${caseReference}/`;
+		const blobPathDirect =
+			'https://pinsstdocsboprodukw001.blob.core.windows.net/published-documents/';
+
+		// convert links from old NI path to new CBOS Blob store
+		let remappedLinks = allNiLinks.map((link) => {
+			return link.replace(OldNIPath, blobPathDirect);
+		});
+
+		await checkDocsInPublishedBlobStore(remappedLinks);
+	}
+
+	console.log('Examination library checker completed');
+}
+
+/**
+ * Checks if array of doc URLs are correctly permanently redirected
+ *
+ * @param {string[]} allNiLinks
+ * @returns {Promise<number>} // returns total docs NOT redirected
+ */
+async function checkAllRedirectStatus(allNiLinks) {
 	/**
 	 * A map of link to status, where true is a valid redirect
 	 * @type {Object<string, boolean>}
 	 */
 	const linkStatus = {};
 	for (const link of allNiLinks) {
-		const response = await fetch(link, { redirect: 'manual' }); // manual redirect to check for redirects
-		if (response.status === 301) {
-			linkStatus[link] = true;
-			// console.log('Link is a redirect to nsip-documents:', response.headers.get('Location'));
-		} else {
-			linkStatus[link] = false; // no redirect
-			// console.log(`Link ${link} is not redirected`);
+		const response = await getDelayedResponse(link); // manual redirect to check for redirects
+		switch (response.status) {
+			case HTML_CODES.HTML_301_MOVED_PERMANENTLY:
+				linkStatus[link] = true;
+				console.log('Link is a redirect to nsip-documents:', response.headers.get('Location'));
+				break;
+			default:
+				linkStatus[link] = false; // no redirect
+				console.log(`Link ${link} is not redirected, error code:${response.status}`);
 		}
 	}
+
+	// show summary
 	console.log(
 		Object.values(linkStatus).filter((status) => status === true).length,
 		'links are redirects to nsip-documents'
@@ -30,6 +83,95 @@ export async function examLibraryChecker() {
 		Object.values(linkStatus).filter((status) => status === false).length,
 		'links are not redirects to nsip-documents'
 	);
+	return Object.values(linkStatus).filter((status) => status === false).length;
+}
+
+/**
+ * Checks if array of doc URLs are all in the Published CBOS Blob store
+ *
+ * @param {string[]} allLinks
+ * @returns {Promise<number>} // returns total docs found
+ */
+async function checkDocsInPublishedBlobStore(allLinks) {
+	/**
+	 * A map of link to status, where true is a valid redirect
+	 * @type {Object<string, boolean>}
+	 */
+	const linkStatus = {};
+	let ctr = 0;
+	for (const link of allLinks) {
+		ctr++;
+		if (ctr % 100 === 0) {
+			console.log(`Processing doc ${ctr} of ${allLinks.length}`);
+		}
+		const response = await getDelayedResponse(link); // manual redirect to check for redirects
+		switch (response.status) {
+			case HTML_CODES.HTML_200_OK:
+				linkStatus[link] = true;
+				// console.log(`. . . OK reading document link: ${link} `);
+				break;
+			default:
+				linkStatus[link] = false; // no doc found
+				console.log(`Error code:${response.status} reading document link: ${link} `);
+				break;
+		}
+	}
+
+	// show summary
+	console.log(
+		`Successes: ${
+			Object.values(linkStatus).filter((status) => status === true).length
+		} links are successfully found in blob store`
+	);
+	console.log(
+		`Failures: ${
+			Object.values(linkStatus).filter((status) => status === false).length
+		} links are not found in blob store`
+	);
+	return Object.values(linkStatus).filter((status) => status === false).length;
+}
+
+/**
+ *
+ * @param {string} link
+ * @returns {Promise<Response>}
+ */
+async function getDelayedResponse(link) {
+	let responseCode = HTML_CODES.HTML_429_TOO_MANY_REQUESTS;
+	let response;
+	let bigFail = false;
+	let waitTime = 1000;
+
+	while (responseCode === HTML_CODES.HTML_429_TOO_MANY_REQUESTS && !bigFail) {
+		try {
+			response = await fetch(link, { redirect: 'manual' }); // manual redirect to check for redirects
+			responseCode = response.status;
+			if (responseCode === HTML_CODES.HTML_429_TOO_MANY_REQUESTS) {
+				// get the retry after time from response if there is one
+				if (response.headers) {
+					waitTime = (Number(response.headers.get('Retry-After')) + 1) * 1000;
+				} else {
+					// no retry info
+					waitTime = waitTime * 2;
+					console.log('429 and no retry time given');
+				}
+				console.log(`Call failed, waiting ${waitTime / 1000} seconds before retry`);
+				await sleep(waitTime);
+			} else if (
+				responseCode === HTML_CODES.HTML_200_OK ||
+				responseCode === HTML_CODES.HTML_404_NOT_FOUND
+			) {
+				/* do nothing */
+			} else {
+				console.log(`Response status: ${responseCode}`);
+			}
+		} catch (err) {
+			console.log(err);
+			bigFail = true;
+		}
+	}
+	// @ts-ignore
+	return response;
 }
 
 /**
@@ -84,4 +226,14 @@ async function extractLinksFromPdf(pdfBuffer) {
 				link.startsWith('https://infrastructure.planninginspectorate.gov.uk/wp-content/ipc/uploads')
 			)
 	); // filter links that start with the NI domain
+}
+
+/**
+ * Returns a promise that waits for the given time before resolving.
+ *
+ * @param {number} ms
+ * @returns {Promise<void>}
+ */
+export function sleep(ms) {
+	return new Promise((resolve) => setTimeout(resolve, ms));
 }
