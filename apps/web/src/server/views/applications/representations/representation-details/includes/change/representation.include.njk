@@ -26,16 +26,16 @@
     </dt>
 
     <dd class="govuk-summary-list__value">
-      {% if representationExcerpts.originalRepresentationExcerpt | length %}
+      {% if representationExcerpts.originalRepresentationWithoutBackticksExcerpt | length %}
         <p class="section-text govuk-body white-space--pre-line">
-          <noscript>{{ representation.originalRepresentation }}</noscript>
+          <noscript>{{ representation.originalRepresentationWithoutBackticks | safe }}</noscript>
         </p>
 
         <p class="govuk-body govuk-!-margin-bottom-4">
           <a href="#" hidden class="section-text-toggle govuk-link govuk-link--no-visited-state">Show full representation</a>
         </p>
       {% else %}
-        <p class="govuk-body white-space--pre-line">{{ representation.originalRepresentation }}</p>
+        <p class="govuk-body white-space--pre-line">{{ representation.originalRepresentationWithoutBackticks | safe }}</p>
       {% endif %}
     </dd>
 
@@ -53,16 +53,16 @@
       </dt>
 
       <dd class="govuk-summary-list__value">
-        {% if representationExcerpts.redactedRepresentationExcerpt | length %}
+        {% if representationExcerpts.redactedRepresentationWithoutBackticksExcerpt | length %}
           <p class="section-text govuk-body white-space--pre-line">
-            <noscript>{{ representation.redactedRepresentation }}</noscript>
+            <noscript>{{ representation.redactedRepresentationWithoutBackticks | safe }}</noscript>
           </p>
 
           <p class="govuk-body govuk-!-margin-bottom-4">
             <a href="#" hidden class="section-text-toggle govuk-link govuk-link--no-visited-state">Show full redacted representation</a>
           </p>
         {% else %}
-          <p class="govuk-body white-space--pre-line">{{ representation.redactedRepresentation }}</p>
+          <p class="govuk-body white-space--pre-line">{{ representation.redactedRepresentationWithoutBackticks | safe }}</p>
         {% endif %}
       </dd>
     </div>
@@ -73,16 +73,16 @@
       </dt>
 
       <dd class="govuk-summary-list__value">
-        {% if representationExcerpts.redactedNotesExcerpt | length %}
+        {% if representationExcerpts.redactedNotesWithoutBackticksExcerpt | length %}
           <p class="section-text govuk-body white-space--pre-line">
-            <noscript>{{ representation.redactedNotes }}</noscript>
+            <noscript>{{ representation.redactedNotesWithoutBackticks | safe }}</noscript>
           </p>
 
           <p class="govuk-body govuk-!-margin-bottom-4">
             <a href="#" hidden class="section-text-toggle govuk-link govuk-link--no-visited-state">Show full redacted notes</a>
           </p>
         {% else %}
-          <p class="govuk-body white-space--pre-line">{{ representation.redactedNotes }}</p>
+          <p class="govuk-body white-space--pre-line">{{ representation.redactedNotesWithoutBackticks | safe }}</p>
         {% endif %}
       </dd>
     </div>
@@ -129,32 +129,32 @@
     }
   }
 
-  {% if representationExcerpts.originalRepresentationExcerpt | length %}
+  {% if representationExcerpts.originalRepresentationWithoutBackticksExcerpt | length %}
     const toggleRepresentationText = new ToggleText();
     toggleRepresentationText.toggle(
       '#original-representation-section',
-      `{{ representation.originalRepresentation }}`,
-      `{{ representationExcerpts.originalRepresentationExcerpt }}...`,
+      `{{ representation.originalRepresentationWithoutBackticks | safe }}`,
+      `{{ representationExcerpts.originalRepresentationWithoutBackticksExcerpt | safe }}...`,
       'representation'
     );
   {% endif %}
 
-  {% if representationExcerpts.redactedRepresentationExcerpt | length %}
+  {% if representationExcerpts.redactedRepresentationWithoutBackticksExcerpt | length %}
     const toggleRedactedRepresentationText = new ToggleText();
     toggleRedactedRepresentationText.toggle(
       '#redacted-representation-section',
-      `{{ representation.redactedRepresentation }}`,
-      `{{ representationExcerpts.redactedRepresentationExcerpt }}...`,
+      `{{ representation.redactedRepresentationWithoutBackticks | safe }}`,
+      `{{ representationExcerpts.redactedRepresentationWithoutBackticksExcerpt |safe }}...`,
       'redacted representation'
     );
   {% endif %}
 
-  {% if representationExcerpts.redactedNotesExcerpt | length %}
+  {% if representationExcerpts.redactedNotesWithoutBackticksExcerpt | length %}
     const toggleRedactedNotesText = new ToggleText();
     toggleRedactedNotesText.toggle(
       '#redacted-notes-section',
-      `{{ representation.redactedNotes }}`,
-      `{{ representationExcerpts.redactedNotesExcerpt }}...`,
+      `{{ representation.redactedNotesWithoutBackticks | safe }}`,
+      `{{ representationExcerpts.redactedNotesWithoutBackticksExcerpt | safe }}...`,
       'redacted notes'
     );
   {% endif %}

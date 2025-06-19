@@ -18,12 +18,12 @@ describe('redact-representation view-models', () => {
 					'/applications-service/case/1/relevant-representations/1/representation-details',
 				caseId: '1',
 				organisationOrFullname: 'Mrs Sue',
-				originalRepresentation:
+				originalRepresentationWithoutBackticks:
 					'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla con.',
 				projectName: 'mock case reference title',
 				representationId: '1',
 				statusText: 'AWAITING_REVIEW',
-				redactedRepresentation:
+				redactedRepresentationWithoutBackticks:
 					'(Redacted) Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla con.',
 				notes: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit.',
 				redactedBy: 'mock redacted by'
