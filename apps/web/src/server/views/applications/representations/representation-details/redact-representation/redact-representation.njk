@@ -30,7 +30,7 @@
           </a>
         </span>
 
-				<p class="govuk-body white-space--pre-line word-break--break-word">{{ originalRepresentation }}</p>
+				<p class="govuk-body white-space--pre-line word-break--break-word">{{ originalRepresentationWithoutBackticks }}</p>
 			</div>
 
 			<div class="govuk-grid-column-one-half" id="redact-representation-section">
@@ -45,7 +45,7 @@
 						text: "Redact representation"
 					},
 					name: "redactedRepresentation",
-					value: redactedRepresentation
+					value: redactedRepresentationWithoutBackticks
 				}) }}
 
 				{{ govukButton({

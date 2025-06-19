@@ -12,6 +12,14 @@ export const getPreviousPageUrl = (caseId, representationId) =>
 	});
 
 /**
+ * @param { string } representation
+ * @returns { string }
+ */
+export const getRepresentationWithoutBackticks = (representation) => {
+	return representation ? representation.replace(/`/g, "'") : '';
+};
+
+/**
  * @param {string} caseId
  * @param {string} representationId
  * @param {object} representation
@@ -25,7 +33,7 @@ export const getPreviousPageUrl = (caseId, representationId) =>
  * @param {string?} representation.represented.organisationName
  * @param {string} projectName
  * @param {string} statusText
- * @returns {{ caseId: string, representationId: string, backLinkUrl: string, originalRepresentation: string, redactedRepresentation: string, notes: string?, redactedBy: string?, projectName: string, statusText: string, organisationOrFullname: string? }}
+ * @returns {{ caseId: string, representationId: string, backLinkUrl: string, originalRepresentationWithoutBackticks: string, redactedRepresentationWithoutBackticks: string, notes: string?, redactedBy: string?, projectName: string, statusText: string, organisationOrFullname: string? }}
  *
  */
 export const getRedactRepresentationViewModel = (
@@ -44,8 +52,10 @@ export const getRedactRepresentationViewModel = (
 	caseId,
 	representationId,
 	backLinkUrl: getPreviousPageUrl(caseId, representationId),
-	originalRepresentation,
-	redactedRepresentation: redactedRepresentation ? redactedRepresentation : originalRepresentation,
+	originalRepresentationWithoutBackticks: getRepresentationWithoutBackticks(originalRepresentation),
+	redactedRepresentationWithoutBackticks: redactedRepresentation
+		? getRepresentationWithoutBackticks(redactedRepresentation)
+		: getRepresentationWithoutBackticks(originalRepresentation),
 	organisationOrFullname: `${firstName || ''} ${lastName || ''}`.trim() || organisationName,
 	notes: redactedNotes,
 	redactedBy,

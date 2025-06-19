@@ -70,6 +70,21 @@ export const addRepresentationToLocals = async (req, res, next) => {
 			};
 		}
 
+		res.locals.representation.originalRepresentationWithoutBackticks = res.locals.representation
+			.originalRepresentation
+			? res.locals.representation.originalRepresentation.replace(/`/g, "'")
+			: '';
+
+		res.locals.representation.redactedRepresentationWithoutBackticks = res.locals.representation
+			.redactedRepresentation
+			? res.locals.representation.redactedRepresentation.replace(/`/g, "'")
+			: '';
+
+		res.locals.representation.redactedNotesWithoutBackticks = res.locals.representation
+			.redactedNotes
+			? res.locals.representation.redactedNotes.replace(/`/g, "'")
+			: '';
+
 		return next();
 	} catch (e) {
 		return next(e);
