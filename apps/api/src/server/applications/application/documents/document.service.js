@@ -26,9 +26,7 @@ import { applicationStates } from '../../state-machine/application.machine.js';
 import { broadcastNsipDocumentEvent } from '#infrastructure/event-broadcasters.js';
 import { featureFlagClient } from '#utils/feature-flags.js';
 import { getApplicationDocumentsFolderName } from '#utils/mapping/map-document-folder-names.js';
-import {
-	handleCreationOfDocumentActivityLogs,
-} from '../../../migration/migrators/nsip-document-migrator.js';
+import { handleCreationOfDocumentActivityLogs } from '../../../migration/migrators/nsip-document-migrator.js';
 
 /**
  * @typedef {import('@prisma/client').DocumentVersion} DocumentVersion
@@ -51,7 +49,7 @@ import {
  * @param {string} documentNameWithExtension
  * @returns {string}
  */
-export const documentName = (documentNameWithExtension) => {
+export const getFileNameWithoutSuffix = (documentNameWithExtension) => {
 	if (!documentNameWithExtension.includes('.')) return documentNameWithExtension;
 
 	const documentNameSplit = documentNameWithExtension.split('.');
@@ -133,7 +131,7 @@ const attemptInsertDocuments = async (caseId, documents, isS51) => {
 			throw error;
 		})
 		.process(async (documentToDB) => {
-			const fileName = documentName(documentToDB.documentName);
+			const fileName = getFileNameWithoutSuffix(documentToDB.documentName);
 
 			logger.info(`Inserting document to database: ${documentToDB}`);
 
@@ -380,7 +378,7 @@ export const createDocumentVersion = async (
 
 	// Step 5: upsert the document to the database
 	logger.info(`Document found from database: ${JSON.stringify(documentFromDatabase)}`);
-	const fileName = documentName(documentToSendToDatabase.documentName);
+	const fileName = getFileNameWithoutSuffix(documentToSendToDatabase.documentName);
 	const version = (documentFromDatabase.latestVersionId ?? 0) + 1;
 
 	const { documentVersion } = documentFromDatabase;
@@ -397,15 +395,15 @@ export const createDocumentVersion = async (
 	newDocumentVersion.size = documentToSendToDatabase.documentSize;
 	newDocumentVersion.owner = documentToUpload.username;
 	newDocumentVersion.originalFilename = documentToUpload.documentName;
-	newDocumentVersion.datePublished = isMigrationPublish ? previousDocumentVersion.publishedDate : null;
+	newDocumentVersion.datePublished = isMigrationPublish
+		? previousDocumentVersion.publishedDate
+		: null;
 	newDocumentVersion.publishedBlobPath = null;
 	newDocumentVersion.publishedBlobContainer = null;
 	newDocumentVersion.publishedStatusPrev = null;
 	newDocumentVersion.redactedStatus = null;
 
-
 	await documentVersionRepository.upsert(newDocumentVersion);
-
 
 	if (isMigrationPublish) {
 		await handleCreationOfDocumentActivityLogs(newDocumentVersion);
@@ -414,10 +412,9 @@ export const createDocumentVersion = async (
 			documentGuid: documentId,
 			version,
 			user: documentToUpload.username,
-			status: 'uploaded',
+			status: 'uploaded'
 		});
 	}
-
 
 	// Step 6: Map document to the format expected to get blob storage properties
 	logger.info(`Mapping document to blob storage format...`);

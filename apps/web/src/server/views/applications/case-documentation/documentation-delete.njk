@@ -74,7 +74,7 @@
                 {% endfor %}
             </p>
 			{{ govukWarningText({
-				text: "This will delete all versions of this document.",
+				text: "This will delete all versions of this document and rename the document to " + documentNameOnDeletion + ".",
 				iconFallbackText: "Warning"
 			}) }}
             {{ govukButton({ text: "Delete",  classes: "govuk-button--warning" }) }}
