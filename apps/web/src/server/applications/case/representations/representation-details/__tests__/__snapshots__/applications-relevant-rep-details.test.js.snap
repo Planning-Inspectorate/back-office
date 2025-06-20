@@ -146,11 +146,14 @@ exports[`/applications-service/case/1/relevant-representations/1/representation-
         </div>
         <div class="govuk-summary-list__row" id="original-representation-section"><dt class="govuk-summary-list__key"> Original representation</dt>
             <dd class="govuk-summary-list__value">
-                <p class="section-text govuk-body white-space--pre-line">
-                    <noscript>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
+                <p class="section-text govuk-body white-space--pre-line"><span class="full-text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla con.</span>
+                    <span                     class="text-excerpt">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
                         ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis
-                        dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies
-                        nec, pellentesque eu, pretium quis, sem. Nulla con.</noscript>
+                        dis parturient montes, nascetur ridiculus mus. Donec...</span>
+                        <noscript>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
+                            ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis
+                            dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies
+                            nec, pellentesque eu, pretium quis, sem. Nulla con.</noscript>
                 </p>
                 <p class="govuk-body govuk-!-margin-bottom-4"><a href="#" hidden class="section-text-toggle govuk-link govuk-link--no-visited-state">Show full representation</a>
                 </p>
@@ -161,11 +164,14 @@ exports[`/applications-service/case/1/relevant-representations/1/representation-
         <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"
         id="redacted-representation-section"><dt class="govuk-summary-list__key"> Redacted representation</dt>
             <dd class="govuk-summary-list__value">
-                <p class="section-text govuk-body white-space--pre-line">
-                    <noscript>(Redacted) Aenean commodo ligula eget dolor. Aenean massa. Cum sociis
+                <p class="section-text govuk-body white-space--pre-line"><span class="full-text">(Redacted) Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla con.</span>
+                    <span                     class="text-excerpt">(Redacted) Aenean commodo ligula eget dolor. Aenean massa. Cum sociis
                         natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-                        Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla
-                        con.</noscript>
+                        Donec quam felis, ultricies nec, pellentesque eu,...</span>
+                        <noscript>(Redacted) Aenean commodo ligula eget dolor. Aenean massa. Cum sociis
+                            natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+                            Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla
+                            con.</noscript>
                 </p>
                 <p class="govuk-body govuk-!-margin-bottom-4"><a href="#" hidden class="section-text-toggle govuk-link govuk-link--no-visited-state">Show full redacted representation</a>
                 </p>
@@ -185,10 +191,12 @@ exports[`/applications-service/case/1/relevant-representations/1/representation-
     </dl>
     <script nonce="EdcOUaJ8lczj9tIPO0lPow==">
         function ToggleText() {
-            this.toggle = (sectionId, text, textExcerpt, textToggleCopy) => {
+        	this.toggle = (sectionId, textToggleCopy) => {
               const section = document.querySelector(sectionId);
               const sectionText = section.querySelector('.section-text');
               const sectionTextToggle = section.querySelector('.section-text-toggle');
+        	  const text = sectionText.querySelector('.full-text').innerText;
+        	  const textExcerpt = sectionText.querySelector('.text-excerpt').innerText;
         
               let isOpen = false;
         
@@ -216,16 +224,12 @@ exports[`/applications-service/case/1/relevant-representations/1/representation-
             const toggleRepresentationText = new ToggleText();
             toggleRepresentationText.toggle(
               '#original-representation-section',
-              \`Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla con.\`,
-              \`Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec...\`,
               'representation'
             );
         
             const toggleRedactedRepresentationText = new ToggleText();
             toggleRedactedRepresentationText.toggle(
               '#redacted-representation-section',
-              \`(Redacted) Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla con.\`,
-              \`(Redacted) Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu,...\`,
               'redacted representation'
             );
     </script>
@@ -398,11 +402,14 @@ exports[`/applications-service/case/1/relevant-representations/1/representation-
         </div>
         <div class="govuk-summary-list__row" id="original-representation-section"><dt class="govuk-summary-list__key"> Original representation</dt>
             <dd class="govuk-summary-list__value">
-                <p class="section-text govuk-body white-space--pre-line">
-                    <noscript>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
+                <p class="section-text govuk-body white-space--pre-line"><span class="full-text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla con.</span>
+                    <span                     class="text-excerpt">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
                         ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis
-                        dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies
-                        nec, pellentesque eu, pretium quis, sem. Nulla con.</noscript>
+                        dis parturient montes, nascetur ridiculus mus. Donec...</span>
+                        <noscript>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
+                            ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis
+                            dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies
+                            nec, pellentesque eu, pretium quis, sem. Nulla con.</noscript>
                 </p>
                 <p class="govuk-body govuk-!-margin-bottom-4"><a href="#" hidden class="section-text-toggle govuk-link govuk-link--no-visited-state">Show full representation</a>
                 </p>
@@ -413,11 +420,14 @@ exports[`/applications-service/case/1/relevant-representations/1/representation-
         <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"
         id="redacted-representation-section"><dt class="govuk-summary-list__key"> Redacted representation</dt>
             <dd class="govuk-summary-list__value">
-                <p class="section-text govuk-body white-space--pre-line">
-                    <noscript>(Redacted) Aenean commodo ligula eget dolor. Aenean massa. Cum sociis
+                <p class="section-text govuk-body white-space--pre-line"><span class="full-text">(Redacted) Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla con.</span>
+                    <span                     class="text-excerpt">(Redacted) Aenean commodo ligula eget dolor. Aenean massa. Cum sociis
                         natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-                        Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla
-                        con.</noscript>
+                        Donec quam felis, ultricies nec, pellentesque eu,...</span>
+                        <noscript>(Redacted) Aenean commodo ligula eget dolor. Aenean massa. Cum sociis
+                            natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+                            Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla
+                            con.</noscript>
                 </p>
                 <p class="govuk-body govuk-!-margin-bottom-4"><a href="#" hidden class="section-text-toggle govuk-link govuk-link--no-visited-state">Show full redacted representation</a>
                 </p>
@@ -437,10 +447,12 @@ exports[`/applications-service/case/1/relevant-representations/1/representation-
     </dl>
     <script nonce="EdcOUaJ8lczj9tIPO0lPow==">
         function ToggleText() {
-            this.toggle = (sectionId, text, textExcerpt, textToggleCopy) => {
+        	this.toggle = (sectionId, textToggleCopy) => {
               const section = document.querySelector(sectionId);
               const sectionText = section.querySelector('.section-text');
               const sectionTextToggle = section.querySelector('.section-text-toggle');
+        	  const text = sectionText.querySelector('.full-text').innerText;
+        	  const textExcerpt = sectionText.querySelector('.text-excerpt').innerText;
         
               let isOpen = false;
         
@@ -468,16 +480,12 @@ exports[`/applications-service/case/1/relevant-representations/1/representation-
             const toggleRepresentationText = new ToggleText();
             toggleRepresentationText.toggle(
               '#original-representation-section',
-              \`Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla con.\`,
-              \`Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec...\`,
               'representation'
             );
         
             const toggleRedactedRepresentationText = new ToggleText();
             toggleRedactedRepresentationText.toggle(
               '#redacted-representation-section',
-              \`(Redacted) Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla con.\`,
-              \`(Redacted) Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu,...\`,
               'redacted representation'
             );
     </script>
