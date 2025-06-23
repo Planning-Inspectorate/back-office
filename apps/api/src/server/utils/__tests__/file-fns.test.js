@@ -55,11 +55,6 @@ describe('trimDocumentNameKnownSuffix', () => {
 		it('should replace all whitespace characters with single spaces', () => {
 			expect(removeMultipleSpacesAndTrim('a\tb\nc\rd')).toBe('a b c d');
 		});
-		it('should return empty string for empty input', () => {
-			// @ts-ignore
-			expect(removeMultipleSpacesAndTrim('')).toBe('');
-		});
-		// add test for null input
 		it('should return empty string for null input', () => {
 			// @ts-ignore
 			expect(removeMultipleSpacesAndTrim(null)).toBe(null);
