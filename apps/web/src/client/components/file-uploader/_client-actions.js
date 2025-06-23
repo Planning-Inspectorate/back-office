@@ -254,6 +254,8 @@ const clientActions = (uploadForm) => {
 
 		for (const f of files) {
 			idx++;
+			const encodedFilename = encodeURIComponent(f.name);
+
 			if (invalidSignatures.find((/** @type {string} */ fileRowId) => fileRowId === f.fileRowId)) {
 				errors.push({
 					message: 'TYPE_INVALID_FILE_CONTENT',
@@ -264,7 +266,13 @@ const clientActions = (uploadForm) => {
 			}
 
 			if (f.type !== 'text/html') {
-				processedList.push(f);
+				//we only want to spread the file here and change name to encodedFilename eg ({...f, name: encodedFilename})
+				//but this causes type validation issues, so below is just to appease JSdocs...
+				processedList.push(
+					Object.assign(new File([f], encodedFilename, { type: f.type }), {
+						fileRowId: f.fileRowId
+					})
+				);
 				continue;
 			}
 
@@ -285,7 +293,7 @@ const clientActions = (uploadForm) => {
 	 */
 	const onSubmit = async (clickEvent) => {
 		clickEvent.preventDefault();
-
+		console.log('SUBMIT:>>');
 		const {
 			getUploadInfoFromInternalDB,
 			uploadFiles,
@@ -295,7 +303,7 @@ const clientActions = (uploadForm) => {
 
 		try {
 			const fileList = await onSubmitValidation();
-
+			console.dir(fileList, { depth: null, colors: true });
 			buildProgressMessage({ show: true }, uploadForm);
 
 			const errors = [];
