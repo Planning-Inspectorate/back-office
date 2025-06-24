@@ -8,16 +8,74 @@ export const HTML_CODES = {
 	HTML_429_TOO_MANY_REQUESTS: 429
 };
 
-export async function examLibraryChecker() {
-	const DoRedirectTest = false;
-	const DoBlobStoreTest = true;
+/**
+ *
+ * @param {string} targetEnv
+ * @returns {string}
+ */
+const getFoPrefix = (targetEnv) => {
+	switch (targetEnv) {
+		case 'DEV':
+			return 'applications-service-dev';
+		case 'TEST':
+			return 'applications-service-test';
+		case 'PROD':
+			return 'national-infrastructure-consenting';
+		default:
+			return '';
+	}
+};
 
-	const caseReference = 'EN010109';
+/**
+ *
+ * @type {{DEV: string, TEST: string, PROD: string}}
+ */
+const BLOB_STORE_PREFIXES = {
+	DEV: 'pinsstdocsbodevukw001',
+	TEST: 'pinsstdocsbotestukw001',
+	PROD: 'pinsstdocsboprodukw001'
+};
 
+/**
+ *
+ * @type {{DEV: string, TEST: string, PROD: string}}
+ */
+const OLD_NI_PATH = {
+	DEV: 'https://applications-service-dev.planninginspectorate.gov.uk/projects/',
+	TEST: 'https://applications-service-test.planninginspectorate.gov.uk/projects/',
+	PROD: 'https://infrastructure.planninginspectorate.gov.uk/wp-content/ipc/uploads/projects/'
+};
+
+const NI_OLD_LINK_START =
+	'https://infrastructure.planninginspectorate.gov.uk/wp-content/ipc/uploads';
+const DOCUMENT_LINK_PAGE_TMPL =
+	'https://{fo_prefix}.planninginspectorate.gov.uk/projects/{caseReference}/documents';
+
+/**
+ * Exam Library Checker main fn
+ * Checks the examination library PDF for a given case reference
+ * and can verify that all document links are correctly redirected to the new CBOS Blob store.
+ * It also checks that the documents can be accessed in the new location.
+ *
+ * @param {string} caseReference
+ * @param {string} targetEnv
+ * @param {boolean} doRedirectTest
+ * @param {boolean} doBlobStoreTest
+ */
+export async function examLibraryChecker(
+	caseReference,
+	targetEnv,
+	doRedirectTest,
+	doBlobStoreTest
+) {
 	console.log(
 		`-----------------------------------------\nStarting Exam Library Checker on case ${caseReference}`
 	);
-	const examLibraryPdf = await fetchExamLibraryPdf(caseReference);
+	console.log(`Target environment: ${targetEnv}`);
+	console.log(`Do Redirect test: ${doRedirectTest}`);
+	console.log(`Do Blob Store test: ${doBlobStoreTest}`);
+
+	const examLibraryPdf = await fetchExamLibraryPdf(caseReference, targetEnv);
 	let allNiLinks = await extractLinksFromPdf(examLibraryPdf);
 	console.log(`Extracted ${allNiLinks.length} document links`);
 
@@ -25,7 +83,7 @@ export async function examLibraryChecker() {
 	// blob changes to :   https://nsip-documents.planninginspectorate.gov.uk/published-documents/TR010031-000621-A1B2CH%20-%20Reg%209%20Section%2056%20Notice.pdf
 
 	// check that all docs are permanently redirected
-	if (DoRedirectTest) {
+	if (doRedirectTest) {
 		const totalDocsNotRedirected = await checkAllRedirectStatus(allNiLinks);
 		if (totalDocsNotRedirected === 0) {
 			console.log(`Checking Permanent Redirects - total failed=${totalDocsNotRedirected}`);
@@ -33,11 +91,14 @@ export async function examLibraryChecker() {
 	}
 
 	// now check if docs can be returned when mapping to the new location (ie CBOS Blob store)
-	if (DoBlobStoreTest) {
-		const OldNIPath = `https://infrastructure.planninginspectorate.gov.uk/wp-content/ipc/uploads/projects/${caseReference}/`;
-		const blobPathDirect =
-			'https://pinsstdocsboprodukw001.blob.core.windows.net/published-documents/';
+	if (doBlobStoreTest) {
+		// @ts-ignore
+		const OldNIPath = OLD_NI_PATH[targetEnv] + `${caseReference}/`;
+		// @ts-ignore
+		const blobPathDirect = `https://${BLOB_STORE_PREFIXES[targetEnv]}.blob.core.windows.net/published-documents/`;
 
+		console.log(`Checking documents in Published Blob Store at: ${blobPathDirect}`);
+		console.log(`Old NI Path: ${OldNIPath}`);
 		// convert links from old NI path to new CBOS Blob store
 		let remappedLinks = allNiLinks.map((link) => {
 			return link.replace(OldNIPath, blobPathDirect);
@@ -178,11 +239,13 @@ async function getDelayedResponse(link) {
  * Fetch the examination library PDF for a given project reference
  *
  * @param {string} reference
+ * @param {string} targetEnv
  * @returns {Promise<ArrayBuffer>} The PDF file as an ArrayBuffer
  */
-async function fetchExamLibraryPdf(reference) {
+async function fetchExamLibraryPdf(reference, targetEnv) {
 	// first fetch the documents page to get the examination library link
-	const documentsPageUrl = `https://national-infrastructure-consenting.planninginspectorate.gov.uk/projects/${reference}/documents`;
+	const documentsPageUrl = getDocumentLinkPage(reference, targetEnv);
+	console.log(`Fetching documents page: ${documentsPageUrl}`);
 	const response = await fetch(documentsPageUrl);
 	if (!response.ok) {
 		throw new Error(`Failed to fetch documents page: ${response.statusText}`);
@@ -222,9 +285,7 @@ async function extractLinksFromPdf(pdfBuffer) {
 			.map((p) => p.links) // get links from each page
 			.flat() // flatten the array of arrays
 			// @ts-ignore
-			.filter((link) =>
-				link.startsWith('https://infrastructure.planninginspectorate.gov.uk/wp-content/ipc/uploads')
-			)
+			.filter((link) => link.startsWith(NI_OLD_LINK_START))
 	); // filter links that start with the NI domain
 }
 
@@ -236,4 +297,18 @@ async function extractLinksFromPdf(pdfBuffer) {
  */
 export function sleep(ms) {
 	return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+/**
+ *
+ * @param {string} caseReference
+ * @param {string} targetEnv
+ * @returns {string}
+ */
+function getDocumentLinkPage(caseReference, targetEnv) {
+	// @ts-ignore
+	return DOCUMENT_LINK_PAGE_TMPL.replace('{caseReference}', caseReference).replace(
+		'{fo_prefix}',
+		getFoPrefix(targetEnv)
+	);
 }
