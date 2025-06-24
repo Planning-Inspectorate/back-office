@@ -28,6 +28,8 @@
     <dd class="govuk-summary-list__value">
       {% if representationExcerpts.originalRepresentationExcerpt | length %}
         <p class="section-text govuk-body white-space--pre-line">
+		  <span class="full-text">{{ representation.originalRepresentation }}</span>
+		  <span class="text-excerpt">{{ representationExcerpts.originalRepresentationExcerpt }}...</span>
           <noscript>{{ representation.originalRepresentation }}</noscript>
         </p>
 
@@ -55,6 +57,8 @@
       <dd class="govuk-summary-list__value">
         {% if representationExcerpts.redactedRepresentationExcerpt | length %}
           <p class="section-text govuk-body white-space--pre-line">
+			<span class="full-text">{{ representation.redactedRepresentation }}</span>
+			<span class="text-excerpt">{{ representationExcerpts.redactedRepresentationExcerpt }}...</span>
             <noscript>{{ representation.redactedRepresentation }}</noscript>
           </p>
 
@@ -75,6 +79,8 @@
       <dd class="govuk-summary-list__value">
         {% if representationExcerpts.redactedNotesExcerpt | length %}
           <p class="section-text govuk-body white-space--pre-line">
+			<span class="full-text">{{ representation.redactedNotes }}</span>
+			<span class="text-excerpt">{{ representationExcerpts.redactedNotesExcerpt }}...</span>
             <noscript>{{ representation.redactedNotes }}</noscript>
           </p>
 
@@ -101,10 +107,12 @@
 
 <script nonce="{{cspNonce}}">
   function ToggleText() {
-    this.toggle = (sectionId, text, textExcerpt, textToggleCopy) => {
+	this.toggle = (sectionId, textToggleCopy) => {
       const section = document.querySelector(sectionId);
       const sectionText = section.querySelector('.section-text');
       const sectionTextToggle = section.querySelector('.section-text-toggle');
+	  const text = sectionText.querySelector('.full-text').innerText;
+	  const textExcerpt = sectionText.querySelector('.text-excerpt').innerText;
 
       let isOpen = false;
 
@@ -133,8 +141,6 @@
     const toggleRepresentationText = new ToggleText();
     toggleRepresentationText.toggle(
       '#original-representation-section',
-      `{{ representation.originalRepresentation }}`,
-      `{{ representationExcerpts.originalRepresentationExcerpt }}...`,
       'representation'
     );
   {% endif %}
@@ -143,8 +149,6 @@
     const toggleRedactedRepresentationText = new ToggleText();
     toggleRedactedRepresentationText.toggle(
       '#redacted-representation-section',
-      `{{ representation.redactedRepresentation }}`,
-      `{{ representationExcerpts.redactedRepresentationExcerpt }}...`,
       'redacted representation'
     );
   {% endif %}
@@ -153,8 +157,6 @@
     const toggleRedactedNotesText = new ToggleText();
     toggleRedactedNotesText.toggle(
       '#redacted-notes-section',
-      `{{ representation.redactedNotes }}`,
-      `{{ representationExcerpts.redactedNotesExcerpt }}...`,
       'redacted notes'
     );
   {% endif %}

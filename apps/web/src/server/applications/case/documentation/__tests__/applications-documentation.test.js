@@ -1,3 +1,4 @@
+import { jest } from '@jest/globals';
 import { parseHtml } from '@pins/platform';
 import nock from 'nock';
 import supertest from 'supertest';
@@ -72,6 +73,8 @@ const nocks = () => {
 		.times(2)
 		.reply(200, { isDeleted: true });
 };
+
+const mockDate = new Date('2023-11-01T00:00:00Z');
 
 describe('applications documentation', () => {
 	beforeEach(installMockApi);
@@ -341,6 +344,15 @@ describe('applications documentation', () => {
 			await request.get('/applications-service/');
 		});
 
+		beforeAll(() => {
+			jest.useFakeTimers({ advanceTimers: true }).setSystemTime(mockDate);
+		});
+
+		afterAll(() => {
+			jest.runOnlyPendingTimers();
+			jest.useRealTimers();
+		});
+
 		describe('GET /case/123/project-documentation/21/100/delete', () => {
 			it('page should render', async () => {
 				const response = await request.get(
@@ -363,6 +375,7 @@ describe('applications documentation', () => {
 				expect(element.innerHTML).toContain('is in the publishing queue ready to be published');
 			});
 		});
+
 		describe('POST /case/123/project-documentation/21/100/delete', () => {
 			it('should go to success page if status is not "ready-to-publish"', async () => {
 				const response = await request.post(

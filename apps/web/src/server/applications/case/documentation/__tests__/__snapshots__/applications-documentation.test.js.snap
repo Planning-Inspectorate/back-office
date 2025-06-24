@@ -7126,7 +7126,8 @@ exports[`applications documentation Document properties delete page GET /case/12
             </p>
             <div class="govuk-warning-text"><span class="govuk-warning-text__icon" aria-hidden="true">!</span>
                 <strong                 class="govuk-warning-text__text"><span class="govuk-warning-text__assistive">Warning</span> This will delete
-                    all versions of this document.</strong>
+                    all versions of this document and rename the document to 12 Ullamco laboris
+                    nisi ut_deleted_20231101_000000.</strong>
             </div>
             <button class="govuk-button govuk-button--warning" data-module="govuk-button">Delete</button>
         </form>
@@ -7164,7 +7165,7 @@ exports[`applications documentation Document properties delete page GET /case/12
             </p>
             <div class="govuk-warning-text"><span class="govuk-warning-text__icon" aria-hidden="true">!</span>
                 <strong                 class="govuk-warning-text__text"><span class="govuk-warning-text__assistive">Warning</span> This will delete
-                    all versions of this document.</strong>
+                    all versions of this document and rename the document to 4 Elit sed_deleted_20231101_000000.</strong>
             </div>
             <button class="govuk-button govuk-button--warning" data-module="govuk-button">Delete</button>
         </form>
