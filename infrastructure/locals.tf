@@ -17,4 +17,10 @@ locals {
       location    = local.primary_location
     }
   )
+
+  documents = {
+    # strip leading "https://" and trailing "/" to leave just the domain names
+    domain       = replace(replace(var.documents_config.domain, "https://", ""), "/", "")
+    blob_endpont = replace(replace(data.azurerm_storage_account.documents.primary_blob_endpoint, "https://", ""), "/", "")
+  }
 }

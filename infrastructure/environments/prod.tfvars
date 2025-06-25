@@ -1,3 +1,8 @@
+documents_config = {
+  domain               = "https://nsip-documents.planninginspectorate.gov.uk"
+  storage_account_name = "pinsstdocsboprodukw001"
+}
+
 environment = "prod"
 
 front_door_config = {

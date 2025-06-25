@@ -1,3 +1,8 @@
+documents_config = {
+  domain               = "https://back-office-applications-docs-train.planninginspectorate.gov.uk"
+  storage_account_name = "pinsstdocsbotrainingukw"
+}
+
 environment = "training"
 
 front_door_config = {

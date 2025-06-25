@@ -1,5 +1,15 @@
 # variables should be sorted A-Z
 
+variable "documents_config" {
+  description = "Domain name for docs storage account"
+  type = object({
+    # Domain name for docs storage account
+    domain = string
+    # to read the storage account as its not in this repo yet
+    storage_account_name = string
+  })
+}
+
 variable "environment" {
   description = "The name of the environment in which resources will be deployed"
   type        = string
