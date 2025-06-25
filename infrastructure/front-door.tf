@@ -97,13 +97,6 @@ resource "azurerm_cdn_frontdoor_firewall_policy" "wfe" {
         action  = "AnomalyScoring"
         enabled = true
         rule_id = "931130"
-
-        exclusion {
-          # Exclusion to fix BOAS-153
-          match_variable = "RequestBodyPostArgNames" # PostParamValue:applicant.website
-          operator       = "Equals"
-          selector       = "applicant.website"
-        }
       }
     }
 
