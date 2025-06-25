@@ -15,11 +15,16 @@ variable "front_door_config" {
   })
 }
 
+
+variable "resource_group_name" {
+  description = "The name of existing resource group to read resources from"
+  type        = string
+}
+
 variable "web_app_config" {
   description = "Config to retrive web app details for forntdoor"
   type = object({
     name = string
-    rg   = string
   })
 }
 
