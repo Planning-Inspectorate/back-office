@@ -1,3 +1,8 @@
+documents_config = {
+  domain               = "https://back-office-applications-docs-dev.planninginspectorate.gov.uk"
+  storage_account_name = "pinsstdocsbodevukw001"
+}
+
 environment = "dev"
 
 front_door_config = {
