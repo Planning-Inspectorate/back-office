@@ -94,7 +94,7 @@ resource "azurerm_cdn_frontdoor_firewall_policy" "wfe" {
 
       rule {
         # Possible Remote File Inclusion (RFI) Attack: Off-Domain Reference/Link
-        action  = "AnomalyScoring"
+        action  = "Log"
         enabled = true
         rule_id = "931130"
       }
@@ -397,6 +397,13 @@ resource "azurerm_cdn_frontdoor_firewall_policy" "wfe" {
 
     override {
       rule_group_name = "RCE"
+
+      rule {
+        # Remote Command Execution: Windows Command Injection
+        action  = "Log"
+        enabled = true
+        rule_id = "932110"
+      }
 
       rule {
         # Remote Command Execution: Direct Unix Command Execution
