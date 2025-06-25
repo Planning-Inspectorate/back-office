@@ -105,7 +105,7 @@ resource "azurerm_cdn_frontdoor_firewall_policy" "wfe" {
 
       rule {
         # Path Traversal Attack (/../)
-        action  = "Block"
+        action  = "AnomalyScoring"
         enabled = true
         rule_id = "930100"
 
@@ -119,7 +119,7 @@ resource "azurerm_cdn_frontdoor_firewall_policy" "wfe" {
 
       rule {
         # Path Traversal Attack (/../)
-        action  = "Block"
+        action  = "AnomalyScoring"
         enabled = true
         rule_id = "930110"
 
