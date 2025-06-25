@@ -396,6 +396,17 @@ resource "azurerm_cdn_frontdoor_firewall_policy" "wfe" {
     }
 
     override {
+      rule_group_name = "MS-ThreatIntel-SQLI"
+
+      # Detects basic SQL authentication bypass attempts 2/3
+      rule {
+        action  = "Log"
+        enabled = true
+        rule_id = "99031004"
+      }
+    }
+
+    override {
       rule_group_name = "RCE"
 
       rule {
@@ -410,6 +421,66 @@ resource "azurerm_cdn_frontdoor_firewall_policy" "wfe" {
         action  = "Log"
         enabled = true
         rule_id = "932150"
+      }
+    }
+
+    override {
+      rule_group_name = "XSS"
+
+      rule {
+        # XSS Filter - Category 5: Disallowed HTML Attributes
+        action  = "AnomalyScoring"
+        enabled = true
+        rule_id = "941100"
+
+        # allow this field for HTML file uploads
+        exclusion {
+          match_variable = "RequestBodyJsonArgNames"
+          operator       = "Equals"
+          selector       = "html"
+        }
+      }
+
+      rule {
+        # XSS Filter - Category 5: Disallowed HTML Attributes
+        action  = "AnomalyScoring"
+        enabled = true
+        rule_id = "941150"
+
+        # allow this field for HTML file uploads
+        exclusion {
+          match_variable = "RequestBodyJsonArgNames"
+          operator       = "Equals"
+          selector       = "html"
+        }
+      }
+
+      rule {
+        # NoScript XSS InjectionChecker: HTML Injection
+        action  = "AnomalyScoring"
+        enabled = true
+        rule_id = "941160"
+
+        # allow this field for HTML file uploads
+        exclusion {
+          match_variable = "RequestBodyJsonArgNames"
+          operator       = "Equals"
+          selector       = "html"
+        }
+      }
+
+      rule {
+        # Possible XSS Attack Detected - HTML Tag Handler
+        action  = "AnomalyScoring"
+        enabled = true
+        rule_id = "941320"
+
+        # allow this field for HTML file uploads
+        exclusion {
+          match_variable = "RequestBodyJsonArgNames"
+          operator       = "Equals"
+          selector       = "html"
+        }
       }
     }
 
