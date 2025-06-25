@@ -6,10 +6,10 @@ front_door_config = {
   ep_name     = "pins-fde-applications-prod"
   use_tooling = false
 }
+resource_group_name = "pins-rg-back-office-prod-ukw-001"
 
 web_app_config = {
   name = "pins-app-back-office-wfe-prod-ukw-001"
-  rg   = "pins-rg-back-office-prod-ukw-001"
 }
 
 waf_rate_limits = {

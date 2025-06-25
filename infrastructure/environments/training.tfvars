@@ -7,9 +7,10 @@ front_door_config = {
   use_tooling = true
 }
 
+resource_group_name = "pins-rg-back-office-training-ukw-001"
+
 web_app_config = {
   name = "pins-app-back-office-wfe-training-ukw-001"
-  rg   = "pins-rg-back-office-training-ukw-001"
 }
 
 waf_rate_limits = {

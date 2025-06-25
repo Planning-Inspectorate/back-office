@@ -21,5 +21,5 @@ data "azurerm_cdn_frontdoor_endpoint" "shared" {
 
 data "azurerm_linux_web_app" "back_office" {
   name                = var.web_app_config.name
-  resource_group_name = var.web_app_config.rg
+  resource_group_name = var.resource_group_name
 }
