@@ -70,6 +70,12 @@ resource "azurerm_cdn_frontdoor_custom_domain_association" "wfe" {
   provider                       = azurerm.front_door
 }
 
+locals {
+  # if the ruleset is v1, then use 'Block' as an action
+  waf_ruleset_is_v1 = contains(["1.0", "1.1"], var.front_door_config.managed_rule_set_version)
+  waf_block_action  = local.waf_ruleset_is_v1 ? "Block" : "AnomalyScoring"
+}
+
 # WAF policy
 resource "azurerm_cdn_frontdoor_firewall_policy" "wfe" {
   name                              = replace("${local.org}-waf-${local.service_name}-wfe-${var.environment}", "-", "")
@@ -85,8 +91,8 @@ resource "azurerm_cdn_frontdoor_firewall_policy" "wfe" {
   tags = local.tags
 
   managed_rule {
-    type    = "Microsoft_DefaultRuleSet"
-    version = "2.1"
+    type    = var.front_door_config.managed_rule_set
+    version = var.front_door_config.managed_rule_set_version
     action  = "Block"
 
     override {
@@ -105,7 +111,7 @@ resource "azurerm_cdn_frontdoor_firewall_policy" "wfe" {
 
       rule {
         # Path Traversal Attack (/../)
-        action  = "AnomalyScoring"
+        action  = local.waf_block_action
         enabled = true
         rule_id = "930100"
 
@@ -119,7 +125,7 @@ resource "azurerm_cdn_frontdoor_firewall_policy" "wfe" {
 
       rule {
         # Path Traversal Attack (/../)
-        action  = "AnomalyScoring"
+        action  = local.waf_block_action
         enabled = true
         rule_id = "930110"
 
@@ -395,14 +401,19 @@ resource "azurerm_cdn_frontdoor_firewall_policy" "wfe" {
       }
     }
 
-    override {
-      rule_group_name = "MS-ThreatIntel-SQLI"
+    # this override should only be included with v2+
+    dynamic "override" {
+      for_each = local.waf_ruleset_is_v1 ? [] : [1]
 
-      # Detects basic SQL authentication bypass attempts 2/3
-      rule {
-        action  = "Log"
-        enabled = true
-        rule_id = "99031004"
+      content {
+        rule_group_name = "MS-ThreatIntel-SQLI"
+
+        # Detects basic SQL authentication bypass attempts 2/3
+        rule {
+          action  = "Log"
+          enabled = true
+          rule_id = "99031004"
+        }
       }
     }
 
@@ -429,7 +440,7 @@ resource "azurerm_cdn_frontdoor_firewall_policy" "wfe" {
 
       rule {
         # XSS Filter - Category 5: Disallowed HTML Attributes
-        action  = "AnomalyScoring"
+        action  = local.waf_block_action
         enabled = true
         rule_id = "941100"
 
@@ -443,7 +454,7 @@ resource "azurerm_cdn_frontdoor_firewall_policy" "wfe" {
 
       rule {
         # XSS Filter - Category 5: Disallowed HTML Attributes
-        action  = "AnomalyScoring"
+        action  = local.waf_block_action
         enabled = true
         rule_id = "941150"
 
@@ -457,7 +468,7 @@ resource "azurerm_cdn_frontdoor_firewall_policy" "wfe" {
 
       rule {
         # NoScript XSS InjectionChecker: HTML Injection
-        action  = "AnomalyScoring"
+        action  = local.waf_block_action
         enabled = true
         rule_id = "941160"
 
@@ -471,7 +482,7 @@ resource "azurerm_cdn_frontdoor_firewall_policy" "wfe" {
 
       rule {
         # Possible XSS Attack Detected - HTML Tag Handler
-        action  = "AnomalyScoring"
+        action  = local.waf_block_action
         enabled = true
         rule_id = "941320"
 

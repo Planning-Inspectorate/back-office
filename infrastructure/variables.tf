@@ -22,6 +22,9 @@ variable "front_door_config" {
     rg          = string
     ep_name     = string
     use_tooling = bool
+
+    managed_rule_set         = string
+    managed_rule_set_version = string
   })
 }
 
