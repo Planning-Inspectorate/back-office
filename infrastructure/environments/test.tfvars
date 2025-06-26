@@ -10,6 +10,9 @@ front_door_config = {
   rg          = "pins-rg-common-tooling"
   ep_name     = "pins-fde-applications"
   use_tooling = true
+
+  managed_rule_set         = "DefaultRuleSet"
+  managed_rule_set_version = "1.0"
 }
 
 resource_group_name = "pins-rg-back-office-test-ukw-001"
