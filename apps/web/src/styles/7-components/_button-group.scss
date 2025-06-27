@@ -2,9 +2,9 @@
 @import "../govuk-frontend/govuk/helpers/_spacing";
 
 .pins-button-group {
-  margin-top: govuk-spacing(9);
-  display: flex;
-  justify-content: space-between;
+	margin-top: govuk-spacing(9);
+	display: flex;
+	justify-content: space-between;
 }
 
 .pins-folder-button-group {
@@ -18,5 +18,5 @@
 	flex-direction: column;
 	align-items: flex-start;
 	gap: govuk-spacing(4);
-	margin-top: govuk-spacing(4)
+	margin-top: govuk-spacing(4);
 }

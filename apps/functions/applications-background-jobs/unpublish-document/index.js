@@ -1,4 +1,7 @@
-import { validateStorageAccount, replaceCustomDomainWithBlobDomain } from '../publish-document/src/util.js';
+import {
+	validateStorageAccount,
+	replaceCustomDomainWithBlobDomain
+} from '../publish-document/src/util.js';
 import { requestWithApiKey } from '../common/backend-api-request.js';
 import { blobClient } from '../common/blob-client.js';
 import config from '../common/config.js';
@@ -10,12 +13,7 @@ import { extractPublishedBlobName } from './src/util.js';
 export const index = async (context, { caseId, documentId, version, publishedDocumentURI }) => {
 	context.log(`Unpublishing document ID ${documentId} at URI ${publishedDocumentURI}`);
 
-	if (
-		!caseId ||
-		!documentId ||
-		!version ||
-		!publishedDocumentURI
-	) {
+	if (!caseId || !documentId || !version || !publishedDocumentURI) {
 		throw Error('One or more required properties are missing.');
 	}
 
@@ -28,7 +26,9 @@ export const index = async (context, { caseId, documentId, version, publishedDoc
 	const publishedBlobName = extractPublishedBlobName(publishedDocumentURI);
 
 	try {
-		context.log(`deleting blob (if exists) in container "${config.BLOB_PUBLISH_CONTAINER}" with name "${publishedBlobName}"`);
+		context.log(
+			`deleting blob (if exists) in container "${config.BLOB_PUBLISH_CONTAINER}" with name "${publishedBlobName}"`
+		);
 		await blobClient.deleteBlobIfExists(config.BLOB_PUBLISH_CONTAINER, publishedBlobName);
 	} catch (err) {
 		const errMsg = `encountered error while unpublishing document ID ${documentId}: ${err}`;

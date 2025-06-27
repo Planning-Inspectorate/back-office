@@ -3,3 +3,9 @@ package.json
 package-lock.json
 README.md
 *.njk
+*.yml
+*.yaml
+coverage
+apps/e2e/cypress/fixtures/*
+.vscode
+.build

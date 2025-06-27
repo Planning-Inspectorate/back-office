@@ -1,15 +1,7 @@
 module.exports = {
 	root: true,
-	extends: [
-		'eslint:recommended',
-		'prettier'
-	],
-	ignorePatterns: [
-		'dist/**',
-		'node_modules/**',
-		'**/*.min*.js',
-		'**/static/scripts/app.js'
-	],
+	extends: ['eslint:recommended', 'prettier'],
+	ignorePatterns: ['dist/**', 'node_modules/**', '**/*.min*.js', '**/static/scripts/app.js'],
 	parserOptions: {
 		ecmaVersion: 2022,
 		sourceType: 'module'
@@ -28,10 +20,7 @@ module.exports = {
 			}
 		},
 		{
-			files: [
-				'apps/web/src/client/**',
-				'apps/web/testing/app/mocks/client-side.js'
-			],
+			files: ['apps/web/src/client/**', 'apps/web/testing/app/mocks/client-side.js'],
 			env: {
 				browser: true
 			}
