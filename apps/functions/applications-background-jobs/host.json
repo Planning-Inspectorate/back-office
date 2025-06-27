@@ -9,7 +9,7 @@
 		},
 		"logLevel": {
 			"default": "Information"
-		 }
+		}
 	},
 	"extensionBundle": {
 		"id": "Microsoft.Azure.Functions.ExtensionBundle",
