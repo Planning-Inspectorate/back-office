@@ -1,15 +1,14 @@
-
 .pins-content--sticky {
-  position: sticky;
-  top: 0;
+	position: sticky;
+	top: 0;
 }
 
 html:has(#rr-table) {
-  scroll-behavior: unset;
+	scroll-behavior: unset;
 }
 
 .pins-folder-success-banner {
-  .govuk-notification-banner__heading {
-    max-width: 100%
-  }
+	.govuk-notification-banner__heading {
+		max-width: 100%;
+	}
 }
