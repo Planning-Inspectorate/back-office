@@ -52,6 +52,10 @@ extends:
               script: npm run lint:js
           - template: ../steps/node_script.yml
             parameters:
+                nodeVersion: 20
+                script: npm run format-check
+          - template: ../steps/node_script.yml
+            parameters:
               script: npm run test
               nodeVersion: 20
               environmentVariables:
