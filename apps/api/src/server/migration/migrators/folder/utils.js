@@ -1,4 +1,4 @@
-import { pick } from "lodash-es";
+import { pick } from 'lodash-es';
 
 /**
  * @typedef {import('pins-data-model').Schemas.Folder} FolderModel
@@ -16,11 +16,7 @@ export const buildFolderHierarchy = (folders) => {
 	folders.forEach(
 		(folder) =>
 			(map[folder.id] = {
-				...pick(folder, [
-					'id',
-					'displayNameEn',
-					'parentFolderId',
-				]),
+				...pick(folder, ['id', 'displayNameEn', 'parentFolderId']),
 				children: []
 			})
 	);
