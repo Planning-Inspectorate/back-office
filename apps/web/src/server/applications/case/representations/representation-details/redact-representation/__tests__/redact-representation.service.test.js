@@ -1,5 +1,6 @@
 // @ts-nocheck
 import {
+	arrayToArrays,
 	combineResults,
 	fetchRedactionSuggestions,
 	highlightRedactionSuggestions,
@@ -88,8 +89,48 @@ describe('redact-representation.service', () => {
 			};
 			const result = await fetchRedactionSuggestions(text, () => mockTextAnalyticsClient);
 			expect(result).toBeDefined();
+			expect(mockTextAnalyticsClient.recognizePiiEntities).toHaveBeenCalledTimes(1);
 			expect(result.entities).toHaveLength(2);
 			expect(result.redactedText).toEqual('████████ lives' + middleChunk + 'at ███████████.');
+		});
+
+		it('should group chunks into fives and combine all results', async () => {
+			const longString = '0'.repeat(60000); // 60,000 characters -> 12 chunks of 5000 characters -> 3 groups of 5 chunks
+			const mockTextAnalyticsClient = {
+				recognizePiiEntities: jest.fn().mockResolvedValue([
+					{
+						entities: [
+							{ text: 'John Doe', offset: 0, length: 8, category: 'Person', confidenceScore: 0.95 }
+						],
+						redactedText: '',
+						id: '',
+						warnings: []
+					},
+					{
+						entities: [
+							{
+								text: '123 Main St',
+								offset: 3,
+								length: 11,
+								category: 'Address',
+								confidenceScore: 0.9
+							}
+						],
+						redactedText: '',
+						id: '',
+						warnings: []
+					}
+				])
+			};
+			const result = await fetchRedactionSuggestions(longString, () => mockTextAnalyticsClient);
+			expect(result).toBeDefined();
+			expect(mockTextAnalyticsClient.recognizePiiEntities).toHaveBeenCalledTimes(3);
+			expect(result.entities).toHaveLength(6);
+		});
+		it('should return null if the number of requests exceeds the limit', async () => {
+			const longString = '0'.repeat(100000); // 100,000 characters -> 20 chunks of 5000 characters -> 4 groups of 5 chunks
+			const result = await fetchRedactionSuggestions(longString);
+			expect(result).toBeNull();
 		});
 	});
 	describe('highlightRedactionSuggestions', () => {
@@ -202,6 +243,29 @@ describe('redact-representation.service', () => {
 			expect(combined.entities[1].offset).toEqual(18);
 			expect(combined.entities[2].offset).toEqual(5000);
 			expect(combined.entities[3].offset).toEqual(5100);
+		});
+	});
+	describe('arrayToArrays', () => {
+		it('should split an array into chunks of specified size', () => {
+			const longArray = Array.from({ length: 1000 }, (_, i) => i);
+			const chunks = arrayToArrays(longArray, 200);
+			expect(chunks).toHaveLength(5);
+			chunks.forEach((chunk) => expect(chunk).toHaveLength(200));
+		});
+
+		it('should handle arrays shorter than the chunk size', () => {
+			const shortArray = [1, 2, 3];
+			const chunks = arrayToArrays(shortArray, 200);
+			expect(chunks).toHaveLength(1);
+			expect(chunks[0]).toEqual(shortArray);
+		});
+
+		it('should handle arrays which do not divide evenly', () => {
+			const unevenArray = Array.from({ length: 250 }, (_, i) => i);
+			const chunks = arrayToArrays(unevenArray, 200);
+			expect(chunks).toHaveLength(2);
+			expect(chunks[0]).toHaveLength(200);
+			expect(chunks[1]).toHaveLength(50);
 		});
 	});
 	describe('stringToChunks', () => {

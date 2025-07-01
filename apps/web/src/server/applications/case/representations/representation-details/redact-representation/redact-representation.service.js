@@ -7,6 +7,7 @@ export const REDACT_CHARACTER = '█';
 // https://aka.ms/text-analytics-data-limits"
 export const MAX_REDACTION_LENGTH = 5000;
 export const MIN_CONFIDENCE_SCORE = 0.8;
+export const MAX_AZURE_LANGUAGE_REQUESTS = 3;
 
 /**
  *
@@ -47,18 +48,26 @@ export async function fetchRedactionSuggestions(
 		const textAnalyticsClient = getTextAnalyticsClient();
 
 		logger.info({ originalRepresentation: originalRepresentation.length }, 'rep size');
-		const chunks = stringToChunks(originalRepresentation, MAX_REDACTION_LENGTH);
-		if (chunks.length > 5) {
-			// limit of 5 'documents' per request
-			logger.error(
-				`Representation is too long to process in Azure AI Language Redaction: ${originalRepresentation.length} characters, falling back to legacy view`
+		// split the representation into chunks, as Azure AI Language service has a limit of 5120 characters per request
+		const strChunks = stringToChunks(originalRepresentation, MAX_REDACTION_LENGTH);
+		// split the chunks into arrays of 5, as Azure AI Language service has a limit of 5 'documents' per request
+		const reqChunks = arrayToArrays(strChunks, 5);
+		if (reqChunks.length > MAX_AZURE_LANGUAGE_REQUESTS) {
+			logger.warn(
+				{ reqChunks: reqChunks.length, originalRepresentation: originalRepresentation.length },
+				'Too many chunks for Azure AI Language Redaction, skipping redaction, falling back to legacy view'
 			);
 			return null;
 		}
-		const results = await textAnalyticsClient.recognizePiiEntities(chunks, 'en', {
-			// TODO: refine this list, and make this configurable
-			categoriesFilter: ['Address', 'Organization', 'Person', 'PhoneNumber', 'Email', 'URL']
-		});
+		/** @type {import('@azure/ai-text-analytics').RecognizePiiEntitiesResult[]} */
+		const results = [];
+		for (const chunks of reqChunks) {
+			const res = await textAnalyticsClient.recognizePiiEntities(chunks, 'en', {
+				// TODO: refine this list, and make this configurable
+				categoriesFilter: ['Address', 'Organization', 'Person', 'PhoneNumber', 'Email', 'URL']
+			});
+			results.push(...res);
+		}
 
 		if (isSuccessResults(results)) {
 			const { entities, redactedText } = combineResults(results, originalRepresentation);
@@ -135,7 +144,7 @@ export function combineResults(results, originalText) {
 }
 
 /**
- * @param {import('@azure/ai-text-analytics').RecognizePiiEntitiesResultArray} results
+ * @param {import('@azure/ai-text-analytics').RecognizePiiEntitiesResult[]} results
  * @returns {results is import('@azure/ai-text-analytics').RecognizePiiEntitiesSuccessResult[]}
  */
 function isSuccessResults(results) {
@@ -148,6 +157,21 @@ function isSuccessResults(results) {
  */
 function isSuccessResult(result) {
 	return Boolean(result && !result.error && result.entities);
+}
+
+/**
+ * @param {T[]} array
+ * @param {number} maxArraySize
+ * @returns {T[][]}
+ * @template T
+ */
+export function arrayToArrays(array, maxArraySize) {
+	const copy = array.slice();
+	const arrays = [];
+	while (copy.length > 0) {
+		arrays.push(copy.splice(0, maxArraySize));
+	}
+	return arrays;
 }
 
 /**
