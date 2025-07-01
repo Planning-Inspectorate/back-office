@@ -16,7 +16,7 @@
       {title: 'Contact name (Internal use only)', text: writeFullName([case.applicant.firstName, case.applicant.middleName, case.applicant.lastName] ), url: 'applicant-full-name', isProjectInfoOnly: 1 },
       {title: 'Address (Internal use only)', text: case.applicant.address | formatAddress, url: 'applicant-address', isProjectInfoOnly: 1 },
       {title: 'Website', html: applicantFirstWebsiteValue, url: 'applicant-website' },
-      {title: 'Email address', text: applicantFirstEmail, url: 'applicant-email' },
+      {title: 'Email address (Internal use only)', text: applicantFirstEmail, url: 'applicant-email', isProjectInfoOnly: 1 },
       {title: 'Telephone number (Internal use only)', text: applicantFirstPhoneNumber, url: 'applicant-telephone-number', isProjectInfoOnly: 1 }
     ] %}
 
