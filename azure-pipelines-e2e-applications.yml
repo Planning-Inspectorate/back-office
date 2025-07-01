@@ -17,8 +17,8 @@ trigger: none
 
 jobs:
   - job: Run_Cypress_Tests_For_Applications
-    pool:
-      vmImage: "ubuntu-latest"
+    timeoutInMinutes: 90
+    pool: pins-odt-agent-pool-tests
 
     steps:
       - task: NodeTool@0
