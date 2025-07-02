@@ -308,15 +308,13 @@ const correctExamTimetableFolders = async (caseId, res) => {
 
 				if (folderUpdateRequired) {
 					const updateCodeLine = updateCodes.join(', ');
+					const sqlUpdateCode = `UPDATE Folder SET ${updateCodeLine} WHERE id=${matchingFolder.id}`;
 					res.write(
 						`Updating folder ${matchingFolder.id} to SET: ${updateCodeLine} WHERE id = ${matchingFolder.id} ...\n`
 					);
 					try {
-						await databaseConnector.$executeRaw`
-						UPDATE Folder
-						SET ${updateCodeLine}
-						WHERE id = ${matchingFolder.id};
-					`;
+						// using executeRawUnsafe to allow for dynamic SQL - executeRaw does not process template strings
+						await databaseConnector.$executeRawUnsafe(sqlUpdateCode);
 						res.write(`Updated folder ${matchingFolder.id} to SET: ${updateCodeLine}.\n`);
 					} catch (err) {
 						// warn only, and continue with fixes
