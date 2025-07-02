@@ -48,7 +48,8 @@ exports[`applications GET / should render the open applications belonging to the
     </div>
     <div class="pins-dashboard-list--drafts">
         <h2 class="govuk-heading-l">Draft cases</h2>
-        <div class="govuk-accordion" data-module="govuk-accordion" id="draft-cases-list">
+        <div class="govuk-accordion" data-module="govuk-accordion" id="draft-cases-list"
+        data-i18n.hide-section-aria-label="Hide all draft cases" data-i18n.show-section-aria-label="Show all draft cases">
             <div class="govuk-accordion__section">
                 <div class="govuk-accordion__section-header">
                     <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="draft-cases-list-heading-1"></span></h2>
