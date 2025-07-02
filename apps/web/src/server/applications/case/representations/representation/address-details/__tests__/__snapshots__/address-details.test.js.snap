@@ -34,7 +34,7 @@ exports[`Representation address details page GET /applications-service/case/1/re
                     <input class="govuk-input govuk-!-width-two-thirds" id="country"
                     name="country" type="text">
                 </div>
-            </fieldset>
+            </fieldset>this is another change
             <button class="govuk-button" data-module="govuk-button">Save and continue</button>
         </form>
 </main>"
@@ -69,7 +69,7 @@ exports[`Representation address details page GET /applications-service/case/1/re
             </fieldset>
             <div class="govuk-!-margin-bottom-6"><a class='govuk-link govuk-body govuk-!-display-inline-block govuk-!-margin-0'
                 href="?repId=1&amp;repType=represented&amp;stage=enter"> I can't find address on the list</a>
-            </div>
+            </div>this is another change
             <button class="govuk-button" data-module="govuk-button">Save and continue</button>
         </form>
 </main>"
@@ -92,7 +92,7 @@ exports[`Representation address details page GET /applications-service/case/1/re
             </fieldset>
             <div class="govuk-!-margin-bottom-6"><a class='govuk-link govuk-body govuk-!-display-inline-block govuk-!-margin-0'
                 href="?repId=1&amp;repType=represented&amp;stage=enter"> Don't have a UK postcode?</a>
-            </div>
+            </div>this is another change
             <button class="govuk-button" data-module="govuk-button">Find address</button>
         </form>
 </main>"
@@ -154,7 +154,7 @@ exports[`Representation address details page POST /applications-service/case/1/r
                     <input                     class="govuk-input govuk-!-width-two-thirds govuk-input--error" id="country"
                     name="country" type="text" aria-describedby="country-error">
                 </div>
-            </fieldset>
+            </fieldset>this is another change
             <button class="govuk-button" data-module="govuk-button">Save and continue</button>
         </form>
 </main>"
@@ -207,7 +207,7 @@ exports[`Representation address details page POST /applications-service/case/1/r
             </fieldset>
             <div class="govuk-!-margin-bottom-6"><a class='govuk-link govuk-body govuk-!-display-inline-block govuk-!-margin-0'
                 href="?repId=1&amp;repType=represented&amp;stage=enter"> I can't find address on the list</a>
-            </div>
+            </div>this is another change
             <button class="govuk-button" data-module="govuk-button">Save and continue</button>
         </form>
 </main>"
@@ -246,7 +246,7 @@ exports[`Representation address details page POST /applications-service/case/1/r
             </fieldset>
             <div class="govuk-!-margin-bottom-6"><a class='govuk-link govuk-body govuk-!-display-inline-block govuk-!-margin-0'
                 href="?repId=1&amp;repType=represented&amp;stage=enter"> Don't have a UK postcode?</a>
-            </div>
+            </div>this is another change
             <button class="govuk-button" data-module="govuk-button">Find address</button>
         </form>
 </main>"
