@@ -116,7 +116,7 @@ exports[`applications create applicant GET edit/applicant-organisation-name shou
     <h1 class="govuk-heading-l govuk-!-margin-bottom-3"> Enter the Applicant’s organisation</h1>
     <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
         <div class="govuk-form-group">
-            <label class="govuk-label govuk-visually-hidden" for="applicant.organisationName">Applicant organisation name</label>
+            <label class="govuk-label govuk-visually-hidden" for="applicant.organisationName">Enter the Applicant&#39;s organisation</label>
             <input class="govuk-input govuk-!-width-one-third"
             id="applicant.organisationName" name="applicant.organisationName" type="text"
             value="Org name">
@@ -156,8 +156,9 @@ exports[`applications create applicant GET edit/applicant-website should render 
     <h1 class="govuk-heading-l govuk-!-margin-bottom-3"> Enter the Applicant’s website (optional)</h1>
     <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
         <div class="govuk-form-group">
-            <label class="govuk-label govuk-visually-hidden" for="applicant.website">Applicant website</label>
-            <div id="applicant.website-hint" class="govuk-hint">for example, https://www.heathrow.com</div>
+            <label class="govuk-label govuk-visually-hidden" for="applicant.website">Enter the Applicant&#39;s website (optional)</label>
+            <div id="applicant.website-hint"
+            class="govuk-hint">for example, https://www.heathrow.com</div>
             <input class="govuk-input govuk-!-width-one-third"
             id="applicant.website" name="applicant.website" type="text" value="website.web"
             aria-describedby="applicant.website-hint">
