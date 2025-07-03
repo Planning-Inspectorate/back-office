@@ -36,12 +36,12 @@ async function getBlobProperties(container, blobName) {
 }
 
 /**
- *
+ * @param {import('@azure/functions').Context} context
  * @param {BlobLocation} source
  * @param {BlobLocation} destination
  * @returns {Promise<boolean>}
  * */
-const copyFile = async (source, destination) => {
+const copyFile = async (context, source, destination) => {
 	const sourceUrl = [
 		storageHost.replace(/\/$/, ''),
 		source.containerName,
@@ -49,6 +49,8 @@ const copyFile = async (source, destination) => {
 	].join('/');
 
 	try {
+		context.log(`Source URL: ${sourceUrl}`);
+
 		const result = await client().copyFileFromUrl({
 			sourceUrl,
 			destinationContainerName: destination.containerName,

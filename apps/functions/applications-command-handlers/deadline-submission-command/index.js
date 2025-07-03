@@ -103,6 +103,7 @@ async function run(context, msg) {
 	}
 
 	const successful = await blob.copyFile(
+		context,
 		{ containerName: submissionsContainer, blobName: sourceBlobName },
 		{ containerName: privateBlobContainer, blobName: destinationName }
 	);
