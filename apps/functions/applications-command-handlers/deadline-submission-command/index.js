@@ -44,6 +44,7 @@ async function run(context, msg) {
 	const sourceBlobName = `${msg.blobGuid}/${msg.documentName}`;
 
 	const properties = await blob.getBlobProperties(submissionsContainer, sourceBlobName);
+	context.log('Blob properties found:', JSON.stringify(properties, null, 2)); // Add this line
 
 	// Check if the matching folder ID exists for the timetable item
 	const examItemfolderExists = await api.examTimetableItemFolderExists(
