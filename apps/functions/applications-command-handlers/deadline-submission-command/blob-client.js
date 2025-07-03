@@ -57,7 +57,10 @@ const copyFile = async (source, destination) => {
 
 		return result === 'success';
 	} catch (err) {
-		throw new Error(`copyFile failed for source ${source} and destination ${destination}: ${err}`);
+		throw new Error(
+			`copyFile failed for sourceUrl: ${sourceUrl}, source: (container: ${source.containerName}, blob: ${source.blobName}) ` +
+				`and destination (container: ${destination.containerName}, blob: ${destination.blobName}): ${err}`
+		);
 	}
 };
 
