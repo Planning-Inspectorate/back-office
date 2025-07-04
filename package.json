@@ -30,7 +30,22 @@
 		"api": "npm run dev --workspace=@pins/applications.api",
 		"api:test": "npm run start:test --workspace=@pins/applications.api-testing",
 		"e2e:smokeTests": "npm run cy:run --workspace=@pins/e2e -- --browser chrome  --spec cypress/e2e/back-office-applications/smokeTests.spec.js",
-		"c4": "docker pull structurizr/lite && docker run -it --rm -p 8082:8080 -v ${PWD}:/usr/local/structurizr structurizr/lite"
+		"c4": "docker pull structurizr/lite && docker run -it --rm -p 8082:8080 -v ${PWD}:/usr/local/structurizr structurizr/lite",
+
+		"setup": "node scripts/setup.js",
+		"setup:quick": "node scripts/setup.js --quick",
+		"setup:auto": "node scripts/setup.js --auto",
+		"doctor": "node scripts/doctor.js",
+		"cleanup": "node scripts/utils/cleanup.js",
+		"cleanup:auto": "node scripts/utils/cleanup.js --yes",
+
+		"db:start": "node scripts/db-ops.js start",
+		"db:stop": "node scripts/db-ops.js stop",
+		"db:logs": "node scripts/db-ops.js logs",
+		"db:shell": "node scripts/db-ops.js shell",
+		"db:status": "node scripts/db-ops.js status",
+		"db:cleanup": "node scripts/db-ops.js cleanup",
+		"db:reset": "node scripts/db-ops.js reset"
 	},
 	"dependencies": {
 		"@azure/app-configuration": "^1.6.0",
@@ -205,7 +220,9 @@
 		"terser": "^5.13.1",
 		"turbo": "^1.2.14",
 		"type-fest": "^2.12.2",
-		"typescript": "4.7.4"
+		"typescript": "4.7.4",
+		"semver": "^7.5.4",
+		"concurrently": "^8.2.2"
 	},
 	"packageManager": "npm@10.1.0",
 	"lint-staged": {
