@@ -81,7 +81,8 @@ export const validateApplicationsCreateCaseEasting = createValidator(
 		.trim()
 		.isLength({ min: 1 })
 		.withMessage(getErrorMessageCaseCreate('gridReferenceEasting'))
-		.toInt()
+		.isNumeric()
+		.withMessage('Enter 6 digits for the Grid reference Easting')
 		.isLength({ min: 6, max: 6 })
 		.withMessage('Enter 6 digits for the Grid reference Easting')
 );
@@ -91,7 +92,8 @@ export const validateApplicationsCreateCaseNorthing = createValidator(
 		.trim()
 		.isLength({ min: 1 })
 		.withMessage(getErrorMessageCaseCreate('gridReferenceNorthing'))
-		.toInt()
+		.isNumeric()
+		.withMessage('Enter 6 digits for the Grid reference Northing')
 		.isLength({ min: 6, max: 6 })
 		.withMessage('Enter 6 digits for the Grid reference Northing')
 );
