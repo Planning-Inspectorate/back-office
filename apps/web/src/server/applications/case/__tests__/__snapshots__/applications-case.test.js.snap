@@ -66,9 +66,6 @@ exports[`Applications case pages Preview and publish page GET /case/123/preview-
                             <dd class="govuk-summary-list__value"><a class="govuk-link" href="website.web">website.web</a>
                             </dd>
                         </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Email address</dt>
-                            <dd class="govuk-summary-list__value">email@email.co</dd>
-                        </div>
                     </dl>
                 </div>
             </div>
@@ -237,9 +234,6 @@ exports[`Applications case pages Preview and publish page GET /case/123/preview-
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Website</dt>
                             <dd class="govuk-summary-list__value"><a class="govuk-link" href="website.web">website.web</a>
                             </dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Email address</dt>
-                            <dd class="govuk-summary-list__value">email@email.co</dd>
                         </div>
                     </dl>
                 </div>
@@ -559,10 +553,10 @@ exports[`Applications case pages Project information page GET /case/123/project-
                                 <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/edit/applicant-website"> Change</a>
                                 </dd>
                             </div>
-                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Email address</dt>
-                                <dd class="govuk-summary-list__value">email@email.co</dd>
-                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/edit/applicant-email"> Change</a>
-                                </dd>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Email address (Internal use only)</dt>
+                                <dd                                 class="govuk-summary-list__value">email@email.co</dd>
+                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/edit/applicant-email"> Change</a>
+                                    </dd>
                             </div>
                             <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Telephone number (Internal use only)</dt>
                                 <dd                                 class="govuk-summary-list__value">001</dd>
@@ -775,10 +769,10 @@ exports[`Applications case pages Project information page GET /case/123/project-
                                 <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/edit/applicant-website"> Change</a>
                                 </dd>
                             </div>
-                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Email address</dt>
-                                <dd class="govuk-summary-list__value">email@email.co</dd>
-                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/edit/applicant-email"> Change</a>
-                                </dd>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Email address (Internal use only)</dt>
+                                <dd                                 class="govuk-summary-list__value">email@email.co</dd>
+                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/edit/applicant-email"> Change</a>
+                                    </dd>
                             </div>
                             <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Telephone number (Internal use only)</dt>
                                 <dd                                 class="govuk-summary-list__value">001</dd>
@@ -991,10 +985,10 @@ exports[`Applications case pages Project information page GET /case/123/project-
                                 <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/edit/applicant-website"> Change</a>
                                 </dd>
                             </div>
-                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Email address</dt>
-                                <dd class="govuk-summary-list__value">email@email.co</dd>
-                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/edit/applicant-email"> Change</a>
-                                </dd>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Email address (Internal use only)</dt>
+                                <dd                                 class="govuk-summary-list__value">email@email.co</dd>
+                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/edit/applicant-email"> Change</a>
+                                    </dd>
                             </div>
                             <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Telephone number (Internal use only)</dt>
                                 <dd                                 class="govuk-summary-list__value">001</dd>
