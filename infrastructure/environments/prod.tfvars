@@ -10,6 +10,9 @@ front_door_config = {
   rg          = "pins-rg-common-prod"
   ep_name     = "pins-fde-applications-prod"
   use_tooling = false
+
+  managed_rule_set         = "DefaultRuleSet"
+  managed_rule_set_version = "1.0"
 }
 resource_group_name = "pins-rg-back-office-prod-ukw-001"
 
