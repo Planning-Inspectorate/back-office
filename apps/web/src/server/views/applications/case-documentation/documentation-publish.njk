@@ -25,11 +25,11 @@
                 </h1>
                 <ul class="govuk-list">
                     <li>
-                        <span class='font-weight--700'>Case name:</span>
+						<strong>Case name:</strong>
                         {{ case.title }}
                     </li>
                     <li>
-                        <span class='font-weight--700'>Case reference:</span>
+						<strong>Case reference:</strong>
                         {{ case.reference }}
                     </li>
                 </ul>
@@ -39,9 +39,9 @@
 										- {{ ((documentationFiles.page - 1) * documentationFiles.pageDefaultSize) +  documentationFiles.items.length }}
 										document(s).
                 </p>
-                <p class='govuk-body font-weight--700'>
-                    <span id="selectedFilesNumber">0</span> document(s) on this page are selected.
-                </p>
+				<p class='govuk-body'>
+					<strong><span id="selectedFilesNumber">0</span> document(s) on this page are selected.</strong>
+				</p>
                 <form class="pins-files-list" method="post">
                     <table class="govuk-table pins-files-list__table pins-files-list__table-publish pins-table">
                         <thead class="govuk-table__head govuk-body-s">
@@ -84,7 +84,7 @@
 												}) }}
                                     </td>
                                     <td class="govuk-table__cell">
-                                        <p class='font-weight--700 govuk-body-m'>{{ documentationFile.description }}</p>
+										<p class='govuk-body-m'><strong>{{ documentationFile.description }}</strong></p>
                                         <p class="file-info">
                                             File name: {{ documentationFile.fileName }}
                                         </p>

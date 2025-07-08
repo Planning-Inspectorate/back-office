@@ -13,16 +13,13 @@ const scopes = [
 ];
 
 // dependabot commit scopes
-const dependabotScopes = [
-	'deps',
-	'deps-dev'
-];
+const dependabotScopes = ['deps', 'deps-dev'];
 
 /** @type {import('@commitlint/types').UserConfig} */
 module.exports = {
 	extends: ['@commitlint/config-conventional'],
 	rules: {
-		'body-max-line-length': [2,	'always', 120], // dependabot needs longer lines, the value is somewhat arbitrary
+		'body-max-line-length': [2, 'always', 120], // dependabot needs longer lines, the value is somewhat arbitrary
 		'scope-enums': [
 			2,
 			'always',
