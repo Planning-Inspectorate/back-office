@@ -162,6 +162,11 @@ async function checkDocsInPublishedBlobStore(allLinks) {
 	let ctr = 0;
 	for (const link of allLinks) {
 		ctr++;
+		// if the checker fails, timeout etc on too many docs/calls, then we can just rerun, skipping the first x:
+		// if (ctr < 1400) {
+		// 	continue;
+		// }
+
 		if (ctr % 100 === 0) {
 			console.log(`Processing doc ${ctr} of ${allLinks.length}`);
 		}
