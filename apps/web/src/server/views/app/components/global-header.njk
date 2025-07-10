@@ -5,14 +5,40 @@
 				<div class="header-container__logo">
 					{% include "app/components/logo/pins-logo.njk" %}
 				</div>
-				<div class="header-container__text">
-					{{ domainName }}
-				</div>
-				<div class="header-container__links">
-					<a href="{{'dashboard'|url}}" class="govuk-link">Home</a>
-					<a href="https://forms.office.com/e/HUP5kTvb8D" class="govuk-link">Give feedback</a>
-					<a href="/auth/signout" class="govuk-link">Sign out</a>
-				</div>
+				{% if domainName %}
+					<div class="header-container__text" role="heading" aria-level="1">
+						{{ domainName }}
+					</div>
+      			{% endif %}
+				<nav class="header-container__links" role="navigation" aria-label="Primary navigation">
+					<span id="home-link-description" class="govuk-visually-hidden">Navigate to main dashboard</span>
+					<span id="feedback-link-description" class="govuk-visually-hidden">Opens feedback form in new tab</span>
+					<span id="signout-link-description" class="govuk-visually-hidden">End your current session</span>
+					<a
+						href="{{'dashboard'|url}}"
+						class="govuk-link"
+						aria-describedby="home-link-description"
+					>
+						Home
+					</a>
+					<a
+						href="https://forms.office.com/e/HUP5kTvb8D"
+						class="govuk-link"
+           				target="_blank"
+           				rel="noopener noreferrer"
+						aria-describedby="feedback-link-description"
+					>
+						Give feedback
+						<span class="govuk-visually-hidden"> (opens in new tab)</span>
+					</a>
+					<a
+						href="/auth/signout"
+						class="govuk-link"
+						aria-describedby="signout-link-description"
+					>
+						Sign out
+					</a>
+				</nav>
 			</div>
 		</div>
 	</header>
