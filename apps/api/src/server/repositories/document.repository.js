@@ -92,6 +92,7 @@ export const getDocumentVersionsByCaseId = async (caseId) => {
 
 /**
  * Get latest document reference (excluding ones from migration (with -M-)
+ * Includes deleted docs, and orders by documentReference descending
  *
  * @param {{ caseId: number, skipValue?: number, pageSize?: number }} _
  * @returns {Promise<string>}
@@ -100,13 +101,12 @@ export const getLatestDocReferenceByCaseIdExcludingMigrated = async ({ caseId })
 	const latestDoc = await databaseConnector.document.findMany({
 		where: {
 			caseId,
-			isDeleted: false,
 			NOT: { documentReference: { contains: '-M-' } } // Migration created doc references are `${document.caseRef}-M-${documentId}`, so we want to exclude that when finding latest one
 		},
 		take: 1,
 		orderBy: [
 			{
-				createdAt: 'desc'
+				documentReference: 'desc'
 			}
 		]
 	});

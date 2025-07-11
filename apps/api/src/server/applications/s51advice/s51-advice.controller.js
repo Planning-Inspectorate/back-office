@@ -26,12 +26,14 @@ import * as caseRepository from '#repositories/case.repository.js';
 import {
 	makeDocumentReference,
 	createDocuments,
-	deleteDocument
+	deleteDocument,
+	getIndexFromReference
 } from './../application/documents/document.service.js';
 import BackOfficeAppError from '#utils/app-error.js';
 import { mapDateStringToUnixTimestamp } from '#utils/mapping/map-date-string-to-unix-timestamp.js';
 import logger from '#utils/logger.js';
 import isCaseWelsh from '#utils/is-case-welsh.js';
+import { getLatestDocReferenceByCaseIdExcludingMigrated } from '#repositories/document.repository.js';
 
 /**
  * @typedef {import('@pins/applications.api').Schema.Folder} Folder
@@ -141,7 +143,7 @@ export const getDocuments = async ({ params }, response) => {
 };
 
 /**
- * Add an S51 Advice document to an S51 Advice
+ * Adds one or more S51 Advice documents to an S51 Advice
  *
  * @type {import('express').RequestHandler}
  * @throws {Error}
@@ -158,8 +160,6 @@ export const addDocuments = async ({ params, body }, response) => {
 	const documentsToUpload = body;
 	const caseId = Number(params.id);
 
-	const existingS51ForCase = await s51AdviceRepository.getLatestRecordByCaseId(caseId);
-
 	const theCase = await caseRepository.getById(caseId, {
 		applicationDetails: true,
 		gridReference: true
@@ -169,9 +169,15 @@ export const addDocuments = async ({ params, body }, response) => {
 		throw new BackOfficeAppError(`Case with id: ${caseId} not found.`, 404);
 	}
 
-	let nextReferenceIndex = existingS51ForCase?.referenceNumber
-		? existingS51ForCase.referenceNumber + 1
+	// find the latest document reference for this case, and then add 1 for the next free one
+	const latestDocumentReference = await getLatestDocReferenceByCaseIdExcludingMigrated({
+		caseId
+	});
+
+	const lastReferenceIndex = latestDocumentReference
+		? getIndexFromReference(latestDocumentReference)
 		: 1;
+	let nextDocumentReferenceIndex = lastReferenceIndex ? lastReferenceIndex + 1 : 1;
 
 	const { duplicates, deleted, remainder } = await extractDuplicatesAndDeleted(
 		adviceId,
@@ -183,10 +189,10 @@ export const addDocuments = async ({ params, body }, response) => {
 	);
 
 	for (const doc of filteredToUpload) {
-		doc.documentReference = makeDocumentReference(theCase.reference, nextReferenceIndex);
+		doc.documentReference = makeDocumentReference(theCase.reference, nextDocumentReferenceIndex);
 		doc.folderId = Number(doc.folderId);
 
-		nextReferenceIndex++;
+		nextDocumentReferenceIndex++;
 	}
 
 	// create document records
