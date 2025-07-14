@@ -2,10 +2,17 @@
 
 exports[`applications representations GET /applications-service/:caseId/relevant-representations should render the page 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
-    <div class="govuk-!-margin-left-0 govuk-!-margin-bottom-7">
-        <div class="pins-masthead-summary govuk-!-padding-4 govuk-!-padding-top-9 govuk-!-padding-bottom-2"><span class="govuk-caption-xl"> mock reference </span>
-            <h1 class="govuk-heading-xl govuk-!-margin-bottom-3"> mock title </h1>
-            <p class="govuk-body">mock title</p><strong class="govuk-heading-s"><strong class="govuk-tag govuk-tag--">in test</strong></strong>
+    <div class="top-errors-hook" role="alert"></div>
+    <div class="govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-left-0 govuk-!-margin-bottom-7 pins-masthead-summary">
+        <div class="govuk-grid-column-full">
+            <h4 class="govuk-heading-m"> mock reference </h4>
+            <h1 class="govuk-heading-xl">mock title</h1>
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-full govuk-body">,
+                    <br>
+                    <br><strong class="govuk-tag govuk-tag--">in test</strong>
+                </div>
+            </div>
         </div>
     </div>
     <div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title"
@@ -185,10 +192,17 @@ exports[`applications representations GET /applications-service/:caseId/relevant
 
 exports[`applications representations GET /applications-service/:id/relevant-representations with a search term should render the page with search term 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
-    <div class="govuk-!-margin-left-0 govuk-!-margin-bottom-7">
-        <div class="pins-masthead-summary govuk-!-padding-4 govuk-!-padding-top-9 govuk-!-padding-bottom-2"><span class="govuk-caption-xl"> mock reference </span>
-            <h1 class="govuk-heading-xl govuk-!-margin-bottom-3"> mock title </h1>
-            <p class="govuk-body">mock title</p><strong class="govuk-heading-s"><strong class="govuk-tag govuk-tag--">in test</strong></strong>
+    <div class="top-errors-hook" role="alert"></div>
+    <div class="govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-left-0 govuk-!-margin-bottom-7 pins-masthead-summary">
+        <div class="govuk-grid-column-full">
+            <h4 class="govuk-heading-m"> mock reference </h4>
+            <h1 class="govuk-heading-xl">mock title</h1>
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-full govuk-body">,
+                    <br>
+                    <br><strong class="govuk-tag govuk-tag--">in test</strong>
+                </div>
+            </div>
         </div>
     </div>
     <div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title"
