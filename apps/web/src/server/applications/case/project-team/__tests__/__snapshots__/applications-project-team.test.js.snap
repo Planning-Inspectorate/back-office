@@ -1,0 +1,1216 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Project team Choose role page GET /case/123/project-team/1/choose-role should render the page with the name of the NEW user and no default option 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <h1 class="govuk-heading-l govuk-!-margin-bottom-5"><span class="govuk-caption-l">Do Do</span></h1>
+    <form method="post" action="" novalidate="novalidate" class="govuk-!-margin-top-6">
+        <div class="govuk-form-group">
+            <fieldset class="govuk-fieldset">
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                    <h1 class="govuk-fieldset__heading"> Choose role</h1>
+                </legend>
+                <div class="govuk-radios" data-module="govuk-radios">
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role" name="role" type="radio"
+                        value="case_manager">
+                        <label class="govuk-label govuk-radios__label" for="role">Case Manager</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role-2" name="role" type="radio"
+                        value="environmental_services">
+                        <label class="govuk-label govuk-radios__label" for="role-2">Environmental Services</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role-3" name="role" type="radio"
+                        value="inspector">
+                        <label class="govuk-label govuk-radios__label" for="role-3">Inspector</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role-4" name="role" type="radio"
+                        value="lead_inspector">
+                        <label class="govuk-label govuk-radios__label" for="role-4">Lead Inspector</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role-5" name="role" type="radio"
+                        value="legal_officer">
+                        <label class="govuk-label govuk-radios__label" for="role-5">Legal Officer</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role-6" name="role" type="radio"
+                        value="NSIP_administration_officer">
+                        <label class="govuk-label govuk-radios__label" for="role-6">NSIP Administration Officer</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role-7" name="role" type="radio"
+                        value="NSIP_officer">
+                        <label class="govuk-label govuk-radios__label" for="role-7">NSIP Officer</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role-8" name="role" type="radio"
+                        value="officer">
+                        <label class="govuk-label govuk-radios__label" for="role-8">Officer</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role-9" name="role" type="radio"
+                        value="operations_lead">
+                        <label class="govuk-label govuk-radios__label" for="role-9">Operations Lead</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role-10" name="role" type="radio"
+                        value="operations_manager">
+                        <label class="govuk-label govuk-radios__label" for="role-10">Operations Manager</label>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <button class="govuk-button govuk-!-margin-top-4" data-module="govuk-button">Save and return</button>
+        <button type="submit" formaction="?toSearchPage=1"
+        class="govuk-button govuk-button--secondary govuk-!-margin-left-2 govuk-!-margin-top-4">Save and add another</button>
+    </form>
+</main>"
+`;
+
+exports[`Project team Choose role page GET /case/123/project-team/1/choose-role should render the page with the name of the NEW user, no default option and no Case Manager option 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <h1 class="govuk-heading-l govuk-!-margin-bottom-5"><span class="govuk-caption-l">Do Do</span></h1>
+    <form method="post" action="" novalidate="novalidate" class="govuk-!-margin-top-6">
+        <div class="govuk-form-group">
+            <fieldset class="govuk-fieldset">
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                    <h1 class="govuk-fieldset__heading"> Choose role</h1>
+                </legend>
+                <div class="govuk-radios" data-module="govuk-radios">
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role" name="role" type="radio"
+                        value="environmental_services">
+                        <label class="govuk-label govuk-radios__label" for="role">Environmental Services</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role-2" name="role" type="radio"
+                        value="inspector">
+                        <label class="govuk-label govuk-radios__label" for="role-2">Inspector</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role-3" name="role" type="radio"
+                        value="lead_inspector">
+                        <label class="govuk-label govuk-radios__label" for="role-3">Lead Inspector</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role-4" name="role" type="radio"
+                        value="legal_officer">
+                        <label class="govuk-label govuk-radios__label" for="role-4">Legal Officer</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role-5" name="role" type="radio"
+                        value="NSIP_administration_officer">
+                        <label class="govuk-label govuk-radios__label" for="role-5">NSIP Administration Officer</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role-6" name="role" type="radio"
+                        value="NSIP_officer">
+                        <label class="govuk-label govuk-radios__label" for="role-6">NSIP Officer</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role-7" name="role" type="radio"
+                        value="officer">
+                        <label class="govuk-label govuk-radios__label" for="role-7">Officer</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role-8" name="role" type="radio"
+                        value="operations_lead">
+                        <label class="govuk-label govuk-radios__label" for="role-8">Operations Lead</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role-9" name="role" type="radio"
+                        value="operations_manager">
+                        <label class="govuk-label govuk-radios__label" for="role-9">Operations Manager</label>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <button class="govuk-button govuk-!-margin-top-4" data-module="govuk-button">Save and return</button>
+        <button type="submit" formaction="?toSearchPage=1"
+        class="govuk-button govuk-button--secondary govuk-!-margin-left-2 govuk-!-margin-top-4">Save and add another</button>
+    </form>
+</main>"
+`;
+
+exports[`Project team Choose role page GET /case/123/project-team/1/choose-role should render the page with the name of the existing user and default option 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <h1 class="govuk-heading-l govuk-!-margin-bottom-5"><span class="govuk-caption-l">Do Do</span></h1>
+    <form method="post" action="" novalidate="novalidate" class="govuk-!-margin-top-6">
+        <div class="govuk-form-group">
+            <fieldset class="govuk-fieldset">
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                    <h1 class="govuk-fieldset__heading"> Change role</h1>
+                </legend>
+                <div class="govuk-radios" data-module="govuk-radios">
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role" name="role" type="radio"
+                        value="case_manager">
+                        <label class="govuk-label govuk-radios__label" for="role">Case Manager</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role-2" name="role" type="radio"
+                        value="environmental_services">
+                        <label class="govuk-label govuk-radios__label" for="role-2">Environmental Services</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role-3" name="role" type="radio"
+                        value="inspector" checked>
+                        <label class="govuk-label govuk-radios__label" for="role-3">Inspector</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role-4" name="role" type="radio"
+                        value="lead_inspector">
+                        <label class="govuk-label govuk-radios__label" for="role-4">Lead Inspector</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role-5" name="role" type="radio"
+                        value="legal_officer">
+                        <label class="govuk-label govuk-radios__label" for="role-5">Legal Officer</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role-6" name="role" type="radio"
+                        value="NSIP_administration_officer">
+                        <label class="govuk-label govuk-radios__label" for="role-6">NSIP Administration Officer</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role-7" name="role" type="radio"
+                        value="NSIP_officer">
+                        <label class="govuk-label govuk-radios__label" for="role-7">NSIP Officer</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role-8" name="role" type="radio"
+                        value="officer">
+                        <label class="govuk-label govuk-radios__label" for="role-8">Officer</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role-9" name="role" type="radio"
+                        value="operations_lead">
+                        <label class="govuk-label govuk-radios__label" for="role-9">Operations Lead</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role-10" name="role" type="radio"
+                        value="operations_manager">
+                        <label class="govuk-label govuk-radios__label" for="role-10">Operations Manager</label>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <button class="govuk-button govuk-!-margin-top-4" data-module="govuk-button">Save and return</button>
+    </form>
+</main>"
+`;
+
+exports[`Project team Choose role page POST /case/123/project-team/1/choose-role should render a API error if upserting did not work 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#query">The role could not be saved, try again.</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h1 class="govuk-heading-l govuk-!-margin-bottom-5"><span class="govuk-caption-l">Do Do</span></h1>
+    <form method="post" action="" novalidate="novalidate" class="govuk-!-margin-top-6">
+        <div class="govuk-form-group">
+            <fieldset class="govuk-fieldset">
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                    <h1 class="govuk-fieldset__heading"> Choose role</h1>
+                </legend>
+                <div class="govuk-radios" data-module="govuk-radios">
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role" name="role" type="radio"
+                        value="case_manager">
+                        <label class="govuk-label govuk-radios__label" for="role">Case Manager</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role-2" name="role" type="radio"
+                        value="environmental_services">
+                        <label class="govuk-label govuk-radios__label" for="role-2">Environmental Services</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role-3" name="role" type="radio"
+                        value="inspector">
+                        <label class="govuk-label govuk-radios__label" for="role-3">Inspector</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role-4" name="role" type="radio"
+                        value="lead_inspector">
+                        <label class="govuk-label govuk-radios__label" for="role-4">Lead Inspector</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role-5" name="role" type="radio"
+                        value="legal_officer">
+                        <label class="govuk-label govuk-radios__label" for="role-5">Legal Officer</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role-6" name="role" type="radio"
+                        value="NSIP_administration_officer">
+                        <label class="govuk-label govuk-radios__label" for="role-6">NSIP Administration Officer</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role-7" name="role" type="radio"
+                        value="NSIP_officer">
+                        <label class="govuk-label govuk-radios__label" for="role-7">NSIP Officer</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role-8" name="role" type="radio"
+                        value="officer">
+                        <label class="govuk-label govuk-radios__label" for="role-8">Officer</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role-9" name="role" type="radio"
+                        value="operations_lead">
+                        <label class="govuk-label govuk-radios__label" for="role-9">Operations Lead</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role-10" name="role" type="radio"
+                        value="operations_manager">
+                        <label class="govuk-label govuk-radios__label" for="role-10">Operations Manager</label>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <button class="govuk-button govuk-!-margin-top-4" data-module="govuk-button">Save and return</button>
+        <button type="submit" formaction="?toSearchPage=1"
+        class="govuk-button govuk-button--secondary govuk-!-margin-left-2 govuk-!-margin-top-4">Save and add another</button>
+    </form>
+</main>"
+`;
+
+exports[`Project team Choose role page POST /case/123/project-team/1/choose-role should render an error if role is not selected 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#role">You must select a role</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h1 class="govuk-heading-l govuk-!-margin-bottom-5"><span class="govuk-caption-l">Do Do</span></h1>
+    <form method="post" action="" novalidate="novalidate" class="govuk-!-margin-top-6">
+        <div class="govuk-form-group govuk-form-group--error">
+            <fieldset class="govuk-fieldset" aria-describedby="role-error">
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                    <h1 class="govuk-fieldset__heading"> Choose role</h1>
+                </legend>
+                <p id="role-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> You must select a role</p>
+                <div                 class="govuk-radios" data-module="govuk-radios">
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role" name="role" type="radio"
+                        value="case_manager">
+                        <label class="govuk-label govuk-radios__label" for="role">Case Manager</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role-2" name="role" type="radio"
+                        value="environmental_services">
+                        <label class="govuk-label govuk-radios__label" for="role-2">Environmental Services</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role-3" name="role" type="radio"
+                        value="inspector">
+                        <label class="govuk-label govuk-radios__label" for="role-3">Inspector</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role-4" name="role" type="radio"
+                        value="lead_inspector">
+                        <label class="govuk-label govuk-radios__label" for="role-4">Lead Inspector</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role-5" name="role" type="radio"
+                        value="legal_officer">
+                        <label class="govuk-label govuk-radios__label" for="role-5">Legal Officer</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role-6" name="role" type="radio"
+                        value="NSIP_administration_officer">
+                        <label class="govuk-label govuk-radios__label" for="role-6">NSIP Administration Officer</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role-7" name="role" type="radio"
+                        value="NSIP_officer">
+                        <label class="govuk-label govuk-radios__label" for="role-7">NSIP Officer</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role-8" name="role" type="radio"
+                        value="officer">
+                        <label class="govuk-label govuk-radios__label" for="role-8">Officer</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role-9" name="role" type="radio"
+                        value="operations_lead">
+                        <label class="govuk-label govuk-radios__label" for="role-9">Operations Lead</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="role-10" name="role" type="radio"
+                        value="operations_manager">
+                        <label class="govuk-label govuk-radios__label" for="role-10">Operations Manager</label>
+                    </div>
+        </div>
+        </fieldset>
+        </div>
+        <button class="govuk-button govuk-!-margin-top-4" data-module="govuk-button">Save and return</button>
+        <button type="submit" formaction="?toSearchPage=1"
+        class="govuk-button govuk-button--secondary govuk-!-margin-left-2 govuk-!-margin-top-4">Save and add another</button>
+    </form>
+</main>"
+`;
+
+exports[`Project team List page GET /case/123/project-team/ should render the page with users 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="top-errors-hook" role="alert"></div>
+    <div class="govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-left-0 govuk-!-margin-bottom-7 pins-masthead-summary">
+        <div class="govuk-grid-column-full">
+            <h4 class="govuk-heading-m"> CASE/04 </h4>
+            <h1 class="govuk-heading-xl">Title CASE/04</h1>
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-full govuk-body">Transport EN, Highways EN
+                    <br>
+                    <br><strong class="govuk-tag govuk-tag--green">Pre-Application</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="govuk-grid-row govuk-!-margin-left-0 display--flex">
+        <div class="pins-list-menu-container">
+            <aside class="govuk-!-margin-bottom-8 pins-list-menu" aria-label="Case navigation">
+                <h2 class="govuk-visually-hidden">Case Details Menu</h2>
+                <nav>
+                    <ul class="gov-list pins-list-menu">
+                        <li><a class="govuk-link " href="/applications-service/case/4/"> Overview</a>
+                        </li>
+                        <li><a class="govuk-link " href="/applications-service/case/4/key-dates"> Key dates</a>
+                        </li>
+                        <li><a class="govuk-link pins-selected-item" href="/applications-service/case/4/project-team"> Project team</a>
+                        </li>
+                        <li><a class="govuk-link " href="/applications-service/case/4/project-documentation"> Project documentation</a>
+                        </li>
+                        <li><a class="govuk-link " href="/applications-service/case/4/project-updates"> Project updates</a>
+                        </li>
+                        <li><a class="govuk-link " href="/applications-service/case/4/examination-timetable"> Examination timetable</a>
+                        </li>
+                    </ul>
+                </nav>
+            </aside>
+        </div>
+        <div class="govuk-grid-column-full">
+            <h3 class="govuk-heading-m">Project team</h3>
+            <p class="govuk-body">Add team members and their roles to the project.</p>
+            <table class="govuk-table stretch-last-column">
+                <thead class="govuk-table__head">
+                    <tr class="govuk-table__row">
+                        <th scope="col" class="govuk-table__header">Role</th>
+                        <th scope="col" class="govuk-table__header">Team Member</th>
+                        <th scope="col" class="govuk-table__header">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="govuk-table__body">
+                    <tr class="govuk-table__row">
+                        <td class="govuk-table__cell"><strong>Inspector</strong>
+                        </td>
+                        <td class="govuk-table__cell">Do Do</td>
+                        <td class="govuk-table__cell"><a class='govuk-link govuk-!-margin-right-3' href='/applications-service/case/123/project-team/1/choose-role'>Change role<span class="govuk-visually-hidden">for Do Do</span></a>
+                            <a                             class='govuk-link' href='/applications-service/case/123/project-team/1/remove'>Remove<span class="govuk-visually-hidden">Do Do</span>
+                                </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table><a class='govuk-button govuk-!-margin-top-6' href='/applications-service/case/123/project-team/search'> Add team member</a>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`Project team List page GET /case/123/project-team/ should render the page without users 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="top-errors-hook" role="alert"></div>
+    <div class="govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-left-0 govuk-!-margin-bottom-7 pins-masthead-summary">
+        <div class="govuk-grid-column-full">
+            <h4 class="govuk-heading-m"> CASE/04 </h4>
+            <h1 class="govuk-heading-xl">Title CASE/04</h1>
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-full govuk-body">Transport EN, Highways EN
+                    <br>
+                    <br><strong class="govuk-tag govuk-tag--green">Pre-Application</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="govuk-grid-row govuk-!-margin-left-0 display--flex">
+        <div class="pins-list-menu-container">
+            <aside class="govuk-!-margin-bottom-8 pins-list-menu" aria-label="Case navigation">
+                <h2 class="govuk-visually-hidden">Case Details Menu</h2>
+                <nav>
+                    <ul class="gov-list pins-list-menu">
+                        <li><a class="govuk-link " href="/applications-service/case/4/"> Overview</a>
+                        </li>
+                        <li><a class="govuk-link " href="/applications-service/case/4/key-dates"> Key dates</a>
+                        </li>
+                        <li><a class="govuk-link pins-selected-item" href="/applications-service/case/4/project-team"> Project team</a>
+                        </li>
+                        <li><a class="govuk-link " href="/applications-service/case/4/project-documentation"> Project documentation</a>
+                        </li>
+                        <li><a class="govuk-link " href="/applications-service/case/4/project-updates"> Project updates</a>
+                        </li>
+                        <li><a class="govuk-link " href="/applications-service/case/4/examination-timetable"> Examination timetable</a>
+                        </li>
+                    </ul>
+                </nav>
+            </aside>
+        </div>
+        <div class="govuk-grid-column-full">
+            <h3 class="govuk-heading-m">Project team</h3>
+            <p class="govuk-body">Add team members and their roles to the project.</p><a class='govuk-button govuk-!-margin-top-6'
+            href='/applications-service/case/123/project-team/search'> Add team member</a>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`Project team Remove member GET /case/123/project-team/1/remove should render the page 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <h1 class="govuk-heading-l govuk-!-margin-bottom-5"> Remove team member</h1>
+    <form method="post" action="" novalidate="novalidate" class="govuk-!-margin-top-6">
+        <table class="govuk-table">
+            <thead class="govuk-table__head">
+                <tr class="govuk-table__row">
+                    <th scope="col" class="govuk-table__header">Name</th>
+                    <th scope="col" class="govuk-table__header">Email</th>
+                </tr>
+            </thead>
+            <tbody class="govuk-table__body">
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell">Do Do</td>
+                    <td class="govuk-table__cell">Do.Do@planninginspectorate.gov.uk</td>
+                </tr>
+            </tbody>
+        </table>
+        <button class="govuk-button govuk-!-margin-top-4" data-module="govuk-button">Remove team member</button>
+    </form>
+</main>"
+`;
+
+exports[`Project team Remove member POST /case/123/project-team/1/remove should render an error if removal did not work 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#msg">The team member could not be removed, try again.</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h1 class="govuk-heading-l govuk-!-margin-bottom-5"> Remove team member</h1>
+    <form method="post" action="" novalidate="novalidate" class="govuk-!-margin-top-6">
+        <table class="govuk-table">
+            <thead class="govuk-table__head">
+                <tr class="govuk-table__row">
+                    <th scope="col" class="govuk-table__header">Name</th>
+                    <th scope="col" class="govuk-table__header">Email</th>
+                </tr>
+            </thead>
+            <tbody class="govuk-table__body">
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell">Do Do</td>
+                    <td class="govuk-table__cell">Do.Do@planninginspectorate.gov.uk</td>
+                </tr>
+            </tbody>
+        </table>
+        <button class="govuk-button govuk-!-margin-top-4" data-module="govuk-button">Remove team member</button>
+    </form>
+</main>"
+`;
+
+exports[`Project team Search page GET /case/123/project-team/search should render the page with the results of the query 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <h1 class="govuk-heading-l govuk-!-margin-bottom-5"> Search for a team member</h1>
+    <form method="post" action="" novalidate="novalidate" class="govuk-grid-row govuk-!-margin-top-6">
+        <div class="govuk-grid-column-full display--flex align-items--flex-end govuk-grid-row">
+            <div class="govuk-form-group govuk-grid-column-two-thirds">
+                <label class="govuk-label govuk-hint colour--secondary" for="query">Search by name or email address</label>
+                <input class="govuk-input" id="query"
+                name="query" type="text">
+            </div>
+            <div>
+                <button class="govuk-button" data-module="govuk-button">Search</button>
+            </div>
+        </div>
+    </form>
+    <p class='govuk-body font-weight--700'>17 results</p>
+    <table class="govuk-table stretch-last-column">
+        <thead class="govuk-table__head">
+            <tr class="govuk-table__row">
+                <th scope="col" class="govuk-table__header">Name</th>
+                <th scope="col" class="govuk-table__header">Email</th>
+                <th scope="col" class="govuk-table__header">Action</th>
+            </tr>
+        </thead>
+        <tbody class="govuk-table__body">
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">Consectetur Adipiscing</th>
+                <td class="govuk-table__cell">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-team/3/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">Consectetur Adipiscing</th>
+                <td class="govuk-table__cell">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-team/9/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">Consectetur Adipiscing</th>
+                <td class="govuk-table__cell">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-team/12/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">Consectetur Adipiscing</th>
+                <td class="govuk-table__cell">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-team/14/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">Consectetur Adipiscing</th>
+                <td class="govuk-table__cell">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-team/30/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">Consectetur Adipiscing</th>
+                <td class="govuk-table__cell">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-team/76/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">Consectetur Adipiscing</th>
+                <td class="govuk-table__cell">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-team/82/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">Consectetur Adipiscing</th>
+                <td class="govuk-table__cell">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-team/91/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">Consectetur Adipiscing</th>
+                <td class="govuk-table__cell">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-team/105/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">Consectetur Adipiscing</th>
+                <td class="govuk-table__cell">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-team/127/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">Consectetur Adipiscing</th>
+                <td class="govuk-table__cell">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-team/134/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">Consectetur Adipiscing</th>
+                <td class="govuk-table__cell">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-team/136/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">Consectetur Adipiscing</th>
+                <td class="govuk-table__cell">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-team/149/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">Consectetur Adipiscing</th>
+                <td class="govuk-table__cell">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-team/163/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">Consectetur Adipiscing</th>
+                <td class="govuk-table__cell">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-team/166/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">Consectetur Adipiscing</th>
+                <td class="govuk-table__cell">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-team/180/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">Consectetur Adipiscing</th>
+                <td class="govuk-table__cell">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-team/199/choose-role'>Select</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</main>"
+`;
+
+exports[`Project team Search page GET /case/123/project-team/search should render the page with the search bar 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <h1 class="govuk-heading-l govuk-!-margin-bottom-5"> Search for a team member</h1>
+    <form method="post" action="" novalidate="novalidate" class="govuk-grid-row govuk-!-margin-top-6">
+        <div class="govuk-grid-column-full display--flex align-items--flex-end govuk-grid-row">
+            <div class="govuk-form-group govuk-grid-column-two-thirds">
+                <label class="govuk-label govuk-hint colour--secondary" for="query">Search by name or email address</label>
+                <input class="govuk-input" id="query"
+                name="query" type="text">
+            </div>
+            <div>
+                <button class="govuk-button" data-module="govuk-button">Search</button>
+            </div>
+        </div>
+    </form>
+</main>"
+`;
+
+exports[`Project team Search page GET /case/123/project-team/search should render the page with the search bar and the pagination 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <h1 class="govuk-heading-l govuk-!-margin-bottom-5"> Search for a team member</h1>
+    <form method="post" action="" novalidate="novalidate" class="govuk-grid-row govuk-!-margin-top-6">
+        <div class="govuk-grid-column-full display--flex align-items--flex-end govuk-grid-row">
+            <div class="govuk-form-group govuk-grid-column-two-thirds">
+                <label class="govuk-label govuk-hint colour--secondary" for="query">Search by name or email address</label>
+                <input class="govuk-input" id="query"
+                name="query" type="text">
+            </div>
+            <div>
+                <button class="govuk-button" data-module="govuk-button">Search</button>
+            </div>
+        </div>
+    </form>
+    <p class='govuk-body font-weight--700'>50 results</p>
+    <table class="govuk-table stretch-last-column">
+        <thead class="govuk-table__head">
+            <tr class="govuk-table__row">
+                <th scope="col" class="govuk-table__header">Name</th>
+                <th scope="col" class="govuk-table__header">Email</th>
+                <th scope="col" class="govuk-table__header">Action</th>
+            </tr>
+        </thead>
+        <tbody class="govuk-table__body">
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">Consectetur Adipiscing</th>
+                <td class="govuk-table__cell">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-team/3/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">Consectetur Adipiscing</th>
+                <td class="govuk-table__cell">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-team/3/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">Consectetur Adipiscing</th>
+                <td class="govuk-table__cell">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-team/3/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">Consectetur Adipiscing</th>
+                <td class="govuk-table__cell">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-team/3/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">Consectetur Adipiscing</th>
+                <td class="govuk-table__cell">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-team/3/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">Consectetur Adipiscing</th>
+                <td class="govuk-table__cell">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-team/3/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">Consectetur Adipiscing</th>
+                <td class="govuk-table__cell">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-team/3/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">Consectetur Adipiscing</th>
+                <td class="govuk-table__cell">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-team/3/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">Consectetur Adipiscing</th>
+                <td class="govuk-table__cell">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-team/3/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">Consectetur Adipiscing</th>
+                <td class="govuk-table__cell">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-team/3/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">Consectetur Adipiscing</th>
+                <td class="govuk-table__cell">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-team/3/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">Consectetur Adipiscing</th>
+                <td class="govuk-table__cell">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-team/3/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">Consectetur Adipiscing</th>
+                <td class="govuk-table__cell">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-team/3/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">Consectetur Adipiscing</th>
+                <td class="govuk-table__cell">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-team/3/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">Consectetur Adipiscing</th>
+                <td class="govuk-table__cell">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-team/3/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">Consectetur Adipiscing</th>
+                <td class="govuk-table__cell">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-team/3/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">Consectetur Adipiscing</th>
+                <td class="govuk-table__cell">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-team/3/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">Consectetur Adipiscing</th>
+                <td class="govuk-table__cell">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-team/3/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">Consectetur Adipiscing</th>
+                <td class="govuk-table__cell">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-team/3/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">Consectetur Adipiscing</th>
+                <td class="govuk-table__cell">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-team/3/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">Consectetur Adipiscing</th>
+                <td class="govuk-table__cell">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-team/3/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">Consectetur Adipiscing</th>
+                <td class="govuk-table__cell">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-team/3/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">Consectetur Adipiscing</th>
+                <td class="govuk-table__cell">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-team/3/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">Consectetur Adipiscing</th>
+                <td class="govuk-table__cell">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-team/3/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">Consectetur Adipiscing</th>
+                <td class="govuk-table__cell">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-team/3/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">Consectetur Adipiscing</th>
+                <td class="govuk-table__cell">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-team/3/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">Consectetur Adipiscing</th>
+                <td class="govuk-table__cell">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-team/3/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">Consectetur Adipiscing</th>
+                <td class="govuk-table__cell">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-team/3/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">Consectetur Adipiscing</th>
+                <td class="govuk-table__cell">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-team/3/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">Consectetur Adipiscing</th>
+                <td class="govuk-table__cell">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-team/3/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">Consectetur Adipiscing</th>
+                <td class="govuk-table__cell">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-team/3/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">Consectetur Adipiscing</th>
+                <td class="govuk-table__cell">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-team/3/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">Consectetur Adipiscing</th>
+                <td class="govuk-table__cell">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-team/3/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">Consectetur Adipiscing</th>
+                <td class="govuk-table__cell">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-team/3/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">Consectetur Adipiscing</th>
+                <td class="govuk-table__cell">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-team/3/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">Consectetur Adipiscing</th>
+                <td class="govuk-table__cell">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-team/3/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">Consectetur Adipiscing</th>
+                <td class="govuk-table__cell">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-team/3/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">Consectetur Adipiscing</th>
+                <td class="govuk-table__cell">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-team/3/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">Consectetur Adipiscing</th>
+                <td class="govuk-table__cell">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-team/3/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">Consectetur Adipiscing</th>
+                <td class="govuk-table__cell">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-team/3/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">Consectetur Adipiscing</th>
+                <td class="govuk-table__cell">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-team/3/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">Consectetur Adipiscing</th>
+                <td class="govuk-table__cell">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-team/3/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">Consectetur Adipiscing</th>
+                <td class="govuk-table__cell">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-team/3/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">Consectetur Adipiscing</th>
+                <td class="govuk-table__cell">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-team/3/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">Consectetur Adipiscing</th>
+                <td class="govuk-table__cell">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-team/3/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">Consectetur Adipiscing</th>
+                <td class="govuk-table__cell">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-team/3/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">Consectetur Adipiscing</th>
+                <td class="govuk-table__cell">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-team/3/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">Consectetur Adipiscing</th>
+                <td class="govuk-table__cell">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-team/3/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">Consectetur Adipiscing</th>
+                <td class="govuk-table__cell">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-team/3/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">Consectetur Adipiscing</th>
+                <td class="govuk-table__cell">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-team/3/choose-role'>Select</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <nav class="govuk-pagination" role="navigation" aria-label="results">
+        <ul class="govuk-pagination__list">
+            <li class="govuk-pagination__item govuk-pagination__item--current"><a class="govuk-link govuk-pagination__link" href="?number=1&amp;q=consectetur adipiscing"
+                aria-label="Page 1" aria-current="page"> 1</a>
+            </li>
+            <li class="govuk-pagination__item"><a class="govuk-link govuk-pagination__link" href="?number=2&amp;q=consectetur adipiscing"
+                aria-label="Page 2"> 2</a>
+            </li>
+        </ul>
+        <div class="govuk-pagination__next"><a class="govuk-link govuk-pagination__link" href="?number=2&amp;q=consectetur adipiscing"
+            rel="next"><span class="govuk-pagination__link-title">Next</span><svg class="govuk-pagination__icon govuk-pagination__icon--next" xmlns="http://www.w3.org/2000/svg" height="13" width="15" aria-hidden="true" focusable="false" viewBox="0 0 15 13"><path d="m8.107-0.0078125-1.4136 1.414 4.2926 4.293h-12.986v2h12.896l-4.1855 3.9766 1.377 1.4492 6.7441-6.4062-6.7246-6.7266z"></path></svg></a>
+        </div>
+    </nav>
+</main>"
+`;
+
+exports[`Project team Search page POST /case/123/project-team/search should render an empty list if there are no results 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <h1 class="govuk-heading-l govuk-!-margin-bottom-5"> Search for a team member</h1>
+    <form method="post" action="" novalidate="novalidate" class="govuk-grid-row govuk-!-margin-top-6">
+        <div class="govuk-grid-column-full display--flex align-items--flex-end govuk-grid-row">
+            <div class="govuk-form-group govuk-grid-column-two-thirds">
+                <label class="govuk-label govuk-hint colour--secondary" for="query">Search by name or email address</label>
+                <input class="govuk-input" id="query"
+                name="query" type="text">
+            </div>
+            <div>
+                <button class="govuk-button" data-module="govuk-button">Search</button>
+            </div>
+        </div>
+    </form>
+    <p class='govuk-body font-weight--700'>0 results</p>
+    <hr class='govuk-!-margin-top-6 govuk-!-margin-bottom-6 govuk-section-break govuk-section-break--visible'>
+    <h2 class='govuk-body font-weight--700'>There are no matching results </h2>
+    <p class='govuk-body'>Improve your search by</p>
+    <ul>
+        <li class='govuk-body govuk-!-margin-bottom-0'>double checking your spelling</li>
+        <li class='govuk-body'>entering at least 2 characters</li>
+    </ul>
+</main>"
+`;
+
+exports[`Project team Search page POST /case/123/project-team/search should render an error if search term is empty 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <h1 class="govuk-heading-l govuk-!-margin-bottom-5"> Search for a team member</h1>
+    <form method="post" action="" novalidate="novalidate" class="govuk-grid-row govuk-!-margin-top-6">
+        <div class="govuk-grid-column-full display--flex align-items--flex-end govuk-grid-row">
+            <div class="govuk-form-group govuk-form-group--error govuk-grid-column-two-thirds">
+                <label class="govuk-label govuk-hint colour--secondary" for="query">Search by name or email address</label>
+                <p id="query-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> Enter a search term</p>
+                <input                 class="govuk-input govuk-input--error" id="query" name="query" type="text"
+                aria-describedby="query-error">
+            </div>
+            <div>
+                <button class="govuk-button" data-module="govuk-button">Search</button>
+            </div>
+        </div>
+    </form>
+</main>"
+`;
+
+exports[`Project team Search page POST /case/123/project-team/search should render the result list 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <h1 class="govuk-heading-l govuk-!-margin-bottom-5"> Search for a team member</h1>
+    <form method="post" action="" novalidate="novalidate" class="govuk-grid-row govuk-!-margin-top-6">
+        <div class="govuk-grid-column-full display--flex align-items--flex-end govuk-grid-row">
+            <div class="govuk-form-group govuk-grid-column-two-thirds">
+                <label class="govuk-label govuk-hint colour--secondary" for="query">Search by name or email address</label>
+                <input class="govuk-input" id="query"
+                name="query" type="text">
+            </div>
+            <div>
+                <button class="govuk-button" data-module="govuk-button">Search</button>
+            </div>
+        </div>
+    </form>
+    <p class='govuk-body font-weight--700'>17 results</p>
+    <table class="govuk-table stretch-last-column">
+        <thead class="govuk-table__head">
+            <tr class="govuk-table__row">
+                <th scope="col" class="govuk-table__header">Name</th>
+                <th scope="col" class="govuk-table__header">Email</th>
+                <th scope="col" class="govuk-table__header">Action</th>
+            </tr>
+        </thead>
+        <tbody class="govuk-table__body">
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">Consectetur Adipiscing</th>
+                <td class="govuk-table__cell">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class="govuk-table__cell">Added</td>
+            </tr>
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">Consectetur Adipiscing</th>
+                <td class="govuk-table__cell">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-team/9/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">Consectetur Adipiscing</th>
+                <td class="govuk-table__cell">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-team/12/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">Consectetur Adipiscing</th>
+                <td class="govuk-table__cell">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-team/14/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">Consectetur Adipiscing</th>
+                <td class="govuk-table__cell">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-team/30/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">Consectetur Adipiscing</th>
+                <td class="govuk-table__cell">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-team/76/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">Consectetur Adipiscing</th>
+                <td class="govuk-table__cell">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-team/82/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">Consectetur Adipiscing</th>
+                <td class="govuk-table__cell">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-team/91/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">Consectetur Adipiscing</th>
+                <td class="govuk-table__cell">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-team/105/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">Consectetur Adipiscing</th>
+                <td class="govuk-table__cell">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-team/127/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">Consectetur Adipiscing</th>
+                <td class="govuk-table__cell">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-team/134/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">Consectetur Adipiscing</th>
+                <td class="govuk-table__cell">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-team/136/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">Consectetur Adipiscing</th>
+                <td class="govuk-table__cell">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-team/149/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">Consectetur Adipiscing</th>
+                <td class="govuk-table__cell">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-team/163/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">Consectetur Adipiscing</th>
+                <td class="govuk-table__cell">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-team/166/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">Consectetur Adipiscing</th>
+                <td class="govuk-table__cell">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-team/180/choose-role'>Select</a>
+                </td>
+            </tr>
+            <tr class="govuk-table__row">
+                <th scope="row" class="govuk-table__header">Consectetur Adipiscing</th>
+                <td class="govuk-table__cell">Consectetur.Adipiscing@planninginspectorate.gov.uk</td>
+                <td class="govuk-table__cell"><a class='govuk-link' href='/applications-service/case/123/project-team/199/choose-role'>Select</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</main>"
+`;
