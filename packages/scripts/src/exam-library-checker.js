@@ -170,7 +170,7 @@ async function checkDocsInPublishedBlobStore(allLinks) {
 		if (ctr % 100 === 0) {
 			console.log(`Processing doc ${ctr} of ${allLinks.length}`);
 		}
-		const response = await getDelayedResponse(link); // manual redirect to check for redirects
+		const response = await getDelayedResponse(link); // check if file exists in blob store
 		switch (response.status) {
 			case HTML_CODES.HTML_200_OK:
 				linkStatus[link] = true;
