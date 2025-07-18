@@ -9,7 +9,8 @@
 {% from "applications/components/pagination/results-per-page.component.njk" import uiPageSizeInformation, uiPaginationLinks %}
 {% from "applications/representations/components/pre-search.component.njk" import preSearch %}
 {% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
-
+{% set pageTitle = "Relevant representations - " + case.title + " - NSIP applications" %}
+{% block title %}{{ pageTitle }}{% endblock %}
 {% block beforeContent %}
     <aside>
 	    {{ govukBreadcrumbs({
@@ -171,5 +172,3 @@
 
 	</form>
 {% endblock %}
-
-
