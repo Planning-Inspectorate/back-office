@@ -439,7 +439,6 @@ export async function updateApplicationsCaseDocumentationPublish(request, respon
 		selectedPageType: 'documentation-publish-success',
 		serviceName: 'Document/s successfully published',
 		successMessage: `${publishedItems?.length} documents published to the NI website<br><br><p class="govuk-!-font-size-19">Case: ${caseName}<br>Reference: ${caseReference}</p>`,
-		extraMessage: 'The documents will show on the NI website within the hour.',
 		showPublishedBanner: true
 	});
 }
@@ -485,8 +484,7 @@ export async function postUnpublishDocuments({ body, session }, response) {
 		breadcrumbItems: backlinkFolderBreadcrumbItems,
 		serviceName: 'Document/s successfully unpublished',
 		selectedPageType: 'documentation-unpublish-success',
-		successMessage: `<p class="govuk-!-font-size-19">Case: ${response.locals.case.title}<br>Reference: ${response.locals.case.reference}</p>`,
-		extraMessage: 'The document/s will be unpublished from the NI website within the hour.'
+		successMessage: `<p class="govuk-!-font-size-19">Case: ${response.locals.case.title}<br>Reference: ${response.locals.case.reference}</p>`
 	});
 }
 
