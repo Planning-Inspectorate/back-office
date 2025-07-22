@@ -47,6 +47,7 @@ model ServiceUser {
   firstName        String?
   middleName       String?
   lastName         String?
+  displayName      String?
   jobTitle         String? // role?
   under18          Boolean?
   email            String? // In practice this should be unique
