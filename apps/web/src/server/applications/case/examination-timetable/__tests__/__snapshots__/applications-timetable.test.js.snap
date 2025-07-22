@@ -3319,7 +3319,7 @@ exports[`Examination timetable page GET /case/123/examination-timetable should s
     </div>
     <div class="govuk-grid-row govuk-!-margin-left-0 display--flex">
         <div class="pins-list-menu-container">
-            <aside class="govuk-!-margin-bottom-8 pins-list-menu">
+            <aside class="govuk-!-margin-bottom-8 pins-list-menu" aria-label="Case navigation">
                 <h2 class="govuk-visually-hidden">Case Details Menu</h2>
                 <nav>
                     <ul class="gov-list pins-list-menu">
