@@ -504,6 +504,78 @@ describe('Representation repository', () => {
 		});
 	});
 
+	describe('updateRepresentedDisplayName', () => {
+		it('updates the display name with the organisation name if it exists', async () => {
+			// GIVEN
+			const represented = {
+				id: 1,
+				organisationName: 'Test Organisation',
+				firstName: 'Joe',
+				lastName: 'Bloggs'
+			};
+
+			databaseConnector.serviceUser.findUnique.mockResolvedValue(represented);
+
+			const newDisplayName = 'Test Organisation';
+
+			// WHEN
+			await representationRepository.updateRepresentedDisplayName(represented.id);
+
+			// THEN
+			expect(databaseConnector.serviceUser.update).toHaveBeenCalledWith({
+				where: { id: represented.id },
+				data: { displayName: newDisplayName }
+			});
+		});
+
+		it('updates the display name with the first and last name if organisation name does not exist', async () => {
+			// GIVEN
+			const represented = {
+				id: 1,
+				organisationName: '',
+				firstName: 'Joe',
+				lastName: 'Bloggs'
+			};
+
+			databaseConnector.serviceUser.findUnique.mockResolvedValue(represented);
+
+			const newDisplayName = 'Joe Bloggs';
+
+			// WHEN
+			await representationRepository.updateRepresentedDisplayName(represented.id);
+
+			// THEN
+			expect(databaseConnector.serviceUser.update).toHaveBeenCalledWith({
+				where: { id: represented.id },
+				data: { displayName: newDisplayName }
+			});
+		});
+
+		it('does not update the display name if it matches the new display name', async () => {
+			// GIVEN
+			const represented = {
+				id: 1,
+				organisationName: 'Test Organisation',
+				firstName: 'Joe',
+				lastName: 'Bloggs',
+				displayName: 'Test Organisation'
+			};
+
+			databaseConnector.serviceUser.findUnique.mockResolvedValue(represented);
+
+			const newDisplayName = 'Test Organisation';
+
+			// WHEN
+			await representationRepository.updateRepresentedDisplayName(represented.id);
+
+			// THEN
+			expect(databaseConnector.serviceUser.update).not.toHaveBeenCalledWith({
+				where: { id: represented.id },
+				data: { displayName: newDisplayName }
+			});
+		});
+	});
+
 	describe('createRepresentation', () => {
 		it('Create a representation', async () => {
 			// GIVEN
@@ -513,6 +585,7 @@ describe('Representation repository', () => {
 					caseId: 1
 				},
 				represented: {
+					organisationName: '',
 					firstName: 'Joe',
 					lastName: 'Bloggs',
 					under18: false,
@@ -570,6 +643,7 @@ describe('Representation repository', () => {
 					},
 					represented: {
 						create: {
+							organisationName: '',
 							firstName: 'Joe',
 							lastName: 'Bloggs',
 							under18: false,
@@ -613,6 +687,7 @@ describe('Representation repository', () => {
 					reference: 'FRONT_OFFICE_REFERENCE_ID'
 				},
 				represented: {
+					organisationName: '',
 					firstName: 'Joe',
 					lastName: 'Bloggs',
 					under18: false,
@@ -661,6 +736,7 @@ describe('Representation repository', () => {
 					reference: 'FRONT_OFFICE_REFERENCE_ID',
 					represented: {
 						create: {
+							organisationName: '',
 							firstName: 'Joe',
 							lastName: 'Bloggs',
 							under18: false,

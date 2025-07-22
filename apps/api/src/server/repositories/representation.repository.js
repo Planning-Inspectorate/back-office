@@ -217,6 +217,29 @@ export const getStatusCountByCaseId = async (caseId) => {
 };
 
 /**
+ * Updates the display name of a represented user based on their organisation name or full name.
+ * @param representedId
+ * @returns {Promise<void>}
+ */
+export const updateRepresentedDisplayName = async (representedId) => {
+	const existingRepresented = await databaseConnector.serviceUser.findUnique({
+		where: { id: representedId },
+		select: { organisationName: true, firstName: true, lastName: true, displayName: true }
+	});
+
+	const newDisplayName =
+		existingRepresented?.organisationName ||
+		`${existingRepresented?.firstName} ${existingRepresented?.lastName}`;
+
+	if (existingRepresented?.displayName !== newDisplayName) {
+		await databaseConnector.serviceUser.update({
+			where: { id: representedId },
+			data: { displayName: newDisplayName }
+		});
+	}
+};
+
+/**
  * Creates a Rel Rep record, and then updates it with the short reference.
  * Also creates service users for the contacts if required
  *
@@ -270,6 +293,10 @@ export const createApplicationRepresentation = async ({
 	const createResponse = await databaseConnector.representation.create({
 		data: representation
 	});
+
+	if (!isEmpty(represented)) {
+		await updateRepresentedDisplayName(createResponse.representedId);
+	}
 
 	if (representation.reference) return createResponse;
 	else {
@@ -370,6 +397,10 @@ export const updateApplicationRepresentation = async (
 				}
 			}
 		});
+	}
+
+	if (!isEmpty(represented)) {
+		await updateRepresentedDisplayName(response.representedId);
 	}
 
 	return getFirstById(representationId, caseId);
