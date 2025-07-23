@@ -3156,9 +3156,7 @@ exports[`Delete examination timetable POST /case/123/examination-timetable/item/
                     <br>The case reference number
                     <br><strong>CASE/04</strong>
                 </div>
-            </div>
-            <div class="govuk-body"><a href="/applications-service/case/123/examination-timetable/" class="govuk-link"> Go back to examination timetable</a>
-            </div>
+            </div><a href="/applications-service/case/123/examination-timetable/" class="govuk-link"> Go back to examination timetable</a>
         </div>
     </div>
 </main>"
@@ -3847,11 +3845,7 @@ exports[`Publish examination timetable success page POST /case/123/examination-t
                     <br>The case reference number
                     <br><strong>CASE/04</strong>
                 </div>
-            </div>
-            <div class="govuk-body">
-                <p class="govuk-body">The examination timetable will show on the NI website within the hour.</p>
-                <a                 href="/applications-service/case/123/examination-timetable/" class="govuk-link">Go back to examination timetable</a>
-            </div>
+            </div><a href="/applications-service/case/123/examination-timetable/" class="govuk-link"> Go back to examination timetable</a>
         </div>
     </div>
 </main>"
@@ -4026,12 +4020,7 @@ exports[`Unpublish examination timetable success page POST /case/123/examination
                     <br>The case reference number
                     <br><strong>CASE/04</strong>
                 </div>
-            </div>
-            <div class="govuk-body">
-                <p class="govuk-body">The examination timetable will be unpublished from the NI website within
-                    the hour.</p><a href="/applications-service/case/123/examination-timetable/"
-                class="govuk-link"> Go back to examination timetable</a>
-            </div>
+            </div><a href="/applications-service/case/123/examination-timetable/" class="govuk-link"> Go back to examination timetable</a>
         </div>
     </div>
 </main>"
