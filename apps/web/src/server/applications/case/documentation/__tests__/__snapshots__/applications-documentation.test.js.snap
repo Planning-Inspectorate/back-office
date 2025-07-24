@@ -14356,7 +14356,6 @@ exports[`applications documentation Document publishing queue POST /case/123/pro
                         <br>Reference: CASE/04</p>
                 </div>
             </div>
-            <p class="govuk-body">The documents will show on the NI website within the hour.</p>
             <div class="govuk-body">Return to folder:<a href="/applications-service/case/123/project-documentation/21/sub-folder-level-2/"
                 class="govuk-link"><span> Project overview  > </span><span> Project documentation  > </span><span> Project management  > </span><span  class="font-weight--700" > Sub folder level 2 </span></a>
             </div>
