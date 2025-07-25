@@ -55,6 +55,9 @@ const getDocumentsDownload = async ({ params, session }, response) => {
 		const downloadFileName = buildFileName({ fileName, originalFilename });
 		const encodedFilename = encodeURIComponent(downloadFileName);
 
+		//we use `filename*` and URI encoding to ensure that the filename is correctly handling special characters
+		//that will be passed as filenames into the header
+		// https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Content-Disposition
 		response.setHeader('content-disposition', `attachment; filename*=UTF-8''${encodedFilename}`);
 	}
 
@@ -100,6 +103,9 @@ const getSimulatedDocumentsDownload = (response, preview, fileName, originalFile
 		const downloadFileName = buildFileName({ fileName, originalFilename });
 		const encodedFilename = encodeURIComponent(downloadFileName);
 
+		//we use `filename*` and URI encoding to ensure that the filename is correctly handling special characters
+		//that will be passed as filenames into the header
+		// https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Content-Disposition
 		response.setHeader('content-disposition', `attachment; filename*=UTF-8''${encodedFilename}`);
 	}
 	response.charset = 'UTF-8';
