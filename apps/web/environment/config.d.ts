@@ -30,6 +30,7 @@ export interface EnvironmentConfig extends BaseEnvironmentConfig {
 	// redirect path for MSAL auth, defaults to /auth/redirect
 	authRedirectPath: string;
 	azureAiLanguage: {
+		categories?: string; // CSV string of categories
 		endpoint: string;
 	};
 	azureKeyVaultEnabled: boolean;

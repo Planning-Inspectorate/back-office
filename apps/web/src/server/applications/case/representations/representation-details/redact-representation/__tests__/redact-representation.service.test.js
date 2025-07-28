@@ -22,7 +22,9 @@ describe('redact-representation.service', () => {
 					.fn()
 					.mockResolvedValue([{ entities: [], redactedText: '', id: '', warnings: [] }])
 			};
-			await fetchRedactionSuggestions(longString, () => mockTextAnalyticsClient);
+			await fetchRedactionSuggestions(longString, {
+				getTextAnalyticsClient: () => mockTextAnalyticsClient
+			});
 			expect(mockTextAnalyticsClient.recognizePiiEntities).toHaveBeenCalledTimes(1);
 			const args = mockTextAnalyticsClient.recognizePiiEntities.mock.calls[0];
 			expect(args[0]).toHaveLength(2);
@@ -45,7 +47,9 @@ describe('redact-representation.service', () => {
 					}
 				])
 			};
-			const result = await fetchRedactionSuggestions(longString, () => mockTextAnalyticsClient);
+			const result = await fetchRedactionSuggestions(longString, {
+				getTextAnalyticsClient: () => mockTextAnalyticsClient
+			});
 			expect(result).toBeNull();
 		});
 
@@ -54,7 +58,9 @@ describe('redact-representation.service', () => {
 			const mockTextAnalyticsClient = {
 				recognizePiiEntities: jest.fn().mockRejectedValue(new Error('Network error'))
 			};
-			const result = await fetchRedactionSuggestions(longString, () => mockTextAnalyticsClient);
+			const result = await fetchRedactionSuggestions(longString, {
+				getTextAnalyticsClient: () => mockTextAnalyticsClient
+			});
 			expect(result).toBeNull();
 		});
 
@@ -87,7 +93,9 @@ describe('redact-representation.service', () => {
 					}
 				])
 			};
-			const result = await fetchRedactionSuggestions(text, () => mockTextAnalyticsClient);
+			const result = await fetchRedactionSuggestions(text, {
+				getTextAnalyticsClient: () => mockTextAnalyticsClient
+			});
 			expect(result).toBeDefined();
 			expect(mockTextAnalyticsClient.recognizePiiEntities).toHaveBeenCalledTimes(1);
 			expect(result.entities).toHaveLength(2);
@@ -122,7 +130,9 @@ describe('redact-representation.service', () => {
 					}
 				])
 			};
-			const result = await fetchRedactionSuggestions(longString, () => mockTextAnalyticsClient);
+			const result = await fetchRedactionSuggestions(longString, {
+				getTextAnalyticsClient: () => mockTextAnalyticsClient
+			});
 			expect(result).toBeDefined();
 			expect(mockTextAnalyticsClient.recognizePiiEntities).toHaveBeenCalledTimes(3);
 			expect(result.entities).toHaveLength(6);

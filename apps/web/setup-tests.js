@@ -11,5 +11,8 @@ jest.unstable_mockModule('./src/server/lib/azure-ai-language.js', () => ({
 	getAzureTextAnalyticsClient: jest.fn().mockReturnValue({
 		// @ts-ignore
 		recognizePiiEntities: jest.fn().mockResolvedValue([])
-	})
+	}),
+	getAzureLanguageCategories() {
+		return undefined;
+	}
 }));
