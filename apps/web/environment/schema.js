@@ -25,6 +25,7 @@ export default baseSchema
 		authDisabledGroupIds: joi.array().optional(),
 		authRedirectPath: joi.string(),
 		azureAiLanguage: joi.object({
+			categories: joi.string().optional(),
 			endpoint: joi.string().optional()
 		}),
 		azureKeyVaultEnabled: joi.boolean().optional(),

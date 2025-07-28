@@ -1,5 +1,8 @@
 import { patch } from '../../../../../lib/request.js';
-import { getAzureTextAnalyticsClient } from '../../../../../lib/azure-ai-language.js';
+import {
+	getAzureLanguageCategories,
+	getAzureTextAnalyticsClient
+} from '../../../../../lib/azure-ai-language.js';
 import logger from '../../../../../lib/logger.js';
 
 export const REDACT_CHARACTER = '█';
@@ -34,12 +37,17 @@ export const patchRepresentationRedact = async (
 
 /**
  * @param {string} originalRepresentation
- * @param {function(): import('@azure/ai-text-analytics').TextAnalyticsClient} [getTextAnalyticsClient] - override for testing
+ * @param {Object} [options]
+ * @param {function(): string[]|undefined} [options.getCategories] - PII categories to filter on, overridable for testing
+ * @param {function(): import('@azure/ai-text-analytics').TextAnalyticsClient} [options.getTextAnalyticsClient] - override for testing
  * @returns {Promise<import('@azure/ai-text-analytics').RecognizePiiEntitiesSuccessResult|null>}
  */
 export async function fetchRedactionSuggestions(
 	originalRepresentation,
-	getTextAnalyticsClient = getAzureTextAnalyticsClient
+	{
+		getCategories = getAzureLanguageCategories,
+		getTextAnalyticsClient = getAzureTextAnalyticsClient
+	} = {}
 ) {
 	if (!originalRepresentation || originalRepresentation.length === 0) {
 		return null;
@@ -63,8 +71,7 @@ export async function fetchRedactionSuggestions(
 		const results = [];
 		for (const chunks of reqChunks) {
 			const res = await textAnalyticsClient.recognizePiiEntities(chunks, 'en', {
-				// TODO: refine this list, and make this configurable
-				categoriesFilter: ['Address', 'Organization', 'Person', 'PhoneNumber', 'Email', 'URL']
+				categoriesFilter: getCategories()
 			});
 			results.push(...res);
 		}
