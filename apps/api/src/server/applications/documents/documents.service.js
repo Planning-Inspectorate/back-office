@@ -116,6 +116,7 @@ export const extractYouTubeTitleFromHTML = (html) => {
  * @returns {string}
  * */
 export const renderYouTubeTemplate = (youtubeUrl, htmlTitle = 'Video title') => {
+	// APPLICS-1490 NOTE: the html validation expects the title to be 'Video title', so we cant change it to anything else here
 	let newHTML = YouTubeHTMLTemplate;
 	newHTML = newHTML.replace('{{youtubeUrl}}', youtubeUrl);
 	newHTML = newHTML.replace('{{htmlTitle}}', htmlTitle);
