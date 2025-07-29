@@ -3,7 +3,6 @@ import { getDocumentsInCase } from '../../../applications/application/documents/
 import { Readable } from 'stream';
 import {
 	extractYouTubeURLFromHTML,
-	extractYouTubeTitleFromHTML,
 	renderYouTubeTemplate
 } from '../../../applications/documents/documents.service.js';
 import config from '../../../config/config.js';
@@ -90,11 +89,10 @@ export const processHtml = (guid, htmlString, res) => {
 		return '';
 	}
 
-	// extract the you tube url and the title from the html.  ONly poss in migration as we have an unsanitised version
+	// extract the you tube url.  WE cant replace title as it will fail validation on required fixed string 'Video title'
 	const youtubeUrl = extractYouTubeURLFromHTML(htmlString);
-	const htmlTitle = extractYouTubeTitleFromHTML(htmlString);
 
-	return renderYouTubeTemplate(youtubeUrl, htmlTitle);
+	return renderYouTubeTemplate(youtubeUrl);
 };
 
 /**
