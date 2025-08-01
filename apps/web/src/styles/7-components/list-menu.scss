@@ -1,5 +1,4 @@
-//@use "../1-settings/_settings.global.scss" as pins-colours;
-@use "../govuk-frontend/govuk/settings/_colours-applied" as colors;
+@use "govuk-frontend/dist/govuk/settings/_colours-applied" as govuk-colours-applied;
 @use "../../1-settings/_settings.global.scss" as pins-colours;
 
 .pins-list-menu-container {
@@ -41,7 +40,7 @@
 	}
 
 	a.pins-selected-item {
-		color: colors.govuk-colour("black");
+		color: govuk-colours-applied.$govuk-text-colour;
 		font-weight: 800;
 	}
 }

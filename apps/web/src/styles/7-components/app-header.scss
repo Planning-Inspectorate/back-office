@@ -1,9 +1,10 @@
-@use "../govuk-frontend/govuk/settings/_colours-applied" as colors;
+@use "govuk-frontend/dist/govuk/settings/_colours-applied" as
+	govuk-colours-applied;
 @use "../1-settings/_settings.global.scss" as pins-colours;
 
 #pins-applications-header {
 	background: white;
-	color: colors.govuk-colour("black");
+	color: govuk-colours-applied.$govuk-text-colour;
 	height: 8rem;
 	display: inline-block;
 	width: 100%;
@@ -12,7 +13,7 @@
 	margin-bottom: 1rem;
 
 	&[data-env="training"] {
-		background: #ffef88;
+		background: govuk-colours-applied.$govuk-focus-colour;
 	}
 
 	.header-container {

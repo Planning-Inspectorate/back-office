@@ -1,14 +1,15 @@
-@use "../govuk-frontend/govuk/settings/_colours-applied" as colors;
+@use "govuk-frontend/dist/govuk/settings/_colours-applied" as
+	govuk-colours-applied;
 
 .pins-files-list {
 	&__statuses,
 	&__actions {
 		padding: 1rem 2rem;
-		background: colors.govuk-colour("light-grey");
+		background: govuk-colours-applied.$govuk-canvas-background-colour;
 		height: 100%;
 
 		.govuk-fieldset__legend {
-			color: colors.govuk-colour("dark-grey");
+			color: govuk-colours-applied.$govuk-secondary-text-colour;
 			margin-bottom: 2.75rem;
 		}
 
@@ -39,7 +40,7 @@
 			&::before {
 				width: 1.5rem;
 				height: 1.5rem;
-				background-color: colors.govuk-colour("white");
+				background-color: govuk-colours-applied.$govuk-body-background-colour;
 			}
 
 			&::after {
@@ -98,7 +99,7 @@
 			position: relative;
 
 			&--disabled {
-				background: rgba(colors.govuk-colour("light-grey"), 0.5);
+				background: rgba(govuk-colours-applied.$govuk-canvas-background-colour, 0.5);
 				* {
 					// pointer-events: none;
 				}
@@ -111,12 +112,12 @@
 				width: 5px;
 				left: -15px;
 				display: block;
-				background: colors.govuk-colour("red");
+				background: govuk-colours-applied.$govuk-error-colour;
 			}
 
 			.pins-files-list--error {
 				.pins-files-list-border {
-					border-left: 5px solid colors.govuk-colour("red");
+					border-left: 5px solid govuk-colours-applied.$govuk-error-colour;
 					display: block;
 					position: absolute;
 					top: 10px;
@@ -190,7 +191,7 @@
 		background: none;
 		border: none;
 		padding: 0;
-		color: colors.govuk-colour("blue");
+		color: govuk-colours-applied.$govuk-brand-colour;
 		cursor: pointer;
 	}
 }

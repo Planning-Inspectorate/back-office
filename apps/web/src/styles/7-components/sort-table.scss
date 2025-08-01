@@ -1,10 +1,12 @@
-@use "../govuk-frontend/govuk/settings/_colours-applied" as colors;
+@use "govuk-frontend/dist/govuk/settings/_colours-applied" as
+	govuk-colours-applied;
+
 .sort-table {
 	&__link {
 		display: flex;
 		align-items: center;
 		text-decoration: none;
-		color: colors.govuk-colour("blue");
+		color: govuk-colours-applied.$govuk-brand-colour;
 		white-space: nowrap;
 	}
 

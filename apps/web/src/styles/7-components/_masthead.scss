@@ -1,14 +1,15 @@
-@use "../govuk-frontend/govuk/helpers/_colour" as color;
+@use "govuk-frontend/dist/govuk/settings/_colours-applied" as
+	govuk-colours-applied;
 @use "../../1-settings/_settings.global.scss" as pins-colours;
 
 .pins-masthead {
-	border-bottom: 1px solid color.govuk-colour("blue");
-	color: color.govuk-colour("white");
-	background-color: color.govuk-colour("blue");
+	border-bottom: 1px solid govuk-colours-applied.govuk-colour("blue");
+	color: govuk-colours-applied.govuk-colour("white");
+	background-color: govuk-colours-applied.govuk-colour("blue");
 	margin-top: -16px;
 
 	h1 {
-		color: color.govuk-colour("white");
+		color: govuk-colours-applied.govuk-colour("white");
 	}
 }
 
