@@ -5,7 +5,7 @@ import fs from 'node:fs';
 import { createRequire } from 'node:module';
 import path from 'node:path';
 import postcss from 'postcss';
-import sassEngine from 'sass';
+import * as sassEngine from 'sass';
 import { getLogger } from './get-logger.js';
 import { hashForContent } from './hash.js';
 
