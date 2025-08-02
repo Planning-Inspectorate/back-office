@@ -3,7 +3,7 @@
 @use "../1-settings/_settings.global.scss" as pins-colours;
 
 #pins-applications-header {
-	background: white;
+	background: govuk-colours-applied.$govuk-body-background-colour;
 	color: govuk-colours-applied.$govuk-text-colour;
 	height: 8rem;
 	display: inline-block;

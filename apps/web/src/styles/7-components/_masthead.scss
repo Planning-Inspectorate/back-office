@@ -3,13 +3,13 @@
 @use "../../1-settings/_settings.global.scss" as pins-colours;
 
 .pins-masthead {
-	border-bottom: 1px solid govuk-colours-applied.govuk-colour("blue");
-	color: govuk-colours-applied.govuk-colour("white");
-	background-color: govuk-colours-applied.govuk-colour("blue");
+	border-bottom: 1px solid govuk-colours-applied.$govuk-brand-colour;
+	color: govuk-colours-applied.$govuk-colour-white;
+	background-color: govuk-colours-applied.$govuk-brand-colour;
 	margin-top: -16px;
 
 	h1 {
-		color: govuk-colours-applied.govuk-colour("white");
+		color: govuk-colours-applied.$govuk-colour-white;
 	}
 }
 
