@@ -1,13 +1,14 @@
-@use "govuk-frontend/dist/govuk/settings/_colours-applied" as govuk-colours-applied;
-@use "govuk-frontend/dist/govuk/settings/_spacing" as govuk-spacing;
-@use "govuk-frontend/dist/govuk/helpers/_spacing" as govuk-spacing-helper;
+@use "govuk-frontend/dist/govuk/settings/colours-applied" as govuk-colours-applied;
+@use "govuk-frontend/dist/govuk/helpers/_spacing" as govuk-spacing;
+@import "govuk-frontend/dist/govuk/_base";
 
 .pins-dashboard-box {
 	padding: govuk-spacing(5) govuk-spacing(5) 1px;
 	margin-bottom: govuk-spacing(7);
 	box-shadow: 0 2px 0 govuk-colours-applied.$govuk-hover-colour,
 		inset 2px 0 0 govuk-colours-applied.$govuk-hover-colour,
-		inset -2px 0 0 govuk-colours-applied.$govuk-hover-colour, inset 0 4px 0 govuk-colours-applied.$govuk-brand-colour;
+		inset -2px 0 0 govuk-colours-applied.$govuk-hover-colour,
+		inset 0 4px 0 govuk-colours-applied.$govuk-brand-colour;
 
 	&--title {
 		margin-bottom: govuk-spacing(4);
@@ -31,16 +32,15 @@
 	}
 
 	&--input {
-		width: calc(
-			100% - #{$pins-dashboard-form-button-width} - #{govuk-spacing(2)}
-		);
+		width: calc(100% - #{$pins-dashboard-form-button-width} - govuk-spacing(2));
 	}
 
 	&--btn {
 		position: absolute;
 		right: 0;
 		width: $pins-dashboard-form-button-width;
-		bottom: 2px; /* Need this to offset the box-shadow. */
+		bottom: 2px;
+		/* Need this to offset the box-shadow. */
 		margin: 0;
 	}
 }

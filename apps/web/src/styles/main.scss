@@ -7,6 +7,8 @@
 	$govuk-link-visited-colour: #1d70b8
 );
 
+@use "govuk-frontend/dist/govuk/settings/spacing" as *;
+
 // These are standalone dependencies loaded by the modules bellow.
 // ENV
 // 1 - SETTINGS
