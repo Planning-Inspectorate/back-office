@@ -1,5 +1,6 @@
 @use "govuk-frontend/dist/govuk/settings/_colours-applied" as
 	govuk-colours-applied;
+@import "govuk-frontend/dist/govuk/_base";
 
 .sort-table {
 	&__link {
@@ -29,11 +30,11 @@
 		}
 
 		&--small {
-			font-size: 0.5em;
+			@include govuk-font-size(14);
 		}
 
 		&--big {
-			font-size: 0.8em;
+			@include govuk-font-size(16);
 
 			&:after {
 				content: "";
@@ -52,30 +53,34 @@
 	}
 
 	&--big:after {
-		font-size: 0.8em;
 		position: absolute;
 		right: -5px;
 		top: 2px;
+
+		@include govuk-font-size(16);
 	}
 
 	&--big:before {
-		font-size: 0.8em;
 		position: absolute;
 		right: -5px;
 		top: 2px;
+
+		@include govuk-font-size(16);
 	}
 
 	&--small:after {
 		position: absolute;
 		right: -1px;
 		top: 1px;
-		font-size: 0.5em;
+
+		@include govuk-font-size(14);
 	}
 
 	&--small:before {
 		position: absolute;
 		right: -1px;
 		top: 9px;
-		font-size: 0.5em;
+
+		@include govuk-font-size(14);
 	}
 }

@@ -1,3 +1,4 @@
+
 @use "govuk-frontend/dist/govuk/settings/_colours-applied" as
 	govuk-colours-applied;
 @use "govuk-frontend/dist/govuk/helpers/_media-queries" as
@@ -5,6 +6,7 @@
 @use "govuk-frontend/dist/govuk/settings/_media-queries" as
 	govuk-settings-media-queries;
 @use "../1-settings/_settings.global.scss" as pins-colours;
+@import "govuk-frontend/dist/govuk/_base";
 
 #pins-applications-header {
 	background: govuk-colours-applied.$govuk-body-background-colour;
@@ -43,14 +45,15 @@
 		&__text {
 			flex-grow: 1;
 			font-weight: 700;
-			font-size: 1.5rem;
 			text-align: center;
+
+			@include govuk-font-size(24);
 
 			@include govuk-helpers-media-queries.govuk-media-query(
 				$until:
 					map-get(govuk-settings-media-queries.$govuk-breakpoints, "tablet")
 			) {
-				font-size: 1.2rem;
+				@include govuk-font-size(19);
 			}
 		}
 
@@ -70,7 +73,8 @@
 
 			a {
 				margin-left: govuk-spacing(4);
-				line-height: 1.5rem;
+
+				@include govuk-font-size(19);
 			}
 		}
 	}

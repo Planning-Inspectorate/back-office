@@ -4,6 +4,7 @@
 	govuk-helpers-media-queries;
 @use "govuk-frontend/dist/govuk/settings/_media-queries" as
 	govuk-settings-media-queries;
+@import "govuk-frontend/dist/govuk/_base";
 
 .govuk-accordion__section-content {
 	.govuk-summary-list:last-child {
@@ -63,7 +64,7 @@
 			border-left: 5px solid govuk-colours-applied.$govuk-error-colour;
 
 			td:first-child {
-			padding-left: govuk-spacing(4);
+				padding-left: govuk-spacing(4);
 			}
 		}
 	}
@@ -110,7 +111,7 @@
 	}
 
 	.govuk-accordion__section-heading-text {
-		font-size: 20px;
+		@include govuk-font-size(19);
 	}
 
 	.govuk-accordion__show-all {
@@ -123,13 +124,14 @@
 		position: relative;
 		height: 0;
 		top: -4rem;
-		font-size: 1.1875rem; //match font size of summary list items
 		line-height: 0;
+
+		@include govuk-font-size(19);
 	}
 }
 
 .pins-file-versions-table {
-	font-size: 1rem;
+	@include govuk-font-size(16);
 
 	p {
 		margin: 0;

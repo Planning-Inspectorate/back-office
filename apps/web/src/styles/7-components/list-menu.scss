@@ -30,9 +30,10 @@
 		display: flex;
 		text-decoration: none;
 		padding: govuk-spacing(2);
-		font-size: 16px;
 		height: 3.5rem;
 		align-items: center;
+
+		@include govuk-font-size(16);
 
 		&:visited {
 			color: pins-colours.$pins-colours-blue-500;

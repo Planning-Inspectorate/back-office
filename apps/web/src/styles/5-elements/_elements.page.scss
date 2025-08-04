@@ -1,4 +1,6 @@
 @use "sass:math";
+@use "govuk-frontend/dist/govuk/settings/_typography-font" as govuk-typography-font;
+
 
 /* ==========================================================================
 	# PAGE
@@ -6,7 +8,7 @@
 
 /// override GDS Transport font-family for the entire project
 * {
-	font-family: arial, helvetica, sans-serif !important;
+	font-family: govuk-typography-font.$govuk-font-family;
 }
 
 body {

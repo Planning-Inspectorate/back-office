@@ -1,6 +1,7 @@
 @use "govuk-frontend/dist/govuk/settings/typography-font" as govuk-fonts;
 
 $font-weight-attrs: (
+	regular: govuk-fonts.$govuk-font-weight-regular,
 	bold: govuk-fonts.$govuk-font-weight-bold
 );
 

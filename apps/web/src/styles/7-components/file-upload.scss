@@ -1,5 +1,7 @@
 @use "govuk-frontend/dist/govuk/settings/_colours-applied" as
 	govuk-colours-applied;
+@import "govuk-frontend/dist/govuk/_base";
+
 
 .pins-file-upload {
 	&--container {
@@ -8,24 +10,28 @@
 			padding-left: govuk-spacing(4);
 		}
 	}
+
 	&--instructions {
 		> * {
 			display: block;
 			margin-bottom: govuk-spacing(4);
 		}
 	}
+
 	&--button {
 		border: 1px solid govuk-colours-applied.$govuk-border-colour;
 		background: govuk-colours-applied.$govuk-canvas-background-colour;
 		color: govuk-colours-applied.$govuk-text-colour;
 		padding: 0 govuk-spacing(1);
 		border-radius: 2px;
-		font-size: 1.1875rem;
 		box-sizing: border-box;
 		line-height: 1;
 		box-shadow: none;
 		margin: 0;
 		height: 2rem;
+
+		@include govuk-font-size(19);
+
 		&:hover {
 			background-color: govuk-colours-applied.$govuk-border-colour;
 			color: govuk-colours-applied.$govuk-text-colour;
@@ -46,6 +52,7 @@
 		justify-content: space-between;
 		border-bottom: 1px solid govuk-colours-applied.$govuk-border-colour;
 		padding: govuk-spacing(2) 0;
+
 		> * {
 			margin: 0;
 		}
@@ -54,9 +61,10 @@
 	&--remove {
 		color: govuk-colours-applied.$govuk-brand-colour;
 		cursor: pointer;
-		font-size: 1.1875rem;
 		background: none;
 		border: 0;
+
+		@include govuk-font-size(19);
 	}
 
 	&--progress {
