@@ -1,4 +1,9 @@
-@use "govuk-frontend/dist/govuk/settings/_colours-applied" as govuk-colours-applied;
+@use "govuk-frontend/dist/govuk/settings/_colours-applied" as
+	govuk-colours-applied;
+@use "govuk-frontend/dist/govuk/helpers/_media-queries" as
+	govuk-helpers-media-queries;
+@use "govuk-frontend/dist/govuk/settings/_media-queries" as
+	govuk-settings-media-queries;
 
 .govuk-accordion__section-content {
 	.govuk-summary-list:last-child {
@@ -85,7 +90,9 @@
 }
 
 #pins-publish-case {
-	@media (min-width: 40.0625em) {
+	@include govuk-helpers-media-queries.govuk-media-query(
+		$from: map-get(govuk-settings-media-queries.$govuk-breakpoints, "desktop")
+	) {
 		.govuk-table__header,
 		.govuk-summary-list__key {
 			width: 260px;
@@ -141,6 +148,7 @@
 	.govuk-accordion__controls {
 		display: none;
 	}
+
 	#draft-cases-list .govuk-accordion__section-button {
 		border-top: none !important;
 	}

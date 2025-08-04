@@ -1,5 +1,9 @@
 @use "govuk-frontend/dist/govuk/settings/_colours-applied" as
 	govuk-colours-applied;
+@use "govuk-frontend/dist/govuk/helpers/_media-queries" as
+	govuk-helpers-media-queries;
+@use "govuk-frontend/dist/govuk/settings/_media-queries" as
+	govuk-settings-media-queries;
 @use "../1-settings/_settings.global.scss" as pins-colours;
 
 #pins-applications-header {
@@ -23,9 +27,14 @@
 
 		&__logo {
 			margin-right: 1rem;
+
 			#pins-logo {
 				height: 80px;
-				@media (max-width: 640px) {
+
+				@include govuk-helpers-media-queries.govuk-media-query(
+					$until:
+						map-get(govuk-settings-media-queries.$govuk-breakpoints, "tablet")
+				) {
 					height: 65px;
 				}
 			}
@@ -36,14 +45,26 @@
 			font-weight: 700;
 			font-size: 1.5rem;
 			text-align: center;
-			@media (max-width: 640px) {
+
+			@include govuk-helpers-media-queries.govuk-media-query(
+				$until:
+					map-get(govuk-settings-media-queries.$govuk-breakpoints, "tablet")
+			) {
 				font-size: 1.2rem;
 			}
 		}
 
 		&__links {
 			display: flex;
+
 			@media (max-width: 800px) {
+				flex-direction: column;
+			}
+
+			@include govuk-helpers-media-queries.govuk-media-query(
+				$until:
+					map-get(govuk-settings-media-queries.$govuk-breakpoints, "desktop")
+			) {
 				flex-direction: column;
 			}
 
