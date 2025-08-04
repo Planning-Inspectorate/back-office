@@ -34,10 +34,13 @@ extends:
             parameters:
               nodeVersion: 20
               script: npm ci
-          - template: ../steps/node_script.yml
-            parameters:
-              nodeVersion: 20
-              script: npm run commitlint
+          - script: |
+              if [ "$(git cherry main)" ]; then
+                npm run commitlint
+              else
+                echo "No new commits to lint."
+              fi
+            displayName: Run commitlint safely
           - template: ../steps/node_script.yml
             parameters:
               nodeVersion: 20
