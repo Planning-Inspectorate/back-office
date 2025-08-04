@@ -33,8 +33,11 @@ extends:
           - template: ../steps/node_script.yml
             parameters:
               nodeVersion: 20
-              script: npm ci
-          - script: |
+              script: npm ci#
+          - template: ../steps/node_script.yml
+            parameters:
+            nodeVersion: 20
+            script: |
               if [ "$(git cherry main)" ]; then
                 npm run commitlint
               else
