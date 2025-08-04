@@ -209,7 +209,9 @@ describe('Get folder details', () => {
 		databaseConnector.folder.findUnique.mockResolvedValue({ caseId: 10 });
 
 		// WHEN
-		const response = await request.get('/applications/1/folders/1000/documents?pageSize=1&pageNumber=1')
+		const response = await request.get(
+			'/applications/1/folders/1000/documents?pageSize=1&pageNumber=1'
+		);
 
 		// THEN
 		expect(response.status).toEqual(400);
@@ -222,7 +224,9 @@ describe('Get folder details', () => {
 		// GIVEN
 
 		// WHEN
-		const response = await request.get('/applications/2/folders/201/documents?pageSize=1&pageNumber=1')
+		const response = await request.get(
+			'/applications/2/folders/201/documents?pageSize=1&pageNumber=1'
+		);
 
 		// THEN
 		expect(response.status).toEqual(400);
@@ -236,7 +240,9 @@ describe('Get folder details', () => {
 		databaseConnector.case.findUnique.mockResolvedValue(null);
 
 		// WHEN
-		const response = await request.get('/applications/1000/folders/1/documents?pageSize=1&pageNumber=1')
+		const response = await request.get(
+			'/applications/1000/folders/1/documents?pageSize=1&pageNumber=1'
+		);
 
 		// THEN
 		expect(response.status).toEqual(404);
@@ -253,7 +259,9 @@ describe('Get folder details', () => {
 		databaseConnector.document.count.mockResolvedValue(documentsInFolder201Count);
 
 		// WHEN
-		const response = await request.get('/applications/1/folders/201/documents?pageSize=50&pageNumber=1')
+		const response = await request.get(
+			'/applications/1/folders/201/documents?pageSize=50&pageNumber=1'
+		);
 
 		// THEN
 		expect(response.status).toEqual(200);

@@ -80,8 +80,8 @@ export const downloadHtmlBlob = async (blobName) => {
  */
 export const processHtml = (guid, htmlString, res) => {
 	if (!(htmlString.includes('youtube') || htmlString.includes('youtu.be'))) {
-		res.write(`No YouTube video found in document ${guid} with content: ${htmlString}`);
-		throw Error('No YouTube video found in document');
+		res.write(`No YouTube video found in document ${guid}`);
+		return null;
 	}
 
 	// New templates include `div class="video-container"` so we can ignore them

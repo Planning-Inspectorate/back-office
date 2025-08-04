@@ -52,6 +52,18 @@ export const registerCaseWithQuery = (query, shouldBeDraft = false) => {
 
 		response.locals.currentCase = currentCase;
 		response.locals.isDraft = isDraft;
+
+		response.locals.currentCase.geographicalInformation =
+			response.locals.currentCase.geographicalInformation || {};
+
+		const gridReference = response.locals.currentCase.geographicalInformation?.gridReference || {};
+		const { easting, northing } = gridReference;
+
+		gridReference.easting = easting?.toString().padStart(6, '0') || '';
+		gridReference.northing = northing?.toString().padStart(6, '0') || '';
+
+		response.locals.currentCase.geographicalInformation.gridReference = gridReference;
+
 		next();
 	};
 };

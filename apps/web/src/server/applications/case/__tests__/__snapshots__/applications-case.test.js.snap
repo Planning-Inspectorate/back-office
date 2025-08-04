@@ -66,9 +66,6 @@ exports[`Applications case pages Preview and publish page GET /case/123/preview-
                             <dd class="govuk-summary-list__value"><a class="govuk-link" href="website.web">website.web</a>
                             </dd>
                         </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Email address</dt>
-                            <dd class="govuk-summary-list__value">email@email.co</dd>
-                        </div>
                     </dl>
                 </div>
             </div>
@@ -238,9 +235,6 @@ exports[`Applications case pages Preview and publish page GET /case/123/preview-
                             <dd class="govuk-summary-list__value"><a class="govuk-link" href="website.web">website.web</a>
                             </dd>
                         </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Email address</dt>
-                            <dd class="govuk-summary-list__value">email@email.co</dd>
-                        </div>
                     </dl>
                 </div>
             </div>
@@ -354,9 +348,7 @@ exports[`Applications case pages Preview and publish page POST /case/123/preview
                     <p class='govuk-!-font-size-19'>Case: Title CASE/04
                         <br>Reference: CASE/04</p>
                 </div>
-            </div>
-            <p class='govuk-!-margin-top-6 govuk-!-margin-bottom-6'>The project will be published to the NI website within the hour.</p>
-            <a             href="/applications-service/case/4/" class="govuk-link">Go back to Overview</a>
+            </div><a href="/applications-service/case/4/" class="govuk-link"> Go back to Overview</a>
         </div>
     </div>
 </main>"
@@ -379,7 +371,7 @@ exports[`Applications case pages Project information page GET /case/123/project-
     </div>
     <div class="govuk-grid-row govuk-!-margin-left-0 display--flex">
         <div class="pins-list-menu-container">
-            <aside class="govuk-!-margin-bottom-8 pins-list-menu">
+            <aside class="govuk-!-margin-bottom-8 pins-list-menu" aria-label="Case navigation">
                 <h2 class="govuk-visually-hidden">Case Details Menu</h2>
                 <nav>
                     <ul class="gov-list pins-list-menu">
@@ -559,10 +551,10 @@ exports[`Applications case pages Project information page GET /case/123/project-
                                 <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/edit/applicant-website"> Change</a>
                                 </dd>
                             </div>
-                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Email address</dt>
-                                <dd class="govuk-summary-list__value">email@email.co</dd>
-                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/edit/applicant-email"> Change</a>
-                                </dd>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Email address (Internal use only)</dt>
+                                <dd                                 class="govuk-summary-list__value">email@email.co</dd>
+                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/edit/applicant-email"> Change</a>
+                                    </dd>
                             </div>
                             <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Telephone number (Internal use only)</dt>
                                 <dd                                 class="govuk-summary-list__value">001</dd>
@@ -595,7 +587,7 @@ exports[`Applications case pages Project information page GET /case/123/project-
     </div>
     <div class="govuk-grid-row govuk-!-margin-left-0 display--flex">
         <div class="pins-list-menu-container">
-            <aside class="govuk-!-margin-bottom-8 pins-list-menu">
+            <aside class="govuk-!-margin-bottom-8 pins-list-menu" aria-label="Case navigation">
                 <h2 class="govuk-visually-hidden">Case Details Menu</h2>
                 <nav>
                     <ul class="gov-list pins-list-menu">
@@ -775,10 +767,10 @@ exports[`Applications case pages Project information page GET /case/123/project-
                                 <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/edit/applicant-website"> Change</a>
                                 </dd>
                             </div>
-                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Email address</dt>
-                                <dd class="govuk-summary-list__value">email@email.co</dd>
-                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/edit/applicant-email"> Change</a>
-                                </dd>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Email address (Internal use only)</dt>
+                                <dd                                 class="govuk-summary-list__value">email@email.co</dd>
+                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/edit/applicant-email"> Change</a>
+                                    </dd>
                             </div>
                             <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Telephone number (Internal use only)</dt>
                                 <dd                                 class="govuk-summary-list__value">001</dd>
@@ -811,7 +803,7 @@ exports[`Applications case pages Project information page GET /case/123/project-
     </div>
     <div class="govuk-grid-row govuk-!-margin-left-0 display--flex">
         <div class="pins-list-menu-container">
-            <aside class="govuk-!-margin-bottom-8 pins-list-menu">
+            <aside class="govuk-!-margin-bottom-8 pins-list-menu" aria-label="Case navigation">
                 <h2 class="govuk-visually-hidden">Case Details Menu</h2>
                 <nav>
                     <ul class="gov-list pins-list-menu">
@@ -991,10 +983,10 @@ exports[`Applications case pages Project information page GET /case/123/project-
                                 <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/edit/applicant-website"> Change</a>
                                 </dd>
                             </div>
-                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Email address</dt>
-                                <dd class="govuk-summary-list__value">email@email.co</dd>
-                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/edit/applicant-email"> Change</a>
-                                </dd>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Email address (Internal use only)</dt>
+                                <dd                                 class="govuk-summary-list__value">email@email.co</dd>
+                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/edit/applicant-email"> Change</a>
+                                    </dd>
                             </div>
                             <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Telephone number (Internal use only)</dt>
                                 <dd                                 class="govuk-summary-list__value">001</dd>
@@ -1044,10 +1036,7 @@ exports[`Applications case pages Unpublish case page POST /case/123/unpublish sh
                     <p class='govuk-!-font-size-19'>Case: Title CASE/04
                         <br>Reference: CASE/04</p>
                 </div>
-            </div>
-            <p class='govuk-!-margin-top-6 govuk-!-margin-bottom-6'>The project will be unpublished from the NI website within the hour. You
-                can republish the project page and associated content after this.</p>
-            <a             href="/applications-service/case/4/" class="govuk-link">Go back to Overview</a>
+            </div><a href="/applications-service/case/4/" class="govuk-link"> Go back to Overview</a>
         </div>
     </div>
 </main>"
