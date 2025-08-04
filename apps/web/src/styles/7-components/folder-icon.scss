@@ -7,7 +7,7 @@
 	display: inline-block;
 	width: 20px;
 	height: 15px;
-	margin-right: 4px;
+	margin-right: govuk-spacing(1);
 	background-color: govuk-colours-applied.$govuk-secondary-text-colour;
 	border-radius: 0 2px 2px 2px;
 }

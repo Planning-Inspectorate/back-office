@@ -7,7 +7,7 @@
 
 .govuk-accordion__section-content {
 	.govuk-summary-list:last-child {
-		margin-bottom: 25px;
+		margin-bottom: govuk-spacing(6);
 	}
 
 	.govuk-table__row:last-child {
@@ -63,14 +63,14 @@
 			border-left: 5px solid govuk-colours-applied.$govuk-error-colour;
 
 			td:first-child {
-				padding-left: 1rem;
+			padding-left: govuk-spacing(4);
 			}
 		}
 	}
 }
 
 .pins-dashboard-list--hide-controls {
-	margin-top: 2rem;
+	margin-top: govuk-spacing(8);
 
 	h2 {
 		margin-bottom: 0;

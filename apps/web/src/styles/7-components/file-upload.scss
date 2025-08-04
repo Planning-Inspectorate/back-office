@@ -5,20 +5,20 @@
 	&--container {
 		&.error {
 			border-left: 5px solid govuk-colours-applied.$govuk-error-colour;
-			padding-left: 1rem;
+			padding-left: govuk-spacing(4);
 		}
 	}
 	&--instructions {
 		> * {
 			display: block;
-			margin-bottom: 1rem;
+			margin-bottom: govuk-spacing(4);
 		}
 	}
 	&--button {
 		border: 1px solid govuk-colours-applied.$govuk-border-colour;
 		background: govuk-colours-applied.$govuk-canvas-background-colour;
 		color: govuk-colours-applied.$govuk-text-colour;
-		padding: 0 5px;
+		padding: 0 govuk-spacing(1);
 		border-radius: 2px;
 		font-size: 1.1875rem;
 		box-sizing: border-box;
@@ -34,7 +34,7 @@
 
 	&--counter {
 		line-height: 2rem;
-		margin-left: 0.5rem;
+		margin-left: govuk-spacing(2);
 	}
 
 	&--files-rows {
@@ -45,7 +45,7 @@
 		display: flex;
 		justify-content: space-between;
 		border-bottom: 1px solid govuk-colours-applied.$govuk-border-colour;
-		padding: 0.6rem 0;
+		padding: govuk-spacing(2) 0;
 		> * {
 			margin: 0;
 		}
@@ -60,7 +60,7 @@
 	}
 
 	&--progress {
-		margin-left: 1rem;
+		margin-left: govuk-spacing(4);
 		line-height: 2;
 	}
 }

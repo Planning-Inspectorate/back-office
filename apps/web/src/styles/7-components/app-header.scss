@@ -12,9 +12,9 @@
 	height: 8rem;
 	display: inline-block;
 	width: 100%;
-	padding: 1rem 0;
+	padding: govuk-spacing(4) 0;
 	border-bottom: 0.5rem solid pins-colours.$pins-colours-green-200;
-	margin-bottom: 1rem;
+	margin-bottom: govuk-spacing(4);
 
 	&[data-env="training"] {
 		background: govuk-colours-applied.$govuk-focus-colour;
@@ -23,10 +23,10 @@
 	.header-container {
 		display: flex;
 		align-items: center;
-		padding: 0.5rem 0 1rem 0;
+		padding: govuk-spacing(2) 0 govuk-spacing(4) 0;
 
 		&__logo {
-			margin-right: 1rem;
+			margin-right: govuk-spacing(4);
 
 			#pins-logo {
 				height: 80px;
@@ -69,7 +69,7 @@
 			}
 
 			a {
-				margin-left: 1rem;
+				margin-left: govuk-spacing(4);
 				line-height: 1.5rem;
 			}
 		}

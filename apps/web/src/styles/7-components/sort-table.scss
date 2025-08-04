@@ -13,7 +13,7 @@
 	&__link-icon {
 		display: flex;
 		flex-direction: column;
-		margin-left: 0.5em;
+		margin-left: govuk-spacing(2);
 
 		&:before,
 		&:after {

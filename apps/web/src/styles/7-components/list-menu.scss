@@ -1,9 +1,14 @@
-@use "govuk-frontend/dist/govuk/settings/_colours-applied" as govuk-colours-applied;
+@use "govuk-frontend/dist/govuk/settings/_colours-applied" as
+	govuk-colours-applied;
 @use "../../1-settings/_settings.global.scss" as pins-colours;
+@use "govuk-frontend/dist/govuk/settings/_spacing";
+
+@import "govuk-frontend/dist/govuk/helpers/_spacing" ;
+@import "govuk-frontend/dist/govuk/_base";
 
 .pins-list-menu-container {
 	width: 18rem;
-	margin-right: 1rem;
+	margin-right: govuk-spacing(4);
 }
 
 .pins-list-menu {
@@ -24,14 +29,16 @@
 		width: 100%;
 		display: flex;
 		text-decoration: none;
-		padding: 0.5em;
-		font-size: 16;
+		padding: govuk-spacing(2);
+		font-size: 16px;
 		height: 3.5rem;
 		align-items: center;
+
 		&:visited {
 			color: pins-colours.$pins-colours-blue-500;
 		}
 	}
+
 	a:focus,
 	a:active,
 	a.pins-selected-item {

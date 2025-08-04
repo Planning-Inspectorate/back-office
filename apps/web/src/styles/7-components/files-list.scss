@@ -1,20 +1,20 @@
-@use "govuk-frontend/dist/govuk/settings/_colours-applied" as
-	govuk-colours-applied;
+@use "govuk-frontend/dist/govuk/settings/_colours-applied" as govuk-colours-applied;
 
 .pins-files-list {
+
 	&__statuses,
 	&__actions {
-		padding: 1rem 2rem;
+		padding: govuk-spacing(4) govuk-spacing(6);
 		background: govuk-colours-applied.$govuk-canvas-background-colour;
 		height: 100%;
 
 		.govuk-fieldset__legend {
 			color: govuk-colours-applied.$govuk-secondary-text-colour;
-			margin-bottom: 2.75rem;
+			margin-bottom: govuk-spacing(7);
 		}
 
 		.govuk-link {
-			margin-top: 1rem;
+			margin-top: govuk-spacing(4);
 			display: block;
 			font-size: 1.1875rem;
 		}
@@ -52,9 +52,9 @@
 	}
 
 	&__info {
-		margin-top: 2.5rem;
+		margin-top: govuk-spacing(7);
 
-		> * {
+		>* {
 			margin: 0 !important;
 		}
 
@@ -76,7 +76,7 @@
 		}
 
 		.govuk-label {
-			margin-right: 1rem;
+			margin-right: govuk-spacing(4);
 		}
 	}
 
@@ -100,6 +100,7 @@
 
 			&--disabled {
 				background: rgba(govuk-colours-applied.$govuk-canvas-background-colour, 0.5);
+
 				* {
 					// pointer-events: none;
 				}
@@ -123,14 +124,16 @@
 					top: 10px;
 					bottom: 10px;
 				}
+
 				.govuk-form-group {
-					padding-left: 15px;
+					padding-left: govuk-spacing(3);
 				}
 			}
 		}
 
 		&:not([class*="publish"]) {
 			.govuk-table__cell {
+
 				a,
 				p {
 					word-break: break-all;
@@ -174,12 +177,12 @@
 		}
 
 		.govuk-link {
-			margin-bottom: 1rem;
+			margin-bottom: govuk-spacing(4);
 			display: block;
 		}
 
 		.file-info {
-			margin: 0.5rem 0;
+			margin: govuk-spacing(2) 0;
 		}
 
 		.govuk-error-message {
