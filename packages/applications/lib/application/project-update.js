@@ -38,7 +38,7 @@ export class ProjectUpdate {
 			[status.published]: [status.readyToUnpublish],
 			[status.archived]: [],
 			[status.readyToUnpublish]: [status.unpublished, status.published],
-			[status.unpublished]: [status.archived]
+			[status.unpublished]: [status.archived, status.readyToPublish]
 		});
 	}
 
