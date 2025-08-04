@@ -5,9 +5,9 @@
 .pins-dashboard-box {
 	padding: govuk-spacing(5) govuk-spacing(5) 1px;
 	margin-bottom: govuk-spacing(7);
-	box-shadow: 0 2px 0 govuk-colours-applied.$govuk-hover-colour,
-		inset 2px 0 0 govuk-colours-applied.$govuk-hover-colour,
-		inset -2px 0 0 govuk-colours-applied.$govuk-hover-colour,
+	box-shadow: 0 2px 0 govuk-colours-applied.$govuk-border-colour,
+		inset 2px 0 0 govuk-colours-applied.$govuk-border-colour,
+		inset -2px 0 0 govuk-colours-applied.$govuk-border-colour,
 		inset 0 4px 0 govuk-colours-applied.$govuk-brand-colour;
 
 	&--title {
@@ -32,7 +32,7 @@
 	}
 
 	&--input {
-		width: calc(100% - #{$pins-dashboard-form-button-width} - govuk-spacing(2));
+		width: calc(100% - #{$pins-dashboard-form-button-width} - #{govuk-spacing(2)});
 	}
 
 	&--btn {
@@ -40,7 +40,6 @@
 		right: 0;
 		width: $pins-dashboard-form-button-width;
 		bottom: 2px;
-		/* Need this to offset the box-shadow. */
 		margin: 0;
 	}
 }
