@@ -38,7 +38,7 @@ jobs:
           workingDir: $(System.DefaultWorkingDirectory)/apps/e2e
         displayName: "Install Dependencies"
 
-      # 🔸 Smoke & Core Tests
+      # Smoke & Core Tests
       - task: ShellScript@2
         inputs:
           scriptPath: 'apps/e2e/run-tests.sh'
@@ -46,7 +46,7 @@ jobs:
         env: *EnvVars
         displayName: 'Run Smoke & Core Tests'
 
-      # 🔸 Team Management
+      # Team Management
       - task: ShellScript@2
         inputs:
           scriptPath: 'apps/e2e/run-tests.sh'
@@ -54,7 +54,7 @@ jobs:
         env: *EnvVars
         displayName: 'Run Team Management Tests'
 
-      # 🔸 Representations
+      # Representations
       - task: ShellScript@2
         inputs:
           scriptPath: 'apps/e2e/run-tests.sh'
@@ -62,7 +62,7 @@ jobs:
         env: *EnvVars
         displayName: 'Run Representations Test'
 
-      # 🔸 Document Upload & Publishing
+      # Document Upload & Publishing
       - task: ShellScript@2
         inputs:
           scriptPath: 'apps/e2e/run-tests.sh'
@@ -70,7 +70,7 @@ jobs:
         env: *EnvVars
         displayName: 'Run Document Upload & Publishing Tests'
 
-      # 🔸 Document Properties
+      # Document Properties
       - task: ShellScript@2
         inputs:
           scriptPath: 'apps/e2e/run-tests.sh'
@@ -78,7 +78,7 @@ jobs:
         env: *EnvVars
         displayName: 'Run Document Properties Tests'
 
-      # 🔸 Folders & Structure
+      # Folders & Structure
       - task: ShellScript@2
         inputs:
           scriptPath: 'apps/e2e/run-tests.sh'
@@ -86,7 +86,7 @@ jobs:
         env: *EnvVars
         displayName: 'Run Folder Structure Tests'
 
-      # 🔸 Project Lifecycle
+      # Project Lifecycle
       - task: ShellScript@2
         inputs:
           scriptPath: 'apps/e2e/run-tests.sh'
@@ -94,7 +94,7 @@ jobs:
         env: *EnvVars
         displayName: 'Run Project Lifecycle Tests'
 
-      # 🔸 Search Features
+      # Search Features
       - task: ShellScript@2
         inputs:
           scriptPath: 'apps/e2e/run-tests.sh'
@@ -102,7 +102,7 @@ jobs:
         env: *EnvVars
         displayName: 'Run Search Document Test'
 
-      # 🔸 Advice & Language Specific
+      # Advice & Language Specific
       - task: ShellScript@2
         inputs:
           scriptPath: 'apps/e2e/run-tests.sh'
@@ -110,7 +110,7 @@ jobs:
         env: *EnvVars
         displayName: 'Run Advice & Welsh Tests'
 
-      # 📸 Publish Failed Screenshots
+      # Publish Failed Screenshots
       - task: PublishBuildArtifacts@1
         inputs:
           pathToPublish: 'apps/e2e/cypress/screenshots'
