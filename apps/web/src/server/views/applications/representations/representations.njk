@@ -123,9 +123,17 @@
 					classes: "govuk-button--secondary"
 				}) }}
 
+				{% if publishedRepsCount is defined and publishedRepsCount > 1 %}
+					<p class="govuk-body">
+						<a class="govuk-link"
+							href="/applications-service/case/{{ caseId }}/unpublish-representations">
+							Unpublish all published representations</a>
+					</p>
+				{% endif %}
+
 				<p class="govuk-body">
 					<a class="govuk-link"
-					   href="/applications-service/case/{{ caseId }}/relevant-representations/api/download" download>
+						href="/applications-service/case/{{ caseId }}/relevant-representations/api/download" download>
 						Download valid and published representations (CSV)</a>
 				</p>
 			</div>

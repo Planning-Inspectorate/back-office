@@ -45,7 +45,7 @@ export async function relevantRepsApplications({ query, session }, res) {
 		pageSize = 25,
 		page = 1,
 		filters = [],
-		published: publishedRepsCount
+		published: publishedRepsCountFromQueryString
 	} = query;
 
 	const caseReference = await getCase(caseId);
@@ -68,12 +68,51 @@ export async function relevantRepsApplications({ query, session }, res) {
 
 	const publishableReps = await getPublishableRepresentations(caseId);
 
+	const publishedRepsCount = representations.items
+		? representations.items.filter(
+				/** @param {{ status: string }} rep */
+				(rep) => rep.status === 'PUBLISHED'
+		  ).length
+		: 0;
+
+	let filterViewModel = getFilterViewModel(filters, representations.filters);
+
+	if (publishedRepsCount > 1 && Array.isArray(filterViewModel)) {
+		// Remove "ARCHIVED"
+		filterViewModel = filterViewModel.filter((f) => f.value !== 'ARCHIVED');
+
+		// Find the correct count for UNPUBLISHED from representations.filters
+		/**
+		 * @typedef {Object} RepresentationFilter
+		 * @property {string} name
+		 * @property {number} count
+		 */
+		/** @type {RepresentationFilter | undefined} */
+		const unpublishedFilter = /** @type {RepresentationFilter[]} */ (
+			representations.filters ?? []
+		).find((filter) => filter.name === 'UNPUBLISHED');
+		const unpublishedCount = unpublishedFilter ? unpublishedFilter.count : 0;
+
+		// Add UNPUBLISHED if not present
+		const hasUnpublished = filterViewModel.some((f) => f.value === 'UNPUBLISHED');
+		if (!hasUnpublished) {
+			filterViewModel.push({
+				text: `Unpublished (${unpublishedCount})`,
+				value: 'UNPUBLISHED',
+				checked: false
+			});
+		}
+		// Sort alphabetically by text
+		filterViewModel.sort((a, b) => a.text.localeCompare(b.text));
+	}
+
 	return res.render(view, {
 		representations: getRepresentationsViewModel(representations, caseId),
 		caseReference: getCaseReferenceViewModel(caseReference),
 		caseId,
 		publishQueueURL: getPublishQueueUrl(publishableReps, serviceUrl, caseId),
 		resetSuccessBannerURL: `?${queryString}`,
+		publishedRepsCountFromQueryString: Number(publishedRepsCountFromQueryString),
 		publishedRepsCount: Number(publishedRepsCount),
 		isRelevantRepsPeriodClosed: isRelevantRepsPeriodClosed(
 			repsPeriodCloseDate,
@@ -89,7 +128,7 @@ export async function relevantRepsApplications({ query, session }, res) {
 			pageSize,
 			page
 		},
-		filters: getFilterViewModel(filters, representations.filters),
+		filters: filterViewModel,
 		showUnpublishedRepUpdatesBanner: hasUnpublishedRepUpdates(publishableReps),
 		keyDates: await getKeyDates(publishedDate, repsPeriodCloseDate, repsPeriodCloseDateExtension)
 	});

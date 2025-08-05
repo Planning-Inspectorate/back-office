@@ -1,0 +1,61 @@
+{% extends "../case/unpublish.njk" %}
+{% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+
+{% set pageTitle = "Unpublish Relevant representations - " + case.title + " - NSIP applications" %}
+
+{% block title %}
+    {{ pageTitle }}
+{% endblock %}
+
+{% block beforeContent %}
+    <aside>
+        {{ govukBreadcrumbs({
+		    classes: "govuk-!-margin-top-0 govuk-!-margin-bottom-2",
+		    items: [
+			    {
+				    text: "Project documentation",
+				    href: "/applications-service/case/" + caseId + "/project-documentation"
+			    },
+			    {
+				    text: "Relevant representations",
+				    href: "/applications-service/case/" + caseId + "/relevant-representations"
+			    },
+			    {
+				    text: "Unpublish Relevant representations",
+				    href: "#"
+			    }
+		    ]
+	    }) }}
+    </aside>
+{% endblock %}
+
+{% block pageContent %}
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <h1 class="govuk-heading-l">Unpublish Relevant representations</h1>
+            <p class="govuk-body">
+                <strong>Project Name:</strong>
+            </p>
+            <p class="govuk-body">
+                There are
+                <strong>{{ publishedRepsCount }}</strong>
+                published representations.
+            </p>
+            <p class="govuk-body">
+                Unpublishing will remove these representations from the external website.
+            </p>
+            <div class="govuk-inset-text">
+                You can republish a representation by changing its status to "Valid" and selecting "Publish representations" from the
+                publishing queue.
+            </div>
+            {{
+				govukButton({
+					text: " Unpublish all representations",
+					classes: "govuk-button--warning"
+				})
+			}}
+        </div>
+    </div>
+{% endblock %}
