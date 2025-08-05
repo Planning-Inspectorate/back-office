@@ -1,8 +1,8 @@
-@use "govuk-frontend/dist/govuk/settings/_colours-applied" as govuk-colours-applied;
+@use "govuk-frontend/dist/govuk/settings/_colours-applied" as
+	govuk-colours-applied;
 @import "govuk-frontend/dist/govuk/_base";
 
 .pins-files-list {
-
 	&__statuses,
 	&__actions {
 		padding: govuk-spacing(4) govuk-spacing(6);
@@ -56,7 +56,7 @@
 	&__info {
 		margin-top: govuk-spacing(7);
 
-		>* {
+		> * {
 			margin: 0 !important;
 		}
 
@@ -101,7 +101,10 @@
 			position: relative;
 
 			&--disabled {
-				background: rgba(govuk-colours-applied.$govuk-canvas-background-colour, 0.5);
+				background: rgba(
+					govuk-colours-applied.$govuk-canvas-background-colour,
+					0.5
+				);
 
 				* {
 					// pointer-events: none;
@@ -135,7 +138,6 @@
 
 		&:not([class*="publish"]) {
 			.govuk-table__cell {
-
 				a,
 				p {
 					word-break: break-all;

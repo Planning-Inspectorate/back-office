@@ -3,7 +3,7 @@
 $colours-attrs: (
 	primary: govuk-colors.$govuk-text-colour,
 	secondary: govuk-colors.$govuk-secondary-text-colour,
-	red: govuk-colors.$govuk-error-colour,
+	red: govuk-colors.$govuk-error-colour
 );
 
 @each $key, $val in $colours-attrs {

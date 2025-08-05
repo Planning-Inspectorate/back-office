@@ -1,4 +1,5 @@
-@use "govuk-frontend/dist/govuk/settings/_typography-font" as govuk-typography-font;
+@use "govuk-frontend/dist/govuk/settings/_typography-font" as
+	govuk-typography-font;
 
 .autocomplete__wrapper {
 	font-family: govuk-typography-font.$govuk-font-family;

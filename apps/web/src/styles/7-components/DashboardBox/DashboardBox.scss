@@ -1,4 +1,5 @@
-@use "govuk-frontend/dist/govuk/settings/colours-applied" as govuk-colours-applied;
+@use "govuk-frontend/dist/govuk/settings/colours-applied" as
+	govuk-colours-applied;
 @use "govuk-frontend/dist/govuk/helpers/_spacing" as govuk-spacing-helper;
 @import "govuk-frontend/dist/govuk/_base";
 
@@ -33,7 +34,9 @@
 	}
 
 	&--input {
-		width: calc(100% - #{$pins-dashboard-form-button-width} - #{govuk-spacing(2)});
+		width: calc(
+			100% - #{$pins-dashboard-form-button-width} - #{govuk-spacing(2)}
+		);
 	}
 
 	&--btn {
@@ -43,5 +46,4 @@
 		bottom: 0;
 		margin: 0;
 	}
-
 }

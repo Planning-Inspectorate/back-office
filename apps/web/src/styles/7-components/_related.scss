@@ -1,7 +1,6 @@
 @use "govuk-frontend/dist/govuk/settings/_colours-applied" as
 	govuk-colours-applied;
-@use "govuk-frontend/dist/govuk/helpers/_spacing" as
-	govuk-spacing-helper;
+@use "govuk-frontend/dist/govuk/helpers/_spacing" as govuk-spacing-helper;
 @import "govuk-frontend/dist/govuk/_base";
 
 .pins-related {
