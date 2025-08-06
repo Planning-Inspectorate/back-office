@@ -19,8 +19,28 @@ const createdRepresentation = {
 };
 
 describe('Representation repository', () => {
+	// --- DRY helpers for batch status tests ---
+	function setupBatchMocks() {
+		const update = jest.fn();
+		const updateMany = jest.fn();
+		const transaction = jest.fn().mockResolvedValue([]);
+		jest.spyOn(databaseConnector.representation, 'update').mockImplementation(update);
+		jest.spyOn(databaseConnector.representation, 'updateMany').mockImplementation(updateMany);
+		jest.spyOn(databaseConnector, '$transaction').mockImplementation(transaction);
+		return { update, updateMany, transaction };
+	}
+
+	function expectBatchAssertions({ update, transaction }, updateCount, transactionCount) {
+		expect(update).toHaveBeenCalledTimes(updateCount);
+		expect(transaction).toHaveBeenCalledTimes(transactionCount);
+	}
 	beforeEach(() => {
 		jest.resetAllMocks();
+		// Always ensure the mock exists for all tests
+		if (!databaseConnector.representationAction) {
+			databaseConnector.representationAction = {};
+		}
+		databaseConnector.representationAction.create = jest.fn();
 	});
 
 	describe('getByCaseId', () => {
@@ -724,6 +744,93 @@ describe('Representation repository', () => {
 			expect(databaseConnector.representation.findMany).toHaveBeenCalledTimes(
 				Math.ceil(totalPublishableRepsCount / batchSize)
 			);
+		});
+	});
+
+	describe('setRepresentationsAsPublished', () => {
+		it('updates status and creates actions for reps with fromStatus', async () => {
+			const { update, updateMany, transaction } = setupBatchMocks();
+			const reps = [{ id: 1, status: 'VALID' }];
+			await representationRepository.setRepresentationsAsPublished(reps, 'user');
+			expect(update).toHaveBeenCalledWith({
+				where: { id: 1 },
+				data: { status: 'PUBLISHED' }
+			});
+			expect(databaseConnector.representationAction.create).toHaveBeenCalledWith(
+				expect.objectContaining({
+					data: expect.objectContaining({
+						representationId: 1,
+						status: 'PUBLISHED',
+						actionBy: 'user'
+					})
+				})
+			);
+			expect(updateMany).toHaveBeenCalledWith({
+				where: { id: { in: [] } },
+				data: { unpublishedUpdates: false }
+			});
+			expect(transaction).toHaveBeenCalled();
+		});
+	});
+
+	describe('setRepresentationsAsUnpublished', () => {
+		it('updates status and sets unpublishedUpdates for reps already VALID', async () => {
+			const { update, updateMany, transaction } = setupBatchMocks();
+			const reps = [
+				{ id: 1, status: 'PUBLISHED' },
+				{ id: 2, status: 'VALID' }
+			];
+			await representationRepository.setRepresentationsAsUnpublished(reps, 'user');
+			expect(update).toHaveBeenCalledWith({
+				where: { id: 1 },
+				data: { status: 'VALID' }
+			});
+			expect(databaseConnector.representationAction.create).toHaveBeenCalledWith(
+				expect.objectContaining({
+					data: expect.objectContaining({
+						representationId: 1,
+						status: 'VALID',
+						actionBy: 'user'
+					})
+				})
+			);
+			expect(updateMany).toHaveBeenCalledWith({
+				where: { id: { in: [2] } },
+				data: { unpublishedUpdates: true }
+			});
+			expect(transaction).toHaveBeenCalled();
+		});
+	});
+
+	describe('setRepresentationsAsPublishedBatch', () => {
+		it('calls setRepresentationsStatus in correct batches', async () => {
+			const { update, transaction } = setupBatchMocks();
+			const reps = Array.from({ length: 1500 }, (_, i) => ({ id: i + 1, status: 'VALID' }));
+			await representationRepository.setRepresentationsAsPublishedBatch(reps, 'user');
+			expectBatchAssertions({ update, transaction }, 1500, 2);
+		});
+	});
+
+	describe('setRepresentationsAsUnpublishedBatch', () => {
+		it('calls setRepresentationsStatus in correct batches', async () => {
+			const { update, transaction } = setupBatchMocks();
+			const reps = Array.from({ length: 1500 }, (_, i) => ({ id: i + 1, status: 'PUBLISHED' }));
+			await representationRepository.setRepresentationsAsUnpublishedBatch(reps, 'user');
+			expectBatchAssertions({ update, transaction }, 1500, 2);
+		});
+	});
+
+	describe('setRepresentationsStatusBatch', () => {
+		it('calls setRepresentationsStatus in correct batches', async () => {
+			const { update, transaction } = setupBatchMocks();
+			const reps = Array.from({ length: 2500 }, (_, i) => ({ id: i + 1, status: 'VALID' }));
+			await representationRepository.setRepresentationsStatusBatch(
+				reps,
+				'user',
+				'VALID',
+				'PUBLISHED'
+			);
+			expectBatchAssertions({ update, transaction }, 2500, 3);
 		});
 	});
 });
