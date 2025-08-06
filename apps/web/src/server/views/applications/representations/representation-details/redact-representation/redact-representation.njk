@@ -144,9 +144,8 @@
 		 * @param {HTMLDivElement} unredactedText
 		 * @param {HTMLAnchorElement[]} rejectLinks
 		 * @param {import('@azure/ai-text-analytics').PiiEntity[]} suggestions
-		 * @param {HTMLAnchorElement} toggleOriginalRepresentation
 		 */
-		function registerEventListeners({textArea, redactSelectedText, redactUndo, redactUndoAll, unredactedText, rejectLinks, suggestions, toggleOriginalRepresentation}) {
+		function registerEventListeners({textArea, redactSelectedText, redactUndo, redactUndoAll, unredactedText, rejectLinks, suggestions}) {
 			const formGroup = textArea.parentElement;
 			const errorMessage = document.createElement('p');
 			errorMessage.id = 'representation-error';
@@ -222,16 +221,6 @@
 					}
 				});
 			}
-			toggleOriginalRepresentation.addEventListener('click', (event) => {
-				event.preventDefault();
-				if (unredactedText.classList.contains('govuk-!-display-none')) {
-					unredactedText.classList.remove('govuk-!-display-none');
-					toggleOriginalRepresentation.text = 'Hide';
-				} else {
-					unredactedText.classList.add('govuk-!-display-none');
-					toggleOriginalRepresentation.text = 'Show';
-				}
-			});
 		}
 
 		function initRedact() {
@@ -239,9 +228,8 @@
 			const redactSelectedText = document.querySelector('#redact-selected-text');
 			const redactUndo = document.querySelector('#redact-undo');
 			const redactUndoAll = document.querySelector('#redact-undo-all');
-			const unredactedText = document.querySelector('#representation-unredacted');
+			const unredactedText = document.querySelector('#representation-unredacted > div');
 			const rejectLinks = document.querySelectorAll('[data-redact]');
-			const toggleOriginalRepresentation = document.querySelector('#toggle-original-representation');
 			{% if not redactionSuggestions %}
 			{% set redactionSuggestions = [] %}
 			{% endif %}
@@ -270,8 +258,7 @@
 				redactUndoAll,
 				unredactedText,
 				rejectLinks,
-				suggestions,
-				toggleOriginalRepresentation
+				suggestions
 			});
 		}
 
