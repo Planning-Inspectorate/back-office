@@ -20,7 +20,7 @@ jobs:
     timeoutInMinutes: 60
     pool: pins-odt-agent-pool-tests
 
-    steps:
+    steps: # This can be removed I'm sure as the agent uses node 22
       - task: NodeTool@0
         inputs:
           versionSpec: "20.x"
