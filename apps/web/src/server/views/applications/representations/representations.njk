@@ -12,24 +12,40 @@
 {% set pageTitle = "Relevant representations - " + case.title + " - NSIP applications" %}
 {% block title %}{{ pageTitle }}{% endblock %}
 {% block beforeContent %}
-    <aside>
-	    {{ govukBreadcrumbs({
-		    classes: "govuk-!-margin-top-0 govuk-!-margin-bottom-2",
-		    items: [
-			    {
-				    text: "Project documentation",
-				    href: "/applications-service/case/" + caseId + "/project-documentation"
-			    },
-			    {
-				    text: "Relevant representations",
-				    href: "#"
-			    }
-		    ]
-	    }) }}
-    </aside>
+	<aside>
+		{{ govukBreadcrumbs({
+			classes: "govuk-!-margin-top-0 govuk-!-margin-bottom-2",
+			items: [
+				{
+					text: "Project documentation",
+					href: "/applications-service/case/" + caseId + "/project-documentation"
+				},
+				{
+					text: "Relevant representations",
+					href: "#"
+				}
+			]
+		}) }}
+	</aside>
 {% endblock %}
 
 {% block pageContent %}
+
+	{% if unpublishedRepsCount > 0 %}
+		{% set successBannerHtml %}
+			<p class="govuk-notification-banner__heading">
+				{{ unpublishedRepsCount }} Representations have been unpublished.
+			</p>
+		{% endset %}
+		{{
+			govukNotificationBanner({
+				attributes: { id: "unpublish-success-banner" },
+				type: 'success',
+				html: successBannerHtml
+			})
+		}}
+	{% endif %}
+
 	{% if publishedRepsCount > 0 %}
 		{% set successBannerHtml %}
 			<p class="govuk-notification-banner__heading">
