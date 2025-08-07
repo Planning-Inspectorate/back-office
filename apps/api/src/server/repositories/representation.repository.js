@@ -577,7 +577,7 @@ export const updateApplicationRepresentationStatusById = async (
 };
 
 /**
- * Sets representations as 'published' - DRY version using generic status function
+ * Sets representations as 'published' using generic status function
  * @param {Prisma.RepresentationSelect[]} representations
  * @param {string} actionBy User performing publish action
  * @returns {Promise<void>}
@@ -592,7 +592,7 @@ export const setRepresentationsAsPublished = async (representations, actionBy) =
 };
 
 /**
- * Sets representations as 'published' in batches - DRY version using generic status batch function
+ * Sets representations as 'published' in batches using generic status batch function
  * @param {Prisma.RepresentationSelect[]} representations
  * @param {string} actionBy User performing publish action
  * @returns {Promise<void>}
@@ -607,7 +607,7 @@ export const setRepresentationsAsPublishedBatch = async (representations, action
 };
 
 /**
- * Sets representations as 'unpublished' - DRY version using generic status function
+ * Sets representations as 'unpublished' using generic status function
  * @param {Array<object>} representations
  * @param {string} actionBy User performing unpublish action
  * @returns {Promise<void>}
@@ -622,7 +622,7 @@ export const setRepresentationsAsUnpublished = async (representations, actionBy)
 };
 
 /**
- * Sets representations as 'unpublished' in batches - DRY version using generic status batch function
+ * Sets representations as 'unpublished' in batches using generic status batch function
  * @param {Array<object>} representations
  * @param {string} actionBy User performing unpublish action
  * @returns {Promise<void>}
