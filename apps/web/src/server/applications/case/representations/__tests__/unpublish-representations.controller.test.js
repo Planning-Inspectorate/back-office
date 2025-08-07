@@ -57,11 +57,9 @@ describe('unpublish-representations.controller', () => {
 	describe('getUnpublishRepresentationsController', () => {
 		it('renders the unpublish page with correct data', async () => {
 			const mockGetCase = jest.fn().mockResolvedValue({ title: 'Project X' });
-			const mockGetRepresentations = jest
-				.fn()
-				.mockResolvedValue({
-					items: [{ id: 1, status: RELEVANT_REPRESENTATION_STATUS_MAP.PUBLISHED }]
-				});
+			const mockGetRepresentations = jest.fn().mockResolvedValue({
+				items: [{ id: 1, status: RELEVANT_REPRESENTATION_STATUS_MAP.PUBLISHED }]
+			});
 			const mockGetPublishedRepIdsAndCount = jest.fn().mockReturnValue({ publishedRepsCount: 1 });
 			const mockRender = jest.fn();
 			const { getUnpublishRepresentationsController } = await loadControllerWithMocks(
