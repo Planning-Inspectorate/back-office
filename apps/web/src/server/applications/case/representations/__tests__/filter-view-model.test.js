@@ -48,6 +48,11 @@ describe('#getFilterViewModel', () => {
 				checked: false,
 				text: 'Under 18 (0)',
 				value: 'UNDER_18'
+			},
+			{
+				checked: false,
+				text: 'Unpublished (0)',
+				value: 'UNPUBLISHED'
 			}
 		]);
 	});
@@ -98,6 +103,11 @@ describe('#getFilterViewModel', () => {
 				checked: false,
 				text: 'Under 18 (0)',
 				value: 'UNDER_18'
+			},
+			{
+				checked: false,
+				text: 'Unpublished (0)',
+				value: 'UNPUBLISHED'
 			}
 		]);
 	});
@@ -148,6 +158,11 @@ describe('#getFilterViewModel', () => {
 				checked: false,
 				text: 'Under 18 (0)',
 				value: 'UNDER_18'
+			},
+			{
+				checked: false,
+				text: 'Unpublished (0)',
+				value: 'UNPUBLISHED'
 			}
 		]);
 	});
@@ -157,7 +172,8 @@ describe('#getFilterViewModel', () => {
 			[
 				{ count: 1, name: 'UNDER_18' },
 				{ count: 2, name: 'VALID' },
-				{ count: 1, name: 'PUBLISHED' }
+				{ count: 1, name: 'PUBLISHED' },
+				{ count: 5, name: 'UNPUBLISHED' }
 			]
 		);
 		expect(response).toEqual([
@@ -205,6 +221,11 @@ describe('#getFilterViewModel', () => {
 				checked: false,
 				text: 'Under 18 (1)',
 				value: 'UNDER_18'
+			},
+			{
+				checked: false,
+				text: 'Unpublished (5)',
+				value: 'UNPUBLISHED'
 			}
 		]);
 	});
