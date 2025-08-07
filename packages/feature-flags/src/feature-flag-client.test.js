@@ -51,6 +51,24 @@ describe('feature-flag-client', () => {
 				{
 					contentType,
 					value: JSON.stringify({
+						id: 'boas-3-test-feature',
+						enabled: true,
+						conditions: {
+							client_filters: [
+								{
+									parameters: {
+										Audience: {
+											Users: [] // empty users means the feature is enabled for all
+										}
+									}
+								}
+							]
+						}
+					})
+				},
+				{
+					contentType,
+					value: JSON.stringify({
 						id: AZURE_AI_LANGUAGE_REDACTION,
 						enabled: true,
 						conditions: {
@@ -71,6 +89,7 @@ describe('feature-flag-client', () => {
 		await client.loadFlags();
 		expect(client.isFeatureActive('boas-1-test-feature')).toBe(true);
 		expect(client.isFeatureActive('boas-2-test-feature')).toBe(false);
+		expect(client.isFeatureActive('boas-3-test-feature')).toBe(true);
 		expect(client.isFeatureActiveForCase(AZURE_AI_LANGUAGE_REDACTION, 'BC0110003')).toBe(true);
 		expect(client.isFeatureActiveForCase(AZURE_AI_LANGUAGE_REDACTION, 'BLAH')).toBe(false);
 	});
