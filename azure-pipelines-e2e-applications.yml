@@ -17,7 +17,7 @@ trigger: none
 
 jobs:
   - job: Run_Cypress_Tests_For_Applications
-    timeoutInMinutes: 60
+    timeoutInMinutes: 90
     pool: pins-odt-agent-pool-tests
 
     steps:
@@ -25,17 +25,16 @@ jobs:
         inputs:
           versionSpec: "20.x"
         displayName: "Install Node.js"
+
       - task: Npm@1
         inputs:
           command: "install"
           workingDir: $(System.DefaultWorkingDirectory)/apps/e2e
         displayName: "Install Dependencies"
 
-      # Smoke & Core Tests
       - task: ShellScript@2
         inputs:
           scriptPath: 'apps/e2e/run-tests.sh'
-          args: 'cypress/e2e/smokeTests.spec.js cypress/e2e/createCase.spec.js cypress/e2e/editCase.spec.js cypress/e2e/search.spec.js'
         env:
           BASE_URL: $(BASE_URL)
           CASE_TEAM_EMAIL: $(CASE_TEAM_EMAIL)
@@ -43,121 +42,8 @@ jobs:
           INSPECTOR_EMAIL: $(INSPECTOR_EMAIL)
           USER_PASSWORD: $(USER_PASSWORD)
           FEATURE_FLAG_CONNECTION_STRING: $(FEATURE_FLAG_CONNECTION_STRING)
-        displayName: 'Run Smoke & Core Tests'
+        displayName: "Run Cypress Tests"
 
-      # Team Management
-      - task: ShellScript@2
-        inputs:
-          scriptPath: 'apps/e2e/run-tests.sh'
-          args: 'cypress/e2e/addTeam.spec.js cypress/e2e/updateAndRemoveTeam.spec.js'
-        env:
-          BASE_URL: $(BASE_URL)
-          CASE_TEAM_EMAIL: $(CASE_TEAM_EMAIL)
-          CASE_ADMIN_EMAIL: $(CASE_ADMIN_EMAIL)
-          INSPECTOR_EMAIL: $(INSPECTOR_EMAIL)
-          USER_PASSWORD: $(USER_PASSWORD)
-          FEATURE_FLAG_CONNECTION_STRING: $(FEATURE_FLAG_CONNECTION_STRING)
-        displayName: 'Run Team Management Tests'
-
-      # Representations
-      - task: ShellScript@2
-        inputs:
-          scriptPath: 'apps/e2e/run-tests.sh'
-          args: 'cypress/e2e/addRepresentation.spec.js'
-        env:
-          BASE_URL: $(BASE_URL)
-          CASE_TEAM_EMAIL: $(CASE_TEAM_EMAIL)
-          CASE_ADMIN_EMAIL: $(CASE_ADMIN_EMAIL)
-          INSPECTOR_EMAIL: $(INSPECTOR_EMAIL)
-          USER_PASSWORD: $(USER_PASSWORD)
-          FEATURE_FLAG_CONNECTION_STRING: $(FEATURE_FLAG_CONNECTION_STRING)
-        displayName: 'Run Representations Test'
-
-      # Document Upload & Publishing
-      - task: ShellScript@2
-        inputs:
-          scriptPath: 'apps/e2e/run-tests.sh'
-          args: 'cypress/e2e/documentUpload.spec.js cypress/e2e/publishDocuments.spec.js cypress/e2e/unpublishDocuments.spec.js'
-        env:
-          BASE_URL: $(BASE_URL)
-          CASE_TEAM_EMAIL: $(CASE_TEAM_EMAIL)
-          CASE_ADMIN_EMAIL: $(CASE_ADMIN_EMAIL)
-          INSPECTOR_EMAIL: $(INSPECTOR_EMAIL)
-          USER_PASSWORD: $(USER_PASSWORD)
-          FEATURE_FLAG_CONNECTION_STRING: $(FEATURE_FLAG_CONNECTION_STRING)
-        displayName: 'Run Document Upload & Publishing Tests'
-
-      # Document Properties
-      - task: ShellScript@2
-        inputs:
-          scriptPath: 'apps/e2e/run-tests.sh'
-          args: 'cypress/e2e/documentProperties.spec.js cypress/e2e/documentPropertiesWelsh.spec.js cypress/e2e/documentVersioning.spec.js'
-        env:
-          BASE_URL: $(BASE_URL)
-          CASE_TEAM_EMAIL: $(CASE_TEAM_EMAIL)
-          CASE_ADMIN_EMAIL: $(CASE_ADMIN_EMAIL)
-          INSPECTOR_EMAIL: $(INSPECTOR_EMAIL)
-          USER_PASSWORD: $(USER_PASSWORD)
-          FEATURE_FLAG_CONNECTION_STRING: $(FEATURE_FLAG_CONNECTION_STRING)
-        displayName: 'Run Document Properties Tests'
-
-      # Folders & Structure
-      - task: ShellScript@2
-        inputs:
-          scriptPath: 'apps/e2e/run-tests.sh'
-          args: 'cypress/e2e/folders.spec.js cypress/e2e/sectorAsTraing.spec.js'
-        env:
-          BASE_URL: $(BASE_URL)
-          CASE_TEAM_EMAIL: $(CASE_TEAM_EMAIL)
-          CASE_ADMIN_EMAIL: $(CASE_ADMIN_EMAIL)
-          INSPECTOR_EMAIL: $(INSPECTOR_EMAIL)
-          USER_PASSWORD: $(USER_PASSWORD)
-          FEATURE_FLAG_CONNECTION_STRING: $(FEATURE_FLAG_CONNECTION_STRING)
-        displayName: 'Run Folder Structure Tests'
-
-      # Project Lifecycle
-      - task: ShellScript@2
-        inputs:
-          scriptPath: 'apps/e2e/run-tests.sh'
-          args: 'cypress/e2e/projectUpdates.spec.js cypress/e2e/updateProjectInformation.spec.js cypress/e2e/keyDates.spec.js cypress/e2e/examTimetable.spec.js'
-        env:
-          BASE_URL: $(BASE_URL)
-          CASE_TEAM_EMAIL: $(CASE_TEAM_EMAIL)
-          CASE_ADMIN_EMAIL: $(CASE_ADMIN_EMAIL)
-          INSPECTOR_EMAIL: $(INSPECTOR_EMAIL)
-          USER_PASSWORD: $(USER_PASSWORD)
-          FEATURE_FLAG_CONNECTION_STRING: $(FEATURE_FLAG_CONNECTION_STRING)
-        displayName: 'Run Project Lifecycle Tests'
-
-      # Search Features
-      - task: ShellScript@2
-        inputs:
-          scriptPath: 'apps/e2e/run-tests.sh'
-          args: 'cypress/e2e/searchDocuments.spec.js'
-        env:
-          BASE_URL: $(BASE_URL)
-          CASE_TEAM_EMAIL: $(CASE_TEAM_EMAIL)
-          CASE_ADMIN_EMAIL: $(CASE_ADMIN_EMAIL)
-          INSPECTOR_EMAIL: $(INSPECTOR_EMAIL)
-          USER_PASSWORD: $(USER_PASSWORD)
-          FEATURE_FLAG_CONNECTION_STRING: $(FEATURE_FLAG_CONNECTION_STRING)
-        displayName: 'Run Search Document Test'
-
-      # Advice & Language Specific
-      - task: ShellScript@2
-        inputs:
-          scriptPath: 'apps/e2e/run-tests.sh'
-          args: 'cypress/e2e/s51Advice.spec.js cypress/e2e/welsh.spec.js'
-        env:
-          BASE_URL: $(BASE_URL)
-          CASE_TEAM_EMAIL: $(CASE_TEAM_EMAIL)
-          CASE_ADMIN_EMAIL: $(CASE_ADMIN_EMAIL)
-          INSPECTOR_EMAIL: $(INSPECTOR_EMAIL)
-          USER_PASSWORD: $(USER_PASSWORD)
-          FEATURE_FLAG_CONNECTION_STRING: $(FEATURE_FLAG_CONNECTION_STRING)
-        displayName: 'Run Advice & Welsh Tests'
-
-      # Publish Failed Screenshots
       - task: PublishBuildArtifacts@1
         inputs:
           pathToPublish: 'apps/e2e/cypress/screenshots'
