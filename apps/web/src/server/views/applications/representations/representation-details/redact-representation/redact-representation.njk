@@ -94,10 +94,7 @@
 					errorMessage: errors["representation"] and {
 						text: errors["representation"].msg
 					},
-					rows: 8,
-					attributes: {
-						readonly: true
-					}
+					rows: 8
 				}) }}
 
 				<div class="govuk-button-group">
@@ -126,6 +123,16 @@
 		</div>
 		<div class="govuk-grid-row">
 			<div class="govuk-grid-column-one-half">
+				{{ govukTextarea({
+					id: "redact-representation-notes-text",
+					label: {
+						text: "Notes",
+						classes: "govuk-label--s"
+					},
+					name: "notes",
+					value: notes
+				}) }}
+
 				{{ govukButton({
 					text: "Save and continue",
 					type: "submit",
@@ -144,8 +151,9 @@
 		 * @param {HTMLDivElement} unredactedText
 		 * @param {HTMLAnchorElement[]} rejectLinks
 		 * @param {import('@azure/ai-text-analytics').PiiEntity[]} suggestions
+		 * @param {HTMLTextAreaElement} notesText
 		 */
-		function registerEventListeners({textArea, redactSelectedText, redactUndo, redactUndoAll, unredactedText, rejectLinks, suggestions}) {
+		function registerEventListeners({textArea, redactSelectedText, redactUndo, redactUndoAll, unredactedText, rejectLinks, suggestions, notesText}) {
 			const formGroup = textArea.parentElement;
 			const errorMessage = document.createElement('p');
 			errorMessage.id = 'representation-error';
@@ -162,6 +170,18 @@
 			function hideError() {
 				textArea.parentElement.classList.remove('govuk-form-group--error');
 				errorMessage.remove();
+			}
+			// setup redaction box size
+			textArea.style.height = '1px';
+			textArea.style.height = `${textArea.scrollHeight + 5}px`;
+
+			// populate notes field with any suggestions
+			if (!notesText.value) {
+				for (const suggestion of suggestions) {
+					if (suggestion.accepted) {
+						notesText.value += `${notesText.value ? "\n" : ""}${suggestion.text}`;
+					}
+				}
 			}
 
 			redactSelectedText.addEventListener('click', () => {
@@ -187,6 +207,8 @@
 					selectionEnd,
 					selectedText
 				});
+				// add to notes field
+				notesText.value += `${notesText.value ? "\n" : ""}${selectedText}`;
 			});
 			redactUndo.addEventListener('click', () => {
 				const { selectionStart, selectionEnd, selectedText } = history.pop() || {};
@@ -218,6 +240,8 @@
 						const redactedText = '█'.repeat(suggestion.length);
 						textArea.value = textArea.value.substring(0, suggestion.offset) + redactedText + textArea.value.substring(suggestion.offset + suggestion.length);
 						rejectLink.text = 'Reject';
+						// add to notes field
+						notesText.value += `${notesText.value ? "\n" : ""}${suggestion.text}`;
 					}
 				});
 			}
@@ -230,6 +254,7 @@
 			const redactUndoAll = document.querySelector('#redact-undo-all');
 			const unredactedText = document.querySelector('#representation-unredacted > div');
 			const rejectLinks = document.querySelectorAll('[data-redact]');
+			const notesText = document.querySelector("#redact-representation-notes-text");
 			{% if not redactionSuggestions %}
 			{% set redactionSuggestions = [] %}
 			{% endif %}
@@ -250,6 +275,9 @@
 			if (!unredactedText || !(unredactedText instanceof HTMLDivElement)) {
 				return;
 			}
+			if (!notesText || !(notesText instanceof HTMLTextAreaElement)) {
+				return;
+			}
 
 			registerEventListeners({
 				textArea,
@@ -258,7 +286,8 @@
 				redactUndoAll,
 				unredactedText,
 				rejectLinks,
-				suggestions
+				suggestions,
+				notesText
 			});
 		}
 
