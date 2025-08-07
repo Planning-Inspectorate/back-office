@@ -20,18 +20,7 @@ jobs:
     timeoutInMinutes: 60
     pool: pins-odt-agent-pool-tests
 
-    steps: # This can be removed I'm sure as the agent uses node 22
-      - task: NodeTool@0
-        inputs:
-          versionSpec: "20.x"
-        displayName: "Install Node.js"
-
-      - task: ShellScript@2
-        inputs:
-          scriptPath: 'apps/e2e/install-chromium.sh'
-        displayName: 'Install Chromium'
-        condition: eq(variables['agent.os'], 'Linux')
-
+    steps:
       - task: Npm@1
         inputs:
           command: "install"
