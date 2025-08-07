@@ -30,6 +30,24 @@
 {% endblock %}
 
 {% block pageContent %}
+
+	{% if unpublishedRepsCount > 0 %}
+		{% set successBannerHtml %}
+			<p class="govuk-notification-banner__heading">
+				{{ unpublishedRepsCount }} Representations have been unpublished.
+			</p>
+
+			<a href="{{ resetSuccessBannerURL }}" id="clear-success-notification-link" class="govuk-link">Clear notification</a>
+		{% endset %}
+		{{
+			govukNotificationBanner({
+				attributes: { id: "unpublish-success-banner" },
+				type: 'success',
+				html: successBannerHtml
+			})
+		}}
+	{% endif %}
+
 	{% if publishedRepsCount > 0 %}
 		{% set successBannerHtml %}
 			<p class="govuk-notification-banner__heading">
@@ -122,6 +140,14 @@
 					href: "/applications-service/case/" + caseId + "/relevant-representations/contact-details?repType=represented",
 					classes: "govuk-button--secondary"
 				}) }}
+
+				{% if publishedRepsCount is defined and publishedRepsCount > 1 %}
+					<p class="govuk-body">
+						<a class="govuk-link" href="/applications-service/case/{{ caseId }}/unpublish-representations">
+							Unpublish all published representations
+						</a>
+					</p>
+				{% endif %}
 
 				<p class="govuk-body">
 					<a class="govuk-link"
