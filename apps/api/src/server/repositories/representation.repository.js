@@ -1,5 +1,6 @@
 import { isEmpty } from 'lodash-es';
 import { databaseConnector } from '#utils/database-connector.js';
+import { RELEVANT_REPRESENTATION_STATUS_MAP } from '../utils/mapping/map-relevant-representation-status.js';
 
 /**
  * @typedef {{
@@ -300,7 +301,8 @@ export const updateApplicationRepresentation = async (
 	if (!response)
 		throw new Error(`Representation Id ${representationId} does not belong to case Id ${caseId}`);
 
-	if (response.status === 'PUBLISHED') representationDetails.unpublishedUpdates = true;
+	if (response.status === RELEVANT_REPRESENTATION_STATUS_MAP.PUBLISHED)
+		representationDetails.unpublishedUpdates = true;
 
 	if (!isEmpty(representationDetails)) {
 		await databaseConnector.representation.update({
@@ -386,7 +388,8 @@ export const updateApplicationRepresentationRedaction = async (
 	if (!response)
 		throw new Error(`Representation Id ${representationId} does not belong to case Id ${caseId}`);
 
-	if (response.status === 'PUBLISHED') representation.unpublishedUpdates = true;
+	if (response.status === RELEVANT_REPRESENTATION_STATUS_MAP.PUBLISHED)
+		representation.unpublishedUpdates = true;
 
 	if (!isEmpty(representation)) {
 		await databaseConnector.representation.update({
@@ -469,7 +472,7 @@ export const addApplicationRepresentationAttachment = async (representationId, d
 		})
 	];
 
-	if (representation.status === 'PUBLISHED')
+	if (representation.status === RELEVANT_REPRESENTATION_STATUS_MAP.PUBLISHED)
 		transactionItems.push(
 			databaseConnector.representation.update({
 				where: { id: representation.id },
@@ -522,7 +525,7 @@ export const deleteApplicationRepresentationAttachment = async (repId, attachmen
 	];
 
 	// if the representation is already published, this also sets the unpublishedUpdates flag on the rep
-	if (representation.status === 'PUBLISHED')
+	if (representation.status === RELEVANT_REPRESENTATION_STATUS_MAP.PUBLISHED)
 		transactionItems.push(
 			databaseConnector.representation.update({
 				where: { id: representation.id },
@@ -580,7 +583,12 @@ export const updateApplicationRepresentationStatusById = async (
  * @returns {Promise<void>}
  */
 export const setRepresentationsAsPublished = async (representations, actionBy) => {
-	await setRepresentationsStatus(representations, actionBy, 'VALID', 'PUBLISHED');
+	await setRepresentationsStatus(
+		representations,
+		actionBy,
+		RELEVANT_REPRESENTATION_STATUS_MAP.VALID,
+		RELEVANT_REPRESENTATION_STATUS_MAP.PUBLISHED
+	);
 };
 
 /**
@@ -590,10 +598,14 @@ export const setRepresentationsAsPublished = async (representations, actionBy) =
  * @returns {Promise<void>}
  */
 export const setRepresentationsAsPublishedBatch = async (representations, actionBy) => {
-	await setRepresentationsStatusBatch(representations, actionBy, 'VALID', 'PUBLISHED');
+	await setRepresentationsStatusBatch(
+		representations,
+		actionBy,
+		RELEVANT_REPRESENTATION_STATUS_MAP.VALID,
+		RELEVANT_REPRESENTATION_STATUS_MAP.PUBLISHED
+	);
 };
 
-// ...existing code...
 /**
  * Sets representations as 'unpublished' - DRY version using generic status function
  * @param {Array<object>} representations
@@ -601,7 +613,12 @@ export const setRepresentationsAsPublishedBatch = async (representations, action
  * @returns {Promise<void>}
  */
 export const setRepresentationsAsUnpublished = async (representations, actionBy) => {
-	await setRepresentationsStatus(representations, actionBy, 'PUBLISHED', 'VALID');
+	await setRepresentationsStatus(
+		representations,
+		actionBy,
+		RELEVANT_REPRESENTATION_STATUS_MAP.PUBLISHED,
+		RELEVANT_REPRESENTATION_STATUS_MAP.UNPUBLISHED
+	);
 };
 
 /**
@@ -611,7 +628,12 @@ export const setRepresentationsAsUnpublished = async (representations, actionBy)
  * @returns {Promise<void>}
  */
 export const setRepresentationsAsUnpublishedBatch = async (representations, actionBy) => {
-	await setRepresentationsStatusBatch(representations, actionBy, 'PUBLISHED', 'VALID');
+	await setRepresentationsStatusBatch(
+		representations,
+		actionBy,
+		RELEVANT_REPRESENTATION_STATUS_MAP.PUBLISHED,
+		RELEVANT_REPRESENTATION_STATUS_MAP.UNPUBLISHED
+	);
 };
 
 /**
@@ -680,7 +702,7 @@ export const setRepresentationsStatus = async (representations, actionBy, fromSt
 				}
 			},
 			data: {
-				unpublishedUpdates: fromStatus === 'PUBLISHED' && toStatus === 'VALID' ? true : false
+				unpublishedUpdates: false
 			}
 		})
 	);
@@ -699,7 +721,12 @@ export const getApplicationRepresentationForDownload = async (caseId, skip, batc
 	return databaseConnector.representation.findMany({
 		take: batchSize,
 		skip,
-		where: { caseId, status: { in: ['VALID', 'PUBLISHED'] } },
+		where: {
+			caseId,
+			status: {
+				in: [RELEVANT_REPRESENTATION_STATUS_MAP.VALID, RELEVANT_REPRESENTATION_STATUS_MAP.PUBLISHED]
+			}
+		},
 		select: {
 			reference: true,
 			representedType: true,
@@ -755,7 +782,10 @@ export const getPublishableRepresentations = async (caseId) => {
 	const totalPublishableRepsCount = await databaseConnector.representation.count({
 		where: {
 			caseId,
-			OR: [{ status: 'PUBLISHED', unpublishedUpdates: true }, { status: 'VALID' }]
+			OR: [
+				{ status: RELEVANT_REPRESENTATION_STATUS_MAP.PUBLISHED, unpublishedUpdates: true },
+				{ status: RELEVANT_REPRESENTATION_STATUS_MAP.VALID }
+			]
 		}
 	});
 
@@ -781,7 +811,10 @@ export const getPublishableRepresentations = async (caseId) => {
 				},
 				where: {
 					caseId,
-					OR: [{ status: 'PUBLISHED', unpublishedUpdates: true }, { status: 'VALID' }]
+					OR: [
+						{ status: RELEVANT_REPRESENTATION_STATUS_MAP.PUBLISHED, unpublishedUpdates: true },
+						{ status: RELEVANT_REPRESENTATION_STATUS_MAP.VALID }
+					]
 				},
 				orderBy: [{ status: 'desc' }, { reference: 'asc' }],
 				take: batchSize,
@@ -799,7 +832,7 @@ export const isRepresentationsPreviouslyPublished = async (caseId) => {
 	const previouslyPublished = await databaseConnector.representation.count({
 		where: {
 			caseId,
-			status: 'PUBLISHED'
+			status: RELEVANT_REPRESENTATION_STATUS_MAP.PUBLISHED
 		}
 	});
 
@@ -825,7 +858,10 @@ export const getPublishableRepresentationsById = async (caseId, representationId
 				where: {
 					caseId,
 					id: { in: batchIds },
-					OR: [{ status: 'PUBLISHED', unpublishedUpdates: true }, { status: 'VALID' }]
+					OR: [
+						{ status: RELEVANT_REPRESENTATION_STATUS_MAP.PUBLISHED, unpublishedUpdates: true },
+						{ status: RELEVANT_REPRESENTATION_STATUS_MAP.VALID }
+					]
 				},
 				include: {
 					user: true,

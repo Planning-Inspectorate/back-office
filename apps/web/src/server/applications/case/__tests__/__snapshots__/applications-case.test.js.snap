@@ -10,7 +10,7 @@ exports[`Applications case pages Preview and publish page GET /case/123/preview-
         <div class="govuk-grid-column-two-thirds">
             <div class='pins-preview-table'>
                 <div class='pins-preview-table__header govuk-!-margin-bottom-2'>
-                    <h2>Project information</h2><a href='/applications-service/case/4/overview' class='govuk-link govuk-heading-s govuk-!-margin-bottom-0'>Edit</a>
+                    <h2>Project information</h2><a href='/applications-service/case/4/project-information' class='govuk-link govuk-heading-s govuk-!-margin-bottom-0'>Edit</a>
                 </div>
                 <div>
                     <dl class="govuk-summary-list">
@@ -44,7 +44,7 @@ exports[`Applications case pages Preview and publish page GET /case/123/preview-
                             <dd class="govuk-summary-list__value">123456 (Easting)
                                 <br>987654 (Northing)</dd>
                         </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Regions</dt>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Region(s)</dt>
                             <dd class="govuk-summary-list__value">London EN, Yorkshire EN</dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Map zoom level</dt>
@@ -55,7 +55,7 @@ exports[`Applications case pages Preview and publish page GET /case/123/preview-
             </div>
             <div class='pins-preview-table govuk-!-margin-top-9'>
                 <div class='pins-preview-table__header govuk-!-margin-bottom-2'>
-                    <h2>Applicant information</h2><a href='/applications-service/case/4/overview' class='govuk-link govuk-heading-s govuk-!-margin-bottom-0'>Edit</a>
+                    <h2>Applicant information</h2><a href='/applications-service/case/4/project-information' class='govuk-link govuk-heading-s govuk-!-margin-bottom-0'>Edit</a>
                 </div>
                 <div>
                     <dl class="govuk-summary-list">
@@ -179,7 +179,7 @@ exports[`Applications case pages Preview and publish page GET /case/123/preview-
         <div class="govuk-grid-column-two-thirds">
             <div class='pins-preview-table'>
                 <div class='pins-preview-table__header govuk-!-margin-bottom-2'>
-                    <h2>Project information</h2><a href='/applications-service/case/4/overview' class='govuk-link govuk-heading-s govuk-!-margin-bottom-0'>Edit</a>
+                    <h2>Project information</h2><a href='/applications-service/case/4/project-information' class='govuk-link govuk-heading-s govuk-!-margin-bottom-0'>Edit</a>
                 </div>
                 <div>
                     <dl class="govuk-summary-list">
@@ -213,7 +213,7 @@ exports[`Applications case pages Preview and publish page GET /case/123/preview-
                             <dd class="govuk-summary-list__value">123456 (Easting)
                                 <br>987654 (Northing)</dd>
                         </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Regions</dt>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Region(s)</dt>
                             <dd class="govuk-summary-list__value">London EN, Yorkshire EN</dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Map zoom level</dt>
@@ -224,7 +224,7 @@ exports[`Applications case pages Preview and publish page GET /case/123/preview-
             </div>
             <div class='pins-preview-table govuk-!-margin-top-9'>
                 <div class='pins-preview-table__header govuk-!-margin-bottom-2'>
-                    <h2>Applicant information</h2><a href='/applications-service/case/4/overview' class='govuk-link govuk-heading-s govuk-!-margin-bottom-0'>Edit</a>
+                    <h2>Applicant information</h2><a href='/applications-service/case/4/project-information' class='govuk-link govuk-heading-s govuk-!-margin-bottom-0'>Edit</a>
                 </div>
                 <div>
                     <dl class="govuk-summary-list">
@@ -377,6 +377,8 @@ exports[`Applications case pages Project information page GET /case/123/project-
                     <ul class="gov-list pins-list-menu">
                         <li><a class="govuk-link " href="/applications-service/case/4/"> Overview</a>
                         </li>
+                        <li><a class="govuk-link pins-selected-item" href="/applications-service/case/4/project-information"> Project information</a>
+                        </li>
                         <li><a class="govuk-link " href="/applications-service/case/4/key-dates"> Key dates</a>
                         </li>
                         <li><a class="govuk-link " href="/applications-service/case/4/project-team"> Project team</a>
@@ -459,7 +461,7 @@ exports[`Applications case pages Project information page GET /case/123/project-
                                     <td class="govuk-table__cell"></td>
                                 </tr>
                                 <tr class="govuk-table__row">
-                                    <th scope="row" class="govuk-table__header">Regions</th>
+                                    <th scope="row" class="govuk-table__header">Region(s)</th>
                                     <td class="govuk-table__cell project-details__regions">London EN, Yorkshire EN</td>
                                     <td class="govuk-table__cell text-align--right pins-table__cell--s"><a class="govuk-link" href="/applications-service/case/4/edit/regions"
                                         id=""> Change</a>
@@ -593,6 +595,8 @@ exports[`Applications case pages Project information page GET /case/123/project-
                     <ul class="gov-list pins-list-menu">
                         <li><a class="govuk-link " href="/applications-service/case/4/"> Overview</a>
                         </li>
+                        <li><a class="govuk-link pins-selected-item" href="/applications-service/case/4/project-information"> Project information</a>
+                        </li>
                         <li><a class="govuk-link " href="/applications-service/case/4/key-dates"> Key dates</a>
                         </li>
                         <li><a class="govuk-link " href="/applications-service/case/4/project-team"> Project team</a>
@@ -675,7 +679,7 @@ exports[`Applications case pages Project information page GET /case/123/project-
                                     <td class="govuk-table__cell"></td>
                                 </tr>
                                 <tr class="govuk-table__row">
-                                    <th scope="row" class="govuk-table__header">Regions</th>
+                                    <th scope="row" class="govuk-table__header">Region(s)</th>
                                     <td class="govuk-table__cell project-details__regions">London EN, Yorkshire EN</td>
                                     <td class="govuk-table__cell text-align--right pins-table__cell--s"><a class="govuk-link" href="/applications-service/case/4/edit/regions"
                                         id=""> Change</a>
@@ -809,6 +813,8 @@ exports[`Applications case pages Project information page GET /case/123/project-
                     <ul class="gov-list pins-list-menu">
                         <li><a class="govuk-link " href="/applications-service/case/4/"> Overview</a>
                         </li>
+                        <li><a class="govuk-link pins-selected-item" href="/applications-service/case/4/project-information"> Project information</a>
+                        </li>
                         <li><a class="govuk-link " href="/applications-service/case/4/key-dates"> Key dates</a>
                         </li>
                         <li><a class="govuk-link " href="/applications-service/case/4/project-team"> Project team</a>
@@ -891,7 +897,7 @@ exports[`Applications case pages Project information page GET /case/123/project-
                                     <td class="govuk-table__cell"></td>
                                 </tr>
                                 <tr class="govuk-table__row">
-                                    <th scope="row" class="govuk-table__header">Regions</th>
+                                    <th scope="row" class="govuk-table__header">Region(s)</th>
                                     <td class="govuk-table__cell project-details__regions">London EN, Yorkshire EN</td>
                                     <td class="govuk-table__cell text-align--right pins-table__cell--s"><a class="govuk-link" href="/applications-service/case/4/edit/regions"
                                         id=""> Change</a>
