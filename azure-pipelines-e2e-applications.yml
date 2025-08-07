@@ -32,7 +32,13 @@ jobs:
         inputs:
           scriptPath: 'apps/e2e/run-tests.sh'
           args: 'cypress/e2e/smokeTests.spec.js cypress/e2e/createCase.spec.js cypress/e2e/editCase.spec.js cypress/e2e/search.spec.js'
-        env: *EnvVars
+        env:
+          BASE_URL: $(BASE_URL)
+          CASE_TEAM_EMAIL: $(CASE_TEAM_EMAIL)
+          CASE_ADMIN_EMAIL: $(CASE_ADMIN_EMAIL)
+          INSPECTOR_EMAIL: $(INSPECTOR_EMAIL)
+          USER_PASSWORD: $(USER_PASSWORD)
+          FEATURE_FLAG_CONNECTION_STRING: $(FEATURE_FLAG_CONNECTION_STRING)
         displayName: 'Run Smoke & Core Tests'
 
       # Team Management
@@ -40,7 +46,13 @@ jobs:
         inputs:
           scriptPath: 'apps/e2e/run-tests.sh'
           args: 'cypress/e2e/addTeam.spec.js cypress/e2e/updateAndRemoveTeam.spec.js'
-        env: *EnvVars
+        env:
+          BASE_URL: $(BASE_URL)
+          CASE_TEAM_EMAIL: $(CASE_TEAM_EMAIL)
+          CASE_ADMIN_EMAIL: $(CASE_ADMIN_EMAIL)
+          INSPECTOR_EMAIL: $(INSPECTOR_EMAIL)
+          USER_PASSWORD: $(USER_PASSWORD)
+          FEATURE_FLAG_CONNECTION_STRING: $(FEATURE_FLAG_CONNECTION_STRING)
         displayName: 'Run Team Management Tests'
 
       # Representations
@@ -48,7 +60,13 @@ jobs:
         inputs:
           scriptPath: 'apps/e2e/run-tests.sh'
           args: 'cypress/e2e/addRepresentation.spec.js'
-        env: *EnvVars
+        env:
+          BASE_URL: $(BASE_URL)
+          CASE_TEAM_EMAIL: $(CASE_TEAM_EMAIL)
+          CASE_ADMIN_EMAIL: $(CASE_ADMIN_EMAIL)
+          INSPECTOR_EMAIL: $(INSPECTOR_EMAIL)
+          USER_PASSWORD: $(USER_PASSWORD)
+          FEATURE_FLAG_CONNECTION_STRING: $(FEATURE_FLAG_CONNECTION_STRING)
         displayName: 'Run Representations Test'
 
       # Document Upload & Publishing
@@ -56,7 +74,13 @@ jobs:
         inputs:
           scriptPath: 'apps/e2e/run-tests.sh'
           args: 'cypress/e2e/documentUpload.spec.js cypress/e2e/publishDocuments.spec.js cypress/e2e/unpublishDocuments.spec.js'
-        env: *EnvVars
+        env:
+          BASE_URL: $(BASE_URL)
+          CASE_TEAM_EMAIL: $(CASE_TEAM_EMAIL)
+          CASE_ADMIN_EMAIL: $(CASE_ADMIN_EMAIL)
+          INSPECTOR_EMAIL: $(INSPECTOR_EMAIL)
+          USER_PASSWORD: $(USER_PASSWORD)
+          FEATURE_FLAG_CONNECTION_STRING: $(FEATURE_FLAG_CONNECTION_STRING)
         displayName: 'Run Document Upload & Publishing Tests'
 
       # Document Properties
@@ -64,7 +88,13 @@ jobs:
         inputs:
           scriptPath: 'apps/e2e/run-tests.sh'
           args: 'cypress/e2e/documentProperties.spec.js cypress/e2e/documentPropertiesWelsh.spec.js cypress/e2e/documentVersioning.spec.js'
-        env: *EnvVars
+        env:
+          BASE_URL: $(BASE_URL)
+          CASE_TEAM_EMAIL: $(CASE_TEAM_EMAIL)
+          CASE_ADMIN_EMAIL: $(CASE_ADMIN_EMAIL)
+          INSPECTOR_EMAIL: $(INSPECTOR_EMAIL)
+          USER_PASSWORD: $(USER_PASSWORD)
+          FEATURE_FLAG_CONNECTION_STRING: $(FEATURE_FLAG_CONNECTION_STRING)
         displayName: 'Run Document Properties Tests'
 
       # Folders & Structure
@@ -72,7 +102,13 @@ jobs:
         inputs:
           scriptPath: 'apps/e2e/run-tests.sh'
           args: 'cypress/e2e/folders.spec.js cypress/e2e/sectorAsTraing.spec.js'
-        env: *EnvVars
+        env:
+          BASE_URL: $(BASE_URL)
+          CASE_TEAM_EMAIL: $(CASE_TEAM_EMAIL)
+          CASE_ADMIN_EMAIL: $(CASE_ADMIN_EMAIL)
+          INSPECTOR_EMAIL: $(INSPECTOR_EMAIL)
+          USER_PASSWORD: $(USER_PASSWORD)
+          FEATURE_FLAG_CONNECTION_STRING: $(FEATURE_FLAG_CONNECTION_STRING)
         displayName: 'Run Folder Structure Tests'
 
       # Project Lifecycle
@@ -80,7 +116,13 @@ jobs:
         inputs:
           scriptPath: 'apps/e2e/run-tests.sh'
           args: 'cypress/e2e/projectUpdates.spec.js cypress/e2e/updateProjectInformation.spec.js cypress/e2e/keyDates.spec.js cypress/e2e/examTimetable.spec.js'
-        env: *EnvVars
+        env:
+          BASE_URL: $(BASE_URL)
+          CASE_TEAM_EMAIL: $(CASE_TEAM_EMAIL)
+          CASE_ADMIN_EMAIL: $(CASE_ADMIN_EMAIL)
+          INSPECTOR_EMAIL: $(INSPECTOR_EMAIL)
+          USER_PASSWORD: $(USER_PASSWORD)
+          FEATURE_FLAG_CONNECTION_STRING: $(FEATURE_FLAG_CONNECTION_STRING)
         displayName: 'Run Project Lifecycle Tests'
 
       # Search Features
@@ -88,7 +130,13 @@ jobs:
         inputs:
           scriptPath: 'apps/e2e/run-tests.sh'
           args: 'cypress/e2e/searchDocuments.spec.js'
-        env: *EnvVars
+        env:
+          BASE_URL: $(BASE_URL)
+          CASE_TEAM_EMAIL: $(CASE_TEAM_EMAIL)
+          CASE_ADMIN_EMAIL: $(CASE_ADMIN_EMAIL)
+          INSPECTOR_EMAIL: $(INSPECTOR_EMAIL)
+          USER_PASSWORD: $(USER_PASSWORD)
+          FEATURE_FLAG_CONNECTION_STRING: $(FEATURE_FLAG_CONNECTION_STRING)
         displayName: 'Run Search Document Test'
 
       # Advice & Language Specific
@@ -96,7 +144,13 @@ jobs:
         inputs:
           scriptPath: 'apps/e2e/run-tests.sh'
           args: 'cypress/e2e/s51Advice.spec.js cypress/e2e/welsh.spec.js'
-        env: *EnvVars
+        env:
+          BASE_URL: $(BASE_URL)
+          CASE_TEAM_EMAIL: $(CASE_TEAM_EMAIL)
+          CASE_ADMIN_EMAIL: $(CASE_ADMIN_EMAIL)
+          INSPECTOR_EMAIL: $(INSPECTOR_EMAIL)
+          USER_PASSWORD: $(USER_PASSWORD)
+          FEATURE_FLAG_CONNECTION_STRING: $(FEATURE_FLAG_CONNECTION_STRING)
         displayName: 'Run Advice & Welsh Tests'
 
       # Publish Failed Screenshots
@@ -106,11 +160,3 @@ jobs:
           artifactName: 'FailedTests'
         displayName: "Publish Failed Tests Artifacts"
         condition: failed()
-
-env: &EnvVars
-  BASE_URL: $(BASE_URL)
-  CASE_TEAM_EMAIL: $(CASE_TEAM_EMAIL)
-  CASE_ADMIN_EMAIL: $(CASE_ADMIN_EMAIL)
-  INSPECTOR_EMAIL: $(INSPECTOR_EMAIL)
-  USER_PASSWORD: $(USER_PASSWORD)
-  FEATURE_FLAG_CONNECTION_STRING: $(FEATURE_FLAG_CONNECTION_STRING)
