@@ -53,7 +53,12 @@ const getDocumentsDownload = async ({ params, session }, response) => {
 		response.setHeader('content-type', contentType);
 	} else {
 		const downloadFileName = buildFileName({ fileName, originalFilename });
-		response.setHeader('content-disposition', `attachment; filename=${downloadFileName}`);
+		const encodedFilename = encodeURIComponent(downloadFileName);
+
+		//we use `filename*` and URI encoding to ensure that the filename is correctly handling special characters
+		//that will be passed as filenames into the header
+		// https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Content-Disposition
+		response.setHeader('content-disposition', `attachment; filename*=UTF-8''${encodedFilename}`);
 	}
 
 	const blobStream = await client.downloadStream(privateBlobContainer, documentKey);
@@ -96,7 +101,12 @@ const getSimulatedDocumentsDownload = (response, preview, fileName, originalFile
 		response.setHeader('Content-type', 'text/plain');
 	} else {
 		const downloadFileName = buildFileName({ fileName, originalFilename });
-		response.setHeader('content-disposition', `attachment; filename=${downloadFileName}`);
+		const encodedFilename = encodeURIComponent(downloadFileName);
+
+		//we use `filename*` and URI encoding to ensure that the filename is correctly handling special characters
+		//that will be passed as filenames into the header
+		// https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Content-Disposition
+		response.setHeader('content-disposition', `attachment; filename*=UTF-8''${encodedFilename}`);
 	}
 	response.charset = 'UTF-8';
 	response.write('DUMMY DATA');
