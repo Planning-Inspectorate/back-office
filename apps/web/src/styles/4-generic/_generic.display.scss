@@ -1,3 +1,5 @@
+@use "govuk-frontend/dist/govuk/helpers/visually-hidden" as govuk-sr-helpers;
+
 $display-attrs: (
 	none: "none",
 	flex: "flex",
@@ -11,12 +13,5 @@ $display-attrs: (
 }
 
 .display--sr-only {
-	position: absolute;
-	width: 1px;
-	height: 1px;
-	padding: 0;
-	margin: -1px;
-	overflow: hidden;
-	clip: rect(0, 0, 0, 0);
-	border: 0;
+	@include govuk-sr-helpers.govuk-visually-hidden;
 }
