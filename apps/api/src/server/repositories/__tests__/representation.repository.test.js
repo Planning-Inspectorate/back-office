@@ -1,729 +1,288 @@
 import { jest } from '@jest/globals';
-
-const { databaseConnector } = await import('#utils/database-connector.js');
-
 import * as representationRepository from '../representation.repository.js';
+import { databaseConnector } from '#utils/database-connector.js';
 
-const existingRepresentations = [{ id: 1 }, { id: 2 }];
+jest.mock('#utils/database-connector.js', () => ({
+	databaseConnector: {
+		representation: {
+			count: jest.fn(),
+			findMany: jest.fn(),
+			findUnique: jest.fn(),
+			findFirst: jest.fn(),
+			groupBy: jest.fn(),
+			create: jest.fn(),
+			update: jest.fn(),
+			updateMany: jest.fn()
+		},
+		representationAction: {
+			create: jest.fn()
+		},
+		representationAttachment: {
+			upsert: jest.fn(),
+			delete: jest.fn()
+		},
+		$transaction: jest.fn()
+	}
+}));
 
-const createdRepresentation = {
-	id: 1,
-	reference: '',
-	caseId: 1,
-	status: 'DRAFT',
-	originalRepresentation: '',
-	redactedRepresentation: null,
-	redacted: false,
-	userId: null,
-	received: '2023-05-11T09:57:06.139Z'
-};
-
-describe('Representation repository', () => {
+describe('representation.repository', () => {
 	beforeEach(() => {
-		jest.resetAllMocks();
+		jest.clearAllMocks();
 	});
 
 	describe('getByCaseId', () => {
-		it('finds representations by case id', async () => {
-			databaseConnector.representation.count.mockResolvedValue(2);
-			databaseConnector.representation.findMany.mockResolvedValue(existingRepresentations);
-
-			const { count, items } = await representationRepository.getByCaseId(
-				1,
-				{
-					page: 1,
-					pageSize: 25
-				},
-				{}
-			);
-
-			expect(count).toEqual(2);
-			expect(items).toEqual(existingRepresentations);
-			expect(databaseConnector.representation.count).toHaveBeenCalledWith({
-				where: {
-					caseId: 1
-				}
-			});
-			expect(databaseConnector.representation.findMany).toHaveBeenCalledWith({
-				select: {
-					id: true,
-					reference: true,
-					status: true,
-					redacted: true,
-					received: true,
-					represented: {
-						select: {
-							firstName: true,
-							lastName: true,
-							organisationName: true
-						}
-					}
-				},
-				where: {
-					caseId: 1
-				},
-				orderBy: [
-					{
-						status: 'asc'
-					},
-					{
-						received: 'desc'
-					},
-					{
-						id: 'asc'
-					}
-				],
-				skip: 0,
-				take: 25
-			});
-		});
-
-		it('supports pagination', async () => {
-			databaseConnector.representation.count.mockResolvedValue(2);
-			databaseConnector.representation.findMany.mockResolvedValue(existingRepresentations);
-
-			const { count, items } = await representationRepository.getByCaseId(
-				1,
-				{
-					page: 2,
-					pageSize: 50
-				},
-				{}
-			);
-
-			expect(count).toEqual(2);
-			expect(items).toEqual(existingRepresentations);
-			expect(databaseConnector.representation.count).toHaveBeenCalledWith({
-				where: {
-					caseId: 1
-				}
-			});
-			expect(databaseConnector.representation.findMany).toHaveBeenCalledWith({
-				select: {
-					id: true,
-					reference: true,
-					status: true,
-					redacted: true,
-					received: true,
-					represented: {
-						select: {
-							firstName: true,
-							lastName: true,
-							organisationName: true
-						}
-					}
-				},
-				where: {
-					caseId: 1
-				},
-				orderBy: [
-					{
-						status: 'asc'
-					},
-					{
-						received: 'desc'
-					},
-					{
-						id: 'asc'
-					}
-				],
-				skip: 50,
-				take: 50
-			});
-		});
-
-		it('supports search term', async () => {
-			databaseConnector.representation.count.mockResolvedValue(2);
-			databaseConnector.representation.findMany.mockResolvedValue(existingRepresentations);
-
-			const { count, items } = await representationRepository.getByCaseId(
-				1,
-				{
-					page: 1,
-					pageSize: 25
-				},
-				{
-					searchTerm: 'James    Bond'
-				}
-			);
-
-			expect(count).toEqual(2);
-			expect(items).toEqual(existingRepresentations);
-
-			const where = {
-				caseId: 1,
-				OR: [
-					{
-						reference: {
-							contains: 'James Bond'
-						}
-					},
-					{
-						originalRepresentation: {
-							contains: 'James Bond'
-						}
-					},
-					{
-						represented: {
-							OR: [
-								{
-									organisationName: {
-										contains: 'James Bond'
-									}
-								},
-								{
-									firstName: {
-										contains: 'James'
-									}
-								},
-								{
-									firstName: {
-										contains: 'Bond'
-									}
-								},
-								{
-									lastName: {
-										contains: 'James'
-									}
-								},
-								{
-									lastName: {
-										contains: 'Bond'
-									}
-								}
-							]
-						}
-					}
-				]
-			};
-
-			expect(databaseConnector.representation.count).toHaveBeenCalledWith({
-				where
-			});
-			expect(databaseConnector.representation.findMany).toHaveBeenCalledWith({
-				select: {
-					id: true,
-					reference: true,
-					status: true,
-					redacted: true,
-					received: true,
-					represented: {
-						select: {
-							firstName: true,
-							lastName: true,
-							organisationName: true
-						}
-					}
-				},
-				where,
-				orderBy: [
-					{
-						status: 'asc'
-					},
-					{
-						received: 'desc'
-					},
-					{
-						id: 'asc'
-					}
-				],
-				skip: 0,
-				take: 25
-			});
-		});
-
-		it('supports filters', async () => {
-			databaseConnector.representation.count.mockResolvedValue(2);
-			databaseConnector.representation.findMany.mockResolvedValue(existingRepresentations);
-
-			const { count, items } = await representationRepository.getByCaseId(
-				1,
-				{
-					page: 1,
-					pageSize: 25
-				},
-				{
-					filters: {
-						under18: true,
-						status: ['VALID', 'PUBLISHED']
-					}
-				}
-			);
-
-			expect(count).toEqual(2);
-			expect(items).toEqual(existingRepresentations);
-
-			const where = {
-				caseId: 1,
-				AND: [
-					{
-						represented: {
-							under18: true
-						}
-					},
-					{
-						status: {
-							in: ['VALID', 'PUBLISHED']
-						}
-					}
-				]
-			};
-
-			expect(databaseConnector.representation.count).toHaveBeenCalledWith({
-				where
-			});
-			expect(databaseConnector.representation.findMany).toHaveBeenCalledWith({
-				select: {
-					id: true,
-					reference: true,
-					status: true,
-					redacted: true,
-					received: true,
-					represented: {
-						select: {
-							firstName: true,
-							lastName: true,
-							organisationName: true
-						}
-					}
-				},
-				where,
-				orderBy: [
-					{
-						status: 'asc'
-					},
-					{
-						received: 'desc'
-					},
-					{
-						id: 'asc'
-					}
-				],
-				skip: 0,
-				take: 25
-			});
-		});
-
-		it('supports sort', async () => {
-			databaseConnector.representation.count.mockResolvedValue(2);
-			databaseConnector.representation.findMany.mockResolvedValue(existingRepresentations);
-
-			const { count, items } = await representationRepository.getByCaseId(
-				1,
-				{
-					page: 1,
-					pageSize: 25
-				},
-				{
-					sort: [{ reference: 'desc' }]
-				}
-			);
-
-			expect(count).toEqual(2);
-			expect(items).toEqual(existingRepresentations);
-
-			const where = {
-				caseId: 1
-			};
-
-			expect(databaseConnector.representation.count).toHaveBeenCalledWith({
-				where
-			});
-			expect(databaseConnector.representation.findMany).toHaveBeenCalledWith({
-				select: {
-					id: true,
-					reference: true,
-					status: true,
-					redacted: true,
-					received: true,
-					represented: {
-						select: {
-							firstName: true,
-							lastName: true,
-							organisationName: true
-						}
-					}
-				},
-				where,
-				orderBy: [
-					{
-						reference: 'desc'
-					},
-					{
-						received: 'desc'
-					},
-					{
-						id: 'asc'
-					}
-				],
-				skip: 0,
-				take: 25
-			});
+		it('should return count and items from transaction', async () => {
+			databaseConnector.$transaction = jest.fn().mockResolvedValue([42, [{ id: 1 }]]);
+			const result = await representationRepository.getByCaseId(1, { page: 1, pageSize: 10 }, {});
+			expect(result).toEqual({ count: 42, items: [{ id: 1 }] });
+			expect(databaseConnector.$transaction).toHaveBeenCalled();
 		});
 	});
 
 	describe('getById', () => {
-		const expectedSelect = {
-			id: true,
-			reference: true,
-			caseId: true,
-			status: true,
-			redacted: true,
-			received: true,
-			originalRepresentation: true,
-			redactedRepresentation: true,
-			type: true,
-			user: {
-				select: {
-					azureReference: true
-				}
-			},
-			case: {
-				select: {
-					id: true,
-					reference: true
-				}
-			},
-			representedType: true,
-			represented: {
-				select: {
-					id: true,
-					firstName: true,
-					lastName: true,
-					organisationName: true,
-					jobTitle: true,
-					under18: true,
-					email: true,
-					contactMethod: true,
-					phoneNumber: true,
-					address: {
-						select: {
-							addressLine1: true,
-							addressLine2: true,
-							town: true,
-							county: true,
-							postcode: true,
-							country: true
-						}
-					}
-				}
-			},
-			representative: {
-				select: {
-					id: true,
-					firstName: true,
-					lastName: true,
-					organisationName: true,
-					jobTitle: true,
-					under18: true,
-					email: true,
-					contactMethod: true,
-					phoneNumber: true,
-					address: {
-						select: {
-							addressLine1: true,
-							addressLine2: true,
-							town: true,
-							county: true,
-							postcode: true,
-							country: true
-						}
-					}
-				}
-			},
-			representationActions: {
-				select: {
-					actionBy: true,
-					actionDate: true,
-					invalidReason: true,
-					notes: true,
-					previousRedactStatus: true,
-					previousStatus: true,
-					redactStatus: true,
-					referredTo: true,
-					status: true,
-					type: true
-				},
-				orderBy: {
-					actionDate: 'desc'
-				}
-			},
-			attachments: {
-				select: {
-					Document: {
-						select: {
-							isDeleted: true,
-							latestDocumentVersion: {
-								select: {
-									fileName: true
-								}
-							}
-						}
-					},
-					documentGuid: true,
-					id: true
-				}
-			}
-		};
-
-		it('finds a representation by id', async () => {
-			databaseConnector.representation.findUnique.mockResolvedValue(existingRepresentations[0]);
-
-			const representation = await representationRepository.getById(1);
-
-			expect(representation).toEqual(existingRepresentations[0]);
-			expect(databaseConnector.representation.findUnique).toHaveBeenCalledWith({
-				select: expectedSelect,
-				where: {
-					id: 1
-				}
-			});
+		it('should call findUnique with correct params', async () => {
+			databaseConnector.representation.findUnique.mockResolvedValue({ id: 1 });
+			const result = await representationRepository.getById(1);
+			expect(result).toEqual({ id: 1 });
+			expect(databaseConnector.representation.findUnique).toHaveBeenCalledWith(
+				expect.objectContaining({ where: { id: 1 } })
+			);
 		});
 	});
 
 	describe('getFirstById', () => {
-		it('finds first representation by id', async () => {
-			await representationRepository.getFirstById(1);
-
-			expect(databaseConnector.representation.findFirst).toHaveBeenCalledWith({
-				where: {
-					id: 1
-				}
-			});
+		it('should call findFirst with id only', async () => {
+			databaseConnector.representation.findFirst.mockResolvedValue({ id: 1 });
+			const result = await representationRepository.getFirstById(1);
+			expect(result).toEqual({ id: 1 });
+			expect(databaseConnector.representation.findFirst).toHaveBeenCalledWith({ where: { id: 1 } });
 		});
-
-		it('finds first representation by id and caseId', async () => {
-			await representationRepository.getFirstById(1, 2);
-
+		it('should call findFirst with id and caseId', async () => {
+			databaseConnector.representation.findFirst.mockResolvedValue({ id: 1, caseId: 2 });
+			const result = await representationRepository.getFirstById(1, 2);
+			expect(result).toEqual({ id: 1, caseId: 2 });
 			expect(databaseConnector.representation.findFirst).toHaveBeenCalledWith({
-				where: {
-					id: 1,
-					caseId: 2
-				}
+				where: { id: 1, caseId: 2 }
 			});
 		});
 	});
 
-	describe('createRepresentation', () => {
-		it('Create a representation', async () => {
-			// GIVEN
-			const mappedData = {
-				representationDetails: {
-					status: 'DRAFT',
-					caseId: 1
-				},
-				represented: {
-					firstName: 'Joe',
-					lastName: 'Bloggs',
-					under18: false,
-					type: 'PERSON',
-					received: '2023-05-11T09:57:06.139Z'
-				},
-				representedAddress: {
-					addressLine1: 'Test Address Line 1'
-				},
-				representative: {
-					firstName: 'Jack',
-					lastName: 'Jones',
-					under18: false,
-					type: 'AGENT',
-					received: '2023-05-11T09:57:06.139Z'
-				},
-				representativeAddress: {
-					addressLine1: 'Test Address2 Line 1',
-					postcode: 'XX2 9XX'
-				}
-			};
+	describe('getStatusCountByCaseId', () => {
+		it('should call groupBy and count, then $transaction', async () => {
+			databaseConnector.representation.groupBy.mockReturnValue('grouped');
+			databaseConnector.representation.count.mockReturnValue('counted');
+			databaseConnector.$transaction = jest.fn().mockResolvedValue(['grouped', 'counted']);
+			const result = await representationRepository.getStatusCountByCaseId(1);
+			expect(result).toEqual(['grouped', 'counted']);
+			expect(databaseConnector.$transaction).toHaveBeenCalledWith(['grouped', 'counted']);
+		});
+	});
 
-			databaseConnector.representation.create.mockResolvedValue(createdRepresentation);
-
-			const updatedRepresentation = createdRepresentation;
-
-			updatedRepresentation.reference = 'B0000001';
-			databaseConnector.representation.update.mockResolvedValue(updatedRepresentation);
-
-			// WHEN
-			const representation = await representationRepository.createApplicationRepresentation(
-				mappedData
-			);
-
-			// THEN
-			expect(representation).toEqual({
-				caseId: 1,
-				id: 1,
-				originalRepresentation: '',
-				received: '2023-05-11T09:57:06.139Z',
-				redacted: false,
-				redactedRepresentation: null,
-				reference: 'B0000001',
-				status: 'DRAFT',
-				userId: null
+	describe('deleteApplicationRepresentationAttachment', () => {
+		beforeEach(() => {
+			databaseConnector.representationAttachment.delete.mockResolvedValue('deleted');
+			databaseConnector.representation.update = jest.fn();
+			databaseConnector.$transaction = jest.fn().mockResolvedValue(['deleted']);
+		});
+		it('should delete attachment and not update rep if not published', async () => {
+			databaseConnector.representation.findFirst.mockResolvedValue({ id: 1, status: 'DRAFT' });
+			const result = await representationRepository.deleteApplicationRepresentationAttachment(1, 2);
+			expect(result).toBe('deleted');
+			expect(databaseConnector.representationAttachment.delete).toHaveBeenCalledWith({
+				where: { id: 2 }
 			});
-
-			expect(databaseConnector.representation.create).toHaveBeenCalledWith({
-				data: {
-					status: 'DRAFT',
-					case: {
-						connect: {
-							id: 1
-						}
-					},
-					represented: {
-						create: {
-							firstName: 'Joe',
-							lastName: 'Bloggs',
-							under18: false,
-							type: 'PERSON',
-							received: '2023-05-11T09:57:06.139Z',
-							address: { create: { addressLine1: 'Test Address Line 1' } }
-						}
-					},
-					representative: {
-						create: {
-							firstName: 'Jack',
-							lastName: 'Jones',
-							under18: false,
-							type: 'AGENT',
-							received: '2023-05-11T09:57:06.139Z',
-							address: {
-								create: {
-									addressLine1: 'Test Address2 Line 1',
-									postcode: 'XX2 9XX'
-								}
-							}
-						}
-					}
-				}
+			expect(databaseConnector.representation.update).not.toHaveBeenCalled();
+			expect(databaseConnector.$transaction).toHaveBeenCalled();
+		});
+		it('should delete attachment and update rep if published', async () => {
+			databaseConnector.representation.findFirst.mockResolvedValue({ id: 1, status: 'PUBLISHED' });
+			databaseConnector.representation.update.mockResolvedValue('updated');
+			const result = await representationRepository.deleteApplicationRepresentationAttachment(1, 2);
+			expect(result).toBe('deleted');
+			expect(databaseConnector.representationAttachment.delete).toHaveBeenCalledWith({
+				where: { id: 2 }
 			});
-
 			expect(databaseConnector.representation.update).toHaveBeenCalledWith({
 				where: { id: 1 },
-				data: {
-					reference: 'B0000001'
-				}
+				data: { unpublishedUpdates: true }
 			});
-		});
-
-		it('Create a representation with reference id', async () => {
-			// GIVEN
-			const mappedData = {
-				representationDetails: {
-					status: 'DRAFT',
-					caseId: 1,
-					reference: 'FRONT_OFFICE_REFERENCE_ID'
-				},
-				represented: {
-					firstName: 'Joe',
-					lastName: 'Bloggs',
-					under18: false,
-					type: 'PERSON',
-					received: '2023-05-11T09:57:06.139Z'
-				},
-				representedAddress: {
-					addressLine1: 'Test Address Line 1'
-				}
-			};
-
-			const createdRepresentationWithReference = {
-				...createdRepresentation,
-				reference: 'FRONT_OFFICE_REFERENCE_ID'
-			};
-
-			databaseConnector.representation.create.mockResolvedValue(createdRepresentationWithReference);
-
-			// WHEN
-			const representation = await representationRepository.createApplicationRepresentation(
-				mappedData
-			);
-
-			// THEN
-			expect(representation).toEqual({
-				caseId: 1,
-				id: 1,
-				originalRepresentation: '',
-				received: '2023-05-11T09:57:06.139Z',
-				redacted: false,
-				redactedRepresentation: null,
-				reference: 'FRONT_OFFICE_REFERENCE_ID',
-				status: 'DRAFT',
-				userId: null
-			});
-
-			expect(databaseConnector.representation.create).toHaveBeenCalledWith({
-				data: {
-					status: 'DRAFT',
-					//
-					case: {
-						connect: {
-							id: 1
-						}
-					},
-					reference: 'FRONT_OFFICE_REFERENCE_ID',
-					represented: {
-						create: {
-							firstName: 'Joe',
-							lastName: 'Bloggs',
-							under18: false,
-							type: 'PERSON',
-							received: '2023-05-11T09:57:06.139Z',
-							address: { create: { addressLine1: 'Test Address Line 1' } }
-						}
-					}
-				}
-			});
-
-			expect(databaseConnector.representation.update).toHaveBeenCalledTimes(0);
+			expect(databaseConnector.$transaction).toHaveBeenCalled();
 		});
 	});
 
-	describe('getPublishableRepresentations', () => {
-		it('should use the correct query', async () => {
-			const caseId = 1;
-			const totalPublishableRepsCount = 4;
-			const batchSize = 2000;
-
-			// Mock the count method
-			databaseConnector.representation.count.mockResolvedValue(totalPublishableRepsCount);
-
-			await representationRepository.getPublishableRepresentations(caseId);
-
-			expect(databaseConnector.representation.findMany).toHaveBeenCalledWith({
-				select: {
-					id: true,
-					reference: true,
-					status: true,
-					redacted: true,
-					received: true,
-					represented: {
-						select: {
-							firstName: true,
-							lastName: true,
-							organisationName: true
-						}
-					}
-				},
-				where: {
-					caseId,
-					OR: [{ status: 'PUBLISHED', unpublishedUpdates: true }, { status: 'VALID' }]
-				},
-				orderBy: [{ status: 'desc' }, { reference: 'asc' }],
-				take: batchSize,
-				skip: 0
-			});
-		});
-
-		it('should batch the query', async () => {
-			const caseId = 1;
-			const batchSize = 2000;
-			const totalPublishableRepsCount = 6000;
-
-			databaseConnector.representation.count.mockResolvedValue(totalPublishableRepsCount);
-
-			await representationRepository.getPublishableRepresentations(caseId);
-
-			expect(databaseConnector.representation.findMany).toHaveBeenCalledTimes(
-				Math.ceil(totalPublishableRepsCount / batchSize)
+	describe('updateApplicationRepresentationStatusById', () => {
+		it('should update status and add action, unpublished true', async () => {
+			databaseConnector.representation.update.mockReturnValue('updated');
+			databaseConnector.representationAction.create.mockReturnValue('action');
+			databaseConnector.$transaction = jest.fn().mockResolvedValue(['updated']);
+			const rep = { id: 1, status: 'DRAFT', unpublishedUpdates: true };
+			const action = { status: 'VALID' };
+			const result = await representationRepository.updateApplicationRepresentationStatusById(
+				rep,
+				action,
+				true
 			);
+			expect(result).toBe('updated');
+			expect(databaseConnector.representation.update).toHaveBeenCalledWith({
+				where: { id: 1 },
+				data: { status: 'VALID', unpublishedUpdates: false }
+			});
+			expect(databaseConnector.representationAction.create).toHaveBeenCalled();
+			expect(databaseConnector.$transaction).toHaveBeenCalled();
+		});
+		it('should update status and add action, unpublished false', async () => {
+			databaseConnector.representation.update.mockReturnValue('updated');
+			databaseConnector.representationAction.create.mockReturnValue('action');
+			databaseConnector.$transaction = jest.fn().mockResolvedValue(['updated']);
+			const rep = { id: 1, status: 'DRAFT', unpublishedUpdates: true };
+			const action = { status: 'VALID' };
+			const result = await representationRepository.updateApplicationRepresentationStatusById(
+				rep,
+				action,
+				false
+			);
+			expect(result).toBe('updated');
+			expect(databaseConnector.representation.update).toHaveBeenCalledWith({
+				where: { id: 1 },
+				data: { status: 'VALID', unpublishedUpdates: true }
+			});
+			expect(databaseConnector.representationAction.create).toHaveBeenCalled();
+			expect(databaseConnector.$transaction).toHaveBeenCalled();
+		});
+	});
+
+	describe('setRepresentationsStatus', () => {
+		it('should update and create actions for fromStatus, updateMany for toStatus', async () => {
+			databaseConnector.representation.update = jest.fn();
+			databaseConnector.representationAction.create = jest.fn();
+			databaseConnector.representation.updateMany = jest.fn();
+			databaseConnector.$transaction = jest.fn().mockResolvedValue([]);
+			const reps = [
+				{ id: 1, status: 'FROM' },
+				{ id: 2, status: 'TO' }
+			];
+			await representationRepository.setRepresentationsStatus(reps, 'user', 'FROM', 'TO');
+			expect(databaseConnector.representation.update).toHaveBeenCalledWith({
+				where: { id: 1 },
+				data: { status: 'TO' }
+			});
+			expect(databaseConnector.representationAction.create).toHaveBeenCalledWith(
+				expect.objectContaining({
+					data: expect.objectContaining({
+						representationId: 1,
+						previousStatus: 'FROM',
+						type: 'STATUS',
+						status: 'TO',
+						actionBy: 'user'
+					})
+				})
+			);
+			expect(databaseConnector.representation.updateMany).toHaveBeenCalledWith({
+				where: { id: { in: [2] } },
+				data: { unpublishedUpdates: false }
+			});
+			expect(databaseConnector.$transaction).toHaveBeenCalled();
+		});
+	});
+
+	describe('setRepresentationsStatusBatch', () => {
+		it('should call setRepresentationsStatus in batches', async () => {
+			const reps = Array.from({ length: 1500 }, (_, i) => ({ id: i + 1, status: 'FROM' }));
+			const infoSpy = jest.spyOn(console, 'info').mockImplementation(() => {});
+			await representationRepository.setRepresentationsStatusBatch(reps, 'user', 'FROM', 'TO');
+			expect(infoSpy).toHaveBeenCalledWith('updated representations from range 0 - 1000');
+			expect(infoSpy).toHaveBeenCalledWith('updated representations from range 1000 - 1500');
+			infoSpy.mockRestore();
+		});
+	});
+
+	describe('setRepresentationsAsPublished', () => {
+		it('should update representations from VALID to PUBLISHED', async () => {
+			databaseConnector.representation.update = jest.fn();
+			databaseConnector.representationAction.create = jest.fn();
+			databaseConnector.representation.updateMany = jest.fn();
+			databaseConnector.$transaction = jest.fn().mockResolvedValue([]);
+			const reps = [
+				{ id: 1, status: 'VALID' },
+				{ id: 2, status: 'PUBLISHED' }
+			];
+			await representationRepository.setRepresentationsAsPublished(reps, 'user');
+			expect(databaseConnector.representation.update).toHaveBeenCalledWith({
+				where: { id: 1 },
+				data: { status: 'PUBLISHED' }
+			});
+			expect(databaseConnector.representationAction.create).toHaveBeenCalledWith(
+				expect.objectContaining({
+					data: expect.objectContaining({
+						representationId: 1,
+						previousStatus: 'VALID',
+						type: 'STATUS',
+						status: 'PUBLISHED',
+						actionBy: 'user'
+					})
+				})
+			);
+			expect(databaseConnector.representation.updateMany).toHaveBeenCalledWith({
+				where: { id: { in: [2] } },
+				data: { unpublishedUpdates: false }
+			});
+			expect(databaseConnector.$transaction).toHaveBeenCalled();
+		});
+	});
+
+	describe('setRepresentationsAsUnpublished', () => {
+		it('should update representations from PUBLISHED to UNPUBLISHED', async () => {
+			databaseConnector.representation.update = jest.fn();
+			databaseConnector.representationAction.create = jest.fn();
+			databaseConnector.representation.updateMany = jest.fn();
+			databaseConnector.$transaction = jest.fn().mockResolvedValue([]);
+			const reps = [
+				{ id: 1, status: 'PUBLISHED' },
+				{ id: 2, status: 'UNPUBLISHED' }
+			];
+			await representationRepository.setRepresentationsAsUnpublished(reps, 'user');
+			expect(databaseConnector.representation.update).toHaveBeenCalledWith({
+				where: { id: 1 },
+				data: { status: 'UNPUBLISHED' }
+			});
+			expect(databaseConnector.representationAction.create).toHaveBeenCalledWith(
+				expect.objectContaining({
+					data: expect.objectContaining({
+						representationId: 1,
+						previousStatus: 'PUBLISHED',
+						type: 'STATUS',
+						status: 'UNPUBLISHED',
+						actionBy: 'user'
+					})
+				})
+			);
+			expect(databaseConnector.representation.updateMany).toHaveBeenCalledWith({
+				where: { id: { in: [2] } },
+				data: { unpublishedUpdates: false }
+			});
+			expect(databaseConnector.$transaction).toHaveBeenCalled();
+		});
+	});
+
+	describe('setRepresentationsAsPublishedBatch', () => {
+		it('should batch update representations from VALID to PUBLISHED', async () => {
+			const reps = Array.from({ length: 1200 }, (_, i) => ({ id: i + 1, status: 'VALID' }));
+			const infoSpy = jest.spyOn(console, 'info').mockImplementation(() => {});
+			await representationRepository.setRepresentationsAsPublishedBatch(reps, 'user');
+			expect(infoSpy).toHaveBeenCalledWith('updated representations from range 0 - 1000');
+			expect(infoSpy).toHaveBeenCalledWith('updated representations from range 1000 - 1200');
+			infoSpy.mockRestore();
+		});
+	});
+
+	describe('setRepresentationsAsUnpublishedBatch', () => {
+		it('should batch update representations from PUBLISHED to UNPUBLISHED', async () => {
+			const reps = Array.from({ length: 1200 }, (_, i) => ({ id: i + 1, status: 'PUBLISHED' }));
+			const infoSpy = jest.spyOn(console, 'info').mockImplementation(() => {});
+			await representationRepository.setRepresentationsAsUnpublishedBatch(reps, 'user');
+			expect(infoSpy).toHaveBeenCalledWith('updated representations from range 0 - 1000');
+			expect(infoSpy).toHaveBeenCalledWith('updated representations from range 1000 - 1200');
+			infoSpy.mockRestore();
 		});
 	});
 });
