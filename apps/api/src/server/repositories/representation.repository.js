@@ -1,5 +1,6 @@
 import { isEmpty } from 'lodash-es';
 import { databaseConnector } from '#utils/database-connector.js';
+import { RELEVANT_REPRESENTATION_STATUS_MAP } from '#utils/mapping/map-relevant-representation-status.js';
 
 /**
  * @typedef {{
@@ -300,7 +301,8 @@ export const updateApplicationRepresentation = async (
 	if (!response)
 		throw new Error(`Representation Id ${representationId} does not belong to case Id ${caseId}`);
 
-	if (response.status === 'PUBLISHED') representationDetails.unpublishedUpdates = true;
+	if (response.status === RELEVANT_REPRESENTATION_STATUS_MAP.PUBLISHED)
+		representationDetails.unpublishedUpdates = true;
 
 	if (!isEmpty(representationDetails)) {
 		await databaseConnector.representation.update({
@@ -386,7 +388,8 @@ export const updateApplicationRepresentationRedaction = async (
 	if (!response)
 		throw new Error(`Representation Id ${representationId} does not belong to case Id ${caseId}`);
 
-	if (response.status === 'PUBLISHED') representation.unpublishedUpdates = true;
+	if (response.status === RELEVANT_REPRESENTATION_STATUS_MAP.PUBLISHED)
+		representation.unpublishedUpdates = true;
 
 	if (!isEmpty(representation)) {
 		await databaseConnector.representation.update({
@@ -469,7 +472,7 @@ export const addApplicationRepresentationAttachment = async (representationId, d
 		})
 	];
 
-	if (representation.status === 'PUBLISHED')
+	if (representation.status === RELEVANT_REPRESENTATION_STATUS_MAP.PUBLISHED)
 		transactionItems.push(
 			databaseConnector.representation.update({
 				where: { id: representation.id },
@@ -522,7 +525,7 @@ export const deleteApplicationRepresentationAttachment = async (repId, attachmen
 	];
 
 	// if the representation is already published, this also sets the unpublishedUpdates flag on the rep
-	if (representation.status === 'PUBLISHED')
+	if (representation.status === RELEVANT_REPRESENTATION_STATUS_MAP.PUBLISHED)
 		transactionItems.push(
 			databaseConnector.representation.update({
 				where: { id: representation.id },
@@ -574,22 +577,23 @@ export const updateApplicationRepresentationStatusById = async (
 };
 
 /**
- * Sets representations as 'published' - set status to PUBLISHED for representations that are newly published,
- * and for representations that have previously been PUBLISHED, set unpublishedUpdates to false
- * @param {Prisma.RepresentationSelect[]} representations
- * @param {string} actionBy User performing publish action
+ * Sets representations to a new status (single batch, not batched).
+ * @param {Array<object>} representations
+ * @param {string} actionBy
+ * @param {string} fromStatus
+ * @param {string} toStatus
  * @returns {Promise<void>}
  */
-export const setRepresentationsAsPublished = async (representations, actionBy) => {
+export const setRepresentationsStatus = async (representations, actionBy, fromStatus, toStatus) => {
 	const transactionItems = [];
 	representations
-		.filter((rep) => rep.status === 'VALID')
+		.filter((rep) => rep.status === fromStatus)
 		.forEach((representation) => {
 			transactionItems.push(
 				databaseConnector.representation.update({
 					where: { id: representation.id },
 					data: {
-						status: 'PUBLISHED'
+						status: toStatus
 					}
 				})
 			);
@@ -599,7 +603,7 @@ export const setRepresentationsAsPublished = async (representations, actionBy) =
 						representationId: representation.id,
 						previousStatus: representation.status,
 						type: 'STATUS',
-						status: 'PUBLISHED',
+						status: toStatus,
 						actionBy: actionBy,
 						actionDate: new Date()
 					}
@@ -607,11 +611,12 @@ export const setRepresentationsAsPublished = async (representations, actionBy) =
 			);
 		});
 
+	// Optionally, handle representations already in toStatus (e.g., clear unpublishedUpdates)
 	transactionItems.push(
 		databaseConnector.representation.updateMany({
 			where: {
 				id: {
-					in: representations.filter((rep) => rep.status === 'PUBLISHED').map((rep) => rep.id)
+					in: representations.filter((rep) => rep.status === toStatus).map((rep) => rep.id)
 				}
 			},
 			data: {
@@ -624,19 +629,86 @@ export const setRepresentationsAsPublished = async (representations, actionBy) =
 };
 
 /**
- * Sets representations as 'published' in batches
- * This is required as there is a limit in prisma for the amount of parameters to update in one go
+ * Sets representations to a new status in batches.
+ * @param {Array<object>} representations
+ * @param {string} actionBy
+ * @param {string} fromStatus
+ * @param {string} toStatus
+ * @returns {Promise<void>}
+ */
+export const setRepresentationsStatusBatch = async (
+	representations,
+	actionBy,
+	fromStatus,
+	toStatus
+) => {
+	const batchSize = 1000;
+	for (let i = 0; i < representations.length; i += batchSize) {
+		const batch = representations.slice(i, i + batchSize);
+		await setRepresentationsStatus(batch, actionBy, fromStatus, toStatus);
+		console.info(`updated representations from range ${i} - ${i + batch.length}`);
+	}
+};
+
+/**
+ * Sets representations as 'published' using generic status function
+
+ * @param {Prisma.RepresentationSelect[]} representations
+ * @param {string} actionBy User performing publish action
+ * @returns {Promise<void>}
+ */
+export const setRepresentationsAsPublished = async (representations, actionBy) => {
+	await setRepresentationsStatus(
+		representations,
+		actionBy,
+		RELEVANT_REPRESENTATION_STATUS_MAP.VALID,
+		RELEVANT_REPRESENTATION_STATUS_MAP.PUBLISHED
+	);
+};
+
+/**
+ * Sets representations as 'published' in batches using generic status batch function
  * @param {Prisma.RepresentationSelect[]} representations
  * @param {string} actionBy User performing publish action
  * @returns {Promise<void>}
  */
 export const setRepresentationsAsPublishedBatch = async (representations, actionBy) => {
-	const batchSize = 1000;
-	for (let i = 0; i < representations.length; i += batchSize) {
-		const batch = representations.slice(i, i + batchSize);
-		await setRepresentationsAsPublished(batch, actionBy);
-		console.info(`updated representations from range ${i} - ${i + batch.length}`);
-	}
+	await setRepresentationsStatusBatch(
+		representations,
+		actionBy,
+		RELEVANT_REPRESENTATION_STATUS_MAP.VALID,
+		RELEVANT_REPRESENTATION_STATUS_MAP.PUBLISHED
+	);
+};
+
+/**
+ * Sets representations as 'unpublished' using generic status function
+ * @param {Array<object>} representations
+ * @param {string} actionBy User performing unpublish action
+ * @returns {Promise<void>}
+ */
+export const setRepresentationsAsUnpublished = async (representations, actionBy) => {
+	await setRepresentationsStatus(
+		representations,
+		actionBy,
+		RELEVANT_REPRESENTATION_STATUS_MAP.PUBLISHED,
+		RELEVANT_REPRESENTATION_STATUS_MAP.UNPUBLISHED
+	);
+};
+
+/**
+ * Sets representations as 'unpublished' in batches using generic status batch function
+ * @param {Array<object>} representations
+ * @param {string} actionBy User performing unpublish action
+ * @returns {Promise<void>}
+ */
+export const setRepresentationsAsUnpublishedBatch = async (representations, actionBy) => {
+	await setRepresentationsStatusBatch(
+		representations,
+		actionBy,
+		RELEVANT_REPRESENTATION_STATUS_MAP.PUBLISHED,
+		RELEVANT_REPRESENTATION_STATUS_MAP.UNPUBLISHED
+	);
 };
 
 /**
