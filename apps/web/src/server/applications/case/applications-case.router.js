@@ -12,6 +12,10 @@ import projectUpdatesRouter from './project-updates/project-updates.router.js';
 import applicationsKeyDateRouter from './key-dates/applications-key-dates.router.js';
 import applicationsProjectTeamRouter from './project-team/applications-project-team.router.js';
 import * as validators from '../create-new-case/case/applications-create-case.validators.js';
+import {
+	getUnpublishRepresentationsController,
+	postUnpublishRepresentationsController
+} from './representations/unpublish-representations.controller.js';
 
 const applicationsCaseRouter = createRouter();
 const applicationsCaseSummaryRouter = createRouter({ mergeParams: true });
@@ -41,6 +45,11 @@ applicationsCaseRouter
 	.post(asyncHandler(controller.unpublishApplicationsCase));
 
 applicationsCaseRouter.use('/:caseId', applicationsCaseSummaryRouter);
+
+applicationsCaseRouter
+	.route('/:caseId/unpublish-representations')
+	.get(asyncHandler(getUnpublishRepresentationsController))
+	.post(asyncHandler(postUnpublishRepresentationsController));
 
 applicationsCaseSummaryRouter
 	.route('/project-information')
