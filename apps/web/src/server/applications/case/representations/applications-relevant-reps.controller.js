@@ -45,7 +45,8 @@ export async function relevantRepsApplications({ query, session }, res) {
 		pageSize = 25,
 		page = 1,
 		filters = [],
-		published: publishedRepsCount
+		published: publishedRepsCount,
+		unpublished: unpublishedRepsCount
 	} = query;
 
 	const caseReference = await getCase(caseId);
@@ -75,6 +76,7 @@ export async function relevantRepsApplications({ query, session }, res) {
 		publishQueueURL: getPublishQueueUrl(publishableReps, serviceUrl, caseId),
 		resetSuccessBannerURL: `?${queryString}`,
 		publishedRepsCount: Number(publishedRepsCount),
+		unpublishedRepsCount: Number(unpublishedRepsCount),
 		isRelevantRepsPeriodClosed: isRelevantRepsPeriodClosed(
 			repsPeriodCloseDate,
 			repsPeriodCloseDateExtension
