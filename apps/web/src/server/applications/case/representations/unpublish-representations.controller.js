@@ -102,9 +102,9 @@ export function redirectToRelevantReps(res, caseId, unpublishedCount) {
  * @returns {void}
  */
 export function renderUnpublishError(res, error) {
+	console.error('Failed to unpublish representations:', error);
 	return res.status(500).render('error', {
-		message: 'Failed to unpublish representations. Please try again later.',
-		error
+		message: 'Failed to unpublish representations. Please try again later.'
 	});
 }
 

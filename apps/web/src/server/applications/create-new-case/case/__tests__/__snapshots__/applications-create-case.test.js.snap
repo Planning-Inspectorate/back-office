@@ -324,6 +324,30 @@ exports[`applications create Name and description GET /create-new-case/1 should 
     <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
         <div class="govuk-form-group">
             <textarea class="govuk-textarea govuk-!-width-two-thirds" id="title" name="title"
+            rows="5"></textarea>
+        </div>
+        <div class="govuk-form-group">
+            <label class="govuk-label font-weight--700" for="description">Description of the project</label>
+            <div id="description-hint" class="govuk-hint">for example, An offshore wind generating station of capacity up to 285
+                MW</div>
+            <textarea class="govuk-textarea govuk-!-width-three-quarters" id="description"
+            name="description" rows="5" aria-describedby="description-hint"></textarea>
+        </div>
+        <div class="govuk-grid-row">
+            <div class="govuk-button-group govuk-grid-column-one-half">
+                <button class="govuk-button" data-module="govuk-button">Save and continue</button>
+            </div>
+        </div>
+    </form>
+</main>"
+`;
+
+exports[`applications create Name and description GET /create-new-case/1 should render page with resumed data 2`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <h1 class="govuk-heading-l govuk-!-margin-bottom-3"> Enter name and description</h1>
+    <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
+        <div class="govuk-form-group">
+            <textarea class="govuk-textarea govuk-!-width-two-thirds" id="title" name="title"
             rows="5">Title CASE/01</textarea>
         </div>
         <div class="govuk-form-group">

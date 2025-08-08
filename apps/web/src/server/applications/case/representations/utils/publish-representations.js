@@ -49,7 +49,7 @@ export const getPublishedRepresentationsRedirectURL = (
 
 /**
  * Extracts publishedRepIds (number[]) and count from an array of representations.
- * @param {Representation[] | null | undefined} items
+ * @param {Array<{ id: number|string, status: string }>| null | undefined} items
  * @returns {{ publishedRepIds: number[], publishedRepsCount: number }}
  */
 export function getPublishedRepIdsAndCount(items) {

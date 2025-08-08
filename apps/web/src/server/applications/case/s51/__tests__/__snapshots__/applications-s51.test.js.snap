@@ -1797,7 +1797,7 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
                         <h2 class="govuk-heading-l">S51 advice folder</h2>
                     </div>
                 </div>
-                <div class="govuk-accordion" data-module="govuk-accordion" id=""></div>
+                <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
             </div>
             <script nonce="EdcOUaJ8lczj9tIPO0lPow==">
                 let clickEventListenerAdded = false
