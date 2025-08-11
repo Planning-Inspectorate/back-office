@@ -94,7 +94,10 @@
 					errorMessage: errors["representation"] and {
 						text: errors["representation"].msg
 					},
-					rows: 8
+					rows: 8,
+					attributes: {
+						readonly: true
+					}
 				}) }}
 
 				<div class="govuk-button-group">
@@ -109,6 +112,13 @@
 						text: "Undo",
 						classes: "govuk-button--secondary",
 						id: "redact-undo",
+						type: "button"
+					}) }}
+
+					{{ govukButton({
+						text: "Undo Selected",
+						classes: "govuk-button--secondary",
+						id: "redact-undo-selected",
 						type: "button"
 					}) }}
 
@@ -147,13 +157,14 @@
 		 * @param {HTMLTextAreaElement} textArea
 		 * @param {HTMLButtonElement} redactSelectedText
 		 * @param {HTMLButtonElement} redactUndo
+		 * @param {HTMLButtonElement} redactUndoSelected
 		 * @param {HTMLButtonElement} redactUndoAll
 		 * @param {HTMLDivElement} unredactedText
 		 * @param {HTMLAnchorElement[]} rejectLinks
 		 * @param {import('@azure/ai-text-analytics').PiiEntity[]} suggestions
 		 * @param {HTMLTextAreaElement} notesText
 		 */
-		function registerEventListeners({textArea, redactSelectedText, redactUndo, redactUndoAll, unredactedText, rejectLinks, suggestions, notesText}) {
+		function registerEventListeners({textArea, redactSelectedText, redactUndo, redactUndoSelected, redactUndoAll, unredactedText, rejectLinks, suggestions, notesText}) {
 			const formGroup = textArea.parentElement;
 			const errorMessage = document.createElement('p');
 			errorMessage.id = 'representation-error';
@@ -219,6 +230,22 @@
 					showError('No changes to undo');
 				}
 			});
+			redactUndoSelected.addEventListener('click', () => {
+				const { selectionStart, selectionEnd } = textArea;
+				if (selectionStart === selectionEnd) {
+					showError('Select text to undo');
+					return;
+				}
+				const selectedText = textArea.value.substring(selectionStart, selectionEnd);
+				if (selectedText.match(/^█+$/) === null) {
+					showError('Selected text is not redacted');
+					return;
+				}
+				hideError();
+				// replace the text with the original selected text
+				const originalText = unredactedText.textContent.trim().substring(selectionStart, selectionEnd);
+				textArea.value = textArea.value.substring(0, selectionStart) + originalText + textArea.value.substring(selectionEnd);
+			});
 			redactUndoAll.addEventListener('click', () => {
 				const unredated = unredactedText.textContent?.trim();
 				if (history.length === 0 && textArea.value === unredated) {
@@ -251,12 +278,13 @@
 			const textArea = document.querySelector('#redactedRepresentation');
 			const redactSelectedText = document.querySelector('#redact-selected-text');
 			const redactUndo = document.querySelector('#redact-undo');
+			const redactUndoSelected = document.querySelector('#redact-undo-selected');
 			const redactUndoAll = document.querySelector('#redact-undo-all');
 			const unredactedText = document.querySelector('#representation-unredacted > div');
 			const rejectLinks = document.querySelectorAll('[data-redact]');
 			const notesText = document.querySelector("#redact-representation-notes-text");
 			{% if not redactionSuggestions %}
-			{% set redactionSuggestions = [] %}
+				{% set redactionSuggestions = [] %}
 			{% endif %}
 			const suggestions = {{ redactionSuggestions | dump | safe }}
 
@@ -267,6 +295,9 @@
 				return;
 			}
 			if (!redactUndo || !(redactUndo instanceof HTMLButtonElement)) {
+				return;
+			}
+			if (!redactUndoSelected || !(redactUndoSelected instanceof HTMLButtonElement)) {
 				return;
 			}
 			if (!redactUndoAll || !(redactUndoAll instanceof HTMLButtonElement)) {
@@ -283,6 +314,7 @@
 				textArea,
 				redactSelectedText,
 				redactUndo,
+				redactUndoSelected,
 				redactUndoAll,
 				unredactedText,
 				rejectLinks,
