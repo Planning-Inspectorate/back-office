@@ -726,4 +726,140 @@ describe('Representation repository', () => {
 			);
 		});
 	});
+
+	describe('setRepresentationsStatus', () => {
+		it('should update status and create actions for representations with fromStatus, and clear unpublishedUpdates for toStatus', async () => {
+			const representations = [
+				{ id: 1, status: 'VALID' },
+				{ id: 2, status: 'DRAFT' },
+				{ id: 3, status: 'VALID' },
+				{ id: 4, status: 'PUBLISHED' }
+			];
+			const actionBy = 'user';
+			const fromStatus = 'VALID';
+			const toStatus = 'PUBLISHED';
+
+			databaseConnector.representation.update.mockResolvedValue({});
+			databaseConnector.representationAction.create.mockResolvedValue({});
+			databaseConnector.representation.updateMany.mockResolvedValue({});
+			databaseConnector.$transaction = jest.fn().mockResolvedValue([]);
+
+			await representationRepository.setRepresentationsStatus(
+				representations,
+				actionBy,
+				fromStatus,
+				toStatus
+			);
+
+			// Only reps with fromStatus should be updated
+			expect(databaseConnector.representation.update).toHaveBeenCalledTimes(2);
+			expect(databaseConnector.representationAction.create).toHaveBeenCalledTimes(2);
+			// updateMany should be called for reps already in toStatus
+			expect(databaseConnector.representation.updateMany).toHaveBeenCalledWith({
+				where: { id: { in: [4] } },
+				data: { unpublishedUpdates: false }
+			});
+			expect(databaseConnector.$transaction).toHaveBeenCalledWith(expect.any(Array));
+		});
+	});
+
+	describe('setRepresentationsStatusBatch', () => {
+		it('should call setRepresentationsStatus in batches of 1000 and update DB for each batch', async () => {
+			const representations = Array.from({ length: 2501 }, (_, i) => ({
+				id: i + 1,
+				status: 'VALID'
+			}));
+			databaseConnector.representation.update.mockResolvedValue({});
+			databaseConnector.representationAction.create.mockResolvedValue({});
+			databaseConnector.representation.updateMany.mockResolvedValue({});
+			databaseConnector.$transaction = jest.fn().mockResolvedValue([]);
+
+			await representationRepository.setRepresentationsStatusBatch(
+				representations,
+				'user',
+				'VALID',
+				'PUBLISHED'
+			);
+
+			// Should call DB for each batch
+			// 2501/1000 = 3 batches
+			expect(databaseConnector.$transaction).toHaveBeenCalledTimes(3);
+		});
+	});
+
+	describe('setRepresentationsAsPublished', () => {
+		it('should update status to PUBLISHED for VALID representations', async () => {
+			const representations = [
+				{ id: 1, status: 'VALID' },
+				{ id: 2, status: 'VALID' }
+			];
+			databaseConnector.representation.update.mockResolvedValue({});
+			databaseConnector.representationAction.create.mockResolvedValue({});
+			databaseConnector.representation.updateMany.mockResolvedValue({});
+			databaseConnector.$transaction = jest.fn().mockResolvedValue([]);
+
+			await representationRepository.setRepresentationsAsPublished(representations, 'user');
+
+			expect(databaseConnector.representation.update).toHaveBeenCalledTimes(2);
+			expect(databaseConnector.representationAction.create).toHaveBeenCalledTimes(2);
+			expect(databaseConnector.representation.updateMany).toHaveBeenCalled();
+			expect(databaseConnector.$transaction).toHaveBeenCalled();
+		});
+	});
+
+	describe('setRepresentationsAsPublishedBatch', () => {
+		it('should batch update status to PUBLISHED for VALID representations', async () => {
+			const representations = Array.from({ length: 1500 }, (_, i) => ({
+				id: i + 1,
+				status: 'VALID'
+			}));
+			databaseConnector.representation.update.mockResolvedValue({});
+			databaseConnector.representationAction.create.mockResolvedValue({});
+			databaseConnector.representation.updateMany.mockResolvedValue({});
+			databaseConnector.$transaction = jest.fn().mockResolvedValue([]);
+
+			await representationRepository.setRepresentationsAsPublishedBatch(representations, 'user');
+
+			// Should call DB for each batch
+			expect(databaseConnector.$transaction).toHaveBeenCalledTimes(2);
+		});
+	});
+
+	describe('setRepresentationsAsUnpublished', () => {
+		it('should update status to UNPUBLISHED for PUBLISHED representations', async () => {
+			const representations = [
+				{ id: 1, status: 'PUBLISHED' },
+				{ id: 2, status: 'PUBLISHED' }
+			];
+			databaseConnector.representation.update.mockResolvedValue({});
+			databaseConnector.representationAction.create.mockResolvedValue({});
+			databaseConnector.representation.updateMany.mockResolvedValue({});
+			databaseConnector.$transaction = jest.fn().mockResolvedValue([]);
+
+			await representationRepository.setRepresentationsAsUnpublished(representations, 'user');
+
+			expect(databaseConnector.representation.update).toHaveBeenCalledTimes(2);
+			expect(databaseConnector.representationAction.create).toHaveBeenCalledTimes(2);
+			expect(databaseConnector.representation.updateMany).toHaveBeenCalled();
+			expect(databaseConnector.$transaction).toHaveBeenCalled();
+		});
+	});
+
+	describe('setRepresentationsAsUnpublishedBatch', () => {
+		it('should batch update status to UNPUBLISHED for PUBLISHED representations', async () => {
+			const representations = Array.from({ length: 1200 }, (_, i) => ({
+				id: i + 1,
+				status: 'PUBLISHED'
+			}));
+			databaseConnector.representation.update.mockResolvedValue({});
+			databaseConnector.representationAction.create.mockResolvedValue({});
+			databaseConnector.representation.updateMany.mockResolvedValue({});
+			databaseConnector.$transaction = jest.fn().mockResolvedValue([]);
+
+			await representationRepository.setRepresentationsAsUnpublishedBatch(representations, 'user');
+
+			// Should call DB for each batch
+			expect(databaseConnector.$transaction).toHaveBeenCalledTimes(2);
+		});
+	});
 });
