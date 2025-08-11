@@ -25,12 +25,12 @@
  %}
 
   {% set caseInfoTableRows = (caseInfoTableRows.push([
-      { text: "Is this an application for a material change?" },
+      { text: "Material change" },
       { text: "Yes" if case.isMaterialChange else "No" },
       { html: caseEditLink({ editStepUrl: "material-change", caseId: case.id }),
         classes: 'text-align--right'
       }
-    ]), caseInfoTableRows) 
+    ]), caseInfoTableRows)
   %}
 
   {% set caseInfoTableRows = (caseInfoTableRows.push(

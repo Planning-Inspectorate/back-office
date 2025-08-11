@@ -46,7 +46,7 @@ export const buildCaseInformation = (params, isWelsh) => [
 		text: params.case.reference
 	},
 	{
-		title: 'Is this an application for a material change?',
+		title: 'Material change',
 		text: params.case.isMaterialChange
 			? isMaterialChangeStaticDataViewModel[0].text
 			: isMaterialChangeStaticDataViewModel[1].text,
