@@ -88,6 +88,11 @@ exports[`applications representations GET /applications-service/:caseId/relevant
                                             value="UNDER_18">
                                             <label class="govuk-label govuk-checkboxes__label" for="filters-9">Under 18 (0)</label>
                                         </div>
+                                        <div class="govuk-checkboxes__item">
+                                            <input class="govuk-checkboxes__input" id="filters-10" name="filters"
+                                            type="checkbox" value="UNPUBLISHED">
+                                            <label class="govuk-label govuk-checkboxes__label" for="filters-10">Unpublished (0)</label>
+                                        </div>
                                     </div>
                                 </fieldset>
                             </div>
@@ -277,6 +282,11 @@ exports[`applications representations GET /applications-service/:id/relevant-rep
                                             <input class="govuk-checkboxes__input" id="filters-9" name="filters" type="checkbox"
                                             value="UNDER_18">
                                             <label class="govuk-label govuk-checkboxes__label" for="filters-9">Under 18 (0)</label>
+                                        </div>
+                                        <div class="govuk-checkboxes__item">
+                                            <input class="govuk-checkboxes__input" id="filters-10" name="filters"
+                                            type="checkbox" value="UNPUBLISHED">
+                                            <label class="govuk-label govuk-checkboxes__label" for="filters-10">Unpublished (0)</label>
                                         </div>
                                     </div>
                                 </fieldset>
