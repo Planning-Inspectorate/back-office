@@ -29,6 +29,8 @@
     "watch:sass": "chokidar \"src/styles/**/*.scss\" --silent -c \"npm run sass\""
   },
   "dependencies": {
+    "@azure/ai-text-analytics": "*",
+    "@azure/identity": "*",
     "@azure/msal-node": "*",
     "@azure/storage-blob": "*",
     "@pins/add-auth-headers-for-backend": "*",

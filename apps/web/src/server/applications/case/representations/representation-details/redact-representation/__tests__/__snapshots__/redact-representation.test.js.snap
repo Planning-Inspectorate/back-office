@@ -1,5 +1,211 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Representation redact page GET /applications-service/case/1/relevant-representations/1/representations-details/redact-representation should render the new page if feature flag is enabled 1`] = `
+"<main class="govuk-main-wrapper " id="main-content" role="main">
+    <h1 class="govuk-heading-l govuk-!-margin-bottom-2">Mrs Sue</h1><strong class="govuk-tag govuk-tag--">in test</strong>
+    <p class="govuk-body govuk-!-margin-0 govuk-!-margin-top-5"><strong>Project name:</strong> mock title</p>
+    <form action="" method="post"
+    novalidate>
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-two-thirds">
+                <input type="hidden" name="_csrf" value="">
+                <h2 class="govuk-heading-m">Redaction suggestions</h2>
+                <p class="govuk-body">We have suggested some common redactions and hidden these for you. To
+                    make these visible again, 'Reject' each suggestion.</p>
+                <table class="govuk-table">
+                    <thead class="govuk-table__head">
+                        <tr class="govuk-table__row">
+                            <th scope="col" class="govuk-table__header">Redaction suggestion</th>
+                            <th scope="col" class="govuk-table__header">Type of information</th>
+                            <th scope="col" class="govuk-table__header">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody class="govuk-table__body">
+                        <tr class="govuk-table__row">
+                            <td class="govuk-table__cell">John Doe</td>
+                            <td class="govuk-table__cell">Person</td>
+                            <td class="govuk-table__cell"><a href="#" class="govuk-link" data-redact="suggestion-reject-0">Accept</a>
+                            </td>
+                        </tr>
+                        <tr class="govuk-table__row">
+                            <td class="govuk-table__cell">123 Main St</td>
+                            <td class="govuk-table__cell">Address</td>
+                            <td class="govuk-table__cell"><a href="#" class="govuk-link" data-redact="suggestion-reject-1">Accept</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-one-half">
+                <details id="representation-unredacted" class="govuk-details" data-module="govuk-details"
+                open>
+                    <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Original representation</span>
+                    </summary>
+                    <div class="govuk-details__text">
+                        <mark>John Doe</mark>sum dolor si
+                        <mark>123 Main St</mark>ectetuer adipiscing elit. Aenean commodo ligula eget
+                        dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient
+                        montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque
+                        eu, pretium quis, sem. Nulla con.</div>
+                </details>
+            </div>
+            <div class="govuk-grid-column-one-half">
+                <div class="govuk-form-group">
+                    <label class="govuk-label govuk-label--s" for="redactedRepresentation">Redacted representation</label>
+                    <textarea class="govuk-textarea" id="redactedRepresentation"
+                    name="redactedRepresentation" rows="8" readonly="true">(Redacted) Aenean commodo ligula eget dolor. Aenean massa. Cum sociis
+                        natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+                        Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla
+                        con.</textarea>
+                </div>
+                <div class="govuk-button-group">
+                    <button type="button" class="govuk-button govuk-button--secondary" data-module="govuk-button"
+                    id="redact-selected-text">Redact selected text</button>
+                    <button type="button" class="govuk-button govuk-button--secondary"
+                    data-module="govuk-button" id="redact-undo">Undo</button>
+                    <button type="button" class="govuk-button govuk-button--secondary"
+                    data-module="govuk-button" id="redact-undo-all">Undo all changes</button>
+                </div>
+            </div>
+        </div>
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-one-half">
+                <button type="submit" class="govuk-button" data-module="govuk-button"
+                data-cy="button-save-and-continue">Save and continue</button>
+            </div>
+        </div>
+    </form>
+    <script nonce="EdcOUaJ8lczj9tIPO0lPow==">
+        /**
+        		 * @param {HTMLTextAreaElement} textArea
+        		 * @param {HTMLButtonElement} redactSelectedText
+        		 * @param {HTMLButtonElement} redactUndo
+        		 * @param {HTMLButtonElement} redactUndoAll
+        		 * @param {HTMLDivElement} unredactedText
+        		 * @param {HTMLAnchorElement[]} rejectLinks
+        		 * @param {import('@azure/ai-text-analytics').PiiEntity[]} suggestions
+        		 */
+        		function registerEventListeners({textArea, redactSelectedText, redactUndo, redactUndoAll, unredactedText, rejectLinks, suggestions}) {
+        			const formGroup = textArea.parentElement;
+        			const errorMessage = document.createElement('p');
+        			errorMessage.id = 'representation-error';
+        			errorMessage.classList.add('govuk-error-message');
+        
+        			const history = [];
+        
+        			function showError(message) {
+        				formGroup.classList.add('govuk-form-group--error');
+        				errorMessage.textContent = message;
+        				formGroup.prepend(errorMessage);
+        			}
+        
+        			function hideError() {
+        				textArea.parentElement.classList.remove('govuk-form-group--error');
+        				errorMessage.remove();
+        			}
+        
+        			redactSelectedText.addEventListener('click', () => {
+        				const { selectionStart, selectionEnd } = textArea;
+        				if (selectionStart === selectionEnd) {
+        					// no selected text
+        					showError('Select text to redact');
+        					return;
+        				}
+        				hideError();
+        				const selectedText = textArea.value.substring(selectionStart, selectionEnd);
+        				// check if the selected text already contains redacted characters
+        				if (selectedText.includes('█')) {
+        					showError('Selected text already includes redacted characters');
+        					return;
+        				}
+        				// replace the text with the 'full block' █ character
+        				const redactedText = '█'.repeat(selectionEnd - selectionStart);
+        				textArea.value = textArea.value.substring(0, selectionStart) + redactedText + textArea.value.substring(selectionEnd);
+        				// add to history for undo functionality
+        				history.push({
+        					selectionStart,
+        					selectionEnd,
+        					selectedText
+        				});
+        			});
+        			redactUndo.addEventListener('click', () => {
+        				const { selectionStart, selectionEnd, selectedText } = history.pop() || {};
+        				if (selectionStart !== undefined && selectionEnd !== undefined && selectedText) {
+        					hideError();
+        					textArea.value = textArea.value.substring(0, selectionStart) + selectedText + textArea.value.substring(selectionEnd);
+        				} else {
+        					showError('No changes to undo');
+        				}
+        			});
+        			redactUndoAll.addEventListener('click', () => {
+        				const unredated = unredactedText.textContent?.trim();
+        				if (history.length === 0 && textArea.value === unredated) {
+        					showError('No changes to undo');
+        					return;
+        				}
+        				hideError();
+        				textArea.value = unredated || '';
+        				history.length = 0;
+        			});
+        			for (const rejectLink of rejectLinks) {
+        				rejectLink.addEventListener('click', () => {
+        					const index = parseInt(rejectLink.getAttribute('data-redact').replace('suggestion-reject-', ''));
+        					const suggestion = suggestions[index];
+        					if (rejectLink.text === 'Reject') {
+        						textArea.value = textArea.value.substring(0, suggestion.offset) + suggestion.text + textArea.value.substring(suggestion.offset + suggestion.length);
+        						rejectLink.text = 'Accept';
+        					} else {
+        						const redactedText = '█'.repeat(suggestion.length);
+        						textArea.value = textArea.value.substring(0, suggestion.offset) + redactedText + textArea.value.substring(suggestion.offset + suggestion.length);
+        						rejectLink.text = 'Reject';
+        					}
+        				});
+        			}
+        		}
+        
+        		function initRedact() {
+        			const textArea = document.querySelector('#redactedRepresentation');
+        			const redactSelectedText = document.querySelector('#redact-selected-text');
+        			const redactUndo = document.querySelector('#redact-undo');
+        			const redactUndoAll = document.querySelector('#redact-undo-all');
+        			const unredactedText = document.querySelector('#representation-unredacted > div');
+        			const rejectLinks = document.querySelectorAll('[data-redact]');
+        			const suggestions = [{"text":"John Doe","offset":0,"length":8,"category":"Person","confidenceScore":0.95,"accepted":false},{"text":"123 Main St","offset":20,"length":12,"category":"Address","confidenceScore":0.9,"accepted":false}]
+        
+        			if (!textArea || !(textArea instanceof HTMLTextAreaElement)) {
+        				return;
+        			}
+        			if (!redactSelectedText || !(redactSelectedText instanceof HTMLButtonElement)) {
+        				return;
+        			}
+        			if (!redactUndo || !(redactUndo instanceof HTMLButtonElement)) {
+        				return;
+        			}
+        			if (!redactUndoAll || !(redactUndoAll instanceof HTMLButtonElement)) {
+        				return;
+        			}
+        			if (!unredactedText || !(unredactedText instanceof HTMLDivElement)) {
+        				return;
+        			}
+        
+        			registerEventListeners({
+        				textArea,
+        				redactSelectedText,
+        				redactUndo,
+        				redactUndoAll,
+        				unredactedText,
+        				rejectLinks,
+        				suggestions
+        			});
+        		}
+        
+        		initRedact();
+    </script>
+</main>"
+`;
+
 exports[`Representation redact page GET /applications-service/case/1/relevant-representations/1/representations-details/redact-representation should render the page 1`] = `
 "<main class="govuk-main-wrapper " id="main-content" role="main">
     <h1 class="govuk-heading-l govuk-!-margin-bottom-2">Mrs Sue</h1><strong class="govuk-tag govuk-tag--">in test</strong>
