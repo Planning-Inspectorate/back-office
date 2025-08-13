@@ -170,6 +170,10 @@
 			errorMessage.id = 'representation-error';
 			errorMessage.classList.add('govuk-error-message');
 
+			function appendNote(text) {
+				notesText.value += `${notesText.value ? "\n" : ""}${text}`;
+			}
+
 			const history = [];
 
 			function showError(message) {
@@ -190,7 +194,7 @@
 			if (!notesText.value) {
 				for (const suggestion of suggestions) {
 					if (suggestion.accepted) {
-						notesText.value += `${notesText.value ? "\n" : ""}${suggestion.text}`;
+						appendNote(suggestion.text);
 					}
 				}
 			}
@@ -219,7 +223,7 @@
 					selectedText
 				});
 				// add to notes field
-				notesText.value += `${notesText.value ? "\n" : ""}${selectedText}`;
+				appendNote(selectedText);
 			});
 			redactUndo.addEventListener('click', () => {
 				const { selectionStart, selectionEnd, selectedText } = history.pop() || {};
@@ -267,8 +271,7 @@
 						const redactedText = '█'.repeat(suggestion.length);
 						textArea.value = textArea.value.substring(0, suggestion.offset) + redactedText + textArea.value.substring(suggestion.offset + suggestion.length);
 						rejectLink.text = 'Reject';
-						// add to notes field
-						notesText.value += `${notesText.value ? "\n" : ""}${suggestion.text}`;
+						appendNote(suggestion.text); // add to notes field
 					}
 				});
 			}
