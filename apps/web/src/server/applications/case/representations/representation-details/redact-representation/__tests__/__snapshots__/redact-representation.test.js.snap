@@ -101,15 +101,15 @@ exports[`Representation redact page GET /applications-service/case/1/relevant-re
         			const errorMessage = document.createElement('p');
         			errorMessage.id = 'representation-error';
         			errorMessage.classList.add('govuk-error-message');
-        
+
         			const history = [];
-        
+
         			function showError(message) {
         				formGroup.classList.add('govuk-form-group--error');
         				errorMessage.textContent = message;
         				formGroup.prepend(errorMessage);
         			}
-        
+
         			function hideError() {
         				textArea.parentElement.classList.remove('govuk-form-group--error');
         				errorMessage.remove();
@@ -117,7 +117,7 @@ exports[`Representation redact page GET /applications-service/case/1/relevant-re
         			// setup redaction box size
         			textArea.style.height = '1px';
         			textArea.style.height = \`\${textArea.scrollHeight + 5}px\`;
-        
+
         			// populate notes field with any suggestions
         			if (!notesText.value) {
         				for (const suggestion of suggestions) {
@@ -126,7 +126,7 @@ exports[`Representation redact page GET /applications-service/case/1/relevant-re
         					}
         				}
         			}
-        
+
         			redactSelectedText.addEventListener('click', () => {
         				const { selectionStart, selectionEnd } = textArea;
         				if (selectionStart === selectionEnd) {
@@ -179,13 +179,13 @@ exports[`Representation redact page GET /applications-service/case/1/relevant-re
         				textArea.value = textArea.value.substring(0, selectionStart) + originalText + textArea.value.substring(selectionEnd);
         			});
         			redactUndoAll.addEventListener('click', () => {
-        				const unredated = unredactedText.textContent?.trim();
-        				if (history.length === 0 && textArea.value === unredated) {
+        				const unredacted = unredactedText.textContent?.trim();
+        				if (history.length === 0 && textArea.value === unredacted) {
         					showError('No changes to undo');
         					return;
         				}
         				hideError();
-        				textArea.value = unredated || '';
+        				textArea.value = unredacted || '';
         				history.length = 0;
         			});
         			for (const rejectLink of rejectLinks) {
@@ -205,7 +205,7 @@ exports[`Representation redact page GET /applications-service/case/1/relevant-re
         				});
         			}
         		}
-        
+
         		function initRedact() {
         			const textArea = document.querySelector('#redactedRepresentation');
         			const redactSelectedText = document.querySelector('#redact-selected-text');
@@ -216,7 +216,7 @@ exports[`Representation redact page GET /applications-service/case/1/relevant-re
         			const rejectLinks = document.querySelectorAll('[data-redact]');
         			const notesText = document.querySelector("#redact-representation-notes-text");
         			const suggestions = [{"text":"John Doe","offset":0,"length":8,"category":"Person","confidenceScore":0.95,"accepted":false},{"text":"123 Main St","offset":20,"length":12,"category":"Address","confidenceScore":0.9,"accepted":false}]
-        
+
         			if (!textArea || !(textArea instanceof HTMLTextAreaElement)) {
         				return;
         			}
@@ -238,7 +238,7 @@ exports[`Representation redact page GET /applications-service/case/1/relevant-re
         			if (!notesText || !(notesText instanceof HTMLTextAreaElement)) {
         				return;
         			}
-        
+
         			registerEventListeners({
         				textArea,
         				redactSelectedText,
@@ -251,7 +251,7 @@ exports[`Representation redact page GET /applications-service/case/1/relevant-re
         				notesText
         			});
         		}
-        
+
         		initRedact();
     </script>
 </main>"
@@ -295,15 +295,15 @@ exports[`Representation redact page GET /applications-service/case/1/relevant-re
     </form>
     <script nonce="EdcOUaJ8lczj9tIPO0lPow==">
         const getSelectedText = (text, selectionStart, selectionEnd) => text.value.substring(selectionStart, selectionEnd);
-        
+
         			const updateTextValue = (text, replacementText, startIndex, endIndex) => {
         				const startText = text.value.substring(0, startIndex);
         				const endText = text.value.substring(endIndex, text.value.length);
         				text.value = \`\${startText}\${replacementText}\${endText}\`.trim();
         			};
-        
+
         			const addNotesText = (notesText, selectedText) => (notesText.value += \`\${notesText.value ? "\\n" : ""}\${selectedText}\`);
-        
+
         			const submitRedactRep = (redactRepText, notesText) => {
         				const { selectionStart, selectionEnd } = redactRepText;
         				const selectedText = getSelectedText(redactRepText, selectionStart, selectionEnd);
@@ -311,19 +311,19 @@ exports[`Representation redact page GET /applications-service/case/1/relevant-re
         				updateTextValue(redactRepText, "(Redacted)", selectionStart, selectionEnd);
         				addNotesText(notesText, selectedText);
         			};
-        
+
         			const initRedactRepAction = () => {
         				const submitRedactRepButton = document.querySelector("#submit-redact-representation");
         				const redactRepText = document.querySelector("#redact-representation-text");
         				const notesText = document.querySelector("#redact-representation-notes-text");
-        
+
         				submitRedactRepButton.addEventListener("click", (event) => {
         					event.preventDefault();
         					submitRedactRep(redactRepText, notesText);
         					initRedactRepTextHeight(false, true);
         				});
         			};
-        
+
         			const hideOriginalRepSection = ({
         					originalRepSection,
         					redactRepSection,
@@ -334,7 +334,7 @@ exports[`Representation redact page GET /applications-service/case/1/relevant-re
         				showOriginalRepButton.classList.remove("govuk-!-display-none");
         				showOriginalRepButton.classList.add("govuk-!-display-inline-block");
         			};
-        
+
         			const showOriginalRepSection = ({
         					originalRepSection,
         					redactRepSection,
@@ -345,7 +345,7 @@ exports[`Representation redact page GET /applications-service/case/1/relevant-re
         				showOriginalRepButton.classList.add("govuk-!-display-none");
         				showOriginalRepButton.classList.remove("govuk-!-display-inline-block");
         			};
-        
+
         			const initRedactRepHideShow = () => {
         				const hideSlowEls = {
         					originalRepSection: document.querySelector("#original-representation-section"),
@@ -353,34 +353,34 @@ exports[`Representation redact page GET /applications-service/case/1/relevant-re
         					hideOriginalRepButton: document.querySelector("#hide-original-representation-button"),
         					showOriginalRepButton: document.querySelector("#show-original-representation-button")
         				};
-        
+
         				hideSlowEls.hideOriginalRepButton.addEventListener("click", (event) => {
         					event.preventDefault();
         					hideOriginalRepSection(hideSlowEls);
         					initRedactRepTextHeight();
         				});
-        
+
         				hideSlowEls.showOriginalRepButton.addEventListener("click", (event) => {
         					event.preventDefault();
         					showOriginalRepSection(hideSlowEls);
         					initRedactRepTextHeight();
         				});
         			};
-        
+
         			const initRedactRepTextHeight = (sizeRepresentationText = true, sizeRepresentationNotesText = true) => {
         				if (sizeRepresentationText) {
         					const redactRepresentationText = document.querySelector('#redact-representation-text');
         					redactRepresentationText.style.height = '1px';
         					redactRepresentationText.style.height = \`\${redactRepresentationText.scrollHeight + 5}px\`;
         				}
-        
+
         				if (sizeRepresentationNotesText) {
         					const redactRepresentationNotesText = document.querySelector('#redact-representation-notes-text');
         					redactRepresentationNotesText.style.height = '1px';
         					redactRepresentationNotesText.style.height = \`\${redactRepresentationNotesText.scrollHeight + 5}px\`;
         				}
         			}
-        
+
         			initRedactRepAction();
         			initRedactRepHideShow();
         			initRedactRepTextHeight();

@@ -247,13 +247,13 @@
 				textArea.value = textArea.value.substring(0, selectionStart) + originalText + textArea.value.substring(selectionEnd);
 			});
 			redactUndoAll.addEventListener('click', () => {
-				const unredated = unredactedText.textContent?.trim();
-				if (history.length === 0 && textArea.value === unredated) {
+				const unredacted = unredactedText.textContent?.trim();
+				if (history.length === 0 && textArea.value === unredacted) {
 					showError('No changes to undo');
 					return;
 				}
 				hideError();
-				textArea.value = unredated || '';
+				textArea.value = unredacted || '';
 				history.length = 0;
 			});
 			for (const rejectLink of rejectLinks) {
