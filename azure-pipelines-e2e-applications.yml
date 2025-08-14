@@ -38,13 +38,11 @@ jobs:
           workingDir: $(System.DefaultWorkingDirectory)/apps/e2e
         displayName: "Install Dependencies"
 
-      - task: ShellScript@2
+      - task: Bash@3
         inputs:
-          scriptPath: 'apps/e2e/run-tests.sh'
-          args: 'cypress/e2e/back-office-applications/addRepresentation.spec.js'
+          targetType: 'inline'
+          script: npx cypress run --spec cypress/e2e/back-office-applications/addRepresentation.spec.js,cypress/e2e/back-office-applications/addTeam.spec.js,cypress/e2e/back-office-applications/createCase.spec.js,cypress/e2e/back-office-applications/documentProperties.spec.js,cypress/e2e/back-office-applications/documentPropertiesWelsh.spec.js,cypress/e2e/back-office-applications/documentUpload.spec.js
           workingDirectory: 'apps/e2e'
-
-          #script: npx cypress run --spec cypress/e2e/back-office-applications/addRepresentation.spec.js,cypress/e2e/back-office-applications/addTeam.spec.js,cypress/e2e/back-office-applications/createCase.spec.js,cypress/e2e/back-office-applications/documentProperties.spec.js,cypress/e2e/back-office-applications/documentPropertiesWelsh.spec.js,cypress/e2e/back-office-applications/documentUpload.spec.js
 
         env:
           BASE_URL: $(BASE_URL)
@@ -77,10 +75,10 @@ jobs:
           workingDir: $(System.DefaultWorkingDirectory)/apps/e2e
         displayName: "Install Dependencies"
 
-      - task: ShellScript@2
+      - task: Bash@3
         inputs:
-          scriptPath: 'apps/e2e/run-tests.sh'
-          args: 'cypress/e2e/back-office-applications/documentVersioning.spec.js,cypress/e2e/back-office-applications/editCase.spec.js,cypress/e2e/back-office-applications/examTimetable.spec.js'
+          targetType: 'inline'
+          script: npx cypress run --spec cypress/e2e/back-office-applications/documentVersioning.spec.js,cypress/e2e/back-office-applications/editCase.spec.js,cypress/e2e/back-office-applications/examTimetable.spec.js
           workingDirectory: 'apps/e2e'
         env:
           BASE_URL: $(BASE_URL)
@@ -116,8 +114,7 @@ jobs:
       - task: Bash@3
         inputs:
           targetType: 'inline'
-          script: npx cypress run --spec cypress/e2e/back-office-applications/publishDocuments.spec.js
-          #script: npx cypress run --spec cypress/e2e/back-office-applications/publishDocuments.spec.js,cypress/e2e/back-office-applications/s51Advice.spec.js,cypress/e2e/back-office-applications/search.spec.js,cypress/e2e/back-office-applications/searchDocuments.spec.js,cypress/e2e/back-office-applications/sectorAsTraing.spec.js,cypress/e2e/back-office-applications/smokeTests.spec.js
+          script: npx cypress run --spec cypress/e2e/back-office-applications/publishDocuments.spec.js,cypress/e2e/back-office-applications/s51Advice.spec.js,cypress/e2e/back-office-applications/search.spec.js,cypress/e2e/back-office-applications/searchDocuments.spec.js,cypress/e2e/back-office-applications/sectorAsTraing.spec.js,cypress/e2e/back-office-applications/smokeTests.spec.js
           workingDirectory: 'apps/e2e'
         env:
           BASE_URL: $(BASE_URL)
@@ -153,8 +150,7 @@ jobs:
       - task: Bash@3
         inputs:
           targetType: 'inline'
-          script: npx cypress run --spec cypress/e2e/back-office-applications/unpublishDocuments.spec.js
-          #script: npx cypress run --spec cypress/e2e/back-office-applications/unpublishDocuments.spec.js,cypress/e2e/back-office-applications/updateAndRemoveTeam.spec.js,cypress/e2e/back-office-applications/updateProjectInformation.spec.js,cypress/e2e/back-office-applications/welsh.spec.js
+          script: npx cypress run --spec cypress/e2e/back-office-applications/unpublishDocuments.spec.js,cypress/e2e/back-office-applications/updateAndRemoveTeam.spec.js,cypress/e2e/back-office-applications/updateProjectInformation.spec.js,cypress/e2e/back-office-applications/welsh.spec.js
           workingDirectory: 'apps/e2e'
         env:
           BASE_URL: $(BASE_URL)
