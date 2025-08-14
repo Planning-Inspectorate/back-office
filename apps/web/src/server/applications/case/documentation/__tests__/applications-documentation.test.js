@@ -372,7 +372,9 @@ describe('applications documentation', () => {
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain('is in the publishing queue ready to be published');
+				// Strip HTML tags and normalize whitespace for robust matching
+				const textOnly = element.innerHTML.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ');
+				expect(textOnly).toContain('is in the publishing queue ready to be published');
 			});
 		});
 
