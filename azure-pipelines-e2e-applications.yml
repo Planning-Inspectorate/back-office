@@ -98,74 +98,76 @@ jobs:
         displayName: "Publish Failed Tests Artifacts"
         condition: failed()
 
-  # - job: E2E_Tests_Group_3
-  #   timeoutInMinutes: 60
-  #   pool: pins-odt-agent-pool-tests
-  #   steps:
-  #     - task: NodeTool@0
-  #       inputs:
-  #         versionSpec: "20.x"
-  #       displayName: "Install Node.js"
+  - job: E2E_Tests_Group_3
+    timeoutInMinutes: 60
+    pool: pins-odt-agent-pool-tests
+    steps:
+      - task: NodeTool@0
+        inputs:
+          versionSpec: "20.x"
+        displayName: "Install Node.js"
 
-  #     - task: Npm@1
-  #       inputs:
-  #         command: "install"
-  #         workingDir: $(System.DefaultWorkingDirectory)/apps/e2e
-  #       displayName: "Install Dependencies"
+      - task: Npm@1
+        inputs:
+          command: "install"
+          workingDir: $(System.DefaultWorkingDirectory)/apps/e2e
+        displayName: "Install Dependencies"
 
-  #     - task: Bash@3
-  #       inputs:
-  #         targetType: 'inline'
-  #         script: npx cypress run --spec cypress/e2e/back-office-applications/publishDocuments.spec.js,cypress/e2e/back-office-applications/s51Advice.spec.js,cypress/e2e/back-office-applications/search.spec.js,cypress/e2e/back-office-applications/searchDocuments.spec.js,cypress/e2e/back-office-applications/sectorAsTraing.spec.js,cypress/e2e/back-office-applications/smokeTests.spec.js
-  #         workingDirectory: 'apps/e2e'
-  #       env:
-  #         BASE_URL: $(BASE_URL)
-  #         CASE_TEAM_EMAIL: $(CASE_TEAM_EMAIL)
-  #         CASE_ADMIN_EMAIL: $(CASE_ADMIN_EMAIL)
-  #         INSPECTOR_EMAIL: $(INSPECTOR_EMAIL)
-  #         USER_PASSWORD: $(USER_PASSWORD)
-  #         FEATURE_FLAG_CONNECTION_STRING: $(FEATURE_FLAG_CONNECTION_STRING)
-  #       displayName: "Run Cypress Tests Group 3"
+      - task: Bash@3
+        inputs:
+          targetType: 'inline'
+          script: npx cypress run --spec cypress/e2e/back-office-applications/publishDocuments.spec.js
+          #script: npx cypress run --spec cypress/e2e/back-office-applications/publishDocuments.spec.js,cypress/e2e/back-office-applications/s51Advice.spec.js,cypress/e2e/back-office-applications/search.spec.js,cypress/e2e/back-office-applications/searchDocuments.spec.js,cypress/e2e/back-office-applications/sectorAsTraing.spec.js,cypress/e2e/back-office-applications/smokeTests.spec.js
+          workingDirectory: 'apps/e2e'
+        env:
+          BASE_URL: $(BASE_URL)
+          CASE_TEAM_EMAIL: $(CASE_TEAM_EMAIL)
+          CASE_ADMIN_EMAIL: $(CASE_ADMIN_EMAIL)
+          INSPECTOR_EMAIL: $(INSPECTOR_EMAIL)
+          USER_PASSWORD: $(USER_PASSWORD)
+          FEATURE_FLAG_CONNECTION_STRING: $(FEATURE_FLAG_CONNECTION_STRING)
+        displayName: "Run Cypress Tests Group 3"
 
-      # - task: PublishBuildArtifacts@1
-      #   inputs:
-      #     pathToPublish: 'apps/e2e/cypress/screenshots'
-      #     artifactName: 'FailedTests'
-      #   displayName: "Publish Failed Tests Artifacts"
-      #   condition: failed()
+      - task: PublishBuildArtifacts@1
+        inputs:
+          pathToPublish: 'apps/e2e/cypress/screenshots'
+          artifactName: 'FailedTests'
+        displayName: "Publish Failed Tests Artifacts"
+        condition: failed()
 
-  # - job: E2E_Tests_Group_4
-  #   timeoutInMinutes: 60
-  #   pool: pins-odt-agent-pool-tests
-  #   steps:
-  #     - task: NodeTool@0
-  #       inputs:
-  #         versionSpec: "20.x"
-  #       displayName: "Install Node.js"
+  - job: E2E_Tests_Group_4
+    timeoutInMinutes: 60
+    pool: pins-odt-agent-pool-tests
+    steps:
+      - task: NodeTool@0
+        inputs:
+          versionSpec: "20.x"
+        displayName: "Install Node.js"
 
-  #     - task: Npm@1
-  #       inputs:
-  #         command: "install"
-  #         workingDir: $(System.DefaultWorkingDirectory)/apps/e2e
-  #       displayName: "Install Dependencies"
+      - task: Npm@1
+        inputs:
+          command: "install"
+          workingDir: $(System.DefaultWorkingDirectory)/apps/e2e
+        displayName: "Install Dependencies"
 
-  #     - task: Bash@3
-  #       inputs:
-  #         targetType: 'inline'
-  #         script: npx cypress run --spec cypress/e2e/back-office-applications/unpublishDocuments.spec.js,cypress/e2e/back-office-applications/updateAndRemoveTeam.spec.js,cypress/e2e/back-office-applications/updateProjectInformation.spec.js,cypress/e2e/back-office-applications/welsh.spec.js
-  #         workingDirectory: 'apps/e2e'
-  #       env:
-  #         BASE_URL: $(BASE_URL)
-  #         CASE_TEAM_EMAIL: $(CASE_TEAM_EMAIL)
-  #         CASE_ADMIN_EMAIL: $(CASE_ADMIN_EMAIL)
-  #         INSPECTOR_EMAIL: $(INSPECTOR_EMAIL)
-  #         USER_PASSWORD: $(USER_PASSWORD)
-  #         FEATURE_FLAG_CONNECTION_STRING: $(FEATURE_FLAG_CONNECTION_STRING)
-  #       displayName: "Run Cypress Tests Group 4"
+      - task: Bash@3
+        inputs:
+          targetType: 'inline'
+          script: npx cypress run --spec cypress/e2e/back-office-applications/unpublishDocuments.spec.js
+          #script: npx cypress run --spec cypress/e2e/back-office-applications/unpublishDocuments.spec.js,cypress/e2e/back-office-applications/updateAndRemoveTeam.spec.js,cypress/e2e/back-office-applications/updateProjectInformation.spec.js,cypress/e2e/back-office-applications/welsh.spec.js
+          workingDirectory: 'apps/e2e'
+        env:
+          BASE_URL: $(BASE_URL)
+          CASE_TEAM_EMAIL: $(CASE_TEAM_EMAIL)
+          CASE_ADMIN_EMAIL: $(CASE_ADMIN_EMAIL)
+          INSPECTOR_EMAIL: $(INSPECTOR_EMAIL)
+          USER_PASSWORD: $(USER_PASSWORD)
+          FEATURE_FLAG_CONNECTION_STRING: $(FEATURE_FLAG_CONNECTION_STRING)
+        displayName: "Run Cypress Tests Group 4"
 
-      # - task: PublishBuildArtifacts@1
-      #   inputs:
-      #     pathToPublish: 'apps/e2e/cypress/screenshots'
-      #     artifactName: 'FailedTests'
-      #   displayName: "Publish Failed Tests Artifacts"
-      #   condition: failed()
+      - task: PublishBuildArtifacts@1
+        inputs:
+          pathToPublish: 'apps/e2e/cypress/screenshots'
+          artifactName: 'FailedTests'
+        displayName: "Publish Failed Tests Artifacts"
+        condition: failed()
