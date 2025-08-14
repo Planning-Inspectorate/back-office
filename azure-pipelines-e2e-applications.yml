@@ -26,6 +26,12 @@ jobs:
           versionSpec: "20.x"
         displayName: "Install Node.js"
 
+      - task: ShellScript@2
+        inputs:
+          scriptPath: 'apps/e2e/install-chromium.sh'
+        displayName: 'Install Chromium'
+        condition: eq(variables['agent.os'], 'Linux')
+
       - task: Npm@1
         inputs:
           command: "install"
@@ -63,6 +69,12 @@ jobs:
           versionSpec: "20.x"
         displayName: "Install Node.js"
 
+      - task: ShellScript@2
+        inputs:
+          scriptPath: 'apps/e2e/install-chromium.sh'
+        displayName: 'Install Chromium'
+        condition: eq(variables['agent.os'], 'Linux')
+
       - task: Npm@1
         inputs:
           command: "install"
@@ -99,6 +111,12 @@ jobs:
           versionSpec: "20.x"
         displayName: "Install Node.js"
 
+      - task: ShellScript@2
+        inputs:
+          scriptPath: 'apps/e2e/install-chromium.sh'
+        displayName: 'Install Chromium'
+        condition: eq(variables['agent.os'], 'Linux')
+
       - task: Npm@1
         inputs:
           command: "install"
@@ -134,6 +152,12 @@ jobs:
         inputs:
           versionSpec: "20.x"
         displayName: "Install Node.js"
+
+      - task: ShellScript@2
+        inputs:
+          scriptPath: 'apps/e2e/install-chromium.sh'
+        displayName: 'Install Chromium'
+        condition: eq(variables['agent.os'], 'Linux')
 
       - task: Npm@1
         inputs:
