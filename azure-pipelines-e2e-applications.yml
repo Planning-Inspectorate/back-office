@@ -16,7 +16,7 @@ pr: none
 trigger: none
 
 jobs:
-  - job: Run_Cypress_Tests_For_Applications
+  - job: E2E_Tests_Group_1
     timeoutInMinutes: 60
     pool: pins-odt-agent-pool-tests
     steps:
@@ -25,12 +25,6 @@ jobs:
         inputs:
           versionSpec: "20.x"
         displayName: "Install Node.js"
-
-      - task: ShellScript@2
-        inputs:
-          scriptPath: 'apps/e2e/install-chromium.sh'
-        displayName: 'Install Chromium'
-        condition: eq(variables['agent.os'], 'Linux')
 
       - task: Npm@1
         inputs:
@@ -51,7 +45,7 @@ jobs:
           INSPECTOR_EMAIL: $(INSPECTOR_EMAIL)
           USER_PASSWORD: $(USER_PASSWORD)
           FEATURE_FLAG_CONNECTION_STRING: $(FEATURE_FLAG_CONNECTION_STRING)
-        displayName: "Run Cypress Tests"
+        displayName: "Run Cypress Tests Group 1"
 
       - task: PublishBuildArtifacts@1
         inputs:
