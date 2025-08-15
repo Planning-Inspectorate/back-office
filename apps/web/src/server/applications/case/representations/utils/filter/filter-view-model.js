@@ -49,7 +49,8 @@ export const getFilterViewModel = (filters = [], representationsFilters = []) =>
 		{ text: 'Withdrawn', value: 'WITHDRAWN' },
 		{ text: 'Invalid', value: 'INVALID' },
 		{ text: 'Archived', value: 'ARCHIVED' },
-		{ text: 'Under 18', value: 'UNDER_18' }
+		{ text: 'Under 18', value: 'UNDER_18' },
+		{ text: 'With attachment', value: 'WITH_ATTACHMENT' }
 	].map((el) => ({
 		text: `${el.text} (${findCounterOrZero(representationsFilters, el.value)})`,
 		value: el.value,
@@ -59,13 +60,16 @@ export const getFilterViewModel = (filters = [], representationsFilters = []) =>
 /**
  *
  * @param {any} filters
- * @returns {{under18: boolean, status: *[]}}
+ * @returns {{under18: boolean, status: *[], withAttachment: boolean}}
  */
 export const buildFilterQueryString = (filters) => {
 	const filtersArray = ensureArray(filters);
 
 	return {
-		status: filtersArray.filter((element) => element !== 'UNDER_18'),
-		under18: filtersArray.includes('UNDER_18')
+		status: filtersArray.filter(
+			(element) => element !== 'UNDER_18' && element !== 'WITH_ATTACHMENT'
+		),
+		under18: filtersArray.includes('UNDER_18'),
+		withAttachment: filtersArray.includes('WITH_ATTACHMENT')
 	};
 };

@@ -47,7 +47,8 @@ describe('Get Application Representations', () => {
 	beforeEach(() => {
 		databaseConnector.representation.count
 			.mockResolvedValueOnce(numberOfRepresentations)
-			.mockResolvedValueOnce(numberOfRepresentationsWhereRepresentedUnder18);
+			.mockResolvedValueOnce(numberOfRepresentationsWhereRepresentedUnder18)
+			.mockResolvedValueOnce(0); // For attachment count
 		databaseConnector.representation.groupBy.mockReturnValueOnce([
 			{ _count: { _all: 2 }, status: 'WITHDRAWN' }
 		]);
@@ -63,6 +64,10 @@ describe('Get Application Representations', () => {
 				{
 					count: 3,
 					name: 'UNDER_18'
+				},
+				{
+					count: 0,
+					name: 'WITH_ATTACHMENT'
 				},
 				{
 					count: 2,
@@ -89,6 +94,10 @@ describe('Get Application Representations', () => {
 				{
 					count: 3,
 					name: 'UNDER_18'
+				},
+				{
+					count: 0,
+					name: 'WITH_ATTACHMENT'
 				},
 				{
 					count: 2,
@@ -128,6 +137,10 @@ describe('Get Application Representations', () => {
 					name: 'UNDER_18'
 				},
 				{
+					count: 0,
+					name: 'WITH_ATTACHMENT'
+				},
+				{
 					count: 2,
 					name: 'WITHDRAWN'
 				}
@@ -153,6 +166,10 @@ describe('Get Application Representations', () => {
 					name: 'UNDER_18'
 				},
 				{
+					count: 0,
+					name: 'WITH_ATTACHMENT'
+				},
+				{
 					count: 2,
 					name: 'WITHDRAWN'
 				}
@@ -174,6 +191,10 @@ describe('Get Application Representations', () => {
 				{
 					count: 3,
 					name: 'UNDER_18'
+				},
+				{
+					count: 0,
+					name: 'WITH_ATTACHMENT'
 				},
 				{
 					count: 2,
@@ -199,6 +220,10 @@ describe('Get Application Representations', () => {
 					name: 'UNDER_18'
 				},
 				{
+					count: 0,
+					name: 'WITH_ATTACHMENT'
+				},
+				{
 					count: 2,
 					name: 'WITHDRAWN'
 				}
@@ -220,6 +245,10 @@ describe('Get Application Representations', () => {
 				{
 					count: 3,
 					name: 'UNDER_18'
+				},
+				{
+					count: 0,
+					name: 'WITH_ATTACHMENT'
 				},
 				{
 					count: 2,
