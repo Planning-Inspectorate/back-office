@@ -158,6 +158,35 @@ describe('Applications case pages', () => {
 			});
 		});
 	});
+
+	describe('Unpublish representations page', () => {
+		beforeEach(async () => {
+			nock('http://test/').get('/applications').reply(200, {});
+			nock('http://test/').get('/applications/123').reply(200, fixtureCases[6]);
+			await request.get('/applications-service/');
+		});
+
+		describe('GET /case/123/unpublish-representations', () => {
+			it('should render the unpublish representations page', async () => {
+				const response = await request.get(`${baseUrl}/unpublish-representations`);
+				const element = parseHtml(response.text);
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('Unpublish all published representations');
+			});
+		});
+
+		describe('POST /case/123/unpublish-representations', () => {
+			it('should redirect and show success banner after unpublishing', async () => {
+				const postResponse = await request.post(`${baseUrl}/unpublish-representations`).send();
+				expect(postResponse.status).toBe(302);
+				expect(postResponse.headers.location).toContain('/relevant-representations?unpublished=1');
+
+				const redirectedResponse = await request.get(postResponse.headers.location);
+				const element = parseHtml(redirectedResponse.text);
+				expect(element.innerHTML).toContain('Representations have been unpublished');
+			});
+		});
+	});
 });
 
 const {
