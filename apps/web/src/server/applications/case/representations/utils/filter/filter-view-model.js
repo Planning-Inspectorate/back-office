@@ -60,13 +60,16 @@ export const getFilterViewModel = (filters = [], representationsFilters = []) =>
 /**
  *
  * @param {any} filters
- * @returns {{under18: boolean, status: *[]}}
+ * @returns {{under18: boolean, status: *[], withAttachment: boolean}}
  */
 export const buildFilterQueryString = (filters) => {
 	const filtersArray = ensureArray(filters);
 
 	return {
-		status: filtersArray.filter((element) => element !== 'UNDER_18'),
-		under18: filtersArray.includes('UNDER_18')
+		status: filtersArray.filter(
+			(element) => element !== 'UNDER_18' && element !== 'WITH_ATTACHMENT'
+		),
+		under18: filtersArray.includes('UNDER_18'),
+		withAttachment: filtersArray.includes('WITH_ATTACHMENT')
 	};
 };

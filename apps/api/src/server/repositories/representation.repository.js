@@ -891,6 +891,18 @@ function buildFilters(filters = {}) {
 				};
 			}
 
+			if (name === 'withAttachment') {
+				return {
+					attachments: {
+						some: {
+							Document: {
+								isDeleted: !values
+							}
+						}
+					}
+				};
+			}
+
 			return {
 				[name]: values
 			};

@@ -23,7 +23,6 @@ import { getAttachmentCountForCase } from '#repositories/representation.reposito
  */
 export const getRepresentation = async ({ params }, response) => {
 	const representation = await getCaseRepresentation(params.repId);
-
 	if (!representation && params.repId) {
 		return response
 			.status(404)
@@ -54,13 +53,14 @@ export const getRepresentations = async ({ params, query }, response) => {
 	const pageSize = query.pageSize ?? 25;
 	const page = query.page ?? 1;
 	const under18 = query.under18 ? query.under18 === 'true' : null;
+	const withAttachment = query.withAttachment ? query.withAttachment === 'true' : null;
 	const status = query.status ? [query.status].flat() : [];
-
 	let filters = null;
 
-	if (status.length > 0 || under18) {
+	if (status.length > 0 || under18 || withAttachment) {
 		filters = {
 			...(under18 ? { under18 } : {}),
+			...(withAttachment ? { withAttachment } : {}),
 			...(status.length > 0 ? { status } : {})
 		};
 	}
