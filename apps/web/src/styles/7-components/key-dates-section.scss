@@ -1,11 +1,14 @@
+@import "govuk-frontend/dist/govuk/_base";
+
 .pins-key-dates-section {
 	position: relative;
 
 	.offset-link {
 		position: absolute;
 		right: 0;
-		font-size: 19px;
 		top: -70px;
+
+		@include govuk-font-size(19);
 	}
 
 	td:last-of-type {

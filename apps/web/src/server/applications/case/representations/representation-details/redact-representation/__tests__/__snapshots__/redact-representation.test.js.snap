@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Representation redact page GET /applications-service/case/1/relevant-representations/1/representations-details/redact-representation should render the new page if feature flag is enabled 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <h1 class="govuk-heading-l govuk-!-margin-bottom-2">Mrs Sue</h1><strong class="govuk-tag govuk-tag--">in test</strong>
     <p class="govuk-body govuk-!-margin-0 govuk-!-margin-top-5"><strong>Project name:</strong> mock title</p>
     <form action="" method="post"
@@ -39,8 +39,7 @@ exports[`Representation redact page GET /applications-service/case/1/relevant-re
         </div>
         <div class="govuk-grid-row">
             <div class="govuk-grid-column-one-half">
-                <details id="representation-unredacted" class="govuk-details" data-module="govuk-details"
-                open>
+                <details id="representation-unredacted" class="govuk-details" open>
                     <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> Original representation</span>
                     </summary>
                     <div class="govuk-details__text">
@@ -261,7 +260,7 @@ exports[`Representation redact page GET /applications-service/case/1/relevant-re
 `;
 
 exports[`Representation redact page GET /applications-service/case/1/relevant-representations/1/representations-details/redact-representation should render the page 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <h1 class="govuk-heading-l govuk-!-margin-bottom-2">Mrs Sue</h1><strong class="govuk-tag govuk-tag--">in test</strong>
     <p class="govuk-body govuk-!-margin-0 govuk-!-margin-top-5"><strong>Project name:</strong> mock title</p>
     <form method="post">

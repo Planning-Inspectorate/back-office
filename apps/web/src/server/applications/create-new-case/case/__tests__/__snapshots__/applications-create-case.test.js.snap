@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`applications create Geographical Information GET /create-new-case/:caseId/geographical-information should display resumed data if the API returns something 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <h1 class="govuk-heading-l govuk-!-margin-bottom-3"> Enter geographical information</h1>
     <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
         <div class="govuk-form-group">
@@ -31,7 +31,7 @@ exports[`applications create Geographical Information GET /create-new-case/:case
         </div>
         <div class="govuk-grid-row">
             <div class="govuk-button-group govuk-grid-column-one-half">
-                <button class="govuk-button" data-module="govuk-button">Save and continue</button>
+                <button type="submit" class="govuk-button" data-module="govuk-button">Save and continue</button>
             </div>
         </div>
     </form>
@@ -39,7 +39,7 @@ exports[`applications create Geographical Information GET /create-new-case/:case
 `;
 
 exports[`applications create Geographical Information POST /create-new-case/:caseId/geographical-information API-side validation: should show validation errors if API returns error 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
             <div class="govuk-error-summary" data-module="govuk-error-summary">
@@ -94,7 +94,7 @@ exports[`applications create Geographical Information POST /create-new-case/:cas
         </div>
         <div class="govuk-grid-row">
             <div class="govuk-button-group govuk-grid-column-one-half">
-                <button class="govuk-button" data-module="govuk-button">Save and continue</button>
+                <button type="submit" class="govuk-button" data-module="govuk-button">Save and continue</button>
             </div>
         </div>
     </form>
@@ -102,15 +102,13 @@ exports[`applications create Geographical Information POST /create-new-case/:cas
 `;
 
 exports[`applications create Geographical Information POST /create-new-case/:caseId/geographical-information Web-side validation should not render validation error if nothing missing 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
             <div class="govuk-error-summary" data-module="govuk-error-summary">
                 <div role="alert">
                     <h2 class="govuk-error-summary__title"> There is a problem</h2>
-                    <div class="govuk-error-summary__body">
-                        <ul class="govuk-list govuk-error-summary__list"></ul>
-                    </div>
+                    <div class="govuk-error-summary__body"></div>
                 </div>
             </div>
         </div>
@@ -144,7 +142,7 @@ exports[`applications create Geographical Information POST /create-new-case/:cas
         </div>
         <div class="govuk-grid-row">
             <div class="govuk-button-group govuk-grid-column-one-half">
-                <button class="govuk-button" data-module="govuk-button">Save and continue</button>
+                <button type="submit" class="govuk-button" data-module="govuk-button">Save and continue</button>
             </div>
         </div>
     </form>
@@ -152,7 +150,7 @@ exports[`applications create Geographical Information POST /create-new-case/:cas
 `;
 
 exports[`applications create Geographical Information POST /create-new-case/:caseId/geographical-information Web-side validation should render validation error if easting and northing are not valid 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
             <div class="govuk-error-summary" data-module="govuk-error-summary">
@@ -209,7 +207,7 @@ exports[`applications create Geographical Information POST /create-new-case/:cas
         </div>
         <div class="govuk-grid-row">
             <div class="govuk-button-group govuk-grid-column-one-half">
-                <button class="govuk-button" data-module="govuk-button">Save and continue</button>
+                <button type="submit" class="govuk-button" data-module="govuk-button">Save and continue</button>
             </div>
         </div>
     </form>
@@ -217,7 +215,7 @@ exports[`applications create Geographical Information POST /create-new-case/:cas
 `;
 
 exports[`applications create Geographical Information POST /create-new-case/:caseId/geographical-information Web-side validation should render validation error if something missing 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
             <div class="govuk-error-summary" data-module="govuk-error-summary">
@@ -274,7 +272,7 @@ exports[`applications create Geographical Information POST /create-new-case/:cas
         </div>
         <div class="govuk-grid-row">
             <div class="govuk-button-group govuk-grid-column-one-half">
-                <button class="govuk-button" data-module="govuk-button">Save and continue</button>
+                <button type="submit" class="govuk-button" data-module="govuk-button">Save and continue</button>
             </div>
         </div>
     </form>
@@ -282,7 +280,7 @@ exports[`applications create Geographical Information POST /create-new-case/:cas
 `;
 
 exports[`applications create Name and description GET /create-new-case should render form 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <h1 class="govuk-heading-l govuk-!-margin-bottom-3"> Enter name and description</h1>
     <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
         <div class="govuk-form-group">
@@ -298,7 +296,7 @@ exports[`applications create Name and description GET /create-new-case should re
         </div>
         <div class="govuk-grid-row">
             <div class="govuk-button-group govuk-grid-column-one-half">
-                <button class="govuk-button" data-module="govuk-button">Save and continue</button>
+                <button type="submit" class="govuk-button" data-module="govuk-button">Save and continue</button>
             </div>
         </div>
     </form>
@@ -306,7 +304,7 @@ exports[`applications create Name and description GET /create-new-case should re
 `;
 
 exports[`applications create Name and description GET /create-new-case/1 should not render the page when case is not Draft 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
             <h1 class="govuk-heading-xl">Sorry, there is a problem with the service</h1>
@@ -319,7 +317,7 @@ exports[`applications create Name and description GET /create-new-case/1 should 
 `;
 
 exports[`applications create Name and description GET /create-new-case/1 should render page with resumed data 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <h1 class="govuk-heading-l govuk-!-margin-bottom-3"> Enter name and description</h1>
     <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
         <div class="govuk-form-group">
@@ -337,7 +335,7 @@ exports[`applications create Name and description GET /create-new-case/1 should 
         </div>
         <div class="govuk-grid-row">
             <div class="govuk-button-group govuk-grid-column-one-half">
-                <button class="govuk-button" data-module="govuk-button">Save and continue</button>
+                <button type="submit" class="govuk-button" data-module="govuk-button">Save and continue</button>
             </div>
         </div>
     </form>
@@ -345,7 +343,7 @@ exports[`applications create Name and description GET /create-new-case/1 should 
 `;
 
 exports[`applications create Name and description POST /create-new-case/:id Api-side validation: When creating new case should show validation errors if API returns error 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
             <div class="govuk-error-summary" data-module="govuk-error-summary">
@@ -381,7 +379,7 @@ exports[`applications create Name and description POST /create-new-case/:id Api-
         </div>
         <div class="govuk-grid-row">
             <div class="govuk-button-group govuk-grid-column-one-half">
-                <button class="govuk-button" data-module="govuk-button">Save and continue</button>
+                <button type="submit" class="govuk-button" data-module="govuk-button">Save and continue</button>
             </div>
         </div>
     </form>
@@ -389,7 +387,7 @@ exports[`applications create Name and description POST /create-new-case/:id Api-
 `;
 
 exports[`applications create Name and description POST /create-new-case/:id Api-side validation: When updating resumed case should show validation errors if API returns error 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
             <div class="govuk-error-summary" data-module="govuk-error-summary">
@@ -425,7 +423,7 @@ exports[`applications create Name and description POST /create-new-case/:id Api-
         </div>
         <div class="govuk-grid-row">
             <div class="govuk-button-group govuk-grid-column-one-half">
-                <button class="govuk-button" data-module="govuk-button">Save and continue</button>
+                <button type="submit" class="govuk-button" data-module="govuk-button">Save and continue</button>
             </div>
         </div>
     </form>
@@ -433,7 +431,7 @@ exports[`applications create Name and description POST /create-new-case/:id Api-
 `;
 
 exports[`applications create Name and description POST /create-new-case/:id Web-side validation: should show validation errors if something missing 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
             <div class="govuk-error-summary" data-module="govuk-error-summary">
@@ -468,7 +466,7 @@ exports[`applications create Name and description POST /create-new-case/:id Web-
         </div>
         <div class="govuk-grid-row">
             <div class="govuk-button-group govuk-grid-column-one-half">
-                <button class="govuk-button" data-module="govuk-button">Save and continue</button>
+                <button type="submit" class="govuk-button" data-module="govuk-button">Save and continue</button>
             </div>
         </div>
     </form>
@@ -476,7 +474,7 @@ exports[`applications create Name and description POST /create-new-case/:id Web-
 `;
 
 exports[`applications create Regions GET /create-new-case/:caseId/regions should render the page with checked options if the api returns something 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
         <div class="govuk-form-group">
             <fieldset class="govuk-fieldset">
@@ -521,7 +519,7 @@ exports[`applications create Regions GET /create-new-case/:caseId/regions should
         </div>
         <div class="govuk-grid-row">
             <div class="govuk-button-group govuk-grid-column-one-half">
-                <button class="govuk-button" data-module="govuk-button">Save and continue</button>
+                <button type="submit" class="govuk-button" data-module="govuk-button">Save and continue</button>
             </div>
         </div>
     </form>
@@ -529,7 +527,7 @@ exports[`applications create Regions GET /create-new-case/:caseId/regions should
 `;
 
 exports[`applications create Regions GET /create-new-case/:caseId/regions should render the page without checked options 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
         <div class="govuk-form-group">
             <fieldset class="govuk-fieldset">
@@ -572,7 +570,7 @@ exports[`applications create Regions GET /create-new-case/:caseId/regions should
         </div>
         <div class="govuk-grid-row">
             <div class="govuk-button-group govuk-grid-column-one-half">
-                <button class="govuk-button" data-module="govuk-button">Save and continue</button>
+                <button type="submit" class="govuk-button" data-module="govuk-button">Save and continue</button>
             </div>
         </div>
     </form>
@@ -580,7 +578,7 @@ exports[`applications create Regions GET /create-new-case/:caseId/regions should
 `;
 
 exports[`applications create Regions POST /create-new-case/:caseId/regions Api validation should show validation errors if API returns error 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
             <div class="govuk-error-summary" data-module="govuk-error-summary">
@@ -641,7 +639,7 @@ exports[`applications create Regions POST /create-new-case/:caseId/regions Api v
         </div>
         <div class="govuk-grid-row">
             <div class="govuk-button-group govuk-grid-column-one-half">
-                <button class="govuk-button" data-module="govuk-button">Save and continue</button>
+                <button type="submit" class="govuk-button" data-module="govuk-button">Save and continue</button>
             </div>
         </div>
     </form>
@@ -649,15 +647,13 @@ exports[`applications create Regions POST /create-new-case/:caseId/regions Api v
 `;
 
 exports[`applications create Regions POST /create-new-case/:caseId/regions Web-validation should not render validation error if nothing missing 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
             <div class="govuk-error-summary" data-module="govuk-error-summary">
                 <div role="alert">
                     <h2 class="govuk-error-summary__title"> There is a problem</h2>
-                    <div class="govuk-error-summary__body">
-                        <ul class="govuk-list govuk-error-summary__list"></ul>
-                    </div>
+                    <div class="govuk-error-summary__body"></div>
                 </div>
             </div>
         </div>
@@ -705,7 +701,7 @@ exports[`applications create Regions POST /create-new-case/:caseId/regions Web-v
         </div>
         <div class="govuk-grid-row">
             <div class="govuk-button-group govuk-grid-column-one-half">
-                <button class="govuk-button" data-module="govuk-button">Save and continue</button>
+                <button type="submit" class="govuk-button" data-module="govuk-button">Save and continue</button>
             </div>
         </div>
     </form>
@@ -713,7 +709,7 @@ exports[`applications create Regions POST /create-new-case/:caseId/regions Web-v
 `;
 
 exports[`applications create Regions POST /create-new-case/:caseId/regions Web-validation should render validation error if something missing 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
             <div class="govuk-error-summary" data-module="govuk-error-summary">
@@ -772,7 +768,7 @@ exports[`applications create Regions POST /create-new-case/:caseId/regions Web-v
         </div>
         <div class="govuk-grid-row">
             <div class="govuk-button-group govuk-grid-column-one-half">
-                <button class="govuk-button" data-module="govuk-button">Save and continue</button>
+                <button type="submit" class="govuk-button" data-module="govuk-button">Save and continue</button>
             </div>
         </div>
     </form>
@@ -780,7 +776,7 @@ exports[`applications create Regions POST /create-new-case/:caseId/regions Web-v
 `;
 
 exports[`applications create Sector GET /create-new-case/:caseId/sector When caseId is: Provided should display an option as _checked_ if the API returns a resumed value 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
         <div class="govuk-form-group">
             <fieldset class="govuk-fieldset">
@@ -818,7 +814,7 @@ exports[`applications create Sector GET /create-new-case/:caseId/sector When cas
         </div>
         <div class="govuk-grid-row">
             <div class="govuk-button-group govuk-grid-column-one-half">
-                <button class="govuk-button" data-module="govuk-button">Save and continue</button>
+                <button type="submit" class="govuk-button" data-module="govuk-button">Save and continue</button>
             </div>
         </div>
     </form>
@@ -826,7 +822,7 @@ exports[`applications create Sector GET /create-new-case/:caseId/sector When cas
 `;
 
 exports[`applications create Sector GET /create-new-case/:caseId/sector When caseId is: Provided should not display a _checked_ option if the API does NOT return a resumed value 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
         <div class="govuk-form-group">
             <fieldset class="govuk-fieldset">
@@ -864,7 +860,7 @@ exports[`applications create Sector GET /create-new-case/:caseId/sector When cas
         </div>
         <div class="govuk-grid-row">
             <div class="govuk-button-group govuk-grid-column-one-half">
-                <button class="govuk-button" data-module="govuk-button">Save and continue</button>
+                <button type="submit" class="govuk-button" data-module="govuk-button">Save and continue</button>
             </div>
         </div>
     </form>
@@ -872,7 +868,7 @@ exports[`applications create Sector GET /create-new-case/:caseId/sector When cas
 `;
 
 exports[`applications create Sector POST /create-new-case/:caseId/sector Web-side validation: should show validation error if nothing was selected 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
             <div class="govuk-error-summary" data-module="govuk-error-summary">
@@ -927,7 +923,7 @@ exports[`applications create Sector POST /create-new-case/:caseId/sector Web-sid
         </div>
         <div class="govuk-grid-row">
             <div class="govuk-button-group govuk-grid-column-one-half">
-                <button class="govuk-button" data-module="govuk-button">Save and continue</button>
+                <button type="submit" class="govuk-button" data-module="govuk-button">Save and continue</button>
             </div>
         </div>
     </form>
@@ -935,7 +931,7 @@ exports[`applications create Sector POST /create-new-case/:caseId/sector Web-sid
 `;
 
 exports[`applications create Sub-sector GET /create-new-case/:caseId/sub-sector should display an option as _checked_ if the API returns a resumed value 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
         <div class="govuk-form-group">
             <fieldset class="govuk-fieldset">
@@ -963,7 +959,7 @@ exports[`applications create Sub-sector GET /create-new-case/:caseId/sub-sector 
         </div>
         <div class="govuk-grid-row">
             <div class="govuk-button-group govuk-grid-column-one-half">
-                <button class="govuk-button" data-module="govuk-button">Save and continue</button>
+                <button type="submit" class="govuk-button" data-module="govuk-button">Save and continue</button>
             </div>
         </div>
     </form>
@@ -971,7 +967,7 @@ exports[`applications create Sub-sector GET /create-new-case/:caseId/sub-sector 
 `;
 
 exports[`applications create Sub-sector GET /create-new-case/:caseId/sub-sector should not display a _checked_ option if the API does NOT return a resumed value 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
         <div class="govuk-form-group">
             <fieldset class="govuk-fieldset">
@@ -999,7 +995,7 @@ exports[`applications create Sub-sector GET /create-new-case/:caseId/sub-sector 
         </div>
         <div class="govuk-grid-row">
             <div class="govuk-button-group govuk-grid-column-one-half">
-                <button class="govuk-button" data-module="govuk-button">Save and continue</button>
+                <button type="submit" class="govuk-button" data-module="govuk-button">Save and continue</button>
             </div>
         </div>
     </form>
@@ -1007,7 +1003,7 @@ exports[`applications create Sub-sector GET /create-new-case/:caseId/sub-sector 
 `;
 
 exports[`applications create Sub-sector GET /create-new-case/:caseId/sub-sector should render subsectors matching with the sectorName in the session 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
         <div class="govuk-form-group">
             <fieldset class="govuk-fieldset">
@@ -1035,7 +1031,7 @@ exports[`applications create Sub-sector GET /create-new-case/:caseId/sub-sector 
         </div>
         <div class="govuk-grid-row">
             <div class="govuk-button-group govuk-grid-column-one-half">
-                <button class="govuk-button" data-module="govuk-button">Save and continue</button>
+                <button type="submit" class="govuk-button" data-module="govuk-button">Save and continue</button>
             </div>
         </div>
     </form>
@@ -1043,7 +1039,7 @@ exports[`applications create Sub-sector GET /create-new-case/:caseId/sub-sector 
 `;
 
 exports[`applications create Sub-sector POST /create-new-case/:caseId/sub-sector API-side validation: should show validation errors if API returns error 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
             <div class="govuk-error-summary" data-module="govuk-error-summary">
@@ -1087,7 +1083,7 @@ exports[`applications create Sub-sector POST /create-new-case/:caseId/sub-sector
         </div>
         <div class="govuk-grid-row">
             <div class="govuk-button-group govuk-grid-column-one-half">
-                <button class="govuk-button" data-module="govuk-button">Save and continue</button>
+                <button type="submit" class="govuk-button" data-module="govuk-button">Save and continue</button>
             </div>
         </div>
     </form>
@@ -1095,7 +1091,7 @@ exports[`applications create Sub-sector POST /create-new-case/:caseId/sub-sector
 `;
 
 exports[`applications create Sub-sector POST /create-new-case/:caseId/sub-sector Web-side validation: should show validation error if nothing was selected 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
             <div class="govuk-error-summary" data-module="govuk-error-summary">
@@ -1140,7 +1136,7 @@ exports[`applications create Sub-sector POST /create-new-case/:caseId/sub-sector
         </div>
         <div class="govuk-grid-row">
             <div class="govuk-button-group govuk-grid-column-one-half">
-                <button class="govuk-button" data-module="govuk-button">Save and continue</button>
+                <button type="submit" class="govuk-button" data-module="govuk-button">Save and continue</button>
             </div>
         </div>
     </form>
@@ -1148,7 +1144,7 @@ exports[`applications create Sub-sector POST /create-new-case/:caseId/sub-sector
 `;
 
 exports[`applications create Team email GET /create-new-case/:caseId/team-email should render the page with no value inside the text input if api does not return resumed data 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <h1 class="govuk-heading-l govuk-!-margin-bottom-3"> Enter the project email (optional)</h1>
     <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
         <div class="govuk-form-group">
@@ -1159,7 +1155,7 @@ exports[`applications create Team email GET /create-new-case/:caseId/team-email 
         </div>
         <div class="govuk-grid-row">
             <div class="govuk-button-group govuk-grid-column-one-half">
-                <button class="govuk-button" data-module="govuk-button">Save and continue</button>
+                <button type="submit" class="govuk-button" data-module="govuk-button">Save and continue</button>
             </div>
         </div>
     </form>
@@ -1167,7 +1163,7 @@ exports[`applications create Team email GET /create-new-case/:caseId/team-email 
 `;
 
 exports[`applications create Team email GET /create-new-case/:caseId/team-email should render the page with the resumed data if the api returns something 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <h1 class="govuk-heading-l govuk-!-margin-bottom-3"> Enter the project email (optional)</h1>
     <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
         <div class="govuk-form-group">
@@ -1178,7 +1174,7 @@ exports[`applications create Team email GET /create-new-case/:caseId/team-email 
         </div>
         <div class="govuk-grid-row">
             <div class="govuk-button-group govuk-grid-column-one-half">
-                <button class="govuk-button" data-module="govuk-button">Save and continue</button>
+                <button type="submit" class="govuk-button" data-module="govuk-button">Save and continue</button>
             </div>
         </div>
     </form>
@@ -1186,7 +1182,7 @@ exports[`applications create Team email GET /create-new-case/:caseId/team-email 
 `;
 
 exports[`applications create Team email POST /create-new-case/:caseId/team-email Api validation should show validation errors if API returns error 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
             <div class="govuk-error-summary" data-module="govuk-error-summary">
@@ -1214,7 +1210,7 @@ exports[`applications create Team email POST /create-new-case/:caseId/team-email
         </div>
         <div class="govuk-grid-row">
             <div class="govuk-button-group govuk-grid-column-one-half">
-                <button class="govuk-button" data-module="govuk-button">Save and continue</button>
+                <button type="submit" class="govuk-button" data-module="govuk-button">Save and continue</button>
             </div>
         </div>
     </form>
@@ -1222,15 +1218,13 @@ exports[`applications create Team email POST /create-new-case/:caseId/team-email
 `;
 
 exports[`applications create Team email POST /create-new-case/:caseId/team-email Web-validation should not render validation error if nothing missing 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
             <div class="govuk-error-summary" data-module="govuk-error-summary">
                 <div role="alert">
                     <h2 class="govuk-error-summary__title"> There is a problem</h2>
-                    <div class="govuk-error-summary__body">
-                        <ul class="govuk-list govuk-error-summary__list"></ul>
-                    </div>
+                    <div class="govuk-error-summary__body"></div>
                 </div>
             </div>
         </div>
@@ -1245,7 +1239,7 @@ exports[`applications create Team email POST /create-new-case/:caseId/team-email
         </div>
         <div class="govuk-grid-row">
             <div class="govuk-button-group govuk-grid-column-one-half">
-                <button class="govuk-button" data-module="govuk-button">Save and continue</button>
+                <button type="submit" class="govuk-button" data-module="govuk-button">Save and continue</button>
             </div>
         </div>
     </form>
@@ -1253,7 +1247,7 @@ exports[`applications create Team email POST /create-new-case/:caseId/team-email
 `;
 
 exports[`applications create Team email POST /create-new-case/:caseId/team-email Web-validation should render validation error if email is not valid 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
             <div class="govuk-error-summary" data-module="govuk-error-summary">
@@ -1281,7 +1275,7 @@ exports[`applications create Team email POST /create-new-case/:caseId/team-email
         </div>
         <div class="govuk-grid-row">
             <div class="govuk-button-group govuk-grid-column-one-half">
-                <button class="govuk-button" data-module="govuk-button">Save and continue</button>
+                <button type="submit" class="govuk-button" data-module="govuk-button">Save and continue</button>
             </div>
         </div>
     </form>
@@ -1289,7 +1283,7 @@ exports[`applications create Team email POST /create-new-case/:caseId/team-email
 `;
 
 exports[`applications create Zoom Level GET /create-new-case/:caseId/zoom-level should render the page with None checked if the api does not return resumed data 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
         <div class="govuk-form-group">
             <fieldset class="govuk-fieldset">
@@ -1333,7 +1327,7 @@ exports[`applications create Zoom Level GET /create-new-case/:caseId/zoom-level 
         </div>
         <div class="govuk-grid-row">
             <div class="govuk-button-group govuk-grid-column-one-half">
-                <button class="govuk-button" data-module="govuk-button">Save and continue</button>
+                <button type="submit" class="govuk-button" data-module="govuk-button">Save and continue</button>
             </div>
         </div>
     </form>
@@ -1341,7 +1335,7 @@ exports[`applications create Zoom Level GET /create-new-case/:caseId/zoom-level 
 `;
 
 exports[`applications create Zoom Level GET /create-new-case/:caseId/zoom-level should render the page with the checked option from the resumed data 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
         <div class="govuk-form-group">
             <fieldset class="govuk-fieldset">
@@ -1385,7 +1379,7 @@ exports[`applications create Zoom Level GET /create-new-case/:caseId/zoom-level 
         </div>
         <div class="govuk-grid-row">
             <div class="govuk-button-group govuk-grid-column-one-half">
-                <button class="govuk-button" data-module="govuk-button">Save and continue</button>
+                <button type="submit" class="govuk-button" data-module="govuk-button">Save and continue</button>
             </div>
         </div>
     </form>
@@ -1393,7 +1387,7 @@ exports[`applications create Zoom Level GET /create-new-case/:caseId/zoom-level 
 `;
 
 exports[`applications create Zoom Level POST /create-new-case/:caseId/zoom-level Api validation should show validation errors if API returns error 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
             <div class="govuk-error-summary" data-module="govuk-error-summary">
@@ -1453,7 +1447,7 @@ exports[`applications create Zoom Level POST /create-new-case/:caseId/zoom-level
         </div>
         <div class="govuk-grid-row">
             <div class="govuk-button-group govuk-grid-column-one-half">
-                <button class="govuk-button" data-module="govuk-button">Save and continue</button>
+                <button type="submit" class="govuk-button" data-module="govuk-button">Save and continue</button>
             </div>
         </div>
     </form>

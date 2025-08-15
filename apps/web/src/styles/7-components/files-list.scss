@@ -1,21 +1,24 @@
-@use "../govuk-frontend/govuk/settings/_colours-applied" as colors;
+@use "govuk-frontend/dist/govuk/settings/_colours-applied" as
+	govuk-colours-applied;
+@import "govuk-frontend/dist/govuk/_base";
 
 .pins-files-list {
 	&__statuses,
 	&__actions {
-		padding: 1rem 2rem;
-		background: colors.govuk-colour("light-grey");
+		padding: govuk-spacing(4) govuk-spacing(6);
+		background: govuk-colours-applied.$govuk-canvas-background-colour;
 		height: 100%;
 
 		.govuk-fieldset__legend {
-			color: colors.govuk-colour("dark-grey");
-			margin-bottom: 2.75rem;
+			color: govuk-colours-applied.$govuk-secondary-text-colour;
+			margin-bottom: govuk-spacing(7);
 		}
 
 		.govuk-link {
-			margin-top: 1rem;
+			margin-top: govuk-spacing(4);
 			display: block;
-			font-size: 1.1875rem;
+
+			@include govuk-font-size(19);
 		}
 
 		.govuk-grid-row {
@@ -39,7 +42,7 @@
 			&::before {
 				width: 1.5rem;
 				height: 1.5rem;
-				background-color: colors.govuk-colour("white");
+				background-color: govuk-colours-applied.$govuk-body-background-colour;
 			}
 
 			&::after {
@@ -51,7 +54,7 @@
 	}
 
 	&__info {
-		margin-top: 2.5rem;
+		margin-top: govuk-spacing(7);
 
 		> * {
 			margin: 0 !important;
@@ -75,7 +78,7 @@
 		}
 
 		.govuk-label {
-			margin-right: 1rem;
+			margin-right: govuk-spacing(4);
 		}
 	}
 
@@ -98,7 +101,11 @@
 			position: relative;
 
 			&--disabled {
-				background: rgba(colors.govuk-colour("light-grey"), 0.5);
+				background: rgba(
+					govuk-colours-applied.$govuk-canvas-background-colour,
+					0.5
+				);
+
 				* {
 					// pointer-events: none;
 				}
@@ -111,19 +118,20 @@
 				width: 5px;
 				left: -15px;
 				display: block;
-				background: colors.govuk-colour("red");
+				background: govuk-colours-applied.$govuk-error-colour;
 			}
 
 			.pins-files-list--error {
 				.pins-files-list-border {
-					border-left: 5px solid colors.govuk-colour("red");
+					border-left: 5px solid govuk-colours-applied.$govuk-error-colour;
 					display: block;
 					position: absolute;
 					top: 10px;
 					bottom: 10px;
 				}
+
 				.govuk-form-group {
-					padding-left: 15px;
+					padding-left: govuk-spacing(3);
 				}
 			}
 		}
@@ -173,12 +181,12 @@
 		}
 
 		.govuk-link {
-			margin-bottom: 1rem;
+			margin-bottom: govuk-spacing(4);
 			display: block;
 		}
 
 		.file-info {
-			margin: 0.5rem 0;
+			margin: govuk-spacing(2) 0;
 		}
 
 		.govuk-error-message {
@@ -190,7 +198,7 @@
 		background: none;
 		border: none;
 		padding: 0;
-		color: colors.govuk-colour("blue");
+		color: govuk-colours-applied.$govuk-brand-colour;
 		cursor: pointer;
 	}
 }

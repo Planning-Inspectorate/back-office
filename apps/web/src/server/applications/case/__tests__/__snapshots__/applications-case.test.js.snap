@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Applications case pages Preview and publish page GET /case/123/preview-and-publish if already published, should render the page with the previous publishing info 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <form id="pins-publish-case" class="govuk-grid-row " method="post" action="">
         <div class="govuk-grid-column-full">
             <h1 class="govuk-heading-l govuk-!-margin-bottom-2">Preview and publish project</h1>
@@ -163,14 +163,14 @@ exports[`Applications case pages Preview and publish page GET /case/123/preview-
             </div>
         </div>
         <div class="govuk-grid-column-full">
-            <button class="govuk-button govuk-!-margin-top-5" data-module="govuk-button">Accept and publish project</button>
+            <button type="submit" class="govuk-button govuk-!-margin-top-5" data-module="govuk-button">Accept and publish project</button>
         </div>
     </form>
 </main>"
 `;
 
 exports[`Applications case pages Preview and publish page GET /case/123/preview-and-publish if not yet published, should render the page with no previous publishing info 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <form id="pins-publish-case" class="govuk-grid-row " method="post" action="">
         <div class="govuk-grid-column-full">
             <h1 class="govuk-heading-l govuk-!-margin-bottom-2">Preview and publish project</h1>
@@ -332,14 +332,14 @@ exports[`Applications case pages Preview and publish page GET /case/123/preview-
             </div>
         </div>
         <div class="govuk-grid-column-full">
-            <button class="govuk-button govuk-!-margin-top-5" data-module="govuk-button">Accept and publish project</button>
+            <button type="submit" class="govuk-button govuk-!-margin-top-5" data-module="govuk-button">Accept and publish project</button>
         </div>
     </form>
 </main>"
 `;
 
 exports[`Applications case pages Preview and publish page POST /case/123/preview-and-publish if the case is not published yet, should go the first-time success banner page 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
             <div class="govuk-panel govuk-panel--confirmation">
@@ -355,7 +355,7 @@ exports[`Applications case pages Preview and publish page POST /case/123/preview
 `;
 
 exports[`Applications case pages Project information page GET /case/123/project-information When the case is not published should show no info about previous publishings 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="top-errors-hook" role="alert"></div>
     <div class="govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-left-0 govuk-!-margin-bottom-7 pins-masthead-summary">
         <div class="govuk-grid-column-full">
@@ -432,7 +432,7 @@ exports[`Applications case pages Project information page GET /case/123/project-
                     <div class="govuk-accordion__section-header">
                         <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="-heading-1"> Project details</span></h2>
                     </div>
-                    <div id="-content-1" class="govuk-accordion__section-content" aria-labelledby="-heading-1">
+                    <div id="-content-1" class="govuk-accordion__section-content">
                         <table class="govuk-table project-details">
                             <caption class="govuk-table__caption govuk-visually-hidden">Project details</caption>
                             <tbody class="govuk-table__body">
@@ -528,37 +528,37 @@ exports[`Applications case pages Project information page GET /case/123/project-
                     <div class="govuk-accordion__section-header">
                         <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="-heading-2"> Applicant information</span></h2>
                     </div>
-                    <div id="-content-2" class="govuk-accordion__section-content" aria-labelledby="-heading-2">
+                    <div id="-content-2" class="govuk-accordion__section-content">
                         <dl class="govuk-summary-list">
                             <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Organisation name</dt>
                                 <dd class="govuk-summary-list__value">Org name</dd>
-                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/edit/applicant-organisation-name"> Change</a>
+                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/edit/applicant-organisation-name">Change</a>
                                 </dd>
                             </div>
                             <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Contact name (Internal use only)</dt>
                                 <dd                                 class="govuk-summary-list__value">John Smith</dd>
-                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/edit/applicant-full-name"> Change</a>
+                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/edit/applicant-full-name">Change</a>
                                     </dd>
                             </div>
                             <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Address (Internal use only)</dt>
                                 <dd                                 class="govuk-summary-list__value">Applicant address, London, ABC123</dd>
-                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/edit/applicant-address"> Change</a>
+                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/edit/applicant-address">Change</a>
                                     </dd>
                             </div>
                             <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Website</dt>
                                 <dd class="govuk-summary-list__value"><a class="govuk-link" href="website.web">website.web</a>
                                 </dd>
-                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/edit/applicant-website"> Change</a>
+                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/edit/applicant-website">Change</a>
                                 </dd>
                             </div>
                             <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Email address (Internal use only)</dt>
                                 <dd                                 class="govuk-summary-list__value">email@email.co</dd>
-                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/edit/applicant-email"> Change</a>
+                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/edit/applicant-email">Change</a>
                                     </dd>
                             </div>
                             <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Telephone number (Internal use only)</dt>
                                 <dd                                 class="govuk-summary-list__value">001</dd>
-                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/edit/applicant-telephone-number"> Change</a>
+                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/edit/applicant-telephone-number">Change</a>
                                     </dd>
                             </div>
                         </dl>
@@ -571,7 +571,7 @@ exports[`Applications case pages Project information page GET /case/123/project-
 `;
 
 exports[`Applications case pages Project information page GET /case/123/project-information When the case is published with no pending changes, should show publishing info and unpublish link 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="top-errors-hook" role="alert"></div>
     <div class="govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-left-0 govuk-!-margin-bottom-7 pins-masthead-summary">
         <div class="govuk-grid-column-full">
@@ -648,7 +648,7 @@ exports[`Applications case pages Project information page GET /case/123/project-
                     <div class="govuk-accordion__section-header">
                         <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="-heading-1"> Project details</span></h2>
                     </div>
-                    <div id="-content-1" class="govuk-accordion__section-content" aria-labelledby="-heading-1">
+                    <div id="-content-1" class="govuk-accordion__section-content">
                         <table class="govuk-table project-details">
                             <caption class="govuk-table__caption govuk-visually-hidden">Project details</caption>
                             <tbody class="govuk-table__body">
@@ -744,37 +744,37 @@ exports[`Applications case pages Project information page GET /case/123/project-
                     <div class="govuk-accordion__section-header">
                         <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="-heading-2"> Applicant information</span></h2>
                     </div>
-                    <div id="-content-2" class="govuk-accordion__section-content" aria-labelledby="-heading-2">
+                    <div id="-content-2" class="govuk-accordion__section-content">
                         <dl class="govuk-summary-list">
                             <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Organisation name</dt>
                                 <dd class="govuk-summary-list__value">Org name</dd>
-                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/edit/applicant-organisation-name"> Change</a>
+                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/edit/applicant-organisation-name">Change</a>
                                 </dd>
                             </div>
                             <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Contact name (Internal use only)</dt>
                                 <dd                                 class="govuk-summary-list__value">John Smith</dd>
-                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/edit/applicant-full-name"> Change</a>
+                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/edit/applicant-full-name">Change</a>
                                     </dd>
                             </div>
                             <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Address (Internal use only)</dt>
                                 <dd                                 class="govuk-summary-list__value">Applicant address, London, ABC123</dd>
-                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/edit/applicant-address"> Change</a>
+                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/edit/applicant-address">Change</a>
                                     </dd>
                             </div>
                             <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Website</dt>
                                 <dd class="govuk-summary-list__value"><a class="govuk-link" href="website.web">website.web</a>
                                 </dd>
-                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/edit/applicant-website"> Change</a>
+                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/edit/applicant-website">Change</a>
                                 </dd>
                             </div>
                             <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Email address (Internal use only)</dt>
                                 <dd                                 class="govuk-summary-list__value">email@email.co</dd>
-                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/edit/applicant-email"> Change</a>
+                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/edit/applicant-email">Change</a>
                                     </dd>
                             </div>
                             <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Telephone number (Internal use only)</dt>
                                 <dd                                 class="govuk-summary-list__value">001</dd>
-                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/edit/applicant-telephone-number"> Change</a>
+                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/edit/applicant-telephone-number">Change</a>
                                     </dd>
                             </div>
                         </dl>
@@ -787,7 +787,7 @@ exports[`Applications case pages Project information page GET /case/123/project-
 `;
 
 exports[`Applications case pages Project information page GET /case/123/project-information When the case is published with pending changes, should show publishing info, unpublish link and warning about unpublished changes 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="top-errors-hook" role="alert"></div>
     <div class="govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-left-0 govuk-!-margin-bottom-7 pins-masthead-summary">
         <div class="govuk-grid-column-full">
@@ -864,7 +864,7 @@ exports[`Applications case pages Project information page GET /case/123/project-
                     <div class="govuk-accordion__section-header">
                         <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="-heading-1"> Project details</span></h2>
                     </div>
-                    <div id="-content-1" class="govuk-accordion__section-content" aria-labelledby="-heading-1">
+                    <div id="-content-1" class="govuk-accordion__section-content">
                         <table class="govuk-table project-details">
                             <caption class="govuk-table__caption govuk-visually-hidden">Project details</caption>
                             <tbody class="govuk-table__body">
@@ -960,37 +960,37 @@ exports[`Applications case pages Project information page GET /case/123/project-
                     <div class="govuk-accordion__section-header">
                         <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="-heading-2"> Applicant information</span></h2>
                     </div>
-                    <div id="-content-2" class="govuk-accordion__section-content" aria-labelledby="-heading-2">
+                    <div id="-content-2" class="govuk-accordion__section-content">
                         <dl class="govuk-summary-list">
                             <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Organisation name</dt>
                                 <dd class="govuk-summary-list__value">Org name</dd>
-                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/edit/applicant-organisation-name"> Change</a>
+                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/edit/applicant-organisation-name">Change</a>
                                 </dd>
                             </div>
                             <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Contact name (Internal use only)</dt>
                                 <dd                                 class="govuk-summary-list__value">John Smith</dd>
-                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/edit/applicant-full-name"> Change</a>
+                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/edit/applicant-full-name">Change</a>
                                     </dd>
                             </div>
                             <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Address (Internal use only)</dt>
                                 <dd                                 class="govuk-summary-list__value">Applicant address, London, ABC123</dd>
-                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/edit/applicant-address"> Change</a>
+                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/edit/applicant-address">Change</a>
                                     </dd>
                             </div>
                             <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Website</dt>
                                 <dd class="govuk-summary-list__value"><a class="govuk-link" href="website.web">website.web</a>
                                 </dd>
-                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/edit/applicant-website"> Change</a>
+                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/edit/applicant-website">Change</a>
                                 </dd>
                             </div>
                             <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Email address (Internal use only)</dt>
                                 <dd                                 class="govuk-summary-list__value">email@email.co</dd>
-                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/edit/applicant-email"> Change</a>
+                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/edit/applicant-email">Change</a>
                                     </dd>
                             </div>
                             <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Telephone number (Internal use only)</dt>
                                 <dd                                 class="govuk-summary-list__value">001</dd>
-                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/edit/applicant-telephone-number"> Change</a>
+                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/edit/applicant-telephone-number">Change</a>
                                     </dd>
                             </div>
                         </dl>
@@ -1003,7 +1003,7 @@ exports[`Applications case pages Project information page GET /case/123/project-
 `;
 
 exports[`Applications case pages Unpublish case page GET /case/123/unpublish should render the page with the right info 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <form id="pins-publish-case" class="govuk-grid-row " method="post" action="">
         <div class="govuk-grid-column-full">
             <h1 class="govuk-heading-l govuk-!-margin-bottom-8">Unpublish the project</h1>
@@ -1012,14 +1012,14 @@ exports[`Applications case pages Unpublish case page GET /case/123/unpublish sho
         </div>
         <div class="govuk-grid-column-two-thirds">
             <div class="govuk-warning-text"><span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-                <strong                 class="govuk-warning-text__text"><span class="govuk-warning-text__assistive">Warning</span> Unpublishing
-                    will remove the project page and any associated content from the NI website.
+                <strong                 class="govuk-warning-text__text"><span class="govuk-visually-hidden">Warning</span> Unpublishing will remove
+                    the project page and any associated content from the NI website.
                     <br>
                     <br>You will be able to republish the project and content again.</strong>
             </div>
         </div>
         <div class="govuk-grid-column-full">
-            <button class="govuk-button govuk-button--warning govuk-!-margin-top-5"
+            <button type="submit" class="govuk-button govuk-button--warning govuk-!-margin-top-5"
             data-module="govuk-button">Unpublish project</button>
         </div>
     </form>
@@ -1027,7 +1027,7 @@ exports[`Applications case pages Unpublish case page GET /case/123/unpublish sho
 `;
 
 exports[`Applications case pages Unpublish case page POST /case/123/unpublish should go to success page if unpublished worked 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
             <div class="govuk-panel govuk-panel--confirmation">

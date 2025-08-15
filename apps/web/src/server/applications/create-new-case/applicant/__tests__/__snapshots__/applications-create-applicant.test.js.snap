@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`applications create applicant Applicant address GET /applicant-address should render the page when resumed or if there is data in the session 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <h1 class="govuk-heading-l govuk-!-margin-bottom-3"> Enter the Applicant’s address (optional)</h1>
     <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
         <input type="hidden" name='currentFormStage' value="searchPostcode">
@@ -10,9 +10,9 @@ exports[`applications create applicant Applicant address GET /applicant-address 
             <input class="govuk-input govuk-!-width-one-third" id="postcode"
             name="postcode" type="text" value="ABC123">
         </div>
-        <button value="skip-address-search" name="skipButton" class="govuk-button"
+        <button value="skip-address-search" type="submit" name="skipButton" class="govuk-button"
         data-module="govuk-button">Save and continue</button>
-        <button class="govuk-button govuk-button--secondary govuk-!-margin-left-2"
+        <button type="submit" class="govuk-button govuk-button--secondary govuk-!-margin-left-2"
         data-module="govuk-button">Find address</button>
         <div class="govuk-grid-row">
             <div class="govuk-button-group govuk-grid-column-one-half"></div>
@@ -22,7 +22,7 @@ exports[`applications create applicant Applicant address GET /applicant-address 
 `;
 
 exports[`applications create applicant Applicant address GET /applicant-address should render the page with the manual inputs for address 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <h1 class="govuk-heading-l govuk-!-margin-bottom-3"> Enter the Applicant’s address (optional)</h1>
     <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
         <input type="hidden" name='currentFormStage' value="manualAddress">
@@ -74,7 +74,7 @@ exports[`applications create applicant Applicant address GET /applicant-address 
         </div>
         <div class="govuk-grid-row">
             <div class="govuk-button-group govuk-grid-column-one-half">
-                <button class="govuk-button" data-module="govuk-button">Save and continue</button>
+                <button type="submit" class="govuk-button" data-module="govuk-button">Save and continue</button>
             </div>
         </div>
     </form>
@@ -82,7 +82,7 @@ exports[`applications create applicant Applicant address GET /applicant-address 
 `;
 
 exports[`applications create applicant Applicant address POST /applicant-address Web-side validation: should show validation errors if an invalid postcode is input 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
             <div class="govuk-error-summary" data-module="govuk-error-summary">
@@ -106,9 +106,9 @@ exports[`applications create applicant Applicant address POST /applicant-address
             <input class="govuk-input govuk-!-width-one-third" id="postcode"
             name="postcode" type="text" value="abc">
         </div>
-        <button value="skip-address-search" name="skipButton" class="govuk-button"
+        <button value="skip-address-search" type="submit" name="skipButton" class="govuk-button"
         data-module="govuk-button">Save and continue</button>
-        <button class="govuk-button govuk-button--secondary govuk-!-margin-left-2"
+        <button type="submit" class="govuk-button govuk-button--secondary govuk-!-margin-left-2"
         data-module="govuk-button">Find address</button>
         <div class="govuk-grid-row">
             <div class="govuk-button-group govuk-grid-column-one-half"></div>
@@ -118,7 +118,7 @@ exports[`applications create applicant Applicant address POST /applicant-address
 `;
 
 exports[`applications create applicant Applicant email GET /applicant-email should render the page when resumed or if there is data in the session 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <h1 class="govuk-heading-l govuk-!-margin-bottom-3"> Enter the applicant’s email address (optional)</h1>
     <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
         <div class="govuk-form-group">
@@ -130,7 +130,7 @@ exports[`applications create applicant Applicant email GET /applicant-email shou
         </div>
         <div class="govuk-grid-row">
             <div class="govuk-button-group govuk-grid-column-one-half">
-                <button class="govuk-button" data-module="govuk-button">Save and continue</button>
+                <button type="submit" class="govuk-button" data-module="govuk-button">Save and continue</button>
             </div>
         </div>
     </form>
@@ -138,7 +138,7 @@ exports[`applications create applicant Applicant email GET /applicant-email shou
 `;
 
 exports[`applications create applicant Applicant email POST /application-email Web-side validation: should show validation errors if an invalid email is input 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
             <div class="govuk-error-summary" data-module="govuk-error-summary">
@@ -166,7 +166,7 @@ exports[`applications create applicant Applicant email POST /application-email W
         </div>
         <div class="govuk-grid-row">
             <div class="govuk-button-group govuk-grid-column-one-half">
-                <button class="govuk-button" data-module="govuk-button">Save and continue</button>
+                <button type="submit" class="govuk-button" data-module="govuk-button">Save and continue</button>
             </div>
         </div>
     </form>
@@ -174,7 +174,7 @@ exports[`applications create applicant Applicant email POST /application-email W
 `;
 
 exports[`applications create applicant Applicant organisation name GET /applicant-organisation-name should render the page 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <h1 class="govuk-heading-l govuk-!-margin-bottom-3"> Enter the Applicant’s organisation</h1>
     <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
         <div class="govuk-form-group">
@@ -185,7 +185,7 @@ exports[`applications create applicant Applicant organisation name GET /applican
         </div>
         <div class="govuk-grid-row">
             <div class="govuk-button-group govuk-grid-column-one-half">
-                <button class="govuk-button" data-module="govuk-button">Save and continue</button>
+                <button type="submit" class="govuk-button" data-module="govuk-button">Save and continue</button>
             </div>
         </div>
     </form>
@@ -193,7 +193,7 @@ exports[`applications create applicant Applicant organisation name GET /applican
 `;
 
 exports[`applications create applicant Applicant organisation name POST /applicant-organisation-name Web-side validation: should show validation errors if the field is empty 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
             <div class="govuk-error-summary" data-module="govuk-error-summary">
@@ -218,11 +218,11 @@ exports[`applications create applicant Applicant organisation name POST /applica
                 organisation</p>
             <input class="govuk-input govuk-!-width-one-third govuk-input--error"
             id="applicant.organisationName" name="applicant.organisationName" type="text"
-            aria-describedby="applicant.organisationName-error">
+            value="" aria-describedby="applicant.organisationName-error">
         </div>
         <div class="govuk-grid-row">
             <div class="govuk-button-group govuk-grid-column-one-half">
-                <button class="govuk-button" data-module="govuk-button">Save and continue</button>
+                <button type="submit" class="govuk-button" data-module="govuk-button">Save and continue</button>
             </div>
         </div>
     </form>
@@ -230,7 +230,7 @@ exports[`applications create applicant Applicant organisation name POST /applica
 `;
 
 exports[`applications create applicant Applicant telephone number GET /applicant-telephone-number should render the page when resumed or if there is data in the session 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <h1 class="govuk-heading-l govuk-!-margin-bottom-3"> Enter the Applicant’s phone number (optional)</h1>
     <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
         <div class="govuk-form-group">
@@ -243,7 +243,7 @@ exports[`applications create applicant Applicant telephone number GET /applicant
         </div>
         <div class="govuk-grid-row">
             <div class="govuk-button-group govuk-grid-column-one-half">
-                <button class="govuk-button" data-module="govuk-button">Save and continue</button>
+                <button type="submit" class="govuk-button" data-module="govuk-button">Save and continue</button>
             </div>
         </div>
     </form>
@@ -251,7 +251,7 @@ exports[`applications create applicant Applicant telephone number GET /applicant
 `;
 
 exports[`applications create applicant Applicant telephone number POST /application-telephone-number Web-side validation: should show validation errors if an invalid telephone number is input 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
             <div class="govuk-error-summary" data-module="govuk-error-summary">
@@ -279,7 +279,7 @@ exports[`applications create applicant Applicant telephone number POST /applicat
         </div>
         <div class="govuk-grid-row">
             <div class="govuk-button-group govuk-grid-column-one-half">
-                <button class="govuk-button" data-module="govuk-button">Save and continue</button>
+                <button type="submit" class="govuk-button" data-module="govuk-button">Save and continue</button>
             </div>
         </div>
     </form>
@@ -287,7 +287,7 @@ exports[`applications create applicant Applicant telephone number POST /applicat
 `;
 
 exports[`applications create applicant Applicant website GET /applicant-website should render the page when resumed or if there is data in the session 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <h1 class="govuk-heading-l govuk-!-margin-bottom-3"> Enter the Applicant’s website (optional)</h1>
     <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
         <div class="govuk-form-group">
@@ -300,7 +300,7 @@ exports[`applications create applicant Applicant website GET /applicant-website 
         </div>
         <div class="govuk-grid-row">
             <div class="govuk-button-group govuk-grid-column-one-half">
-                <button class="govuk-button" data-module="govuk-button">Save and continue</button>
+                <button type="submit" class="govuk-button" data-module="govuk-button">Save and continue</button>
             </div>
         </div>
     </form>
@@ -308,7 +308,7 @@ exports[`applications create applicant Applicant website GET /applicant-website 
 `;
 
 exports[`applications create applicant Applicant website POST /application-website Web-side validation: should show validation errors if an invalid URL is input 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
             <div class="govuk-error-summary" data-module="govuk-error-summary">
@@ -337,7 +337,7 @@ exports[`applications create applicant Applicant website POST /application-websi
         </div>
         <div class="govuk-grid-row">
             <div class="govuk-button-group govuk-grid-column-one-half">
-                <button class="govuk-button" data-module="govuk-button">Save and continue</button>
+                <button type="submit" class="govuk-button" data-module="govuk-button">Save and continue</button>
             </div>
         </div>
     </form>
@@ -345,7 +345,7 @@ exports[`applications create applicant Applicant website POST /application-websi
 `;
 
 exports[`applications create applicant GET /applicant-full-name should render the page when resumed or if there is data in the session 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <h1 class="govuk-heading-l govuk-!-margin-bottom-3"> Enter the applicant’s contact name</h1>
     <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
         <div class="govuk-form-group">
@@ -360,7 +360,7 @@ exports[`applications create applicant GET /applicant-full-name should render th
         </div>
         <div class="govuk-grid-row">
             <div class="govuk-button-group govuk-grid-column-one-half">
-                <button class="govuk-button" data-module="govuk-button">Save and continue</button>
+                <button type="submit" class="govuk-button" data-module="govuk-button">Save and continue</button>
             </div>
         </div>
     </form>
@@ -368,7 +368,7 @@ exports[`applications create applicant GET /applicant-full-name should render th
 `;
 
 exports[`applications create applicant GET /applicant-information-types should render the page 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
         <div class="govuk-form-group">
             <fieldset class="govuk-fieldset">
@@ -406,7 +406,7 @@ exports[`applications create applicant GET /applicant-information-types should r
         </div>
         <div class="govuk-grid-row">
             <div class="govuk-button-group govuk-grid-column-one-half">
-                <button class="govuk-button" data-module="govuk-button">Save and continue</button>
+                <button type="submit" class="govuk-button" data-module="govuk-button">Save and continue</button>
             </div>
         </div>
     </form>
