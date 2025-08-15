@@ -22,9 +22,8 @@ async function getBlobProperties(container, blobName) {
 		try {
 			return await client().getBlobProperties(container, blobName);
 		} catch (err) {
-			throw new Error(
-				`getBlobProperties failed for blob ${blobName} in container ${container}: ${err}`
-			);
+			err.customErrorMessage = `getBlobProperties failed for blob ${blobName} in container ${container}: ${err}`;
+			throw err;
 		}
 	})();
 
@@ -36,12 +35,12 @@ async function getBlobProperties(container, blobName) {
 }
 
 /**
- *
+ * @param {import('@azure/functions').Context} context
  * @param {BlobLocation} source
  * @param {BlobLocation} destination
  * @returns {Promise<boolean>}
  * */
-const copyFile = async (source, destination) => {
+const copyFile = async (context, source, destination) => {
 	const sourceUrl = [
 		storageHost.replace(/\/$/, ''),
 		source.containerName,
@@ -49,6 +48,8 @@ const copyFile = async (source, destination) => {
 	].join('/');
 
 	try {
+		context.log(`Source URL: ${sourceUrl}`);
+
 		const result = await client().copyFileFromUrl({
 			sourceUrl,
 			destinationContainerName: destination.containerName,
@@ -57,7 +58,11 @@ const copyFile = async (source, destination) => {
 
 		return result === 'success';
 	} catch (err) {
-		throw new Error(`copyFile failed for source ${source} and destination ${destination}: ${err}`);
+		context.log('Full error details:', JSON.stringify(err, null, 2));
+		throw new Error(
+			`copyFile failed for sourceUrl: ${sourceUrl}, source: (container: ${source.containerName}, blob: ${source.blobName}) ` +
+				`and destination (container: ${destination.containerName}, blob: ${destination.blobName}): ${err}`
+		);
 	}
 };
 
