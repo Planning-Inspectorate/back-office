@@ -49,7 +49,8 @@ export const getFilterViewModel = (filters = [], representationsFilters = []) =>
 		{ text: 'Withdrawn', value: 'WITHDRAWN' },
 		{ text: 'Invalid', value: 'INVALID' },
 		{ text: 'Archived', value: 'ARCHIVED' },
-		{ text: 'Under 18', value: 'UNDER_18' }
+		{ text: 'Under 18', value: 'UNDER_18' },
+		{ text: 'With attachment', value: 'WITH_ATTACHMENT' }
 	].map((el) => ({
 		text: `${el.text} (${findCounterOrZero(representationsFilters, el.value)})`,
 		value: el.value,

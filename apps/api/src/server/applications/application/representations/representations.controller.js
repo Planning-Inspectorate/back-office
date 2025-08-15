@@ -15,6 +15,7 @@ import {
 } from './representation.mapper.js';
 import { EventType } from '@pins/event-client';
 import { broadcastNsipRepresentationEvent } from '#infrastructure/event-broadcasters.js';
+import { getAttachmentCountForCase } from '#repositories/representation.repository.js';
 
 /**
  *
@@ -80,11 +81,14 @@ export const getRepresentations = async ({ params, query }, response) => {
 		params.id
 	);
 
+	const attachmentCount = await getAttachmentCountForCase(params.id);
+
 	response.send({
 		page,
 		pageSize,
 		filters: [
 			{ count: under18Count, name: 'UNDER_18' },
+			{ count: attachmentCount, name: 'WITH_ATTACHMENT' },
 			...mapCaseRepresentationsStatusCount(representationCountStatus)
 		],
 		pageCount: Math.ceil(Math.max(1, count) / pageSize),
