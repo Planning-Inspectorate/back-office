@@ -15,6 +15,7 @@ import {
 } from './representation.mapper.js';
 import { EventType } from '@pins/event-client';
 import { broadcastNsipRepresentationEvent } from '#infrastructure/event-broadcasters.js';
+import { getAttachmentCountForCase } from '#repositories/representation.repository.js';
 
 /**
  *
@@ -22,7 +23,6 @@ import { broadcastNsipRepresentationEvent } from '#infrastructure/event-broadcas
  */
 export const getRepresentation = async ({ params }, response) => {
 	const representation = await getCaseRepresentation(params.repId);
-
 	if (!representation && params.repId) {
 		return response
 			.status(404)
@@ -53,38 +53,41 @@ export const getRepresentations = async ({ params, query }, response) => {
 	const pageSize = query.pageSize ?? 25;
 	const page = query.page ?? 1;
 	const under18 = query.under18 ? query.under18 === 'true' : null;
+	const withAttachment = query.withAttachment ? query.withAttachment === 'true' : null;
 	const status = query.status ? [query.status].flat() : [];
-
 	let filters = null;
 
-	if (status.length > 0 || under18) {
+	if (status.length > 0 || under18 || withAttachment) {
 		filters = {
 			...(under18 ? { under18 } : {}),
+			...(withAttachment ? { withAttachment } : {}),
 			...(status.length > 0 ? { status } : {})
 		};
 	}
 
 	const sort = sortByFromQuery(query.sortBy) ?? null;
 
-	const { count, items } = await getCaseRepresentations(
-		params.id,
-		{ page, pageSize },
-		{
-			searchTerm: query.searchTerm,
-			filters,
-			sort
-		}
-	);
-
-	const [representationCountStatus, under18Count] = await getCaseRepresentationsStatusCount(
-		params.id
-	);
+	const [{ count, items }, [representationCountStatus, under18Count], attachmentCount] =
+		await Promise.all([
+			getCaseRepresentations(
+				params.id,
+				{ page, pageSize },
+				{
+					searchTerm: query.searchTerm,
+					filters,
+					sort
+				}
+			),
+			getCaseRepresentationsStatusCount(params.id),
+			getAttachmentCountForCase(params.id)
+		]);
 
 	response.send({
 		page,
 		pageSize,
 		filters: [
 			{ count: under18Count, name: 'UNDER_18' },
+			{ count: attachmentCount, name: 'WITH_ATTACHMENT' },
 			...mapCaseRepresentationsStatusCount(representationCountStatus)
 		],
 		pageCount: Math.ceil(Math.max(1, count) / pageSize),

@@ -1,15 +1,37 @@
+@import "govuk-frontend/dist/govuk/_base";
+
 .pins-key-dates-section {
 	position: relative;
 
 	.offset-link {
 		position: absolute;
 		right: 0;
-		font-size: 19px;
 		top: -70px;
+
+		@include govuk-font-size(19);
 	}
 
 	td:last-of-type {
 		text-align: right;
 		white-space: nowrap;
+	}
+}
+
+.govuk-summary-list__row {
+	&.pins-key-dates-summary-list__row {
+		@media (min-width: 40.0625em) {
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			justify-content: space-between;
+		}
+	}
+}
+
+.govuk-summary-list__key {
+	&.pins-key-dates-summary-list__key {
+		@media (min-width: 40.0625em) {
+			width: 75%;
+		}
 	}
 }

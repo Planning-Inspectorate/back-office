@@ -7,7 +7,7 @@ exports[`excerpt.component should not truncate words when not strict 1`] = `
                 Quite...
 
                 <noscript>
-                    <details class="govuk-details govuk-!-margin-bottom-1 govuk-!-margin-top-4" data-module="govuk-details">
+                    <details class="govuk-details govuk-!-margin-bottom-1 govuk-!-margin-top-4">
   <summary class="govuk-details__summary">
     <span class="govuk-details__summary-text">
       Show content
@@ -47,7 +47,7 @@ exports[`excerpt.component should render excerpt, truncated 1`] = `
                 Quite s...
 
                 <noscript>
-                    <details class="govuk-details govuk-!-margin-bottom-1 govuk-!-margin-top-4" data-module="govuk-details">
+                    <details class="govuk-details govuk-!-margin-bottom-1 govuk-!-margin-top-4">
   <summary class="govuk-details__summary">
     <span class="govuk-details__summary-text">
       Show content
