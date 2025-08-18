@@ -48,47 +48,58 @@ exports[`S51 Advice Key dates page GET /case/123/key-dates/ should render the pa
                     </div>
                     <div id="accordion-key-dates-content-1" class="govuk-accordion__section-content"
                     aria-labelledby="accordion-key-dates-heading-1">
-                        <div class='pins-key-dates-section'><a class='govuk-link offset-link' href='/applications-service/case/123/key-dates/preApplication'>Manage dates</a>
-                            <table                             class="govuk-table">
-                                <tbody class="govuk-table__body">
-                                    <tr class="govuk-table__row">
-                                        <th scope="row" class="govuk-table__header">Date first notified of project</th>
-                                        <td class="govuk-table__cell">20 Aug 2023</td>
-                                    </tr>
-                                    <tr class="govuk-table__row">
-                                        <th scope="row" class="govuk-table__header">Project published on website</th>
-                                        <td class="govuk-table__cell">23 Sep 2023</td>
-                                    </tr>
-                                    <tr class="govuk-table__row">
-                                        <th scope="row" class="govuk-table__header">Anticipated submission date internal</th>
-                                        <td class="govuk-table__cell">07 Mar 2023</td>
-                                    </tr>
-                                    <tr class="govuk-table__row">
-                                        <th scope="row" class="govuk-table__header">Screening opinion sought</th>
-                                        <td class="govuk-table__cell">20 Aug 2023</td>
-                                    </tr>
-                                    <tr class="govuk-table__row">
-                                        <th scope="row" class="govuk-table__header">Screening opinion issued</th>
-                                        <td class="govuk-table__cell">15 Jun 2023</td>
-                                    </tr>
-                                    <tr class="govuk-table__row">
-                                        <th scope="row" class="govuk-table__header">Scoping opinion sought</th>
-                                        <td class="govuk-table__cell">18 Jul 2023</td>
-                                    </tr>
-                                    <tr class="govuk-table__row">
-                                        <th scope="row" class="govuk-table__header">Scoping opinion issued</th>
-                                        <td class="govuk-table__cell">03 Jan 2023</td>
-                                    </tr>
-                                    <tr class="govuk-table__row">
-                                        <th scope="row" class="govuk-table__header">Section 46 notification</th>
-                                        <td class="govuk-table__cell">01 Jan 2023</td>
-                                    </tr>
-                                    <tr class="govuk-table__row">
-                                        <th scope="row" class="govuk-table__header">Anticipated submission date published</th>
-                                        <td class="govuk-table__cell">Q4 2023</td>
-                                    </tr>
-                                </tbody>
-                                </table>
+                        <div class="govuk-summary-card">
+                            <div class="govuk-summary-card__title-wrapper">
+                                <h2 class="govuk-summary-card__title">Pre-application</h2>
+                                <ul class="govuk-summary-card__actions">
+                                    <li class="govuk-summary-card__action"><a class="govuk-link" href='/applications-service/case/123/key-dates/preApplication'> Manage dates<span class="govuk-visually-hidden"> for Pre-application</span></a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="govuk-summary-card__content">
+                                <div class='pins-key-dates-section'>
+                                    <table class="govuk-table">
+                                        <tbody class="govuk-table__body">
+                                            <tr class="govuk-table__row">
+                                                <th scope="row" class="govuk-table__header">Date first notified of project</th>
+                                                <td class="govuk-table__cell">20 Aug 2023</td>
+                                            </tr>
+                                            <tr class="govuk-table__row">
+                                                <th scope="row" class="govuk-table__header">Project published on website</th>
+                                                <td class="govuk-table__cell">23 Sep 2023</td>
+                                            </tr>
+                                            <tr class="govuk-table__row">
+                                                <th scope="row" class="govuk-table__header">Anticipated submission date internal</th>
+                                                <td class="govuk-table__cell">07 Mar 2023</td>
+                                            </tr>
+                                            <tr class="govuk-table__row">
+                                                <th scope="row" class="govuk-table__header">Screening opinion sought</th>
+                                                <td class="govuk-table__cell">20 Aug 2023</td>
+                                            </tr>
+                                            <tr class="govuk-table__row">
+                                                <th scope="row" class="govuk-table__header">Screening opinion issued</th>
+                                                <td class="govuk-table__cell">15 Jun 2023</td>
+                                            </tr>
+                                            <tr class="govuk-table__row">
+                                                <th scope="row" class="govuk-table__header">Scoping opinion sought</th>
+                                                <td class="govuk-table__cell">18 Jul 2023</td>
+                                            </tr>
+                                            <tr class="govuk-table__row">
+                                                <th scope="row" class="govuk-table__header">Scoping opinion issued</th>
+                                                <td class="govuk-table__cell">03 Jan 2023</td>
+                                            </tr>
+                                            <tr class="govuk-table__row">
+                                                <th scope="row" class="govuk-table__header">Section 46 notification</th>
+                                                <td class="govuk-table__cell">01 Jan 2023</td>
+                                            </tr>
+                                            <tr class="govuk-table__row">
+                                                <th scope="row" class="govuk-table__header">Anticipated submission date published</th>
+                                                <td class="govuk-table__cell">Q4 2023</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -98,27 +109,38 @@ exports[`S51 Advice Key dates page GET /case/123/key-dates/ should render the pa
                     </div>
                     <div id="accordion-key-dates-content-2" class="govuk-accordion__section-content"
                     aria-labelledby="accordion-key-dates-heading-2">
-                        <div class='pins-key-dates-section'><a class='govuk-link offset-link' href='/applications-service/case/123/key-dates/acceptance'>Manage dates</a>
-                            <table                             class="govuk-table">
-                                <tbody class="govuk-table__body">
-                                    <tr class="govuk-table__row">
-                                        <th scope="row" class="govuk-table__header">Application submitted (Section 55)</th>
-                                        <td class="govuk-table__cell">08 Apr 2023</td>
-                                    </tr>
-                                    <tr class="govuk-table__row">
-                                        <th scope="row" class="govuk-table__header">Deadline for Acceptance decision</th>
-                                        <td class="govuk-table__cell">16 Jul 2023</td>
-                                    </tr>
-                                    <tr class="govuk-table__row">
-                                        <th scope="row" class="govuk-table__header">Date of Acceptance (Section 55)</th>
-                                        <td class="govuk-table__cell">24 Oct 2023</td>
-                                    </tr>
-                                    <tr class="govuk-table__row">
-                                        <th scope="row" class="govuk-table__header">Date of Non-Acceptance</th>
-                                        <td class="govuk-table__cell">09 Apr 2023</td>
-                                    </tr>
-                                </tbody>
-                                </table>
+                        <div class="govuk-summary-card">
+                            <div class="govuk-summary-card__title-wrapper">
+                                <h2 class="govuk-summary-card__title">Acceptance</h2>
+                                <ul class="govuk-summary-card__actions">
+                                    <li class="govuk-summary-card__action"><a class="govuk-link" href='/applications-service/case/123/key-dates/acceptance'> Manage dates<span class="govuk-visually-hidden"> for Acceptance</span></a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="govuk-summary-card__content">
+                                <div class='pins-key-dates-section'>
+                                    <table class="govuk-table">
+                                        <tbody class="govuk-table__body">
+                                            <tr class="govuk-table__row">
+                                                <th scope="row" class="govuk-table__header">Application submitted (Section 55)</th>
+                                                <td class="govuk-table__cell">08 Apr 2023</td>
+                                            </tr>
+                                            <tr class="govuk-table__row">
+                                                <th scope="row" class="govuk-table__header">Deadline for Acceptance decision</th>
+                                                <td class="govuk-table__cell">16 Jul 2023</td>
+                                            </tr>
+                                            <tr class="govuk-table__row">
+                                                <th scope="row" class="govuk-table__header">Date of Acceptance (Section 55)</th>
+                                                <td class="govuk-table__cell">24 Oct 2023</td>
+                                            </tr>
+                                            <tr class="govuk-table__row">
+                                                <th scope="row" class="govuk-table__header">Date of Non-Acceptance</th>
+                                                <td class="govuk-table__cell">09 Apr 2023</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -128,66 +150,77 @@ exports[`S51 Advice Key dates page GET /case/123/key-dates/ should render the pa
                     </div>
                     <div id="accordion-key-dates-content-3" class="govuk-accordion__section-content"
                     aria-labelledby="accordion-key-dates-heading-3">
-                        <div class='pins-key-dates-section'><a class='govuk-link offset-link' href='/applications-service/case/123/key-dates/preExamination'>Manage dates</a>
-                            <table                             class="govuk-table">
-                                <caption class="govuk-table__caption govuk-table__caption--m">Relevant representations</caption>
-                                <tbody class="govuk-table__body">
-                                    <tr class="govuk-table__row">
-                                        <td class="govuk-table__cell">Open</td>
-                                        <td class="govuk-table__cell">22 Sep 2023</td>
-                                    </tr>
-                                    <tr class="govuk-table__row">
-                                        <td class="govuk-table__cell">Close</td>
-                                        <td class="govuk-table__cell">09 Apr 2023</td>
-                                    </tr>
-                                    <tr class="govuk-table__row">
-                                        <td class="govuk-table__cell">Extension</td>
-                                        <td class="govuk-table__cell">01 Jan 2023</td>
-                                    </tr>
-                                    <tr class="govuk-table__row">
-                                        <td class="govuk-table__cell">Relevant Representations appear on website</td>
-                                        <td class="govuk-table__cell">20 Aug 2023</td>
-                                    </tr>
-                                </tbody>
-                                </table>
-                                <table class="govuk-table">
-                                    <caption class="govuk-table__caption govuk-table__caption--m">Relevant representations re-open</caption>
-                                    <tbody class="govuk-table__body">
-                                        <tr class="govuk-table__row">
-                                            <td class="govuk-table__cell">Re-opens</td>
-                                            <td class="govuk-table__cell"></td>
-                                        </tr>
-                                        <tr class="govuk-table__row">
-                                            <td class="govuk-table__cell">Re-opening closes</td>
-                                            <td class="govuk-table__cell"></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <table class="govuk-table">
-                                    <caption class="govuk-table__caption govuk-table__caption--m">Other dates</caption>
-                                    <tbody class="govuk-table__body">
-                                        <tr class="govuk-table__row">
-                                            <td class="govuk-table__cell">IAPI due</td>
-                                            <td class="govuk-table__cell">15 Jun 2023</td>
-                                        </tr>
-                                        <tr class="govuk-table__row">
-                                            <td class="govuk-table__cell">Rule 6 letter publication</td>
-                                            <td class="govuk-table__cell">10 Apr 2023</td>
-                                        </tr>
-                                        <tr class="govuk-table__row">
-                                            <td class="govuk-table__cell">Preliminary meeting</td>
-                                            <td class="govuk-table__cell">10 Apr 2023</td>
-                                        </tr>
-                                        <tr class="govuk-table__row">
-                                            <td class="govuk-table__cell">Preliminary meeting notification (including events following the PM)</td>
-                                            <td                                             class="govuk-table__cell">13 May 2023</td>
-                                        </tr>
-                                        <tr class="govuk-table__row">
-                                            <td class="govuk-table__cell">Event Notification</td>
-                                            <td class="govuk-table__cell">18 Jul 2023</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                        <div class="govuk-summary-card">
+                            <div class="govuk-summary-card__title-wrapper">
+                                <h2 class="govuk-summary-card__title">Pre-examination</h2>
+                                <ul class="govuk-summary-card__actions">
+                                    <li class="govuk-summary-card__action"><a class="govuk-link" href='/applications-service/case/123/key-dates/preExamination'> Manage dates<span class="govuk-visually-hidden"> for Pre-examination</span></a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="govuk-summary-card__content">
+                                <div class='pins-key-dates-section'>
+                                    <table class="govuk-table">
+                                        <caption class="govuk-table__caption govuk-table__caption--m">Relevant representations</caption>
+                                        <tbody class="govuk-table__body">
+                                            <tr class="govuk-table__row">
+                                                <td class="govuk-table__cell">Open</td>
+                                                <td class="govuk-table__cell">22 Sep 2023</td>
+                                            </tr>
+                                            <tr class="govuk-table__row">
+                                                <td class="govuk-table__cell">Close</td>
+                                                <td class="govuk-table__cell">09 Apr 2023</td>
+                                            </tr>
+                                            <tr class="govuk-table__row">
+                                                <td class="govuk-table__cell">Extension</td>
+                                                <td class="govuk-table__cell">01 Jan 2023</td>
+                                            </tr>
+                                            <tr class="govuk-table__row">
+                                                <td class="govuk-table__cell">Relevant Representations appear on website</td>
+                                                <td class="govuk-table__cell">20 Aug 2023</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <table class="govuk-table">
+                                        <caption class="govuk-table__caption govuk-table__caption--m">Relevant representations re-open</caption>
+                                        <tbody class="govuk-table__body">
+                                            <tr class="govuk-table__row">
+                                                <td class="govuk-table__cell">Re-opens</td>
+                                                <td class="govuk-table__cell"></td>
+                                            </tr>
+                                            <tr class="govuk-table__row">
+                                                <td class="govuk-table__cell">Re-opening closes</td>
+                                                <td class="govuk-table__cell"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <table class="govuk-table">
+                                        <caption class="govuk-table__caption govuk-table__caption--m">Other dates</caption>
+                                        <tbody class="govuk-table__body">
+                                            <tr class="govuk-table__row">
+                                                <td class="govuk-table__cell">IAPI due</td>
+                                                <td class="govuk-table__cell">15 Jun 2023</td>
+                                            </tr>
+                                            <tr class="govuk-table__row">
+                                                <td class="govuk-table__cell">Rule 6 letter publication</td>
+                                                <td class="govuk-table__cell">10 Apr 2023</td>
+                                            </tr>
+                                            <tr class="govuk-table__row">
+                                                <td class="govuk-table__cell">Preliminary meeting</td>
+                                                <td class="govuk-table__cell">10 Apr 2023</td>
+                                            </tr>
+                                            <tr class="govuk-table__row">
+                                                <td class="govuk-table__cell">Preliminary meeting notification (including events following the PM)</td>
+                                                <td                                                 class="govuk-table__cell">13 May 2023</td>
+                                            </tr>
+                                            <tr class="govuk-table__row">
+                                                <td class="govuk-table__cell">Event Notification</td>
+                                                <td class="govuk-table__cell">18 Jul 2023</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -197,35 +230,46 @@ exports[`S51 Advice Key dates page GET /case/123/key-dates/ should render the pa
                     </div>
                     <div id="accordion-key-dates-content-4" class="govuk-accordion__section-content"
                     aria-labelledby="accordion-key-dates-heading-4">
-                        <div class='pins-key-dates-section'><a class='govuk-link offset-link' href='/applications-service/case/123/key-dates/examination'>Manage dates</a>
-                            <table                             class="govuk-table">
-                                <tbody class="govuk-table__body">
-                                    <tr class="govuk-table__row">
-                                        <th scope="row" class="govuk-table__header">Date Section 58 Notice received</th>
-                                        <td class="govuk-table__cell">26 Oct 2023</td>
-                                    </tr>
-                                    <tr class="govuk-table__row">
-                                        <th scope="row" class="govuk-table__header">Examination start date</th>
-                                        <td class="govuk-table__cell">11 May 2023</td>
-                                    </tr>
-                                    <tr class="govuk-table__row">
-                                        <th scope="row" class="govuk-table__header">Rule 8 letter publication date</th>
-                                        <td class="govuk-table__cell">24 Oct 2023</td>
-                                    </tr>
-                                    <tr class="govuk-table__row">
-                                        <th scope="row" class="govuk-table__header">Deadline for close of Examination</th>
-                                        <td class="govuk-table__cell">17 Jul 2023</td>
-                                    </tr>
-                                    <tr class="govuk-table__row">
-                                        <th scope="row" class="govuk-table__header">Examination closing date</th>
-                                        <td class="govuk-table__cell">13 May 2023</td>
-                                    </tr>
-                                    <tr class="govuk-table__row">
-                                        <th scope="row" class="govuk-table__header">Extension to close of Examination</th>
-                                        <td class="govuk-table__cell">13 May 2023</td>
-                                    </tr>
-                                </tbody>
-                                </table>
+                        <div class="govuk-summary-card">
+                            <div class="govuk-summary-card__title-wrapper">
+                                <h2 class="govuk-summary-card__title">Examination</h2>
+                                <ul class="govuk-summary-card__actions">
+                                    <li class="govuk-summary-card__action"><a class="govuk-link" href='/applications-service/case/123/key-dates/examination'> Manage dates<span class="govuk-visually-hidden"> for Examination</span></a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="govuk-summary-card__content">
+                                <div class='pins-key-dates-section'>
+                                    <table class="govuk-table">
+                                        <tbody class="govuk-table__body">
+                                            <tr class="govuk-table__row">
+                                                <th scope="row" class="govuk-table__header">Date Section 58 Notice received</th>
+                                                <td class="govuk-table__cell">26 Oct 2023</td>
+                                            </tr>
+                                            <tr class="govuk-table__row">
+                                                <th scope="row" class="govuk-table__header">Examination start date</th>
+                                                <td class="govuk-table__cell">11 May 2023</td>
+                                            </tr>
+                                            <tr class="govuk-table__row">
+                                                <th scope="row" class="govuk-table__header">Rule 8 letter publication date</th>
+                                                <td class="govuk-table__cell">24 Oct 2023</td>
+                                            </tr>
+                                            <tr class="govuk-table__row">
+                                                <th scope="row" class="govuk-table__header">Deadline for close of Examination</th>
+                                                <td class="govuk-table__cell">17 Jul 2023</td>
+                                            </tr>
+                                            <tr class="govuk-table__row">
+                                                <th scope="row" class="govuk-table__header">Examination closing date</th>
+                                                <td class="govuk-table__cell">13 May 2023</td>
+                                            </tr>
+                                            <tr class="govuk-table__row">
+                                                <th scope="row" class="govuk-table__header">Extension to close of Examination</th>
+                                                <td class="govuk-table__cell">13 May 2023</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -235,23 +279,34 @@ exports[`S51 Advice Key dates page GET /case/123/key-dates/ should render the pa
                     </div>
                     <div id="accordion-key-dates-content-5" class="govuk-accordion__section-content"
                     aria-labelledby="accordion-key-dates-heading-5">
-                        <div class='pins-key-dates-section'><a class='govuk-link offset-link' href='/applications-service/case/123/key-dates/recommendation'>Manage dates</a>
-                            <table                             class="govuk-table">
-                                <tbody class="govuk-table__body">
-                                    <tr class="govuk-table__row">
-                                        <th scope="row" class="govuk-table__header">Deadline for submission of Recommendation</th>
-                                        <td class="govuk-table__cell">14 Jun 2023</td>
-                                    </tr>
-                                    <tr class="govuk-table__row">
-                                        <th scope="row" class="govuk-table__header">Date of Recommendation submitted to SoS</th>
-                                        <td class="govuk-table__cell">19 Aug 2023</td>
-                                    </tr>
-                                    <tr class="govuk-table__row">
-                                        <th scope="row" class="govuk-table__header">Extension to Recommendation deadline</th>
-                                        <td class="govuk-table__cell">07 Mar 2023</td>
-                                    </tr>
-                                </tbody>
-                                </table>
+                        <div class="govuk-summary-card">
+                            <div class="govuk-summary-card__title-wrapper">
+                                <h2 class="govuk-summary-card__title">Recommendation</h2>
+                                <ul class="govuk-summary-card__actions">
+                                    <li class="govuk-summary-card__action"><a class="govuk-link" href='/applications-service/case/123/key-dates/recommendation'> Manage dates<span class="govuk-visually-hidden"> for Recommendation</span></a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="govuk-summary-card__content">
+                                <div class='pins-key-dates-section'>
+                                    <table class="govuk-table">
+                                        <tbody class="govuk-table__body">
+                                            <tr class="govuk-table__row">
+                                                <th scope="row" class="govuk-table__header">Deadline for submission of Recommendation</th>
+                                                <td class="govuk-table__cell">14 Jun 2023</td>
+                                            </tr>
+                                            <tr class="govuk-table__row">
+                                                <th scope="row" class="govuk-table__header">Date of Recommendation submitted to SoS</th>
+                                                <td class="govuk-table__cell">19 Aug 2023</td>
+                                            </tr>
+                                            <tr class="govuk-table__row">
+                                                <th scope="row" class="govuk-table__header">Extension to Recommendation deadline</th>
+                                                <td class="govuk-table__cell">07 Mar 2023</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -261,23 +316,34 @@ exports[`S51 Advice Key dates page GET /case/123/key-dates/ should render the pa
                     </div>
                     <div id="accordion-key-dates-content-6" class="govuk-accordion__section-content"
                     aria-labelledby="accordion-key-dates-heading-6">
-                        <div class='pins-key-dates-section'><a class='govuk-link offset-link' href='/applications-service/case/123/key-dates/decision'>Manage dates</a>
-                            <table                             class="govuk-table">
-                                <tbody class="govuk-table__body">
-                                    <tr class="govuk-table__row">
-                                        <th scope="row" class="govuk-table__header">Deadline for Decision</th>
-                                        <td class="govuk-table__cell">21 Aug 2023</td>
-                                    </tr>
-                                    <tr class="govuk-table__row">
-                                        <th scope="row" class="govuk-table__header">Date of Decision</th>
-                                        <td class="govuk-table__cell">14 Jun 2023</td>
-                                    </tr>
-                                    <tr class="govuk-table__row">
-                                        <th scope="row" class="govuk-table__header">Extension to Decision deadline</th>
-                                        <td class="govuk-table__cell">12 May 2023</td>
-                                    </tr>
-                                </tbody>
-                                </table>
+                        <div class="govuk-summary-card">
+                            <div class="govuk-summary-card__title-wrapper">
+                                <h2 class="govuk-summary-card__title">Decision</h2>
+                                <ul class="govuk-summary-card__actions">
+                                    <li class="govuk-summary-card__action"><a class="govuk-link" href='/applications-service/case/123/key-dates/decision'> Manage dates<span class="govuk-visually-hidden"> for Decision</span></a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="govuk-summary-card__content">
+                                <div class='pins-key-dates-section'>
+                                    <table class="govuk-table">
+                                        <tbody class="govuk-table__body">
+                                            <tr class="govuk-table__row">
+                                                <th scope="row" class="govuk-table__header">Deadline for Decision</th>
+                                                <td class="govuk-table__cell">21 Aug 2023</td>
+                                            </tr>
+                                            <tr class="govuk-table__row">
+                                                <th scope="row" class="govuk-table__header">Date of Decision</th>
+                                                <td class="govuk-table__cell">14 Jun 2023</td>
+                                            </tr>
+                                            <tr class="govuk-table__row">
+                                                <th scope="row" class="govuk-table__header">Extension to Decision deadline</th>
+                                                <td class="govuk-table__cell">12 May 2023</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -287,15 +353,26 @@ exports[`S51 Advice Key dates page GET /case/123/key-dates/ should render the pa
                     </div>
                     <div id="accordion-key-dates-content-7" class="govuk-accordion__section-content"
                     aria-labelledby="accordion-key-dates-heading-7">
-                        <div class='pins-key-dates-section'><a class='govuk-link offset-link' href='/applications-service/case/123/key-dates/postDecision'>Manage dates</a>
-                            <table                             class="govuk-table">
-                                <tbody class="govuk-table__body">
-                                    <tr class="govuk-table__row">
-                                        <th scope="row" class="govuk-table__header">Judicial review period end date</th>
-                                        <td class="govuk-table__cell">15 Jun 2023</td>
-                                    </tr>
-                                </tbody>
-                                </table>
+                        <div class="govuk-summary-card">
+                            <div class="govuk-summary-card__title-wrapper">
+                                <h2 class="govuk-summary-card__title">Post-decision</h2>
+                                <ul class="govuk-summary-card__actions">
+                                    <li class="govuk-summary-card__action"><a class="govuk-link" href='/applications-service/case/123/key-dates/postDecision'> Manage dates<span class="govuk-visually-hidden"> for Post-decision</span></a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="govuk-summary-card__content">
+                                <div class='pins-key-dates-section'>
+                                    <table class="govuk-table">
+                                        <tbody class="govuk-table__body">
+                                            <tr class="govuk-table__row">
+                                                <th scope="row" class="govuk-table__header">Judicial review period end date</th>
+                                                <td class="govuk-table__cell">15 Jun 2023</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -305,15 +382,26 @@ exports[`S51 Advice Key dates page GET /case/123/key-dates/ should render the pa
                     </div>
                     <div id="accordion-key-dates-content-8" class="govuk-accordion__section-content"
                     aria-labelledby="accordion-key-dates-heading-8">
-                        <div class='pins-key-dates-section'><a class='govuk-link offset-link' href='/applications-service/case/123/key-dates/withdrawal'>Manage dates</a>
-                            <table                             class="govuk-table">
-                                <tbody class="govuk-table__body">
-                                    <tr class="govuk-table__row">
-                                        <th scope="row" class="govuk-table__header">Date project withdrawn</th>
-                                        <td class="govuk-table__cell">21 Aug 2023</td>
-                                    </tr>
-                                </tbody>
-                                </table>
+                        <div class="govuk-summary-card">
+                            <div class="govuk-summary-card__title-wrapper">
+                                <h2 class="govuk-summary-card__title">Withdrawal</h2>
+                                <ul class="govuk-summary-card__actions">
+                                    <li class="govuk-summary-card__action"><a class="govuk-link" href='/applications-service/case/123/key-dates/withdrawal'> Manage dates<span class="govuk-visually-hidden"> for Withdrawal</span></a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="govuk-summary-card__content">
+                                <div class='pins-key-dates-section'>
+                                    <table class="govuk-table">
+                                        <tbody class="govuk-table__body">
+                                            <tr class="govuk-table__row">
+                                                <th scope="row" class="govuk-table__header">Date project withdrawn</th>
+                                                <td class="govuk-table__cell">21 Aug 2023</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

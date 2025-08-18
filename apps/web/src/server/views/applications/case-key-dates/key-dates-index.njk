@@ -1,6 +1,7 @@
 {% extends "../case/layouts/applications-case-layout.njk" %}
 {% from "govuk/components/accordion/macro.njk" import govukAccordion %}
 {% from "govuk/components/table/macro.njk" import govukTable %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
 
 {% set pageTitle = 'Key dates' %}
 
@@ -19,23 +20,47 @@
 		{{ key | keyDatesProperty }}
 		{% endset %}
 
-		{% if key === 'preExamination' %}
-			{% set content %}
-			<div class='pins-key-dates-section'>
-				<a class='govuk-link offset-link' href='{{'key-dates'|url({caseId: caseId, step: key})}}'>Manage dates</a>
-
-				{% include "./includes/pre-examination/pre-examination-key-dates.include.njk" %}
-			</div>
-			{% endset %}
-		{% else %}
-			{% set content %}
-			<div class='pins-key-dates-section'>
-				<a class='govuk-link offset-link' href='{{'key-dates'|url({caseId: caseId, step: key})}}'>Manage dates</a>
-
-				{{createSectionTable(values) }}
-			</div>
-			{% endset %}
-		{% endif %}
+       {% if key === 'preExamination' %}
+          {% set content %}
+          <div class="govuk-summary-card">
+             <div class="govuk-summary-card__title-wrapper">
+                <h2 class="govuk-summary-card__title">{{ heading | trim }}</h2>
+                <ul class="govuk-summary-card__actions">
+                   <li class="govuk-summary-card__action">
+                      <a class="govuk-link" href='{{'key-dates'|url({caseId: caseId, step: key})}}'>
+                         Manage dates<span class="govuk-visually-hidden"> for {{ heading | trim }}</span>
+                      </a>
+                   </li>
+                </ul>
+             </div>
+             <div class="govuk-summary-card__content">
+                <div class='pins-key-dates-section'>
+                   {% include "./includes/pre-examination/pre-examination-key-dates.include.njk" %}
+                </div>
+             </div>
+          </div>
+          {% endset %}
+       {% else %}
+          {% set content %}
+          <div class="govuk-summary-card">
+             <div class="govuk-summary-card__title-wrapper">
+                <h2 class="govuk-summary-card__title">{{ heading | trim }}</h2>
+                <ul class="govuk-summary-card__actions">
+                   <li class="govuk-summary-card__action">
+                      <a class="govuk-link" href='{{'key-dates'|url({caseId: caseId, step: key})}}'>
+                         Manage dates<span class="govuk-visually-hidden"> for {{ heading | trim }}</span>
+                      </a>
+                   </li>
+                </ul>
+             </div>
+             <div class="govuk-summary-card__content">
+                <div class='pins-key-dates-section'>
+                   {{createSectionTable(values) }}
+                </div>
+             </div>
+          </div>
+          {% endset %}
+       {% endif %}
 
 		{% set items = items | concat({
 			heading: {
