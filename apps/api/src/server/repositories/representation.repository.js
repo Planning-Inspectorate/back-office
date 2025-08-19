@@ -896,7 +896,7 @@ function buildFilters(filters = {}) {
 					attachments: {
 						some: {
 							Document: {
-								isDeleted: !values
+								isDeleted: false
 							}
 						}
 					}
