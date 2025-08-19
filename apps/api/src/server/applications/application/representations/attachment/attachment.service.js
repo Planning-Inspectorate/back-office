@@ -25,7 +25,8 @@ export const addAttachmentRepresentation = async (repId, documentId) => {
 			firstName: representation.represented.firstName,
 			lastName: representation.represented.lastName
 		}),
-		filter1: folderDocumentCaseStageMappings.RELEVANT_REPRESENTATIONS
+		filter1: folderDocumentCaseStageMappings.RELEVANT_REPRESENTATIONS,
+		description: folderDocumentCaseStageMappings.RELEVANT_REPRESENTATIONS
 	});
 
 	return result;
