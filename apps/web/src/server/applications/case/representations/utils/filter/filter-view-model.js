@@ -10,11 +10,14 @@
  * @param {string|Array<string>} stringOrArray
  * @returns {Array<string>}
  */
-const ensureArray = (stringOrArray) => {
-	if (!Array.isArray(stringOrArray) && typeof stringOrArray === 'string') {
+export const ensureArray = (stringOrArray) => {
+	if (typeof stringOrArray === 'string') {
 		return [stringOrArray];
 	}
-	return stringOrArray;
+	if (Array.isArray(stringOrArray)) {
+		return stringOrArray.filter((el) => typeof el === 'string');
+	}
+	return [];
 };
 
 /**

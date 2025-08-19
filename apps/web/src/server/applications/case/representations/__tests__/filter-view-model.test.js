@@ -1,4 +1,4 @@
-import { getFilterViewModel } from '../utils/filter/filter-view-model.js';
+import { getFilterViewModel, ensureArray } from '../utils/filter/filter-view-model.js';
 
 describe('#getFilterViewModel', () => {
 	it('should get the default filter view model', () => {
@@ -227,5 +227,12 @@ describe('#getFilterViewModel', () => {
 				value: 'WITH_ATTACHMENT'
 			}
 		]);
+	});
+});
+
+describe('ensureArray', () => {
+	it('should only return an array of strings or an empty array', () => {
+		expect(ensureArray('test')).toEqual(['test']);
+		expect(ensureArray(['test', 'test2'])).toEqual(['test', 'test2']);
 	});
 });
