@@ -45,38 +45,6 @@ describe('unpublish-representations', () => {
 	});
 
 	describe('POST /applications-service/case/:caseId/relevant-representations/unpublish-representations', () => {
-		// const publishedReps = [
-		// 	{
-		// 		id: 1,
-		// 		status: 'PUBLISHED',
-		// 		reference: 'mock-reference-1',
-		// 		redacted: true,
-		// 		received: '2023-10-10T10:47:21.846Z',
-		// 		firstName: 'mock name',
-		// 		lastName: 'mock last name',
-		// 		organisationName: 'mock org'
-		// 	},
-		// 	{
-		// 		id: 2,
-		// 		status: 'PUBLISHED',
-		// 		reference: 'mock-reference-2',
-		// 		redacted: true,
-		// 		received: '2023-10-10T10:47:21.846Z',
-		// 		firstName: 'mock name',
-		// 		lastName: 'mock last name',
-		// 		organisationName: 'mock org'
-		// 	}
-		// ];
-		// const allReps = [...publishedReps, {
-		// 	id: 3,
-		// 	status: 'VALID',
-		// 	reference: 'mock-reference-3',
-		// 	redacted: true,
-		// 	received: '2023-10-10T10:47:21.846Z',
-		// 	firstName: 'mock name',
-		// 	lastName: 'mock last name',
-		// 	organisationName: 'mock org'
-		// }];
 		const validReps = [
 			{
 				id: 1,
@@ -99,34 +67,6 @@ describe('unpublish-representations', () => {
 				organisationName: 'mock org'
 			}
 		];
-
-		// describe('when there are published representations', () => {
-		// 	beforeEach(() => {
-		// 		nock('http://test/').get('/applications/1').reply(200, mockCaseData);
-		// 		nock('http://test/').get('/applications/1/representations').reply(200, { items: allReps });
-		// 		nock('http://test/').get('/applications/1').reply(200, mockCaseData);
-		// 		nock('http://test/').get('/applications/1').reply(200, mockCaseData);
-		// 		nock('http://test/').get('/applications/1/representations').reply(200, { items: allReps });
-		// 		nock('http://test/')
-		// 			.get('/applications/1/representations/publishable')
-		// 			.reply(200, { publishedRepIds: [1, 2] });
-		// 	});
-		//
-		// 	it('should redirect with unpublished param if published representations exist', async () => {
-		// 		let response;
-		// 		try {
-		// 			response = await request
-		// 				.post('/applications-service/case/1/relevant-representations/unpublish-representations')
-		// 				.send();
-		// 		} catch (err) {
-		// 			console.error('Test error:', err);
-		// 			throw err;
-		// 		}
-		// 		console.log('<><><><><><>  Response <><><><><><> ', { response });
-		// 		expect(response.status).toBe(302);
-		// 		expect(response.headers.location).toBe('/applications-service/case/1/relevant-representations?unpublished=2');
-		// 	});
-		// });
 
 		describe('when there are no published representations', () => {
 			beforeEach(() => {
