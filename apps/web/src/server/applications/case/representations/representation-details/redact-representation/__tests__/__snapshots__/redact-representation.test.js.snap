@@ -66,12 +66,19 @@ exports[`Representation redact page GET /applications-service/case/1/relevant-re
                     <button type="button" class="govuk-button govuk-button--secondary"
                     data-module="govuk-button" id="redact-undo">Undo</button>
                     <button type="button" class="govuk-button govuk-button--secondary"
+                    data-module="govuk-button" id="redact-undo-selected">Undo Selected</button>
+                    <button type="button" class="govuk-button govuk-button--secondary"
                     data-module="govuk-button" id="redact-undo-all">Undo all changes</button>
                 </div>
             </div>
         </div>
         <div class="govuk-grid-row">
             <div class="govuk-grid-column-one-half">
+                <div class="govuk-form-group">
+                    <label class="govuk-label govuk-label--s" for="redact-representation-notes-text">Notes</label>
+                    <textarea class="govuk-textarea" id="redact-representation-notes-text"
+                    name="notes" rows="5">Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</textarea>
+                </div>
                 <button type="submit" class="govuk-button" data-module="govuk-button"
                 data-cy="button-save-and-continue">Save and continue</button>
             </div>
@@ -82,16 +89,22 @@ exports[`Representation redact page GET /applications-service/case/1/relevant-re
         		 * @param {HTMLTextAreaElement} textArea
         		 * @param {HTMLButtonElement} redactSelectedText
         		 * @param {HTMLButtonElement} redactUndo
+        		 * @param {HTMLButtonElement} redactUndoSelected
         		 * @param {HTMLButtonElement} redactUndoAll
         		 * @param {HTMLDivElement} unredactedText
         		 * @param {HTMLAnchorElement[]} rejectLinks
         		 * @param {import('@azure/ai-text-analytics').PiiEntity[]} suggestions
+        		 * @param {HTMLTextAreaElement} notesText
         		 */
-        		function registerEventListeners({textArea, redactSelectedText, redactUndo, redactUndoAll, unredactedText, rejectLinks, suggestions}) {
+        		function registerEventListeners({textArea, redactSelectedText, redactUndo, redactUndoSelected, redactUndoAll, unredactedText, rejectLinks, suggestions, notesText}) {
         			const formGroup = textArea.parentElement;
         			const errorMessage = document.createElement('p');
         			errorMessage.id = 'representation-error';
         			errorMessage.classList.add('govuk-error-message');
+        
+        			function appendNote(text) {
+        				notesText.value += \`\${notesText.value ? "\\n" : ""}\${text}\`;
+        			}
         
         			const history = [];
         
@@ -104,6 +117,18 @@ exports[`Representation redact page GET /applications-service/case/1/relevant-re
         			function hideError() {
         				textArea.parentElement.classList.remove('govuk-form-group--error');
         				errorMessage.remove();
+        			}
+        			// setup redaction box size
+        			textArea.style.height = '1px';
+        			textArea.style.height = \`\${textArea.scrollHeight + 5}px\`;
+        
+        			// populate notes field with any suggestions
+        			if (!notesText.value) {
+        				for (const suggestion of suggestions) {
+        					if (suggestion.accepted) {
+        						appendNote(suggestion.text);
+        					}
+        				}
         			}
         
         			redactSelectedText.addEventListener('click', () => {
@@ -129,6 +154,8 @@ exports[`Representation redact page GET /applications-service/case/1/relevant-re
         					selectionEnd,
         					selectedText
         				});
+        				// add to notes field
+        				appendNote(selectedText);
         			});
         			redactUndo.addEventListener('click', () => {
         				const { selectionStart, selectionEnd, selectedText } = history.pop() || {};
@@ -139,14 +166,30 @@ exports[`Representation redact page GET /applications-service/case/1/relevant-re
         					showError('No changes to undo');
         				}
         			});
+        			redactUndoSelected.addEventListener('click', () => {
+        				const { selectionStart, selectionEnd } = textArea;
+        				if (selectionStart === selectionEnd) {
+        					showError('Select text to undo');
+        					return;
+        				}
+        				const selectedText = textArea.value.substring(selectionStart, selectionEnd);
+        				if (selectedText.match(/^█+$/) === null) {
+        					showError('Selected text is not redacted');
+        					return;
+        				}
+        				hideError();
+        				// replace the text with the original selected text
+        				const originalText = unredactedText.textContent.trim().substring(selectionStart, selectionEnd);
+        				textArea.value = textArea.value.substring(0, selectionStart) + originalText + textArea.value.substring(selectionEnd);
+        			});
         			redactUndoAll.addEventListener('click', () => {
-        				const unredated = unredactedText.textContent?.trim();
-        				if (history.length === 0 && textArea.value === unredated) {
+        				const unredacted = unredactedText.textContent?.trim();
+        				if (history.length === 0 && textArea.value === unredacted) {
         					showError('No changes to undo');
         					return;
         				}
         				hideError();
-        				textArea.value = unredated || '';
+        				textArea.value = unredacted || '';
         				history.length = 0;
         			});
         			for (const rejectLink of rejectLinks) {
@@ -160,6 +203,7 @@ exports[`Representation redact page GET /applications-service/case/1/relevant-re
         						const redactedText = '█'.repeat(suggestion.length);
         						textArea.value = textArea.value.substring(0, suggestion.offset) + redactedText + textArea.value.substring(suggestion.offset + suggestion.length);
         						rejectLink.text = 'Reject';
+        						appendNote(suggestion.text); // add to notes field
         					}
         				});
         			}
@@ -169,9 +213,11 @@ exports[`Representation redact page GET /applications-service/case/1/relevant-re
         			const textArea = document.querySelector('#redactedRepresentation');
         			const redactSelectedText = document.querySelector('#redact-selected-text');
         			const redactUndo = document.querySelector('#redact-undo');
+        			const redactUndoSelected = document.querySelector('#redact-undo-selected');
         			const redactUndoAll = document.querySelector('#redact-undo-all');
         			const unredactedText = document.querySelector('#representation-unredacted > div');
         			const rejectLinks = document.querySelectorAll('[data-redact]');
+        			const notesText = document.querySelector("#redact-representation-notes-text");
         			const suggestions = [{"text":"John Doe","offset":0,"length":8,"category":"Person","confidenceScore":0.95,"accepted":false},{"text":"123 Main St","offset":20,"length":12,"category":"Address","confidenceScore":0.9,"accepted":false}]
         
         			if (!textArea || !(textArea instanceof HTMLTextAreaElement)) {
@@ -183,10 +229,16 @@ exports[`Representation redact page GET /applications-service/case/1/relevant-re
         			if (!redactUndo || !(redactUndo instanceof HTMLButtonElement)) {
         				return;
         			}
+        			if (!redactUndoSelected || !(redactUndoSelected instanceof HTMLButtonElement)) {
+        				return;
+        			}
         			if (!redactUndoAll || !(redactUndoAll instanceof HTMLButtonElement)) {
         				return;
         			}
         			if (!unredactedText || !(unredactedText instanceof HTMLDivElement)) {
+        				return;
+        			}
+        			if (!notesText || !(notesText instanceof HTMLTextAreaElement)) {
         				return;
         			}
         
@@ -194,10 +246,12 @@ exports[`Representation redact page GET /applications-service/case/1/relevant-re
         				textArea,
         				redactSelectedText,
         				redactUndo,
+        				redactUndoSelected,
         				redactUndoAll,
         				unredactedText,
         				rejectLinks,
-        				suggestions
+        				suggestions,
+        				notesText
         			});
         		}
         
