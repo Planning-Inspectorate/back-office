@@ -36,7 +36,7 @@ jobs:
       - task: Bash@3
         inputs:
           targetType: 'inline'
-          script: npx cypress run --spec "cypress/e2e/back-office-applications/addRepresentation.spec.js,cypress/e2e/back-office-applications/addTeam.spec.js,cypress/e2e/back-office-applications/createCase.spec.js,cypress/e2e/back-office-applications/documentProperties.spec.js,cypress/e2e/back-office-applications/documentPropertiesWelsh.spec.js,cypress/e2e/back-office-applications/documentUpload.spec.js"
+          script: DEBUG=cypress:* npx cypress run --spec "cypress/e2e/back-office-applications/addRepresentation.spec.js,cypress/e2e/back-office-applications/addTeam.spec.js,cypress/e2e/back-office-applications/createCase.spec.js,cypress/e2e/back-office-applications/documentProperties.spec.js,cypress/e2e/back-office-applications/documentPropertiesWelsh.spec.js,cypress/e2e/back-office-applications/documentUpload.spec.js"
           workingDirectory: 'apps/e2e'
 
         env:
@@ -73,7 +73,7 @@ jobs:
       - task: Bash@3
         inputs:
           targetType: 'inline'
-          script: npx cypress run --spec "cypress/e2e/back-office-applications/documentVersioning.spec.js,cypress/e2e/back-office-applications/editCase.spec.js,cypress/e2e/back-office-applications/examTimetable.spec.js"
+          script: DEBUG=cypress:* npx cypress run --spec "cypress/e2e/back-office-applications/documentVersioning.spec.js,cypress/e2e/back-office-applications/editCase.spec.js,cypress/e2e/back-office-applications/examTimetable.spec.js"
           workingDirectory: 'apps/e2e'
 
         env:
@@ -110,7 +110,7 @@ jobs:
       - task: Bash@3
         inputs:
           targetType: 'inline'
-          script: npx cypress run --spec "cypress/e2e/back-office-applications/publishDocuments.spec.js,cypress/e2e/back-office-applications/s51Advice.spec.js,cypress/e2e/back-office-applications/search.spec.js,cypress/e2e/back-office-applications/searchDocuments.spec.js,cypress/e2e/back-office-applications/sectorAsTraing.spec.js,cypress/e2e/back-office-applications/smokeTests.spec.js"
+          script: DEBUG=cypress:* npx cypress run --spec "cypress/e2e/back-office-applications/publishDocuments.spec.js,cypress/e2e/back-office-applications/s51Advice.spec.js,cypress/e2e/back-office-applications/search.spec.js,cypress/e2e/back-office-applications/searchDocuments.spec.js,cypress/e2e/back-office-applications/sectorAsTraing.spec.js,cypress/e2e/back-office-applications/smokeTests.spec.js"
           workingDirectory: 'apps/e2e'
 
         env:
