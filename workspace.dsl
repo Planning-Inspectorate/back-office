@@ -88,7 +88,7 @@ workspace "Applications service" {
 		}
 
 		systemGovNotify = softwareSystem "GOV Notify" "UK government messaging platform for sending emails, text and letters to users" {
-			tags = "ExternalSystem"
+			tags "ExternalSystem"
 		}
 
 		##################################################################################

@@ -126,7 +126,11 @@ export class FeatureFlagClient {
 			if (Array.isArray(conditions?.clientFilters) && conditions.clientFilters.length > 0) {
 				const filter = conditions.clientFilters[0];
 				if (isAudienceFilter(filter)) {
-					flagsByCaseReference[id] = filter.parameters.Audience.Users || [];
+					if (filter.parameters.Audience.Users.length === 0) {
+						flags[id] = enabled;
+					} else {
+						flagsByCaseReference[id] = filter.parameters.Audience.Users || [];
+					}
 				}
 				continue;
 			}
