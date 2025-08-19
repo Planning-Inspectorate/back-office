@@ -70,10 +70,10 @@ export async function postUnpublishRepresentationsController(req, res) {
 		return res.redirect(
 			`/applications-service/case/${caseId}/relevant-representations?unpublished=${publishedReps.length}`
 		);
-	} catch (error) {
-		return res.status(500).render('error', {
-			message: 'Failed to unpublish representations. Please try again later.',
-			error
-		});
+	} 	catch (error) {
+	console.error('Error unpublishing representations:', error);
+	return res.status(500).render('error', {
+		message: 'Failed to unpublish representations. Please try again later.'
+	});
 	}
 }
