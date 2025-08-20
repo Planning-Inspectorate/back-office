@@ -1,7 +1,6 @@
 import { jest } from '@jest/globals';
-
 const { databaseConnector } = await import('#utils/database-connector.js');
-
+import { RELEVANT_REPRESENTATION_STATUS_MAP } from '../../utils/mapping/map-relevant-representation-status.js';
 import * as representationRepository from '../representation.repository.js';
 
 const existingRepresentations = [{ id: 1 }, { id: 2 }];
@@ -21,6 +20,11 @@ const createdRepresentation = {
 describe('Representation repository', () => {
 	beforeEach(() => {
 		jest.resetAllMocks();
+		// Always ensure the mock exists for all tests
+		if (!databaseConnector.representationAction) {
+			databaseConnector.representationAction = {};
+		}
+		databaseConnector.representationAction.create = jest.fn();
 	});
 
 	describe('getByCaseId', () => {
@@ -724,6 +728,130 @@ describe('Representation repository', () => {
 			expect(databaseConnector.representation.findMany).toHaveBeenCalledTimes(
 				Math.ceil(totalPublishableRepsCount / batchSize)
 			);
+		});
+	});
+
+	describe('setRepresentationsAsUnpublished', () => {
+		it('updates status and creates actions for reps with fromStatus', async () => {
+			const update = jest.fn();
+			const updateMany = jest.fn();
+			const transaction = jest.fn().mockResolvedValue([]);
+			databaseConnector.representation.update = update;
+			databaseConnector.representation.updateMany = updateMany;
+			databaseConnector.representationAction.create = jest.fn();
+			databaseConnector.$transaction = transaction;
+			const reps = [
+				{ id: 1, status: RELEVANT_REPRESENTATION_STATUS_MAP.PUBLISHED },
+				{ id: 2, status: RELEVANT_REPRESENTATION_STATUS_MAP.UNPUBLISHED }
+			];
+			await representationRepository.setRepresentationsAsUnpublished(reps, 'user');
+			expect(update).toHaveBeenCalledWith({
+				where: { id: 1 },
+				data: { status: RELEVANT_REPRESENTATION_STATUS_MAP.UNPUBLISHED }
+			});
+			expect(databaseConnector.representationAction.create).toHaveBeenCalledWith(
+				expect.objectContaining({
+					data: expect.objectContaining({
+						representationId: 1,
+						status: RELEVANT_REPRESENTATION_STATUS_MAP.UNPUBLISHED,
+						actionBy: 'user'
+					})
+				})
+			);
+			expect(updateMany).toHaveBeenCalledWith({
+				where: { id: { in: [2] } },
+				data: { unpublishedUpdates: false }
+			});
+			expect(transaction).toHaveBeenCalled();
+		});
+	});
+
+	describe('setRepresentationsAsUnpublishedBatch', () => {
+		it('calls setRepresentationsStatus in correct batches', async () => {
+			const update = jest.fn();
+			const updateMany = jest.fn();
+			const transaction = jest.fn().mockResolvedValue([]);
+			databaseConnector.representation.update = update;
+			databaseConnector.representation.updateMany = updateMany;
+			databaseConnector.representationAction.create = jest.fn();
+			databaseConnector.$transaction = transaction;
+			const reps = Array.from({ length: 1500 }, (_, i) => ({
+				id: i + 1,
+				status: RELEVANT_REPRESENTATION_STATUS_MAP.PUBLISHED
+			}));
+			await representationRepository.setRepresentationsAsUnpublishedBatch(reps, 'user');
+			expect(update).toHaveBeenCalledTimes(1500);
+			expect(transaction).toHaveBeenCalledTimes(2);
+		});
+	});
+
+	describe('setRepresentationsStatusBatch', () => {
+		it('calls setRepresentationsStatus in correct batches', async () => {
+			const setStatus = jest
+				.spyOn(representationRepository, 'setRepresentationsStatus')
+				.mockResolvedValue();
+			const reps = Array.from({ length: 2500 }, (_, i) => ({
+				id: i + 1,
+				status: RELEVANT_REPRESENTATION_STATUS_MAP.VALID
+			}));
+			await representationRepository.setRepresentationsStatusBatch(
+				reps,
+				'user',
+				RELEVANT_REPRESENTATION_STATUS_MAP.VALID,
+				RELEVANT_REPRESENTATION_STATUS_MAP.PUBLISHED
+			);
+			expect(setStatus).toHaveBeenCalledTimes(3);
+			expect(setStatus).toHaveBeenCalledWith(
+				reps.slice(0, 1000),
+				'user',
+				RELEVANT_REPRESENTATION_STATUS_MAP.VALID,
+				RELEVANT_REPRESENTATION_STATUS_MAP.PUBLISHED
+			);
+			expect(setStatus).toHaveBeenCalledWith(
+				reps.slice(1000, 2000),
+				'user',
+				RELEVANT_REPRESENTATION_STATUS_MAP.VALID,
+				RELEVANT_REPRESENTATION_STATUS_MAP.PUBLISHED
+			);
+			expect(setStatus).toHaveBeenCalledWith(
+				reps.slice(2000, 2500),
+				'user',
+				RELEVANT_REPRESENTATION_STATUS_MAP.VALID,
+				RELEVANT_REPRESENTATION_STATUS_MAP.PUBLISHED
+			);
+			setStatus.mockRestore();
+		});
+	});
+
+	describe('setRepresentationsStatus', () => {
+		it('updates only reps with fromStatus and creates actions, clears unpublishedUpdates for toStatus', async () => {
+			const update = jest.fn();
+			const updateMany = jest.fn();
+			const transaction = jest.fn().mockResolvedValue([]);
+			databaseConnector.representation.update = update;
+			databaseConnector.representation.updateMany = updateMany;
+			databaseConnector.representationAction.create = jest.fn();
+			databaseConnector.$transaction = transaction;
+			const reps = [
+				{ id: 1, status: 'FROM' },
+				{ id: 2, status: 'TO' }
+			];
+			await representationRepository.setRepresentationsStatus(reps, 'user', 'FROM', 'TO');
+			expect(update).toHaveBeenCalledWith({ where: { id: 1 }, data: { status: 'TO' } });
+			expect(databaseConnector.representationAction.create).toHaveBeenCalledWith(
+				expect.objectContaining({
+					data: expect.objectContaining({
+						representationId: 1,
+						status: 'TO',
+						actionBy: 'user'
+					})
+				})
+			);
+			expect(updateMany).toHaveBeenCalledWith({
+				where: { id: { in: [2] } },
+				data: { unpublishedUpdates: false }
+			});
+			expect(transaction).toHaveBeenCalled();
 		});
 	});
 });
