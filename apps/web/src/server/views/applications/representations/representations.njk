@@ -94,10 +94,10 @@
 
 	<h2 class="govuk-heading-l">Relevant representations</h2>
 
-	<form method="GET">
+	<form method="GET" action="{{ clearFilterRefreshUrl }}">
 		<div class="govuk-grid-row">
 			<div class="govuk-grid-column-one-half">
-				{{ preSearch(filters) }}
+				{{ preSearch(filters, clearFilterRefreshUrl) }}
 			</div>
 
 			<div class="govuk-grid-column-one-half">
