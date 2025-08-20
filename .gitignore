@@ -73,3 +73,8 @@ dummy_address_data.json
 workspace.json
 .structurizr/*
 build
+
+# Local .terraform directories
+**/.terraform/*
+**/.terraform
+**/.terragrunt-cache

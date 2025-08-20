@@ -19,11 +19,12 @@
 		"e2e:open": "npm run cy:open --workspace=@pins/e2e",
 		"e2e:ci": "npm run cy:ci --workspace=@pins/e2e",
 		"format": "prettier --write \"**/*.{js}\"",
+		"format-check": "prettier --check .",
 		"lint:js": "npx eslint .",
 		"lint:js:fix": "npx eslint . --fix",
 		"prepare": "node -e \"try { require('husky').install() } catch (e) {if (e.code !== 'MODULE_NOT_FOUND') throw e}\"",
 		"storage": "npm run dev --workspace=@pins/applications.document-storage",
-		"test": "dotenv turbo run test -- --concurrency=2",
+		"test": "turbo run test --filter=./apps/*",
 		"tscheck": "turbo run prisma-generate --concurrency=1 && turbo run tscheck --parallel --filter=!@pins/applications.api",
 		"dev": "turbo run dev --filter=./apps/* --no-cache --parallel --continue",
 		"web": "npm run dev --workspace=@pins/applications.web",
@@ -33,6 +34,7 @@
 		"c4": "docker pull structurizr/lite && docker run -it --rm -p 8082:8080 -v ${PWD}:/usr/local/structurizr structurizr/lite"
 	},
 	"dependencies": {
+		"@azure/ai-text-analytics": "^5.1.0",
 		"@azure/app-configuration": "^1.6.0",
 		"@azure/functions": "^4.6.0",
 		"@azure/identity": "^4.2.1",

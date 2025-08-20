@@ -3,19 +3,17 @@
 .pins-preview-table {
 	border: 1px solid colors.$govuk-border-colour;
 
-
 	> * {
 		padding: 0 1rem;
 	}
 
 	&__header {
-		background-color: colors.govuk-colour('light-grey');;
+		background-color: colors.govuk-colour("light-grey");
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
 
 		a {
-
 		}
 	}
 }

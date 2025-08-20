@@ -243,7 +243,7 @@ exports[`project-updates GET /applications-service/:caseId/project-updates/:proj
                                 <div class="govuk-radios__item">
                                     <input class="govuk-radios__input" id="status-2" name="status" type="radio"
                                     value="ready-to-publish">
-                                    <label class="govuk-label govuk-radios__label" for="status-2">Ready to Publish</label>
+                                    <label class="govuk-label govuk-radios__label" for="status-2">Ready to publish</label>
                                 </div>
                             </div>
                         </fieldset>
