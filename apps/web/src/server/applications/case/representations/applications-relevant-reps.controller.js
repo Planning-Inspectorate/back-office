@@ -99,6 +99,7 @@ export async function relevantRepsApplications({ query, session }, res) {
 		},
 		filters: getFilterViewModel(filters, representations.filters),
 		showUnpublishedRepUpdatesBanner: hasUnpublishedRepUpdates(publishableReps),
-		keyDates: await getKeyDates(publishedDate, repsPeriodCloseDate, repsPeriodCloseDateExtension)
+		keyDates: await getKeyDates(publishedDate, repsPeriodCloseDate, repsPeriodCloseDateExtension),
+		clearFilterRefreshUrl: url('representations', { caseId })
 	});
 }
