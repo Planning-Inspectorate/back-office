@@ -6,6 +6,11 @@ $font-weight-attrs: (
 );
 
 @each $key, $val in $font-weight-attrs {
+	// For backwards compatibility
+	.font-weight--#{$val} {
+		font-weight: #{$val};
+	}
+
 	.font-weight--#{$key} {
 		font-weight: #{$val};
 	}
