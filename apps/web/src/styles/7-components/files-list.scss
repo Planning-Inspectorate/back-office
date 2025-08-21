@@ -134,6 +134,10 @@
 					padding-left: govuk-spacing(3);
 				}
 			}
+
+			.govuk-table__cell{
+				vertical-align: inherit;
+			}
 		}
 
 		&:not([class*="publish"]) {
