@@ -16,21 +16,16 @@ pr: none
 trigger: none
 
 jobs:
-  - job: Run_Cypress_Tests_For_Applications
-    timeoutInMinutes: 90
-    pool: pins-odt-agent-pool-tests
 
+  - job: E2E_Tests_Group_1
+    timeoutInMinutes: 60
+    pool: pins-odt-agent-pool-tests
     steps:
+
       - task: NodeTool@0
         inputs:
           versionSpec: "20.x"
         displayName: "Install Node.js"
-
-      - task: ShellScript@2
-        inputs:
-          scriptPath: 'apps/e2e/install-chromium.sh'
-        displayName: 'Install Chromium'
-        condition: eq(variables['agent.os'], 'Linux')
 
       - task: Npm@1
         inputs:
@@ -38,9 +33,13 @@ jobs:
           workingDir: $(System.DefaultWorkingDirectory)/apps/e2e
         displayName: "Install Dependencies"
 
-      - task: ShellScript@2
+      - task: Bash@3
         inputs:
-          scriptPath: 'apps/e2e/run-tests.sh'
+          targetType: 'inline'
+          script: |
+            ./run-tests.sh --glob "cypress/e2e/back-office-applications/**/*.spec.js" --shard-index 0 --shard-count 4
+          workingDirectory: 'apps/e2e'
+
         env:
           BASE_URL: $(BASE_URL)
           CASE_TEAM_EMAIL: $(CASE_TEAM_EMAIL)
@@ -48,7 +47,121 @@ jobs:
           INSPECTOR_EMAIL: $(INSPECTOR_EMAIL)
           USER_PASSWORD: $(USER_PASSWORD)
           FEATURE_FLAG_CONNECTION_STRING: $(FEATURE_FLAG_CONNECTION_STRING)
-        displayName: "Run Cypress Tests"
+        displayName: "Run Cypress Tests Group 1"
+
+      - task: PublishBuildArtifacts@1
+        inputs:
+          pathToPublish: 'apps/e2e/cypress/screenshots'
+          artifactName: 'FailedTests'
+        displayName: "Publish Failed Tests Artifacts"
+        condition: failed()
+
+  - job: E2E_Tests_Group_2
+    timeoutInMinutes: 60
+    pool: pins-odt-agent-pool-tests
+    steps:
+      - task: NodeTool@0
+        inputs:
+          versionSpec: "20.x"
+        displayName: "Install Node.js"
+
+      - task: Npm@1
+        inputs:
+          command: "install"
+          workingDir: $(System.DefaultWorkingDirectory)/apps/e2e
+        displayName: "Install Dependencies"
+
+      - task: Bash@3
+        inputs:
+          targetType: 'inline'
+          script: |
+            ./run-tests.sh --glob "cypress/e2e/back-office-applications/**/*.spec.js" --shard-index 1 --shard-count 4
+          workingDirectory: 'apps/e2e'
+
+        env:
+          BASE_URL: $(BASE_URL)
+          CASE_TEAM_EMAIL: $(CASE_TEAM_EMAIL)
+          CASE_ADMIN_EMAIL: $(CASE_ADMIN_EMAIL)
+          INSPECTOR_EMAIL: $(INSPECTOR_EMAIL)
+          USER_PASSWORD: $(USER_PASSWORD)
+          FEATURE_FLAG_CONNECTION_STRING: $(FEATURE_FLAG_CONNECTION_STRING)
+        displayName: "Run Cypress Tests Group 2"
+
+      - task: PublishBuildArtifacts@1
+        inputs:
+          pathToPublish: 'apps/e2e/cypress/screenshots'
+          artifactName: 'FailedTests'
+        displayName: "Publish Failed Tests Artifacts"
+        condition: failed()
+
+  - job: E2E_Tests_Group_3
+    timeoutInMinutes: 60
+    pool: pins-odt-agent-pool-tests
+    steps:
+      - task: NodeTool@0
+        inputs:
+          versionSpec: "20.x"
+        displayName: "Install Node.js"
+
+      - task: Npm@1
+        inputs:
+          command: "install"
+          workingDir: $(System.DefaultWorkingDirectory)/apps/e2e
+        displayName: "Install Dependencies"
+
+      - task: Bash@3
+        inputs:
+          targetType: 'inline'
+          script: |
+            ./run-tests.sh --glob "cypress/e2e/back-office-applications/**/*.spec.js" --shard-index 2 --shard-count 4
+          workingDirectory: 'apps/e2e'
+
+        env:
+          BASE_URL: $(BASE_URL)
+          CASE_TEAM_EMAIL: $(CASE_TEAM_EMAIL)
+          CASE_ADMIN_EMAIL: $(CASE_ADMIN_EMAIL)
+          INSPECTOR_EMAIL: $(INSPECTOR_EMAIL)
+          USER_PASSWORD: $(USER_PASSWORD)
+          FEATURE_FLAG_CONNECTION_STRING: $(FEATURE_FLAG_CONNECTION_STRING)
+        displayName: "Run Cypress Tests Group 3"
+
+      - task: PublishBuildArtifacts@1
+        inputs:
+          pathToPublish: 'apps/e2e/cypress/screenshots'
+          artifactName: 'FailedTests'
+        displayName: "Publish Failed Tests Artifacts"
+        condition: failed()
+
+  - job: E2E_Tests_Group_4
+    timeoutInMinutes: 60
+    pool: pins-odt-agent-pool-tests
+    steps:
+      - task: NodeTool@0
+        inputs:
+          versionSpec: "20.x"
+        displayName: "Install Node.js"
+
+      - task: Npm@1
+        inputs:
+          command: "install"
+          workingDir: $(System.DefaultWorkingDirectory)/apps/e2e
+        displayName: "Install Dependencies"
+
+      - task: Bash@3
+        inputs:
+          targetType: 'inline'
+          script: |
+            ./run-tests.sh --glob "cypress/e2e/back-office-applications/**/*.spec.js" --shard-index 3 --shard-count 4
+          workingDirectory: 'apps/e2e'
+
+        env:
+          BASE_URL: $(BASE_URL)
+          CASE_TEAM_EMAIL: $(CASE_TEAM_EMAIL)
+          CASE_ADMIN_EMAIL: $(CASE_ADMIN_EMAIL)
+          INSPECTOR_EMAIL: $(INSPECTOR_EMAIL)
+          USER_PASSWORD: $(USER_PASSWORD)
+          FEATURE_FLAG_CONNECTION_STRING: $(FEATURE_FLAG_CONNECTION_STRING)
+        displayName: "Run Cypress Tests Group 4"
 
       - task: PublishBuildArtifacts@1
         inputs:
