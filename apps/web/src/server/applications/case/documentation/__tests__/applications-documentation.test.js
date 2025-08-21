@@ -372,7 +372,9 @@ describe('applications documentation', () => {
 				const element = parseHtml(response.text);
 
 				expect(element.innerHTML).toMatchSnapshot();
-				expect(element.innerHTML).toContain('is in the publishing queue ready to be published');
+				// Normalize whitespace to handle line breaks and extra spaces in HTML
+				const normalizedHtml = element.innerHTML.replace(/\s+/g, ' ');
+				expect(normalizedHtml).toContain('is in the publishing queue ready to be published');
 			});
 		});
 

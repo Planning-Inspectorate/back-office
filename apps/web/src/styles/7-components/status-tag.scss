@@ -1,3 +1,9 @@
-.govuk-tag.single-line {
-	white-space: nowrap;
+.govuk-tag {
+	&.single-line {
+		white-space: nowrap;
+	}
+
+	&.pins-tag--no-max-width {
+		max-width: unset;
+	}
 }

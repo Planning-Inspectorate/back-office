@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`S51 Advice S51 Attachment delete GET /case/123/project-documentation/21/s51-advice/1/attachments/:documentGuid/delete should render the page 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <h1 class="govuk-heading-l govuk-!-margin-bottom-5"> Delete selected attachment</h1>
     <form method="post" action="" novalidate="novalidate" class="pins-applications-create govuk-!-margin-top-6">
         <input type='hidden' value='Minim veniam quis nostrud' name='documentName'>
@@ -21,18 +21,18 @@ exports[`S51 Advice S51 Attachment delete GET /case/123/project-documentation/21
             </tbody>
         </table>
         <div class="govuk-warning-text"><span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-            <strong             class="govuk-warning-text__text"><span class="govuk-warning-text__assistive">Warning</span> This will delete
-                all versions of this document and rename the document to Minim veniam quis
+            <strong             class="govuk-warning-text__text"><span class="govuk-visually-hidden">Warning</span> This will delete all
+                versions of this document and rename the document to Minim veniam quis
                 nostrud_deleted_20231101_000000.</strong>
         </div>
-        <button class="govuk-button govuk-!-margin-top-6 govuk-button--warning"
+        <button type="submit" class="govuk-button govuk-!-margin-top-6 govuk-button--warning"
         data-module="govuk-button">Delete</button>
     </form>
 </main>"
 `;
 
 exports[`S51 Advice S51 Attachment delete POST /case/123/project-documentation/21/s51-advice/1/attachments/:documentGuid/delete should render error if delete is NOT successful 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
             <div class="govuk-error-summary" data-module="govuk-error-summary">
@@ -66,14 +66,14 @@ exports[`S51 Advice S51 Attachment delete POST /case/123/project-documentation/2
                 </tr>
             </tbody>
         </table>
-        <button class="govuk-button govuk-!-margin-top-6 govuk-button--warning"
+        <button type="submit" class="govuk-button govuk-!-margin-top-6 govuk-button--warning"
         data-module="govuk-button">Delete</button>
     </form>
 </main>"
 `;
 
 exports[`S51 Advice S51 Attachment delete POST /case/123/project-documentation/21/s51-advice/1/attachments/:documentGuid/delete should render success banner if delete is successful 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds govuk-!-margin-top-0">
             <div class="govuk-panel govuk-panel--confirmation">
@@ -93,7 +93,7 @@ exports[`S51 Advice S51 Attachment delete POST /case/123/project-documentation/2
 `;
 
 exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-advice/1/properties should display the attachments list 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full govuk-!-margin-top-0">
             <h1 class="govuk-heading-xl govuk-!-margin-top-4"><span class="govuk-caption-xl">S51 advice properties</span> Minim veniam quis nostrud</h1>
@@ -125,54 +125,54 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                     <dl class="govuk-summary-list">
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> S51 title</dt>
                             <dd class="govuk-summary-list__value">Minim veniam quis nostrud</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/s51-advice/1/edit/title"> Change<span class="govuk-visually-hidden"> S51 title</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/s51-advice/1/edit/title">Change<span class="govuk-visually-hidden"> S51 title</span></a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Enquirer</dt>
                             <dd class="govuk-summary-list__value">Do Do, Do</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/s51-advice/1/edit/enquirer"> Change<span class="govuk-visually-hidden"> Enquirer</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/s51-advice/1/edit/enquirer">Change<span class="govuk-visually-hidden"> Enquirer</span></a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Enquiry method</dt>
                             <dd class="govuk-summary-list__value">Post</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/s51-advice/1/edit/method"> Change<span class="govuk-visually-hidden"> Enquiry method</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/s51-advice/1/edit/method">Change<span class="govuk-visually-hidden"> Enquiry method</span></a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Enquiry date</dt>
                             <dd class="govuk-summary-list__value">07 Mar 2023</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/s51-advice/1/edit/enquiry-date"> Change<span class="govuk-visually-hidden"> Enquiry date</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/s51-advice/1/edit/enquiry-date">Change<span class="govuk-visually-hidden"> Enquiry date</span></a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Enquiry details</dt>
                             <dd class="govuk-summary-list__value">Minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip
                                 ex ea commodo consequat</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/s51-advice/1/edit/enquiry-detail"> Change<span class="govuk-visually-hidden"> Enquiry details</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/s51-advice/1/edit/enquiry-detail">Change<span class="govuk-visually-hidden"> Enquiry details</span></a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Advice given by (internal use only)</dt>
                             <dd                             class="govuk-summary-list__value">Do</dd>
-                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/s51-advice/1/edit/person"> Change<span class="govuk-visually-hidden"> Advice given by (internal use only)</span></a>
+                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/s51-advice/1/edit/person">Change<span class="govuk-visually-hidden"> Advice given by (internal use only)</span></a>
                                 </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Date advice given</dt>
                             <dd class="govuk-summary-list__value">07 Mar 2023</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/s51-advice/1/edit/advice-date"> Change<span class="govuk-visually-hidden"> Date advice given</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/s51-advice/1/edit/advice-date">Change<span class="govuk-visually-hidden"> Date advice given</span></a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Advice given</dt>
                             <dd class="govuk-summary-list__value">Minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip
                                 ex ea commodo consequat</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/s51-advice/1/edit/advice-detail"> Change<span class="govuk-visually-hidden"> Advice given</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/s51-advice/1/edit/advice-detail">Change<span class="govuk-visually-hidden"> Advice given</span></a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Redaction</dt>
                             <dd class="govuk-summary-list__value">Unredacted</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/s51-advice/1/edit/redaction"> Change<span class="govuk-visually-hidden"> Redaction</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/s51-advice/1/edit/redaction">Change<span class="govuk-visually-hidden"> Redaction</span></a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Status</dt>
                             <dd class="govuk-summary-list__value">Do not publish</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/s51-advice/1/edit/status"> Change<span class="govuk-visually-hidden"> Status</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/s51-advice/1/edit/status">Change<span class="govuk-visually-hidden"> Status</span></a>
                             </dd>
                         </div>
                     </dl>
@@ -527,7 +527,7 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
 `;
 
 exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-advice/1/properties should render the page 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full govuk-!-margin-top-0">
             <h1 class="govuk-heading-xl govuk-!-margin-top-4"><span class="govuk-caption-xl">S51 advice properties</span> Minim veniam quis nostrud</h1>
@@ -559,54 +559,54 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
                     <dl class="govuk-summary-list">
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> S51 title</dt>
                             <dd class="govuk-summary-list__value">Minim veniam quis nostrud</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/s51-advice/1/edit/title"> Change<span class="govuk-visually-hidden"> S51 title</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/s51-advice/1/edit/title">Change<span class="govuk-visually-hidden"> S51 title</span></a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Enquirer</dt>
                             <dd class="govuk-summary-list__value">Do Do, Do</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/s51-advice/1/edit/enquirer"> Change<span class="govuk-visually-hidden"> Enquirer</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/s51-advice/1/edit/enquirer">Change<span class="govuk-visually-hidden"> Enquirer</span></a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Enquiry method</dt>
                             <dd class="govuk-summary-list__value">Post</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/s51-advice/1/edit/method"> Change<span class="govuk-visually-hidden"> Enquiry method</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/s51-advice/1/edit/method">Change<span class="govuk-visually-hidden"> Enquiry method</span></a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Enquiry date</dt>
                             <dd class="govuk-summary-list__value">07 Mar 2023</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/s51-advice/1/edit/enquiry-date"> Change<span class="govuk-visually-hidden"> Enquiry date</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/s51-advice/1/edit/enquiry-date">Change<span class="govuk-visually-hidden"> Enquiry date</span></a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Enquiry details</dt>
                             <dd class="govuk-summary-list__value">Minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip
                                 ex ea commodo consequat</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/s51-advice/1/edit/enquiry-detail"> Change<span class="govuk-visually-hidden"> Enquiry details</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/s51-advice/1/edit/enquiry-detail">Change<span class="govuk-visually-hidden"> Enquiry details</span></a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Advice given by (internal use only)</dt>
                             <dd                             class="govuk-summary-list__value">Do</dd>
-                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/s51-advice/1/edit/person"> Change<span class="govuk-visually-hidden"> Advice given by (internal use only)</span></a>
+                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/s51-advice/1/edit/person">Change<span class="govuk-visually-hidden"> Advice given by (internal use only)</span></a>
                                 </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Date advice given</dt>
                             <dd class="govuk-summary-list__value">07 Mar 2023</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/s51-advice/1/edit/advice-date"> Change<span class="govuk-visually-hidden"> Date advice given</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/s51-advice/1/edit/advice-date">Change<span class="govuk-visually-hidden"> Date advice given</span></a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Advice given</dt>
                             <dd class="govuk-summary-list__value">Minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip
                                 ex ea commodo consequat</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/s51-advice/1/edit/advice-detail"> Change<span class="govuk-visually-hidden"> Advice given</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/s51-advice/1/edit/advice-detail">Change<span class="govuk-visually-hidden"> Advice given</span></a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Redaction</dt>
                             <dd class="govuk-summary-list__value">Unredacted</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/s51-advice/1/edit/redaction"> Change<span class="govuk-visually-hidden"> Redaction</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/s51-advice/1/edit/redaction">Change<span class="govuk-visually-hidden"> Redaction</span></a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Status</dt>
                             <dd class="govuk-summary-list__value">Do not publish</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/s51-advice/1/edit/status"> Change<span class="govuk-visually-hidden"> Status</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/s51-advice/1/edit/status">Change<span class="govuk-visually-hidden"> Status</span></a>
                             </dd>
                         </div>
                     </dl>
@@ -961,7 +961,7 @@ exports[`S51 Advice S51 Properties GET /case/123/project-documentation/21/s51-ad
 `;
 
 exports[`S51 Advice S51 creation journey Advice details GET /case/123/project-documentation/21/s51-advice/create/advice-details should render the page 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <h1 class="govuk-heading-l govuk-!-margin-bottom-5"> Advice details</h1>
     <form method="post" action="" novalidate="novalidate" class="govuk-grid-row govuk-!-margin-top-2 pins-applications-create">
         <div class="govuk-form-group govuk-grid-column-full ">
@@ -997,14 +997,14 @@ exports[`S51 Advice S51 creation journey Advice details GET /case/123/project-do
             rows="5" aria-describedby="adviceDetails-hint"></textarea>
         </div>
         <div class='govuk-grid-column-full'>
-            <button class="govuk-button" data-module="govuk-button">Continue</button>
+            <button type="submit" class="govuk-button" data-module="govuk-button">Continue</button>
         </div>
     </form>
 </main>"
 `;
 
 exports[`S51 Advice S51 creation journey Check your answers GET /case/123/project-documentation/21/s51-advice/create/check-your-answers should render the page 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <h1 class="govuk-heading-l"><div class="govuk-grid-row"><div class="govuk-grid-column-full"> Check your answers before creating a new item</div></div></h1>
     <form method="post" action="">
         <div class="govuk-grid-row">
@@ -1086,7 +1086,7 @@ exports[`S51 Advice S51 creation journey Check your answers GET /case/123/projec
         type="hidden">
         <div class="govuk-grid-row">
             <div class="govuk-button-group pins-button-group govuk-grid-column-one-half">
-                <button class="govuk-button" data-module="govuk-button">Create S51 advice item</button>
+                <button type="submit" class="govuk-button" data-module="govuk-button">Create S51 advice item</button>
             </div>
         </div>
     </form>
@@ -1094,7 +1094,7 @@ exports[`S51 Advice S51 creation journey Check your answers GET /case/123/projec
 `;
 
 exports[`S51 Advice S51 creation journey Check your answers POST /case/123/project-documentation/21/s51-advice/create/check-your-answers should display an error if data is not complete 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
             <div class="govuk-error-summary" data-module="govuk-error-summary">
@@ -1191,7 +1191,7 @@ exports[`S51 Advice S51 creation journey Check your answers POST /case/123/proje
         type="hidden">
         <div class="govuk-grid-row">
             <div class="govuk-button-group pins-button-group govuk-grid-column-one-half">
-                <button class="govuk-button" data-module="govuk-button">Create S51 advice item</button>
+                <button type="submit" class="govuk-button" data-module="govuk-button">Create S51 advice item</button>
             </div>
         </div>
     </form>
@@ -1199,7 +1199,7 @@ exports[`S51 Advice S51 creation journey Check your answers POST /case/123/proje
 `;
 
 exports[`S51 Advice S51 creation journey Enquirer GET /case/123/project-documentation/21/s51-advice/create/enquirer should render the page 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <h1 class="govuk-heading-l govuk-!-margin-bottom-4"> Enter who the enquiry was from</h1>
     <p class='govuk-body colour--secondary'>This can be a person, an organisation, or both</p>
     <form method="post"
@@ -1219,13 +1219,13 @@ exports[`S51 Advice S51 creation journey Enquirer GET /case/123/project-document
             <input class="govuk-input govuk-!-width-one-third"
             id="enquirerOrganisation" name="enquirerOrganisation" type="text">
         </div>
-        <button class="govuk-button" data-module="govuk-button">Continue</button>
+        <button type="submit" class="govuk-button" data-module="govuk-button">Continue</button>
     </form>
 </main>"
 `;
 
 exports[`S51 Advice S51 creation journey Enquirer POST /case/123/project-documentation/21/s51-advice/create/enquirer Should return error if last name is provided with no name 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
             <div class="govuk-error-summary" data-module="govuk-error-summary">
@@ -1262,13 +1262,13 @@ exports[`S51 Advice S51 creation journey Enquirer POST /case/123/project-documen
             <input class="govuk-input govuk-!-width-one-third"
             id="enquirerOrganisation" name="enquirerOrganisation" type="text">
         </div>
-        <button class="govuk-button" data-module="govuk-button">Continue</button>
+        <button type="submit" class="govuk-button" data-module="govuk-button">Continue</button>
     </form>
 </main>"
 `;
 
 exports[`S51 Advice S51 creation journey Enquirer POST /case/123/project-documentation/21/s51-advice/create/enquirer Should return error if name is provided with no lastname 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
             <div class="govuk-error-summary" data-module="govuk-error-summary">
@@ -1305,13 +1305,13 @@ exports[`S51 Advice S51 creation journey Enquirer POST /case/123/project-documen
             <input class="govuk-input govuk-!-width-one-third"
             id="enquirerOrganisation" name="enquirerOrganisation" type="text">
         </div>
-        <button class="govuk-button" data-module="govuk-button">Continue</button>
+        <button type="submit" class="govuk-button" data-module="govuk-button">Continue</button>
     </form>
 </main>"
 `;
 
 exports[`S51 Advice S51 creation journey Enquirer POST /case/123/project-documentation/21/s51-advice/create/enquirer Should return error if no data is provided 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
             <div class="govuk-error-summary" data-module="govuk-error-summary">
@@ -1346,13 +1346,13 @@ exports[`S51 Advice S51 creation journey Enquirer POST /case/123/project-documen
             <input class="govuk-input govuk-!-width-one-third"
             id="enquirerOrganisation" name="enquirerOrganisation" type="text">
         </div>
-        <button class="govuk-button" data-module="govuk-button">Continue</button>
+        <button type="submit" class="govuk-button" data-module="govuk-button">Continue</button>
     </form>
 </main>"
 `;
 
 exports[`S51 Advice S51 creation journey Enquiry details GET /case/123/project-documentation/21/s51-advice/create/enquiry-details should render the page 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <h1 class="govuk-heading-l govuk-!-margin-bottom-5"> Enquiry details</h1>
     <form method="post" action="" novalidate="novalidate" class="govuk-grid-row govuk-!-margin-top-2 pins-applications-create">
         <div class="govuk-form-group govuk-grid-column-full ">
@@ -1387,14 +1387,14 @@ exports[`S51 Advice S51 creation journey Enquiry details GET /case/123/project-d
             aria-describedby="enquiryDetails-hint"></textarea>
         </div>
         <div class='govuk-grid-column-full'>
-            <button class="govuk-button" data-module="govuk-button">Continue</button>
+            <button type="submit" class="govuk-button" data-module="govuk-button">Continue</button>
         </div>
     </form>
 </main>"
 `;
 
 exports[`S51 Advice S51 creation journey Method GET /case/123/project-documentation/21/s51-advice/create/method should render the page 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <form method="post" action="" novalidate="novalidate" class="pins-applications-create govuk-!-margin-top-6">
         <div class="govuk-form-group">
             <fieldset class="govuk-fieldset">
@@ -1425,13 +1425,13 @@ exports[`S51 Advice S51 creation journey Method GET /case/123/project-documentat
                 </div>
             </fieldset>
         </div>
-        <button class="govuk-button" data-module="govuk-button">Continue</button>
+        <button type="submit" class="govuk-button" data-module="govuk-button">Continue</button>
     </form>
 </main>"
 `;
 
 exports[`S51 Advice S51 creation journey Person GET /case/123/project-documentation/21/s51-advice/create/person should render the page 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <h1 class="govuk-heading-l govuk-!-margin-bottom-5"> Enter who gave the advice</h1>
     <p class='govuk-body colour--secondary govuk-!-margin-bottom-5'>Enter the name of the person who gave the advice. <strong>This is for internal use only.</strong>
     </p>
@@ -1440,13 +1440,13 @@ exports[`S51 Advice S51 creation journey Person GET /case/123/project-documentat
             <input class="govuk-input govuk-!-width-one-third" id="adviser" name="adviser"
             type="text">
         </div>
-        <button class="govuk-button" data-module="govuk-button">Continue</button>
+        <button type="submit" class="govuk-button" data-module="govuk-button">Continue</button>
     </form>
 </main>"
 `;
 
 exports[`S51 Advice S51 creation journey Title GET /case/123/project-documentation/21/s51-advice/create/title should render the page 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <h1 class="govuk-heading-l govuk-!-margin-bottom-5"> Enter the S51 advice title</h1>
     <form method="post" action="" novalidate="novalidate" class="pins-applications-create govuk-!-margin-top-6">
         <div class="govuk-form-group">
@@ -1456,13 +1456,13 @@ exports[`S51 Advice S51 creation journey Title GET /case/123/project-documentati
             <input class="govuk-input govuk-!-width-one-third"
             id="title" name="title" type="text" aria-describedby="title-hint">
         </div>
-        <button class="govuk-button" data-module="govuk-button">Continue</button>
+        <button type="submit" class="govuk-button" data-module="govuk-button">Continue</button>
     </form>
 </main>"
 `;
 
 exports[`S51 Advice S51 creation journey Title POST /case/123/project-documentation/21/s51-advice/create/title Should return error if title is not provided 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
             <div class="govuk-error-summary" data-module="govuk-error-summary">
@@ -1487,15 +1487,15 @@ exports[`S51 Advice S51 creation journey Title POST /case/123/project-documentat
             <p id="title-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> You must enter a S51
                 advice title</p>
             <input class="govuk-input govuk-!-width-one-third govuk-input--error"
-            id="title" name="title" type="text" aria-describedby="title-hint title-error">
+            id="title" name="title" type="text" value="" aria-describedby="title-hint title-error">
         </div>
-        <button class="govuk-button" data-module="govuk-button">Continue</button>
+        <button type="submit" class="govuk-button" data-module="govuk-button">Continue</button>
     </form>
 </main>"
 `;
 
 exports[`S51 Advice S51 delete GET /case/123/project-documentation/21/s51-advice/1/delete should render the page 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <h1 class="govuk-heading-l govuk-!-margin-bottom-5"> Delete selected S51 advice</h1>
     <form method="post" action="" novalidate="novalidate" class="pins-applications-create govuk-!-margin-top-6">
         <input type='hidden' value='Minim veniam quis nostrud' name='adviceTitle'>
@@ -1514,14 +1514,14 @@ exports[`S51 Advice S51 delete GET /case/123/project-documentation/21/s51-advice
                 </tr>
             </tbody>
         </table>
-        <button class="govuk-button govuk-!-margin-top-6 govuk-button--warning"
+        <button type="submit" class="govuk-button govuk-!-margin-top-6 govuk-button--warning"
         data-module="govuk-button">Delete</button>
     </form>
 </main>"
 `;
 
 exports[`S51 Advice S51 edit Welsh properties S51 advice given in Welsh GET /case/123/project-documentation/21/s51-advice/222/edit/advice-detail-in-welsh should render the page 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds-from-desktop">
             <form method="post" action="" novalidate="novalidate">
@@ -1530,7 +1530,7 @@ exports[`S51 Advice S51 edit Welsh properties S51 advice given in Welsh GET /cas
                     <textarea class="govuk-textarea" id="adviceDetailsWelsh" name="adviceDetailsWelsh"
                     rows="5"></textarea>
                 </div>
-                <button class="govuk-button" data-module="govuk-button">Save and return</button>
+                <button type="submit" class="govuk-button" data-module="govuk-button">Save and return</button>
             </form>
         </div>
     </div>
@@ -1538,7 +1538,7 @@ exports[`S51 Advice S51 edit Welsh properties S51 advice given in Welsh GET /cas
 `;
 
 exports[`S51 Advice S51 edit Welsh properties S51 advice given in Welsh POST /case/123/project-documentation/21/s51-advice/edit/advice-detail-in-welsh Should return error if advice given in Welsh has more than 250 characters 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
             <div class="govuk-error-summary" data-module="govuk-error-summary">
@@ -1564,7 +1564,7 @@ exports[`S51 Advice S51 edit Welsh properties S51 advice given in Welsh POST /ca
                     <textarea class="govuk-textarea govuk-textarea--error"
                     id="adviceDetailsWelsh" name="adviceDetailsWelsh" rows="5" aria-describedby="adviceDetailsWelsh-error">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</textarea>
                 </div>
-                <button class="govuk-button" data-module="govuk-button">Save and return</button>
+                <button type="submit" class="govuk-button" data-module="govuk-button">Save and return</button>
             </form>
         </div>
     </div>
@@ -1572,7 +1572,7 @@ exports[`S51 Advice S51 edit Welsh properties S51 advice given in Welsh POST /ca
 `;
 
 exports[`S51 Advice S51 edit Welsh properties S51 advice given in Welsh POST /case/123/project-documentation/21/s51-advice/edit/advice-detail-in-welsh Should return error if advice given in Welsh is not provided 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
             <div class="govuk-error-summary" data-module="govuk-error-summary">
@@ -1598,7 +1598,7 @@ exports[`S51 Advice S51 edit Welsh properties S51 advice given in Welsh POST /ca
                     <textarea class="govuk-textarea govuk-textarea--error"
                     id="adviceDetailsWelsh" name="adviceDetailsWelsh" rows="5" aria-describedby="adviceDetailsWelsh-error"></textarea>
                 </div>
-                <button class="govuk-button" data-module="govuk-button">Save and return</button>
+                <button type="submit" class="govuk-button" data-module="govuk-button">Save and return</button>
             </form>
         </div>
     </div>
@@ -1606,7 +1606,7 @@ exports[`S51 Advice S51 edit Welsh properties S51 advice given in Welsh POST /ca
 `;
 
 exports[`S51 Advice S51 edit Welsh properties S51 enquiry details in Welsh GET /case/123/project-documentation/21/s51-advice/222/edit/enquiry-detail-in-welsh should render the page 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds-from-desktop">
             <form method="post" action="" novalidate="novalidate">
@@ -1615,7 +1615,7 @@ exports[`S51 Advice S51 edit Welsh properties S51 enquiry details in Welsh GET /
                     <textarea class="govuk-textarea" id="enquiryDetailsWelsh" name="enquiryDetailsWelsh"
                     rows="5"></textarea>
                 </div>
-                <button class="govuk-button" data-module="govuk-button">Save and return</button>
+                <button type="submit" class="govuk-button" data-module="govuk-button">Save and return</button>
             </form>
         </div>
     </div>
@@ -1623,7 +1623,7 @@ exports[`S51 Advice S51 edit Welsh properties S51 enquiry details in Welsh GET /
 `;
 
 exports[`S51 Advice S51 edit Welsh properties S51 enquiry details in Welsh POST /case/123/project-documentation/21/s51-advice/edit/enquiry-detail-in-welsh Should return error if enquiry details in Welsh has more than 250 characters 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
             <div class="govuk-error-summary" data-module="govuk-error-summary">
@@ -1649,7 +1649,7 @@ exports[`S51 Advice S51 edit Welsh properties S51 enquiry details in Welsh POST 
                     <textarea class="govuk-textarea govuk-textarea--error"
                     id="enquiryDetailsWelsh" name="enquiryDetailsWelsh" rows="5" aria-describedby="enquiryDetailsWelsh-error">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</textarea>
                 </div>
-                <button class="govuk-button" data-module="govuk-button">Save and return</button>
+                <button type="submit" class="govuk-button" data-module="govuk-button">Save and return</button>
             </form>
         </div>
     </div>
@@ -1657,7 +1657,7 @@ exports[`S51 Advice S51 edit Welsh properties S51 enquiry details in Welsh POST 
 `;
 
 exports[`S51 Advice S51 edit Welsh properties S51 enquiry details in Welsh POST /case/123/project-documentation/21/s51-advice/edit/enquiry-detail-in-welsh Should return error if enquiry details in Welsh is not provided 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
             <div class="govuk-error-summary" data-module="govuk-error-summary">
@@ -1683,7 +1683,7 @@ exports[`S51 Advice S51 edit Welsh properties S51 enquiry details in Welsh POST 
                     <textarea class="govuk-textarea govuk-textarea--error"
                     id="enquiryDetailsWelsh" name="enquiryDetailsWelsh" rows="5" aria-describedby="enquiryDetailsWelsh-error"></textarea>
                 </div>
-                <button class="govuk-button" data-module="govuk-button">Save and return</button>
+                <button type="submit" class="govuk-button" data-module="govuk-button">Save and return</button>
             </form>
         </div>
     </div>
@@ -1691,7 +1691,7 @@ exports[`S51 Advice S51 edit Welsh properties S51 enquiry details in Welsh POST 
 `;
 
 exports[`S51 Advice S51 edit Welsh properties S51 title in Welsh GET /case/123/project-documentation/21/s51-advice/222/edit/title-in-welsh should render the page 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds-from-desktop">
             <form method="post" action="" novalidate="novalidate">
@@ -1699,7 +1699,7 @@ exports[`S51 Advice S51 edit Welsh properties S51 title in Welsh GET /case/123/p
                     <h1 class="govuk-label-wrapper"><label class="govuk-label govuk-label--l" for="titleWelsh"> S51 title in Welsh</label></h1>
                     <textarea class="govuk-textarea" id="titleWelsh" name="titleWelsh" rows="5"></textarea>
                 </div>
-                <button class="govuk-button" data-module="govuk-button">Save and return</button>
+                <button type="submit" class="govuk-button" data-module="govuk-button">Save and return</button>
             </form>
         </div>
     </div>
@@ -1707,7 +1707,7 @@ exports[`S51 Advice S51 edit Welsh properties S51 title in Welsh GET /case/123/p
 `;
 
 exports[`S51 Advice S51 edit Welsh properties S51 title in Welsh POST /case/123/project-documentation/21/s51-advice/edit/title-in-welsh Should return error if title in Welsh has more than 250 characters 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
             <div class="govuk-error-summary" data-module="govuk-error-summary">
@@ -1733,7 +1733,7 @@ exports[`S51 Advice S51 edit Welsh properties S51 title in Welsh POST /case/123/
                     <textarea class="govuk-textarea govuk-textarea--error"
                     id="titleWelsh" name="titleWelsh" rows="5" aria-describedby="titleWelsh-error">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</textarea>
                 </div>
-                <button class="govuk-button" data-module="govuk-button">Save and return</button>
+                <button type="submit" class="govuk-button" data-module="govuk-button">Save and return</button>
             </form>
         </div>
     </div>
@@ -1741,7 +1741,7 @@ exports[`S51 Advice S51 edit Welsh properties S51 title in Welsh POST /case/123/
 `;
 
 exports[`S51 Advice S51 edit Welsh properties S51 title in Welsh POST /case/123/project-documentation/21/s51-advice/edit/title-in-welsh Should return error if title in Welsh is not provided 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
             <div class="govuk-error-summary" data-module="govuk-error-summary">
@@ -1767,7 +1767,7 @@ exports[`S51 Advice S51 edit Welsh properties S51 title in Welsh POST /case/123/
                     <textarea class="govuk-textarea govuk-textarea--error" id="titleWelsh"
                     name="titleWelsh" rows="5" aria-describedby="titleWelsh-error"></textarea>
                 </div>
-                <button class="govuk-button" data-module="govuk-button">Save and return</button>
+                <button type="submit" class="govuk-button" data-module="govuk-button">Save and return</button>
             </form>
         </div>
     </div>
@@ -1775,7 +1775,7 @@ exports[`S51 Advice S51 edit Welsh properties S51 title in Welsh POST /case/123/
 `;
 
 exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-advice/ should render the page 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="top-errors-hook" role="alert"></div>
     <div class="govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-left-0 govuk-!-margin-bottom-7 pins-masthead-summary">
         <div class="govuk-grid-column-full">
@@ -1784,7 +1784,7 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
             <div class="govuk-grid-row">
                 <div class="govuk-grid-column-full govuk-body">Transport EN, Highways EN
                     <br>
-                    <br><strong class="govuk-tag govuk-tag--green">Pre-Application</strong>
+                    <br><strong class="govuk-tag govuk-tag--green pins-tag--no-max-width">Pre-Application</strong>
                 </div>
             </div>
         </div>
@@ -1835,7 +1835,7 @@ exports[`S51 Advice S51 folder page GET /case/123/project-documentation/21/s51-a
 `;
 
 exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/s51-advice/s51-queue should render the page 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
             <h1 class="govuk-heading-l govuk-!-margin-top-2 govuk-!-margin-bottom-8"><span class="govuk-caption-m">S51 advice publishing queue</span> Select items for publishing</h1>
@@ -3235,9 +3235,8 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                         </tr>
                     </tbody>
                 </table>
-                <button class="govuk-button" data-module="govuk-button">Publish S51 advice</button>
-                <nav class="govuk-pagination" role="navigation"
-                aria-label="results">
+                <button type="submit" class="govuk-button" data-module="govuk-button">Publish S51 advice</button>
+                <nav class="govuk-pagination" aria-label="Pagination">
                     <ul class="govuk-pagination__list">
                         <li class="govuk-pagination__item govuk-pagination__item--current"><a class="govuk-link govuk-pagination__link" href="?number=1&amp;size=25"
                             aria-label="Page 1" aria-current="page"> 1</a>
@@ -3253,7 +3252,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                         </li>
                     </ul>
                     <div class="govuk-pagination__next"><a class="govuk-link govuk-pagination__link" href="?number=2&amp;size=25"
-                        rel="next"><span class="govuk-pagination__link-title">Next</span><svg class="govuk-pagination__icon govuk-pagination__icon--next" xmlns="http://www.w3.org/2000/svg" height="13" width="15" aria-hidden="true" focusable="false" viewBox="0 0 15 13"><path d="m8.107-0.0078125-1.4136 1.414 4.2926 4.293h-12.986v2h12.896l-4.1855 3.9766 1.377 1.4492 6.7441-6.4062-6.7246-6.7266z"></path></svg></a>
+                        rel="next"><span class="govuk-pagination__link-title"> Next<span class="govuk-visually-hidden"> page</span></span><svg class="govuk-pagination__icon govuk-pagination__icon--next" xmlns="http://www.w3.org/2000/svg" height="13" width="15" aria-hidden="true" focusable="false" viewBox="0 0 15 13"><path d="m8.107-0.0078125-1.4136 1.414 4.2926 4.293h-12.986v2h12.896l-4.1855 3.9766 1.377 1.4492 6.7441-6.4062-6.7246-6.7266z"></path></svg></a>
                     </div>
                 </nav>
             </form>
@@ -3263,7 +3262,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
 `;
 
 exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/s51-advice/s51-queue/remove/:adviceId should display an error if the API returned an error 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
             <div class="govuk-error-summary" data-module="govuk-error-summary">
@@ -4678,9 +4677,8 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                         </tr>
                     </tbody>
                 </table>
-                <button class="govuk-button" data-module="govuk-button">Publish S51 advice</button>
-                <nav class="govuk-pagination" role="navigation"
-                aria-label="results">
+                <button type="submit" class="govuk-button" data-module="govuk-button">Publish S51 advice</button>
+                <nav class="govuk-pagination" aria-label="Pagination">
                     <ul class="govuk-pagination__list">
                         <li class="govuk-pagination__item govuk-pagination__item--current"><a class="govuk-link govuk-pagination__link" href="?number=1&amp;size=25"
                             aria-label="Page 1" aria-current="page"> 1</a>
@@ -4696,7 +4694,7 @@ exports[`S51 Advice S51 publishing queue GET /case/123/project-documentation/21/
                         </li>
                     </ul>
                     <div class="govuk-pagination__next"><a class="govuk-link govuk-pagination__link" href="?number=2&amp;size=25"
-                        rel="next"><span class="govuk-pagination__link-title">Next</span><svg class="govuk-pagination__icon govuk-pagination__icon--next" xmlns="http://www.w3.org/2000/svg" height="13" width="15" aria-hidden="true" focusable="false" viewBox="0 0 15 13"><path d="m8.107-0.0078125-1.4136 1.414 4.2926 4.293h-12.986v2h12.896l-4.1855 3.9766 1.377 1.4492 6.7441-6.4062-6.7246-6.7266z"></path></svg></a>
+                        rel="next"><span class="govuk-pagination__link-title"> Next<span class="govuk-visually-hidden"> page</span></span><svg class="govuk-pagination__icon govuk-pagination__icon--next" xmlns="http://www.w3.org/2000/svg" height="13" width="15" aria-hidden="true" focusable="false" viewBox="0 0 15 13"><path d="m8.107-0.0078125-1.4136 1.414 4.2926 4.293h-12.986v2h12.896l-4.1855 3.9766 1.377 1.4492 6.7441-6.4062-6.7246-6.7266z"></path></svg></a>
                     </div>
                 </nav>
             </form>

@@ -31,7 +31,7 @@
 {%- endmacro -%}
 
 {%- macro reviewLink(id, caseId) -%}
-	<a href="{{"project-updates-step" | url({caseId: caseId, projectUpdateId: id, step: "review"}) }}">Review</a>
+	<a class="govuk-link"  href="{{"project-updates-step" | url({caseId: caseId, projectUpdateId: id, step: "review"}) }}">Review</a>
 {%- endmacro -%}
 
 {%- macro headerLink(header) -%}

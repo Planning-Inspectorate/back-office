@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`publish-updated-representations.controller GET /applications-service/:caseId/relevant-representations/select-representations-for-publishing should render the page 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main"><span class="govuk-caption-m"> Publishing queue</span>
+"<main class="govuk-main-wrapper" id="main-content"><span class="govuk-caption-m"> Publishing queue</span>
     <h2 class="govuk-heading-l"> Select representations for publishing</h2>
     <p class="govuk-body"><strong>Project name:</strong> mock title</p>
     <p class="govuk-body">The queue contains <strong>3</strong> representations.</p>
@@ -46,7 +46,7 @@ exports[`publish-updated-representations.controller GET /applications-service/:c
                     </td>
                     <td class="govuk-table__cell">mock-reference-1</td>
                     <td class="govuk-table__cell">10 Oct 2023</td>
-                    <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--">VALID</strong>
+                    <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag-- pins-tag--no-max-width">VALID</strong>
                     </td>
                 </tr>
                 <tr class="govuk-table__row">
@@ -63,7 +63,7 @@ exports[`publish-updated-representations.controller GET /applications-service/:c
                     </td>
                     <td class="govuk-table__cell">mock-reference-3</td>
                     <td class="govuk-table__cell">10 Oct 2023</td>
-                    <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--">VALID</strong>
+                    <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag-- pins-tag--no-max-width">VALID</strong>
                     </td>
                 </tr>
                 <tr class="govuk-table__row">
@@ -80,7 +80,7 @@ exports[`publish-updated-representations.controller GET /applications-service/:c
                     </td>
                     <td class="govuk-table__cell">mock-reference-3</td>
                     <td class="govuk-table__cell">10 Oct 2023</td>
-                    <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--">VALID</strong>
+                    <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag-- pins-tag--no-max-width">VALID</strong>
                     </td>
                 </tr>
             </tbody>
@@ -134,7 +134,7 @@ exports[`publish-updated-representations.controller GET /applications-service/:c
 `;
 
 exports[`publish-updated-representations.controller POST /applications-service/:caseId/relevant-representations/select-representations-for-publishing error should render the page with the error summary 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
             <div class="govuk-error-summary" data-module="govuk-error-summary">
@@ -194,7 +194,7 @@ exports[`publish-updated-representations.controller POST /applications-service/:
                     </td>
                     <td class="govuk-table__cell">mock-reference-1</td>
                     <td class="govuk-table__cell">10 Oct 2023</td>
-                    <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--">VALID</strong>
+                    <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag-- pins-tag--no-max-width">VALID</strong>
                     </td>
                 </tr>
                 <tr class="govuk-table__row">
@@ -211,7 +211,7 @@ exports[`publish-updated-representations.controller POST /applications-service/:
                     </td>
                     <td class="govuk-table__cell">mock-reference-3</td>
                     <td class="govuk-table__cell">10 Oct 2023</td>
-                    <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--">VALID</strong>
+                    <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag-- pins-tag--no-max-width">VALID</strong>
                     </td>
                 </tr>
                 <tr class="govuk-table__row">
@@ -228,7 +228,7 @@ exports[`publish-updated-representations.controller POST /applications-service/:
                     </td>
                     <td class="govuk-table__cell">mock-reference-3</td>
                     <td class="govuk-table__cell">10 Oct 2023</td>
-                    <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--">VALID</strong>
+                    <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag-- pins-tag--no-max-width">VALID</strong>
                     </td>
                 </tr>
             </tbody>

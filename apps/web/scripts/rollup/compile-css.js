@@ -5,7 +5,7 @@ import fs from 'node:fs';
 import { createRequire } from 'node:module';
 import path from 'node:path';
 import postcss from 'postcss';
-import sassEngine from 'sass';
+import * as sassEngine from 'sass';
 import { getLogger } from './get-logger.js';
 import { hashForContent } from './hash.js';
 
@@ -37,7 +37,7 @@ function compileCSS(input) {
 			// external modules need to be imported in the css with this syntax:
 			// "../name_of_the_module/path-to-the-actual-scss
 			// there must be a way to get rid of the initial '../'
-			path.resolve(require.resolve('govuk-frontend'), '../..'),
+			path.resolve(require.resolve('govuk-frontend'), '../../../..'),
 			path.resolve(require.resolve('accessible-autocomplete'), '../..'),
 			path.join(require.resolve('@toast-ui/editor'), '..') // resolves to dist folder of @toast-ui/editor
 		]
@@ -137,4 +137,5 @@ logger.log(
 		'.build/resourceCSS.json'
 	)}`
 );
+
 logger.success(`Finished CSS! (${resourceName})`);
