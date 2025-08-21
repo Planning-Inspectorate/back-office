@@ -135,7 +135,8 @@
 				}
 			}
 
-			.govuk-table__cell{
+			.govuk-table__cell,
+			.govuk-table__header {
 				vertical-align: inherit;
 			}
 		}
