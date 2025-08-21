@@ -29,47 +29,57 @@ describe('Update Key Dates', () => {
 		});
 
 		it('As a  user able to update the case information', () => {
-			const expectedBefore = {
+			const expectedBeforePreAppDates = {
 				'Date first notified of project': '',
 				'Project published on website': '',
 				'Anticipated submission date published': projectInfo.publishedDate,
 				'Anticipated submission date internal': projectInfo.internalDateFullFormatted,
-				'Screening opinion sought': '',
-				'Screening opinion issued': '',
-				'Scoping opinion sought': '',
-				'Scoping opinion issued': '',
 				'Section 46 notification': ''
 			};
 
-			const generateData = () => {
+			const expectedBeforeScreeningScoping = {
+				'Screening opinion sought': '',
+				'Screening opinion issued': '',
+				'Scoping opinion sought': '',
+				'Scoping opinion issued': ''
+			};
+
+			const generatePreAppDatesData = () => {
 				const data = {
 					'Date first notified of project': getRandomFormattedDate(),
 					'Project published on website': getRandomFormattedDate(),
 					'Anticipated submission date published': getRandomQuarterDate(),
 					'Anticipated submission date internal': getRandomFormattedDate(),
-					'Screening opinion sought': getRandomFormattedDate(),
-					'Screening opinion issued': getRandomFormattedDate(),
-					'Scoping opinion sought': getRandomFormattedDate(),
-					'Scoping opinion issued': getRandomFormattedDate(),
 					'Section 46 notification': getRandomFormattedDate()
 				};
-
 				return data;
 			};
 
-			const expectedAfter = generateData();
+			const generateScreeningScopingData = () => {
+				const data = {
+					'Screening opinion sought': getRandomFormattedDate(),
+					'Screening opinion issued': getRandomFormattedDate(),
+					'Scoping opinion sought': getRandomFormattedDate(),
+					'Scoping opinion issued': getRandomFormattedDate()
+				};
+				return data;
+			};
+
+			const expectedAfterPreAppDates = generatePreAppDatesData();
+			const expectedAfterScreeningScoping = generateScreeningScopingData();
 
 			applicationsHomePage.loadCurrentCase();
 			validateProjectOverview(projectInfo, true);
 			casePage.clickLinkByText('Key dates');
 			casePage.showAllSections();
-			keyDatesPage.validateSectionDates('Pre-application', expectedBefore);
-			keyDatesPage.clickManageDates('Pre-application');
-			keyDatesPage.preApplication(expectedAfter);
+			keyDatesPage.validateSectionDates('Pre-application dates', expectedBeforePreAppDates);
+			keyDatesPage.validateSectionDates('Screening and Scoping', expectedBeforeScreeningScoping);
+			keyDatesPage.clickManageDates('Pre-application dates');
+			keyDatesPage.preApplication(expectedAfterPreAppDates);
 			keyDatesPage.clickButtonByText('Save and return');
 			cy.reload();
 			casePage.showAllSections();
-			keyDatesPage.validateSectionDates('Pre-application', expectedAfter);
+			keyDatesPage.validateSectionDates('Pre-application dates', expectedAfterPreAppDates);
 		});
 	});
 });

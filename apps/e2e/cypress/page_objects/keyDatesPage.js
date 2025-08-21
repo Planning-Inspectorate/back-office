@@ -30,30 +30,33 @@ export class KeyDatesPage extends Page {
 		cy.get('#submissionAtInternal\\.month').clear().type(data[fields[3]].enteredFormat[1]);
 		cy.get('#submissionAtInternal\\.year').clear().type(data[fields[3]].enteredFormat[2]);
 
+		// Section 46 notification
+		cy.get('#section46Notification\\.day').clear().type(data[fields[4]].enteredFormat[0]);
+		cy.get('#section46Notification\\.month').clear().type(data[fields[4]].enteredFormat[1]);
+		cy.get('#section46Notification\\.year').clear().type(data[fields[4]].enteredFormat[2]);
+	}
+
+	screeningAndScoping(data) {
+		const fields = Object.keys(data);
 		// Screening opinion sought
-		cy.get('#screeningOpinionSought\\.day').clear().type(data[fields[4]].enteredFormat[0]);
-		cy.get('#screeningOpinionSought\\.month').clear().type(data[fields[4]].enteredFormat[1]);
-		cy.get('#screeningOpinionSought\\.year').clear().type(data[fields[4]].enteredFormat[2]);
+		cy.get('#screeningOpinionSought\\.day').clear().type(data[fields[0]].enteredFormat[0]);
+		cy.get('#screeningOpinionSought\\.month').clear().type(data[fields[0]].enteredFormat[1]);
+		cy.get('#screeningOpinionSought\\.year').clear().type(data[fields[0]].enteredFormat[2]);
 
 		// Screening opinion issued
-		cy.get('#screeningOpinionIssued\\.day').clear().type(data[fields[5]].enteredFormat[0]);
-		cy.get('#screeningOpinionIssued\\.month').clear().type(data[fields[5]].enteredFormat[1]);
-		cy.get('#screeningOpinionIssued\\.year').clear().type(data[fields[5]].enteredFormat[2]);
+		cy.get('#screeningOpinionIssued\\.day').clear().type(data[fields[1]].enteredFormat[0]);
+		cy.get('#screeningOpinionIssued\\.month').clear().type(data[fields[1]].enteredFormat[1]);
+		cy.get('#screeningOpinionIssued\\.year').clear().type(data[fields[1]].enteredFormat[2]);
 
 		// Scoping opinion sought
-		cy.get('#scopingOpinionSought\\.day').clear().type(data[fields[6]].enteredFormat[0]);
-		cy.get('#scopingOpinionSought\\.month').clear().type(data[fields[6]].enteredFormat[1]);
-		cy.get('#scopingOpinionSought\\.year').clear().type(data[fields[6]].enteredFormat[2]);
+		cy.get('#scopingOpinionSought\\.day').clear().type(data[fields[2]].enteredFormat[0]);
+		cy.get('#scopingOpinionSought\\.month').clear().type(data[fields[2]].enteredFormat[1]);
+		cy.get('#scopingOpinionSought\\.year').clear().type(data[fields[2]].enteredFormat[2]);
 
 		// Scoping opinion issued
-		cy.get('#scopingOpinionIssued\\.day').clear().type(data[fields[7]].enteredFormat[0]);
-		cy.get('#scopingOpinionIssued\\.month').clear().type(data[fields[7]].enteredFormat[1]);
-		cy.get('#scopingOpinionIssued\\.year').clear().type(data[fields[7]].enteredFormat[2]);
-
-		// Section 46 notification
-		cy.get('#section46Notification\\.day').clear().type(data[fields[8]].enteredFormat[0]);
-		cy.get('#section46Notification\\.month').clear().type(data[fields[8]].enteredFormat[1]);
-		cy.get('#section46Notification\\.year').clear().type(data[fields[8]].enteredFormat[2]);
+		cy.get('#scopingOpinionIssued\\.day').clear().type(data[fields[3]].enteredFormat[0]);
+		cy.get('#scopingOpinionIssued\\.month').clear().type(data[fields[3]].enteredFormat[1]);
+		cy.get('#scopingOpinionIssued\\.year').clear().type(data[fields[3]].enteredFormat[2]);
 	}
 
 	getSection(sectionName) {
@@ -66,10 +69,10 @@ export class KeyDatesPage extends Page {
 	getTableData() {
 		const tableData = {};
 		return cy
-			.get(`${this.selectors.table} tbody ${this.selectors.tableRow}`)
+			.get('.govuk-summary-list__row')
 			.each(($row) => {
-				const header = $row.find(this.selectors.tableHeader).text().trim();
-				const cellValue = $row.find(this.selectors.tableCell).text().trim();
+				const header = $row.find('.govuk-summary-list__key').text().trim();
+				const cellValue = $row.find('.govuk-summary-list__value').text().trim();
 				tableData[header] = cellValue;
 			})
 			.then(() => {
