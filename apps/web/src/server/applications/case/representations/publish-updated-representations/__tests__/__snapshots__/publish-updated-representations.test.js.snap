@@ -46,7 +46,7 @@ exports[`publish-updated-representations.controller GET /applications-service/:c
                     </td>
                     <td class="govuk-table__cell">mock-reference-1</td>
                     <td class="govuk-table__cell">10 Oct 2023</td>
-                    <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--">VALID</strong>
+                    <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag-- pins-tag--no-max-width">VALID</strong>
                     </td>
                 </tr>
                 <tr class="govuk-table__row">
@@ -63,7 +63,7 @@ exports[`publish-updated-representations.controller GET /applications-service/:c
                     </td>
                     <td class="govuk-table__cell">mock-reference-3</td>
                     <td class="govuk-table__cell">10 Oct 2023</td>
-                    <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--">VALID</strong>
+                    <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag-- pins-tag--no-max-width">VALID</strong>
                     </td>
                 </tr>
                 <tr class="govuk-table__row">
@@ -80,7 +80,7 @@ exports[`publish-updated-representations.controller GET /applications-service/:c
                     </td>
                     <td class="govuk-table__cell">mock-reference-3</td>
                     <td class="govuk-table__cell">10 Oct 2023</td>
-                    <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--">VALID</strong>
+                    <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag-- pins-tag--no-max-width">VALID</strong>
                     </td>
                 </tr>
             </tbody>
@@ -194,7 +194,7 @@ exports[`publish-updated-representations.controller POST /applications-service/:
                     </td>
                     <td class="govuk-table__cell">mock-reference-1</td>
                     <td class="govuk-table__cell">10 Oct 2023</td>
-                    <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--">VALID</strong>
+                    <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag-- pins-tag--no-max-width">VALID</strong>
                     </td>
                 </tr>
                 <tr class="govuk-table__row">
@@ -211,7 +211,7 @@ exports[`publish-updated-representations.controller POST /applications-service/:
                     </td>
                     <td class="govuk-table__cell">mock-reference-3</td>
                     <td class="govuk-table__cell">10 Oct 2023</td>
-                    <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--">VALID</strong>
+                    <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag-- pins-tag--no-max-width">VALID</strong>
                     </td>
                 </tr>
                 <tr class="govuk-table__row">
@@ -228,7 +228,7 @@ exports[`publish-updated-representations.controller POST /applications-service/:
                     </td>
                     <td class="govuk-table__cell">mock-reference-3</td>
                     <td class="govuk-table__cell">10 Oct 2023</td>
-                    <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--">VALID</strong>
+                    <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag-- pins-tag--no-max-width">VALID</strong>
                     </td>
                 </tr>
             </tbody>

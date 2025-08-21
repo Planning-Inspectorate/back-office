@@ -94,7 +94,7 @@ exports[`applications search POST /applications-service/search-results should re
                 <tr class="govuk-table__row">
                     <td class="govuk-table__cell"><a class="govuk-body" href="/applications-service/create-new-case/76/check-your-answers"> Title</a>
                     </td>
-                    <td class="govuk-table__cell govuk-!-width-one-quarter text-align--right"><strong class="govuk-tag govuk-tag--">Draft</strong>
+                    <td class="govuk-table__cell govuk-!-width-one-quarter text-align--right"><strong class="govuk-tag govuk-tag-- pins-tag--no-max-width">Draft</strong>
                     </td>
                 </tr>
             </tbody>
