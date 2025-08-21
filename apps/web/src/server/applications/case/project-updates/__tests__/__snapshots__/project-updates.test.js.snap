@@ -10,7 +10,7 @@ exports[`project-updates GET /applications-service/:caseId/project-updates shoul
             <div class="govuk-grid-row">
                 <div class="govuk-grid-column-full govuk-body">,
                     <br>
-                    <br><strong class="govuk-tag govuk-tag--">in test</strong>
+                    <br><strong class="govuk-tag govuk-tag-- pins-tag--no-max-width">in test</strong>
                 </div>
             </div>
         </div>
@@ -63,7 +63,7 @@ exports[`project-updates GET /applications-service/:caseId/project-updates shoul
                             <td class="govuk-table__cell">No</td>
                             <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--grey single-line">draft</strong>
                             </td>
-                            <td class="govuk-table__cell"><a href="/applications-service/case/1/project-updates/3/review">Review</a>
+                            <td class="govuk-table__cell"><a class="govuk-link" href="/applications-service/case/1/project-updates/3/review">Review</a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -72,7 +72,7 @@ exports[`project-updates GET /applications-service/:caseId/project-updates shoul
                             <td class="govuk-table__cell">No</td>
                             <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--grey single-line">draft</strong>
                             </td>
-                            <td class="govuk-table__cell"><a href="/applications-service/case/1/project-updates/3/review">Review</a>
+                            <td class="govuk-table__cell"><a class="govuk-link" href="/applications-service/case/1/project-updates/3/review">Review</a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -81,7 +81,7 @@ exports[`project-updates GET /applications-service/:caseId/project-updates shoul
                             <td class="govuk-table__cell">No</td>
                             <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--grey single-line">draft</strong>
                             </td>
-                            <td class="govuk-table__cell"><a href="/applications-service/case/1/project-updates/3/review">Review</a>
+                            <td class="govuk-table__cell"><a class="govuk-link" href="/applications-service/case/1/project-updates/3/review">Review</a>
                             </td>
                         </tr>
                     </tbody>
@@ -373,7 +373,7 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/:pro
             <div class="govuk-grid-row">
                 <div class="govuk-grid-column-full govuk-body">,
                     <br>
-                    <br><strong class="govuk-tag govuk-tag--">in test</strong>
+                    <br><strong class="govuk-tag govuk-tag-- pins-tag--no-max-width">in test</strong>
                 </div>
             </div>
         </div>
@@ -437,7 +437,7 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/:pro
                             <td class="govuk-table__cell">No</td>
                             <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--grey single-line">draft</strong>
                             </td>
-                            <td class="govuk-table__cell"><a href="/applications-service/case/1/project-updates/3/review">Review</a>
+                            <td class="govuk-table__cell"><a class="govuk-link" href="/applications-service/case/1/project-updates/3/review">Review</a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -446,7 +446,7 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/:pro
                             <td class="govuk-table__cell">No</td>
                             <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--grey single-line">draft</strong>
                             </td>
-                            <td class="govuk-table__cell"><a href="/applications-service/case/1/project-updates/3/review">Review</a>
+                            <td class="govuk-table__cell"><a class="govuk-link" href="/applications-service/case/1/project-updates/3/review">Review</a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -455,7 +455,7 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/:pro
                             <td class="govuk-table__cell">No</td>
                             <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--grey single-line">draft</strong>
                             </td>
-                            <td class="govuk-table__cell"><a href="/applications-service/case/1/project-updates/3/review">Review</a>
+                            <td class="govuk-table__cell"><a class="govuk-link" href="/applications-service/case/1/project-updates/3/review">Review</a>
                             </td>
                         </tr>
                     </tbody>
@@ -476,7 +476,7 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/:pro
             <div class="govuk-grid-row">
                 <div class="govuk-grid-column-full govuk-body">,
                     <br>
-                    <br><strong class="govuk-tag govuk-tag--">in test</strong>
+                    <br><strong class="govuk-tag govuk-tag-- pins-tag--no-max-width">in test</strong>
                 </div>
             </div>
         </div>
@@ -540,7 +540,7 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/:pro
                             <td class="govuk-table__cell">No</td>
                             <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--grey single-line">draft</strong>
                             </td>
-                            <td class="govuk-table__cell"><a href="/applications-service/case/1/project-updates/3/review">Review</a>
+                            <td class="govuk-table__cell"><a class="govuk-link" href="/applications-service/case/1/project-updates/3/review">Review</a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -549,7 +549,7 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/:pro
                             <td class="govuk-table__cell">No</td>
                             <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--grey single-line">draft</strong>
                             </td>
-                            <td class="govuk-table__cell"><a href="/applications-service/case/1/project-updates/3/review">Review</a>
+                            <td class="govuk-table__cell"><a class="govuk-link" href="/applications-service/case/1/project-updates/3/review">Review</a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -558,7 +558,7 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/:pro
                             <td class="govuk-table__cell">No</td>
                             <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--grey single-line">draft</strong>
                             </td>
-                            <td class="govuk-table__cell"><a href="/applications-service/case/1/project-updates/3/review">Review</a>
+                            <td class="govuk-table__cell"><a class="govuk-link" href="/applications-service/case/1/project-updates/3/review">Review</a>
                             </td>
                         </tr>
                     </tbody>
@@ -579,7 +579,7 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/:pro
             <div class="govuk-grid-row">
                 <div class="govuk-grid-column-full govuk-body">,
                     <br>
-                    <br><strong class="govuk-tag govuk-tag--">in test</strong>
+                    <br><strong class="govuk-tag govuk-tag-- pins-tag--no-max-width">in test</strong>
                 </div>
             </div>
         </div>
@@ -643,7 +643,7 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/:pro
                             <td class="govuk-table__cell">No</td>
                             <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--grey single-line">draft</strong>
                             </td>
-                            <td class="govuk-table__cell"><a href="/applications-service/case/1/project-updates/3/review">Review</a>
+                            <td class="govuk-table__cell"><a class="govuk-link" href="/applications-service/case/1/project-updates/3/review">Review</a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -652,7 +652,7 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/:pro
                             <td class="govuk-table__cell">No</td>
                             <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--grey single-line">draft</strong>
                             </td>
-                            <td class="govuk-table__cell"><a href="/applications-service/case/1/project-updates/3/review">Review</a>
+                            <td class="govuk-table__cell"><a class="govuk-link" href="/applications-service/case/1/project-updates/3/review">Review</a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -661,7 +661,7 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/:pro
                             <td class="govuk-table__cell">No</td>
                             <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--grey single-line">draft</strong>
                             </td>
-                            <td class="govuk-table__cell"><a href="/applications-service/case/1/project-updates/3/review">Review</a>
+                            <td class="govuk-table__cell"><a class="govuk-link" href="/applications-service/case/1/project-updates/3/review">Review</a>
                             </td>
                         </tr>
                     </tbody>

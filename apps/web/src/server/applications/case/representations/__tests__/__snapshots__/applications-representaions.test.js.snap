@@ -10,7 +10,7 @@ exports[`applications representations GET /applications-service/:caseId/relevant
             <div class="govuk-grid-row">
                 <div class="govuk-grid-column-full govuk-body">,
                     <br>
-                    <br><strong class="govuk-tag govuk-tag--">in test</strong>
+                    <br><strong class="govuk-tag govuk-tag-- pins-tag--no-max-width">in test</strong>
                 </div>
             </div>
         </div>
@@ -203,7 +203,7 @@ exports[`applications representations GET /applications-service/:id/relevant-rep
             <div class="govuk-grid-row">
                 <div class="govuk-grid-column-full govuk-body">,
                     <br>
-                    <br><strong class="govuk-tag govuk-tag--">in test</strong>
+                    <br><strong class="govuk-tag govuk-tag-- pins-tag--no-max-width">in test</strong>
                 </div>
             </div>
         </div>

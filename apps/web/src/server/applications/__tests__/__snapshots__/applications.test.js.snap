@@ -110,7 +110,7 @@ exports[`applications GET / should render the open applications belonging to the
                                     <tr class="govuk-table__row">
                                         <td class="govuk-table__cell"><a class="govuk-body" href="/applications-service/case/4/"> CASE/04 - Title CASE/04</a>
                                         </td>
-                                        <td class="govuk-table__cell govuk-!-width-one-quarter text-align--right"><strong class="govuk-tag govuk-tag--green">Pre-Application</strong>
+                                        <td class="govuk-table__cell govuk-!-width-one-quarter text-align--right"><strong class="govuk-tag govuk-tag--green pins-tag--no-max-width">Pre-Application</strong>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -132,7 +132,7 @@ exports[`applications GET / should render the open applications belonging to the
                                     <tr class="govuk-table__row">
                                         <td class="govuk-table__cell"><a class="govuk-body" href="/applications-service/case/5/"> CASE/05 - Title CASE/05</a>
                                         </td>
-                                        <td class="govuk-table__cell govuk-!-width-one-quarter text-align--right"><strong class="govuk-tag govuk-tag--">Pre-application</strong>
+                                        <td class="govuk-table__cell govuk-!-width-one-quarter text-align--right"><strong class="govuk-tag govuk-tag-- pins-tag--no-max-width">Pre-application</strong>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -161,7 +161,7 @@ exports[`applications GET / should render the open applications belonging to the
                                     <tr class="govuk-table__row">
                                         <td class="govuk-table__cell"><a class="govuk-body" href="/applications-service/case/6/"> CASE/06 - Title CASE/06</a>
                                         </td>
-                                        <td class="govuk-table__cell govuk-!-width-one-quarter text-align--right"><strong class="govuk-tag govuk-tag--">Pre-application</strong>
+                                        <td class="govuk-table__cell govuk-!-width-one-quarter text-align--right"><strong class="govuk-tag govuk-tag-- pins-tag--no-max-width">Pre-application</strong>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -190,7 +190,7 @@ exports[`applications GET / should render the open applications belonging to the
                                     <tr class="govuk-table__row">
                                         <td class="govuk-table__cell"><a class="govuk-body" href="/applications-service/case/7/"> CASE/07 - Title CASE/07</a>
                                         </td>
-                                        <td class="govuk-table__cell govuk-!-width-one-quarter text-align--right"><strong class="govuk-tag govuk-tag--">Pre-application</strong>
+                                        <td class="govuk-table__cell govuk-!-width-one-quarter text-align--right"><strong class="govuk-tag govuk-tag-- pins-tag--no-max-width">Pre-application</strong>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -219,7 +219,7 @@ exports[`applications GET / should render the open applications belonging to the
                                     <tr class="govuk-table__row">
                                         <td class="govuk-table__cell"><a class="govuk-body" href="/applications-service/case/8/"> CASE/08 - Title CASE/08</a>
                                         </td>
-                                        <td class="govuk-table__cell govuk-!-width-one-quarter text-align--right"><strong class="govuk-tag govuk-tag--">Pre-application</strong>
+                                        <td class="govuk-table__cell govuk-!-width-one-quarter text-align--right"><strong class="govuk-tag govuk-tag-- pins-tag--no-max-width">Pre-application</strong>
                                         </td>
                                     </tr>
                                 </tbody>
