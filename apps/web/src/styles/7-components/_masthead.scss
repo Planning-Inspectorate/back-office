@@ -1,14 +1,15 @@
-@use "../govuk-frontend/govuk/helpers/_colour" as color;
+@use "govuk-frontend/dist/govuk/settings/_colours-applied" as
+	govuk-colours-applied;
 @use "../../1-settings/_settings.global.scss" as pins-colours;
 
 .pins-masthead {
-	border-bottom: 1px solid color.govuk-colour("blue");
-	color: color.govuk-colour("white");
-	background-color: color.govuk-colour("blue");
-	margin-top: -16px;
+	border-bottom: 1px solid govuk-colours-applied.$govuk-brand-colour;
+	color: govuk-colours-applied.$govuk-body-background-colour;
+	background-color: govuk-colours-applied.$govuk-brand-colour;
+	margin-top: calc(-1 * #{govuk-spacing(3)});
 
 	h1 {
-		color: color.govuk-colour("white");
+		color: govuk-colours-applied.$govuk-body-background-colour;
 	}
 }
 
@@ -16,6 +17,6 @@
 	background-color: pins-colours.$pins-colours-grey-100;
 
 	.govuk-heading-xl {
-		margin-bottom: 10px;
+		margin-bottom: govuk-spacing(2);
 	}
 }

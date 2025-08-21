@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Project team Choose role page GET /case/123/project-team/1/choose-role should render the page with the name of the NEW user and no default option 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <h1 class="govuk-heading-l govuk-!-margin-bottom-5"><span class="govuk-caption-l">Do Do</span></h1>
     <form method="post" action="" novalidate="novalidate" class="govuk-!-margin-top-6">
         <div class="govuk-form-group">
@@ -63,7 +63,7 @@ exports[`Project team Choose role page GET /case/123/project-team/1/choose-role 
                 </div>
             </fieldset>
         </div>
-        <button class="govuk-button govuk-!-margin-top-4" data-module="govuk-button">Save and return</button>
+        <button type="submit" class="govuk-button govuk-!-margin-top-4" data-module="govuk-button">Save and return</button>
         <button type="submit" formaction="?toSearchPage=1"
         class="govuk-button govuk-button--secondary govuk-!-margin-left-2 govuk-!-margin-top-4">Save and add another</button>
     </form>
@@ -71,7 +71,7 @@ exports[`Project team Choose role page GET /case/123/project-team/1/choose-role 
 `;
 
 exports[`Project team Choose role page GET /case/123/project-team/1/choose-role should render the page with the name of the NEW user, no default option and no Case Manager option 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <h1 class="govuk-heading-l govuk-!-margin-bottom-5"><span class="govuk-caption-l">Do Do</span></h1>
     <form method="post" action="" novalidate="novalidate" class="govuk-!-margin-top-6">
         <div class="govuk-form-group">
@@ -128,7 +128,7 @@ exports[`Project team Choose role page GET /case/123/project-team/1/choose-role 
                 </div>
             </fieldset>
         </div>
-        <button class="govuk-button govuk-!-margin-top-4" data-module="govuk-button">Save and return</button>
+        <button type="submit" class="govuk-button govuk-!-margin-top-4" data-module="govuk-button">Save and return</button>
         <button type="submit" formaction="?toSearchPage=1"
         class="govuk-button govuk-button--secondary govuk-!-margin-left-2 govuk-!-margin-top-4">Save and add another</button>
     </form>
@@ -136,7 +136,7 @@ exports[`Project team Choose role page GET /case/123/project-team/1/choose-role 
 `;
 
 exports[`Project team Choose role page GET /case/123/project-team/1/choose-role should render the page with the name of the existing user and default option 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <h1 class="govuk-heading-l govuk-!-margin-bottom-5"><span class="govuk-caption-l">Do Do</span></h1>
     <form method="post" action="" novalidate="novalidate" class="govuk-!-margin-top-6">
         <div class="govuk-form-group">
@@ -198,13 +198,13 @@ exports[`Project team Choose role page GET /case/123/project-team/1/choose-role 
                 </div>
             </fieldset>
         </div>
-        <button class="govuk-button govuk-!-margin-top-4" data-module="govuk-button">Save and return</button>
+        <button type="submit" class="govuk-button govuk-!-margin-top-4" data-module="govuk-button">Save and return</button>
     </form>
 </main>"
 `;
 
 exports[`Project team Choose role page POST /case/123/project-team/1/choose-role should render a API error if upserting did not work 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
             <div class="govuk-error-summary" data-module="govuk-error-summary">
@@ -281,7 +281,7 @@ exports[`Project team Choose role page POST /case/123/project-team/1/choose-role
                 </div>
             </fieldset>
         </div>
-        <button class="govuk-button govuk-!-margin-top-4" data-module="govuk-button">Save and return</button>
+        <button type="submit" class="govuk-button govuk-!-margin-top-4" data-module="govuk-button">Save and return</button>
         <button type="submit" formaction="?toSearchPage=1"
         class="govuk-button govuk-button--secondary govuk-!-margin-left-2 govuk-!-margin-top-4">Save and add another</button>
     </form>
@@ -289,7 +289,7 @@ exports[`Project team Choose role page POST /case/123/project-team/1/choose-role
 `;
 
 exports[`Project team Choose role page POST /case/123/project-team/1/choose-role should render an error if role is not selected 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
             <div class="govuk-error-summary" data-module="govuk-error-summary">
@@ -367,7 +367,7 @@ exports[`Project team Choose role page POST /case/123/project-team/1/choose-role
         </div>
         </fieldset>
         </div>
-        <button class="govuk-button govuk-!-margin-top-4" data-module="govuk-button">Save and return</button>
+        <button type="submit" class="govuk-button govuk-!-margin-top-4" data-module="govuk-button">Save and return</button>
         <button type="submit" formaction="?toSearchPage=1"
         class="govuk-button govuk-button--secondary govuk-!-margin-left-2 govuk-!-margin-top-4">Save and add another</button>
     </form>
@@ -375,7 +375,7 @@ exports[`Project team Choose role page POST /case/123/project-team/1/choose-role
 `;
 
 exports[`Project team List page GET /case/123/project-team/ should render the page with users 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="top-errors-hook" role="alert"></div>
     <div class="govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-left-0 govuk-!-margin-bottom-7 pins-masthead-summary">
         <div class="govuk-grid-column-full">
@@ -440,7 +440,7 @@ exports[`Project team List page GET /case/123/project-team/ should render the pa
 `;
 
 exports[`Project team List page GET /case/123/project-team/ should render the page without users 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="top-errors-hook" role="alert"></div>
     <div class="govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-left-0 govuk-!-margin-bottom-7 pins-masthead-summary">
         <div class="govuk-grid-column-full">
@@ -486,7 +486,7 @@ exports[`Project team List page GET /case/123/project-team/ should render the pa
 `;
 
 exports[`Project team Remove member GET /case/123/project-team/1/remove should render the page 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <h1 class="govuk-heading-l govuk-!-margin-bottom-5"> Remove team member</h1>
     <form method="post" action="" novalidate="novalidate" class="govuk-!-margin-top-6">
         <table class="govuk-table">
@@ -503,13 +503,13 @@ exports[`Project team Remove member GET /case/123/project-team/1/remove should r
                 </tr>
             </tbody>
         </table>
-        <button class="govuk-button govuk-!-margin-top-4" data-module="govuk-button">Remove team member</button>
+        <button type="submit" class="govuk-button govuk-!-margin-top-4" data-module="govuk-button">Remove team member</button>
     </form>
 </main>"
 `;
 
 exports[`Project team Remove member POST /case/123/project-team/1/remove should render an error if removal did not work 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
             <div class="govuk-error-summary" data-module="govuk-error-summary">
@@ -541,13 +541,13 @@ exports[`Project team Remove member POST /case/123/project-team/1/remove should 
                 </tr>
             </tbody>
         </table>
-        <button class="govuk-button govuk-!-margin-top-4" data-module="govuk-button">Remove team member</button>
+        <button type="submit" class="govuk-button govuk-!-margin-top-4" data-module="govuk-button">Remove team member</button>
     </form>
 </main>"
 `;
 
 exports[`Project team Search page GET /case/123/project-team/search should render the page with the results of the query 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <h1 class="govuk-heading-l govuk-!-margin-bottom-5"> Search for a team member</h1>
     <form method="post" action="" novalidate="novalidate" class="govuk-grid-row govuk-!-margin-top-6">
         <div class="govuk-grid-column-full display--flex align-items--flex-end govuk-grid-row">
@@ -557,7 +557,7 @@ exports[`Project team Search page GET /case/123/project-team/search should rende
                 name="query" type="text">
             </div>
             <div>
-                <button class="govuk-button" data-module="govuk-button">Search</button>
+                <button type="submit" class="govuk-button" data-module="govuk-button">Search</button>
             </div>
         </div>
     </form>
@@ -679,7 +679,7 @@ exports[`Project team Search page GET /case/123/project-team/search should rende
 `;
 
 exports[`Project team Search page GET /case/123/project-team/search should render the page with the search bar 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <h1 class="govuk-heading-l govuk-!-margin-bottom-5"> Search for a team member</h1>
     <form method="post" action="" novalidate="novalidate" class="govuk-grid-row govuk-!-margin-top-6">
         <div class="govuk-grid-column-full display--flex align-items--flex-end govuk-grid-row">
@@ -689,7 +689,7 @@ exports[`Project team Search page GET /case/123/project-team/search should rende
                 name="query" type="text">
             </div>
             <div>
-                <button class="govuk-button" data-module="govuk-button">Search</button>
+                <button type="submit" class="govuk-button" data-module="govuk-button">Search</button>
             </div>
         </div>
     </form>
@@ -697,7 +697,7 @@ exports[`Project team Search page GET /case/123/project-team/search should rende
 `;
 
 exports[`Project team Search page GET /case/123/project-team/search should render the page with the search bar and the pagination 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <h1 class="govuk-heading-l govuk-!-margin-bottom-5"> Search for a team member</h1>
     <form method="post" action="" novalidate="novalidate" class="govuk-grid-row govuk-!-margin-top-6">
         <div class="govuk-grid-column-full display--flex align-items--flex-end govuk-grid-row">
@@ -707,7 +707,7 @@ exports[`Project team Search page GET /case/123/project-team/search should rende
                 name="query" type="text">
             </div>
             <div>
-                <button class="govuk-button" data-module="govuk-button">Search</button>
+                <button type="submit" class="govuk-button" data-module="govuk-button">Search</button>
             </div>
         </div>
     </form>
@@ -1023,7 +1023,7 @@ exports[`Project team Search page GET /case/123/project-team/search should rende
             </tr>
         </tbody>
     </table>
-    <nav class="govuk-pagination" role="navigation" aria-label="results">
+    <nav class="govuk-pagination" aria-label="Pagination">
         <ul class="govuk-pagination__list">
             <li class="govuk-pagination__item govuk-pagination__item--current"><a class="govuk-link govuk-pagination__link" href="?number=1&amp;q=consectetur adipiscing"
                 aria-label="Page 1" aria-current="page"> 1</a>
@@ -1033,14 +1033,14 @@ exports[`Project team Search page GET /case/123/project-team/search should rende
             </li>
         </ul>
         <div class="govuk-pagination__next"><a class="govuk-link govuk-pagination__link" href="?number=2&amp;q=consectetur adipiscing"
-            rel="next"><span class="govuk-pagination__link-title">Next</span><svg class="govuk-pagination__icon govuk-pagination__icon--next" xmlns="http://www.w3.org/2000/svg" height="13" width="15" aria-hidden="true" focusable="false" viewBox="0 0 15 13"><path d="m8.107-0.0078125-1.4136 1.414 4.2926 4.293h-12.986v2h12.896l-4.1855 3.9766 1.377 1.4492 6.7441-6.4062-6.7246-6.7266z"></path></svg></a>
+            rel="next"><span class="govuk-pagination__link-title"> Next<span class="govuk-visually-hidden"> page</span></span><svg class="govuk-pagination__icon govuk-pagination__icon--next" xmlns="http://www.w3.org/2000/svg" height="13" width="15" aria-hidden="true" focusable="false" viewBox="0 0 15 13"><path d="m8.107-0.0078125-1.4136 1.414 4.2926 4.293h-12.986v2h12.896l-4.1855 3.9766 1.377 1.4492 6.7441-6.4062-6.7246-6.7266z"></path></svg></a>
         </div>
     </nav>
 </main>"
 `;
 
 exports[`Project team Search page POST /case/123/project-team/search should render an empty list if there are no results 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <h1 class="govuk-heading-l govuk-!-margin-bottom-5"> Search for a team member</h1>
     <form method="post" action="" novalidate="novalidate" class="govuk-grid-row govuk-!-margin-top-6">
         <div class="govuk-grid-column-full display--flex align-items--flex-end govuk-grid-row">
@@ -1050,7 +1050,7 @@ exports[`Project team Search page POST /case/123/project-team/search should rend
                 name="query" type="text">
             </div>
             <div>
-                <button class="govuk-button" data-module="govuk-button">Search</button>
+                <button type="submit" class="govuk-button" data-module="govuk-button">Search</button>
             </div>
         </div>
     </form>
@@ -1066,7 +1066,7 @@ exports[`Project team Search page POST /case/123/project-team/search should rend
 `;
 
 exports[`Project team Search page POST /case/123/project-team/search should render an error if search term is empty 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <h1 class="govuk-heading-l govuk-!-margin-bottom-5"> Search for a team member</h1>
     <form method="post" action="" novalidate="novalidate" class="govuk-grid-row govuk-!-margin-top-6">
         <div class="govuk-grid-column-full display--flex align-items--flex-end govuk-grid-row">
@@ -1077,7 +1077,7 @@ exports[`Project team Search page POST /case/123/project-team/search should rend
                 aria-describedby="query-error">
             </div>
             <div>
-                <button class="govuk-button" data-module="govuk-button">Search</button>
+                <button type="submit" class="govuk-button" data-module="govuk-button">Search</button>
             </div>
         </div>
     </form>
@@ -1085,7 +1085,7 @@ exports[`Project team Search page POST /case/123/project-team/search should rend
 `;
 
 exports[`Project team Search page POST /case/123/project-team/search should render the result list 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <h1 class="govuk-heading-l govuk-!-margin-bottom-5"> Search for a team member</h1>
     <form method="post" action="" novalidate="novalidate" class="govuk-grid-row govuk-!-margin-top-6">
         <div class="govuk-grid-column-full display--flex align-items--flex-end govuk-grid-row">
@@ -1095,7 +1095,7 @@ exports[`Project team Search page POST /case/123/project-team/search should rend
                 name="query" type="text">
             </div>
             <div>
-                <button class="govuk-button" data-module="govuk-button">Search</button>
+                <button type="submit" class="govuk-button" data-module="govuk-button">Search</button>
             </div>
         </div>
     </form>

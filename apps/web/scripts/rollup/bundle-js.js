@@ -69,8 +69,9 @@ async function build() {
 			rollupPluginVirtual(buildVirtualJSON(virtualImports)),
 			rollupPluginBeep(),
 			getBabelOutputPlugin({
-				// babelHelpers: 'bundled',
-				exclude: 'node_modules/**'
+				// Configure compact option to handle larger bundles without deoptimization warning
+				// Options: true (always compact), false (never compact), "auto" (compact if > 500KB)
+				compact: false // Keep code readable, prevents deoptimization warning
 			}),
 			alias({
 				entries: {}
@@ -84,6 +85,7 @@ async function build() {
 		// https://rollupjs.org/guide/en/#preserveentrysignatures
 		preserveEntrySignatures: false
 	});
+
 	const appGenerated = await appBundle.write({
 		// Do we need an import polyfill?
 		// dynamicImportFunction: 'window._import',
@@ -93,6 +95,7 @@ async function build() {
 		// https://rollupjs.org/guide/en/#outputformat
 		format: 'es'
 	});
+
 	const outputFiles = appGenerated.output.map(({ fileName }) => fileName);
 
 	// Save the "app.js" entrypoint (which has a hashed name) for the all-browser loader code.
@@ -107,7 +110,7 @@ async function build() {
 
 	// Write the bundle entrypoint to a known file for NJ to read.
 	logger.log(
-		`Writing resource JSON file ${kleur.blue('resourceCSS.json')} to ${kleur.blue(
+		`Writing resource JSON file ${kleur.blue('resourceJS.json')} to ${kleur.blue(
 			'.build/resourceJS.json'
 		)}`
 	);

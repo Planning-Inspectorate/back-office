@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Representation address details page GET /applications-service/case/1/relevant-representations/address-details should render the page and have the enter fields 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <p class="govuk-body"><strong>Project name:</strong> mock title</p><span class="govuk-caption-l">Add a representation</span>
     <h1     class="govuk-heading-l">Address details</h1>
         <form method="post" novalidate>
@@ -22,7 +22,7 @@ exports[`Representation address details page GET /applications-service/case/1/re
                 <div class="govuk-form-group">
                     <label class="govuk-label govuk-!-font-weight-bold" for="town">Town or city (optional)</label>
                     <input class="govuk-input govuk-!-width-two-thirds"
-                    id="town" name="town" type="text" autocomplete="address-level2">
+                    id="town" name="town" type="text" value="" autocomplete="address-level2">
                 </div>
                 <div class="govuk-form-group">
                     <label class="govuk-label govuk-!-font-weight-bold" for="postcode">Postcode</label>
@@ -32,16 +32,16 @@ exports[`Representation address details page GET /applications-service/case/1/re
                 <div class="govuk-form-group">
                     <label class="govuk-label govuk-!-font-weight-bold" for="country">Country</label>
                     <input class="govuk-input govuk-!-width-two-thirds" id="country"
-                    name="country" type="text">
+                    name="country" type="text" value="">
                 </div>
             </fieldset>
-            <button class="govuk-button" data-module="govuk-button">Save and continue</button>
+            <button type="submit" class="govuk-button" data-module="govuk-button">Save and continue</button>
         </form>
 </main>"
 `;
 
 exports[`Representation address details page GET /applications-service/case/1/relevant-representations/address-details should render the page and have the find fields 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <p class="govuk-body"><strong>Project name:</strong> mock title</p><span class="govuk-caption-l">Add a representation</span>
     <h1     class="govuk-heading-l">Address details</h1>
         <form method="post" novalidate>
@@ -70,13 +70,13 @@ exports[`Representation address details page GET /applications-service/case/1/re
             <div class="govuk-!-margin-bottom-6"><a class='govuk-link govuk-body govuk-!-display-inline-block govuk-!-margin-0'
                 href="?repId=1&amp;repType=represented&amp;stage=enter"> I can't find address on the list</a>
             </div>
-            <button class="govuk-button" data-module="govuk-button">Save and continue</button>
+            <button type="submit" class="govuk-button" data-module="govuk-button">Save and continue</button>
         </form>
 </main>"
 `;
 
 exports[`Representation address details page GET /applications-service/case/1/relevant-representations/address-details should render the page and have the lookup fields 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <p class="govuk-body"><strong>Project name:</strong> mock title</p><span class="govuk-caption-l">Add a representation</span>
     <h1     class="govuk-heading-l">Address details</h1>
         <form method="post" novalidate>
@@ -93,13 +93,13 @@ exports[`Representation address details page GET /applications-service/case/1/re
             <div class="govuk-!-margin-bottom-6"><a class='govuk-link govuk-body govuk-!-display-inline-block govuk-!-margin-0'
                 href="?repId=1&amp;repType=represented&amp;stage=enter"> Don't have a UK postcode?</a>
             </div>
-            <button class="govuk-button" data-module="govuk-button">Find address</button>
+            <button type="submit" class="govuk-button" data-module="govuk-button">Find address</button>
         </form>
 </main>"
 `;
 
 exports[`Representation address details page POST /applications-service/case/1/relevant-representations/address-details Field validation: should show the enter page validation errors 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
             <div class="govuk-error-summary" data-module="govuk-error-summary">
@@ -130,38 +130,39 @@ exports[`Representation address details page POST /applications-service/case/1/r
                     <label class="govuk-label govuk-!-font-weight-bold" for="addressLine1">Address line 1</label>
                     <p id="addressLine1-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> Enter address line 1</p>
                     <input                     class="govuk-input govuk-input--error" id="addressLine1" name="addressLine1"
-                    type="text" aria-describedby="addressLine1-error" autocomplete="address-line1">
+                    type="text" value="" aria-describedby="addressLine1-error" autocomplete="address-line1">
                 </div>
                 <div class="govuk-form-group">
                     <label class="govuk-label govuk-!-font-weight-bold" for="addressLine2">Address line 2 (optional)</label>
                     <input class="govuk-input" id="addressLine2"
-                    name="addressLine2" type="text" autocomplete="address-line2">
+                    name="addressLine2" type="text" value="" autocomplete="address-line2">
                 </div>
                 <div class="govuk-form-group">
                     <label class="govuk-label govuk-!-font-weight-bold" for="town">Town or city (optional)</label>
                     <input class="govuk-input govuk-!-width-two-thirds"
-                    id="town" name="town" type="text" autocomplete="address-level2">
+                    id="town" name="town" type="text" value="" autocomplete="address-level2">
                 </div>
                 <div class="govuk-form-group govuk-form-group--error">
                     <label class="govuk-label govuk-!-font-weight-bold" for="postcode">Postcode</label>
                     <p id="postcode-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> Enter a postcode</p>
                     <input                     class="govuk-input govuk-input--width-10 govuk-input--error" id="postcode"
-                    name="postcode" type="text" aria-describedby="postcode-error" autocomplete="postal-code">
+                    name="postcode" type="text" value="" aria-describedby="postcode-error"
+                    autocomplete="postal-code">
                 </div>
                 <div class="govuk-form-group govuk-form-group--error">
                     <label class="govuk-label govuk-!-font-weight-bold" for="country">Country</label>
                     <p id="country-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> Enter a country</p>
                     <input                     class="govuk-input govuk-!-width-two-thirds govuk-input--error" id="country"
-                    name="country" type="text" aria-describedby="country-error">
+                    name="country" type="text" value="" aria-describedby="country-error">
                 </div>
             </fieldset>
-            <button class="govuk-button" data-module="govuk-button">Save and continue</button>
+            <button type="submit" class="govuk-button" data-module="govuk-button">Save and continue</button>
         </form>
 </main>"
 `;
 
 exports[`Representation address details page POST /applications-service/case/1/relevant-representations/address-details Field validation: should show the find page validation errors 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
             <div class="govuk-error-summary" data-module="govuk-error-summary">
@@ -208,13 +209,13 @@ exports[`Representation address details page POST /applications-service/case/1/r
             <div class="govuk-!-margin-bottom-6"><a class='govuk-link govuk-body govuk-!-display-inline-block govuk-!-margin-0'
                 href="?repId=1&amp;repType=represented&amp;stage=enter"> I can't find address on the list</a>
             </div>
-            <button class="govuk-button" data-module="govuk-button">Save and continue</button>
+            <button type="submit" class="govuk-button" data-module="govuk-button">Save and continue</button>
         </form>
 </main>"
 `;
 
 exports[`Representation address details page POST /applications-service/case/1/relevant-representations/address-details Field validation: should show the lookup page validation errors 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
             <div class="govuk-error-summary" data-module="govuk-error-summary">
@@ -247,7 +248,7 @@ exports[`Representation address details page POST /applications-service/case/1/r
             <div class="govuk-!-margin-bottom-6"><a class='govuk-link govuk-body govuk-!-display-inline-block govuk-!-margin-0'
                 href="?repId=1&amp;repType=represented&amp;stage=enter"> Don't have a UK postcode?</a>
             </div>
-            <button class="govuk-button" data-module="govuk-button">Find address</button>
+            <button type="submit" class="govuk-button" data-module="govuk-button">Find address</button>
         </form>
 </main>"
 `;

@@ -1,5 +1,4 @@
-@import "../govuk-frontend/govuk/settings/_spacing";
-@import "../govuk-frontend/govuk/helpers/_spacing";
+@use "govuk-frontend/dist/govuk/helpers/_spacing" as govuk-spacing-helper;
 
 .pins-button-group {
 	margin-top: govuk-spacing(9);
