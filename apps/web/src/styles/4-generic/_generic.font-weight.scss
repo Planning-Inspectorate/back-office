@@ -1,5 +1,8 @@
+@use "govuk-frontend/dist/govuk/settings/typography-font" as govuk-fonts;
+
 $font-weight-attrs: (
-	700: 700
+	regular: govuk-fonts.$govuk-font-weight-regular,
+	bold: govuk-fonts.$govuk-font-weight-bold
 );
 
 @each $key, $val in $font-weight-attrs {

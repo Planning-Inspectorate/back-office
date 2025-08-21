@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`applications representations GET /applications-service/:caseId/relevant-representations should render the page 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="top-errors-hook" role="alert"></div>
     <div class="govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-left-0 govuk-!-margin-bottom-7 pins-masthead-summary">
         <div class="govuk-grid-column-full">
@@ -127,7 +127,7 @@ exports[`applications representations GET /applications-service/:caseId/relevant
                 </div>
             </div>
             <div class="govuk-grid-column-one-half">
-                <button value="updated" name="searchUpdated" class="govuk-button govuk-button--secondary"
+                <button value="updated" type="submit" name="searchUpdated" class="govuk-button govuk-button--secondary"
                 data-module="govuk-button">Search</button>
             </div>
         </div>
@@ -194,7 +194,7 @@ exports[`applications representations GET /applications-service/:caseId/relevant
 `;
 
 exports[`applications representations GET /applications-service/:id/relevant-representations with a search term should render the page with search term 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="top-errors-hook" role="alert"></div>
     <div class="govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-left-0 govuk-!-margin-bottom-7 pins-masthead-summary">
         <div class="govuk-grid-column-full">
@@ -321,7 +321,7 @@ exports[`applications representations GET /applications-service/:id/relevant-rep
                 </div>
             </div>
             <div class="govuk-grid-column-one-half">
-                <button value="updated" name="searchUpdated" class="govuk-button govuk-button--secondary"
+                <button value="updated" type="submit" name="searchUpdated" class="govuk-button govuk-button--secondary"
                 data-module="govuk-button">Search</button>
             </div>
         </div>

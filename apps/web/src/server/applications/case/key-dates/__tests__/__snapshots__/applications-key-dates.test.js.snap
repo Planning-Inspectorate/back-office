@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`S51 Advice Key dates page GET /case/123/key-dates/ should render the page 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="top-errors-hook" role="alert"></div>
     <div class="govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-left-0 govuk-!-margin-bottom-7 pins-masthead-summary">
         <div class="govuk-grid-column-full">
@@ -46,12 +46,11 @@ exports[`S51 Advice Key dates page GET /case/123/key-dates/ should render the pa
                     <div class="govuk-accordion__section-header">
                         <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="accordion-key-dates-heading-1"> Pre-application</span></h2>
                     </div>
-                    <div id="accordion-key-dates-content-1" class="govuk-accordion__section-content"
-                    aria-labelledby="accordion-key-dates-heading-1">
+                    <div id="accordion-key-dates-content-1" class="govuk-accordion__section-content">
                         <div class="govuk-summary-card">
                             <div class="govuk-summary-card__title-wrapper">
-                                <h2 class="govuk-summary-card__title">Pre-application</h2>
-                                <div class="govuk-summary-card__actions"><a class="govuk-link" href="/applications-service/case/123/key-dates/preApplication"> Manage dates<span class="govuk-visually-hidden"> for Pre-application</span></a>
+                                <h2 class="govuk-summary-card__title"> Pre-application</h2>
+                                <div class="govuk-summary-card__actions"><a class="govuk-link" href="/applications-service/case/123/key-dates/preApplication">Manage dates<span class="govuk-visually-hidden"> for Pre-application (Pre-application)</span></a>
                                 </div>
                             </div>
                             <div class="govuk-summary-card__content">
@@ -92,12 +91,11 @@ exports[`S51 Advice Key dates page GET /case/123/key-dates/ should render the pa
                     <div class="govuk-accordion__section-header">
                         <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="accordion-key-dates-heading-2"> Acceptance</span></h2>
                     </div>
-                    <div id="accordion-key-dates-content-2" class="govuk-accordion__section-content"
-                    aria-labelledby="accordion-key-dates-heading-2">
+                    <div id="accordion-key-dates-content-2" class="govuk-accordion__section-content">
                         <div class="govuk-summary-card">
                             <div class="govuk-summary-card__title-wrapper">
-                                <h2 class="govuk-summary-card__title">Acceptance</h2>
-                                <div class="govuk-summary-card__actions"><a class="govuk-link" href="/applications-service/case/123/key-dates/acceptance"> Manage dates<span class="govuk-visually-hidden"> for Acceptance</span></a>
+                                <h2 class="govuk-summary-card__title"> Acceptance</h2>
+                                <div class="govuk-summary-card__actions"><a class="govuk-link" href="/applications-service/case/123/key-dates/acceptance">Manage dates<span class="govuk-visually-hidden"> for Acceptance (Acceptance)</span></a>
                                 </div>
                             </div>
                             <div class="govuk-summary-card__content">
@@ -123,12 +121,11 @@ exports[`S51 Advice Key dates page GET /case/123/key-dates/ should render the pa
                     <div class="govuk-accordion__section-header">
                         <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="accordion-key-dates-heading-3"> Pre-examination</span></h2>
                     </div>
-                    <div id="accordion-key-dates-content-3" class="govuk-accordion__section-content"
-                    aria-labelledby="accordion-key-dates-heading-3">
+                    <div id="accordion-key-dates-content-3" class="govuk-accordion__section-content">
                         <div class="govuk-summary-card">
                             <div class="govuk-summary-card__title-wrapper">
-                                <h2 class="govuk-summary-card__title">Pre-examination</h2>
-                                <div class="govuk-summary-card__actions"><a class="govuk-link" href="/applications-service/case/123/key-dates/preExamination"> Manage dates<span class="govuk-visually-hidden"> for Pre-examination</span></a>
+                                <h2 class="govuk-summary-card__title"> Pre-examination</h2>
+                                <div class="govuk-summary-card__actions"><a class="govuk-link" href="/applications-service/case/123/key-dates/preExamination">Manage dates<span class="govuk-visually-hidden"> for Pre-examination (Pre-examination)</span></a>
                                 </div>
                             </div>
                             <div class="govuk-summary-card__content">
@@ -169,12 +166,11 @@ exports[`S51 Advice Key dates page GET /case/123/key-dates/ should render the pa
                     <div class="govuk-accordion__section-header">
                         <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="accordion-key-dates-heading-4"> Examination</span></h2>
                     </div>
-                    <div id="accordion-key-dates-content-4" class="govuk-accordion__section-content"
-                    aria-labelledby="accordion-key-dates-heading-4">
+                    <div id="accordion-key-dates-content-4" class="govuk-accordion__section-content">
                         <div class="govuk-summary-card">
                             <div class="govuk-summary-card__title-wrapper">
-                                <h2 class="govuk-summary-card__title">Examination</h2>
-                                <div class="govuk-summary-card__actions"><a class="govuk-link" href="/applications-service/case/123/key-dates/examination"> Manage dates<span class="govuk-visually-hidden"> for Examination</span></a>
+                                <h2 class="govuk-summary-card__title"> Examination</h2>
+                                <div class="govuk-summary-card__actions"><a class="govuk-link" href="/applications-service/case/123/key-dates/examination">Manage dates<span class="govuk-visually-hidden"> for Examination (Examination)</span></a>
                                 </div>
                             </div>
                             <div class="govuk-summary-card__content">
@@ -206,12 +202,11 @@ exports[`S51 Advice Key dates page GET /case/123/key-dates/ should render the pa
                     <div class="govuk-accordion__section-header">
                         <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="accordion-key-dates-heading-5"> Recommendation</span></h2>
                     </div>
-                    <div id="accordion-key-dates-content-5" class="govuk-accordion__section-content"
-                    aria-labelledby="accordion-key-dates-heading-5">
+                    <div id="accordion-key-dates-content-5" class="govuk-accordion__section-content">
                         <div class="govuk-summary-card">
                             <div class="govuk-summary-card__title-wrapper">
-                                <h2 class="govuk-summary-card__title">Recommendation</h2>
-                                <div class="govuk-summary-card__actions"><a class="govuk-link" href="/applications-service/case/123/key-dates/recommendation"> Manage dates<span class="govuk-visually-hidden"> for Recommendation</span></a>
+                                <h2 class="govuk-summary-card__title"> Recommendation</h2>
+                                <div class="govuk-summary-card__actions"><a class="govuk-link" href="/applications-service/case/123/key-dates/recommendation">Manage dates<span class="govuk-visually-hidden"> for Recommendation (Recommendation)</span></a>
                                 </div>
                             </div>
                             <div class="govuk-summary-card__content">
@@ -234,12 +229,11 @@ exports[`S51 Advice Key dates page GET /case/123/key-dates/ should render the pa
                     <div class="govuk-accordion__section-header">
                         <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="accordion-key-dates-heading-6"> Decision</span></h2>
                     </div>
-                    <div id="accordion-key-dates-content-6" class="govuk-accordion__section-content"
-                    aria-labelledby="accordion-key-dates-heading-6">
+                    <div id="accordion-key-dates-content-6" class="govuk-accordion__section-content">
                         <div class="govuk-summary-card">
                             <div class="govuk-summary-card__title-wrapper">
-                                <h2 class="govuk-summary-card__title">Decision</h2>
-                                <div class="govuk-summary-card__actions"><a class="govuk-link" href="/applications-service/case/123/key-dates/decision"> Manage dates<span class="govuk-visually-hidden"> for Decision</span></a>
+                                <h2 class="govuk-summary-card__title"> Decision</h2>
+                                <div class="govuk-summary-card__actions"><a class="govuk-link" href="/applications-service/case/123/key-dates/decision">Manage dates<span class="govuk-visually-hidden"> for Decision (Decision)</span></a>
                                 </div>
                             </div>
                             <div class="govuk-summary-card__content">
@@ -262,12 +256,11 @@ exports[`S51 Advice Key dates page GET /case/123/key-dates/ should render the pa
                     <div class="govuk-accordion__section-header">
                         <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="accordion-key-dates-heading-7"> Post-decision</span></h2>
                     </div>
-                    <div id="accordion-key-dates-content-7" class="govuk-accordion__section-content"
-                    aria-labelledby="accordion-key-dates-heading-7">
+                    <div id="accordion-key-dates-content-7" class="govuk-accordion__section-content">
                         <div class="govuk-summary-card">
                             <div class="govuk-summary-card__title-wrapper">
-                                <h2 class="govuk-summary-card__title">Post-decision</h2>
-                                <div class="govuk-summary-card__actions"><a class="govuk-link" href="/applications-service/case/123/key-dates/postDecision"> Manage dates<span class="govuk-visually-hidden"> for Post-decision</span></a>
+                                <h2 class="govuk-summary-card__title"> Post-decision</h2>
+                                <div class="govuk-summary-card__actions"><a class="govuk-link" href="/applications-service/case/123/key-dates/postDecision">Manage dates<span class="govuk-visually-hidden"> for Post-decision (Post-decision)</span></a>
                                 </div>
                             </div>
                             <div class="govuk-summary-card__content">
@@ -284,12 +277,11 @@ exports[`S51 Advice Key dates page GET /case/123/key-dates/ should render the pa
                     <div class="govuk-accordion__section-header">
                         <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="accordion-key-dates-heading-8"> Withdrawal</span></h2>
                     </div>
-                    <div id="accordion-key-dates-content-8" class="govuk-accordion__section-content"
-                    aria-labelledby="accordion-key-dates-heading-8">
+                    <div id="accordion-key-dates-content-8" class="govuk-accordion__section-content">
                         <div class="govuk-summary-card">
                             <div class="govuk-summary-card__title-wrapper">
-                                <h2 class="govuk-summary-card__title">Withdrawal</h2>
-                                <div class="govuk-summary-card__actions"><a class="govuk-link" href="/applications-service/case/123/key-dates/withdrawal"> Manage dates<span class="govuk-visually-hidden"> for Withdrawal</span></a>
+                                <h2 class="govuk-summary-card__title"> Withdrawal</h2>
+                                <div class="govuk-summary-card__actions"><a class="govuk-link" href="/applications-service/case/123/key-dates/withdrawal">Manage dates<span class="govuk-visually-hidden"> for Withdrawal (Withdrawal)</span></a>
                                 </div>
                             </div>
                             <div class="govuk-summary-card__content">
@@ -309,7 +301,7 @@ exports[`S51 Advice Key dates page GET /case/123/key-dates/ should render the pa
 `;
 
 exports[`S51 Advice Key dates page Sections GET /case/123/key-dates/:sectionName should render the page with the correct fields 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <h1 class="govuk-heading-l govuk-!-margin-bottom-4"><span class="govuk-caption-l">Manage key dates</span> Pre-application dates</h1>
     <form method="post" action="" novalidate="novalidate" class="pins-applications-create govuk-grid-row govuk-!-margin-top-8">
         <div class="govuk-form-group govuk-grid-column-full ">
@@ -525,13 +517,13 @@ exports[`S51 Advice Key dates page Sections GET /case/123/key-dates/:sectionName
                 name="submissionAtPublished" type="text" value="Q4 2023" aria-describedby="submissionAtPublished-hint">
             </div>
         </div>
-        <button class="govuk-button" data-module="govuk-button">Save and return</button>
+        <button type="submit" class="govuk-button" data-module="govuk-button">Save and return</button>
     </form>
 </main>"
 `;
 
 exports[`S51 Advice Key dates page Sections GET /case/123/key-dates/:sectionName should render the page with the correct fields 2`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <h1 class="govuk-heading-l govuk-!-margin-bottom-4"><span class="govuk-caption-l">Manage key dates</span> Acceptance dates</h1>
     <form method="post" action="" novalidate="novalidate" class="pins-applications-create govuk-grid-row govuk-!-margin-top-8">
         <div class="govuk-form-group govuk-grid-column-full ">
@@ -639,13 +631,13 @@ exports[`S51 Advice Key dates page Sections GET /case/123/key-dates/:sectionName
                 </div>
             </fieldset>
         </div>
-        <button class="govuk-button" data-module="govuk-button">Save and return</button>
+        <button type="submit" class="govuk-button" data-module="govuk-button">Save and return</button>
     </form>
 </main>"
 `;
 
 exports[`S51 Advice Key dates page Sections GET /case/123/key-dates/:sectionName should render the page with the correct fields 3`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <h1 class="govuk-heading-l govuk-!-margin-bottom-4"><span class="govuk-caption-l">Manage key dates</span> Pre-examination dates</h1>
     <form method="post" action="" novalidate="novalidate" class="pins-applications-create govuk-grid-row govuk-!-margin-top-8">
         <div class="govuk-grid-column-full">
@@ -943,13 +935,13 @@ exports[`S51 Advice Key dates page Sections GET /case/123/key-dates/:sectionName
                     </div>
                 </fieldset>
             </div>
-            <button class="govuk-button" data-module="govuk-button">Save and return</button>
+            <button type="submit" class="govuk-button" data-module="govuk-button">Save and return</button>
     </form>
 </main>"
 `;
 
 exports[`S51 Advice Key dates page Sections GET /case/123/key-dates/:sectionName should render the page with the correct fields 4`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <h1 class="govuk-heading-l govuk-!-margin-bottom-4"><span class="govuk-caption-l">Manage key dates</span> Examination dates</h1>
     <form method="post" action="" novalidate="novalidate" class="pins-applications-create govuk-grid-row govuk-!-margin-top-8">
         <div class="govuk-form-group govuk-grid-column-full ">
@@ -1110,13 +1102,13 @@ exports[`S51 Advice Key dates page Sections GET /case/123/key-dates/:sectionName
                 </div>
             </fieldset>
         </div>
-        <button class="govuk-button" data-module="govuk-button">Save and return</button>
+        <button type="submit" class="govuk-button" data-module="govuk-button">Save and return</button>
     </form>
 </main>"
 `;
 
 exports[`S51 Advice Key dates page Sections GET /case/123/key-dates/:sectionName should render the page with the correct fields 5`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <h1 class="govuk-heading-l govuk-!-margin-bottom-4"><span class="govuk-caption-l">Manage key dates</span> Recommendation dates</h1>
     <form method="post" action="" novalidate="novalidate" class="pins-applications-create govuk-grid-row govuk-!-margin-top-8">
         <div class="govuk-form-group govuk-grid-column-full ">
@@ -1199,13 +1191,13 @@ exports[`S51 Advice Key dates page Sections GET /case/123/key-dates/:sectionName
         </div>
         </fieldset>
         </div>
-        <button class="govuk-button" data-module="govuk-button">Save and return</button>
+        <button type="submit" class="govuk-button" data-module="govuk-button">Save and return</button>
     </form>
 </main>"
 `;
 
 exports[`S51 Advice Key dates page Sections GET /case/123/key-dates/:sectionName should render the page with the correct fields 6`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <h1 class="govuk-heading-l govuk-!-margin-bottom-4"><span class="govuk-caption-l">Manage key dates</span> Decision dates</h1>
     <form method="post" action="" novalidate="novalidate" class="pins-applications-create govuk-grid-row govuk-!-margin-top-8">
         <div class="govuk-form-group govuk-grid-column-full ">
@@ -1285,13 +1277,13 @@ exports[`S51 Advice Key dates page Sections GET /case/123/key-dates/:sectionName
         </div>
         </fieldset>
         </div>
-        <button class="govuk-button" data-module="govuk-button">Save and return</button>
+        <button type="submit" class="govuk-button" data-module="govuk-button">Save and return</button>
     </form>
 </main>"
 `;
 
 exports[`S51 Advice Key dates page Sections GET /case/123/key-dates/:sectionName should render the page with the correct fields 7`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <h1 class="govuk-heading-l govuk-!-margin-bottom-4"><span class="govuk-caption-l">Manage key dates</span> Post-decision dates</h1>
     <form method="post" action="" novalidate="novalidate" class="pins-applications-create govuk-grid-row govuk-!-margin-top-8">
         <div class="govuk-form-group govuk-grid-column-full ">
@@ -1320,13 +1312,13 @@ exports[`S51 Advice Key dates page Sections GET /case/123/key-dates/:sectionName
                 </div>
             </fieldset>
         </div>
-        <button class="govuk-button" data-module="govuk-button">Save and return</button>
+        <button type="submit" class="govuk-button" data-module="govuk-button">Save and return</button>
     </form>
 </main>"
 `;
 
 exports[`S51 Advice Key dates page Sections POST /case/123/key-dates/:sectionName should show a api error if updating didnt work 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
             <div class="govuk-error-summary" data-module="govuk-error-summary">
@@ -1557,13 +1549,13 @@ exports[`S51 Advice Key dates page Sections POST /case/123/key-dates/:sectionNam
                 name="submissionAtPublished" type="text" value="Q4 2023" aria-describedby="submissionAtPublished-hint">
             </div>
         </div>
-        <button class="govuk-button" data-module="govuk-button">Save and return</button>
+        <button type="submit" class="govuk-button" data-module="govuk-button">Save and return</button>
     </form>
 </main>"
 `;
 
 exports[`S51 Advice Key dates page Sections POST /case/123/key-dates/:sectionName should show a api error if updating didnt work 2`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
             <div class="govuk-error-summary" data-module="govuk-error-summary">
@@ -1686,13 +1678,13 @@ exports[`S51 Advice Key dates page Sections POST /case/123/key-dates/:sectionNam
                 </div>
             </fieldset>
         </div>
-        <button class="govuk-button" data-module="govuk-button">Save and return</button>
+        <button type="submit" class="govuk-button" data-module="govuk-button">Save and return</button>
     </form>
 </main>"
 `;
 
 exports[`S51 Advice Key dates page Sections POST /case/123/key-dates/:sectionName should show a api error if updating didnt work 3`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
             <div class="govuk-error-summary" data-module="govuk-error-summary">
@@ -2005,13 +1997,13 @@ exports[`S51 Advice Key dates page Sections POST /case/123/key-dates/:sectionNam
                     </div>
                 </fieldset>
             </div>
-            <button class="govuk-button" data-module="govuk-button">Save and return</button>
+            <button type="submit" class="govuk-button" data-module="govuk-button">Save and return</button>
     </form>
 </main>"
 `;
 
 exports[`S51 Advice Key dates page Sections POST /case/123/key-dates/:sectionName should show a api error if updating didnt work 4`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
             <div class="govuk-error-summary" data-module="govuk-error-summary">
@@ -2187,13 +2179,13 @@ exports[`S51 Advice Key dates page Sections POST /case/123/key-dates/:sectionNam
                 </div>
             </fieldset>
         </div>
-        <button class="govuk-button" data-module="govuk-button">Save and return</button>
+        <button type="submit" class="govuk-button" data-module="govuk-button">Save and return</button>
     </form>
 </main>"
 `;
 
 exports[`S51 Advice Key dates page Sections POST /case/123/key-dates/:sectionName should show a api error if updating didnt work 5`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
             <div class="govuk-error-summary" data-module="govuk-error-summary">
@@ -2291,13 +2283,13 @@ exports[`S51 Advice Key dates page Sections POST /case/123/key-dates/:sectionNam
         </div>
         </fieldset>
         </div>
-        <button class="govuk-button" data-module="govuk-button">Save and return</button>
+        <button type="submit" class="govuk-button" data-module="govuk-button">Save and return</button>
     </form>
 </main>"
 `;
 
 exports[`S51 Advice Key dates page Sections POST /case/123/key-dates/:sectionName should show a api error if updating didnt work 6`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
             <div class="govuk-error-summary" data-module="govuk-error-summary">
@@ -2392,13 +2384,13 @@ exports[`S51 Advice Key dates page Sections POST /case/123/key-dates/:sectionNam
         </div>
         </fieldset>
         </div>
-        <button class="govuk-button" data-module="govuk-button">Save and return</button>
+        <button type="submit" class="govuk-button" data-module="govuk-button">Save and return</button>
     </form>
 </main>"
 `;
 
 exports[`S51 Advice Key dates page Sections POST /case/123/key-dates/:sectionName should show a api error if updating didnt work 7`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
             <div class="govuk-error-summary" data-module="govuk-error-summary">
@@ -2442,7 +2434,7 @@ exports[`S51 Advice Key dates page Sections POST /case/123/key-dates/:sectionNam
                 </div>
             </fieldset>
         </div>
-        <button class="govuk-button" data-module="govuk-button">Save and return</button>
+        <button type="submit" class="govuk-button" data-module="govuk-button">Save and return</button>
     </form>
 </main>"
 `;
