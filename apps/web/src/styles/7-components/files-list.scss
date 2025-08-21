@@ -53,6 +53,28 @@
 		}
 	}
 
+	&__statuses {
+		.govuk-fieldset__legend {
+			margin-bottom: 30px;
+		}
+		.govuk-radios {
+			&__item {
+				height: inherit;
+			}
+
+			&__label {
+				max-width: max-content;
+				padding: 2px 0px;
+				align-self: auto;
+
+				&::after {
+					top: 8px;
+					left: 8px;
+				}
+			}
+		}
+	}
+
 	&__info {
 		margin-top: govuk-spacing(7);
 
