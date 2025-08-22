@@ -42,10 +42,6 @@ const isMaterialChangeStaticDataViewModel = getIsMaterialChangeStaticDataViewMod
  * */
 export const buildCaseInformation = (params, isWelsh) => [
 	{
-		title: 'Reference number',
-		text: params.case.reference
-	},
-	{
 		title: 'Material change',
 		text: params.case.isMaterialChange
 			? isMaterialChangeStaticDataViewModel[0].text
@@ -68,14 +64,6 @@ export const buildCaseInformation = (params, isWelsh) => [
 				}
 		  ]
 		: []),
-	{
-		title: 'Sector',
-		text: params.case.sector.displayNameEn
-	},
-	{
-		title: 'Subsector',
-		text: params.case.subSector.displayNameEn
-	},
 	{
 		title: featureFlagClient.isFeatureActive('applic-55-welsh-translation')
 			? 'Regions'
