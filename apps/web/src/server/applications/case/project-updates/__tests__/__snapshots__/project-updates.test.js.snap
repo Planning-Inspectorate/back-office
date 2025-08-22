@@ -40,7 +40,7 @@ exports[`project-updates GET /applications-service/:caseId/project-updates shoul
                         </p>
                     </div>
                 </div>
-                <table class="govuk-table">
+                <table class="govuk-table pins-table--project-updates">
                     <thead class="govuk-table__head">
                         <tr class="govuk-table__row">
                             <th scope="col" class="govuk-table__header"><a href="/applications-service/case/1/project-updates?page=1&amp;sortBy=datePublished"
@@ -414,7 +414,7 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/:pro
                         </p>
                     </div>
                 </div>
-                <table class="govuk-table">
+                <table class="govuk-table pins-table--project-updates">
                     <thead class="govuk-table__head">
                         <tr class="govuk-table__row">
                             <th scope="col" class="govuk-table__header"><a href="/applications-service/case/1/project-updates?page=1&amp;sortBy=datePublished"
@@ -517,7 +517,7 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/:pro
                         </p>
                     </div>
                 </div>
-                <table class="govuk-table">
+                <table class="govuk-table pins-table--project-updates">
                     <thead class="govuk-table__head">
                         <tr class="govuk-table__row">
                             <th scope="col" class="govuk-table__header"><a href="/applications-service/case/1/project-updates?page=1&amp;sortBy=datePublished"
@@ -620,7 +620,7 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/:pro
                         </p>
                     </div>
                 </div>
-                <table class="govuk-table">
+                <table class="govuk-table pins-table--project-updates">
                     <thead class="govuk-table__head">
                         <tr class="govuk-table__row">
                             <th scope="col" class="govuk-table__header"><a href="/applications-service/case/1/project-updates?page=1&amp;sortBy=datePublished"

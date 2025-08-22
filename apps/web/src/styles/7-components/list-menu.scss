@@ -1,6 +1,6 @@
 @use "govuk-frontend/dist/govuk/settings/_colours-applied" as
 	govuk-colours-applied;
-@use "../../1-settings/_settings.global.scss" as pins-colours;
+@use "../1-settings/_settings.global" as pins-colours;
 @use "govuk-frontend/dist/govuk/settings/_spacing";
 
 @import "govuk-frontend/dist/govuk/helpers/_spacing";
@@ -35,20 +35,16 @@
 
 		@include govuk-font-size(16);
 
-		&:visited {
-			color: pins-colours.$pins-colours-blue-500;
+		&:focus,
+		&:active,
+		&.pins-selected-item {
+			background-color: pins-colours.$pins-colours-grey-100;
+			box-shadow: -4px 0px 0px pins-colours.$pins-colours-blue-500;
 		}
-	}
 
-	a:focus,
-	a:active,
-	a.pins-selected-item {
-		background-color: pins-colours.$pins-colours-grey-100;
-		box-shadow: -4px 0px 0px pins-colours.$pins-colours-blue-500;
-	}
-
-	a.pins-selected-item {
-		color: govuk-colours-applied.$govuk-text-colour;
-		font-weight: 800;
+		&.pins-selected-item {
+			color: govuk-colours-applied.$govuk-text-colour;
+			font-weight: bold;
+		}
 	}
 }

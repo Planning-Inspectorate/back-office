@@ -68,6 +68,15 @@
 			}
 		}
 	}
+
+	&--representations,
+	&--project-updates {
+		.govuk-table {
+			&__header {
+				vertical-align: inherit;
+			}
+		}
+	}
 }
 
 .pins-dashboard-list--hide-controls {

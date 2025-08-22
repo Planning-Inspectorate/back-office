@@ -53,6 +53,28 @@
 		}
 	}
 
+	&__statuses {
+		.govuk-fieldset__legend {
+			margin-bottom: 30px;
+		}
+		.govuk-radios {
+			&__item {
+				height: inherit;
+			}
+
+			&__label {
+				max-width: max-content;
+				padding: 2px 0px;
+				align-self: auto;
+
+				&::after {
+					top: 8px;
+					left: 8px;
+				}
+			}
+		}
+	}
+
 	&__info {
 		margin-top: govuk-spacing(7);
 
@@ -134,6 +156,11 @@
 					padding-left: govuk-spacing(3);
 				}
 			}
+
+			.govuk-table__cell,
+			.govuk-table__header {
+				vertical-align: inherit;
+			}
 		}
 
 		&:not([class*="publish"]) {
@@ -158,15 +185,18 @@
 				padding: 0;
 
 				&:before {
-					width: 1.5rem;
-					height: 1.5rem;
+					width: 24px;
+					height: 24px;
+					top: 2px;
+					left: 2px;
 				}
 
 				&:after {
-					top: 6px;
-					left: 5px;
-					width: 14px;
-					height: 9px;
+					top: 10px;
+					left: 8px;
+					width: 12px;
+					height: 6.5px;
+					border-width: 0 0 3px 3px;
 				}
 			}
 		}

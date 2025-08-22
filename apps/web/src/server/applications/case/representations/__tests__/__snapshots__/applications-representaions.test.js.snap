@@ -148,7 +148,7 @@ exports[`applications representations GET /applications-service/:caseId/relevant
                 </p>
             </div>
         </div>
-        <table id="rr-table" class="govuk-table">
+        <table id="rr-table" class="govuk-table pins-table--representations">
             <thead class="govuk-table__head">
                 <tr class="govuk-table__row">
                     <th scope="col" class="govuk-table__header"><a href="relevant-representations?page=1&amp;sortBy=reference#rr-table"
@@ -342,7 +342,7 @@ exports[`applications representations GET /applications-service/:id/relevant-rep
                 </p>
             </div>
         </div>
-        <table id="rr-table" class="govuk-table">
+        <table id="rr-table" class="govuk-table pins-table--representations">
             <thead class="govuk-table__head">
                 <tr class="govuk-table__row">
                     <th scope="col" class="govuk-table__header"><a href="relevant-representations?searchTerm=mock-search-term&amp;page=1&amp;sortBy=reference#rr-table"
