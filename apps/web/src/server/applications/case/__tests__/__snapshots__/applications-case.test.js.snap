@@ -8,157 +8,146 @@ exports[`Applications case pages Preview and publish page GET /case/123/preview-
             <p class="govuk-body govuk-!-margin-bottom-6">Check details before publishing</p>
         </div>
         <div class="govuk-grid-column-two-thirds">
-            <div class='pins-preview-table'>
-                <div class='pins-preview-table__header govuk-!-margin-bottom-2'>
-                    <h2>Project information</h2><a href='/applications-service/case/4/overview' class='govuk-link govuk-heading-s govuk-!-margin-bottom-0'>Edit</a>
-                </div>
-                <div>
-                    <dl class="govuk-summary-list">
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Case reference number</dt>
-                            <dd class="govuk-summary-list__value">CASE/04</dd>
+            <div>
+                <div class="govuk-summary-card">
+                    <div class="govuk-summary-card__title-wrapper">
+                        <h2 class="govuk-summary-card__title"> Project information</h2>
+                        <div class="govuk-summary-card__actions"><a class="govuk-link" href="/applications-service/case/4/overview">Edit<span class="govuk-visually-hidden"> Project information (Project information)</span></a>
                         </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Project name</dt>
-                            <dd class="govuk-summary-list__value">Title CASE/04</dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Sector</dt>
-                            <dd class="govuk-summary-list__value">Transport EN</dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Subsector</dt>
-                            <dd class="govuk-summary-list__value">Highways EN</dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Case stage</dt>
-                            <dd class="govuk-summary-list__value">Pre-Application</dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Project description</dt>
-                            <dd class="govuk-summary-list__value">Amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore
-                                et dolore magna aliqua Ut enim ad minim veniam quis nostrud exercitation
-                                ullamco laboris nisi ut aliquip ex ea commodo consequat</dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Project email address</dt>
-                            <dd class="govuk-summary-list__value">some@ema.il</dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Project location</dt>
-                            <dd class="govuk-summary-list__value">London</dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Grid references</dt>
-                            <dd class="govuk-summary-list__value">123456 (Easting)
-                                <br>987654 (Northing)</dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Regions</dt>
-                            <dd class="govuk-summary-list__value">London EN, Yorkshire EN</dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Map zoom level</dt>
-                            <dd class="govuk-summary-list__value">City EN</dd>
-                        </div>
-                    </dl>
-                </div>
-            </div>
-            <div class='pins-preview-table govuk-!-margin-top-9'>
-                <div class='pins-preview-table__header govuk-!-margin-bottom-2'>
-                    <h2>Applicant information</h2><a href='/applications-service/case/4/overview' class='govuk-link govuk-heading-s govuk-!-margin-bottom-0'>Edit</a>
-                </div>
-                <div>
-                    <dl class="govuk-summary-list">
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Organisation name</dt>
-                            <dd class="govuk-summary-list__value">Org name</dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Website</dt>
-                            <dd class="govuk-summary-list__value"><a class="govuk-link" href="website.web">website.web</a>
-                            </dd>
-                        </div>
-                    </dl>
+                    </div>
+                    <div class="govuk-summary-card__content">
+                        <dl class="govuk-summary-list">
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Case reference number</dt>
+                                <dd class="govuk-summary-list__value">CASE/04</dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Project name</dt>
+                                <dd class="govuk-summary-list__value">Title CASE/04</dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Sector</dt>
+                                <dd class="govuk-summary-list__value">Transport EN</dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Subsector</dt>
+                                <dd class="govuk-summary-list__value">Highways EN</dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Case stage</dt>
+                                <dd class="govuk-summary-list__value">Pre-Application</dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Project description</dt>
+                                <dd class="govuk-summary-list__value">Amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore
+                                    et dolore magna aliqua Ut enim ad minim veniam quis nostrud exercitation
+                                    ullamco laboris nisi ut aliquip ex ea commodo consequat</dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Project email address</dt>
+                                <dd class="govuk-summary-list__value">some@ema.il</dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Project location</dt>
+                                <dd class="govuk-summary-list__value">London</dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Grid references</dt>
+                                <dd class="govuk-summary-list__value">123456 (Easting)
+                                    <br>987654 (Northing)</dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Regions</dt>
+                                <dd class="govuk-summary-list__value">London EN, Yorkshire EN</dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Map zoom level</dt>
+                                <dd class="govuk-summary-list__value">City EN</dd>
+                            </div>
+                        </dl>
+                    </div>
                 </div>
             </div>
-            <div class='pins-preview-table govuk-!-margin-top-9'>
-                <div class='pins-preview-table__header govuk-!-margin-bottom-2'>
-                    <h2>Key dates</h2><a href='/applications-service/case/4/key-dates' class='govuk-link govuk-heading-s govuk-!-margin-bottom-0'>Edit</a>
+            <div class='govuk-!-margin-top-9'>
+                <div class="govuk-summary-card">
+                    <div class="govuk-summary-card__title-wrapper">
+                        <h2 class="govuk-summary-card__title"> Applicant information</h2>
+                        <div class="govuk-summary-card__actions"><a class="govuk-link" href="/applications-service/case/4/overview">Edit<span class="govuk-visually-hidden"> Applicant information (Applicant information)</span></a>
+                        </div>
+                    </div>
+                    <div class="govuk-summary-card__content">
+                        <dl class="govuk-summary-list">
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Organisation name</dt>
+                                <dd class="govuk-summary-list__value">Org name</dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Website</dt>
+                                <dd class="govuk-summary-list__value"><a class="govuk-link" href="website.web">website.web</a>
+                                </dd>
+                            </div>
+                        </dl>
+                    </div>
                 </div>
-                <div>
-                    <table class="govuk-table">
-                        <caption class="govuk-table__caption govuk-visually-hidden">Key dates</caption>
-                        <tbody class="govuk-table__body">
-                            <tr class="govuk-table__row">
-                                <th scope="row" class="govuk-table__header">Anticipated submission date published</th>
-                                <td class="govuk-table__cell"></td>
-                            </tr>
-                            <tr class="govuk-table__row">
-                                <th scope="row" class="govuk-table__header">Application submitted (Section 55)</th>
-                                <td class="govuk-table__cell"></td>
-                            </tr>
-                            <tr class="govuk-table__row">
-                                <th scope="row" class="govuk-table__header">Deadline for Acceptance decision</th>
-                                <td class="govuk-table__cell"></td>
-                            </tr>
-                            <tr class="govuk-table__row">
-                                <th scope="row" class="govuk-table__header">Date of Acceptance (Section 55)</th>
-                                <td class="govuk-table__cell"></td>
-                            </tr>
-                            <tr class="govuk-table__row">
-                                <th scope="row" class="govuk-table__header">Date of Non-Acceptance</th>
-                                <td class="govuk-table__cell"></td>
-                            </tr>
-                            <tr class="govuk-table__row">
-                                <th scope="row" class="govuk-table__header">Date Relevant Representations open</th>
-                                <td class="govuk-table__cell"></td>
-                            </tr>
-                            <tr class="govuk-table__row">
-                                <th scope="row" class="govuk-table__header">Date Relevant Representations close</th>
-                                <td class="govuk-table__cell"></td>
-                            </tr>
-                            <tr class="govuk-table__row">
-                                <th scope="row" class="govuk-table__header">Date Relevant Representations to appear on website</th>
-                                <td class="govuk-table__cell"></td>
-                            </tr>
-                            <tr class="govuk-table__row">
-                                <th scope="row" class="govuk-table__header">Preliminary Meeting start date</th>
-                                <td class="govuk-table__cell"></td>
-                            </tr>
-                            <tr class="govuk-table__row">
-                                <th scope="row" class="govuk-table__header">Examination start date</th>
-                                <td class="govuk-table__cell"></td>
-                            </tr>
-                            <tr class="govuk-table__row">
-                                <th scope="row" class="govuk-table__header">Deadline for close of Examination</th>
-                                <td class="govuk-table__cell"></td>
-                            </tr>
-                            <tr class="govuk-table__row">
-                                <th scope="row" class="govuk-table__header">Examination closing date</th>
-                                <td class="govuk-table__cell"></td>
-                            </tr>
-                            <tr class="govuk-table__row">
-                                <th scope="row" class="govuk-table__header">Extension to close of Examination</th>
-                                <td class="govuk-table__cell"></td>
-                            </tr>
-                            <tr class="govuk-table__row">
-                                <th scope="row" class="govuk-table__header">Deadline for submission of Recommendation</th>
-                                <td class="govuk-table__cell"></td>
-                            </tr>
-                            <tr class="govuk-table__row">
-                                <th scope="row" class="govuk-table__header">Date of Recommendation submitted to SoS</th>
-                                <td class="govuk-table__cell"></td>
-                            </tr>
-                            <tr class="govuk-table__row">
-                                <th scope="row" class="govuk-table__header">Extension to Recommendation deadline</th>
-                                <td class="govuk-table__cell"></td>
-                            </tr>
-                            <tr class="govuk-table__row">
-                                <th scope="row" class="govuk-table__header">Deadline for Decision</th>
-                                <td class="govuk-table__cell"></td>
-                            </tr>
-                            <tr class="govuk-table__row">
-                                <th scope="row" class="govuk-table__header">Date of Decision</th>
-                                <td class="govuk-table__cell"></td>
-                            </tr>
-                            <tr class="govuk-table__row">
-                                <th scope="row" class="govuk-table__header">Extension to Decision deadline</th>
-                                <td class="govuk-table__cell"></td>
-                            </tr>
-                            <tr class="govuk-table__row">
-                                <th scope="row" class="govuk-table__header">Date project withdrawn</th>
-                                <td class="govuk-table__cell"></td>
-                            </tr>
-                        </tbody>
-                    </table>
+            </div>
+            <div class='govuk-!-margin-top-9'>
+                <div class="govuk-summary-card">
+                    <div class="govuk-summary-card__title-wrapper">
+                        <h2 class="govuk-summary-card__title"> Key dates</h2>
+                        <div class="govuk-summary-card__actions"><a class="govuk-link" href="/applications-service/case/4/key-dates">Edit<span class="govuk-visually-hidden"> Key dates (Key dates)</span></a>
+                        </div>
+                    </div>
+                    <div class="govuk-summary-card__content">
+                        <dl class="govuk-summary-list">
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Anticipated submission date published</dt>
+                                <dd                                 class="govuk-summary-list__value"></dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Application submitted (Section 55)</dt>
+                                <dd                                 class="govuk-summary-list__value"></dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Deadline for Acceptance decision</dt>
+                                <dd                                 class="govuk-summary-list__value"></dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Date of Acceptance (Section 55)</dt>
+                                <dd                                 class="govuk-summary-list__value"></dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Date of Non-Acceptance</dt>
+                                <dd class="govuk-summary-list__value"></dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Date Relevant Representations open</dt>
+                                <dd                                 class="govuk-summary-list__value"></dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Date Relevant Representations close</dt>
+                                <dd                                 class="govuk-summary-list__value"></dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Date Relevant Representations to appear on website</dt>
+                                <dd                                 class="govuk-summary-list__value"></dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Preliminary Meeting start date</dt>
+                                <dd                                 class="govuk-summary-list__value"></dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Examination start date</dt>
+                                <dd class="govuk-summary-list__value"></dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Deadline for close of Examination</dt>
+                                <dd                                 class="govuk-summary-list__value"></dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Examination closing date</dt>
+                                <dd                                 class="govuk-summary-list__value"></dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Extension to close of Examination</dt>
+                                <dd                                 class="govuk-summary-list__value"></dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Deadline for submission of Recommendation</dt>
+                                <dd                                 class="govuk-summary-list__value"></dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Date of Recommendation submitted to SoS</dt>
+                                <dd                                 class="govuk-summary-list__value"></dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Extension to Recommendation deadline</dt>
+                                <dd                                 class="govuk-summary-list__value"></dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Deadline for Decision</dt>
+                                <dd class="govuk-summary-list__value"></dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Date of Decision</dt>
+                                <dd class="govuk-summary-list__value"></dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Extension to Decision deadline</dt>
+                                <dd                                 class="govuk-summary-list__value"></dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Date project withdrawn</dt>
+                                <dd class="govuk-summary-list__value"></dd>
+                            </div>
+                        </dl>
+                    </div>
                 </div>
             </div>
         </div>
@@ -177,157 +166,146 @@ exports[`Applications case pages Preview and publish page GET /case/123/preview-
             <p class="govuk-body govuk-!-margin-bottom-6">Check details before publishing</p>
         </div>
         <div class="govuk-grid-column-two-thirds">
-            <div class='pins-preview-table'>
-                <div class='pins-preview-table__header govuk-!-margin-bottom-2'>
-                    <h2>Project information</h2><a href='/applications-service/case/4/overview' class='govuk-link govuk-heading-s govuk-!-margin-bottom-0'>Edit</a>
-                </div>
-                <div>
-                    <dl class="govuk-summary-list">
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Case reference number</dt>
-                            <dd class="govuk-summary-list__value">CASE/04</dd>
+            <div>
+                <div class="govuk-summary-card">
+                    <div class="govuk-summary-card__title-wrapper">
+                        <h2 class="govuk-summary-card__title"> Project information</h2>
+                        <div class="govuk-summary-card__actions"><a class="govuk-link" href="/applications-service/case/4/overview">Edit<span class="govuk-visually-hidden"> Project information (Project information)</span></a>
                         </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Project name</dt>
-                            <dd class="govuk-summary-list__value">Title CASE/04</dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Sector</dt>
-                            <dd class="govuk-summary-list__value">Transport EN</dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Subsector</dt>
-                            <dd class="govuk-summary-list__value">Highways EN</dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Case stage</dt>
-                            <dd class="govuk-summary-list__value">Pre-Application</dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Project description</dt>
-                            <dd class="govuk-summary-list__value">Amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore
-                                et dolore magna aliqua Ut enim ad minim veniam quis nostrud exercitation
-                                ullamco laboris nisi ut aliquip ex ea commodo consequat</dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Project email address</dt>
-                            <dd class="govuk-summary-list__value">some@ema.il</dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Project location</dt>
-                            <dd class="govuk-summary-list__value">London</dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Grid references</dt>
-                            <dd class="govuk-summary-list__value">123456 (Easting)
-                                <br>987654 (Northing)</dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Regions</dt>
-                            <dd class="govuk-summary-list__value">London EN, Yorkshire EN</dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Map zoom level</dt>
-                            <dd class="govuk-summary-list__value">City EN</dd>
-                        </div>
-                    </dl>
-                </div>
-            </div>
-            <div class='pins-preview-table govuk-!-margin-top-9'>
-                <div class='pins-preview-table__header govuk-!-margin-bottom-2'>
-                    <h2>Applicant information</h2><a href='/applications-service/case/4/overview' class='govuk-link govuk-heading-s govuk-!-margin-bottom-0'>Edit</a>
-                </div>
-                <div>
-                    <dl class="govuk-summary-list">
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Organisation name</dt>
-                            <dd class="govuk-summary-list__value">Org name</dd>
-                        </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Website</dt>
-                            <dd class="govuk-summary-list__value"><a class="govuk-link" href="website.web">website.web</a>
-                            </dd>
-                        </div>
-                    </dl>
+                    </div>
+                    <div class="govuk-summary-card__content">
+                        <dl class="govuk-summary-list">
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Case reference number</dt>
+                                <dd class="govuk-summary-list__value">CASE/04</dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Project name</dt>
+                                <dd class="govuk-summary-list__value">Title CASE/04</dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Sector</dt>
+                                <dd class="govuk-summary-list__value">Transport EN</dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Subsector</dt>
+                                <dd class="govuk-summary-list__value">Highways EN</dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Case stage</dt>
+                                <dd class="govuk-summary-list__value">Pre-Application</dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Project description</dt>
+                                <dd class="govuk-summary-list__value">Amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore
+                                    et dolore magna aliqua Ut enim ad minim veniam quis nostrud exercitation
+                                    ullamco laboris nisi ut aliquip ex ea commodo consequat</dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Project email address</dt>
+                                <dd class="govuk-summary-list__value">some@ema.il</dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Project location</dt>
+                                <dd class="govuk-summary-list__value">London</dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Grid references</dt>
+                                <dd class="govuk-summary-list__value">123456 (Easting)
+                                    <br>987654 (Northing)</dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Regions</dt>
+                                <dd class="govuk-summary-list__value">London EN, Yorkshire EN</dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Map zoom level</dt>
+                                <dd class="govuk-summary-list__value">City EN</dd>
+                            </div>
+                        </dl>
+                    </div>
                 </div>
             </div>
-            <div class='pins-preview-table govuk-!-margin-top-9'>
-                <div class='pins-preview-table__header govuk-!-margin-bottom-2'>
-                    <h2>Key dates</h2><a href='/applications-service/case/4/key-dates' class='govuk-link govuk-heading-s govuk-!-margin-bottom-0'>Edit</a>
+            <div class='govuk-!-margin-top-9'>
+                <div class="govuk-summary-card">
+                    <div class="govuk-summary-card__title-wrapper">
+                        <h2 class="govuk-summary-card__title"> Applicant information</h2>
+                        <div class="govuk-summary-card__actions"><a class="govuk-link" href="/applications-service/case/4/overview">Edit<span class="govuk-visually-hidden"> Applicant information (Applicant information)</span></a>
+                        </div>
+                    </div>
+                    <div class="govuk-summary-card__content">
+                        <dl class="govuk-summary-list">
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Organisation name</dt>
+                                <dd class="govuk-summary-list__value">Org name</dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Website</dt>
+                                <dd class="govuk-summary-list__value"><a class="govuk-link" href="website.web">website.web</a>
+                                </dd>
+                            </div>
+                        </dl>
+                    </div>
                 </div>
-                <div>
-                    <table class="govuk-table">
-                        <caption class="govuk-table__caption govuk-visually-hidden">Key dates</caption>
-                        <tbody class="govuk-table__body">
-                            <tr class="govuk-table__row">
-                                <th scope="row" class="govuk-table__header">Anticipated submission date published</th>
-                                <td class="govuk-table__cell"></td>
-                            </tr>
-                            <tr class="govuk-table__row">
-                                <th scope="row" class="govuk-table__header">Application submitted (Section 55)</th>
-                                <td class="govuk-table__cell"></td>
-                            </tr>
-                            <tr class="govuk-table__row">
-                                <th scope="row" class="govuk-table__header">Deadline for Acceptance decision</th>
-                                <td class="govuk-table__cell"></td>
-                            </tr>
-                            <tr class="govuk-table__row">
-                                <th scope="row" class="govuk-table__header">Date of Acceptance (Section 55)</th>
-                                <td class="govuk-table__cell"></td>
-                            </tr>
-                            <tr class="govuk-table__row">
-                                <th scope="row" class="govuk-table__header">Date of Non-Acceptance</th>
-                                <td class="govuk-table__cell"></td>
-                            </tr>
-                            <tr class="govuk-table__row">
-                                <th scope="row" class="govuk-table__header">Date Relevant Representations open</th>
-                                <td class="govuk-table__cell"></td>
-                            </tr>
-                            <tr class="govuk-table__row">
-                                <th scope="row" class="govuk-table__header">Date Relevant Representations close</th>
-                                <td class="govuk-table__cell"></td>
-                            </tr>
-                            <tr class="govuk-table__row">
-                                <th scope="row" class="govuk-table__header">Date Relevant Representations to appear on website</th>
-                                <td class="govuk-table__cell"></td>
-                            </tr>
-                            <tr class="govuk-table__row">
-                                <th scope="row" class="govuk-table__header">Preliminary Meeting start date</th>
-                                <td class="govuk-table__cell"></td>
-                            </tr>
-                            <tr class="govuk-table__row">
-                                <th scope="row" class="govuk-table__header">Examination start date</th>
-                                <td class="govuk-table__cell"></td>
-                            </tr>
-                            <tr class="govuk-table__row">
-                                <th scope="row" class="govuk-table__header">Deadline for close of Examination</th>
-                                <td class="govuk-table__cell"></td>
-                            </tr>
-                            <tr class="govuk-table__row">
-                                <th scope="row" class="govuk-table__header">Examination closing date</th>
-                                <td class="govuk-table__cell"></td>
-                            </tr>
-                            <tr class="govuk-table__row">
-                                <th scope="row" class="govuk-table__header">Extension to close of Examination</th>
-                                <td class="govuk-table__cell"></td>
-                            </tr>
-                            <tr class="govuk-table__row">
-                                <th scope="row" class="govuk-table__header">Deadline for submission of Recommendation</th>
-                                <td class="govuk-table__cell"></td>
-                            </tr>
-                            <tr class="govuk-table__row">
-                                <th scope="row" class="govuk-table__header">Date of Recommendation submitted to SoS</th>
-                                <td class="govuk-table__cell"></td>
-                            </tr>
-                            <tr class="govuk-table__row">
-                                <th scope="row" class="govuk-table__header">Extension to Recommendation deadline</th>
-                                <td class="govuk-table__cell"></td>
-                            </tr>
-                            <tr class="govuk-table__row">
-                                <th scope="row" class="govuk-table__header">Deadline for Decision</th>
-                                <td class="govuk-table__cell"></td>
-                            </tr>
-                            <tr class="govuk-table__row">
-                                <th scope="row" class="govuk-table__header">Date of Decision</th>
-                                <td class="govuk-table__cell"></td>
-                            </tr>
-                            <tr class="govuk-table__row">
-                                <th scope="row" class="govuk-table__header">Extension to Decision deadline</th>
-                                <td class="govuk-table__cell"></td>
-                            </tr>
-                            <tr class="govuk-table__row">
-                                <th scope="row" class="govuk-table__header">Date project withdrawn</th>
-                                <td class="govuk-table__cell"></td>
-                            </tr>
-                        </tbody>
-                    </table>
+            </div>
+            <div class='govuk-!-margin-top-9'>
+                <div class="govuk-summary-card">
+                    <div class="govuk-summary-card__title-wrapper">
+                        <h2 class="govuk-summary-card__title"> Key dates</h2>
+                        <div class="govuk-summary-card__actions"><a class="govuk-link" href="/applications-service/case/4/key-dates">Edit<span class="govuk-visually-hidden"> Key dates (Key dates)</span></a>
+                        </div>
+                    </div>
+                    <div class="govuk-summary-card__content">
+                        <dl class="govuk-summary-list">
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Anticipated submission date published</dt>
+                                <dd                                 class="govuk-summary-list__value"></dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Application submitted (Section 55)</dt>
+                                <dd                                 class="govuk-summary-list__value"></dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Deadline for Acceptance decision</dt>
+                                <dd                                 class="govuk-summary-list__value"></dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Date of Acceptance (Section 55)</dt>
+                                <dd                                 class="govuk-summary-list__value"></dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Date of Non-Acceptance</dt>
+                                <dd class="govuk-summary-list__value"></dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Date Relevant Representations open</dt>
+                                <dd                                 class="govuk-summary-list__value"></dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Date Relevant Representations close</dt>
+                                <dd                                 class="govuk-summary-list__value"></dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Date Relevant Representations to appear on website</dt>
+                                <dd                                 class="govuk-summary-list__value"></dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Preliminary Meeting start date</dt>
+                                <dd                                 class="govuk-summary-list__value"></dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Examination start date</dt>
+                                <dd class="govuk-summary-list__value"></dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Deadline for close of Examination</dt>
+                                <dd                                 class="govuk-summary-list__value"></dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Examination closing date</dt>
+                                <dd                                 class="govuk-summary-list__value"></dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Extension to close of Examination</dt>
+                                <dd                                 class="govuk-summary-list__value"></dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Deadline for submission of Recommendation</dt>
+                                <dd                                 class="govuk-summary-list__value"></dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Date of Recommendation submitted to SoS</dt>
+                                <dd                                 class="govuk-summary-list__value"></dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Extension to Recommendation deadline</dt>
+                                <dd                                 class="govuk-summary-list__value"></dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Deadline for Decision</dt>
+                                <dd class="govuk-summary-list__value"></dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Date of Decision</dt>
+                                <dd class="govuk-summary-list__value"></dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Extension to Decision deadline</dt>
+                                <dd                                 class="govuk-summary-list__value"></dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Date project withdrawn</dt>
+                                <dd class="govuk-summary-list__value"></dd>
+                            </div>
+                        </dl>
+                    </div>
                 </div>
             </div>
         </div>
