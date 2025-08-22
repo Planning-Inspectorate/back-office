@@ -185,15 +185,18 @@
 				padding: 0;
 
 				&:before {
-					width: 1.5rem;
-					height: 1.5rem;
+					width: 24px;
+					height: 24px;
+					top: 2px;
+					left: 2px;
 				}
 
 				&:after {
-					top: 7px;
-					left: 7px;
-					width: 14px;
-					height: 10px;
+					top: 10px;
+					left: 8px;
+					width: 12px;
+					height: 6.5px;
+					border-width: 0 0 3px 3px;
 				}
 			}
 		}
