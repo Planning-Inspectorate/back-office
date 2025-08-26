@@ -17,9 +17,24 @@ trigger: none
 
 jobs:
 
-  - job: E2E_Tests_Group_1
+  - job: E2E_Tests
     timeoutInMinutes: 60
     pool: pins-odt-agent-pool-tests
+    strategy:
+      matrix:
+        shard_0:
+          SHARD_INDEX: 0
+          SHARD_COUNT: 4
+        shard_1:
+          SHARD_INDEX: 1
+          SHARD_COUNT: 4
+        shard_2:
+          SHARD_INDEX: 2
+          SHARD_COUNT: 4
+        shard_3:
+          SHARD_INDEX: 3
+          SHARD_COUNT: 4
+      maxParallel: 4
     steps:
 
       - task: NodeTool@0
@@ -34,138 +49,29 @@ jobs:
         displayName: "Install Dependencies"
 
       - task: Bash@3
+        displayName: "Run Cypress Tests (shard $(SHARD_INDEX)/$(SHARD_COUNT))"
         inputs:
           targetType: 'inline'
-          script: |
-            ./run-tests.sh --glob "cypress/e2e/back-office-applications/**/*.spec.js" --shard-index 0 --shard-count 4
           workingDirectory: 'apps/e2e'
-
+          script: |
+            ./run-tests.sh --glob "cypress/e2e/back-office-applications/**/*.spec.js" \
+              --shard-index "$SHARD_INDEX" \
+              --shard-count "$SHARD_COUNT"
         env:
+          # Shard configuration provided by matrix
+          SHARD_INDEX: $(SHARD_INDEX)
+          SHARD_COUNT: $(SHARD_COUNT)
+          # Existing environment required by tests
           BASE_URL: $(BASE_URL)
           CASE_TEAM_EMAIL: $(CASE_TEAM_EMAIL)
           CASE_ADMIN_EMAIL: $(CASE_ADMIN_EMAIL)
           INSPECTOR_EMAIL: $(INSPECTOR_EMAIL)
           USER_PASSWORD: $(USER_PASSWORD)
           FEATURE_FLAG_CONNECTION_STRING: $(FEATURE_FLAG_CONNECTION_STRING)
-        displayName: "Run Cypress Tests Group 1"
 
       - task: PublishBuildArtifacts@1
         inputs:
           pathToPublish: 'apps/e2e/cypress/screenshots'
-          artifactName: 'FailedTests'
-        displayName: "Publish Failed Tests Artifacts"
-        condition: failed()
-
-  - job: E2E_Tests_Group_2
-    timeoutInMinutes: 60
-    pool: pins-odt-agent-pool-tests
-    steps:
-      - task: NodeTool@0
-        inputs:
-          versionSpec: "20.x"
-        displayName: "Install Node.js"
-
-      - task: Npm@1
-        inputs:
-          command: "install"
-          workingDir: $(System.DefaultWorkingDirectory)/apps/e2e
-        displayName: "Install Dependencies"
-
-      - task: Bash@3
-        inputs:
-          targetType: 'inline'
-          script: |
-            ./run-tests.sh --glob "cypress/e2e/back-office-applications/**/*.spec.js" --shard-index 1 --shard-count 4
-          workingDirectory: 'apps/e2e'
-
-        env:
-          BASE_URL: $(BASE_URL)
-          CASE_TEAM_EMAIL: $(CASE_TEAM_EMAIL)
-          CASE_ADMIN_EMAIL: $(CASE_ADMIN_EMAIL)
-          INSPECTOR_EMAIL: $(INSPECTOR_EMAIL)
-          USER_PASSWORD: $(USER_PASSWORD)
-          FEATURE_FLAG_CONNECTION_STRING: $(FEATURE_FLAG_CONNECTION_STRING)
-        displayName: "Run Cypress Tests Group 2"
-
-      - task: PublishBuildArtifacts@1
-        inputs:
-          pathToPublish: 'apps/e2e/cypress/screenshots'
-          artifactName: 'FailedTests'
-        displayName: "Publish Failed Tests Artifacts"
-        condition: failed()
-
-  - job: E2E_Tests_Group_3
-    timeoutInMinutes: 60
-    pool: pins-odt-agent-pool-tests
-    steps:
-      - task: NodeTool@0
-        inputs:
-          versionSpec: "20.x"
-        displayName: "Install Node.js"
-
-      - task: Npm@1
-        inputs:
-          command: "install"
-          workingDir: $(System.DefaultWorkingDirectory)/apps/e2e
-        displayName: "Install Dependencies"
-
-      - task: Bash@3
-        inputs:
-          targetType: 'inline'
-          script: |
-            ./run-tests.sh --glob "cypress/e2e/back-office-applications/**/*.spec.js" --shard-index 2 --shard-count 4
-          workingDirectory: 'apps/e2e'
-
-        env:
-          BASE_URL: $(BASE_URL)
-          CASE_TEAM_EMAIL: $(CASE_TEAM_EMAIL)
-          CASE_ADMIN_EMAIL: $(CASE_ADMIN_EMAIL)
-          INSPECTOR_EMAIL: $(INSPECTOR_EMAIL)
-          USER_PASSWORD: $(USER_PASSWORD)
-          FEATURE_FLAG_CONNECTION_STRING: $(FEATURE_FLAG_CONNECTION_STRING)
-        displayName: "Run Cypress Tests Group 3"
-
-      - task: PublishBuildArtifacts@1
-        inputs:
-          pathToPublish: 'apps/e2e/cypress/screenshots'
-          artifactName: 'FailedTests'
-        displayName: "Publish Failed Tests Artifacts"
-        condition: failed()
-
-  - job: E2E_Tests_Group_4
-    timeoutInMinutes: 60
-    pool: pins-odt-agent-pool-tests
-    steps:
-      - task: NodeTool@0
-        inputs:
-          versionSpec: "20.x"
-        displayName: "Install Node.js"
-
-      - task: Npm@1
-        inputs:
-          command: "install"
-          workingDir: $(System.DefaultWorkingDirectory)/apps/e2e
-        displayName: "Install Dependencies"
-
-      - task: Bash@3
-        inputs:
-          targetType: 'inline'
-          script: |
-            ./run-tests.sh --glob "cypress/e2e/back-office-applications/**/*.spec.js" --shard-index 3 --shard-count 4
-          workingDirectory: 'apps/e2e'
-
-        env:
-          BASE_URL: $(BASE_URL)
-          CASE_TEAM_EMAIL: $(CASE_TEAM_EMAIL)
-          CASE_ADMIN_EMAIL: $(CASE_ADMIN_EMAIL)
-          INSPECTOR_EMAIL: $(INSPECTOR_EMAIL)
-          USER_PASSWORD: $(USER_PASSWORD)
-          FEATURE_FLAG_CONNECTION_STRING: $(FEATURE_FLAG_CONNECTION_STRING)
-        displayName: "Run Cypress Tests Group 4"
-
-      - task: PublishBuildArtifacts@1
-        inputs:
-          pathToPublish: 'apps/e2e/cypress/screenshots'
-          artifactName: 'FailedTests'
+          artifactName: 'FailedTests-$(SHARD_INDEX)'
         displayName: "Publish Failed Tests Artifacts"
         condition: failed()
