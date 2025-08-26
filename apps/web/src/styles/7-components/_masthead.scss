@@ -16,7 +16,13 @@
 .pins-masthead-summary {
 	background-color: pins-colours.$pins-colours-grey-100;
 
-	.govuk-heading-xl {
-		margin-bottom: govuk-spacing(2);
+	.govuk {
+		&-heading-xl {
+			margin-bottom: govuk-spacing(2);
+		}
+
+		&-checkboxes__label {
+			max-width: unset;
+		}
 	}
 }
