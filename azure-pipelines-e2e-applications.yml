@@ -54,7 +54,7 @@ jobs:
           targetType: 'inline'
           workingDirectory: 'apps/e2e'
           script: |
-            apps/e2e/run-tests.sh --glob "cypress/e2e/back-office-applications/**/*.spec.js" \
+            ./e2e/cypress/run-tests.sh --glob "cypress/e2e/back-office-applications/**/*.spec.js" \
               --shard-index "$SHARD_INDEX" \
               --shard-count "$SHARD_COUNT"
         env:
