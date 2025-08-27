@@ -46,3 +46,34 @@ export const getPublishedRepresentationsRedirectURL = (
 	numberOfRepresentationPublished
 ) =>
 	`${serviceUrl}/case/${caseId}/${representationsUrl}?${publishRepresentationsQueryKey}=${numberOfRepresentationPublished}`;
+
+/**
+ * @typedef {Object} Representation
+ * @property {string} id
+ * @property {string} status
+ */
+
+/**
+ * @typedef {Object} Representations
+ * @property {Representation[]} items
+ * @property {any[]} filters
+ */
+
+/**
+ * Extracts publishedRepIds (number[]) and count from an array of representations.
+ * @param {Representation[] | null | undefined} items
+ * @returns {{ publishedRepIds: number[], publishedRepsCount: number }}
+ */
+export function getPublishedRepIdsAndCount(items) {
+	if (!Array.isArray(items)) return { publishedRepIds: [], publishedRepsCount: 0 };
+	const publishedRepIds = items
+		.filter((rep) => rep.status === 'PUBLISHED')
+		.map((rep) => Number(rep.id));
+	let publishedRepsCount = 0;
+	try {
+		publishedRepsCount = getNumberOfRepresentationsPublished({ publishedRepIds });
+	} catch (e) {
+		publishedRepsCount = 0;
+	}
+	return { publishedRepIds, publishedRepsCount };
+}
