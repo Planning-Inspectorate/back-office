@@ -1,6 +1,6 @@
 import Ajv from 'ajv';
 import addAjvFormats from 'ajv-formats';
-import { loadAllSchemas } from 'pins-data-model';
+import { loadAllSchemas } from '@planning-inspectorate/data-model';
 
 /**
  * @param {string} model

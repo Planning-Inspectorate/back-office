@@ -1,7 +1,7 @@
 import { pick } from 'lodash-es';
 
 /**
- * @typedef {import('pins-data-model').Schemas.Folder} FolderModel
+ * @typedef {import('@planning-inspectorate/data-model').Schemas.Folder} FolderModel
  * @typedef {Object} SortedFolder
  * @extends FolderModel
  * @property {SortedFolder[]} children

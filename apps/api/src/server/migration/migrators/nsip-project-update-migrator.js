@@ -8,7 +8,7 @@ import { NSIP_PROJECT_UPDATE } from '#infrastructure/topics.js';
 import { EventType } from '@pins/event-client';
 import { MigratedEntityIdCeiling } from '../migrator.consts.js';
 /**
- * @typedef {import('pins-data-model').Schemas.NSIPProjectUpdate} NSIPProjectUpdate
+ * @typedef {import('@planning-inspectorate/data-model').Schemas.NSIPProjectUpdate} NSIPProjectUpdate
  * @typedef {NSIPProjectUpdate & import('./utils.js').NSIPProjectMinimalCaseData} NSIPProjectUpdateMigrateModel
  */
 

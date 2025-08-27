@@ -1,6 +1,6 @@
 import Ajv from 'ajv';
 import addAjvFormats from 'ajv-formats';
-import { loadAllSchemas } from 'pins-data-model';
+import { loadAllSchemas } from '@planning-inspectorate/data-model';
 
 import chalk from 'chalk';
 import { allKeyDateNames } from '../applications/key-dates/key-dates.utils.js';

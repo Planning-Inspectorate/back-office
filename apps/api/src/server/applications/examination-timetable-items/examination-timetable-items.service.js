@@ -13,8 +13,8 @@ import { buildFoldersPayload } from '#infrastructure/payload-builders/folder.js'
 import { verifyNotTraining } from '../application/application.validators.js';
 
 /**
- * @typedef {import('pins-data-model').Schemas.Event} NSIPExamTimetableItem
- * @typedef {import('pins-data-model').Schemas.ExaminationTimetable} NSIPExamTimetable
+ * @typedef {import('@planning-inspectorate/data-model').Schemas.Event} NSIPExamTimetableItem
+ * @typedef {import('@planning-inspectorate/data-model').Schemas.ExaminationTimetable} NSIPExamTimetable
  * @typedef {import('@pins/applications.api').Schema.Folder} Folder
  * @typedef {import('@prisma/client').Prisma.ExaminationTimetableItemGetPayload<{include: {ExaminationTimetableType: true} }>} ExaminationTimetableItemWithType
  */
