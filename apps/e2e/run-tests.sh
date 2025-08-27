@@ -32,7 +32,7 @@ while [[ $# -gt 0 ]]; do # Checks the count of positional parameters. As long as
       ;;
     --spec)
       SPEC_LIST="$2" # assigns the value that follows the flag.
-      shift 2 #shift 2: removes the flag and its value from the positional parameters so the loop advances.
+      shift 2 # shift 2: removes the flag and its value from the positional parameters so the loop advances.
       ;;
     --glob)
       SPEC_GLOB="$2"
@@ -46,7 +46,7 @@ while [[ $# -gt 0 ]]; do # Checks the count of positional parameters. As long as
       SHARD_COUNT="$2"
       shift 2
       ;;
-    *) # prints an error to stderr 
+    *) # *) prints an error to stderr 
       echo "Unknown argument: $1" >&2
       usage
       exit 1
