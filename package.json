@@ -62,7 +62,7 @@
 		"@pins/platform": "^0.0.0",
 		"@pins/redis": "^0.0.0",
 		"@planning-inspectorate/address-lookup": "^1.0.6",
-		"@planning-inspectorate/data-model": "github:Planning-Inspectorate/data-model#1.13.0",
+		"@planning-inspectorate/data-model": "^1.13.0",
 		"@prisma/client": "^5.13.0",
 		"@prisma/instrumentation": "^5.6.0",
 		"@supercharge/promise-pool": "^2.4.0",
