@@ -35,7 +35,7 @@ exports[`applications representations GET /applications-service/:caseId/relevant
     <h2 class="govuk-heading-l">Relevant representations</h2>
     <form method="GET" action="/applications-service/case/1/relevant-representations">
         <div class="govuk-grid-row">
-            <div class="govuk-grid-column-one-half">
+            <div class="govuk-grid-column-two-thirds">
                 <div class="pins-masthead-summary govuk-!-padding-4 govuk-!-margin-bottom-4">
                     <div class="govuk-form-group">
                         <div class="filter-box">
@@ -99,7 +99,7 @@ exports[`applications representations GET /applications-service/:caseId/relevant
                     </div>
                 </div>
             </div>
-            <div class="govuk-grid-column-one-half">
+            <div class="govuk-grid-column-one-third">
                 <h3 class="govuk-heading-m govuk-!-margin-bottom-6"> Key dates</h3>
                 <p class="govuk-body govuk-!-margin-bottom-1"><strong>1 January 2023</strong>
                 </p>
@@ -228,7 +228,7 @@ exports[`applications representations GET /applications-service/:id/relevant-rep
     <h2 class="govuk-heading-l">Relevant representations</h2>
     <form method="GET" action="/applications-service/case/1/relevant-representations">
         <div class="govuk-grid-row">
-            <div class="govuk-grid-column-one-half">
+            <div class="govuk-grid-column-two-thirds">
                 <div class="pins-masthead-summary govuk-!-padding-4 govuk-!-margin-bottom-4">
                     <div class="govuk-form-group">
                         <div class="filter-box">
@@ -292,7 +292,7 @@ exports[`applications representations GET /applications-service/:id/relevant-rep
                     </div>
                 </div>
             </div>
-            <div class="govuk-grid-column-one-half">
+            <div class="govuk-grid-column-one-third">
                 <h3 class="govuk-heading-m govuk-!-margin-bottom-6"> Key dates</h3>
                 <p class="govuk-body govuk-!-margin-bottom-1"><strong>1 January 2023</strong>
                 </p>
