@@ -1,6 +1,8 @@
 /** @type {Record<string, string>} */
 const propertyToName = {
 	preApplication: 'Pre-application',
+	preApplicationDates: 'Pre-application dates',
+	screeningAndScoping: 'Screening and Scoping',
 	datePINSFirstNotifiedOfProject: 'Date first notified of project',
 	datePINSFirstNotifiedOfProject_label:
 		'Applicant notifies the Planning Inspectorate of a project.',
