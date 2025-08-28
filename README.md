@@ -150,26 +150,22 @@ apps/api> npm run db:seed
 
 You may need to use a terminal running in Admin mode to install dependencies. This is not possible using VS Code on a Windows machine. In this case, open a Git Bash terminal in Admin mode then run `npm i`.
 
-#### Service Bus Schema from the data-model repo
+### Service Bus Schema from the data-model repo
 
 Back Office broadcasts Service Bus event messages to the Azure Service bus most CRUD actions.  The schemas are in the shared repo data-model.
-A normal npm i may not correctly pull the latest version of the schemas.  If you identify that the schemas held locally in the root node_modules/pins-data-model/schemas folder are out of date:
+ If you identify that the schemas held locally in the root node_modules/pins-data-model/schemas folder are out of date:
 
-1. Identify the latest tagged release name in the data-model repo - eg "#1.0.1" from here:
-
+1. Identify the latest tagged release in the data-model repo, e.g. "#1.0.1", from here:
 [data-model tags](https://github.com/Planning-Inspectorate/data-model/tags)
 
-2. run the command to remove and update to latest, in a terminal at the root level:
 
-```shell
-npm uninstall pins-data-model && npm prune && npm install github:Planning-Inspectorate/data-model#1.0.1
+2. Manually update the version string for the @planning-inspectorate/data-model dependency in the root package.json to match the latest tagged release e.g.
+
+```
+"@planning-inspectorate/data-model": "^1.0.1"
 ```
 
-If you run into any issues during setup and encounter the error below, it's likely that the file is locked by a node.js process.  To resolve, open Task Manager and kill the node.js process that has a lock on the file.
-
-```shell
-EPERM: operation not permitted, unlink '....back-office\node_modules\.prisma\client\query_engine-windows.dll.node']
-```
+3. Run `npm i` from the root of the repo to install the latest version of the data-model dependency.
 
 ### Dummy User Data
 
