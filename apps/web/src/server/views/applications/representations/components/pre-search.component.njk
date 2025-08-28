@@ -1,6 +1,6 @@
 {% from "govuk/components/checkboxes/macro.njk" import govukCheckboxes %}
 
-{% macro preSearch(filters) %}
+{% macro preSearch(filters, clearFilterRefreshUrl) %}
 	<div class="pins-masthead-summary govuk-!-padding-4 govuk-!-margin-bottom-4">
 		<div class="govuk-form-group">
 			<div class="filter-box">
@@ -19,8 +19,13 @@
 				}) }}
 			</div>
 		</div>
-		<button class="govuk-button" id="toggleButton" data-module="govuk-button">
-			Apply filters
-		</button>
+		<div class="govuk-button-group govuk-!-margin-top-0" >
+			<button class="govuk-button" id="toggleButton" data-module="govuk-button">
+				Apply filters
+			</button>
+			<a href="{{ clearFilterRefreshUrl }}" class="govuk-link govuk-link--no-visited-state">
+				Clear filters
+			</a>
+		</div>
 	</div>
 {% endmacro %}

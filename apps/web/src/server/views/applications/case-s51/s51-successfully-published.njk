@@ -5,13 +5,11 @@
 {% set isGeneralS51 = case.reference === gs51CaseReference %}
 {% set serviceName = case.title if case.title else "S51 advice" %}
 {% set pageTitle = ["S51 advice item successfully published ", action] | join %}
-{% set messageText = "The S51 advice will show on the NI website within the hour." %}
 
 {% block beforeContent %}{% endblock %}
 {% block pageHeading %}{% endblock %}
 
 {% if isGeneralS51 %}
-	{% set messageText = "The General S51 advice will show on the NI website within the hour." %}
 	{% set pageTitle = ["General S51 advice item successfully published ", action] | join %}
 {% endif %}
 
@@ -34,9 +32,6 @@
 				html: bannerDetails
 			}) }}
 
-			<div class='govuk-!-font-size-19'>
-				<p class='govuk-!-margin-top-0 govuk-!-margin-right-2'>{{ messageText }}</p>
-			</div>
 			<div class='govuk-!-font-size-19 display--flex'>
 				<p class='govuk-!-margin-top-0 govuk-!-margin-right-2'>Return to folder: </p>
 				<a href='{{'s51-list'|url({caseId: caseId, folderId: folderId })}}''' class="govuk-link">

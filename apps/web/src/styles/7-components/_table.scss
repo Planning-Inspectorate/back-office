@@ -64,35 +64,11 @@
 	}
 }
 
-.pins-dashboard-list--drafts {
-	.govuk-accordion__controls {
-		display: none;
-	}
-
-	.govuk-accordion__section-toggle-text {
-		font-size: 0;
-		position: absolute;
-
-		&::after {
-			content: "Show all draft cases";
-			font-size: 19px;
-			position: relative;
-			top: 2px;
-		}
-	}
-}
-
 .pins-dashboard-list--hide-controls {
 	margin-top: 2rem;
 
 	h2 {
 		margin-bottom: 0;
-	}
-
-	.govuk-accordion__section-toggle-text {
-		&:after {
-			content: " subfolders";
-		}
 	}
 
 	.govuk-accordion__controls {
@@ -158,5 +134,14 @@
 	.govuk-table__cell:last-child {
 		width: 1%;
 		white-space: nowrap;
+	}
+}
+
+.pins-dashboard-list--drafts {
+	.govuk-accordion__controls {
+		display: none;
+	}
+	#draft-cases-list .govuk-accordion__section-button {
+		border-top: none !important;
 	}
 }

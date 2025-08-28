@@ -33,7 +33,7 @@ exports[`applications representations GET /applications-service/:caseId/relevant
         			});
     </script>
     <h2 class="govuk-heading-l">Relevant representations</h2>
-    <form method="GET">
+    <form method="GET" action="/applications-service/case/1/relevant-representations">
         <div class="govuk-grid-row">
             <div class="govuk-grid-column-one-half">
                 <div class="pins-masthead-summary govuk-!-padding-4 govuk-!-margin-bottom-4">
@@ -93,7 +93,10 @@ exports[`applications representations GET /applications-service/:caseId/relevant
                             </div>
                         </div>
                     </div>
-                    <button class="govuk-button" id="toggleButton" data-module="govuk-button">Apply filters</button>
+                    <div class="govuk-button-group govuk-!-margin-top-0">
+                        <button class="govuk-button" id="toggleButton" data-module="govuk-button">Apply filters</button><a href="/applications-service/case/1/relevant-representations"
+                        class="govuk-link govuk-link--no-visited-state"> Clear filters</a>
+                    </div>
                 </div>
             </div>
             <div class="govuk-grid-column-one-half">
@@ -223,7 +226,7 @@ exports[`applications representations GET /applications-service/:id/relevant-rep
         			});
     </script>
     <h2 class="govuk-heading-l">Relevant representations</h2>
-    <form method="GET">
+    <form method="GET" action="/applications-service/case/1/relevant-representations">
         <div class="govuk-grid-row">
             <div class="govuk-grid-column-one-half">
                 <div class="pins-masthead-summary govuk-!-padding-4 govuk-!-margin-bottom-4">
@@ -283,7 +286,10 @@ exports[`applications representations GET /applications-service/:id/relevant-rep
                             </div>
                         </div>
                     </div>
-                    <button class="govuk-button" id="toggleButton" data-module="govuk-button">Apply filters</button>
+                    <div class="govuk-button-group govuk-!-margin-top-0">
+                        <button class="govuk-button" id="toggleButton" data-module="govuk-button">Apply filters</button><a href="/applications-service/case/1/relevant-representations"
+                        class="govuk-link govuk-link--no-visited-state"> Clear filters</a>
+                    </div>
                 </div>
             </div>
             <div class="govuk-grid-column-one-half">

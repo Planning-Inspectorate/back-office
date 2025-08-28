@@ -150,12 +150,14 @@ export const validateCreateUpdateApplication = composeMiddleware(
 		.withMessage('Must be a valid case stage')
 		.optional({ nullable: true }),
 	body('geographicalInformation.gridReference.easting')
-		.toInt()
+		.isNumeric()
+		.withMessage('Easting must be integer with 6 digits')
 		.isLength({ min: 6, max: 6 })
 		.withMessage('Easting must be integer with 6 digits')
 		.optional({ nullable: true }),
 	body('geographicalInformation.gridReference.northing')
-		.toInt()
+		.isNumeric()
+		.withMessage('Northing must be integer with 6 digits')
 		.isLength({ min: 6, max: 6 })
 		.withMessage('Northing must be integer with 6 digits')
 		.optional({ nullable: true }),

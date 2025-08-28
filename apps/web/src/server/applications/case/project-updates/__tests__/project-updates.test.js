@@ -261,7 +261,7 @@ describe('project-updates', () => {
 			// check - project updates form present
 			expect(element.innerHTML).toContain('Set status');
 			expect(element.innerHTML).toContain('Draft');
-			expect(element.innerHTML).toContain('Publish');
+			expect(element.innerHTML).toContain('publish');
 		});
 	});
 

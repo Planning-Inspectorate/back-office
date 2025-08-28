@@ -1,3 +1,7 @@
 import { featureFlagClient } from '../../../common/feature-flags.js';
 
-export const isFeatureActive = featureFlagClient.isFeatureActive;
+/**
+ * @param {string} flagName
+ * @returns {boolean}
+ */
+export const isFeatureActive = (flagName) => featureFlagClient.isFeatureActive(flagName);

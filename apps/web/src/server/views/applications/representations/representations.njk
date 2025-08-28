@@ -9,7 +9,8 @@
 {% from "applications/components/pagination/results-per-page.component.njk" import uiPageSizeInformation, uiPaginationLinks %}
 {% from "applications/representations/components/pre-search.component.njk" import preSearch %}
 {% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
-
+{% set pageTitle = "Relevant representations - " + case.title + " - NSIP applications" %}
+{% block title %}{{ pageTitle }}{% endblock %}
 {% block beforeContent %}
     <aside>
 	    {{ govukBreadcrumbs({
@@ -75,10 +76,10 @@
 
 	<h2 class="govuk-heading-l">Relevant representations</h2>
 
-	<form method="GET">
+	<form method="GET" action="{{ clearFilterRefreshUrl }}">
 		<div class="govuk-grid-row">
 			<div class="govuk-grid-column-one-half">
-				{{ preSearch(filters) }}
+				{{ preSearch(filters, clearFilterRefreshUrl) }}
 			</div>
 
 			<div class="govuk-grid-column-one-half">
@@ -171,5 +172,3 @@
 
 	</form>
 {% endblock %}
-
-

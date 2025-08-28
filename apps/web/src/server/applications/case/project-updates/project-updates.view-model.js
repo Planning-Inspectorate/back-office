@@ -352,7 +352,7 @@ export function statusRadioOption(status) {
 			text = 'Draft';
 			break;
 		case ProjectUpdate.Status.readyToPublish:
-			text = 'Ready to Publish';
+			text = 'Ready to publish';
 			break;
 		case ProjectUpdate.Status.published:
 			text = 'Published';

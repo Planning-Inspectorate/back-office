@@ -205,7 +205,7 @@ exports[`applications create Geographical Information POST /create-new-case/:cas
                 Grid reference Northing</p>
             <input class="govuk-input govuk-!-width-one-third govuk-input--error"
             id="geographicalInformation.gridReference.northing" name="geographicalInformation.gridReference.northing"
-            type="text" value="123" aria-describedby="geographicalInformation.gridReference.northing-hint geographicalInformation.gridReference.northing-error">
+            type="text" value="123dfe" aria-describedby="geographicalInformation.gridReference.northing-hint geographicalInformation.gridReference.northing-error">
         </div>
         <div class="govuk-grid-row">
             <div class="govuk-button-group govuk-grid-column-one-half">

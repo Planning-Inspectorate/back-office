@@ -38,7 +38,7 @@ const fullParams = {
 const fullResult = [
 	{ title: 'Reference number', text: 'TEST_REFERENCE' },
 	{
-		title: 'Is this an application for a material change?',
+		title: 'Material change',
 		text: 'Yes',
 		url: 'material-change'
 	},

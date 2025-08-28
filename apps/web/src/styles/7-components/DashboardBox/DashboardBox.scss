@@ -42,5 +42,10 @@
 		width: $pins-dashboard-form-button-width;
 		bottom: 2px; /* Need this to offset the box-shadow. */
 		margin: 0;
+
+		&:active {
+			top: auto;
+			height: 38px;
+		}
 	}
 }

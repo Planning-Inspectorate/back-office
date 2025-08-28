@@ -13,3 +13,22 @@
 		white-space: nowrap;
 	}
 }
+
+.govuk-summary-list__row {
+	&.pins-key-dates-summary-list__row {
+		@media (min-width: 40.0625em) {
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			justify-content: space-between;
+		}
+	}
+}
+
+.govuk-summary-list__key {
+	&.pins-key-dates-summary-list__key {
+		@media (min-width: 40.0625em) {
+			width: 75%;
+		}
+	}
+}

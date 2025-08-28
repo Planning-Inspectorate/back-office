@@ -4,6 +4,7 @@ import {
 	createFolder,
 	getFolderByName
 } from '../../applications/application/file-folders/folders.service.js';
+import { createFolder as createFolderBase } from '#repositories/folder.repository.js';
 import { getByRef as getCaseByRef } from '#repositories/case.repository.js';
 import { getByCaseId as getExamTimetableByCaseId } from '#repositories/examination-timetable.repository.js';
 import * as documentRepository from '#repositories/document.repository.js';
@@ -16,8 +17,9 @@ import {
 import { databaseConnector } from '#utils/database-connector.js';
 import { createDocumentVersion } from '../../applications/application/documents/document.service.js';
 import { formatInTimeZone } from 'date-fns-tz';
+import { folderDocumentCaseStageMappings } from '#api-constants';
 
-const EXAMINATION_STAGE = 'Examination';
+const EXAM_TYPE_PROCEDURAL_DEADLINE = 10;
 
 /**
  * @type {import("express").RequestHandler<{modelType: string}, ?, any[]>}
@@ -220,7 +222,7 @@ const correctExamTimetableFolders = async (caseId, res) => {
 	const folderDateFormat = 'yyyyMMdd';
 
 	for (const item of examTimetableItems) {
-		const { id: itemId, folderId, name, date: itemDate } = item;
+		const { id: itemId, folderId, name, date: itemDate, examinationTypeId } = item;
 		// res.write(`Exam timetable item ${itemId} with folder id ${folderId} and name ${name} found.\n`);
 		if (folderId === examTimetableFolderId) {
 			res.write('----------------------------------------------------\n');
@@ -249,16 +251,21 @@ const correctExamTimetableFolders = async (caseId, res) => {
 				examTimetableFolderId
 			);
 
+			const expectedFolderStage = getExpectedFolderStage(examinationTypeId);
+
 			if (!matchingFolder) {
 				res.write(`Examination timetable item CBOS folder ${expectedFolderName} does not exist.\n`);
 
 				res.write(`Creating folder ${expectedFolderName}...\n`);
-				const newFolder = await createFolder(
+				const newFolderProps = {
+					displayNameEn: expectedFolderName,
 					caseId,
-					expectedFolderName,
-					examTimetableFolderId,
-					Number(formattedDate)
-				);
+					parentFolderId: examTimetableFolderId,
+					stage: expectedFolderStage,
+					displayOrder: Number(formattedDate)
+				};
+				const newFolder = await createFolderBase(newFolderProps, false);
+
 				res.write(`Created folder ${JSON.stringify(newFolder)} with id ${newFolder.id}.\n`);
 
 				// now correct the exam item to reference the new folder
@@ -293,9 +300,9 @@ const correctExamTimetableFolders = async (caseId, res) => {
 				// stage = Examination, displayOrder = <formattedDate>, isCustom = false (bitfield 0)
 				let folderUpdateRequired = false;
 				let updateCodes = [];
-				if (matchingFolder.stage !== EXAMINATION_STAGE) {
+				if (matchingFolder.stage !== expectedFolderStage) {
 					folderUpdateRequired = true;
-					updateCodes.push(`stage = '${EXAMINATION_STAGE}'`);
+					updateCodes.push(`stage = '${expectedFolderStage}'`);
 				}
 				if (matchingFolder.displayOrder !== Number(formattedDate)) {
 					folderUpdateRequired = true;
@@ -329,4 +336,18 @@ const correctExamTimetableFolders = async (caseId, res) => {
 
 	res.write(`Fixed exam timetable folders.\n`);
 	res.flush();
+};
+
+/**
+ * Returns the expected folder stage based on the examination type ID.
+ * If the examination type is a procedural deadline, it returns the pre-examination stage.
+ * Otherwise, it returns the examination stage.
+ *
+ * @param {number} examinationTypeId - The ID of the examination type.
+ * @returns {string} - The expected folder stage.
+ */
+const getExpectedFolderStage = (examinationTypeId) => {
+	return examinationTypeId === EXAM_TYPE_PROCEDURAL_DEADLINE
+		? folderDocumentCaseStageMappings.PRE_EXAMINATION
+		: folderDocumentCaseStageMappings.EXAMINATION;
 };

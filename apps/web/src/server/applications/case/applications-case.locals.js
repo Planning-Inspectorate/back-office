@@ -50,6 +50,17 @@ export const registerCase = async (request, response, next) => {
 
 	response.locals.frontOfficeProjectUrl = `${config.frontOfficeURL}/projects/${response.locals.case.reference}`;
 
+	const gridReference = response.locals.case.geographicalInformation?.gridReference;
+
+	if (gridReference) {
+		const { easting, northing } = gridReference;
+
+		gridReference.easting = easting?.toString().padStart(6, '0') || '';
+		gridReference.northing = northing?.toString().padStart(6, '0') || '';
+
+		response.locals.case.geographicalInformation.gridReference = gridReference;
+	}
+
 	next();
 };
 
