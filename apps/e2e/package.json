@@ -19,7 +19,7 @@
 		"@faker-js/faker": "*",
 		"cypress": "*",
 		"cypress-wait-until": "*",
-		"dotenv": "^17.2.0",
+		"dotenv": "*",
 		"fs-extra": "*",
 		"lodash-es": "*",
 		"puppeteer": "*"
