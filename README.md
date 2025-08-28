@@ -153,7 +153,7 @@ You may need to use a terminal running in Admin mode to install dependencies. Th
 ### Service Bus Schema from the data-model repo
 
 Back Office broadcasts Service Bus event messages to the Azure Service bus most CRUD actions.  The schemas are in the shared repo data-model.
- If you identify that the schemas held locally in the root node_modules/pins-data-model/schemas folder are out of date:
+ If you identify that the schemas held locally in the root node_modules/@planning-inspectorate/data-model/schemas folder are out of date:
 
 1. Identify the latest tagged release in the data-model repo, e.g. "#1.0.1", from here:
 [data-model tags](https://github.com/Planning-Inspectorate/data-model/tags)
