@@ -81,7 +81,7 @@ extends:
           - template: ../steps/node_script.yml
             parameters:
               nodeVersion: 20
-              script: npx turbo run --verbosity test --filter=./apps/web
+              script: npx turbo run test --filter=./apps/web
               environmentVariables:
                 TURBO_TEAM: $(TURBO_TEAM)
                 TURBO_API: $(TURBO_API)
