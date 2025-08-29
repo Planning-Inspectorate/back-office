@@ -77,19 +77,6 @@ extends:
               nodeVersion: 20
               script: npm ci
 
-          - template: ../steps/node_script.yml
-            parameters:
-              nodeVersion: 20
-              script: |
-                pwd
-                ls -la
-                npx prisma --version
-
-          - template: ../steps/node_script.yml
-            parameters:
-              nodeVersion: 20
-              script: npx prisma generate
-
           # Run tests for the remaining apps on Agent B
           - template: ../steps/node_script.yml
             parameters:
