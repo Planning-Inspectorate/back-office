@@ -33,7 +33,7 @@ exports[`applications representations GET /applications-service/:caseId/relevant
         			});
     </script>
     <h2 class="govuk-heading-l">Relevant representations</h2>
-    <form method="GET">
+    <form method="GET" action="/applications-service/case/1/relevant-representations">
         <div class="govuk-grid-row">
             <div class="govuk-grid-column-one-half">
                 <div class="pins-masthead-summary govuk-!-padding-4 govuk-!-margin-bottom-4">
@@ -88,12 +88,20 @@ exports[`applications representations GET /applications-service/:caseId/relevant
                                             value="UNDER_18">
                                             <label class="govuk-label govuk-checkboxes__label" for="filters-9">Under 18 (0)</label>
                                         </div>
+                                        <div class="govuk-checkboxes__item">
+                                            <input class="govuk-checkboxes__input" id="filters-10" name="filters"
+                                            type="checkbox" value="WITH_ATTACHMENT">
+                                            <label class="govuk-label govuk-checkboxes__label" for="filters-10">With attachment (3)</label>
+                                        </div>
                                     </div>
                                 </fieldset>
                             </div>
                         </div>
                     </div>
-                    <button class="govuk-button" id="toggleButton" data-module="govuk-button">Apply filters</button>
+                    <div class="govuk-button-group govuk-!-margin-top-0">
+                        <button class="govuk-button" id="toggleButton" data-module="govuk-button">Apply filters</button><a href="/applications-service/case/1/relevant-representations"
+                        class="govuk-link govuk-link--no-visited-state"> Clear filters</a>
+                    </div>
                 </div>
             </div>
             <div class="govuk-grid-column-one-half">
@@ -223,7 +231,7 @@ exports[`applications representations GET /applications-service/:id/relevant-rep
         			});
     </script>
     <h2 class="govuk-heading-l">Relevant representations</h2>
-    <form method="GET">
+    <form method="GET" action="/applications-service/case/1/relevant-representations">
         <div class="govuk-grid-row">
             <div class="govuk-grid-column-one-half">
                 <div class="pins-masthead-summary govuk-!-padding-4 govuk-!-margin-bottom-4">
@@ -278,12 +286,20 @@ exports[`applications representations GET /applications-service/:id/relevant-rep
                                             value="UNDER_18">
                                             <label class="govuk-label govuk-checkboxes__label" for="filters-9">Under 18 (0)</label>
                                         </div>
+                                        <div class="govuk-checkboxes__item">
+                                            <input class="govuk-checkboxes__input" id="filters-10" name="filters"
+                                            type="checkbox" value="WITH_ATTACHMENT">
+                                            <label class="govuk-label govuk-checkboxes__label" for="filters-10">With attachment (0)</label>
+                                        </div>
                                     </div>
                                 </fieldset>
                             </div>
                         </div>
                     </div>
-                    <button class="govuk-button" id="toggleButton" data-module="govuk-button">Apply filters</button>
+                    <div class="govuk-button-group govuk-!-margin-top-0">
+                        <button class="govuk-button" id="toggleButton" data-module="govuk-button">Apply filters</button><a href="/applications-service/case/1/relevant-representations"
+                        class="govuk-link govuk-link--no-visited-state"> Clear filters</a>
+                    </div>
                 </div>
             </div>
             <div class="govuk-grid-column-one-half">

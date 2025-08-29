@@ -35,7 +35,8 @@ const nocks = () => {
 			page: 1,
 			pageSize: 25,
 			status: '',
-			under18: false
+			under18: false,
+			withAttachment: false
 		})
 		.reply(200, {
 			page: 1,
@@ -47,7 +48,15 @@ const nocks = () => {
 		.persist();
 	nock('http://test/')
 		.get(`/applications/1/representations`)
-		.query({ searchTerm: '', sortBy: '', status: '', page: 1, pageSize: 25, under18: false })
+		.query({
+			searchTerm: '',
+			sortBy: '',
+			status: '',
+			page: 1,
+			pageSize: 25,
+			under18: false,
+			withAttachment: false
+		})
 		.reply(200, representationsFixture)
 		.persist();
 	nock('http://test/')
@@ -90,6 +99,9 @@ describe('applications representations', () => {
 			);
 			expect(element.innerHTML).toContain(
 				`<td class="govuk-table__cell"><span class="govuk-tag govuk-tag" id="list-convictions-status-2">VALID</span>`
+			);
+			expect(element.innerHTML).toContain(
+				`<label class="govuk-label govuk-checkboxes__label" for="filters-10">With attachment (3)</label>`
 			);
 		});
 	});

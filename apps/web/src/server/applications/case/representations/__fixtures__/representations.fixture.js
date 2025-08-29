@@ -3,6 +3,7 @@ export const representationsFixture = {
 	pageSize: 25,
 	pageCount: 1,
 	itemCount: 3,
+	filters: [{ count: 3, name: 'WITH_ATTACHMENT' }],
 	items: [
 		{
 			status: 'AWAITING_REVIEW',
