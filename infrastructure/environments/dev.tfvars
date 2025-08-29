@@ -24,7 +24,7 @@ web_app_config = {
 waf_rate_limits = {
   enabled             = true
   duration_in_minutes = 5
-  threshold           = 1500
+  threshold           = 3000
 }
 
 web_domain = "back-office-dev.planninginspectorate.gov.uk"
