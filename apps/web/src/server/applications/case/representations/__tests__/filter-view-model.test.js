@@ -48,6 +48,11 @@ describe('#getFilterViewModel', () => {
 				checked: false,
 				text: 'Under 18 (0)',
 				value: 'UNDER_18'
+			},
+			{
+				checked: false,
+				text: 'Unpublished (0)',
+				value: 'UNPUBLISHED'
 			}
 		]);
 	});
@@ -98,6 +103,11 @@ describe('#getFilterViewModel', () => {
 				checked: false,
 				text: 'Under 18 (0)',
 				value: 'UNDER_18'
+			},
+			{
+				checked: false,
+				text: 'Unpublished (0)',
+				value: 'UNPUBLISHED'
 			}
 		]);
 	});
@@ -148,6 +158,11 @@ describe('#getFilterViewModel', () => {
 				checked: false,
 				text: 'Under 18 (0)',
 				value: 'UNDER_18'
+			},
+			{
+				checked: false,
+				text: 'Unpublished (0)',
+				value: 'UNPUBLISHED'
 			}
 		]);
 	});
@@ -205,6 +220,11 @@ describe('#getFilterViewModel', () => {
 				checked: false,
 				text: 'Under 18 (1)',
 				value: 'UNDER_18'
+			},
+			{
+				checked: false,
+				text: 'Unpublished (0)',
+				value: 'UNPUBLISHED'
 			}
 		]);
 	});

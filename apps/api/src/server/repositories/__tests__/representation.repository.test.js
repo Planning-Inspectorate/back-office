@@ -1,4 +1,5 @@
 import { jest } from '@jest/globals';
+import { RELEVANT_REPRESENTATION_STATUS_MAP } from '../../utils/mapping/map-relevant-representation-status.js';
 
 const { databaseConnector } = await import('#utils/database-connector.js');
 
@@ -10,7 +11,7 @@ const createdRepresentation = {
 	id: 1,
 	reference: '',
 	caseId: 1,
-	status: 'DRAFT',
+	status: RELEVANT_REPRESENTATION_STATUS_MAP.DRAFT,
 	originalRepresentation: '',
 	redactedRepresentation: null,
 	redacted: false,
@@ -245,7 +246,10 @@ describe('Representation repository', () => {
 				{
 					filters: {
 						under18: true,
-						status: ['VALID', 'PUBLISHED']
+						status: [
+							RELEVANT_REPRESENTATION_STATUS_MAP.VALID,
+							RELEVANT_REPRESENTATION_STATUS_MAP.PUBLISHED
+						]
 					}
 				}
 			);
@@ -263,7 +267,10 @@ describe('Representation repository', () => {
 					},
 					{
 						status: {
-							in: ['VALID', 'PUBLISHED']
+							in: [
+								RELEVANT_REPRESENTATION_STATUS_MAP.VALID,
+								RELEVANT_REPRESENTATION_STATUS_MAP.PUBLISHED
+							]
 						}
 					}
 				]
@@ -509,7 +516,7 @@ describe('Representation repository', () => {
 			// GIVEN
 			const mappedData = {
 				representationDetails: {
-					status: 'DRAFT',
+					status: RELEVANT_REPRESENTATION_STATUS_MAP.DRAFT,
 					caseId: 1
 				},
 				represented: {
@@ -556,7 +563,7 @@ describe('Representation repository', () => {
 				redacted: false,
 				redactedRepresentation: null,
 				reference: 'B0000001',
-				status: 'DRAFT',
+				status: RELEVANT_REPRESENTATION_STATUS_MAP.DRAFT,
 				userId: null
 			});
 
@@ -608,7 +615,7 @@ describe('Representation repository', () => {
 			// GIVEN
 			const mappedData = {
 				representationDetails: {
-					status: 'DRAFT',
+					status: RELEVANT_REPRESENTATION_STATUS_MAP.DRAFT,
 					caseId: 1,
 					reference: 'FRONT_OFFICE_REFERENCE_ID'
 				},
@@ -645,7 +652,7 @@ describe('Representation repository', () => {
 				redacted: false,
 				redactedRepresentation: null,
 				reference: 'FRONT_OFFICE_REFERENCE_ID',
-				status: 'DRAFT',
+				status: RELEVANT_REPRESENTATION_STATUS_MAP.DRAFT,
 				userId: null
 			});
 
@@ -704,7 +711,10 @@ describe('Representation repository', () => {
 				},
 				where: {
 					caseId,
-					OR: [{ status: 'PUBLISHED', unpublishedUpdates: true }, { status: 'VALID' }]
+					OR: [
+						{ status: RELEVANT_REPRESENTATION_STATUS_MAP.PUBLISHED, unpublishedUpdates: true },
+						{ status: RELEVANT_REPRESENTATION_STATUS_MAP.VALID }
+					]
 				},
 				orderBy: [{ status: 'desc' }, { reference: 'asc' }],
 				take: batchSize,
