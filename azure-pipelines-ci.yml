@@ -81,7 +81,7 @@ extends:
             parameters:
               nodeVersion: 20
               # Run tests for the remaining apps on Agent B
-              script: npm run prisma-generate && cross-env NODE_ENV=test NODE_OPTIONS=--experimental-vm-modules npx jest --forceExit --coverage       
+              script: npx turbo run test --filter=./apps/web     
               environmentVariables:
                 TURBO_TEAM: $(TURBO_TEAM)
                 TURBO_API: $(TURBO_API)
