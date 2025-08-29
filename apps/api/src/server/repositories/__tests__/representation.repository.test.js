@@ -3,6 +3,7 @@ import { jest } from '@jest/globals';
 const { databaseConnector } = await import('#utils/database-connector.js');
 
 import * as representationRepository from '../representation.repository.js';
+import { getAttachmentCountForCase } from '../representation.repository.js';
 
 const existingRepresentations = [{ id: 1 }, { id: 2 }];
 
@@ -724,6 +725,24 @@ describe('Representation repository', () => {
 			expect(databaseConnector.representation.findMany).toHaveBeenCalledTimes(
 				Math.ceil(totalPublishableRepsCount / batchSize)
 			);
+		});
+	});
+
+	describe('getAttachmentCountForCase', () => {
+		it('should return the count of attachments for a case', async () => {
+			const caseId = 1;
+			const expectedCount = 2;
+			databaseConnector.representation.count.mockResolvedValue(expectedCount);
+
+			expect(await getAttachmentCountForCase(caseId)).toEqual(expectedCount);
+			expect(databaseConnector.representation.count).toHaveBeenCalledWith({
+				where: {
+					caseId,
+					attachments: {
+						some: { Document: { isDeleted: false } }
+					}
+				}
+			});
 		});
 	});
 });
