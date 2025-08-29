@@ -1,4 +1,4 @@
-import { getFilterViewModel } from '../utils/filter/filter-view-model.js';
+import { getFilterViewModel, ensureArrayOfStrings } from '../utils/filter/filter-view-model.js';
 
 describe('#getFilterViewModel', () => {
 	it('should get the default filter view model', () => {
@@ -48,6 +48,11 @@ describe('#getFilterViewModel', () => {
 				checked: false,
 				text: 'Under 18 (0)',
 				value: 'UNDER_18'
+			},
+			{
+				checked: false,
+				text: 'With attachment (0)',
+				value: 'WITH_ATTACHMENT'
 			}
 		]);
 	});
@@ -98,11 +103,16 @@ describe('#getFilterViewModel', () => {
 				checked: false,
 				text: 'Under 18 (0)',
 				value: 'UNDER_18'
+			},
+			{
+				checked: false,
+				text: 'With attachment (0)',
+				value: 'WITH_ATTACHMENT'
 			}
 		]);
 	});
 	it('should get the filter view model for a multiple filters and mark it as checked', () => {
-		const response = getFilterViewModel(['AWAITING_REVIEW', 'VALID']);
+		const response = getFilterViewModel(['AWAITING_REVIEW', 'VALID', 'WITH_ATTACHMENT']);
 		expect(response).toEqual([
 			{
 				checked: true,
@@ -148,6 +158,11 @@ describe('#getFilterViewModel', () => {
 				checked: false,
 				text: 'Under 18 (0)',
 				value: 'UNDER_18'
+			},
+			{
+				checked: true,
+				text: 'With attachment (0)',
+				value: 'WITH_ATTACHMENT'
 			}
 		]);
 	});
@@ -205,7 +220,19 @@ describe('#getFilterViewModel', () => {
 				checked: false,
 				text: 'Under 18 (1)',
 				value: 'UNDER_18'
+			},
+			{
+				checked: false,
+				text: 'With attachment (0)',
+				value: 'WITH_ATTACHMENT'
 			}
 		]);
+	});
+});
+
+describe('ensureArray', () => {
+	it('should only return an array of strings or an empty array', () => {
+		expect(ensureArrayOfStrings('test')).toEqual(['test']);
+		expect(ensureArrayOfStrings(['test', 'test2'])).toEqual(['test', 'test2']);
 	});
 });
