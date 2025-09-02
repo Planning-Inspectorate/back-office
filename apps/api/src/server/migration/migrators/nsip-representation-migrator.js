@@ -14,7 +14,7 @@ import { folderDocumentCaseStageMappings } from '#api-constants';
 import { getOrgNameOrName } from '../../applications/application/representations/download/utils/map-rep-to-csv.js';
 
 /**
- * @typedef {import("pins-data-model").Schemas.Representation} RepresentationModel
+ * @typedef {import("@planning-inspectorate/data-model").Schemas.Representation} RepresentationModel
  * @param {RepresentationModel[]} representations
  * @param {Function} updateProgress
  */

@@ -10,6 +10,8 @@ import requestID from 'express-request-id';
 import helmet from 'helmet';
 import responseTime from 'response-time';
 import serveStatic from 'serve-static';
+import path from 'node:path';
+import { createRequire } from 'node:module';
 import pino from '../lib/logger.js';
 import { featureFlagClient } from '../../common/feature-flags.js';
 import { msalMiddleware } from '../lib/msal.js';
@@ -122,6 +124,17 @@ app.use(session);
 nunjucksEnvironment.express(app);
 app.set('view engine', 'njk');
 
+// Require function to resolve package paths
+const require = createRequire(import.meta.url);
+
+// Resolve GOV.UK Frontend assets path dynamically using require.resolve()
+// instead of hardcoded relative paths
+const govukAssetsPath = path.resolve(require.resolve('govuk-frontend'), '../../govuk/assets');
+
+// Serve GOV.UK Frontend assets directly from node_modules instead of
+// copying them during build time.
+app.use('/assets', express.static(govukAssetsPath, { maxAge: config.cacheControl.maxAge }));
+
 // Serve static files (fonts, images, generated CSS and JS, etc)
 app.use(serveStatic('src/server/static', { maxAge: config.cacheControl.maxAge }));
 
@@ -132,7 +145,7 @@ app.use('/', appRouter);
 // Error pages
 // ! Express middleware executes in order. We should define error handlers last, after all other middleware.
 // ! Otherwise, our error handler won't get called.
-// Catch all "server" (the ones in the routing flow) errors and and render generic error page
+// Catch all "server" (the ones in the routing flow) errors and render generic error page
 // with the error message if the app runs in dev mode, or geneirc error if running in production.
 app.use(
 	/** @type {import('express').ErrorRequestHandler} */
