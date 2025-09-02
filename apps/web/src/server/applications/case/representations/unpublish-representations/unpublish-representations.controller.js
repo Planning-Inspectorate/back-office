@@ -1,7 +1,7 @@
 // @ts-nocheck
-import { setRepresentationsAsUnpublishedBatch } from '@pins/applications.api/src/server/repositories/representation.repository.js';
 import { getRepresentations } from '../applications-relevant-reps.service.js';
 import { getPublishedRepIdsAndCount } from '../utils/publish-representations.js';
+import { unpublishRepresentationsBatch } from './unpublish-representations.service.js';
 
 const view = 'applications/representations/unpublish-representations.njk';
 
@@ -53,22 +53,19 @@ export async function getUnpublishRepresentationsController(req, res) {
  * POST controller for batch unpublishing representations.
  * @param {import('express').Request} req
  * @param {import('express').Response} res
+ * @returns {Promise<void>}
  */
 export async function postUnpublishRepresentationsController(req, res) {
-	const { session } = req;
-	const { caseId } = res.locals;
-	const representations = await getRepresentations(caseId, '');
-	const { publishedRepIds } = getPublishedRepIdsAndCount(representations.items || []);
-	const publishedReps = (representations.items || []).filter((rep) =>
-		publishedRepIds.includes(rep.id)
-	);
-	if (!publishedReps.length) {
-		return res.redirect(`/applications-service/case/${caseId}/relevant-representations`);
-	}
 	try {
-		await setRepresentationsAsUnpublishedBatch(publishedReps, session?.user?.name || 'system');
+		const { caseId } = res.locals;
+		const representations = await getRepresentations(caseId, '');
+		const { publishedRepIds } = getPublishedRepIdsAndCount(representations.items || []);
+		if (!publishedRepIds.length) {
+			return res.redirect(`/applications-service/case/${caseId}/relevant-representations`);
+		}
+		await unpublishRepresentationsBatch(caseId, publishedRepIds);
 		return res.redirect(
-			`/applications-service/case/${caseId}/relevant-representations?unpublished=${publishedReps.length}`
+			`/applications-service/case/${caseId}/relevant-representations?unpublished=${publishedRepIds.length}`
 		);
 	} catch (error) {
 		console.error(`Error unpublishing representations: ${error}`);
