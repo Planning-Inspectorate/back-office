@@ -52,41 +52,16 @@ extends:
               script: npm run lint:js
           - template: ../steps/node_script.yml
             parameters:
-              nodeVersion: 20
-              script: npm run format-check
-
-      - name: Run Unit Tests Group A
-        steps:
+                nodeVersion: 20
+                script: npm run format-check
           - template: ../steps/node_script.yml
             parameters:
+              script: npm run test
               nodeVersion: 20
-              script: npm ci
-          - template: ../steps/node_script.yml
-            parameters:
-              nodeVersion: 20
-              script: npx turbo run test --filter=./apps/api
               environmentVariables:
                 TURBO_TEAM: $(TURBO_TEAM)
                 TURBO_API: $(TURBO_API)
                 TURBO_TOKEN: $(TURBO_TOKEN)
-
-      - name: Run Unit Tests Group B
-        steps:
-          - template: ../steps/node_script.yml
-            parameters:
-              nodeVersion: 20
-              script: npm ci
-
-          # Run tests for the remaining apps on Agent B
-          - template: ../steps/node_script.yml
-            parameters:
-              nodeVersion: 20
-              script: npx turbo run test --filter=./apps/web
-              environmentVariables:
-                TURBO_TEAM: $(TURBO_TEAM)
-                TURBO_API: $(TURBO_API)
-                TURBO_TOKEN: $(TURBO_TOKEN)
-
           - template: ../steps/node_script.yml
             parameters:
               nodeVersion: 20
