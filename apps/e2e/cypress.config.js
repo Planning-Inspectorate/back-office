@@ -16,7 +16,7 @@ const { getSpecPattern } = require('./cypress/support/utils/getSpecPattern');
 require('dotenv').config();
 
 const app = process.env.APP;
-console.log('APP ENV VALUE:', app);
+
 module.exports = defineConfig({
 	e2e: {
 		setupNodeEvents(on, config) {
