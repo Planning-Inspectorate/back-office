@@ -16,6 +16,7 @@
     "dependencies": {
         "@azure/identity": "*",
         "@azure/service-bus": "*",
+		"@planning-inspectorate/data-model": "*",
 		"ajv": "*",
     	"ajv-formats": "*",
 		"chalk": "*"

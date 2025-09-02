@@ -1,5 +1,5 @@
 /**
- * @typedef {import('pins-data-model').Schemas.NSIPProjectUpdate} NSIPProjectUpdate
+ * @typedef {import('@planning-inspectorate/data-model').Schemas.NSIPProjectUpdate} NSIPProjectUpdate
  */
 
 import { ProjectUpdate } from '@pins/applications/lib/application/project-update.js';

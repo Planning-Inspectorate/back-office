@@ -11,7 +11,7 @@
     "@pins/event-client": "*",
     "@pins/platform": "*",
     "@pins/blob-storage-client": "*",
-    "pins-data-model": "*",
+    "@planning-inspectorate/data-model": "*",
     "got": "*",
     "joi": "*",
 		"lodash-es": "*"
