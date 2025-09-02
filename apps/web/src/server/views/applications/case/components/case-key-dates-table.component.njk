@@ -1,6 +1,6 @@
-{% from "govuk/components/table/macro.njk" import govukTable %}
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
 
-{% macro caseKeyDatesTable(case) %}
+{% macro caseKeyDatesTable(case, sectionTitle, editLink, editText) %}
   {% set rowsData = [
     {title: 'Anticipated submission date published', value: case.keyDates.preApplication.submissionAtPublished},
     {title: 'Application submitted (Section 55)', value: case.keyDates.acceptance.dateOfDCOSubmission | datestamp({format: 'dd MMM yyyy'})},
@@ -24,17 +24,28 @@
     {title: 'Date project withdrawn', value: case.keyDates.withdrawal.dateProjectWithdrawn | datestamp({format: 'dd MMM yyyy'})}
   ] %}
 
-  {% set tableRows = [] %}
+  {% set summaryRows = [] %}
   {% for rowData in rowsData %}
-    {% set cols = [{text: rowData.title}, {text: rowData.value}] %}
-
-    {% set tableRows = (tableRows.push(cols), tableRows) %}
+    {% set row = {
+      key: { text: rowData.title },
+      value: { text: rowData.value }
+    } %}
+    {% set summaryRows = (summaryRows.push(row), summaryRows) %}
   {% endfor %}
 
-  {{ govukTable({
-		caption: 'Key dates',
-		captionClasses: 'govuk-visually-hidden',
-    firstCellIsHeader: true,
-    rows: tableRows
+  {{ govukSummaryList({
+    card: {
+      title: { text: sectionTitle },
+      actions: {
+        items: [
+          {
+            href: editLink,
+            text: editText,
+            visuallyHiddenText: sectionTitle
+          }
+        ]
+      }
+    },
+    rows: summaryRows
   }) }}
 {% endmacro %}

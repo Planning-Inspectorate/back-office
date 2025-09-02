@@ -24,6 +24,10 @@ export default baseSchema
 		authDisabled: joi.boolean().optional(),
 		authDisabledGroupIds: joi.array().optional(),
 		authRedirectPath: joi.string(),
+		azureAiLanguage: joi.object({
+			categories: joi.string().optional(),
+			endpoint: joi.string().optional()
+		}),
 		azureKeyVaultEnabled: joi.boolean().optional(),
 		blobStorageUrl: joi.string(),
 		cacheControl: joi.object({ maxAge: joi.string() }).options({ presence: 'required' }),

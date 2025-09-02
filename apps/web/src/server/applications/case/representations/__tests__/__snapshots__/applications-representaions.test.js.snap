@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`applications representations GET /applications-service/:caseId/relevant-representations should render the page 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="top-errors-hook" role="alert"></div>
     <div class="govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-left-0 govuk-!-margin-bottom-7 pins-masthead-summary">
         <div class="govuk-grid-column-full">
@@ -10,7 +10,7 @@ exports[`applications representations GET /applications-service/:caseId/relevant
             <div class="govuk-grid-row">
                 <div class="govuk-grid-column-full govuk-body">,
                     <br>
-                    <br><strong class="govuk-tag govuk-tag--">in test</strong>
+                    <br><strong class="govuk-tag govuk-tag-- pins-tag--no-max-width">in test</strong>
                 </div>
             </div>
         </div>
@@ -33,9 +33,9 @@ exports[`applications representations GET /applications-service/:caseId/relevant
         			});
     </script>
     <h2 class="govuk-heading-l">Relevant representations</h2>
-    <form method="GET">
+    <form method="GET" action="/applications-service/case/1/relevant-representations">
         <div class="govuk-grid-row">
-            <div class="govuk-grid-column-one-half">
+            <div class="govuk-grid-column-two-thirds">
                 <div class="pins-masthead-summary govuk-!-padding-4 govuk-!-margin-bottom-4">
                     <div class="govuk-form-group">
                         <div class="filter-box">
@@ -93,10 +93,13 @@ exports[`applications representations GET /applications-service/:caseId/relevant
                             </div>
                         </div>
                     </div>
-                    <button class="govuk-button" id="toggleButton" data-module="govuk-button">Apply filters</button>
+                    <div class="govuk-button-group govuk-!-margin-top-0">
+                        <button class="govuk-button" id="toggleButton" data-module="govuk-button">Apply filters</button><a href="/applications-service/case/1/relevant-representations"
+                        class="govuk-link govuk-link--no-visited-state"> Clear filters</a>
+                    </div>
                 </div>
             </div>
-            <div class="govuk-grid-column-one-half">
+            <div class="govuk-grid-column-one-third">
                 <h3 class="govuk-heading-m govuk-!-margin-bottom-6"> Key dates</h3>
                 <p class="govuk-body govuk-!-margin-bottom-1"><strong>1 January 2023</strong>
                 </p>
@@ -124,7 +127,7 @@ exports[`applications representations GET /applications-service/:caseId/relevant
                 </div>
             </div>
             <div class="govuk-grid-column-one-half">
-                <button value="updated" name="searchUpdated" class="govuk-button govuk-button--secondary"
+                <button value="updated" type="submit" name="searchUpdated" class="govuk-button govuk-button--secondary"
                 data-module="govuk-button">Search</button>
             </div>
         </div>
@@ -145,7 +148,7 @@ exports[`applications representations GET /applications-service/:caseId/relevant
                 </p>
             </div>
         </div>
-        <table id="rr-table" class="govuk-table">
+        <table id="rr-table" class="govuk-table pins-table--representations">
             <thead class="govuk-table__head">
                 <tr class="govuk-table__row">
                     <th scope="col" class="govuk-table__header"><a href="relevant-representations?page=1&amp;sortBy=reference#rr-table"
@@ -191,7 +194,7 @@ exports[`applications representations GET /applications-service/:caseId/relevant
 `;
 
 exports[`applications representations GET /applications-service/:id/relevant-representations with a search term should render the page with search term 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="top-errors-hook" role="alert"></div>
     <div class="govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-left-0 govuk-!-margin-bottom-7 pins-masthead-summary">
         <div class="govuk-grid-column-full">
@@ -200,7 +203,7 @@ exports[`applications representations GET /applications-service/:id/relevant-rep
             <div class="govuk-grid-row">
                 <div class="govuk-grid-column-full govuk-body">,
                     <br>
-                    <br><strong class="govuk-tag govuk-tag--">in test</strong>
+                    <br><strong class="govuk-tag govuk-tag-- pins-tag--no-max-width">in test</strong>
                 </div>
             </div>
         </div>
@@ -223,9 +226,9 @@ exports[`applications representations GET /applications-service/:id/relevant-rep
         			});
     </script>
     <h2 class="govuk-heading-l">Relevant representations</h2>
-    <form method="GET">
+    <form method="GET" action="/applications-service/case/1/relevant-representations">
         <div class="govuk-grid-row">
-            <div class="govuk-grid-column-one-half">
+            <div class="govuk-grid-column-two-thirds">
                 <div class="pins-masthead-summary govuk-!-padding-4 govuk-!-margin-bottom-4">
                     <div class="govuk-form-group">
                         <div class="filter-box">
@@ -283,10 +286,13 @@ exports[`applications representations GET /applications-service/:id/relevant-rep
                             </div>
                         </div>
                     </div>
-                    <button class="govuk-button" id="toggleButton" data-module="govuk-button">Apply filters</button>
+                    <div class="govuk-button-group govuk-!-margin-top-0">
+                        <button class="govuk-button" id="toggleButton" data-module="govuk-button">Apply filters</button><a href="/applications-service/case/1/relevant-representations"
+                        class="govuk-link govuk-link--no-visited-state"> Clear filters</a>
+                    </div>
                 </div>
             </div>
-            <div class="govuk-grid-column-one-half">
+            <div class="govuk-grid-column-one-third">
                 <h3 class="govuk-heading-m govuk-!-margin-bottom-6"> Key dates</h3>
                 <p class="govuk-body govuk-!-margin-bottom-1"><strong>1 January 2023</strong>
                 </p>
@@ -315,7 +321,7 @@ exports[`applications representations GET /applications-service/:id/relevant-rep
                 </div>
             </div>
             <div class="govuk-grid-column-one-half">
-                <button value="updated" name="searchUpdated" class="govuk-button govuk-button--secondary"
+                <button value="updated" type="submit" name="searchUpdated" class="govuk-button govuk-button--secondary"
                 data-module="govuk-button">Search</button>
             </div>
         </div>
@@ -336,7 +342,7 @@ exports[`applications representations GET /applications-service/:id/relevant-rep
                 </p>
             </div>
         </div>
-        <table id="rr-table" class="govuk-table">
+        <table id="rr-table" class="govuk-table pins-table--representations">
             <thead class="govuk-table__head">
                 <tr class="govuk-table__row">
                     <th scope="col" class="govuk-table__header"><a href="relevant-representations?searchTerm=mock-search-term&amp;page=1&amp;sortBy=reference#rr-table"
