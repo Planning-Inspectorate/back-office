@@ -133,12 +133,12 @@ describe('#getPaginationLinks', () => {
 			expect(response.items.length).toEqual(7);
 		});
 		it('should return 4 items when on 1st page, ellipse should be 3rd', () => {
-			const response = getPaginationLinks(1, 50, { page: 5 }, 'mock-url');
+			const response = getPaginationLinks(1, 50, { page: 1 }, 'mock-url');
 			expect(response.items.length).toEqual(4);
 			expect(response.items[2]).toEqual({ ellipsis: true });
 		});
 		it('should return 4 items when on last page, ellipse should be 3rd', () => {
-			const response = getPaginationLinks(50, 50, { page: 5 }, 'mock-url');
+			const response = getPaginationLinks(50, 50, { page: 50 }, 'mock-url');
 			expect(response.items.length).toEqual(4);
 			expect(response.items[1]).toEqual({ ellipsis: true });
 		});
