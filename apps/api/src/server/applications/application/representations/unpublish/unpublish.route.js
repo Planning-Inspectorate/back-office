@@ -9,49 +9,50 @@ const router = createRouter({ mergeParams: true });
 router.patch(
 	'/',
 	/*
-			#swagger.tags = ['Applications']
-			#swagger.path = '/applications/{id}/representations/unpublish'
-			#swagger.description = 'Unpublishes representations on an application that are currently PUBLISHED'
-			#swagger.parameters['x-service-name'] = {
-									in: 'header',
-									description: 'Service name header',
-									required: false,
-									type: 'string',
-									default: 'swagger'
+		#swagger.tags = ['Applications']
+		#swagger.path = '/applications/{id}/representations/unpublish'
+		#swagger.description = 'Unpublishes representations on an application that are currently PUBLISHED'
+		#swagger.operationId = 'unpublishRepresentations'
+		#swagger.parameters['x-service-name'] = {
+			in: 'header',
+			description: 'Service name header',
+			required: false,
+			type: 'string',
+			default: 'swagger'
+		}
+		#swagger.parameters['x-api-key'] = {
+			in: 'header',
+			description: 'API key header',
+			required: false,
+			type: 'string',
+			default: '123'
+		}
+		#swagger.parameters['id'] = {
+			in: 'path',
+			description: 'Application ID',
+			required: true,
+			type: 'integer'
+		}
+		#swagger.parameters['body'] = {
+			in: 'body',
+			description: 'Representation IDs to unpublish, and user performing action',
+			required: true,
+			schema: {
+					representationIds: [123, 124, 125],
+					actionBy: "Joe Bloggs"
 			}
-			#swagger.parameters['x-api-key'] = {
-									in: 'header',
-									description: 'API key header',
-									required: false,
-									type: 'string',
-									default: '123'
+		}
+		#swagger.responses[200] = {
+			description: 'Unpublished Representations',
+			schema: {
+					unpublishedRepIds: [123, 134, 125]
 			}
-			#swagger.parameters['id'] = {
-									in: 'path',
-									description: 'Application ID',
-									required: true,
-									type: 'integer'
-			}
-			#swagger.parameters['body'] = {
-					in: 'body',
-					description: 'Representation IDs to unpublish, and user performing action',
-					required: true,
-					schema: {
-							representationIds: [123, 124, 125],
-							actionBy: "Joe Bloggs"
-					}
-			}
-			#swagger.responses[200] = {
-					description: 'Unpublished Representations',
-					schema: {
-							unpublishedRepIds: [123, 134, 125]
-					}
-			}
-			#swagger.responses[400] = {
-				description: 'Error: Bad Request',
-				schema: { $ref: '#/definitions/GeneralError' }
-			}
-	 */
+		}
+		#swagger.responses[400] = {
+			description: 'Error: Bad Request',
+			schema: { $ref: '#/definitions/GeneralError' }
+		}
+	*/
 	validateApplicationId,
 	validateUnpublishRepresentations,
 	asyncHandler(unpublishRepresentations)

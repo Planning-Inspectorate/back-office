@@ -8,8 +8,7 @@ import { broadcastNsipRepresentationPublishEventBatch } from '#infrastructure/ev
  * @param {string} actionBy
  * */
 export const unpublishCaseRepresentations = async (caseId, representationIds, actionBy) => {
-	// For now, let's use existing methods and modify logic
-	// We need to get representations that are currently PUBLISHED
+	// Get representations that are currently PUBLISHED
 	const publishedRepresentations =
 		await representationsRepository.getPublishableRepresentationsById(caseId, representationIds);
 
@@ -26,15 +25,11 @@ export const unpublishCaseRepresentations = async (caseId, representationIds, ac
 			caseId
 		);
 
-		// TODO: We need to create setRepresentationsAsUnpublishedBatch method in repository
-		// For now, this will cause an error, but shows what we need
-		// await setRepresentationsAsUnpublishedBatch(unpublishableRepresentations, actionBy);
-
-		// Temporary workaround - we'll need to implement the actual unpublish logic in the repository
-		console.warn(
-			'setRepresentationsAsUnpublishedBatch method needs to be implemented in representation.repository.js'
+		// Use new repository batch function to update status to UNPUBLISHED and create action records
+		await representationsRepository.setRepresentationsAsUnpublishedBatch(
+			unpublishableRepresentations,
+			actionBy
 		);
-		console.log(`Unpublish action requested by: ${actionBy}`); // Use actionBy to avoid unused parameter warning
 	}
 
 	return unpublishableRepresentations;
