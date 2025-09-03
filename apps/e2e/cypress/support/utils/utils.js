@@ -13,8 +13,7 @@ const caseIsWelsh = (projectInformation) => {
 
 const validateProjectOverview = (projectInformation, mandatoryOnly = false) => {
 	if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
-		y; // Reference number removed from Overview - no longer validating
-		// casePage.validateSummaryItem('Reference number', Cypress.env('currentCreatedCase'));
+		casePage.validateSummaryItem('Reference number', Cypress.env('currentCreatedCase'));
 		casePage.validateSummaryItem('Organisation name', projectInformation.orgName);
 		casePage.validateSummaryItem(
 			'Website',
@@ -54,15 +53,13 @@ const validateProjectInformation = (projectInformation, mandatoryOnly = false, u
 
 const validateProjectInformationSection = (projectInformation) => {
 	if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
-		// Reference number removed from Overview - no longer validating
-		// casePage.checkProjectAnswer('Reference number', Cypress.env('currentCreatedCase'));
+		casePage.checkProjectAnswer('Reference number', Cypress.env('currentCreatedCase'));
 	} else {
 		casePage.checkProjectAnswer('Case reference', Cypress.env('currentCreatedCase'));
 	}
 
-	// Sector and Subsector removed from Overview - no longer validating
-	// casePage.checkProjectAnswer('Sector', projectInformation.sector);
-	// casePage.checkProjectAnswer('Subsector', projectInformation.subsector);
+	casePage.checkProjectAnswer('Sector', projectInformation.sector);
+	casePage.checkProjectAnswer('Subsector', projectInformation.subsector);
 };
 
 const validateProjectDetailsSection = (projectInformation, mandatoryOnly = false) => {
@@ -313,19 +310,14 @@ const getRandomQuarterDate = (direction = 'future') => {
 };
 
 const validateSectorSubsectorValues = (caseRef) => {
-	// Since Reference number, Sector, and Subsector are removed from Overview,
-	// we need to validate them in a different page where they still exist
 	if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
-		// For Welsh translation feature, navigate to project information page to validate
-		casePage.clickLinkByText('Update project information');
-		casePage.checkProjectAnswer('Reference number', caseRef);
+		casePage.validateSummaryItem('Reference number', caseRef);
 	} else {
 		casePage.clickLinkByText('Update project information');
 		casePage.checkProjectAnswer('Case reference number', caseRef);
 	}
-	// Sector and Subsector removed from Overview - no longer validating
-	// casePage.checkProjectAnswer('Sector', 'Training');
-	// casePage.checkProjectAnswer('Subsector', 'Training');
+	casePage.checkProjectAnswer('Sector', 'Training');
+	casePage.checkProjectAnswer('Subsector', 'Training');
 };
 
 const validateWelshProjectInformation = (
