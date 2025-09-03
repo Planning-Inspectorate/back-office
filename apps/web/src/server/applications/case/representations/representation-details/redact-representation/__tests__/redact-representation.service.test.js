@@ -169,6 +169,31 @@ describe('redact-representation.service', () => {
 				`Some comment that needs <mark>redaction</mark> and <mark>will be </mark><mark>marked up as</mark> such.`
 			);
 		});
+		it('should add marks and replace new lines', () => {
+			const text = 'Some comment that needs redaction\r\nand will be marked\nup as such.';
+			const entities = [
+				{
+					text: 'redaction',
+					category: 'Organization',
+					offset: 24,
+					length: 9,
+					confidenceScore: 0.73
+				},
+				{
+					text: 'will be ',
+					category: 'Organization',
+					offset: 38,
+					length: 8,
+					confidenceScore: 0.73
+				},
+				{ text: 'marked\nup as', category: 'Person', offset: 46, length: 13, confidenceScore: 0.6 }
+			];
+
+			const result = highlightRedactionSuggestions(text, entities);
+			expect(result).toEqual(
+				`Some comment that needs <mark>redaction</mark><br>and<mark>will be </mark><mark>marked<br>up as</mark> such.`
+			);
+		});
 	});
 	describe('combineResults', () => {
 		it('should work for a single document result, ignoring the redactedText', () => {
