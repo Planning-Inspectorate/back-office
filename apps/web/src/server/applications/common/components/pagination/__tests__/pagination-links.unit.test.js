@@ -128,10 +128,19 @@ describe('#getPaginationLinks', () => {
 	});
 
 	describe('pagination length of items', () => {
-		const response = getPaginationLinks(5, 50, { page: 5 }, 'mock-url');
-
-		it('should crate item elements equal to the page count', () => {
-			expect(response.items.length).toEqual(50);
+		it('should return a maximum of 7 items', () => {
+			const response = getPaginationLinks(5, 50, { page: 5 }, 'mock-url');
+			expect(response.items.length).toEqual(7);
+		});
+		it('should return 4 items when on 1st page, ellipse should be 3rd', () => {
+			const response = getPaginationLinks(1, 50, { page: 5 }, 'mock-url');
+			expect(response.items.length).toEqual(4);
+			expect(response.items[2]).toEqual({ ellipsis: true });
+		});
+		it('should return 4 items when on last page, ellipse should be 3rd', () => {
+			const response = getPaginationLinks(50, 50, { page: 5 }, 'mock-url');
+			expect(response.items.length).toEqual(4);
+			expect(response.items[1]).toEqual({ ellipsis: true });
 		});
 	});
 
@@ -147,7 +156,7 @@ describe('#getPaginationLinks', () => {
 		it('should not manipulate the query other than the page', () => {
 			expect(response.items[0]).toEqual({
 				current: false,
-				href: 'mock-url?page=1&mockStringQuery=mock-string-query&mockNumberQuery=22',
+				href: 'mock-url?mockStringQuery=mock-string-query&mockNumberQuery=22&page=1',
 				number: 1
 			});
 		});
