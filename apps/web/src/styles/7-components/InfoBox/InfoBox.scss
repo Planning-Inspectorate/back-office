@@ -1,9 +1,10 @@
-@use "../govuk-frontend/govuk/settings/_colours-applied" as colors;
+@use "govuk-frontend/dist/govuk/settings/_colours-applied" as
+	govuk-colours-applied;
 
 .pins-info-box {
-	background-color: colors.govuk-colour("light-grey");
-	border-top: 1px solid colors.$govuk-border-colour;
-	border-bottom: 1px solid colors.$govuk-border-colour;
-	color: colors.$govuk-text-colour;
+	background-color: govuk-colours-applied.$govuk-template-background-colour;
+	border-top: 1px solid govuk-colours-applied.$govuk-border-colour;
+	border-bottom: 1px solid govuk-colours-applied.$govuk-border-colour;
+	color: govuk-colours-applied.$govuk-text-colour;
 	text-align: center;
 }

@@ -21,7 +21,7 @@ const keyDateNames = allKeyDateNames.filter(
  *
  * Handle an HTTP trigger/request to run the migration
  *
- * @param {import('pins-data-model').Schemas.NSIPProject[]} models
+ * @param {import('@planning-inspectorate/data-model').Schemas.NSIPProject[]} models
  */
 export const migrateNsipProjects = async (models) => {
 	logger.info(`Migrating ${models.length} models`);
@@ -65,7 +65,7 @@ export const migrateNsipProjects = async (models) => {
 
 /**
  *
- * @param {import('pins-data-model').Schemas.NSIPProject} m
+ * @param {import('@planning-inspectorate/data-model').Schemas.NSIPProject} m
  */
 const migrateCase = ({
 	caseId,
@@ -95,7 +95,7 @@ const migrateCase = ({
 
 /**
  *
- * @param {import('pins-data-model').Schemas.NSIPProject} model
+ * @param {import('@planning-inspectorate/data-model').Schemas.NSIPProject} model
  */
 const migrateApplicationDetails = async (model) => {
 	// @ts-ignore
@@ -136,7 +136,7 @@ const migrateApplicationDetails = async (model) => {
 /**
  * Limitation: This won't remove records which existed in a previous run but no longer exist.
  *
- * @param {import('pins-data-model').Schemas.NSIPProject} m
+ * @param {import('@planning-inspectorate/data-model').Schemas.NSIPProject} m
  */
 const migrateRegions = async ({ caseId, regions }) => {
 	if (!regions) {
@@ -166,7 +166,7 @@ const migrateRegions = async ({ caseId, regions }) => {
  * create a new, valid CaseStatus record for the case.
  * the invalidateCaseStatuses fn should be called before this
  *
- * @param {import('pins-data-model').Schemas.NSIPProject} m
+ * @param {import('@planning-inspectorate/data-model').Schemas.NSIPProject} m
  */
 const migrateCaseStatus = ({ caseId, stage }) => {
 	// We can't really predict the ID here, but it's fine to have multiples - it will just appear as if the case transitioned from the same stage and the end result is the same
@@ -184,7 +184,7 @@ const migrateCaseStatus = ({ caseId, stage }) => {
  * Invalidate all previous CaseStatus records for a case.
  * This should be called before the migrateCaseStatus call, to ensure only 1 valid record per case
  *
- * @param {import('pins-data-model').Schemas.NSIPProject} m
+ * @param {import('@planning-inspectorate/data-model').Schemas.NSIPProject} m
  */
 const invalidateCaseStatuses = ({ caseId }) => {
 	return databaseConnector.caseStatus.updateMany({
@@ -197,7 +197,7 @@ const invalidateCaseStatuses = ({ caseId }) => {
  * Limitation: This won't remove records which existed in a previous run but no longer exist.
  *
  * We're losing history here, but we're fine to just have a single record for newly migrated cases. The date is technically incorrect but that's a fair trade-off.
- * @param {import('pins-data-model').Schemas.NSIPProject} m
+ * @param {import('@planning-inspectorate/data-model').Schemas.NSIPProject} m
  */
 const migrateCasePublishedState = ({ caseId, publishStatus }) => {
 	// We can't really predict the ID here, but it's fine to have multiples - it will just appear as if the case was published multiple times
@@ -213,7 +213,7 @@ const migrateCasePublishedState = ({ caseId, publishStatus }) => {
 };
 
 /**
- * @param {import('pins-data-model').Schemas.NSIPProject} m
+ * @param {import('@planning-inspectorate/data-model').Schemas.NSIPProject} m
  */
 const migrateGridReference = ({ caseId, easting, northing }) =>
 	databaseConnector.gridReference.upsert({

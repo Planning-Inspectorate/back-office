@@ -6,7 +6,7 @@ import { mapKeyDatesToISOStrings } from '#utils/mapping/map-key-dates.js';
 /**
  * @param {import('@pins/applications.api').Schema.Case} projectEntity
  *
- * @returns {import('pins-data-model').Schemas.NSIPProject} NSIPProject
+ * @returns {import('@planning-inspectorate/data-model').Schemas.NSIPProject} NSIPProject
  */
 export const buildNsipProjectPayload = (projectEntity) => {
 	const application = mapApplicationDetails(projectEntity);
@@ -46,7 +46,7 @@ const keyDateNames = allKeyDateNames.filter(
 
 /**
  * @param {import('@pins/applications.api').Schema.Case} projectEntity
- * @returns {import('pins-data-model').Schemas.NSIPProject | undefined}
+ * @returns {import('@planning-inspectorate/data-model').Schemas.NSIPProject | undefined}
  */
 const mapApplicationDetails = (projectEntity) => {
 	const appDetails = projectEntity?.ApplicationDetails;

@@ -2,7 +2,8 @@
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
 {% from "./case-edit-link.component.njk" import caseEditLink %}
 
-{% macro caseInfoTablePreview(case, caseIsWelsh) %}
+{% macro caseInfoTablePreview(case, caseIsWelsh, sectionTitle, editLink, editText) %}
+
 
 	{% set regionNames = [] %}
 	{% for item in case.geographicalInformation.regions %}
@@ -27,7 +28,6 @@
 	{% endif %}
 	{% endset %}
 
-
 	{% set items = [
 		{ label: 'Case reference number', text: case.reference },
 		{ label: 'Project name', text: case.title },
@@ -46,9 +46,20 @@
 	] %}
 
 	{{ govukSummaryList({
-		caption: 'Project details',
-		captionClasses: 'govuk-visually-hidden',
-		firstCellIsHeader: true,
+		card: {
+			title: {
+				text: sectionTitle
+			},
+			actions: {
+				items: [
+					{
+						href: editLink,
+						text: editText,
+						visuallyHiddenText: sectionTitle
+					}
+				]
+			}
+		},
 		rows: items | buildSummaryList
 	}) }}
 {% endmacro %}

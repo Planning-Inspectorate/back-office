@@ -2,8 +2,8 @@ import { Subscription } from '@pins/applications/lib/application/subscription.js
 import { EventType } from '@pins/event-client';
 
 /**
- * @typedef {import('pins-data-model').Schemas.NsipSubscription} NSIPSubscription
- * @typedef {import('pins-data-model').Schemas.ServiceUser} ServiceUser
+ * @typedef {import('@planning-inspectorate/data-model').Schemas.NsipSubscription} NSIPSubscription
+ * @typedef {import('@planning-inspectorate/data-model').Schemas.ServiceUser} ServiceUser
  * @typedef {import('@pins/applications').SubscriptionType} SubscriptionType
  */
 

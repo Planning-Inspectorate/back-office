@@ -1,17 +1,18 @@
-@use "../govuk-frontend/govuk/settings/_colours-applied" as colors;
+@import "govuk-frontend/dist/govuk/_base";
+
 .sort-table {
 	&__link {
 		display: flex;
 		align-items: center;
 		text-decoration: none;
-		color: colors.govuk-colour("blue");
+		color: $govuk-brand-colour;
 		white-space: nowrap;
 	}
 
 	&__link-icon {
 		display: flex;
 		flex-direction: column;
-		margin-left: 0.5em;
+		margin-left: govuk-spacing(2);
 
 		&:before,
 		&:after {
@@ -27,11 +28,11 @@
 		}
 
 		&--small {
-			font-size: 0.5em;
+			@include govuk-font-size(16);
 		}
 
 		&--big {
-			font-size: 0.8em;
+			@include govuk-font-size(19);
 
 			&:after {
 				content: "";
@@ -50,30 +51,34 @@
 	}
 
 	&--big:after {
-		font-size: 0.8em;
 		position: absolute;
 		right: -5px;
 		top: 2px;
+
+		@include govuk-font-size(16);
 	}
 
 	&--big:before {
-		font-size: 0.8em;
 		position: absolute;
 		right: -5px;
 		top: 2px;
+
+		@include govuk-font-size(16);
 	}
 
 	&--small:after {
 		position: absolute;
 		right: -1px;
 		top: 1px;
-		font-size: 0.5em;
+
+		@include govuk-font-size(16);
 	}
 
 	&--small:before {
 		position: absolute;
 		right: -1px;
 		top: 9px;
-		font-size: 0.5em;
+
+		@include govuk-font-size(16);
 	}
 }
