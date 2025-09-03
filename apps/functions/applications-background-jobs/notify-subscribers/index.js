@@ -6,7 +6,7 @@ import { projectLink, unsubscribeLink } from './src/util.js';
 
 /**
  * @param {import('@azure/functions').Context} context
- * @param {import('pins-data-model').Schemas.NSIPProjectUpdate} msg
+ * @param {import('@planning-inspectorate/data-model').Schemas.NSIPProjectUpdate} msg
  */
 export default async function (context, msg) {
 	const config = loadConfig();

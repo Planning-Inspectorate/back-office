@@ -1,5 +1,5 @@
 import { getODWData } from '../common/validate-migration.js';
-import { loadAllSchemas } from 'pins-data-model';
+import { loadAllSchemas } from '@planning-inspectorate/data-model';
 import Ajv from 'ajv';
 import addAjvFormats from 'ajv-formats';
 import { uniqBy } from 'lodash-es';

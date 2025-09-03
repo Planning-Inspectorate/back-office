@@ -8,7 +8,7 @@ import { ERROR_MUST_BE_NUMBER } from '#middleware/errors.js';
 import { typesError } from '../subscriptions.validators.js';
 
 /**
- * @typedef {import('pins-data-model').Schemas.NsipSubscription} NSIPSubscription
+ * @typedef {import('@planning-inspectorate/data-model').Schemas.NsipSubscription} NSIPSubscription
  */
 
 describe('subscriptions', () => {

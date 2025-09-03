@@ -5,7 +5,7 @@ import blob from './blob-client.js';
 import events from './event-client.js';
 
 /**
- * @typedef {import('pins-data-model').Schemas.NewDeadlineSubmission} NewDeadlineSubmission
+ * @typedef {import('@planning-inspectorate/data-model').Schemas.NewDeadlineSubmission} NewDeadlineSubmission
  */
 
 const { submissionsContainer } = config;

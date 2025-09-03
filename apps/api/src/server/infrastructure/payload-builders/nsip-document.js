@@ -8,7 +8,7 @@ import {
 const NSIP_CASETYPE = 'nsip';
 
 /**
- * @typedef {import('pins-data-model').Schemas.NSIPDocument} NSIPDocumentSchema
+ * @typedef {import('@planning-inspectorate/data-model').Schemas.NSIPDocument} NSIPDocumentSchema
  * @typedef {import('@prisma/client').Prisma.DocumentVersionGetPayload<{include: {Document: {include: {folder: {include: {case: {include: {CaseStatus: true}}}}}}}}> } DocumentVersionWithDocumentAndFolder
  */
 

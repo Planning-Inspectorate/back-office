@@ -29,7 +29,7 @@ export const migrateExamTimetablesForCase = async (log, caseReference) => {
  * @param {import('@azure/functions').Logger} log
  * @param {string} caseReference
  *
- * @returns {Promise<import('pins-data-model').Schemas.ExaminationTimetable | null>} timetable
+ * @returns {Promise<import('@planning-inspectorate/data-model').Schemas.ExaminationTimetable | null>} timetable
  */
 export const getExamTimetable = async (log, caseReference) => {
 	/** @type {ExamTimetableItemRow[]} */
@@ -59,7 +59,7 @@ export const getExamTimetable = async (log, caseReference) => {
 /**
  *
  * @param {ExamTimetableItemRow} timetableItems
- * @returns {import('pins-data-model').Schemas.ExaminationTimetable} timetable
+ * @returns {import('@planning-inspectorate/data-model').Schemas.ExaminationTimetable} timetable
  */
 const mapTimetableFromItems = (timetableItems) => {
 	const events = JSON.parse(timetableItems.events).map((event) => ({
@@ -67,7 +67,7 @@ const mapTimetableFromItems = (timetableItems) => {
 		type: timetableEventTypeOverride(event.type)
 	}));
 	const filteredEvents = filterEventItems(events);
-	/** @type {import('pins-data-model').Schemas.ExaminationTimetable} */
+	/** @type {import('@planning-inspectorate/data-model').Schemas.ExaminationTimetable} */
 	return {
 		caseReference: timetableItems.caseReference,
 		published: timetableItems.published,

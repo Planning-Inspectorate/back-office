@@ -22,7 +22,7 @@
     "json-diff": "*",
     "lodash-es": "*",
     "mysql2": "*",
-    "pins-data-model": "*",
+    "@planning-inspectorate/data-model": "*",
     "sequelize": "*",
     "tedious": "*"
   },
