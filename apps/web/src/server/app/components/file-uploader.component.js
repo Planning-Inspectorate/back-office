@@ -82,6 +82,7 @@ export async function postValidateFileSignatures({ body }, response) {
 		/* .xlsx */ 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': {
 			hexSignature: '504B03041400'
 		},
+		/* .xlsm */ 'application/vnd.ms-excel.sheet.macroEnabled.12': { hexSignature: '504B0304' },
 		/* .jpg  */ 'image/jpeg': { hexSignature: 'FFD8FFE0' },
 		/* .msg  */ 'application/vnd.ms-outlook': { hexSignature: 'D0CF11E0' },
 		/* .mpeg */ 'video/mpeg': { hexSignature: '000001B3, 000001BA' },
