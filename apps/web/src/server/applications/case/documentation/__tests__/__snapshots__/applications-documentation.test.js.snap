@@ -22503,21 +22503,7 @@ exports[`applications documentation Document search GET /case/123/project-docume
                 <li class="govuk-pagination__item"><a class="govuk-link govuk-pagination__link" href="/applications-service/case/123/project-documentation/search-results?q=word&amp;page=2"
                     aria-label="Page 2"> 2</a>
                 </li>
-                <li class="govuk-pagination__item"><a class="govuk-link govuk-pagination__link" href="/applications-service/case/123/project-documentation/search-results?q=word&amp;page=3"
-                    aria-label="Page 3"> 3</a>
-                </li>
-                <li class="govuk-pagination__item"><a class="govuk-link govuk-pagination__link" href="/applications-service/case/123/project-documentation/search-results?q=word&amp;page=4"
-                    aria-label="Page 4"> 4</a>
-                </li>
-                <li class="govuk-pagination__item"><a class="govuk-link govuk-pagination__link" href="/applications-service/case/123/project-documentation/search-results?q=word&amp;page=5"
-                    aria-label="Page 5"> 5</a>
-                </li>
-                <li class="govuk-pagination__item"><a class="govuk-link govuk-pagination__link" href="/applications-service/case/123/project-documentation/search-results?q=word&amp;page=6"
-                    aria-label="Page 6"> 6</a>
-                </li>
-                <li class="govuk-pagination__item"><a class="govuk-link govuk-pagination__link" href="/applications-service/case/123/project-documentation/search-results?q=word&amp;page=7"
-                    aria-label="Page 7"> 7</a>
-                </li>
+                <li class="govuk-pagination__item govuk-pagination__item--ellipses">&ctdot;</li>
                 <li class="govuk-pagination__item"><a class="govuk-link govuk-pagination__link" href="/applications-service/case/123/project-documentation/search-results?q=word&amp;page=8"
                     aria-label="Page 8"> 8</a>
                 </li>
