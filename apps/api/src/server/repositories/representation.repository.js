@@ -1,5 +1,6 @@
 import { isEmpty } from 'lodash-es';
 import { databaseConnector } from '#utils/database-connector.js';
+import { RELEVANT_REPRESENTATION_STATUS_MAP } from '#utils/mapping/map-relevant-representation-status.js';
 
 /**
  * @typedef {{
@@ -300,7 +301,8 @@ export const updateApplicationRepresentation = async (
 	if (!response)
 		throw new Error(`Representation Id ${representationId} does not belong to case Id ${caseId}`);
 
-	if (response.status === 'PUBLISHED') representationDetails.unpublishedUpdates = true;
+	if (response.status === RELEVANT_REPRESENTATION_STATUS_MAP.PUBLISHED)
+		representationDetails.unpublishedUpdates = true;
 
 	if (!isEmpty(representationDetails)) {
 		await databaseConnector.representation.update({
@@ -386,7 +388,8 @@ export const updateApplicationRepresentationRedaction = async (
 	if (!response)
 		throw new Error(`Representation Id ${representationId} does not belong to case Id ${caseId}`);
 
-	if (response.status === 'PUBLISHED') representation.unpublishedUpdates = true;
+	if (response.status === RELEVANT_REPRESENTATION_STATUS_MAP.PUBLISHED)
+		representation.unpublishedUpdates = true;
 
 	if (!isEmpty(representation)) {
 		await databaseConnector.representation.update({
@@ -469,7 +472,7 @@ export const addApplicationRepresentationAttachment = async (representationId, d
 		})
 	];
 
-	if (representation.status === 'PUBLISHED')
+	if (representation.status === RELEVANT_REPRESENTATION_STATUS_MAP.PUBLISHED)
 		transactionItems.push(
 			databaseConnector.representation.update({
 				where: { id: representation.id },
@@ -522,7 +525,7 @@ export const deleteApplicationRepresentationAttachment = async (repId, attachmen
 	];
 
 	// if the representation is already published, this also sets the unpublishedUpdates flag on the rep
-	if (representation.status === 'PUBLISHED')
+	if (representation.status === RELEVANT_REPRESENTATION_STATUS_MAP.PUBLISHED)
 		transactionItems.push(
 			databaseConnector.representation.update({
 				where: { id: representation.id },
@@ -574,7 +577,7 @@ export const updateApplicationRepresentationStatusById = async (
 };
 
 /**
- * Sets representations as 'published' - set status to PUBLISHED for representations that are newly published,
+ * Sets representations as RELEVANT_REPRESENTATION_STATUS_MAP.PUBLISHED - set status to PUBLISHED for representations that are newly published,
  * and for representations that have previously been PUBLISHED, set unpublishedUpdates to false
  * @param {Prisma.RepresentationSelect[]} representations
  * @param {string} actionBy User performing publish action
@@ -583,13 +586,13 @@ export const updateApplicationRepresentationStatusById = async (
 export const setRepresentationsAsPublished = async (representations, actionBy) => {
 	const transactionItems = [];
 	representations
-		.filter((rep) => rep.status === 'VALID')
+		.filter((rep) => rep.status === RELEVANT_REPRESENTATION_STATUS_MAP.VALID)
 		.forEach((representation) => {
 			transactionItems.push(
 				databaseConnector.representation.update({
 					where: { id: representation.id },
 					data: {
-						status: 'PUBLISHED'
+						status: RELEVANT_REPRESENTATION_STATUS_MAP.PUBLISHED
 					}
 				})
 			);
@@ -599,7 +602,7 @@ export const setRepresentationsAsPublished = async (representations, actionBy) =
 						representationId: representation.id,
 						previousStatus: representation.status,
 						type: 'STATUS',
-						status: 'PUBLISHED',
+						status: RELEVANT_REPRESENTATION_STATUS_MAP.PUBLISHED,
 						actionBy: actionBy,
 						actionDate: new Date()
 					}
@@ -611,7 +614,9 @@ export const setRepresentationsAsPublished = async (representations, actionBy) =
 		databaseConnector.representation.updateMany({
 			where: {
 				id: {
-					in: representations.filter((rep) => rep.status === 'PUBLISHED').map((rep) => rep.id)
+					in: representations
+						.filter((rep) => rep.status === RELEVANT_REPRESENTATION_STATUS_MAP.PUBLISHED)
+						.map((rep) => rep.id)
 				}
 			},
 			data: {
@@ -624,7 +629,7 @@ export const setRepresentationsAsPublished = async (representations, actionBy) =
 };
 
 /**
- * Sets representations as 'published' in batches
+ * Sets representations as RELEVANT_REPRESENTATION_STATUS_MAP.PUBLISHED in batches
  * This is required as there is a limit in prisma for the amount of parameters to update in one go
  * @param {Prisma.RepresentationSelect[]} representations
  * @param {string} actionBy User performing publish action
@@ -640,7 +645,7 @@ export const setRepresentationsAsPublishedBatch = async (representations, action
 };
 
 /**
- * Sets representations as 'unpublished' - set status to UNPUBLISHED for representations that are currently PUBLISHED
+ * Sets representations as RELEVANT_REPRESENTATION_STATUS_MAP.UNPUBLISHED - set status to UNPUBLISHED for representations that are currently PUBLISHED
  * @param {Prisma.RepresentationSelect[]} representations
  * @param {string} actionBy User performing unpublish action
  * @returns {Promise<void>}
@@ -648,13 +653,13 @@ export const setRepresentationsAsPublishedBatch = async (representations, action
 export const setRepresentationsAsUnpublished = async (representations, actionBy) => {
 	const transactionItems = [];
 	representations
-		.filter((rep) => rep.status === 'PUBLISHED')
+		.filter((rep) => rep.status === RELEVANT_REPRESENTATION_STATUS_MAP.PUBLISHED)
 		.forEach((representation) => {
 			transactionItems.push(
 				databaseConnector.representation.update({
 					where: { id: representation.id },
 					data: {
-						status: 'UNPUBLISHED'
+						status: RELEVANT_REPRESENTATION_STATUS_MAP.UNPUBLISHED
 					}
 				})
 			);
@@ -664,7 +669,7 @@ export const setRepresentationsAsUnpublished = async (representations, actionBy)
 						representationId: representation.id,
 						previousStatus: representation.status,
 						type: 'STATUS',
-						status: 'UNPUBLISHED',
+						status: RELEVANT_REPRESENTATION_STATUS_MAP.UNPUBLISHED,
 						actionBy: actionBy,
 						actionDate: new Date()
 					}
@@ -676,7 +681,7 @@ export const setRepresentationsAsUnpublished = async (representations, actionBy)
 };
 
 /**
- * Sets representations as 'unpublished' in batches
+ * Sets representations as RELEVANT_REPRESENTATION_STATUS_MAP.UNPUBLISHED in batches
  * This is required as there is a limit in prisma for the amount of parameters to update in one go
  * @param {Prisma.RepresentationSelect[]} representations
  * @param {string} actionBy User performing unpublish action
@@ -702,7 +707,12 @@ export const getApplicationRepresentationForDownload = async (caseId, skip, batc
 	return databaseConnector.representation.findMany({
 		take: batchSize,
 		skip,
-		where: { caseId, status: { in: ['VALID', 'PUBLISHED'] } },
+		where: {
+			caseId,
+			status: {
+				in: [RELEVANT_REPRESENTATION_STATUS_MAP.VALID, RELEVANT_REPRESENTATION_STATUS_MAP.PUBLISHED]
+			}
+		},
 		select: {
 			reference: true,
 			representedType: true,
@@ -758,7 +768,10 @@ export const getPublishableRepresentations = async (caseId) => {
 	const totalPublishableRepsCount = await databaseConnector.representation.count({
 		where: {
 			caseId,
-			OR: [{ status: 'PUBLISHED', unpublishedUpdates: true }, { status: 'VALID' }]
+			OR: [
+				{ status: RELEVANT_REPRESENTATION_STATUS_MAP.PUBLISHED, unpublishedUpdates: true },
+				{ status: RELEVANT_REPRESENTATION_STATUS_MAP.VALID }
+			]
 		}
 	});
 
@@ -784,7 +797,10 @@ export const getPublishableRepresentations = async (caseId) => {
 				},
 				where: {
 					caseId,
-					OR: [{ status: 'PUBLISHED', unpublishedUpdates: true }, { status: 'VALID' }]
+					OR: [
+						{ status: RELEVANT_REPRESENTATION_STATUS_MAP.PUBLISHED, unpublishedUpdates: true },
+						{ status: RELEVANT_REPRESENTATION_STATUS_MAP.VALID }
+					]
 				},
 				orderBy: [{ status: 'desc' }, { reference: 'asc' }],
 				take: batchSize,
@@ -802,7 +818,7 @@ export const isRepresentationsPreviouslyPublished = async (caseId) => {
 	const previouslyPublished = await databaseConnector.representation.count({
 		where: {
 			caseId,
-			status: 'PUBLISHED'
+			status: RELEVANT_REPRESENTATION_STATUS_MAP.PUBLISHED
 		}
 	});
 
@@ -828,7 +844,10 @@ export const getPublishableRepresentationsById = async (caseId, representationId
 				where: {
 					caseId,
 					id: { in: batchIds },
-					OR: [{ status: 'PUBLISHED', unpublishedUpdates: true }, { status: 'VALID' }]
+					OR: [
+						{ status: RELEVANT_REPRESENTATION_STATUS_MAP.PUBLISHED, unpublishedUpdates: true },
+						{ status: RELEVANT_REPRESENTATION_STATUS_MAP.VALID }
+					]
 				},
 				include: {
 					user: true,
@@ -910,7 +929,7 @@ export const getAllPublishedRepresentationsById = async (caseId, representationI
 				where: {
 					caseId,
 					id: { in: batchIds },
-					status: 'PUBLISHED'
+					status: RELEVANT_REPRESENTATION_STATUS_MAP.PUBLISHED
 				},
 				include: {
 					user: true,
