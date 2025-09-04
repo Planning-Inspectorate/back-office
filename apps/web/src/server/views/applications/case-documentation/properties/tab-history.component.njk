@@ -11,7 +11,10 @@
 		{% set isPreviewActive = isNotDisabled and (documentVersion.mime === 'application/pdf' or documentVersion.mime === 'image/jpeg' or documentVersion.mime === 'image/png') %}
 
 		{% if isPreviewActive %}
-			<a class="font-weight--700" href="{{ 'document-download'|url({caseId: caseId, documentGuid: documentVersion.documentGuid, version: documentVersion.version, isPreviewActive: isPreviewActive}) }}" class="govuk-link">{{ documentVersion.originalFilename }}</a>
+			<a href="{{ 'document-download'|url({caseId: caseId, documentGuid: documentVersion.documentGuid, version: documentVersion.version, isPreviewActive: isPreviewActive}) }}"
+   class="govuk-link font-weight--700">
+   {{ documentVersion.originalFilename }}
+</a>
 		{% else %}
 			<p class="font-weight--700">
 				{{ documentVersion.originalFilename }}
@@ -51,14 +54,19 @@
 
 		{% set redacted = 'Redacted' if documentVersion.redactedStatus else 'Unredacted'%}
 
-		{% set download %}
-		{% if isNotDisabled %}
-			<a href='{{ 'document-download'|url({caseId: caseId, documentGuid: documentVersion.documentGuid, version: documentVersion.version}) }}'>
-				Download
-				<span class="govuk-visually-hidden">{{ documentVersion.originalFilename }}</span>
-			</a>
-		{% endif %}
-		{% endset %}
+				 {% set download %}
+				 {% if isNotDisabled %}
+						 <a
+							 href='{{ 'document-download'|url({caseId: caseId, documentGuid: documentVersion.documentGuid, version: documentVersion.version}) }}'
+							 class="govuk-link"
+							 target="_blank"
+							 rel="noopener noreferrer"
+						 >
+								 Download
+								 <span class="govuk-visually-hidden">{{ documentVersion.originalFilename }} (opens in new tab)</span>
+						 </a>
+				 {% endif %}
+				 {% endset %}
 
 		{% set row = [
 			{
