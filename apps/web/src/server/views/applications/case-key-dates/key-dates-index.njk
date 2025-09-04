@@ -13,6 +13,21 @@
 
 	{% for key, section in sections %}
 		{% set heading = key | keyDatesProperty %}
+		{% if key == 'acceptance' %}
+			{% set cardTitle = 'Acceptance dates' %}
+		{% elif key == 'examination' %}
+			{% set cardTitle = 'Examination dates' %}
+		{% elif key == 'recommendation' %}
+			{% set cardTitle = 'Recommendation dates' %}
+		{% elif key == 'decision' %}
+			{% set cardTitle = 'Decision dates' %}
+		{% elif key == 'withdrawal' %}
+			{% set cardTitle = 'Withdrawal dates' %}
+		{% elif key == 'postDecision' %}
+			{% set cardTitle = 'Judicial review dates' %}
+		{% else %}
+			{% set cardTitle = heading %}
+		{% endif %}
 			{% set rows = [] %}
 
 			{% for field, value in section %}
@@ -34,7 +49,7 @@
 			{% set summaryListHtml %}
 				{{ govukSummaryList({
 					card: {
-						title: { text: heading | trim },
+						title: { text: cardTitle | trim },
 						actions: {
 							items: [{
 								href: 'key-dates' | url({caseId: caseId, step: key}),
