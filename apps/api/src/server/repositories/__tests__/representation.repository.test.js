@@ -745,4 +745,199 @@ describe('Representation repository', () => {
 			});
 		});
 	});
+
+	describe('setRepresentationsAsUnpublished', () => {
+		const mockActionBy = 'test-user';
+		const mockDate = new Date('2023-05-11T10:00:00.000Z');
+
+		beforeEach(() => {
+			jest.useFakeTimers();
+			jest.setSystemTime(mockDate);
+		});
+
+		afterEach(() => {
+			jest.useRealTimers();
+		});
+
+		it('should unpublish only PUBLISHED representations', async () => {
+			const representations = [
+				{ id: 1, status: 'PUBLISHED' },
+				{ id: 2, status: 'VALID' },
+				{ id: 3, status: 'PUBLISHED' },
+				{ id: 4, status: 'DRAFT' }
+			];
+
+			databaseConnector.$transaction.mockResolvedValue([]);
+
+			await representationRepository.setRepresentationsAsUnpublished(representations, mockActionBy);
+
+			// Verify transaction was called with the correct operations
+			const transactionCalls = databaseConnector.$transaction.mock.calls[0][0];
+
+			// Should have 4 operations: 2 updates + 2 actions for the 2 PUBLISHED representations
+			expect(transactionCalls).toHaveLength(4);
+
+			// Check first representation update
+			expect(databaseConnector.representation.update).toHaveBeenCalledWith({
+				where: { id: 1 },
+				data: { status: 'UNPUBLISHED' }
+			});
+
+			// Check first representation action
+			expect(databaseConnector.representationAction.create).toHaveBeenCalledWith({
+				data: {
+					representationId: 1,
+					previousStatus: 'PUBLISHED',
+					type: 'STATUS',
+					status: 'UNPUBLISHED',
+					actionBy: mockActionBy,
+					actionDate: mockDate
+				}
+			});
+
+			// Check second representation update
+			expect(databaseConnector.representation.update).toHaveBeenCalledWith({
+				where: { id: 3 },
+				data: { status: 'UNPUBLISHED' }
+			});
+
+			// Check second representation action
+			expect(databaseConnector.representationAction.create).toHaveBeenCalledWith({
+				data: {
+					representationId: 3,
+					previousStatus: 'PUBLISHED',
+					type: 'STATUS',
+					status: 'UNPUBLISHED',
+					actionBy: mockActionBy,
+					actionDate: mockDate
+				}
+			});
+		});
+
+		it('should handle empty representations array', async () => {
+			databaseConnector.$transaction.mockResolvedValue([]);
+
+			await representationRepository.setRepresentationsAsUnpublished([], mockActionBy);
+
+			expect(databaseConnector.$transaction).toHaveBeenCalledWith([]);
+		});
+
+		it('should handle representations with no PUBLISHED status', async () => {
+			const representations = [
+				{ id: 1, status: 'VALID' },
+				{ id: 2, status: 'DRAFT' },
+				{ id: 3, status: 'INVALID' }
+			];
+
+			databaseConnector.$transaction.mockResolvedValue([]);
+
+			await representationRepository.setRepresentationsAsUnpublished(representations, mockActionBy);
+
+			expect(databaseConnector.$transaction).toHaveBeenCalledWith([]);
+		});
+
+		it('should handle single PUBLISHED representation', async () => {
+			const representations = [{ id: 1, status: 'PUBLISHED' }];
+
+			databaseConnector.$transaction.mockResolvedValue([]);
+
+			await representationRepository.setRepresentationsAsUnpublished(representations, mockActionBy);
+
+			// Should have 2 operations: 1 update + 1 action
+			const transactionCalls = databaseConnector.$transaction.mock.calls[0][0];
+			expect(transactionCalls).toHaveLength(2);
+
+			expect(databaseConnector.representation.update).toHaveBeenCalledWith({
+				where: { id: 1 },
+				data: { status: 'UNPUBLISHED' }
+			});
+
+			expect(databaseConnector.representationAction.create).toHaveBeenCalledWith({
+				data: {
+					representationId: 1,
+					previousStatus: 'PUBLISHED',
+					type: 'STATUS',
+					status: 'UNPUBLISHED',
+					actionBy: mockActionBy,
+					actionDate: mockDate
+				}
+			});
+		});
+	});
+
+	describe('setRepresentationsAsUnpublishedBatch', () => {
+		const mockActionBy = 'test-user';
+
+		beforeEach(() => {
+			jest.spyOn(console, 'info').mockImplementation(() => {});
+		});
+
+		afterEach(() => {
+			console.info.mockRestore();
+		});
+
+		it('should process representations in batches of 1000', async () => {
+			// Create 2500 representations to test batching
+			const representations = Array.from({ length: 2500 }, (_, i) => ({
+				id: i + 1,
+				status: 'PUBLISHED'
+			}));
+
+			databaseConnector.$transaction.mockResolvedValue([]);
+
+			await representationRepository.setRepresentationsAsUnpublishedBatch(
+				representations,
+				mockActionBy
+			);
+
+			// Should be called 3 times for the 3 batches
+			expect(databaseConnector.$transaction).toHaveBeenCalledTimes(3);
+
+			// Should log progress for each batch
+			expect(console.info).toHaveBeenCalledWith('updated representations from range 0 - 1000');
+			expect(console.info).toHaveBeenCalledWith('updated representations from range 1000 - 2000');
+			expect(console.info).toHaveBeenCalledWith('updated representations from range 2000 - 2500');
+		});
+
+		it('should handle single batch when representations count is less than batch size', async () => {
+			const representations = Array.from({ length: 500 }, (_, i) => ({
+				id: i + 1,
+				status: 'PUBLISHED'
+			}));
+
+			databaseConnector.$transaction.mockResolvedValue([]);
+
+			await representationRepository.setRepresentationsAsUnpublishedBatch(
+				representations,
+				mockActionBy
+			);
+
+			expect(databaseConnector.$transaction).toHaveBeenCalledTimes(1);
+			expect(console.info).toHaveBeenCalledWith('updated representations from range 0 - 500');
+		});
+
+		it('should handle empty representations array', async () => {
+			await representationRepository.setRepresentationsAsUnpublishedBatch([], mockActionBy);
+
+			expect(databaseConnector.$transaction).toHaveBeenCalledTimes(0);
+			expect(console.info).not.toHaveBeenCalled();
+		});
+
+		it('should handle exactly one batch size (1000 representations)', async () => {
+			const representations = Array.from({ length: 1000 }, (_, i) => ({
+				id: i + 1,
+				status: 'PUBLISHED'
+			}));
+
+			databaseConnector.$transaction.mockResolvedValue([]);
+
+			await representationRepository.setRepresentationsAsUnpublishedBatch(
+				representations,
+				mockActionBy
+			);
+
+			expect(databaseConnector.$transaction).toHaveBeenCalledTimes(1);
+			expect(console.info).toHaveBeenCalledWith('updated representations from range 0 - 1000');
+		});
+	});
 });
