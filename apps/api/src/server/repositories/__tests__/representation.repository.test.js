@@ -37,6 +37,29 @@ describe('Representation repository', () => {
 			);
 			expect(count).toEqual(2);
 			expect(items).toEqual(existingRepresentations);
+			expect(databaseConnector.representation.count).toHaveBeenCalledWith({
+				where: { caseId: 1 }
+			});
+			expect(databaseConnector.representation.findMany).toHaveBeenCalledWith({
+				select: {
+					id: true,
+					reference: true,
+					status: true,
+					redacted: true,
+					received: true,
+					represented: {
+						select: {
+							firstName: true,
+							lastName: true,
+							organisationName: true
+						}
+					}
+				},
+				where: { caseId: 1 },
+				orderBy: [{ status: 'asc' }, { received: 'desc' }, { id: 'asc' }],
+				skip: 0,
+				take: 25
+			});
 		});
 
 		it('supports pagination', async () => {
@@ -51,6 +74,29 @@ describe('Representation repository', () => {
 			);
 			expect(count).toEqual(2);
 			expect(items).toEqual(existingRepresentations);
+			expect(databaseConnector.representation.count).toHaveBeenCalledWith({
+				where: { caseId: 1 }
+			});
+			expect(databaseConnector.representation.findMany).toHaveBeenCalledWith({
+				select: {
+					id: true,
+					reference: true,
+					status: true,
+					redacted: true,
+					received: true,
+					represented: {
+						select: {
+							firstName: true,
+							lastName: true,
+							organisationName: true
+						}
+					}
+				},
+				where: { caseId: 1 },
+				orderBy: [{ status: 'asc' }, { received: 'desc' }, { id: 'asc' }],
+				skip: 50,
+				take: 50
+			});
 		});
 
 		it('supports search term', async () => {
@@ -65,6 +111,45 @@ describe('Representation repository', () => {
 			);
 			expect(count).toEqual(2);
 			expect(items).toEqual(existingRepresentations);
+			const where = {
+				caseId: 1,
+				OR: [
+					{ reference: { contains: 'James Bond' } },
+					{ originalRepresentation: { contains: 'James Bond' } },
+					{
+						represented: {
+							OR: [
+								{ organisationName: { contains: 'James Bond' } },
+								{ firstName: { contains: 'James' } },
+								{ firstName: { contains: 'Bond' } },
+								{ lastName: { contains: 'James' } },
+								{ lastName: { contains: 'Bond' } }
+							]
+						}
+					}
+				]
+			};
+			expect(databaseConnector.representation.count).toHaveBeenCalledWith({ where });
+			expect(databaseConnector.representation.findMany).toHaveBeenCalledWith({
+				select: {
+					id: true,
+					reference: true,
+					status: true,
+					redacted: true,
+					received: true,
+					represented: {
+						select: {
+							firstName: true,
+							lastName: true,
+							organisationName: true
+						}
+					}
+				},
+				where,
+				orderBy: [{ status: 'asc' }, { received: 'desc' }, { id: 'asc' }],
+				skip: 0,
+				take: 25
+			});
 		});
 
 		it('supports filters', async () => {
@@ -84,6 +169,31 @@ describe('Representation repository', () => {
 			);
 			expect(count).toEqual(2);
 			expect(items).toEqual(existingRepresentations);
+			const where = {
+				caseId: 1,
+				AND: [{ represented: { under18: true } }, { status: { in: ['VALID', 'PUBLISHED'] } }]
+			};
+			expect(databaseConnector.representation.count).toHaveBeenCalledWith({ where });
+			expect(databaseConnector.representation.findMany).toHaveBeenCalledWith({
+				select: {
+					id: true,
+					reference: true,
+					status: true,
+					redacted: true,
+					received: true,
+					represented: {
+						select: {
+							firstName: true,
+							lastName: true,
+							organisationName: true
+						}
+					}
+				},
+				where,
+				orderBy: [{ status: 'asc' }, { received: 'desc' }, { id: 'asc' }],
+				skip: 0,
+				take: 25
+			});
 		});
 
 		it('supports sort', async () => {
@@ -98,6 +208,28 @@ describe('Representation repository', () => {
 			);
 			expect(count).toEqual(2);
 			expect(items).toEqual(existingRepresentations);
+			const where = { caseId: 1 };
+			expect(databaseConnector.representation.count).toHaveBeenCalledWith({ where });
+			expect(databaseConnector.representation.findMany).toHaveBeenCalledWith({
+				select: {
+					id: true,
+					reference: true,
+					status: true,
+					redacted: true,
+					received: true,
+					represented: {
+						select: {
+							firstName: true,
+							lastName: true,
+							organisationName: true
+						}
+					}
+				},
+				where,
+				orderBy: [{ reference: 'desc' }, { received: 'desc' }, { id: 'asc' }],
+				skip: 0,
+				take: 25
+			});
 		});
 	});
 
