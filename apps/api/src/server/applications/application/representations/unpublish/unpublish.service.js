@@ -1,6 +1,7 @@
 import * as representationsRepository from '#repositories/representation.repository.js';
 import { EventType } from '@pins/event-client';
-import { broadcastNsipRepresentationPublishEventBatch } from '#infrastructure/event-broadcasters.js';
+import { broadcastNsipRepresentationUnpublishEventBatch } from '#infrastructure/event-broadcasters.js';
+import { getAllPublishedRepresentationsById } from '#repositories/representation.repository.js';
 
 /**
  * @param {number} caseId
@@ -8,17 +9,19 @@ import { broadcastNsipRepresentationPublishEventBatch } from '#infrastructure/ev
  * @param {string} actionBy
  * */
 export const unpublishCaseRepresentations = async (caseId, representationIds, actionBy) => {
-	const publishedRepresentations =
-		await representationsRepository.getPublishableRepresentationsById(caseId, representationIds);
-	console.error('>>>> publishedRepresentations ', { publishedRepresentations });
-	// Filter to only get actually published representations (status: 'PUBLISHED')
+	const publishedRepresentations = await getAllPublishedRepresentationsById(
+		caseId,
+		representationIds
+	);
+
+	// Filter out representations that are already unpublished
 	const unpublishableRepresentations = publishedRepresentations.filter(
 		(rep) => rep.status === 'PUBLISHED'
 	);
-	console.error('>>>> unpublishableRepresentations ', { unpublishableRepresentations });
+
 	if (unpublishableRepresentations.length > 0) {
 		// Broadcast unpublish events using existing event broadcaster with Unpublish event type
-		await broadcastNsipRepresentationPublishEventBatch(
+		await broadcastNsipRepresentationUnpublishEventBatch(
 			unpublishableRepresentations,
 			EventType.Unpublish,
 			caseId

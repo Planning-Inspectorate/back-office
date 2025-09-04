@@ -891,6 +891,88 @@ export const getPublishableRepresentationsById = async (caseId, representationId
 	return publishableReps.flat();
 };
 
+/**
+ * Returns representations with the given representation ids that are 'publishable' - those where status
+ * is PUBLISHED
+ * @param {number} caseId
+ * @param {number[]} representationIds
+ * @returns {PrismaPromise<GetFindResult<Prisma.RepresentationSelect>[]>}
+ */
+export const getAllPublishedRepresentationsById = async (caseId, representationIds) => {
+	const batchSize = 2000;
+	const publishableRepsPromises = [];
+
+	for (let i = 0; i < representationIds.length; i += batchSize) {
+		const batchIds = representationIds.slice(i, i + batchSize);
+
+		publishableRepsPromises.push(
+			databaseConnector.representation.findMany({
+				where: {
+					caseId,
+					id: { in: batchIds },
+					status: 'PUBLISHED'
+				},
+				include: {
+					user: true,
+					attachments: true,
+					case: true,
+					represented: {
+						select: {
+							id: true,
+							firstName: true,
+							lastName: true,
+							organisationName: true,
+							jobTitle: true,
+							under18: true,
+							email: true,
+							contactMethod: true,
+							phoneNumber: true,
+							address: {
+								select: {
+									addressLine1: true,
+									addressLine2: true,
+									town: true,
+									county: true,
+									postcode: true,
+									country: true
+								}
+							}
+						}
+					},
+					representative: {
+						select: {
+							id: true,
+							firstName: true,
+							lastName: true,
+							organisationName: true,
+							jobTitle: true,
+							under18: true,
+							email: true,
+							contactMethod: true,
+							phoneNumber: true,
+							address: {
+								select: {
+									addressLine1: true,
+									addressLine2: true,
+									town: true,
+									county: true,
+									postcode: true,
+									country: true
+								}
+							}
+						}
+					},
+					representationActions: true
+				}
+			})
+		);
+	}
+
+	const publishableReps = await Promise.all(publishableRepsPromises);
+
+	return publishableReps.flat();
+};
+
 /*
  * Return the count of attachments, that haven't been deleted, for a given case
  */
