@@ -640,6 +640,58 @@ export const setRepresentationsAsPublishedBatch = async (representations, action
 };
 
 /**
+ * Sets representations as 'unpublished' - set status to UNPUBLISHED for representations that are currently PUBLISHED
+ * @param {Prisma.RepresentationSelect[]} representations
+ * @param {string} actionBy User performing unpublish action
+ * @returns {Promise<void>}
+ */
+export const setRepresentationsAsUnpublished = async (representations, actionBy) => {
+	const transactionItems = [];
+	representations
+		.filter((rep) => rep.status === 'PUBLISHED')
+		.forEach((representation) => {
+			transactionItems.push(
+				databaseConnector.representation.update({
+					where: { id: representation.id },
+					data: {
+						status: 'UNPUBLISHED'
+					}
+				})
+			);
+			transactionItems.push(
+				databaseConnector.representationAction.create({
+					data: {
+						representationId: representation.id,
+						previousStatus: representation.status,
+						type: 'STATUS',
+						status: 'UNPUBLISHED',
+						actionBy: actionBy,
+						actionDate: new Date()
+					}
+				})
+			);
+		});
+
+	await databaseConnector.$transaction(transactionItems);
+};
+
+/**
+ * Sets representations as 'unpublished' in batches
+ * This is required as there is a limit in prisma for the amount of parameters to update in one go
+ * @param {Prisma.RepresentationSelect[]} representations
+ * @param {string} actionBy User performing unpublish action
+ * @returns {Promise<void>}
+ */
+export const setRepresentationsAsUnpublishedBatch = async (representations, actionBy) => {
+	const batchSize = 1000;
+	for (let i = 0; i < representations.length; i += batchSize) {
+		const batch = representations.slice(i, i + batchSize);
+		await setRepresentationsAsUnpublished(batch, actionBy);
+		console.info(`updated representations from range ${i} - ${i + batch.length}`);
+	}
+};
+
+/**
  *
  * @param {number} caseId
  * @param {number} skip
