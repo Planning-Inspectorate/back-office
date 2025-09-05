@@ -16,21 +16,31 @@ pr: none
 trigger: none
 
 jobs:
-  - job: Run_Cypress_Tests_For_Applications
-    timeoutInMinutes: 90
-    pool: pins-odt-agent-pool-tests
 
+  - job: E2E_Tests
+    timeoutInMinutes: 60
+    pool: pins-odt-agent-pool-tests
+    strategy:
+      matrix:
+        shard_0:
+          SHARD_INDEX: 0
+          SHARD_COUNT: 4
+        shard_1:
+          SHARD_INDEX: 1
+          SHARD_COUNT: 4
+        shard_2:
+          SHARD_INDEX: 2
+          SHARD_COUNT: 4
+        shard_3:
+          SHARD_INDEX: 3
+          SHARD_COUNT: 4
+      maxParallel: 4
     steps:
+
       - task: NodeTool@0
         inputs:
           versionSpec: "20.x"
         displayName: "Install Node.js"
-
-      - task: ShellScript@2
-        inputs:
-          scriptPath: 'apps/e2e/install-chromium.sh'
-        displayName: 'Install Chromium'
-        condition: eq(variables['agent.os'], 'Linux')
 
       - task: Npm@1
         inputs:
@@ -38,21 +48,30 @@ jobs:
           workingDir: $(System.DefaultWorkingDirectory)/apps/e2e
         displayName: "Install Dependencies"
 
-      - task: ShellScript@2
+      - task: Bash@3
+        displayName: "Run Cypress Tests (shard $(SHARD_INDEX)/$(SHARD_COUNT))"
         inputs:
-          scriptPath: 'apps/e2e/run-tests.sh'
+          targetType: 'inline'
+          workingDirectory: 'apps/e2e'
+          script: |
+            ./e2e/cypress/run-tests.sh --glob "cypress/e2e/back-office-applications/**/*.spec.js" \
+              --shard-index "$SHARD_INDEX" \
+              --shard-count "$SHARD_COUNT"
         env:
+          # Shard configuration provided by matrix
+          SHARD_INDEX: $(SHARD_INDEX)
+          SHARD_COUNT: $(SHARD_COUNT)
+          # Existing environment required by tests
           BASE_URL: $(BASE_URL)
           CASE_TEAM_EMAIL: $(CASE_TEAM_EMAIL)
           CASE_ADMIN_EMAIL: $(CASE_ADMIN_EMAIL)
           INSPECTOR_EMAIL: $(INSPECTOR_EMAIL)
           USER_PASSWORD: $(USER_PASSWORD)
           FEATURE_FLAG_CONNECTION_STRING: $(FEATURE_FLAG_CONNECTION_STRING)
-        displayName: "Run Cypress Tests"
 
       - task: PublishBuildArtifacts@1
         inputs:
           pathToPublish: 'apps/e2e/cypress/screenshots'
-          artifactName: 'FailedTests'
+          artifactName: 'FailedTests-$(SHARD_INDEX)'
         displayName: "Publish Failed Tests Artifacts"
         condition: failed()
