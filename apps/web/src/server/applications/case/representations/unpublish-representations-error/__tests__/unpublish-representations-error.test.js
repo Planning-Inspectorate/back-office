@@ -1,35 +1,40 @@
-// @ts-nocheck
+import { parseHtml } from '@pins/platform';
 import supertest from 'supertest';
 import { createTestEnvironment } from '../../../../../../../testing/index.js';
-import { representationsUrl } from '../../config.js';
-import { unpublishRepresentationsErrorRouter } from '../unpublish-representations-error.router.js';
-import { unpublishRepresentationsErrorUrl } from '../../config.js';
+import nock from 'nock';
+import { fixtureCases } from '../../../../../../../testing/applications/fixtures/cases.js';
 
 const { app, installMockApi, teardown } = createTestEnvironment();
 const request = supertest(app);
-const errorRoute = `/${unpublishRepresentationsErrorUrl}`;
-const serviceUrl = '/applications-service';
-const caseId = '42';
 
-describe('unpublish-representations-error (integration)', () => {
-	beforeEach(() => {
-		installMockApi();
-		app.use((req, res, next) => {
-			res.locals.serviceUrl = serviceUrl;
-			res.locals.caseId = caseId;
-			next();
+const baseUrl = '/applications-service/case/1/relevant-representations/unpublishing-error';
+
+const nocks = () => {
+	nock('http://test/').get('/applications/1').reply(200, fixtureCases[3]);
+};
+
+describe('unpublish-representations-error.controller', () => {
+	describe('GET /applications-service/:caseId/relevant-representations/unpublishing-error', () => {
+		beforeEach(installMockApi);
+		afterEach(teardown);
+
+		afterAll(() => {
+			nock.cleanAll();
 		});
-		app.use('/case/:caseId', unpublishRepresentationsErrorRouter);
-	});
 
-	afterEach(() => {
-		teardown();
-	});
+		beforeEach(async () => {
+			nocks();
+		});
 
-	it('should render the error view with correct backlink (integration)', async () => {
-		const response = await request.get(`/case/${caseId}${errorRoute}`);
-		const expectedBackLink = `${serviceUrl}/case/${caseId}/${representationsUrl}`;
-		expect(response.text).toContain(expectedBackLink);
-		expect(response.status).toBe(200);
+		it('should render the page', async () => {
+			const response = await request.get(baseUrl);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+			expect(element.innerHTML).toContain('Sorry, there is a problem');
+			expect(element.innerHTML).toContain(
+				'None of your representations have been unpublished. Please try again later.'
+			);
+		});
 	});
 });
