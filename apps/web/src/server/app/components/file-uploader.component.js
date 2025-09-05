@@ -79,6 +79,7 @@ export async function postValidateFileSignatures({ body }, response) {
 			hexSignature: 'D0CF11E0'
 		},
 		/* .xls  */ 'application/vnd.ms-excel': { hexSignature: 'D0CF11E0' },
+		/* .xlsm */ 'application/vnd.ms-excel.sheet.macroEnabled.12': { hexSignature: '504B0304' },
 		/* .xlsx */ 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': {
 			hexSignature: '504B03041400'
 		},

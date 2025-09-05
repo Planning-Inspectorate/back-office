@@ -6,6 +6,7 @@ export const MIMEs = {
 	ppt: 'application/vnd.ms-powerpoint',
 	pptx: 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
 	xls: 'application/vnd.ms-excel',
+	xlsm: 'application/vnd.ms-excel.sheet.macroEnabled.12',
 	xlsx: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
 	jpg: 'image/jpeg',
 	jpeg: 'image/jpeg',
