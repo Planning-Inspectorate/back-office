@@ -37,15 +37,17 @@
 				You can republish a representation by changing its status to "Valid" and selecting "Publish representations" from the
 				publishing queue.
 			</div>
-			<form method="post">
-				{{
-				govukButton({
-					text: "Unpublish all representations",
-					classes: "govuk-button--warning",
-					preventDoubleClick: true
-				})
-				}}
-			</form>
+			{% if publishedRepsCount > 0 %}
+				<form method="post">
+					{{
+						govukButton({
+							text: "Unpublish all representations",
+							classes: "govuk-button--warning",
+							preventDoubleClick: true
+						})
+					}}
+				</form>
+			{% endif %}
 		</div>
 	</div>
 {% endblock %}

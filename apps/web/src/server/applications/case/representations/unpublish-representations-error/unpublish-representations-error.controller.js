@@ -1,14 +1,13 @@
 import { representationsUrl } from '../config.js';
 
-const view = 'applications/representations/publish-representations-error.njk';
+const view = 'applications/representations/unpublish-representations-error.njk';
 
 /**
  * @param {import("express").Request} req
  * @param {import("express").Response} res
  */
 export const getUnpublishRepresentationsErrorController = async (req, res) => {
-	const { params } = req;
-	const { caseId } = params;
+	const caseId = req.params.caseId || req.query.caseId;
 	const {
 		locals: { serviceUrl }
 	} = res;

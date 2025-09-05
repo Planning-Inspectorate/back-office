@@ -9,18 +9,10 @@ import { patch } from '../../../../lib/request.js';
  */
 export const unpublishRepresentationsBatch = async (caseId, representationIds, actionBy) => {
 	try {
-		console.log('[unpublishRepresentationsBatch] PATCH request:', {
-			caseId,
-			representationIds,
-			actionBy
-		});
-		const response = await patch(`applications/${caseId}/representations/unpublish`, {
+		return await patch(`applications/${caseId}/representations/unpublish`, {
 			json: { representationIds, actionBy }
 		});
-		console.log('[unpublishRepresentationsBatch] PATCH response:', response);
-		return response;
 	} catch (error) {
-		console.error('[unpublishRepresentationsBatch] PATCH error:', error);
-		throw error;
+		throw new Error(`[unpublishRepresentationsBatch]: ${error} `);
 	}
 };

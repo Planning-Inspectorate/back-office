@@ -3,7 +3,7 @@ import { getRepresentations } from '../applications-relevant-reps.service.js';
 import { getPublishedRepIdsAndCount } from '../utils/publish-representations.js';
 import { unpublishRepresentationsBatch } from './unpublish-representations.service.js';
 import logger from '../../../../lib/logger.js';
-import { publishRepresentationsErrorUrl } from '../config.js';
+import { unpublishRepresentationsErrorUrl } from '../config.js';
 
 const view = 'applications/representations/unpublish-representations.njk';
 
@@ -28,19 +28,26 @@ export async function getUnpublishRepresentationsController(req, res) {
 	const { caseId, case: caseDetails } = res.locals;
 
 	if (!caseDetails) {
-		throw new Error('Case details not found');
+		logger.error('[getUnpublishRepresentationsController] Case details not found');
+		return res.redirect(unpublishRepresentationsErrorUrl);
 	}
 
 	const projectName = caseDetails.title || '';
-	const representations = await getRepresentations(caseId, '');
 
-	if (!representations || !representations.items) {
-		throw new Error('Representations not found');
+	let representations;
+	try {
+		representations = await getRepresentations(caseId, '');
+	} catch (error) {
+		logger.error('[getUnpublishRepresentationsController] Error fetching representations:', error);
+		return res.redirect(unpublishRepresentationsErrorUrl);
 	}
 
-	const publishedRepsCount = getPublishedRepIdsAndCount(
-		representations.items || []
-	).publishedRepsCount;
+	if (!representations || !representations.items) {
+		logger.error('[getUnpublishRepresentationsController] Representations not found');
+		return res.redirect(unpublishRepresentationsErrorUrl);
+	}
+
+	const publishedRepsCount = getPublishedRepIdsAndCount(representations.items).publishedRepsCount;
 
 	return res.render(view, {
 		caseId,
@@ -78,6 +85,6 @@ export async function postUnpublishRepresentationsController(req, res) {
 			`[postUnpublishRepresentationsController] Failed to unpublish representations:`,
 			error
 		);
-		return res.redirect(publishRepresentationsErrorUrl);
+		return res.redirect(unpublishRepresentationsErrorUrl);
 	}
 }
