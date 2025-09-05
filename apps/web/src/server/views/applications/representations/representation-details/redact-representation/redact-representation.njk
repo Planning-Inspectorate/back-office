@@ -262,6 +262,11 @@
 				hideError();
 				textArea.value = unredacted || '';
 				history.length = 0;
+
+				// reset suggestions to 'Accept'
+				for (const rejectLink of rejectLinks) {
+					rejectLink.text = 'Accept';
+				}
 			});
 			for (const rejectLink of rejectLinks) {
 				rejectLink.addEventListener('click', () => {
