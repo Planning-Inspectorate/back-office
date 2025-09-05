@@ -1,6 +1,7 @@
 {% extends "../case/layouts/applications-case-layout.njk" %}
 {% from "govuk/components/accordion/macro.njk" import govukAccordion %}
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "./key-dates.component.njk" import createSummaryList %}
 
 {% set pageTitle = 'Key dates' %}
 
@@ -13,44 +14,36 @@
 
 	{% for key, section in sections %}
 		{% set heading = key | keyDatesProperty %}
-			{% set rows = [] %}
 
-			{% for field, value in section %}
+		{% if key === 'preApplication' %}
+			{# Handle special case for preApplication with subsections #}
+			{% set subsectionHtml %}
+				{% for subsectionKey, subsectionData in section %}
+					{% set subsectionHeading = subsectionKey | keyDatesProperty %}
+					{# Add "dates" suffix for subsection titles in accordion view #}
+					{% if subsectionKey === 'preApplicationSection' or subsectionKey === 'screeningAndScoping' %}
+						{% set subsectionHeading = subsectionHeading + ' dates' %}
+					{% endif %}
 
-				{% if field === 'submissionAtPublished' %}
-					{% set dateValue = value %}
-				{% else %}
-					{% set dateValue = value | datestamp({format: 'dd MMM yyyy'}) %}
-				{% endif %}
-
-				{% set rows = rows | concat([{
-					key: { text: field | keyDatesProperty, classes: "pins-key-dates-summary-list__key" },
-					value: { text: dateValue },
-					classes: "pins-key-dates-summary-list__row"
-				}]) %}
-
-			{% endfor %}
-
-			{% set summaryListHtml %}
-				{{ govukSummaryList({
-					card: {
-						title: { text: heading | trim },
-						actions: {
-							items: [{
-								href: 'key-dates' | url({caseId: caseId, step: key}),
-								text: 'Manage dates',
-								visuallyHiddenText: 'for ' ~ heading | trim
-							}]
-						}
-					},
-					rows: rows
-				}) }}
+					{{ createSummaryList(subsectionData, subsectionKey, subsectionHeading, caseId) }}
+				{% endfor %}
 			{% endset %}
 
-		{% set items = items | concat([{
-			heading: { html: heading },
-			content: { html: summaryListHtml }
-		}]) %}
+			{% set items = items | concat([{
+				heading: { html: heading },
+				content: { html: subsectionHtml }
+			}]) %}
+		{% else %}
+			{# Handle regular sections #}
+			{% set summaryListHtml %}
+				{{ createSummaryList(section, key, heading, caseId) }}
+			{% endset %}
+
+			{% set items = items | concat([{
+				heading: { html: heading },
+				content: { html: summaryListHtml }
+			}]) %}
+		{% endif %}
 	{% endfor %}
 
 	{{ govukAccordion({

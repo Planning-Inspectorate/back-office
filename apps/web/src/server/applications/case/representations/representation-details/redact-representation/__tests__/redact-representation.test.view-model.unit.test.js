@@ -20,6 +20,8 @@ describe('redact-representation view-models', () => {
 				organisationOrFullname: 'Mrs Sue',
 				originalRepresentation:
 					'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla con.',
+				originalRepresentationText:
+					'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla con.',
 				projectName: 'mock case reference title',
 				representationId: '1',
 				statusText: 'AWAITING_REVIEW',
@@ -28,6 +30,26 @@ describe('redact-representation view-models', () => {
 				notes: 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit.',
 				redactedBy: 'mock redacted by'
 			});
+		});
+		it('should normalise new lines', () => {
+			const response = getRedactRepresentationViewModel(
+				caseId,
+				representationId,
+				{
+					...representationDetails,
+					originalRepresentation:
+						'Lorem ipsum dolor sit amet,\nconsectetuer adipiscing elit.\r\nAenean commodo ligula eget dolor.\r\nAenean massa. Cum sociis natoque penatibus et magnis dis parturient montes',
+					redactedRepresentation: 'REDACTED'
+				},
+				caseReference.title,
+				caseReference.status
+			);
+			expect(response.originalRepresentation).toEqual(
+				'Lorem ipsum dolor sit amet,\nconsectetuer adipiscing elit.\nAenean commodo ligula eget dolor.\nAenean massa. Cum sociis natoque penatibus et magnis dis parturient montes'
+			);
+			expect(response.originalRepresentationText).toEqual(
+				'Lorem ipsum dolor sit amet,\nconsectetuer adipiscing elit.\nAenean commodo ligula eget dolor.\nAenean massa. Cum sociis natoque penatibus et magnis dis parturient montes'
+			);
 		});
 	});
 });

@@ -1,0 +1,33 @@
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+
+{% macro createSummaryList(sectionData, sectionKey, sectionHeading, caseId) %}
+	{% set rows = [] %}
+
+	{% for field, value in sectionData %}
+		{% if field === 'submissionAtPublished' %}
+			{% set dateValue = value %}
+		{% else %}
+			{% set dateValue = value | datestamp({format: 'dd MMM yyyy'}) %}
+		{% endif %}
+
+		{% set rows = rows | concat([{
+			key: { text: field | keyDatesProperty, classes: "pins-key-dates-summary-list__key" },
+			value: { text: dateValue },
+			classes: "pins-key-dates-summary-list__row"
+		}]) %}
+	{% endfor %}
+
+	{{ govukSummaryList({
+		card: {
+			title: { text: sectionHeading | trim },
+			actions: {
+				items: [{
+					href: 'key-dates' | url({caseId: caseId, step: sectionKey}),
+					text: 'Manage dates',
+					visuallyHiddenText: 'for ' ~ sectionHeading | trim
+				}]
+			}
+		},
+		rows: rows
+	}) }}
+{% endmacro %}

@@ -49,16 +49,22 @@ const getDocumentsDownload = async ({ params, session }, response) => {
 		return response.status(404);
 	}
 
-	if (preview && contentType) {
+	if (contentType) {
 		response.setHeader('content-type', contentType);
-	} else {
+	}
+
+	if (!preview) {
 		const downloadFileName = buildFileName({ fileName, originalFilename });
 		const encodedFilename = encodeURIComponent(downloadFileName);
 
 		//we use `filename*` and URI encoding to ensure that the filename is correctly handling special characters
 		//that will be passed as filenames into the header
+		//and use `filename` as a fallback for clients that don't support `filename*`
 		// https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Content-Disposition
-		response.setHeader('content-disposition', `attachment; filename*=UTF-8''${encodedFilename}`);
+		response.setHeader(
+			'content-disposition',
+			`attachment; filename="${downloadFileName}"; filename*=UTF-8''${encodedFilename}`
+		);
 	}
 
 	const blobStream = await client.downloadStream(privateBlobContainer, documentKey);
@@ -105,8 +111,12 @@ const getSimulatedDocumentsDownload = (response, preview, fileName, originalFile
 
 		//we use `filename*` and URI encoding to ensure that the filename is correctly handling special characters
 		//that will be passed as filenames into the header
+		//and use `filename` as a fallback for clients that don't support `filename*`
 		// https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Content-Disposition
-		response.setHeader('content-disposition', `attachment; filename*=UTF-8''${encodedFilename}`);
+		response.setHeader(
+			'content-disposition',
+			`attachment; filename="${downloadFileName}"; filename*=UTF-8''${encodedFilename}`
+		);
 	}
 	response.charset = 'UTF-8';
 	response.write('DUMMY DATA');
