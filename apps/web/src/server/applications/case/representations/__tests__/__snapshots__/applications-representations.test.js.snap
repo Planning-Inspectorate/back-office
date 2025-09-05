@@ -93,6 +93,11 @@ exports[`applications representations GET /applications-service/:caseId/relevant
                                             type="checkbox" value="WITH_ATTACHMENT">
                                             <label class="govuk-label govuk-checkboxes__label" for="filters-10">With attachment (3)</label>
                                         </div>
+                                        <div class="govuk-checkboxes__item">
+                                            <input class="govuk-checkboxes__input" id="filters-11" name="filters"
+                                            type="checkbox" value="UNPUBLISHED">
+                                            <label class="govuk-label govuk-checkboxes__label" for="filters-11">Unpublished (0)</label>
+                                        </div>
                                     </div>
                                 </fieldset>
                             </div>
@@ -290,6 +295,11 @@ exports[`applications representations GET /applications-service/:id/relevant-rep
                                             <input class="govuk-checkboxes__input" id="filters-10" name="filters"
                                             type="checkbox" value="WITH_ATTACHMENT">
                                             <label class="govuk-label govuk-checkboxes__label" for="filters-10">With attachment (0)</label>
+                                        </div>
+                                        <div class="govuk-checkboxes__item">
+                                            <input class="govuk-checkboxes__input" id="filters-11" name="filters"
+                                            type="checkbox" value="UNPUBLISHED">
+                                            <label class="govuk-label govuk-checkboxes__label" for="filters-11">Unpublished (0)</label>
                                         </div>
                                     </div>
                                 </fieldset>
