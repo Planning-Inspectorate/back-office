@@ -49,8 +49,8 @@ exports[`S51 Advice Key dates page GET /case/123/key-dates/ should render the pa
                     <div id="accordion-key-dates-content-1" class="govuk-accordion__section-content">
                         <div class="govuk-summary-card">
                             <div class="govuk-summary-card__title-wrapper">
-                                <h2 class="govuk-summary-card__title"> Pre-application</h2>
-                                <div class="govuk-summary-card__actions"><a class="govuk-link" href="/applications-service/case/123/key-dates/preApplication">Manage dates<span class="govuk-visually-hidden"> for Pre-application (Pre-application)</span></a>
+                                <h2 class="govuk-summary-card__title"> Pre-application dates</h2>
+                                <div class="govuk-summary-card__actions"><a class="govuk-link" href="/applications-service/case/123/key-dates/preApplicationSection">Manage dates<span class="govuk-visually-hidden"> for Pre-application dates (Pre-application dates)</span></a>
                                 </div>
                             </div>
                             <div class="govuk-summary-card__content">
@@ -61,9 +61,26 @@ exports[`S51 Advice Key dates page GET /case/123/key-dates/ should render the pa
                                     <div class="govuk-summary-list__row pins-key-dates-summary-list__row"><dt class="govuk-summary-list__key pins-key-dates-summary-list__key"> Project published on website</dt>
                                         <dd                                         class="govuk-summary-list__value">23 Sep 2023</dd>
                                     </div>
+                                    <div class="govuk-summary-list__row pins-key-dates-summary-list__row"><dt class="govuk-summary-list__key pins-key-dates-summary-list__key"> Anticipated submission date published</dt>
+                                        <dd                                         class="govuk-summary-list__value">Q4 2023</dd>
+                                    </div>
                                     <div class="govuk-summary-list__row pins-key-dates-summary-list__row"><dt class="govuk-summary-list__key pins-key-dates-summary-list__key"> Anticipated submission date internal</dt>
                                         <dd                                         class="govuk-summary-list__value">07 Mar 2023</dd>
                                     </div>
+                                    <div class="govuk-summary-list__row pins-key-dates-summary-list__row"><dt class="govuk-summary-list__key pins-key-dates-summary-list__key"> Section 46 notification</dt>
+                                        <dd                                         class="govuk-summary-list__value">01 Jan 2023</dd>
+                                    </div>
+                                </dl>
+                            </div>
+                        </div>
+                        <div class="govuk-summary-card">
+                            <div class="govuk-summary-card__title-wrapper">
+                                <h2 class="govuk-summary-card__title"> Screening and scoping dates</h2>
+                                <div class="govuk-summary-card__actions"><a class="govuk-link" href="/applications-service/case/123/key-dates/screeningAndScoping">Manage dates<span class="govuk-visually-hidden"> for Screening and scoping dates (Screening and scoping dates)</span></a>
+                                </div>
+                            </div>
+                            <div class="govuk-summary-card__content">
+                                <dl class="govuk-summary-list">
                                     <div class="govuk-summary-list__row pins-key-dates-summary-list__row"><dt class="govuk-summary-list__key pins-key-dates-summary-list__key"> Screening opinion sought</dt>
                                         <dd                                         class="govuk-summary-list__value">20 Aug 2023</dd>
                                     </div>
@@ -75,12 +92,6 @@ exports[`S51 Advice Key dates page GET /case/123/key-dates/ should render the pa
                                     </div>
                                     <div class="govuk-summary-list__row pins-key-dates-summary-list__row"><dt class="govuk-summary-list__key pins-key-dates-summary-list__key"> Scoping opinion issued</dt>
                                         <dd                                         class="govuk-summary-list__value">03 Jan 2023</dd>
-                                    </div>
-                                    <div class="govuk-summary-list__row pins-key-dates-summary-list__row"><dt class="govuk-summary-list__key pins-key-dates-summary-list__key"> Section 46 notification</dt>
-                                        <dd                                         class="govuk-summary-list__value">01 Jan 2023</dd>
-                                    </div>
-                                    <div class="govuk-summary-list__row pins-key-dates-summary-list__row"><dt class="govuk-summary-list__key pins-key-dates-summary-list__key"> Anticipated submission date published</dt>
-                                        <dd                                         class="govuk-summary-list__value">Q4 2023</dd>
                                     </div>
                                 </dl>
                             </div>
@@ -354,6 +365,16 @@ exports[`S51 Advice Key dates page Sections GET /case/123/key-dates/:sectionName
                 </div>
             </fieldset>
         </div>
+        <div class="govuk-form-group govuk-grid-column-full">
+            <div class="govuk-form-group">
+                <label class="govuk-label font-weight--700" for="submissionAtPublished">Anticipated submission date published</label>
+                <div id="submissionAtPublished-hint"
+                class="govuk-hint">Date the Planning Inspectorate expects the application to be submitted.
+                    For example, ‘between April and June 2024&#39; or &#39;in September 2025’</div>
+                <input                 class="govuk-input govuk-!-width-one-third" id="submissionAtPublished"
+                name="submissionAtPublished" type="text" value="Q4 2023" aria-describedby="submissionAtPublished-hint">
+            </div>
+        </div>
         <div class="govuk-form-group govuk-grid-column-full ">
             <fieldset class="govuk-fieldset">
                 <legend class="govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4">Anticipated submission date internal</legend>
@@ -382,108 +403,6 @@ exports[`S51 Advice Key dates page Sections GET /case/123/key-dates/:sectionName
         </div>
         <div class="govuk-form-group govuk-grid-column-full ">
             <fieldset class="govuk-fieldset">
-                <legend class="govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4">Screening opinion sought</legend>
-                <div id="screeningOpinionSought-hint"
-                class="govuk-hint">Date Applicant requests a screening opinion.</div>
-                <div class="govuk-grid-column-one-third">
-                    <div class="govuk-grid-row pins-date-form-group">
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-hint" for="screeningOpinionSought.day">Day</label>
-                            <input class="govuk-input" id="screeningOpinionSought.day"
-                            name="screeningOpinionSought.day" type="text" value="20">
-                        </div>
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-hint" for="screeningOpinionSought.month">Month</label>
-                            <input class="govuk-input" id="screeningOpinionSought.month"
-                            name="screeningOpinionSought.month" type="text" value="08">
-                        </div>
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-hint" for="screeningOpinionSought.year">Year</label>
-                            <input class="govuk-input" id="screeningOpinionSought.year"
-                            name="screeningOpinionSought.year" type="text" value="2023">
-                        </div>
-                    </div>
-                </div>
-            </fieldset>
-        </div>
-        <div class="govuk-form-group govuk-grid-column-full ">
-            <fieldset class="govuk-fieldset">
-                <legend class="govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4">Screening opinion issued</legend>
-                <div id="screeningOpinionIssued-hint"
-                class="govuk-hint">Date the Planning Inspectorate issues our screening opinion.</div>
-                <div                 class="govuk-grid-column-one-third">
-                    <div class="govuk-grid-row pins-date-form-group">
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-hint" for="screeningOpinionIssued.day">Day</label>
-                            <input class="govuk-input" id="screeningOpinionIssued.day"
-                            name="screeningOpinionIssued.day" type="text" value="15">
-                        </div>
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-hint" for="screeningOpinionIssued.month">Month</label>
-                            <input class="govuk-input" id="screeningOpinionIssued.month"
-                            name="screeningOpinionIssued.month" type="text" value="06">
-                        </div>
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-hint" for="screeningOpinionIssued.year">Year</label>
-                            <input class="govuk-input" id="screeningOpinionIssued.year"
-                            name="screeningOpinionIssued.year" type="text" value="2023">
-                        </div>
-                    </div>
-        </div>
-        </fieldset>
-        </div>
-        <div class="govuk-form-group govuk-grid-column-full ">
-            <fieldset class="govuk-fieldset">
-                <legend class="govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4">Scoping opinion sought</legend>
-                <div id="scopingOpinionSought-hint" class="govuk-hint">Date Applicant requests a scoping opinion.</div>
-                <div class="govuk-grid-column-one-third">
-                    <div class="govuk-grid-row pins-date-form-group">
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-hint" for="scopingOpinionSought.day">Day</label>
-                            <input class="govuk-input" id="scopingOpinionSought.day" name="scopingOpinionSought.day"
-                            type="text" value="18">
-                        </div>
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-hint" for="scopingOpinionSought.month">Month</label>
-                            <input class="govuk-input" id="scopingOpinionSought.month"
-                            name="scopingOpinionSought.month" type="text" value="07">
-                        </div>
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-hint" for="scopingOpinionSought.year">Year</label>
-                            <input class="govuk-input" id="scopingOpinionSought.year"
-                            name="scopingOpinionSought.year" type="text" value="2023">
-                        </div>
-                    </div>
-                </div>
-            </fieldset>
-        </div>
-        <div class="govuk-form-group govuk-grid-column-full ">
-            <fieldset class="govuk-fieldset">
-                <legend class="govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4">Scoping opinion issued</legend>
-                <div id="scopingOpinionIssued-hint" class="govuk-hint">Date the Planning Inspectorate issues our scoping opinion.</div>
-                <div class="govuk-grid-column-one-third">
-                    <div class="govuk-grid-row pins-date-form-group">
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-hint" for="scopingOpinionIssued.day">Day</label>
-                            <input class="govuk-input" id="scopingOpinionIssued.day" name="scopingOpinionIssued.day"
-                            type="text" value="03">
-                        </div>
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-hint" for="scopingOpinionIssued.month">Month</label>
-                            <input class="govuk-input" id="scopingOpinionIssued.month"
-                            name="scopingOpinionIssued.month" type="text" value="01">
-                        </div>
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-hint" for="scopingOpinionIssued.year">Year</label>
-                            <input class="govuk-input" id="scopingOpinionIssued.year"
-                            name="scopingOpinionIssued.year" type="text" value="2023">
-                        </div>
-                    </div>
-                </div>
-            </fieldset>
-        </div>
-        <div class="govuk-form-group govuk-grid-column-full ">
-            <fieldset class="govuk-fieldset">
                 <legend class="govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4">Section 46 notification</legend>
                 <div id="section46Notification-hint" class="govuk-hint">Date Applicant notifies the Planning Inspectorate of statutory consultation.</div>
                 <div                 class="govuk-grid-column-one-third">
@@ -506,16 +425,6 @@ exports[`S51 Advice Key dates page Sections GET /case/123/key-dates/:sectionName
                     </div>
         </div>
         </fieldset>
-        </div>
-        <div class="govuk-form-group govuk-grid-column-full">
-            <div class="govuk-form-group">
-                <label class="govuk-label font-weight--700" for="submissionAtPublished">Anticipated submission date published</label>
-                <div id="submissionAtPublished-hint"
-                class="govuk-hint">Date the Planning Inspectorate expects the application to be submitted.
-                    For example, ‘between April and June 2024&#39; or &#39;in September 2025’</div>
-                <input                 class="govuk-input govuk-!-width-one-third" id="submissionAtPublished"
-                name="submissionAtPublished" type="text" value="Q4 2023" aria-describedby="submissionAtPublished-hint">
-            </div>
         </div>
         <button type="submit" class="govuk-button" data-module="govuk-button">Save and return</button>
     </form>
@@ -1386,6 +1295,16 @@ exports[`S51 Advice Key dates page Sections POST /case/123/key-dates/:sectionNam
                 </div>
             </fieldset>
         </div>
+        <div class="govuk-form-group govuk-grid-column-full">
+            <div class="govuk-form-group">
+                <label class="govuk-label font-weight--700" for="submissionAtPublished">Anticipated submission date published</label>
+                <div id="submissionAtPublished-hint"
+                class="govuk-hint">Date the Planning Inspectorate expects the application to be submitted.
+                    For example, ‘between April and June 2024&#39; or &#39;in September 2025’</div>
+                <input                 class="govuk-input govuk-!-width-one-third" id="submissionAtPublished"
+                name="submissionAtPublished" type="text" value="Q4 2023" aria-describedby="submissionAtPublished-hint">
+            </div>
+        </div>
         <div class="govuk-form-group govuk-grid-column-full ">
             <fieldset class="govuk-fieldset">
                 <legend class="govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4">Anticipated submission date internal</legend>
@@ -1414,108 +1333,6 @@ exports[`S51 Advice Key dates page Sections POST /case/123/key-dates/:sectionNam
         </div>
         <div class="govuk-form-group govuk-grid-column-full ">
             <fieldset class="govuk-fieldset">
-                <legend class="govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4">Screening opinion sought</legend>
-                <div id="screeningOpinionSought-hint"
-                class="govuk-hint">Date Applicant requests a screening opinion.</div>
-                <div class="govuk-grid-column-one-third">
-                    <div class="govuk-grid-row pins-date-form-group">
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-hint" for="screeningOpinionSought.day">Day</label>
-                            <input class="govuk-input" id="screeningOpinionSought.day"
-                            name="screeningOpinionSought.day" type="text" value="20">
-                        </div>
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-hint" for="screeningOpinionSought.month">Month</label>
-                            <input class="govuk-input" id="screeningOpinionSought.month"
-                            name="screeningOpinionSought.month" type="text" value="08">
-                        </div>
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-hint" for="screeningOpinionSought.year">Year</label>
-                            <input class="govuk-input" id="screeningOpinionSought.year"
-                            name="screeningOpinionSought.year" type="text" value="2023">
-                        </div>
-                    </div>
-                </div>
-            </fieldset>
-        </div>
-        <div class="govuk-form-group govuk-grid-column-full ">
-            <fieldset class="govuk-fieldset">
-                <legend class="govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4">Screening opinion issued</legend>
-                <div id="screeningOpinionIssued-hint"
-                class="govuk-hint">Date the Planning Inspectorate issues our screening opinion.</div>
-                <div                 class="govuk-grid-column-one-third">
-                    <div class="govuk-grid-row pins-date-form-group">
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-hint" for="screeningOpinionIssued.day">Day</label>
-                            <input class="govuk-input" id="screeningOpinionIssued.day"
-                            name="screeningOpinionIssued.day" type="text" value="15">
-                        </div>
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-hint" for="screeningOpinionIssued.month">Month</label>
-                            <input class="govuk-input" id="screeningOpinionIssued.month"
-                            name="screeningOpinionIssued.month" type="text" value="06">
-                        </div>
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-hint" for="screeningOpinionIssued.year">Year</label>
-                            <input class="govuk-input" id="screeningOpinionIssued.year"
-                            name="screeningOpinionIssued.year" type="text" value="2023">
-                        </div>
-                    </div>
-        </div>
-        </fieldset>
-        </div>
-        <div class="govuk-form-group govuk-grid-column-full ">
-            <fieldset class="govuk-fieldset">
-                <legend class="govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4">Scoping opinion sought</legend>
-                <div id="scopingOpinionSought-hint" class="govuk-hint">Date Applicant requests a scoping opinion.</div>
-                <div class="govuk-grid-column-one-third">
-                    <div class="govuk-grid-row pins-date-form-group">
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-hint" for="scopingOpinionSought.day">Day</label>
-                            <input class="govuk-input" id="scopingOpinionSought.day" name="scopingOpinionSought.day"
-                            type="text" value="18">
-                        </div>
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-hint" for="scopingOpinionSought.month">Month</label>
-                            <input class="govuk-input" id="scopingOpinionSought.month"
-                            name="scopingOpinionSought.month" type="text" value="07">
-                        </div>
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-hint" for="scopingOpinionSought.year">Year</label>
-                            <input class="govuk-input" id="scopingOpinionSought.year"
-                            name="scopingOpinionSought.year" type="text" value="2023">
-                        </div>
-                    </div>
-                </div>
-            </fieldset>
-        </div>
-        <div class="govuk-form-group govuk-grid-column-full ">
-            <fieldset class="govuk-fieldset">
-                <legend class="govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4">Scoping opinion issued</legend>
-                <div id="scopingOpinionIssued-hint" class="govuk-hint">Date the Planning Inspectorate issues our scoping opinion.</div>
-                <div class="govuk-grid-column-one-third">
-                    <div class="govuk-grid-row pins-date-form-group">
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-hint" for="scopingOpinionIssued.day">Day</label>
-                            <input class="govuk-input" id="scopingOpinionIssued.day" name="scopingOpinionIssued.day"
-                            type="text" value="03">
-                        </div>
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-hint" for="scopingOpinionIssued.month">Month</label>
-                            <input class="govuk-input" id="scopingOpinionIssued.month"
-                            name="scopingOpinionIssued.month" type="text" value="01">
-                        </div>
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-hint" for="scopingOpinionIssued.year">Year</label>
-                            <input class="govuk-input" id="scopingOpinionIssued.year"
-                            name="scopingOpinionIssued.year" type="text" value="2023">
-                        </div>
-                    </div>
-                </div>
-            </fieldset>
-        </div>
-        <div class="govuk-form-group govuk-grid-column-full ">
-            <fieldset class="govuk-fieldset">
                 <legend class="govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4">Section 46 notification</legend>
                 <div id="section46Notification-hint" class="govuk-hint">Date Applicant notifies the Planning Inspectorate of statutory consultation.</div>
                 <div                 class="govuk-grid-column-one-third">
@@ -1538,16 +1355,6 @@ exports[`S51 Advice Key dates page Sections POST /case/123/key-dates/:sectionNam
                     </div>
         </div>
         </fieldset>
-        </div>
-        <div class="govuk-form-group govuk-grid-column-full">
-            <div class="govuk-form-group">
-                <label class="govuk-label font-weight--700" for="submissionAtPublished">Anticipated submission date published</label>
-                <div id="submissionAtPublished-hint"
-                class="govuk-hint">Date the Planning Inspectorate expects the application to be submitted.
-                    For example, ‘between April and June 2024&#39; or &#39;in September 2025’</div>
-                <input                 class="govuk-input govuk-!-width-one-third" id="submissionAtPublished"
-                name="submissionAtPublished" type="text" value="Q4 2023" aria-describedby="submissionAtPublished-hint">
-            </div>
         </div>
         <button type="submit" class="govuk-button" data-module="govuk-button">Save and return</button>
     </form>
