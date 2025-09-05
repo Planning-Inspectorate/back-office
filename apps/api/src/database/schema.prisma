@@ -358,6 +358,8 @@ model Representation {
   representationActions  RepresentationAction[]
   representative         ServiceUser?               @relation("Representative", fields: [representativeId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   represented            ServiceUser?               @relation("Represented", fields: [representedId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  editedRepresentation   String?                    @db.NText
+  editNotes              String?                    @db.NText
 
   @@index([reference], name: "reference")
 }
