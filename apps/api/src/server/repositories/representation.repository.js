@@ -870,6 +870,18 @@ export const getPublishableRepresentationsById = async (caseId, representationId
 	return publishableReps.flat();
 };
 
+/*
+ * Return the count of attachments, that haven't been deleted, for a given case
+ */
+export const getAttachmentCountForCase = async (caseId) => {
+	return await databaseConnector.representation.count({
+		where: {
+			caseId,
+			attachments: { some: { Document: { isDeleted: false } } }
+		}
+	});
+};
+
 /**
  *
  * @param {string} field
@@ -906,6 +918,18 @@ function buildFilters(filters = {}) {
 				return {
 					represented: {
 						under18: values
+					}
+				};
+			}
+
+			if (name === 'withAttachment') {
+				return {
+					attachments: {
+						some: {
+							Document: {
+								isDeleted: false
+							}
+						}
 					}
 				};
 			}

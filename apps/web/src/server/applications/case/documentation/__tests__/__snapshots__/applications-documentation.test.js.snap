@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`applications documentation /case/123/project-documentation/21/sub-folder-level2 GET should render the page with custom pagination if there is data in the session 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="top-errors-hook" role="alert"></div>
     <div class="govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-left-0 govuk-!-margin-bottom-7 pins-masthead-summary">
         <div class="govuk-grid-column-full">
@@ -10,7 +10,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
             <div class="govuk-grid-row">
                 <div class="govuk-grid-column-full govuk-body">Transport EN, Highways EN
                     <br>
-                    <br><strong class="govuk-tag govuk-tag--green">Pre-Application</strong>
+                    <br><strong class="govuk-tag govuk-tag--green pins-tag--no-max-width">Pre-Application</strong>
                 </div>
             </div>
         </div>
@@ -28,8 +28,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         <div class="govuk-accordion__section-header">
                             <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="pins-subfolder-accordian-heading-1"></span></h2>
                         </div>
-                        <div id="pins-subfolder-accordian-content-1" class="govuk-accordion__section-content"
-                        aria-labelledby="pins-subfolder-accordian-heading-1">
+                        <div id="pins-subfolder-accordian-content-1" class="govuk-accordion__section-content">
                             <table class="govuk-table">
                                 <tbody class="govuk-table__body">
                                     <tr class="govuk-table__row">
@@ -41,9 +40,9 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                                             <svg xmlns="http://www.w3.org/2000/svg" width="26" height="20" viewBox="0 0 26 20"
                                             aria-hidden="true" focusable="false" class="svg-folder-icon">
                                                 <path d="
-			M9.64475,1.25 H1.25
-			V18.75 H24.75
-			V5.25 H11.14475z" stroke="currentColor" stroke-width="2.5" stroke-linecap="butt"
+      			M9.64475,1.25 H1.25
+      			V18.75 H24.75
+      			V5.25 H11.14475z" stroke="currentColor" stroke-width="2.5" stroke-linecap="butt"
                                                 fill="transparent"></path>
                                             </svg><a class="govuk-link govuk-body-m" href="/applications-service/case/123/project-documentation/31/sub-folder-a/"> Sub folder a</a>
                                         </td>
@@ -53,9 +52,9 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                                             <svg xmlns="http://www.w3.org/2000/svg" width="26" height="20" viewBox="0 0 26 20"
                                             aria-hidden="true" focusable="false" class="svg-folder-icon">
                                                 <path d="
-			M9.64475,1.25 H1.25
-			V18.75 H24.75
-			V5.25 H11.14475z" stroke="currentColor" stroke-width="2.5" stroke-linecap="butt"
+      			M9.64475,1.25 H1.25
+      			V18.75 H24.75
+      			V5.25 H11.14475z" stroke="currentColor" stroke-width="2.5" stroke-linecap="butt"
                                                 fill="transparent"></path>
                                             </svg><a class="govuk-link govuk-body-m" href="/applications-service/case/123/project-documentation/32/sub-folder-b/"> Sub folder b</a>
                                         </td>
@@ -154,7 +153,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                                     </div>
                                 </div>
                                 <div>
-                                    <button class="govuk-button" data-module="govuk-button">Apply changes</button><a href="." class="govuk-link govuk-link--no-visited-state govuk-!-margin-top-0"> Clear selected</a>
+                                    <button type="submit" class="govuk-button" data-module="govuk-button">Apply changes</button><a href="." class="govuk-link govuk-link--no-visited-state govuk-!-margin-top-0"> Clear selected</a>
                                 </div>
                             </div>
                         </div>
@@ -850,7 +849,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         </tr>
                     </tbody>
                 </table>
-                <nav class="govuk-pagination" role="navigation" aria-label="results">
+                <nav class="govuk-pagination" aria-label="Pagination">
                     <ul class="govuk-pagination__list">
                         <li class="govuk-pagination__item govuk-pagination__item--current"><a class="govuk-link govuk-pagination__link" href="?number=1&amp;size=30"
                             aria-label="Page 1" aria-current="page"> 1</a>
@@ -875,7 +874,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         </li>
                     </ul>
                     <div class="govuk-pagination__next"><a class="govuk-link govuk-pagination__link" href="?number=2&amp;size=30"
-                        rel="next"><span class="govuk-pagination__link-title">Next</span><svg class="govuk-pagination__icon govuk-pagination__icon--next" xmlns="http://www.w3.org/2000/svg" height="13" width="15" aria-hidden="true" focusable="false" viewBox="0 0 15 13"><path d="m8.107-0.0078125-1.4136 1.414 4.2926 4.293h-12.986v2h12.896l-4.1855 3.9766 1.377 1.4492 6.7441-6.4062-6.7246-6.7266z"></path></svg></a>
+                        rel="next"><span class="govuk-pagination__link-title"> Next<span class="govuk-visually-hidden"> page</span></span><svg class="govuk-pagination__icon govuk-pagination__icon--next" xmlns="http://www.w3.org/2000/svg" height="13" width="15" aria-hidden="true" focusable="false" viewBox="0 0 15 13"><path d="m8.107-0.0078125-1.4136 1.414 4.2926 4.293h-12.986v2h12.896l-4.1855 3.9766 1.377 1.4492 6.7441-6.4062-6.7246-6.7266z"></path></svg></a>
                     </div>
                 </nav>
             </form>
@@ -885,7 +884,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
 `;
 
 exports[`applications documentation /case/123/project-documentation/21/sub-folder-level2 GET should render the page with default pagination if there is no data in the session 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="top-errors-hook" role="alert"></div>
     <div class="govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-left-0 govuk-!-margin-bottom-7 pins-masthead-summary">
         <div class="govuk-grid-column-full">
@@ -894,7 +893,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
             <div class="govuk-grid-row">
                 <div class="govuk-grid-column-full govuk-body">Transport EN, Highways EN
                     <br>
-                    <br><strong class="govuk-tag govuk-tag--green">Pre-Application</strong>
+                    <br><strong class="govuk-tag govuk-tag--green pins-tag--no-max-width">Pre-Application</strong>
                 </div>
             </div>
         </div>
@@ -912,8 +911,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         <div class="govuk-accordion__section-header">
                             <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="pins-subfolder-accordian-heading-1"></span></h2>
                         </div>
-                        <div id="pins-subfolder-accordian-content-1" class="govuk-accordion__section-content"
-                        aria-labelledby="pins-subfolder-accordian-heading-1">
+                        <div id="pins-subfolder-accordian-content-1" class="govuk-accordion__section-content">
                             <table class="govuk-table">
                                 <tbody class="govuk-table__body">
                                     <tr class="govuk-table__row">
@@ -925,9 +923,9 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                                             <svg xmlns="http://www.w3.org/2000/svg" width="26" height="20" viewBox="0 0 26 20"
                                             aria-hidden="true" focusable="false" class="svg-folder-icon">
                                                 <path d="
-			M9.64475,1.25 H1.25
-			V18.75 H24.75
-			V5.25 H11.14475z" stroke="currentColor" stroke-width="2.5" stroke-linecap="butt"
+      			M9.64475,1.25 H1.25
+      			V18.75 H24.75
+      			V5.25 H11.14475z" stroke="currentColor" stroke-width="2.5" stroke-linecap="butt"
                                                 fill="transparent"></path>
                                             </svg><a class="govuk-link govuk-body-m" href="/applications-service/case/123/project-documentation/31/sub-folder-a/"> Sub folder a</a>
                                         </td>
@@ -937,9 +935,9 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                                             <svg xmlns="http://www.w3.org/2000/svg" width="26" height="20" viewBox="0 0 26 20"
                                             aria-hidden="true" focusable="false" class="svg-folder-icon">
                                                 <path d="
-			M9.64475,1.25 H1.25
-			V18.75 H24.75
-			V5.25 H11.14475z" stroke="currentColor" stroke-width="2.5" stroke-linecap="butt"
+      			M9.64475,1.25 H1.25
+      			V18.75 H24.75
+      			V5.25 H11.14475z" stroke="currentColor" stroke-width="2.5" stroke-linecap="butt"
                                                 fill="transparent"></path>
                                             </svg><a class="govuk-link govuk-body-m" href="/applications-service/case/123/project-documentation/32/sub-folder-b/"> Sub folder b</a>
                                         </td>
@@ -1038,7 +1036,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                                     </div>
                                 </div>
                                 <div>
-                                    <button class="govuk-button" data-module="govuk-button">Apply changes</button><a href="." class="govuk-link govuk-link--no-visited-state govuk-!-margin-top-0"> Clear selected</a>
+                                    <button type="submit" class="govuk-button" data-module="govuk-button">Apply changes</button><a href="." class="govuk-link govuk-link--no-visited-state govuk-!-margin-top-0"> Clear selected</a>
                                 </div>
                             </div>
                         </div>
@@ -2161,7 +2159,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         </tr>
                     </tbody>
                 </table>
-                <nav class="govuk-pagination" role="navigation" aria-label="results">
+                <nav class="govuk-pagination" aria-label="Pagination">
                     <ul class="govuk-pagination__list">
                         <li class="govuk-pagination__item govuk-pagination__item--current"><a class="govuk-link govuk-pagination__link" href="?number=1&amp;size=50"
                             aria-label="Page 1" aria-current="page"> 1</a>
@@ -2177,7 +2175,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         </li>
                     </ul>
                     <div class="govuk-pagination__next"><a class="govuk-link govuk-pagination__link" href="?number=2&amp;size=50"
-                        rel="next"><span class="govuk-pagination__link-title">Next</span><svg class="govuk-pagination__icon govuk-pagination__icon--next" xmlns="http://www.w3.org/2000/svg" height="13" width="15" aria-hidden="true" focusable="false" viewBox="0 0 15 13"><path d="m8.107-0.0078125-1.4136 1.414 4.2926 4.293h-12.986v2h12.896l-4.1855 3.9766 1.377 1.4492 6.7441-6.4062-6.7246-6.7266z"></path></svg></a>
+                        rel="next"><span class="govuk-pagination__link-title"> Next<span class="govuk-visually-hidden"> page</span></span><svg class="govuk-pagination__icon govuk-pagination__icon--next" xmlns="http://www.w3.org/2000/svg" height="13" width="15" aria-hidden="true" focusable="false" viewBox="0 0 15 13"><path d="m8.107-0.0078125-1.4136 1.414 4.2926 4.293h-12.986v2h12.896l-4.1855 3.9766 1.377 1.4492 6.7441-6.4062-6.7246-6.7266z"></path></svg></a>
                     </div>
                 </nav>
             </form>
@@ -2187,7 +2185,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
 `;
 
 exports[`applications documentation /case/123/project-documentation/21/sub-folder-level2 GET should render the page with no panel and no table if there are no documents 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="top-errors-hook" role="alert"></div>
     <div class="govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-left-0 govuk-!-margin-bottom-7 pins-masthead-summary">
         <div class="govuk-grid-column-full">
@@ -2196,7 +2194,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
             <div class="govuk-grid-row">
                 <div class="govuk-grid-column-full govuk-body">Transport EN, Highways EN
                     <br>
-                    <br><strong class="govuk-tag govuk-tag--green">Pre-Application</strong>
+                    <br><strong class="govuk-tag govuk-tag--green pins-tag--no-max-width">Pre-Application</strong>
                 </div>
             </div>
         </div>
@@ -2214,8 +2212,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         <div class="govuk-accordion__section-header">
                             <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="pins-subfolder-accordian-heading-1"></span></h2>
                         </div>
-                        <div id="pins-subfolder-accordian-content-1" class="govuk-accordion__section-content"
-                        aria-labelledby="pins-subfolder-accordian-heading-1">
+                        <div id="pins-subfolder-accordian-content-1" class="govuk-accordion__section-content">
                             <table class="govuk-table">
                                 <tbody class="govuk-table__body">
                                     <tr class="govuk-table__row">
@@ -2227,9 +2224,9 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                                             <svg xmlns="http://www.w3.org/2000/svg" width="26" height="20" viewBox="0 0 26 20"
                                             aria-hidden="true" focusable="false" class="svg-folder-icon">
                                                 <path d="
-			M9.64475,1.25 H1.25
-			V18.75 H24.75
-			V5.25 H11.14475z" stroke="currentColor" stroke-width="2.5" stroke-linecap="butt"
+      			M9.64475,1.25 H1.25
+      			V18.75 H24.75
+      			V5.25 H11.14475z" stroke="currentColor" stroke-width="2.5" stroke-linecap="butt"
                                                 fill="transparent"></path>
                                             </svg><a class="govuk-link govuk-body-m" href="/applications-service/case/123/project-documentation/31/sub-folder-a/"> Sub folder a</a>
                                         </td>
@@ -2239,9 +2236,9 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                                             <svg xmlns="http://www.w3.org/2000/svg" width="26" height="20" viewBox="0 0 26 20"
                                             aria-hidden="true" focusable="false" class="svg-folder-icon">
                                                 <path d="
-			M9.64475,1.25 H1.25
-			V18.75 H24.75
-			V5.25 H11.14475z" stroke="currentColor" stroke-width="2.5" stroke-linecap="butt"
+      			M9.64475,1.25 H1.25
+      			V18.75 H24.75
+      			V5.25 H11.14475z" stroke="currentColor" stroke-width="2.5" stroke-linecap="butt"
                                                 fill="transparent"></path>
                                             </svg><a class="govuk-link govuk-body-m" href="/applications-service/case/123/project-documentation/32/sub-folder-b/"> Sub folder b</a>
                                         </td>
@@ -2288,7 +2285,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
 `;
 
 exports[`applications documentation /case/123/project-documentation/21/sub-folder-level2 GET should render the page with the right number of files 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="top-errors-hook" role="alert"></div>
     <div class="govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-left-0 govuk-!-margin-bottom-7 pins-masthead-summary">
         <div class="govuk-grid-column-full">
@@ -2297,7 +2294,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
             <div class="govuk-grid-row">
                 <div class="govuk-grid-column-full govuk-body">Transport EN, Highways EN
                     <br>
-                    <br><strong class="govuk-tag govuk-tag--green">Pre-Application</strong>
+                    <br><strong class="govuk-tag govuk-tag--green pins-tag--no-max-width">Pre-Application</strong>
                 </div>
             </div>
         </div>
@@ -2315,8 +2312,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         <div class="govuk-accordion__section-header">
                             <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="pins-subfolder-accordian-heading-1"></span></h2>
                         </div>
-                        <div id="pins-subfolder-accordian-content-1" class="govuk-accordion__section-content"
-                        aria-labelledby="pins-subfolder-accordian-heading-1">
+                        <div id="pins-subfolder-accordian-content-1" class="govuk-accordion__section-content">
                             <table class="govuk-table">
                                 <tbody class="govuk-table__body">
                                     <tr class="govuk-table__row">
@@ -2328,9 +2324,9 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                                             <svg xmlns="http://www.w3.org/2000/svg" width="26" height="20" viewBox="0 0 26 20"
                                             aria-hidden="true" focusable="false" class="svg-folder-icon">
                                                 <path d="
-			M9.64475,1.25 H1.25
-			V18.75 H24.75
-			V5.25 H11.14475z" stroke="currentColor" stroke-width="2.5" stroke-linecap="butt"
+      			M9.64475,1.25 H1.25
+      			V18.75 H24.75
+      			V5.25 H11.14475z" stroke="currentColor" stroke-width="2.5" stroke-linecap="butt"
                                                 fill="transparent"></path>
                                             </svg><a class="govuk-link govuk-body-m" href="/applications-service/case/123/project-documentation/31/sub-folder-a/"> Sub folder a</a>
                                         </td>
@@ -2340,9 +2336,9 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                                             <svg xmlns="http://www.w3.org/2000/svg" width="26" height="20" viewBox="0 0 26 20"
                                             aria-hidden="true" focusable="false" class="svg-folder-icon">
                                                 <path d="
-			M9.64475,1.25 H1.25
-			V18.75 H24.75
-			V5.25 H11.14475z" stroke="currentColor" stroke-width="2.5" stroke-linecap="butt"
+      			M9.64475,1.25 H1.25
+      			V18.75 H24.75
+      			V5.25 H11.14475z" stroke="currentColor" stroke-width="2.5" stroke-linecap="butt"
                                                 fill="transparent"></path>
                                             </svg><a class="govuk-link govuk-body-m" href="/applications-service/case/123/project-documentation/32/sub-folder-b/"> Sub folder b</a>
                                         </td>
@@ -2441,7 +2437,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                                     </div>
                                 </div>
                                 <div>
-                                    <button class="govuk-button" data-module="govuk-button">Apply changes</button><a href="." class="govuk-link govuk-link--no-visited-state govuk-!-margin-top-0"> Clear selected</a>
+                                    <button type="submit" class="govuk-button" data-module="govuk-button">Apply changes</button><a href="." class="govuk-link govuk-link--no-visited-state govuk-!-margin-top-0"> Clear selected</a>
                                 </div>
                             </div>
                         </div>
@@ -3145,9 +3141,9 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         </tr>
                     </tbody>
                 </table>
-                <nav class="govuk-pagination" role="navigation" aria-label="results">
+                <nav class="govuk-pagination" aria-label="Pagination">
                     <div class="govuk-pagination__prev"><a class="govuk-link govuk-pagination__link" href="?number=1&amp;size=30"
-                        rel="prev"><svg class="govuk-pagination__icon govuk-pagination__icon--prev" xmlns="http://www.w3.org/2000/svg" height="13" width="15" aria-hidden="true" focusable="false" viewBox="0 0 15 13"><path d="m6.5938-0.0078125-6.7266 6.7266 6.7441 6.4062 1.377-1.449-4.1856-3.9768h12.896v-2h-12.984l4.2931-4.293-1.414-1.414z"></path></svg><span class="govuk-pagination__link-title">Previous</span></a>
+                        rel="prev"><svg class="govuk-pagination__icon govuk-pagination__icon--prev" xmlns="http://www.w3.org/2000/svg" height="13" width="15" aria-hidden="true" focusable="false" viewBox="0 0 15 13"><path d="m6.5938-0.0078125-6.7266 6.7266 6.7441 6.4062 1.377-1.449-4.1856-3.9768h12.896v-2h-12.984l4.2931-4.293-1.414-1.414z"></path></svg><span class="govuk-pagination__link-title"> Previous<span class="govuk-visually-hidden"> page</span></span></a>
                     </div>
                     <ul class="govuk-pagination__list">
                         <li class="govuk-pagination__item"><a class="govuk-link govuk-pagination__link" href="?number=1&amp;size=30"
@@ -3173,7 +3169,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         </li>
                     </ul>
                     <div class="govuk-pagination__next"><a class="govuk-link govuk-pagination__link" href="?number=3&amp;size=30"
-                        rel="next"><span class="govuk-pagination__link-title">Next</span><svg class="govuk-pagination__icon govuk-pagination__icon--next" xmlns="http://www.w3.org/2000/svg" height="13" width="15" aria-hidden="true" focusable="false" viewBox="0 0 15 13"><path d="m8.107-0.0078125-1.4136 1.414 4.2926 4.293h-12.986v2h12.896l-4.1855 3.9766 1.377 1.4492 6.7441-6.4062-6.7246-6.7266z"></path></svg></a>
+                        rel="next"><span class="govuk-pagination__link-title"> Next<span class="govuk-visually-hidden"> page</span></span><svg class="govuk-pagination__icon govuk-pagination__icon--next" xmlns="http://www.w3.org/2000/svg" height="13" width="15" aria-hidden="true" focusable="false" viewBox="0 0 15 13"><path d="m8.107-0.0078125-1.4136 1.414 4.2926 4.293h-12.986v2h12.896l-4.1855 3.9766 1.377 1.4492 6.7441-6.4062-6.7246-6.7266z"></path></svg></a>
                     </div>
                 </nav>
             </form>
@@ -3183,7 +3179,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
 `;
 
 exports[`applications documentation /case/123/project-documentation/21/sub-folder-level2 POST should display an error if API returns an error 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
             <div class="govuk-error-summary" data-module="govuk-error-summary">
@@ -3207,7 +3203,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
             <div class="govuk-grid-row">
                 <div class="govuk-grid-column-full govuk-body">Transport EN, Highways EN
                     <br>
-                    <br><strong class="govuk-tag govuk-tag--green">Pre-Application</strong>
+                    <br><strong class="govuk-tag govuk-tag--green pins-tag--no-max-width">Pre-Application</strong>
                 </div>
             </div>
         </div>
@@ -3225,8 +3221,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         <div class="govuk-accordion__section-header">
                             <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="pins-subfolder-accordian-heading-1"></span></h2>
                         </div>
-                        <div id="pins-subfolder-accordian-content-1" class="govuk-accordion__section-content"
-                        aria-labelledby="pins-subfolder-accordian-heading-1">
+                        <div id="pins-subfolder-accordian-content-1" class="govuk-accordion__section-content">
                             <table class="govuk-table">
                                 <tbody class="govuk-table__body">
                                     <tr class="govuk-table__row">
@@ -3238,9 +3233,9 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                                             <svg xmlns="http://www.w3.org/2000/svg" width="26" height="20" viewBox="0 0 26 20"
                                             aria-hidden="true" focusable="false" class="svg-folder-icon">
                                                 <path d="
-			M9.64475,1.25 H1.25
-			V18.75 H24.75
-			V5.25 H11.14475z" stroke="currentColor" stroke-width="2.5" stroke-linecap="butt"
+      			M9.64475,1.25 H1.25
+      			V18.75 H24.75
+      			V5.25 H11.14475z" stroke="currentColor" stroke-width="2.5" stroke-linecap="butt"
                                                 fill="transparent"></path>
                                             </svg><a class="govuk-link govuk-body-m" href="/applications-service/case/123/project-documentation/31/sub-folder-a/"> Sub folder a</a>
                                         </td>
@@ -3250,9 +3245,9 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                                             <svg xmlns="http://www.w3.org/2000/svg" width="26" height="20" viewBox="0 0 26 20"
                                             aria-hidden="true" focusable="false" class="svg-folder-icon">
                                                 <path d="
-			M9.64475,1.25 H1.25
-			V18.75 H24.75
-			V5.25 H11.14475z" stroke="currentColor" stroke-width="2.5" stroke-linecap="butt"
+      			M9.64475,1.25 H1.25
+      			V18.75 H24.75
+      			V5.25 H11.14475z" stroke="currentColor" stroke-width="2.5" stroke-linecap="butt"
                                                 fill="transparent"></path>
                                             </svg><a class="govuk-link govuk-body-m" href="/applications-service/case/123/project-documentation/32/sub-folder-b/"> Sub folder b</a>
                                         </td>
@@ -3351,7 +3346,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                                     </div>
                                 </div>
                                 <div>
-                                    <button class="govuk-button" data-module="govuk-button">Apply changes</button><a href="." class="govuk-link govuk-link--no-visited-state govuk-!-margin-top-0"> Clear selected</a>
+                                    <button type="submit" class="govuk-button" data-module="govuk-button">Apply changes</button><a href="." class="govuk-link govuk-link--no-visited-state govuk-!-margin-top-0"> Clear selected</a>
                                 </div>
                             </div>
                         </div>
@@ -4465,7 +4460,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         </tr>
                     </tbody>
                 </table>
-                <nav class="govuk-pagination" role="navigation" aria-label="results">
+                <nav class="govuk-pagination" aria-label="Pagination">
                     <ul class="govuk-pagination__list">
                         <li class="govuk-pagination__item govuk-pagination__item--current"><a class="govuk-link govuk-pagination__link" href="?number=1&amp;size=50"
                             aria-label="Page 1" aria-current="page"> 1</a>
@@ -4481,7 +4476,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         </li>
                     </ul>
                     <div class="govuk-pagination__next"><a class="govuk-link govuk-pagination__link" href="?number=2&amp;size=50"
-                        rel="next"><span class="govuk-pagination__link-title">Next</span><svg class="govuk-pagination__icon govuk-pagination__icon--next" xmlns="http://www.w3.org/2000/svg" height="13" width="15" aria-hidden="true" focusable="false" viewBox="0 0 15 13"><path d="m8.107-0.0078125-1.4136 1.414 4.2926 4.293h-12.986v2h12.896l-4.1855 3.9766 1.377 1.4492 6.7441-6.4062-6.7246-6.7266z"></path></svg></a>
+                        rel="next"><span class="govuk-pagination__link-title"> Next<span class="govuk-visually-hidden"> page</span></span><svg class="govuk-pagination__icon govuk-pagination__icon--next" xmlns="http://www.w3.org/2000/svg" height="13" width="15" aria-hidden="true" focusable="false" viewBox="0 0 15 13"><path d="m8.107-0.0078125-1.4136 1.414 4.2926 4.293h-12.986v2h12.896l-4.1855 3.9766 1.377 1.4492 6.7441-6.4062-6.7246-6.7266z"></path></svg></a>
                     </div>
                 </nav>
             </form>
@@ -4491,7 +4486,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
 `;
 
 exports[`applications documentation /case/123/project-documentation/21/sub-folder-level2 POST should display an error if no documents are selected 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="top-errors-hook" role="alert"></div>
     <div class="govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-left-0 govuk-!-margin-bottom-7 pins-masthead-summary">
         <div class="govuk-grid-column-full">
@@ -4500,7 +4495,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
             <div class="govuk-grid-row">
                 <div class="govuk-grid-column-full govuk-body">Transport EN, Highways EN
                     <br>
-                    <br><strong class="govuk-tag govuk-tag--green">Pre-Application</strong>
+                    <br><strong class="govuk-tag govuk-tag--green pins-tag--no-max-width">Pre-Application</strong>
                 </div>
             </div>
         </div>
@@ -4518,8 +4513,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         <div class="govuk-accordion__section-header">
                             <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="pins-subfolder-accordian-heading-1"></span></h2>
                         </div>
-                        <div id="pins-subfolder-accordian-content-1" class="govuk-accordion__section-content"
-                        aria-labelledby="pins-subfolder-accordian-heading-1">
+                        <div id="pins-subfolder-accordian-content-1" class="govuk-accordion__section-content">
                             <table class="govuk-table">
                                 <tbody class="govuk-table__body">
                                     <tr class="govuk-table__row">
@@ -4531,9 +4525,9 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                                             <svg xmlns="http://www.w3.org/2000/svg" width="26" height="20" viewBox="0 0 26 20"
                                             aria-hidden="true" focusable="false" class="svg-folder-icon">
                                                 <path d="
-			M9.64475,1.25 H1.25
-			V18.75 H24.75
-			V5.25 H11.14475z" stroke="currentColor" stroke-width="2.5" stroke-linecap="butt"
+      			M9.64475,1.25 H1.25
+      			V18.75 H24.75
+      			V5.25 H11.14475z" stroke="currentColor" stroke-width="2.5" stroke-linecap="butt"
                                                 fill="transparent"></path>
                                             </svg><a class="govuk-link govuk-body-m" href="/applications-service/case/123/project-documentation/31/sub-folder-a/"> Sub folder a</a>
                                         </td>
@@ -4543,9 +4537,9 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                                             <svg xmlns="http://www.w3.org/2000/svg" width="26" height="20" viewBox="0 0 26 20"
                                             aria-hidden="true" focusable="false" class="svg-folder-icon">
                                                 <path d="
-			M9.64475,1.25 H1.25
-			V18.75 H24.75
-			V5.25 H11.14475z" stroke="currentColor" stroke-width="2.5" stroke-linecap="butt"
+      			M9.64475,1.25 H1.25
+      			V18.75 H24.75
+      			V5.25 H11.14475z" stroke="currentColor" stroke-width="2.5" stroke-linecap="butt"
                                                 fill="transparent"></path>
                                             </svg><a class="govuk-link govuk-body-m" href="/applications-service/case/123/project-documentation/32/sub-folder-b/"> Sub folder b</a>
                                         </td>
@@ -4644,7 +4638,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                                     </div>
                                 </div>
                                 <div>
-                                    <button class="govuk-button" data-module="govuk-button">Apply changes</button><a href="." class="govuk-link govuk-link--no-visited-state govuk-!-margin-top-0"> Clear selected</a>
+                                    <button type="submit" class="govuk-button" data-module="govuk-button">Apply changes</button><a href="." class="govuk-link govuk-link--no-visited-state govuk-!-margin-top-0"> Clear selected</a>
                                 </div>
                             </div>
                         </div>
@@ -5767,7 +5761,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         </tr>
                     </tbody>
                 </table>
-                <nav class="govuk-pagination" role="navigation" aria-label="results">
+                <nav class="govuk-pagination" aria-label="Pagination">
                     <ul class="govuk-pagination__list">
                         <li class="govuk-pagination__item govuk-pagination__item--current"><a class="govuk-link govuk-pagination__link" href="?number=1&amp;size=50"
                             aria-label="Page 1" aria-current="page"> 1</a>
@@ -5783,7 +5777,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         </li>
                     </ul>
                     <div class="govuk-pagination__next"><a class="govuk-link govuk-pagination__link" href="?number=2&amp;size=50"
-                        rel="next"><span class="govuk-pagination__link-title">Next</span><svg class="govuk-pagination__icon govuk-pagination__icon--next" xmlns="http://www.w3.org/2000/svg" height="13" width="15" aria-hidden="true" focusable="false" viewBox="0 0 15 13"><path d="m8.107-0.0078125-1.4136 1.414 4.2926 4.293h-12.986v2h12.896l-4.1855 3.9766 1.377 1.4492 6.7441-6.4062-6.7246-6.7266z"></path></svg></a>
+                        rel="next"><span class="govuk-pagination__link-title"> Next<span class="govuk-visually-hidden"> page</span></span><svg class="govuk-pagination__icon govuk-pagination__icon--next" xmlns="http://www.w3.org/2000/svg" height="13" width="15" aria-hidden="true" focusable="false" viewBox="0 0 15 13"><path d="m8.107-0.0078125-1.4136 1.414 4.2926 4.293h-12.986v2h12.896l-4.1855 3.9766 1.377 1.4492 6.7441-6.4062-6.7246-6.7266z"></path></svg></a>
                     </div>
                 </nav>
             </form>
@@ -5793,7 +5787,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
 `;
 
 exports[`applications documentation /case/123/project-documentation/21/sub-folder-level2 POST should return an error if no action is selected 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
             <div class="govuk-error-summary" data-module="govuk-error-summary">
@@ -5817,7 +5811,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
             <div class="govuk-grid-row">
                 <div class="govuk-grid-column-full govuk-body">Transport EN, Highways EN
                     <br>
-                    <br><strong class="govuk-tag govuk-tag--green">Pre-Application</strong>
+                    <br><strong class="govuk-tag govuk-tag--green pins-tag--no-max-width">Pre-Application</strong>
                 </div>
             </div>
         </div>
@@ -5835,8 +5829,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         <div class="govuk-accordion__section-header">
                             <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="pins-subfolder-accordian-heading-1"></span></h2>
                         </div>
-                        <div id="pins-subfolder-accordian-content-1" class="govuk-accordion__section-content"
-                        aria-labelledby="pins-subfolder-accordian-heading-1">
+                        <div id="pins-subfolder-accordian-content-1" class="govuk-accordion__section-content">
                             <table class="govuk-table">
                                 <tbody class="govuk-table__body">
                                     <tr class="govuk-table__row">
@@ -5848,9 +5841,9 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                                             <svg xmlns="http://www.w3.org/2000/svg" width="26" height="20" viewBox="0 0 26 20"
                                             aria-hidden="true" focusable="false" class="svg-folder-icon">
                                                 <path d="
-			M9.64475,1.25 H1.25
-			V18.75 H24.75
-			V5.25 H11.14475z" stroke="currentColor" stroke-width="2.5" stroke-linecap="butt"
+      			M9.64475,1.25 H1.25
+      			V18.75 H24.75
+      			V5.25 H11.14475z" stroke="currentColor" stroke-width="2.5" stroke-linecap="butt"
                                                 fill="transparent"></path>
                                             </svg><a class="govuk-link govuk-body-m" href="/applications-service/case/123/project-documentation/31/sub-folder-a/"> Sub folder a</a>
                                         </td>
@@ -5860,9 +5853,9 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                                             <svg xmlns="http://www.w3.org/2000/svg" width="26" height="20" viewBox="0 0 26 20"
                                             aria-hidden="true" focusable="false" class="svg-folder-icon">
                                                 <path d="
-			M9.64475,1.25 H1.25
-			V18.75 H24.75
-			V5.25 H11.14475z" stroke="currentColor" stroke-width="2.5" stroke-linecap="butt"
+      			M9.64475,1.25 H1.25
+      			V18.75 H24.75
+      			V5.25 H11.14475z" stroke="currentColor" stroke-width="2.5" stroke-linecap="butt"
                                                 fill="transparent"></path>
                                             </svg><a class="govuk-link govuk-body-m" href="/applications-service/case/123/project-documentation/32/sub-folder-b/"> Sub folder b</a>
                                         </td>
@@ -5961,7 +5954,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                                     </div>
                                 </div>
                                 <div>
-                                    <button class="govuk-button" data-module="govuk-button">Apply changes</button><a href="." class="govuk-link govuk-link--no-visited-state govuk-!-margin-top-0"> Clear selected</a>
+                                    <button type="submit" class="govuk-button" data-module="govuk-button">Apply changes</button><a href="." class="govuk-link govuk-link--no-visited-state govuk-!-margin-top-0"> Clear selected</a>
                                 </div>
                             </div>
                         </div>
@@ -7075,7 +7068,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         </tr>
                     </tbody>
                 </table>
-                <nav class="govuk-pagination" role="navigation" aria-label="results">
+                <nav class="govuk-pagination" aria-label="Pagination">
                     <ul class="govuk-pagination__list">
                         <li class="govuk-pagination__item govuk-pagination__item--current"><a class="govuk-link govuk-pagination__link" href="?number=1&amp;size=50"
                             aria-label="Page 1" aria-current="page"> 1</a>
@@ -7091,7 +7084,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                         </li>
                     </ul>
                     <div class="govuk-pagination__next"><a class="govuk-link govuk-pagination__link" href="?number=2&amp;size=50"
-                        rel="next"><span class="govuk-pagination__link-title">Next</span><svg class="govuk-pagination__icon govuk-pagination__icon--next" xmlns="http://www.w3.org/2000/svg" height="13" width="15" aria-hidden="true" focusable="false" viewBox="0 0 15 13"><path d="m8.107-0.0078125-1.4136 1.414 4.2926 4.293h-12.986v2h12.896l-4.1855 3.9766 1.377 1.4492 6.7441-6.4062-6.7246-6.7266z"></path></svg></a>
+                        rel="next"><span class="govuk-pagination__link-title"> Next<span class="govuk-visually-hidden"> page</span></span><svg class="govuk-pagination__icon govuk-pagination__icon--next" xmlns="http://www.w3.org/2000/svg" height="13" width="15" aria-hidden="true" focusable="false" viewBox="0 0 15 13"><path d="m8.107-0.0078125-1.4136 1.414 4.2926 4.293h-12.986v2h12.896l-4.1855 3.9766 1.377 1.4492 6.7441-6.4062-6.7246-6.7266z"></path></svg></a>
                     </div>
                 </nav>
             </form>
@@ -7101,7 +7094,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
 `;
 
 exports[`applications documentation Document properties delete page GET /case/123/project-documentation/21/100/delete page should render 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <form action='' method='post' class="govuk-grid-column-full govuk-!-margin-top-0">
             <h1 class="govuk-heading-l">Delete document</h1>
@@ -7125,21 +7118,21 @@ exports[`applications documentation Document properties delete page GET /case/12
                     <span                     class="font-weight--700">Sub folder level 2</span>
             </p>
             <div class="govuk-warning-text"><span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-                <strong                 class="govuk-warning-text__text"><span class="govuk-warning-text__assistive">Warning</span> This will delete
-                    all versions of this document and rename the document to 12 Ullamco laboris
+                <strong                 class="govuk-warning-text__text"><span class="govuk-visually-hidden">Warning</span> This will delete all
+                    versions of this document and rename the document to 12 Ullamco laboris
                     nisi ut_deleted_20231101_000000.</strong>
             </div>
-            <button class="govuk-button govuk-button--warning" data-module="govuk-button">Delete</button>
+            <button type="submit" class="govuk-button govuk-button--warning" data-module="govuk-button">Delete</button>
         </form>
     </div>
 </main>"
 `;
 
 exports[`applications documentation Document properties delete page GET /case/123/project-documentation/21/100/delete should display warning if status is "ready_to_publish" 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-warning-text"><span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-        <strong         class="govuk-warning-text__text"><span class="govuk-warning-text__assistive">Warning</span> This document
-            is in the publishing queue ready to be published.</strong>
+        <strong         class="govuk-warning-text__text"><span class="govuk-visually-hidden">Warning</span> This document is in
+            the publishing queue ready to be published.</strong>
     </div>
     <div class="govuk-grid-row">
         <form action='' method='post' class="govuk-grid-column-full govuk-!-margin-top-0">
@@ -7164,17 +7157,17 @@ exports[`applications documentation Document properties delete page GET /case/12
                     <span                     class="font-weight--700">Sub folder level 2</span>
             </p>
             <div class="govuk-warning-text"><span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-                <strong                 class="govuk-warning-text__text"><span class="govuk-warning-text__assistive">Warning</span> This will delete
-                    all versions of this document and rename the document to 4 Elit sed_deleted_20231101_000000.</strong>
+                <strong                 class="govuk-warning-text__text"><span class="govuk-visually-hidden">Warning</span> This will delete all
+                    versions of this document and rename the document to 4 Elit sed_deleted_20231101_000000.</strong>
             </div>
-            <button class="govuk-button govuk-button--warning" data-module="govuk-button">Delete</button>
+            <button type="submit" class="govuk-button govuk-button--warning" data-module="govuk-button">Delete</button>
         </form>
     </div>
 </main>"
 `;
 
 exports[`applications documentation Document properties delete page POST /case/123/project-documentation/21/100/delete should go to success page if status is not "ready-to-publish" 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds govuk-!-margin-top-0">
             <div class="govuk-panel govuk-panel--confirmation">
@@ -7193,10 +7186,10 @@ exports[`applications documentation Document properties delete page POST /case/1
 `;
 
 exports[`applications documentation Document properties page page should render with Open button 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full govuk-!-margin-top-0">
-            <div class="govuk-breadcrumbs govuk-!-margin-top-0">
+            <nav class="govuk-breadcrumbs govuk-!-margin-top-0" aria-label="Breadcrumb">
                 <ol class="govuk-breadcrumbs__list">
                     <li class="govuk-breadcrumbs__list-item"><a class="govuk-breadcrumbs__link" href="/applications-service/case/123/">Project overview</a>
                     </li>
@@ -7207,7 +7200,7 @@ exports[`applications documentation Document properties page page should render 
                     <li class="govuk-breadcrumbs__list-item"><a class="govuk-breadcrumbs__link" href="/applications-service/case/123/project-documentation/21/sub-folder-level-2/">Sub folder level 2</a>
                     </li>
                 </ol>
-            </div>
+            </nav>
             <h1 class="govuk-heading-xl govuk-!-margin-top-4"><span class="govuk-caption-xl">Document properties</span> 4 Elit sed</h1>
             <ul class="govuk-list">
                 <li class="govuk-!-margin-top-4"><strong>Description:</strong> Elit sed do eiusmod tempor incididunt ut
@@ -7245,28 +7238,28 @@ exports[`applications documentation Document properties page page should render 
                     <dl class="govuk-summary-list">
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> File name</dt>
                             <dd class="govuk-summary-list__value">4 Elit sed</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/name"> Change<span class="govuk-visually-hidden"> File name</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/name">Change<span class="govuk-visually-hidden"> File name</span></a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Description</dt>
                             <dd class="govuk-summary-list__value">Elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua
                                 Ut enim ad</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/description"> Change<span class="govuk-visually-hidden"> Description</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/description">Change<span class="govuk-visually-hidden"> Description</span></a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> IP number (optional)</dt>
                             <dd class="govuk-summary-list__value"></dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/interestedPartyNumber"> Change<span class="govuk-visually-hidden"> IP number (optional)</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/interestedPartyNumber">Change<span class="govuk-visually-hidden"> IP number (optional)</span></a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Who the document is from</dt>
                             <dd                             class="govuk-summary-list__value">Consectetur adipiscing</dd>
-                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/author"> Change<span class="govuk-visually-hidden"> Who the document is from</span></a>
+                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/author">Change<span class="govuk-visually-hidden"> Who the document is from</span></a>
                                 </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Agent (optional)</dt>
                             <dd class="govuk-summary-list__value">Elit Sed</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/agent"> Change<span class="govuk-visually-hidden"> Agent (optional)</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/agent">Change<span class="govuk-visually-hidden"> Agent (optional)</span></a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Document case stage</dt>
@@ -7276,17 +7269,17 @@ exports[`applications documentation Document properties page page should render 
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Webfilter</dt>
                             <dd class="govuk-summary-list__value">Consectetur</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/webfilter"> Change<span class="govuk-visually-hidden"> Webfilter</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/webfilter">Change<span class="govuk-visually-hidden"> Webfilter</span></a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Document type (optional)</dt>
                             <dd                             class="govuk-summary-list__value">Rule 8 letter</dd>
-                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/type"> Change<span class="govuk-visually-hidden"> Document type (optional)</span></a>
+                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/type">Change<span class="govuk-visually-hidden"> Document type (optional)</span></a>
                                 </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Date received</dt>
                             <dd class="govuk-summary-list__value">01/12/2022</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/receipt-date"> Change<span class="govuk-visually-hidden"> Date received</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/receipt-date">Change<span class="govuk-visually-hidden"> Date received</span></a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Published date</dt>
@@ -7296,12 +7289,12 @@ exports[`applications documentation Document properties page page should render 
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Redaction</dt>
                             <dd class="govuk-summary-list__value">Redacted</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/redaction"> Change<span class="govuk-visually-hidden"> Redaction</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/redaction">Change<span class="govuk-visually-hidden"> Redaction</span></a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Status</dt>
                             <dd class="govuk-summary-list__value">Ready to publish</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/published-status"> Change<span class="govuk-visually-hidden"> Status</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/published-status">Change<span class="govuk-visually-hidden"> Status</span></a>
                             </dd>
                         </div>
                     </dl>
@@ -7358,10 +7351,10 @@ exports[`applications documentation Document properties page page should render 
 `;
 
 exports[`applications documentation Document properties page page should render without Open button 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full govuk-!-margin-top-0">
-            <div class="govuk-breadcrumbs govuk-!-margin-top-0">
+            <nav class="govuk-breadcrumbs govuk-!-margin-top-0" aria-label="Breadcrumb">
                 <ol class="govuk-breadcrumbs__list">
                     <li class="govuk-breadcrumbs__list-item"><a class="govuk-breadcrumbs__link" href="/applications-service/case/123/">Project overview</a>
                     </li>
@@ -7372,7 +7365,7 @@ exports[`applications documentation Document properties page page should render 
                     <li class="govuk-breadcrumbs__list-item"><a class="govuk-breadcrumbs__link" href="/applications-service/case/123/project-documentation/21/sub-folder-level-2/">Sub folder level 2</a>
                     </li>
                 </ol>
-            </div>
+            </nav>
             <h1 class="govuk-heading-xl govuk-!-margin-top-4"><span class="govuk-caption-xl">Document properties</span> 12 Ullamco laboris nisi ut</h1>
             <ul class="govuk-list">
                 <li class="govuk-!-margin-top-4"><strong>Description:</strong> Ullamco laboris nisi ut aliquip ex ea commodo
@@ -7408,27 +7401,27 @@ exports[`applications documentation Document properties page page should render 
                     <dl class="govuk-summary-list">
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> File name</dt>
                             <dd class="govuk-summary-list__value">12 Ullamco laboris nisi ut</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/11/edit/name"> Change<span class="govuk-visually-hidden"> File name</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/11/edit/name">Change<span class="govuk-visually-hidden"> File name</span></a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Description</dt>
                             <dd class="govuk-summary-list__value">Ullamco laboris nisi ut aliquip ex ea commodo consequat</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/11/edit/description"> Change<span class="govuk-visually-hidden"> Description</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/11/edit/description">Change<span class="govuk-visually-hidden"> Description</span></a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> IP number (optional)</dt>
                             <dd class="govuk-summary-list__value"></dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/11/edit/interestedPartyNumber"> Change<span class="govuk-visually-hidden"> IP number (optional)</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/11/edit/interestedPartyNumber">Change<span class="govuk-visually-hidden"> IP number (optional)</span></a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Who the document is from</dt>
                             <dd                             class="govuk-summary-list__value">Tempor incididunt</dd>
-                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/11/edit/author"> Change<span class="govuk-visually-hidden"> Who the document is from</span></a>
+                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/11/edit/author">Change<span class="govuk-visually-hidden"> Who the document is from</span></a>
                                 </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Agent (optional)</dt>
                             <dd class="govuk-summary-list__value">Ullamco Aliqua</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/11/edit/agent"> Change<span class="govuk-visually-hidden"> Agent (optional)</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/11/edit/agent">Change<span class="govuk-visually-hidden"> Agent (optional)</span></a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Document case stage</dt>
@@ -7438,32 +7431,32 @@ exports[`applications documentation Document properties page page should render 
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Webfilter</dt>
                             <dd class="govuk-summary-list__value">Ut</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/11/edit/webfilter"> Change<span class="govuk-visually-hidden"> Webfilter</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/11/edit/webfilter">Change<span class="govuk-visually-hidden"> Webfilter</span></a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Document type (optional)</dt>
                             <dd                             class="govuk-summary-list__value"></dd>
-                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/11/edit/type"> Change<span class="govuk-visually-hidden"> Document type (optional)</span></a>
+                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/11/edit/type">Change<span class="govuk-visually-hidden"> Document type (optional)</span></a>
                                 </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Transcript (optional)</dt>
                             <dd class="govuk-summary-list__value"></dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/11/edit/transcript"> Change<span class="govuk-visually-hidden"> Transcript (optional)</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/11/edit/transcript">Change<span class="govuk-visually-hidden"> Transcript (optional)</span></a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Date received</dt>
                             <dd class="govuk-summary-list__value">01/12/2022</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/11/edit/receipt-date"> Change<span class="govuk-visually-hidden"> Date received</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/11/edit/receipt-date">Change<span class="govuk-visually-hidden"> Date received</span></a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Published date</dt>
                             <dd class="govuk-summary-list__value">07/03/2023</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/11/edit/published-date"> Change<span class="govuk-visually-hidden"> Published date</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/11/edit/published-date">Change<span class="govuk-visually-hidden"> Published date</span></a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Redaction</dt>
                             <dd class="govuk-summary-list__value">Unredacted</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/11/edit/redaction"> Change<span class="govuk-visually-hidden"> Redaction</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/11/edit/redaction">Change<span class="govuk-visually-hidden"> Redaction</span></a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Status</dt>
@@ -7525,10 +7518,10 @@ exports[`applications documentation Document properties page page should render 
 `;
 
 exports[`applications documentation Document properties page should not show publishedDate edit link if document is not published 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full govuk-!-margin-top-0">
-            <div class="govuk-breadcrumbs govuk-!-margin-top-0">
+            <nav class="govuk-breadcrumbs govuk-!-margin-top-0" aria-label="Breadcrumb">
                 <ol class="govuk-breadcrumbs__list">
                     <li class="govuk-breadcrumbs__list-item"><a class="govuk-breadcrumbs__link" href="/applications-service/case/123/">Project overview</a>
                     </li>
@@ -7539,7 +7532,7 @@ exports[`applications documentation Document properties page should not show pub
                     <li class="govuk-breadcrumbs__list-item"><a class="govuk-breadcrumbs__link" href="/applications-service/case/123/project-documentation/21/sub-folder-level-2/">Sub folder level 2</a>
                     </li>
                 </ol>
-            </div>
+            </nav>
             <h1 class="govuk-heading-xl govuk-!-margin-top-4"><span class="govuk-caption-xl">Document properties</span> 4 Elit sed</h1>
             <ul class="govuk-list">
                 <li class="govuk-!-margin-top-4"><strong>Description:</strong> Elit sed do eiusmod tempor incididunt ut
@@ -7577,28 +7570,28 @@ exports[`applications documentation Document properties page should not show pub
                     <dl class="govuk-summary-list">
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> File name</dt>
                             <dd class="govuk-summary-list__value">4 Elit sed</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/name"> Change<span class="govuk-visually-hidden"> File name</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/name">Change<span class="govuk-visually-hidden"> File name</span></a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Description</dt>
                             <dd class="govuk-summary-list__value">Elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua
                                 Ut enim ad</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/description"> Change<span class="govuk-visually-hidden"> Description</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/description">Change<span class="govuk-visually-hidden"> Description</span></a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> IP number (optional)</dt>
                             <dd class="govuk-summary-list__value"></dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/interestedPartyNumber"> Change<span class="govuk-visually-hidden"> IP number (optional)</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/interestedPartyNumber">Change<span class="govuk-visually-hidden"> IP number (optional)</span></a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Who the document is from</dt>
                             <dd                             class="govuk-summary-list__value">Consectetur adipiscing</dd>
-                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/author"> Change<span class="govuk-visually-hidden"> Who the document is from</span></a>
+                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/author">Change<span class="govuk-visually-hidden"> Who the document is from</span></a>
                                 </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Agent (optional)</dt>
                             <dd class="govuk-summary-list__value">Elit Sed</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/agent"> Change<span class="govuk-visually-hidden"> Agent (optional)</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/agent">Change<span class="govuk-visually-hidden"> Agent (optional)</span></a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Document case stage</dt>
@@ -7608,17 +7601,17 @@ exports[`applications documentation Document properties page should not show pub
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Webfilter</dt>
                             <dd class="govuk-summary-list__value">Consectetur</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/webfilter"> Change<span class="govuk-visually-hidden"> Webfilter</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/webfilter">Change<span class="govuk-visually-hidden"> Webfilter</span></a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Document type (optional)</dt>
                             <dd                             class="govuk-summary-list__value">Rule 8 letter</dd>
-                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/type"> Change<span class="govuk-visually-hidden"> Document type (optional)</span></a>
+                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/type">Change<span class="govuk-visually-hidden"> Document type (optional)</span></a>
                                 </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Date received</dt>
                             <dd class="govuk-summary-list__value">01/12/2022</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/receipt-date"> Change<span class="govuk-visually-hidden"> Date received</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/receipt-date">Change<span class="govuk-visually-hidden"> Date received</span></a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Published date</dt>
@@ -7628,12 +7621,12 @@ exports[`applications documentation Document properties page should not show pub
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Redaction</dt>
                             <dd class="govuk-summary-list__value">Redacted</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/redaction"> Change<span class="govuk-visually-hidden"> Redaction</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/redaction">Change<span class="govuk-visually-hidden"> Redaction</span></a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Status</dt>
                             <dd class="govuk-summary-list__value">Ready to publish</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/published-status"> Change<span class="govuk-visually-hidden"> Status</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/published-status">Change<span class="govuk-visually-hidden"> Status</span></a>
                             </dd>
                         </div>
                     </dl>
@@ -7690,10 +7683,10 @@ exports[`applications documentation Document properties page should not show pub
 `;
 
 exports[`applications documentation Document properties page should not show publishedStatus edit link if document is published 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full govuk-!-margin-top-0">
-            <div class="govuk-breadcrumbs govuk-!-margin-top-0">
+            <nav class="govuk-breadcrumbs govuk-!-margin-top-0" aria-label="Breadcrumb">
                 <ol class="govuk-breadcrumbs__list">
                     <li class="govuk-breadcrumbs__list-item"><a class="govuk-breadcrumbs__link" href="/applications-service/case/123/">Project overview</a>
                     </li>
@@ -7704,7 +7697,7 @@ exports[`applications documentation Document properties page should not show pub
                     <li class="govuk-breadcrumbs__list-item"><a class="govuk-breadcrumbs__link" href="/applications-service/case/123/project-documentation/21/sub-folder-level-2/">Sub folder level 2</a>
                     </li>
                 </ol>
-            </div>
+            </nav>
             <h1 class="govuk-heading-xl govuk-!-margin-top-4"><span class="govuk-caption-xl">Document properties</span> 12 Ullamco laboris nisi ut</h1>
             <ul class="govuk-list">
                 <li class="govuk-!-margin-top-4"><strong>Description:</strong> Ullamco laboris nisi ut aliquip ex ea commodo
@@ -7740,27 +7733,27 @@ exports[`applications documentation Document properties page should not show pub
                     <dl class="govuk-summary-list">
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> File name</dt>
                             <dd class="govuk-summary-list__value">12 Ullamco laboris nisi ut</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/11/edit/name"> Change<span class="govuk-visually-hidden"> File name</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/11/edit/name">Change<span class="govuk-visually-hidden"> File name</span></a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Description</dt>
                             <dd class="govuk-summary-list__value">Ullamco laboris nisi ut aliquip ex ea commodo consequat</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/11/edit/description"> Change<span class="govuk-visually-hidden"> Description</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/11/edit/description">Change<span class="govuk-visually-hidden"> Description</span></a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> IP number (optional)</dt>
                             <dd class="govuk-summary-list__value"></dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/11/edit/interestedPartyNumber"> Change<span class="govuk-visually-hidden"> IP number (optional)</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/11/edit/interestedPartyNumber">Change<span class="govuk-visually-hidden"> IP number (optional)</span></a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Who the document is from</dt>
                             <dd                             class="govuk-summary-list__value">Tempor incididunt</dd>
-                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/11/edit/author"> Change<span class="govuk-visually-hidden"> Who the document is from</span></a>
+                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/11/edit/author">Change<span class="govuk-visually-hidden"> Who the document is from</span></a>
                                 </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Agent (optional)</dt>
                             <dd class="govuk-summary-list__value">Ullamco Aliqua</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/11/edit/agent"> Change<span class="govuk-visually-hidden"> Agent (optional)</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/11/edit/agent">Change<span class="govuk-visually-hidden"> Agent (optional)</span></a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Document case stage</dt>
@@ -7770,32 +7763,32 @@ exports[`applications documentation Document properties page should not show pub
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Webfilter</dt>
                             <dd class="govuk-summary-list__value">Ut</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/11/edit/webfilter"> Change<span class="govuk-visually-hidden"> Webfilter</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/11/edit/webfilter">Change<span class="govuk-visually-hidden"> Webfilter</span></a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Document type (optional)</dt>
                             <dd                             class="govuk-summary-list__value"></dd>
-                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/11/edit/type"> Change<span class="govuk-visually-hidden"> Document type (optional)</span></a>
+                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/11/edit/type">Change<span class="govuk-visually-hidden"> Document type (optional)</span></a>
                                 </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Transcript (optional)</dt>
                             <dd class="govuk-summary-list__value"></dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/11/edit/transcript"> Change<span class="govuk-visually-hidden"> Transcript (optional)</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/11/edit/transcript">Change<span class="govuk-visually-hidden"> Transcript (optional)</span></a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Date received</dt>
                             <dd class="govuk-summary-list__value">01/12/2022</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/11/edit/receipt-date"> Change<span class="govuk-visually-hidden"> Date received</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/11/edit/receipt-date">Change<span class="govuk-visually-hidden"> Date received</span></a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Published date</dt>
                             <dd class="govuk-summary-list__value">07/03/2023</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/11/edit/published-date"> Change<span class="govuk-visually-hidden"> Published date</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/11/edit/published-date">Change<span class="govuk-visually-hidden"> Published date</span></a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Redaction</dt>
                             <dd class="govuk-summary-list__value">Unredacted</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/11/edit/redaction"> Change<span class="govuk-visually-hidden"> Redaction</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/11/edit/redaction">Change<span class="govuk-visually-hidden"> Redaction</span></a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Status</dt>
@@ -7857,10 +7850,10 @@ exports[`applications documentation Document properties page should not show pub
 `;
 
 exports[`applications documentation Document properties page should show publishing queue link if document is ready to publish 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full govuk-!-margin-top-0">
-            <div class="govuk-breadcrumbs govuk-!-margin-top-0">
+            <nav class="govuk-breadcrumbs govuk-!-margin-top-0" aria-label="Breadcrumb">
                 <ol class="govuk-breadcrumbs__list">
                     <li class="govuk-breadcrumbs__list-item"><a class="govuk-breadcrumbs__link" href="/applications-service/case/123/">Project overview</a>
                     </li>
@@ -7871,7 +7864,7 @@ exports[`applications documentation Document properties page should show publish
                     <li class="govuk-breadcrumbs__list-item"><a class="govuk-breadcrumbs__link" href="/applications-service/case/123/project-documentation/21/sub-folder-level-2/">Sub folder level 2</a>
                     </li>
                 </ol>
-            </div>
+            </nav>
             <h1 class="govuk-heading-xl govuk-!-margin-top-4"><span class="govuk-caption-xl">Document properties</span> 4 Elit sed</h1>
             <ul class="govuk-list">
                 <li class="govuk-!-margin-top-4"><strong>Description:</strong> Elit sed do eiusmod tempor incididunt ut
@@ -7909,28 +7902,28 @@ exports[`applications documentation Document properties page should show publish
                     <dl class="govuk-summary-list">
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> File name</dt>
                             <dd class="govuk-summary-list__value">4 Elit sed</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/name"> Change<span class="govuk-visually-hidden"> File name</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/name">Change<span class="govuk-visually-hidden"> File name</span></a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Description</dt>
                             <dd class="govuk-summary-list__value">Elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua
                                 Ut enim ad</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/description"> Change<span class="govuk-visually-hidden"> Description</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/description">Change<span class="govuk-visually-hidden"> Description</span></a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> IP number (optional)</dt>
                             <dd class="govuk-summary-list__value"></dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/interestedPartyNumber"> Change<span class="govuk-visually-hidden"> IP number (optional)</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/interestedPartyNumber">Change<span class="govuk-visually-hidden"> IP number (optional)</span></a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Who the document is from</dt>
                             <dd                             class="govuk-summary-list__value">Consectetur adipiscing</dd>
-                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/author"> Change<span class="govuk-visually-hidden"> Who the document is from</span></a>
+                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/author">Change<span class="govuk-visually-hidden"> Who the document is from</span></a>
                                 </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Agent (optional)</dt>
                             <dd class="govuk-summary-list__value">Elit Sed</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/agent"> Change<span class="govuk-visually-hidden"> Agent (optional)</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/agent">Change<span class="govuk-visually-hidden"> Agent (optional)</span></a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Document case stage</dt>
@@ -7940,17 +7933,17 @@ exports[`applications documentation Document properties page should show publish
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Webfilter</dt>
                             <dd class="govuk-summary-list__value">Consectetur</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/webfilter"> Change<span class="govuk-visually-hidden"> Webfilter</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/webfilter">Change<span class="govuk-visually-hidden"> Webfilter</span></a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Document type (optional)</dt>
                             <dd                             class="govuk-summary-list__value">Rule 8 letter</dd>
-                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/type"> Change<span class="govuk-visually-hidden"> Document type (optional)</span></a>
+                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/type">Change<span class="govuk-visually-hidden"> Document type (optional)</span></a>
                                 </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Date received</dt>
                             <dd class="govuk-summary-list__value">01/12/2022</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/receipt-date"> Change<span class="govuk-visually-hidden"> Date received</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/receipt-date">Change<span class="govuk-visually-hidden"> Date received</span></a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Published date</dt>
@@ -7960,12 +7953,12 @@ exports[`applications documentation Document properties page should show publish
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Redaction</dt>
                             <dd class="govuk-summary-list__value">Redacted</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/redaction"> Change<span class="govuk-visually-hidden"> Redaction</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/redaction">Change<span class="govuk-visually-hidden"> Redaction</span></a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Status</dt>
                             <dd class="govuk-summary-list__value">Ready to publish</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/published-status"> Change<span class="govuk-visually-hidden"> Status</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/published-status">Change<span class="govuk-visually-hidden"> Status</span></a>
                             </dd>
                         </div>
                     </dl>
@@ -8022,7 +8015,7 @@ exports[`applications documentation Document properties page should show publish
 `;
 
 exports[`applications documentation Document publishing queue GET /case/123/project-documentation/publishing-queue\` page should render 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full govuk-!-margin-top-0">
             <h1 class="govuk-heading-l govuk-!-margin-top-2 govuk-!-margin-bottom-9"><span class="govuk-caption-m">Publishing queue</span> Select documents for publishing</h1>
@@ -11938,9 +11931,8 @@ exports[`applications documentation Document publishing queue GET /case/123/proj
                             </tr>
                         </tbody>
                     </table>
-                    <button class="govuk-button" data-module="govuk-button">Publish documents</button>
-                    <nav class="govuk-pagination" role="navigation"
-                    aria-label="results">
+                    <button type="submit" class="govuk-button" data-module="govuk-button">Publish documents</button>
+                    <nav class="govuk-pagination" aria-label="Pagination">
                         <ul class="govuk-pagination__list">
                             <li class="govuk-pagination__item govuk-pagination__item--current"><a class="govuk-link govuk-pagination__link" href="?number=1" aria-label="Page 1"
                                 aria-current="page"> 1</a>
@@ -11948,7 +11940,7 @@ exports[`applications documentation Document publishing queue GET /case/123/proj
                             <li class="govuk-pagination__item"><a class="govuk-link govuk-pagination__link" href="?number=2" aria-label="Page 2"> 2</a>
                             </li>
                         </ul>
-                        <div class="govuk-pagination__next"><a class="govuk-link govuk-pagination__link" href="?number=2" rel="next"><span class="govuk-pagination__link-title">Next</span><svg class="govuk-pagination__icon govuk-pagination__icon--next" xmlns="http://www.w3.org/2000/svg" height="13" width="15" aria-hidden="true" focusable="false" viewBox="0 0 15 13"><path d="m8.107-0.0078125-1.4136 1.414 4.2926 4.293h-12.986v2h12.896l-4.1855 3.9766 1.377 1.4492 6.7441-6.4062-6.7246-6.7266z"></path></svg></a>
+                        <div class="govuk-pagination__next"><a class="govuk-link govuk-pagination__link" href="?number=2" rel="next"><span class="govuk-pagination__link-title"> Next<span class="govuk-visually-hidden"> page</span></span><svg class="govuk-pagination__icon govuk-pagination__icon--next" xmlns="http://www.w3.org/2000/svg" height="13" width="15" aria-hidden="true" focusable="false" viewBox="0 0 15 13"><path d="m8.107-0.0078125-1.4136 1.414 4.2926 4.293h-12.986v2h12.896l-4.1855 3.9766 1.377 1.4492 6.7441-6.4062-6.7246-6.7266z"></path></svg></a>
                         </div>
                     </nav>
                 </form>
@@ -11958,7 +11950,7 @@ exports[`applications documentation Document publishing queue GET /case/123/proj
 `;
 
 exports[`applications documentation Document publishing queue GET /case/123/project-documentation/publishing-queue\` page should render with correct pagination 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full govuk-!-margin-top-0">
             <h1 class="govuk-heading-l govuk-!-margin-top-2 govuk-!-margin-bottom-9"><span class="govuk-caption-m">Publishing queue</span> Select documents for publishing</h1>
@@ -14324,10 +14316,9 @@ exports[`applications documentation Document publishing queue GET /case/123/proj
                             </tr>
                         </tbody>
                     </table>
-                    <button class="govuk-button" data-module="govuk-button">Publish documents</button>
-                    <nav class="govuk-pagination" role="navigation"
-                    aria-label="results">
-                        <div class="govuk-pagination__prev"><a class="govuk-link govuk-pagination__link" href="?number=1" rel="prev"><svg class="govuk-pagination__icon govuk-pagination__icon--prev" xmlns="http://www.w3.org/2000/svg" height="13" width="15" aria-hidden="true" focusable="false" viewBox="0 0 15 13"><path d="m6.5938-0.0078125-6.7266 6.7266 6.7441 6.4062 1.377-1.449-4.1856-3.9768h12.896v-2h-12.984l4.2931-4.293-1.414-1.414z"></path></svg><span class="govuk-pagination__link-title">Previous</span></a>
+                    <button type="submit" class="govuk-button" data-module="govuk-button">Publish documents</button>
+                    <nav class="govuk-pagination" aria-label="Pagination">
+                        <div class="govuk-pagination__prev"><a class="govuk-link govuk-pagination__link" href="?number=1" rel="prev"><svg class="govuk-pagination__icon govuk-pagination__icon--prev" xmlns="http://www.w3.org/2000/svg" height="13" width="15" aria-hidden="true" focusable="false" viewBox="0 0 15 13"><path d="m6.5938-0.0078125-6.7266 6.7266 6.7441 6.4062 1.377-1.449-4.1856-3.9768h12.896v-2h-12.984l4.2931-4.293-1.414-1.414z"></path></svg><span class="govuk-pagination__link-title"> Previous<span class="govuk-visually-hidden"> page</span></span></a>
                         </div>
                         <ul class="govuk-pagination__list">
                             <li class="govuk-pagination__item"><a class="govuk-link govuk-pagination__link" href="?number=1" aria-label="Page 1"> 1</a>
@@ -14344,7 +14335,7 @@ exports[`applications documentation Document publishing queue GET /case/123/proj
 `;
 
 exports[`applications documentation Document publishing queue POST /case/123/project-documentation/publishing-queue\` should redirect to success page if there is no error 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds govuk-!-margin-top-0">
             <div class="govuk-panel govuk-panel--confirmation">
@@ -14365,7 +14356,7 @@ exports[`applications documentation Document publishing queue POST /case/123/pro
 `;
 
 exports[`applications documentation Document publishing queue POST /case/123/project-documentation/publishing-queue\` should return backend errors if request is not ok 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
             <div class="govuk-error-summary" data-module="govuk-error-summary">
@@ -18296,9 +18287,8 @@ exports[`applications documentation Document publishing queue POST /case/123/pro
                             </tr>
                         </tbody>
                     </table>
-                    <button class="govuk-button" data-module="govuk-button">Publish documents</button>
-                    <nav class="govuk-pagination" role="navigation"
-                    aria-label="results">
+                    <button type="submit" class="govuk-button" data-module="govuk-button">Publish documents</button>
+                    <nav class="govuk-pagination" aria-label="Pagination">
                         <ul class="govuk-pagination__list">
                             <li class="govuk-pagination__item govuk-pagination__item--current"><a class="govuk-link govuk-pagination__link" href="?number=1" aria-label="Page 1"
                                 aria-current="page"> 1</a>
@@ -18306,7 +18296,7 @@ exports[`applications documentation Document publishing queue POST /case/123/pro
                             <li class="govuk-pagination__item"><a class="govuk-link govuk-pagination__link" href="?number=2" aria-label="Page 2"> 2</a>
                             </li>
                         </ul>
-                        <div class="govuk-pagination__next"><a class="govuk-link govuk-pagination__link" href="?number=2" rel="next"><span class="govuk-pagination__link-title">Next</span><svg class="govuk-pagination__icon govuk-pagination__icon--next" xmlns="http://www.w3.org/2000/svg" height="13" width="15" aria-hidden="true" focusable="false" viewBox="0 0 15 13"><path d="m8.107-0.0078125-1.4136 1.414 4.2926 4.293h-12.986v2h12.896l-4.1855 3.9766 1.377 1.4492 6.7441-6.4062-6.7246-6.7266z"></path></svg></a>
+                        <div class="govuk-pagination__next"><a class="govuk-link govuk-pagination__link" href="?number=2" rel="next"><span class="govuk-pagination__link-title"> Next<span class="govuk-visually-hidden"> page</span></span><svg class="govuk-pagination__icon govuk-pagination__icon--next" xmlns="http://www.w3.org/2000/svg" height="13" width="15" aria-hidden="true" focusable="false" viewBox="0 0 15 13"><path d="m8.107-0.0078125-1.4136 1.414 4.2926 4.293h-12.986v2h12.896l-4.1855 3.9766 1.377 1.4492 6.7441-6.4062-6.7246-6.7266z"></path></svg></a>
                         </div>
                     </nav>
                 </form>
@@ -18316,7 +18306,7 @@ exports[`applications documentation Document publishing queue POST /case/123/pro
 `;
 
 exports[`applications documentation Document publishing queue POST /case/123/project-documentation/publishing-queue\` should return frontend validation errors if no file is selected 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
             <div class="govuk-error-summary" data-module="govuk-error-summary">
@@ -22247,9 +22237,8 @@ exports[`applications documentation Document publishing queue POST /case/123/pro
                             </tr>
                         </tbody>
                     </table>
-                    <button class="govuk-button" data-module="govuk-button">Publish documents</button>
-                    <nav class="govuk-pagination" role="navigation"
-                    aria-label="results">
+                    <button type="submit" class="govuk-button" data-module="govuk-button">Publish documents</button>
+                    <nav class="govuk-pagination" aria-label="Pagination">
                         <ul class="govuk-pagination__list">
                             <li class="govuk-pagination__item govuk-pagination__item--current"><a class="govuk-link govuk-pagination__link" href="?number=1" aria-label="Page 1"
                                 aria-current="page"> 1</a>
@@ -22257,7 +22246,7 @@ exports[`applications documentation Document publishing queue POST /case/123/pro
                             <li class="govuk-pagination__item"><a class="govuk-link govuk-pagination__link" href="?number=2" aria-label="Page 2"> 2</a>
                             </li>
                         </ul>
-                        <div class="govuk-pagination__next"><a class="govuk-link govuk-pagination__link" href="?number=2" rel="next"><span class="govuk-pagination__link-title">Next</span><svg class="govuk-pagination__icon govuk-pagination__icon--next" xmlns="http://www.w3.org/2000/svg" height="13" width="15" aria-hidden="true" focusable="false" viewBox="0 0 15 13"><path d="m8.107-0.0078125-1.4136 1.414 4.2926 4.293h-12.986v2h12.896l-4.1855 3.9766 1.377 1.4492 6.7441-6.4062-6.7246-6.7266z"></path></svg></a>
+                        <div class="govuk-pagination__next"><a class="govuk-link govuk-pagination__link" href="?number=2" rel="next"><span class="govuk-pagination__link-title"> Next<span class="govuk-visually-hidden"> page</span></span><svg class="govuk-pagination__icon govuk-pagination__icon--next" xmlns="http://www.w3.org/2000/svg" height="13" width="15" aria-hidden="true" focusable="false" viewBox="0 0 15 13"><path d="m8.107-0.0078125-1.4136 1.414 4.2926 4.293h-12.986v2h12.896l-4.1855 3.9766 1.377 1.4492 6.7441-6.4062-6.7246-6.7266z"></path></svg></a>
                         </div>
                     </nav>
                 </form>
@@ -22267,7 +22256,7 @@ exports[`applications documentation Document publishing queue POST /case/123/pro
 `;
 
 exports[`applications documentation Document search GET /case/123/project-documentation/search-results page should render with errors if api failed 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
             <div class="govuk-error-summary" data-module="govuk-error-summary">
@@ -22292,7 +22281,7 @@ exports[`applications documentation Document search GET /case/123/project-docume
                     <input class="govuk-input pins-dashboard-form--input" id="searchDocuments"
                     name="query" type="text" inputmode="search">
                 </div>
-                <button class="govuk-button pins-dashboard-form--btn" data-module="govuk-button">Search</button>
+                <button type="submit" class="govuk-button pins-dashboard-form--btn" data-module="govuk-button">Search</button>
             </form>
         </div>
     </div>
@@ -22303,7 +22292,7 @@ exports[`applications documentation Document search GET /case/123/project-docume
 `;
 
 exports[`applications documentation Document search GET /case/123/project-documentation/search-results page should render with results 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <h1 class="govuk-heading-s govuk-!-margin-bottom-5"> Search results</h1>
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
@@ -22313,7 +22302,7 @@ exports[`applications documentation Document search GET /case/123/project-docume
                     <input class="govuk-input pins-dashboard-form--input" id="searchDocuments"
                     name="query" type="text" value="word" inputmode="search">
                 </div>
-                <button class="govuk-button pins-dashboard-form--btn" data-module="govuk-button">Search</button>
+                <button type="submit" class="govuk-button pins-dashboard-form--btn" data-module="govuk-button">Search</button>
             </form>
         </div>
     </div>
@@ -22506,7 +22495,7 @@ exports[`applications documentation Document search GET /case/123/project-docume
                 </tr>
             </tbody>
         </table>
-        <nav class="govuk-pagination" role="navigation" aria-label="results">
+        <nav class="govuk-pagination" aria-label="Pagination">
             <ul class="govuk-pagination__list">
                 <li class="govuk-pagination__item govuk-pagination__item--current"><a class="govuk-link govuk-pagination__link" href="/applications-service/case/123/project-documentation/search-results?q=word&amp;page=1"
                     aria-label="Page 1" aria-current="page"> 1</a>
@@ -22514,27 +22503,13 @@ exports[`applications documentation Document search GET /case/123/project-docume
                 <li class="govuk-pagination__item"><a class="govuk-link govuk-pagination__link" href="/applications-service/case/123/project-documentation/search-results?q=word&amp;page=2"
                     aria-label="Page 2"> 2</a>
                 </li>
-                <li class="govuk-pagination__item"><a class="govuk-link govuk-pagination__link" href="/applications-service/case/123/project-documentation/search-results?q=word&amp;page=3"
-                    aria-label="Page 3"> 3</a>
-                </li>
-                <li class="govuk-pagination__item"><a class="govuk-link govuk-pagination__link" href="/applications-service/case/123/project-documentation/search-results?q=word&amp;page=4"
-                    aria-label="Page 4"> 4</a>
-                </li>
-                <li class="govuk-pagination__item"><a class="govuk-link govuk-pagination__link" href="/applications-service/case/123/project-documentation/search-results?q=word&amp;page=5"
-                    aria-label="Page 5"> 5</a>
-                </li>
-                <li class="govuk-pagination__item"><a class="govuk-link govuk-pagination__link" href="/applications-service/case/123/project-documentation/search-results?q=word&amp;page=6"
-                    aria-label="Page 6"> 6</a>
-                </li>
-                <li class="govuk-pagination__item"><a class="govuk-link govuk-pagination__link" href="/applications-service/case/123/project-documentation/search-results?q=word&amp;page=7"
-                    aria-label="Page 7"> 7</a>
-                </li>
+                <li class="govuk-pagination__item govuk-pagination__item--ellipses">&ctdot;</li>
                 <li class="govuk-pagination__item"><a class="govuk-link govuk-pagination__link" href="/applications-service/case/123/project-documentation/search-results?q=word&amp;page=8"
                     aria-label="Page 8"> 8</a>
                 </li>
             </ul>
             <div class="govuk-pagination__next"><a class="govuk-link govuk-pagination__link" href="/applications-service/case/123/project-documentation/search-results?q=word&amp;page=2"
-                rel="next"><span class="govuk-pagination__link-title">Next</span><svg class="govuk-pagination__icon govuk-pagination__icon--next" xmlns="http://www.w3.org/2000/svg" height="13" width="15" aria-hidden="true" focusable="false" viewBox="0 0 15 13"><path d="m8.107-0.0078125-1.4136 1.414 4.2926 4.293h-12.986v2h12.896l-4.1855 3.9766 1.377 1.4492 6.7441-6.4062-6.7246-6.7266z"></path></svg></a>
+                rel="next"><span class="govuk-pagination__link-title"> Next<span class="govuk-visually-hidden"> page</span></span><svg class="govuk-pagination__icon govuk-pagination__icon--next" xmlns="http://www.w3.org/2000/svg" height="13" width="15" aria-hidden="true" focusable="false" viewBox="0 0 15 13"><path d="m8.107-0.0078125-1.4136 1.414 4.2926 4.293h-12.986v2h12.896l-4.1855 3.9766 1.377 1.4492 6.7441-6.4062-6.7246-6.7266z"></path></svg></a>
             </div>
         </nav>
     </div>
@@ -22542,7 +22517,7 @@ exports[`applications documentation Document search GET /case/123/project-docume
 `;
 
 exports[`applications documentation Document search GET /case/123/project-documentation/search-results page should render with suggestion if no results 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <h1 class="govuk-heading-s govuk-!-margin-bottom-5"> Search results</h1>
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
@@ -22552,7 +22527,7 @@ exports[`applications documentation Document search GET /case/123/project-docume
                     <input class="govuk-input pins-dashboard-form--input" id="searchDocuments"
                     name="query" type="text" value="word" inputmode="search">
                 </div>
-                <button class="govuk-button pins-dashboard-form--btn" data-module="govuk-button">Search</button>
+                <button type="submit" class="govuk-button pins-dashboard-form--btn" data-module="govuk-button">Search</button>
             </form>
         </div>
     </div>
@@ -22571,7 +22546,7 @@ exports[`applications documentation Document search GET /case/123/project-docume
 `;
 
 exports[`applications documentation Document upload new version page should render 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row pins-file-upload" data-next-page-url="/applications-service/case/123/project-documentation/21/document/11/properties"
     data-case-id="123" data-multiple="" data-folder-id="21" data-document-id="11"
     data-allowed-types=".dbf,application/x-dbf,.doc,application/msword,.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.html,text/html,.jpeg,image/jpeg,.jpg,image/jpeg,.mov,video/quicktime,.mp3,audio/mpeg,.mp4,video/mp4,.mpeg,video/mpeg,.msg,application/vnd.ms-outlook,.pdf,application/pdf,.png,image/png,.ppt,application/vnd.ms-powerpoint,.pptx,application/vnd.openxmlformats-officedocument.presentationml.presentation,.prj,application/x-anjuta-project,.shp,application/vnd.shp,.shx,application/vnd.shx,.tif,image/tiff,.tiff,image/tiff,.xls,application/vnd.ms-excel,.xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,">
@@ -22598,7 +22573,7 @@ exports[`applications documentation Document upload new version page should rend
             <div class="govuk-inset-text">Uploading a new version changes the document status to ‘Not checked’.
                 If there’s a previous version in the publishing queue, it will be removed</div>
             <div             class="display--flex">
-                <button class="govuk-button pins-file-upload--submit" data-module="govuk-button"
+                <button type="submit" class="govuk-button pins-file-upload--submit" data-module="govuk-button"
                 id="submit-button-1">Upload</button>
                 <div class="progress-hook"></div>
     </div>
@@ -22608,7 +22583,7 @@ exports[`applications documentation Document upload new version page should rend
 `;
 
 exports[`applications documentation GET /case/123/project-documentation should render the page 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="top-errors-hook" role="alert"></div>
     <div class="govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-left-0 govuk-!-margin-bottom-7 pins-masthead-summary">
         <div class="govuk-grid-column-full">
@@ -22617,7 +22592,7 @@ exports[`applications documentation GET /case/123/project-documentation should r
             <div class="govuk-grid-row">
                 <div class="govuk-grid-column-full govuk-body">Transport EN, Highways EN
                     <br>
-                    <br><strong class="govuk-tag govuk-tag--green">Pre-Application</strong>
+                    <br><strong class="govuk-tag govuk-tag--green pins-tag--no-max-width">Pre-Application</strong>
                 </div>
             </div>
         </div>
@@ -22634,7 +22609,7 @@ exports[`applications documentation GET /case/123/project-documentation should r
                             <input class="govuk-input pins-dashboard-form--input" id="searchDocuments"
                             name="query" type="text" inputmode="search">
                         </div>
-                        <button class="govuk-button pins-dashboard-form--btn" data-module="govuk-button">Search</button>
+                        <button type="submit" class="govuk-button pins-dashboard-form--btn" data-module="govuk-button">Search</button>
                     </form>
                 </div>
             </div>
@@ -22648,7 +22623,7 @@ exports[`applications documentation GET /case/123/project-documentation should r
 `;
 
 exports[`applications documentation GET /case/123/project-documentation/21/sub-folder-level2/upload should render the page 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row pins-file-upload" data-next-page-url="/applications-service/case/123/project-documentation/21/sub-folder-level-2/"
     data-case-id="123" data-multiple="true" data-folder-id="21" data-allowed-types=".dbf,application/x-dbf,.doc,application/msword,.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document,.html,text/html,.jpeg,image/jpeg,.jpg,image/jpeg,.mov,video/quicktime,.mp3,audio/mpeg,.mp4,video/mp4,.mpeg,video/mpeg,.msg,application/vnd.ms-outlook,.pdf,application/pdf,.png,image/png,.ppt,application/vnd.ms-powerpoint,.pptx,application/vnd.openxmlformats-officedocument.presentationml.presentation,.prj,application/x-anjuta-project,.shp,application/vnd.shp,.shx,application/vnd.shx,.tif,image/tiff,.tiff,image/tiff,.xls,application/vnd.ms-excel,.xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,">
         <div class="top-errors-hook"></div>
@@ -22674,7 +22649,7 @@ exports[`applications documentation GET /case/123/project-documentation/21/sub-f
     </div>
     <div class="govuk-inset-text">Saving files will default them to ‘Unredacted’ and ‘Not checked’</div>
     <div     class="display--flex">
-        <button class="govuk-button pins-file-upload--submit" data-module="govuk-button"
+        <button type="submit" class="govuk-button pins-file-upload--submit" data-module="govuk-button"
         id="submit-button-1">Save and continue</button>
         <div class="progress-hook"></div>
         </div>
@@ -22684,7 +22659,7 @@ exports[`applications documentation GET /case/123/project-documentation/21/sub-f
 `;
 
 exports[`applications documentation Move documents file list page POST /case/123/project-documentation/21/sub-folder-level2/move-documents should render the move documents file list page if documents are selected 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
             <h1 class="govuk-heading-xl"></h1>
@@ -22716,7 +22691,7 @@ exports[`applications documentation Move documents file list page POST /case/123
 `;
 
 exports[`applications documentation Move documents file list page POST /case/123/project-documentation/21/sub-folder-level2/move-documents should return frontend validation errors if no file is selected 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
             <div class="govuk-error-summary" data-module="govuk-error-summary">
@@ -22740,7 +22715,7 @@ exports[`applications documentation Move documents file list page POST /case/123
             <div class="govuk-grid-row">
                 <div class="govuk-grid-column-full govuk-body">Transport EN, Highways EN
                     <br>
-                    <br><strong class="govuk-tag govuk-tag--green">Pre-Application</strong>
+                    <br><strong class="govuk-tag govuk-tag--green pins-tag--no-max-width">Pre-Application</strong>
                 </div>
             </div>
         </div>
@@ -22758,8 +22733,7 @@ exports[`applications documentation Move documents file list page POST /case/123
                         <div class="govuk-accordion__section-header">
                             <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="pins-subfolder-accordian-heading-1"></span></h2>
                         </div>
-                        <div id="pins-subfolder-accordian-content-1" class="govuk-accordion__section-content"
-                        aria-labelledby="pins-subfolder-accordian-heading-1">
+                        <div id="pins-subfolder-accordian-content-1" class="govuk-accordion__section-content">
                             <table class="govuk-table">
                                 <tbody class="govuk-table__body">
                                     <tr class="govuk-table__row">
@@ -22771,9 +22745,9 @@ exports[`applications documentation Move documents file list page POST /case/123
                                             <svg xmlns="http://www.w3.org/2000/svg" width="26" height="20" viewBox="0 0 26 20"
                                             aria-hidden="true" focusable="false" class="svg-folder-icon">
                                                 <path d="
-			M9.64475,1.25 H1.25
-			V18.75 H24.75
-			V5.25 H11.14475z" stroke="currentColor" stroke-width="2.5" stroke-linecap="butt"
+      			M9.64475,1.25 H1.25
+      			V18.75 H24.75
+      			V5.25 H11.14475z" stroke="currentColor" stroke-width="2.5" stroke-linecap="butt"
                                                 fill="transparent"></path>
                                             </svg><a class="govuk-link govuk-body-m" href="/applications-service/case/123/project-documentation/31/sub-folder-a/"> Sub folder a</a>
                                         </td>
@@ -22783,9 +22757,9 @@ exports[`applications documentation Move documents file list page POST /case/123
                                             <svg xmlns="http://www.w3.org/2000/svg" width="26" height="20" viewBox="0 0 26 20"
                                             aria-hidden="true" focusable="false" class="svg-folder-icon">
                                                 <path d="
-			M9.64475,1.25 H1.25
-			V18.75 H24.75
-			V5.25 H11.14475z" stroke="currentColor" stroke-width="2.5" stroke-linecap="butt"
+      			M9.64475,1.25 H1.25
+      			V18.75 H24.75
+      			V5.25 H11.14475z" stroke="currentColor" stroke-width="2.5" stroke-linecap="butt"
                                                 fill="transparent"></path>
                                             </svg><a class="govuk-link govuk-body-m" href="/applications-service/case/123/project-documentation/32/sub-folder-b/"> Sub folder b</a>
                                         </td>

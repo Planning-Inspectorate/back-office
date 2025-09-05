@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`applications create: check your answers Case created should render the page 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
             <div class="govuk-panel govuk-panel--confirmation">
@@ -19,7 +19,7 @@ exports[`applications create: check your answers Case created should render the 
 `;
 
 exports[`applications create: check your answers Check your answers GET /check-your-answers should render the page 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <h1 class="govuk-heading-l"><div class="govuk-grid-row"><div class="govuk-grid-column-full"> Check your answers before creating a new project</div></div></h1>
     <form method="post" action="">
         <div class="govuk-grid-row">
@@ -168,12 +168,12 @@ exports[`applications create: check your answers Check your answers GET /check-y
         </div>
         <br>
         <div class="govuk-warning-text"><span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-            <strong             class="govuk-warning-text__text"><span class="govuk-warning-text__assistive">Warning</span> Creating the
-                project will not publish the page onto the NSIP website</strong>
+            <strong             class="govuk-warning-text__text"><span class="govuk-visually-hidden">Warning</span> Creating the project
+                will not publish the page onto the NSIP website</strong>
         </div>
         <div class="govuk-grid-row">
             <div class="govuk-button-group pins-button-group govuk-grid-column-one-half">
-                <button class="govuk-button" data-module="govuk-button">I accept - confirm creation of a new case</button>
+                <button type="submit" class="govuk-button" data-module="govuk-button">I accept - confirm creation of a new case</button>
             </div>
         </div>
     </form>
@@ -181,7 +181,7 @@ exports[`applications create: check your answers Check your answers GET /check-y
 `;
 
 exports[`applications create: check your answers Check your answers POST /check-your-answers should display errors if fields are missing 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
             <div class="govuk-error-summary" data-module="govuk-error-summary">
@@ -355,12 +355,12 @@ exports[`applications create: check your answers Check your answers POST /check-
         </div>
         <br>
         <div class="govuk-warning-text"><span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-            <strong             class="govuk-warning-text__text"><span class="govuk-warning-text__assistive">Warning</span> Creating the
-                project will not publish the page onto the NSIP website</strong>
+            <strong             class="govuk-warning-text__text"><span class="govuk-visually-hidden">Warning</span> Creating the project
+                will not publish the page onto the NSIP website</strong>
         </div>
         <div class="govuk-grid-row">
             <div class="govuk-button-group pins-button-group govuk-grid-column-one-half">
-                <button class="govuk-button" data-module="govuk-button">I accept - confirm creation of a new case</button>
+                <button type="submit" class="govuk-button" data-module="govuk-button">I accept - confirm creation of a new case</button>
             </div>
         </div>
     </form>

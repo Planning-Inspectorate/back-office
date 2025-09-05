@@ -1,7 +1,7 @@
 /**
  * @param {string | null} stage
  *
- * @returns {import('pins-data-model').Schemas.Folder.caseStage.enum} caseStage
+ * @returns {import('@planning-inspectorate/data-model').Schemas.Folder.caseStage.enum} caseStage
  */
 export const folderCaseStageMapper = (stage) => {
 	const caseStage = stage?.toString().toLowerCase() ?? null;

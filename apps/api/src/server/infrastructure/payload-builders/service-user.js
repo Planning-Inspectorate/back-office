@@ -5,7 +5,7 @@ import { sourceSystem } from './constants.js';
  * @param {string} caseReference
  * @param {'Applicant' | 'Appellant' | 'Agent' | 'RepresentationContact' | 'Subscriber'} caseRole
  *
- * @returns {import('pins-data-model').Schemas.ServiceUser} ServiceUser
+ * @returns {import('@planning-inspectorate/data-model').Schemas.ServiceUser} ServiceUser
  */
 export const buildServiceUserPayload = (entity, caseReference, caseRole) => ({
 	// TODO: Note Mar 2024: full fat schema validation - we do not have organisationType, salutation, otherPhoneNumber, or faxNumber - so nulls are sent
