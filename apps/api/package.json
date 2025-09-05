@@ -71,7 +71,7 @@
     "pino": "*",
     "pino-http": "*",
     "pino-pretty": "*",
-    "pins-data-model": "*",
+	"@planning-inspectorate/data-model": "*",
     "sanitize-html": "*",
     "swagger-ui-express": "*",
     "xstate": "*"

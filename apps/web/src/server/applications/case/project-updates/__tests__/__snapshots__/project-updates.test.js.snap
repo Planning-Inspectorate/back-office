@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`project-updates GET /applications-service/:caseId/project-updates should render the project updates table 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="top-errors-hook" role="alert"></div>
     <div class="govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-left-0 govuk-!-margin-bottom-7 pins-masthead-summary">
         <div class="govuk-grid-column-full">
@@ -10,7 +10,7 @@ exports[`project-updates GET /applications-service/:caseId/project-updates shoul
             <div class="govuk-grid-row">
                 <div class="govuk-grid-column-full govuk-body">,
                     <br>
-                    <br><strong class="govuk-tag govuk-tag--">in test</strong>
+                    <br><strong class="govuk-tag govuk-tag-- pins-tag--no-max-width">in test</strong>
                 </div>
             </div>
         </div>
@@ -40,7 +40,7 @@ exports[`project-updates GET /applications-service/:caseId/project-updates shoul
                         </p>
                     </div>
                 </div>
-                <table class="govuk-table">
+                <table class="govuk-table pins-table--project-updates">
                     <thead class="govuk-table__head">
                         <tr class="govuk-table__row">
                             <th scope="col" class="govuk-table__header"><a href="/applications-service/case/1/project-updates?page=1&amp;sortBy=datePublished"
@@ -63,7 +63,7 @@ exports[`project-updates GET /applications-service/:caseId/project-updates shoul
                             <td class="govuk-table__cell">No</td>
                             <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--grey single-line">draft</strong>
                             </td>
-                            <td class="govuk-table__cell"><a href="/applications-service/case/1/project-updates/3/review">Review</a>
+                            <td class="govuk-table__cell"><a class="govuk-link" href="/applications-service/case/1/project-updates/3/review">Review</a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -72,7 +72,7 @@ exports[`project-updates GET /applications-service/:caseId/project-updates shoul
                             <td class="govuk-table__cell">No</td>
                             <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--grey single-line">draft</strong>
                             </td>
-                            <td class="govuk-table__cell"><a href="/applications-service/case/1/project-updates/3/review">Review</a>
+                            <td class="govuk-table__cell"><a class="govuk-link" href="/applications-service/case/1/project-updates/3/review">Review</a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -81,7 +81,7 @@ exports[`project-updates GET /applications-service/:caseId/project-updates shoul
                             <td class="govuk-table__cell">No</td>
                             <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--grey single-line">draft</strong>
                             </td>
-                            <td class="govuk-table__cell"><a href="/applications-service/case/1/project-updates/3/review">Review</a>
+                            <td class="govuk-table__cell"><a class="govuk-link" href="/applications-service/case/1/project-updates/3/review">Review</a>
                             </td>
                         </tr>
                     </tbody>
@@ -93,7 +93,7 @@ exports[`project-updates GET /applications-service/:caseId/project-updates shoul
 `;
 
 exports[`project-updates GET /applications-service/:caseId/project-updates/:projectUpdateId/check-answers should render the page 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <p class="govuk-body"><strong>Project name:</strong> mock title</p>
     <h1 class="govuk-heading-l">Create your project update</h1>
     <div class="govuk-grid-row">
@@ -106,23 +106,23 @@ exports[`project-updates GET /applications-service/:caseId/project-updates/:proj
                 <dl class="govuk-summary-list">
                     <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Details about the update</dt>
                         <dd                         class="govuk-summary-list__value project-update">Hello, world!</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/1/project-updates/1/content"> Change<span class="govuk-visually-hidden"> content</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/1/project-updates/1/content">Change<span class="govuk-visually-hidden"> content</span></a>
                             </dd>
                     </div>
                     <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Email to subscribers</dt>
                         <dd class="govuk-summary-list__value">No</dd>
-                        <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/1/project-updates/1/content"> Change<span class="govuk-visually-hidden"> content</span></a>
+                        <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/1/project-updates/1/content">Change<span class="govuk-visually-hidden"> content</span></a>
                         </dd>
                     </div>
                     <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> What information does the update contain?</dt>
                         <dd                         class="govuk-summary-list__value">General</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/1/project-updates/1/type"> Change<span class="govuk-visually-hidden"> content</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/1/project-updates/1/type">Change<span class="govuk-visually-hidden"> content</span></a>
                             </dd>
                     </div>
                     <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Status</dt>
                         <dd class="govuk-summary-list__value"><strong class="govuk-tag govuk-tag--grey single-line">draft</strong>
                         </dd>
-                        <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/1/project-updates/1/status"> Change<span class="govuk-visually-hidden"> status</span></a>
+                        <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/1/project-updates/1/status">Change<span class="govuk-visually-hidden"> status</span></a>
                         </dd>
                     </div>
                 </dl>
@@ -147,7 +147,7 @@ exports[`project-updates GET /applications-service/:caseId/project-updates/:proj
 `;
 
 exports[`project-updates GET /applications-service/:caseId/project-updates/:projectUpdateId/delete should render the page 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <p class="govuk-body"><strong>Project name:</strong> mock title</p>
     <h1 class="govuk-heading-l">Delete project update</h1>
     <form method="post" action="" novalidate="novalidate">
@@ -169,7 +169,7 @@ exports[`project-updates GET /applications-service/:caseId/project-updates/:proj
 `;
 
 exports[`project-updates GET /applications-service/:caseId/project-updates/:projectUpdateId/review should render the page 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <p class="govuk-body"><strong>Project name:</strong> mock title</p>
     <h1 class="govuk-heading-l">Check your project update</h1>
     <div class="govuk-grid-row">
@@ -182,23 +182,23 @@ exports[`project-updates GET /applications-service/:caseId/project-updates/:proj
                 <dl class="govuk-summary-list">
                     <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Details about the update</dt>
                         <dd                         class="govuk-summary-list__value project-update">Hello, world!</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/1/project-updates/1/content"> Change<span class="govuk-visually-hidden"> content</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/1/project-updates/1/content">Change<span class="govuk-visually-hidden"> content</span></a>
                             </dd>
                     </div>
                     <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Email to subscribers</dt>
                         <dd class="govuk-summary-list__value">No</dd>
-                        <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/1/project-updates/1/content"> Change<span class="govuk-visually-hidden"> content</span></a>
+                        <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/1/project-updates/1/content">Change<span class="govuk-visually-hidden"> content</span></a>
                         </dd>
                     </div>
                     <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> What information does the update contain?</dt>
                         <dd                         class="govuk-summary-list__value">General</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/1/project-updates/1/type"> Change<span class="govuk-visually-hidden"> content</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/1/project-updates/1/type">Change<span class="govuk-visually-hidden"> content</span></a>
                             </dd>
                     </div>
                     <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Status</dt>
                         <dd class="govuk-summary-list__value"><strong class="govuk-tag govuk-tag--grey single-line">draft</strong>
                         </dd>
-                        <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/1/project-updates/1/status"> Change<span class="govuk-visually-hidden"> status</span></a>
+                        <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/1/project-updates/1/status">Change<span class="govuk-visually-hidden"> status</span></a>
                         </dd>
                     </div>
                 </dl>
@@ -222,7 +222,7 @@ exports[`project-updates GET /applications-service/:caseId/project-updates/:proj
 `;
 
 exports[`project-updates GET /applications-service/:caseId/project-updates/:projectUpdateId/status should render the page 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <p class="govuk-body"><strong>Project name:</strong> mock title</p>
     <form method="post" action=""
     novalidate="novalidate">
@@ -261,7 +261,7 @@ exports[`project-updates GET /applications-service/:caseId/project-updates/:proj
 `;
 
 exports[`project-updates GET /applications-service/:caseId/project-updates/:projectUpdateId/type should render the page 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <p class="govuk-body"><strong>Project name:</strong> mock title</p>
     <form method="post" action=""
     novalidate="novalidate">
@@ -310,7 +310,7 @@ exports[`project-updates GET /applications-service/:caseId/project-updates/:proj
 `;
 
 exports[`project-updates GET /applications-service/:caseId/project-updates/create should render the page 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <p class="govuk-body"><strong>Project name:</strong> mock title</p>
     <h1 class="govuk-heading-l">Create project update</h1>
     <form method="post" action="" novalidate="novalidate">
@@ -326,8 +326,8 @@ exports[`project-updates GET /applications-service/:caseId/project-updates/creat
                         id="backOfficeProjectUpdateContent"></div>
                         <noscript>
                             <div class="govuk-form-group">
-                                <label class="govuk-label govuk-!-font-weight-bold">Details about the update</label>
-                                <textarea class="govuk-textarea" id=""
+                                <label class="govuk-label govuk-!-font-weight-bold" for="backOfficeProjectUpdateContent">Details about the update</label>
+                                <textarea class="govuk-textarea" id="backOfficeProjectUpdateContent"
                                 name="backOfficeProjectUpdateContent" rows="5"></textarea>
                             </div>
                         </noscript>
@@ -364,7 +364,7 @@ exports[`project-updates GET /applications-service/:caseId/project-updates/creat
 `;
 
 exports[`project-updates POST /applications-service/:caseId/project-updates/:projectUpdateId/check-answers should render the next step (draft status) 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="top-errors-hook" role="alert"></div>
     <div class="govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-left-0 govuk-!-margin-bottom-7 pins-masthead-summary">
         <div class="govuk-grid-column-full">
@@ -373,7 +373,7 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/:pro
             <div class="govuk-grid-row">
                 <div class="govuk-grid-column-full govuk-body">,
                     <br>
-                    <br><strong class="govuk-tag govuk-tag--">in test</strong>
+                    <br><strong class="govuk-tag govuk-tag-- pins-tag--no-max-width">in test</strong>
                 </div>
             </div>
         </div>
@@ -414,7 +414,7 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/:pro
                         </p>
                     </div>
                 </div>
-                <table class="govuk-table">
+                <table class="govuk-table pins-table--project-updates">
                     <thead class="govuk-table__head">
                         <tr class="govuk-table__row">
                             <th scope="col" class="govuk-table__header"><a href="/applications-service/case/1/project-updates?page=1&amp;sortBy=datePublished"
@@ -437,7 +437,7 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/:pro
                             <td class="govuk-table__cell">No</td>
                             <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--grey single-line">draft</strong>
                             </td>
-                            <td class="govuk-table__cell"><a href="/applications-service/case/1/project-updates/3/review">Review</a>
+                            <td class="govuk-table__cell"><a class="govuk-link" href="/applications-service/case/1/project-updates/3/review">Review</a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -446,7 +446,7 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/:pro
                             <td class="govuk-table__cell">No</td>
                             <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--grey single-line">draft</strong>
                             </td>
-                            <td class="govuk-table__cell"><a href="/applications-service/case/1/project-updates/3/review">Review</a>
+                            <td class="govuk-table__cell"><a class="govuk-link" href="/applications-service/case/1/project-updates/3/review">Review</a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -455,7 +455,7 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/:pro
                             <td class="govuk-table__cell">No</td>
                             <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--grey single-line">draft</strong>
                             </td>
-                            <td class="govuk-table__cell"><a href="/applications-service/case/1/project-updates/3/review">Review</a>
+                            <td class="govuk-table__cell"><a class="govuk-link" href="/applications-service/case/1/project-updates/3/review">Review</a>
                             </td>
                         </tr>
                     </tbody>
@@ -467,7 +467,7 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/:pro
 `;
 
 exports[`project-updates POST /applications-service/:caseId/project-updates/:projectUpdateId/check-answers should render the next step 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="top-errors-hook" role="alert"></div>
     <div class="govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-left-0 govuk-!-margin-bottom-7 pins-masthead-summary">
         <div class="govuk-grid-column-full">
@@ -476,7 +476,7 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/:pro
             <div class="govuk-grid-row">
                 <div class="govuk-grid-column-full govuk-body">,
                     <br>
-                    <br><strong class="govuk-tag govuk-tag--">in test</strong>
+                    <br><strong class="govuk-tag govuk-tag-- pins-tag--no-max-width">in test</strong>
                 </div>
             </div>
         </div>
@@ -517,7 +517,7 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/:pro
                         </p>
                     </div>
                 </div>
-                <table class="govuk-table">
+                <table class="govuk-table pins-table--project-updates">
                     <thead class="govuk-table__head">
                         <tr class="govuk-table__row">
                             <th scope="col" class="govuk-table__header"><a href="/applications-service/case/1/project-updates?page=1&amp;sortBy=datePublished"
@@ -540,7 +540,7 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/:pro
                             <td class="govuk-table__cell">No</td>
                             <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--grey single-line">draft</strong>
                             </td>
-                            <td class="govuk-table__cell"><a href="/applications-service/case/1/project-updates/3/review">Review</a>
+                            <td class="govuk-table__cell"><a class="govuk-link" href="/applications-service/case/1/project-updates/3/review">Review</a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -549,7 +549,7 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/:pro
                             <td class="govuk-table__cell">No</td>
                             <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--grey single-line">draft</strong>
                             </td>
-                            <td class="govuk-table__cell"><a href="/applications-service/case/1/project-updates/3/review">Review</a>
+                            <td class="govuk-table__cell"><a class="govuk-link" href="/applications-service/case/1/project-updates/3/review">Review</a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -558,7 +558,7 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/:pro
                             <td class="govuk-table__cell">No</td>
                             <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--grey single-line">draft</strong>
                             </td>
-                            <td class="govuk-table__cell"><a href="/applications-service/case/1/project-updates/3/review">Review</a>
+                            <td class="govuk-table__cell"><a class="govuk-link" href="/applications-service/case/1/project-updates/3/review">Review</a>
                             </td>
                         </tr>
                     </tbody>
@@ -570,7 +570,7 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/:pro
 `;
 
 exports[`project-updates POST /applications-service/:caseId/project-updates/:projectUpdateId/delete should render the page 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="top-errors-hook" role="alert"></div>
     <div class="govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-left-0 govuk-!-margin-bottom-7 pins-masthead-summary">
         <div class="govuk-grid-column-full">
@@ -579,7 +579,7 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/:pro
             <div class="govuk-grid-row">
                 <div class="govuk-grid-column-full govuk-body">,
                     <br>
-                    <br><strong class="govuk-tag govuk-tag--">in test</strong>
+                    <br><strong class="govuk-tag govuk-tag-- pins-tag--no-max-width">in test</strong>
                 </div>
             </div>
         </div>
@@ -620,7 +620,7 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/:pro
                         </p>
                     </div>
                 </div>
-                <table class="govuk-table">
+                <table class="govuk-table pins-table--project-updates">
                     <thead class="govuk-table__head">
                         <tr class="govuk-table__row">
                             <th scope="col" class="govuk-table__header"><a href="/applications-service/case/1/project-updates?page=1&amp;sortBy=datePublished"
@@ -643,7 +643,7 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/:pro
                             <td class="govuk-table__cell">No</td>
                             <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--grey single-line">draft</strong>
                             </td>
-                            <td class="govuk-table__cell"><a href="/applications-service/case/1/project-updates/3/review">Review</a>
+                            <td class="govuk-table__cell"><a class="govuk-link" href="/applications-service/case/1/project-updates/3/review">Review</a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -652,7 +652,7 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/:pro
                             <td class="govuk-table__cell">No</td>
                             <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--grey single-line">draft</strong>
                             </td>
-                            <td class="govuk-table__cell"><a href="/applications-service/case/1/project-updates/3/review">Review</a>
+                            <td class="govuk-table__cell"><a class="govuk-link" href="/applications-service/case/1/project-updates/3/review">Review</a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
@@ -661,7 +661,7 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/:pro
                             <td class="govuk-table__cell">No</td>
                             <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--grey single-line">draft</strong>
                             </td>
-                            <td class="govuk-table__cell"><a href="/applications-service/case/1/project-updates/3/review">Review</a>
+                            <td class="govuk-table__cell"><a class="govuk-link" href="/applications-service/case/1/project-updates/3/review">Review</a>
                             </td>
                         </tr>
                     </tbody>
@@ -673,7 +673,7 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/:pro
 `;
 
 exports[`project-updates POST /applications-service/:caseId/project-updates/create where Case is English: should check content exists 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
             <div class="govuk-error-summary" data-module="govuk-error-summary">
@@ -706,8 +706,8 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/crea
                         id="backOfficeProjectUpdateContent"></div>
                         <noscript>
                             <div class="govuk-form-group">
-                                <label class="govuk-label govuk-!-font-weight-bold">Details about the update</label>
-                                <textarea class="govuk-textarea" id=""
+                                <label class="govuk-label govuk-!-font-weight-bold" for="backOfficeProjectUpdateContent">Details about the update</label>
+                                <textarea class="govuk-textarea" id="backOfficeProjectUpdateContent"
                                 name="backOfficeProjectUpdateContent" rows="5"></textarea>
                             </div>
                         </noscript>
@@ -744,7 +744,7 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/crea
 `;
 
 exports[`project-updates POST /applications-service/:caseId/project-updates/create where Case is English: should check content is 12 or more characters 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
             <div class="govuk-error-summary" data-module="govuk-error-summary">
@@ -777,8 +777,8 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/crea
                         id="backOfficeProjectUpdateContent"></div>
                         <noscript>
                             <div class="govuk-form-group">
-                                <label class="govuk-label govuk-!-font-weight-bold">Details about the update</label>
-                                <textarea class="govuk-textarea" id=""
+                                <label class="govuk-label govuk-!-font-weight-bold" for="backOfficeProjectUpdateContent">Details about the update</label>
+                                <textarea class="govuk-textarea" id="backOfficeProjectUpdateContent"
                                 name="backOfficeProjectUpdateContent" rows="5">12345678901</textarea>
                             </div>
                         </noscript>
@@ -815,7 +815,7 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/crea
 `;
 
 exports[`project-updates POST /applications-service/:caseId/project-updates/create where Case is English: should render the next step 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
             <h1 class="govuk-heading-xl">Sorry, there is a problem with the service</h1>
@@ -828,7 +828,7 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/crea
 `;
 
 exports[`project-updates POST /applications-service/:caseId/project-updates/create where Case is Welsh: should check content exists 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
             <div class="govuk-error-summary" data-module="govuk-error-summary">
@@ -859,8 +859,8 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/crea
                         id="backOfficeProjectUpdateContent"></div>
                         <noscript>
                             <div class="govuk-form-group">
-                                <label class="govuk-label govuk-!-font-weight-bold">Details about the update</label>
-                                <textarea class="govuk-textarea" id=""
+                                <label class="govuk-label govuk-!-font-weight-bold" for="backOfficeProjectUpdateContent">Details about the update</label>
+                                <textarea class="govuk-textarea" id="backOfficeProjectUpdateContent"
                                 name="backOfficeProjectUpdateContent" rows="5">1234567890123</textarea>
                             </div>
                         </noscript>
@@ -882,9 +882,10 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/crea
                         id="backOfficeProjectUpdateContentWelsh"></div>
                         <noscript>
                             <div class="govuk-form-group">
-                                <label class="govuk-label govuk-!-font-weight-bold">Details about the update in Welsh</label>
+                                <label class="govuk-label govuk-!-font-weight-bold" for="backOfficeProjectUpdateContentWelsh">Details about the update in Welsh</label>
                                 <textarea class="govuk-textarea"
-                                id="" name="backOfficeProjectUpdateContentWelsh" rows="5"></textarea>
+                                id="backOfficeProjectUpdateContentWelsh" name="backOfficeProjectUpdateContentWelsh"
+                                rows="5"></textarea>
                             </div>
                         </noscript>
                     </div>
@@ -920,7 +921,7 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/crea
 `;
 
 exports[`project-updates POST /applications-service/:caseId/project-updates/create where Case is Welsh: should check content is 12 or more characters 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
             <div class="govuk-error-summary" data-module="govuk-error-summary">
@@ -951,8 +952,8 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/crea
                         id="backOfficeProjectUpdateContent"></div>
                         <noscript>
                             <div class="govuk-form-group">
-                                <label class="govuk-label govuk-!-font-weight-bold">Details about the update</label>
-                                <textarea class="govuk-textarea" id=""
+                                <label class="govuk-label govuk-!-font-weight-bold" for="backOfficeProjectUpdateContent">Details about the update</label>
+                                <textarea class="govuk-textarea" id="backOfficeProjectUpdateContent"
                                 name="backOfficeProjectUpdateContent" rows="5">1234567890123</textarea>
                             </div>
                         </noscript>
@@ -974,9 +975,10 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/crea
                         id="backOfficeProjectUpdateContentWelsh"></div>
                         <noscript>
                             <div class="govuk-form-group">
-                                <label class="govuk-label govuk-!-font-weight-bold">Details about the update in Welsh</label>
+                                <label class="govuk-label govuk-!-font-weight-bold" for="backOfficeProjectUpdateContentWelsh">Details about the update in Welsh</label>
                                 <textarea class="govuk-textarea"
-                                id="" name="backOfficeProjectUpdateContentWelsh" rows="5">12345678901</textarea>
+                                id="backOfficeProjectUpdateContentWelsh" name="backOfficeProjectUpdateContentWelsh"
+                                rows="5">12345678901</textarea>
                             </div>
                         </noscript>
                     </div>
@@ -1012,7 +1014,7 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/crea
 `;
 
 exports[`project-updates POST /applications-service/:caseId/project-updates/create where Case is Welsh: should render the next step 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
             <h1 class="govuk-heading-xl">Sorry, there is a problem with the service</h1>

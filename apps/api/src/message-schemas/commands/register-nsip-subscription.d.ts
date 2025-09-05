@@ -1,4 +1,4 @@
-import { Schemas } from 'pins-data-model';
+import { Schemas } from '@planning-inspectorate/data-model';
 
 /**
  * register-nsip-subscription schema for use in code

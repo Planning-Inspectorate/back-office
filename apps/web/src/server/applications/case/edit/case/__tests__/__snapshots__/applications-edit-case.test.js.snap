@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`applications edit Grid references GET /edit/:caseId/project-location should display resumed data if the API returns something 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <h1 class="govuk-heading-l govuk-!-margin-bottom-3"> Enter grid references</h1>
     <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
         <div class="govuk-form-group">
@@ -22,7 +22,7 @@ exports[`applications edit Grid references GET /edit/:caseId/project-location sh
         </div>
         <div class="govuk-grid-row">
             <div class="govuk-button-group govuk-grid-column-one-half">
-                <button class="govuk-button" data-module="govuk-button">Save changes</button>
+                <button type="submit" class="govuk-button" data-module="govuk-button">Save changes</button>
             </div>
         </div>
     </form>
@@ -30,7 +30,7 @@ exports[`applications edit Grid references GET /edit/:caseId/project-location sh
 `;
 
 exports[`applications edit Name Description GET edit/description should render page with resumed data 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds-from-desktop">
             <form method="post" action="" novalidate="novalidate">
@@ -43,7 +43,7 @@ exports[`applications edit Name Description GET edit/description should render p
                         et dolore magna aliqua Ut enim ad minim veniam quis nostrud exercitation
                         ullamco laboris nisi ut aliquip ex ea commodo consequat</textarea>
                 </div>
-                <button class="govuk-button" data-module="govuk-button">Save changes</button>
+                <button type="submit" class="govuk-button" data-module="govuk-button">Save changes</button>
             </form>
         </div>
     </div>
@@ -51,7 +51,7 @@ exports[`applications edit Name Description GET edit/description should render p
 `;
 
 exports[`applications edit Name Description GET edit/description-welsh When feature flag is active should render page with english inset 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds-from-desktop">
             <form method="post" action="" novalidate="novalidate">
@@ -65,7 +65,7 @@ exports[`applications edit Name Description GET edit/description-welsh When feat
                     <textarea class="govuk-textarea" id="descriptionWelsh"
                     name="descriptionWelsh" rows="5"></textarea>
                 </div>
-                <button class="govuk-button" data-module="govuk-button">Save changes</button>
+                <button type="submit" class="govuk-button" data-module="govuk-button">Save changes</button>
             </form>
         </div>
     </div>
@@ -73,7 +73,7 @@ exports[`applications edit Name Description GET edit/description-welsh When feat
 `;
 
 exports[`applications edit Name GET /edit/name When status is Draft: should not render the page 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
             <h1 class="govuk-heading-xl">Sorry, there is a problem with the service</h1>
@@ -86,7 +86,7 @@ exports[`applications edit Name GET /edit/name When status is Draft: should not 
 `;
 
 exports[`applications edit Name GET /edit/name When status is Non-draft: should render the page with resumed data 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <h1 class="govuk-heading-l govuk-!-margin-bottom-3"> Project name</h1>
     <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
         <div class="govuk-form-group">
@@ -95,7 +95,7 @@ exports[`applications edit Name GET /edit/name When status is Non-draft: should 
         </div>
         <div class="govuk-grid-row">
             <div class="govuk-button-group govuk-grid-column-one-half">
-                <button class="govuk-button" data-module="govuk-button">Save changes</button>
+                <button type="submit" class="govuk-button" data-module="govuk-button">Save changes</button>
             </div>
         </div>
     </form>
@@ -103,7 +103,7 @@ exports[`applications edit Name GET /edit/name When status is Non-draft: should 
 `;
 
 exports[`applications edit Name GET /edit/name should render form 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <h1 class="govuk-heading-l govuk-!-margin-bottom-3"> Project name</h1>
     <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
         <div class="govuk-form-group">
@@ -112,7 +112,7 @@ exports[`applications edit Name GET /edit/name should render form 1`] = `
         </div>
         <div class="govuk-grid-row">
             <div class="govuk-button-group govuk-grid-column-one-half">
-                <button class="govuk-button" data-module="govuk-button">Save changes</button>
+                <button type="submit" class="govuk-button" data-module="govuk-button">Save changes</button>
             </div>
         </div>
     </form>
@@ -120,7 +120,7 @@ exports[`applications edit Name GET /edit/name should render form 1`] = `
 `;
 
 exports[`applications edit Name GET edit/name-welsh When feature flag is active should render page with english inset 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <h1 class="govuk-heading-l govuk-!-margin-bottom-3"> Project name in Welsh</h1>
     <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
         <p class='govuk-body govuk-!-margin-bottom-0'>Project name in English:</p>
@@ -132,7 +132,7 @@ exports[`applications edit Name GET edit/name-welsh When feature flag is active 
         </div>
         <div class="govuk-grid-row">
             <div class="govuk-button-group govuk-grid-column-one-half">
-                <button class="govuk-button" data-module="govuk-button">Save changes</button>
+                <button type="submit" class="govuk-button" data-module="govuk-button">Save changes</button>
             </div>
         </div>
     </form>
@@ -140,7 +140,7 @@ exports[`applications edit Name GET edit/name-welsh When feature flag is active 
 `;
 
 exports[`applications edit Name Project location GET /edit/:caseId/project-location should display resumed data if the API returns something 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds-from-desktop">
             <form method="post" action="" novalidate="novalidate">
@@ -151,7 +151,7 @@ exports[`applications edit Name Project location GET /edit/:caseId/project-locat
                     <textarea class="govuk-textarea" id="geographicalInformation.locationDescription"
                     name="geographicalInformation.locationDescription" rows="5" aria-describedby="geographicalInformation.locationDescription-hint">London</textarea>
                 </div>
-                <button class="govuk-button" data-module="govuk-button">Save changes</button>
+                <button type="submit" class="govuk-button" data-module="govuk-button">Save changes</button>
             </form>
         </div>
     </div>
@@ -159,7 +159,7 @@ exports[`applications edit Name Project location GET /edit/:caseId/project-locat
 `;
 
 exports[`applications edit Name Project location GET edit/:caseId/project-location-welsh When feature flag is active should render page with english inset 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds-from-desktop">
             <form method="post" action="" novalidate="novalidate">
@@ -171,7 +171,7 @@ exports[`applications edit Name Project location GET edit/:caseId/project-locati
                     <textarea class="govuk-textarea" id="geographicalInformation.locationDescriptionWelsh"
                     name="geographicalInformation.locationDescriptionWelsh" rows="5"></textarea>
                 </div>
-                <button class="govuk-button" data-module="govuk-button">Save changes</button>
+                <button type="submit" class="govuk-button" data-module="govuk-button">Save changes</button>
             </form>
         </div>
     </div>
@@ -179,7 +179,7 @@ exports[`applications edit Name Project location GET edit/:caseId/project-locati
 `;
 
 exports[`applications edit Regions GET /edit/regions should render the page with checked options if the api returns something 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
         <div class="govuk-form-group">
             <fieldset class="govuk-fieldset">
@@ -224,7 +224,7 @@ exports[`applications edit Regions GET /edit/regions should render the page with
         </div>
         <div class="govuk-grid-row">
             <div class="govuk-button-group govuk-grid-column-one-half">
-                <button class="govuk-button" data-module="govuk-button">Save changes</button>
+                <button type="submit" class="govuk-button" data-module="govuk-button">Save changes</button>
             </div>
         </div>
     </form>
@@ -232,7 +232,7 @@ exports[`applications edit Regions GET /edit/regions should render the page with
 `;
 
 exports[`applications edit Team email GET /edit/team-email should render the page with no value inside the text input if api does not return resumed data 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <h1 class="govuk-heading-l govuk-!-margin-bottom-3"> Enter the project email (optional)</h1>
     <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
         <div class="govuk-form-group">
@@ -243,7 +243,7 @@ exports[`applications edit Team email GET /edit/team-email should render the pag
         </div>
         <div class="govuk-grid-row">
             <div class="govuk-button-group govuk-grid-column-one-half">
-                <button class="govuk-button" data-module="govuk-button">Save changes</button>
+                <button type="submit" class="govuk-button" data-module="govuk-button">Save changes</button>
             </div>
         </div>
     </form>
@@ -251,7 +251,7 @@ exports[`applications edit Team email GET /edit/team-email should render the pag
 `;
 
 exports[`applications edit Team email GET /edit/team-email should render the page with the resumed data if the api returns something 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <h1 class="govuk-heading-l govuk-!-margin-bottom-3"> Enter the project email (optional)</h1>
     <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
         <div class="govuk-form-group">
@@ -262,7 +262,7 @@ exports[`applications edit Team email GET /edit/team-email should render the pag
         </div>
         <div class="govuk-grid-row">
             <div class="govuk-button-group govuk-grid-column-one-half">
-                <button class="govuk-button" data-module="govuk-button">Save changes</button>
+                <button type="submit" class="govuk-button" data-module="govuk-button">Save changes</button>
             </div>
         </div>
     </form>
@@ -270,7 +270,7 @@ exports[`applications edit Team email GET /edit/team-email should render the pag
 `;
 
 exports[`applications edit Zoom Level GET edit/zoom-level should render the page with the checked option from the resumed data 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
         <div class="govuk-form-group">
             <fieldset class="govuk-fieldset">
@@ -314,7 +314,7 @@ exports[`applications edit Zoom Level GET edit/zoom-level should render the page
         </div>
         <div class="govuk-grid-row">
             <div class="govuk-button-group govuk-grid-column-one-half">
-                <button class="govuk-button" data-module="govuk-button">Save changes</button>
+                <button type="submit" class="govuk-button" data-module="govuk-button">Save changes</button>
             </div>
         </div>
     </form>
