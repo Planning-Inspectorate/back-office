@@ -105,8 +105,8 @@ exports[`S51 Advice Key dates page GET /case/123/key-dates/ should render the pa
                     <div id="accordion-key-dates-content-2" class="govuk-accordion__section-content">
                         <div class="govuk-summary-card">
                             <div class="govuk-summary-card__title-wrapper">
-                                <h2 class="govuk-summary-card__title"> Acceptance</h2>
-                                <div class="govuk-summary-card__actions"><a class="govuk-link" href="/applications-service/case/123/key-dates/acceptance">Manage dates<span class="govuk-visually-hidden"> for Acceptance (Acceptance)</span></a>
+                                <h2 class="govuk-summary-card__title"> Acceptance dates</h2>
+                                <div class="govuk-summary-card__actions"><a class="govuk-link" href="/applications-service/case/123/key-dates/acceptance">Manage dates<span class="govuk-visually-hidden"> for Acceptance dates (Acceptance dates)</span></a>
                                 </div>
                             </div>
                             <div class="govuk-summary-card__content">
@@ -180,8 +180,8 @@ exports[`S51 Advice Key dates page GET /case/123/key-dates/ should render the pa
                     <div id="accordion-key-dates-content-4" class="govuk-accordion__section-content">
                         <div class="govuk-summary-card">
                             <div class="govuk-summary-card__title-wrapper">
-                                <h2 class="govuk-summary-card__title"> Examination</h2>
-                                <div class="govuk-summary-card__actions"><a class="govuk-link" href="/applications-service/case/123/key-dates/examination">Manage dates<span class="govuk-visually-hidden"> for Examination (Examination)</span></a>
+                                <h2 class="govuk-summary-card__title"> Examination dates</h2>
+                                <div class="govuk-summary-card__actions"><a class="govuk-link" href="/applications-service/case/123/key-dates/examination">Manage dates<span class="govuk-visually-hidden"> for Examination dates (Examination dates)</span></a>
                                 </div>
                             </div>
                             <div class="govuk-summary-card__content">
@@ -216,8 +216,8 @@ exports[`S51 Advice Key dates page GET /case/123/key-dates/ should render the pa
                     <div id="accordion-key-dates-content-5" class="govuk-accordion__section-content">
                         <div class="govuk-summary-card">
                             <div class="govuk-summary-card__title-wrapper">
-                                <h2 class="govuk-summary-card__title"> Recommendation</h2>
-                                <div class="govuk-summary-card__actions"><a class="govuk-link" href="/applications-service/case/123/key-dates/recommendation">Manage dates<span class="govuk-visually-hidden"> for Recommendation (Recommendation)</span></a>
+                                <h2 class="govuk-summary-card__title"> Recommendation dates</h2>
+                                <div class="govuk-summary-card__actions"><a class="govuk-link" href="/applications-service/case/123/key-dates/recommendation">Manage dates<span class="govuk-visually-hidden"> for Recommendation dates (Recommendation dates)</span></a>
                                 </div>
                             </div>
                             <div class="govuk-summary-card__content">
@@ -243,8 +243,8 @@ exports[`S51 Advice Key dates page GET /case/123/key-dates/ should render the pa
                     <div id="accordion-key-dates-content-6" class="govuk-accordion__section-content">
                         <div class="govuk-summary-card">
                             <div class="govuk-summary-card__title-wrapper">
-                                <h2 class="govuk-summary-card__title"> Decision</h2>
-                                <div class="govuk-summary-card__actions"><a class="govuk-link" href="/applications-service/case/123/key-dates/decision">Manage dates<span class="govuk-visually-hidden"> for Decision (Decision)</span></a>
+                                <h2 class="govuk-summary-card__title"> Decision dates</h2>
+                                <div class="govuk-summary-card__actions"><a class="govuk-link" href="/applications-service/case/123/key-dates/decision">Manage dates<span class="govuk-visually-hidden"> for Decision dates (Decision dates)</span></a>
                                 </div>
                             </div>
                             <div class="govuk-summary-card__content">
@@ -270,8 +270,8 @@ exports[`S51 Advice Key dates page GET /case/123/key-dates/ should render the pa
                     <div id="accordion-key-dates-content-7" class="govuk-accordion__section-content">
                         <div class="govuk-summary-card">
                             <div class="govuk-summary-card__title-wrapper">
-                                <h2 class="govuk-summary-card__title"> Post-decision</h2>
-                                <div class="govuk-summary-card__actions"><a class="govuk-link" href="/applications-service/case/123/key-dates/postDecision">Manage dates<span class="govuk-visually-hidden"> for Post-decision (Post-decision)</span></a>
+                                <h2 class="govuk-summary-card__title"> Judicial review dates</h2>
+                                <div class="govuk-summary-card__actions"><a class="govuk-link" href="/applications-service/case/123/key-dates/postDecision">Manage dates<span class="govuk-visually-hidden"> for Judicial review dates (Judicial review dates)</span></a>
                                 </div>
                             </div>
                             <div class="govuk-summary-card__content">
@@ -291,8 +291,8 @@ exports[`S51 Advice Key dates page GET /case/123/key-dates/ should render the pa
                     <div id="accordion-key-dates-content-8" class="govuk-accordion__section-content">
                         <div class="govuk-summary-card">
                             <div class="govuk-summary-card__title-wrapper">
-                                <h2 class="govuk-summary-card__title"> Withdrawal</h2>
-                                <div class="govuk-summary-card__actions"><a class="govuk-link" href="/applications-service/case/123/key-dates/withdrawal">Manage dates<span class="govuk-visually-hidden"> for Withdrawal (Withdrawal)</span></a>
+                                <h2 class="govuk-summary-card__title"> Withdrawal dates</h2>
+                                <div class="govuk-summary-card__actions"><a class="govuk-link" href="/applications-service/case/123/key-dates/withdrawal">Manage dates<span class="govuk-visually-hidden"> for Withdrawal dates (Withdrawal dates)</span></a>
                                 </div>
                             </div>
                             <div class="govuk-summary-card__content">

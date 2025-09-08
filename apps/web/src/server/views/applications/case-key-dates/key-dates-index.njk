@@ -10,6 +10,17 @@
 	<p class="govuk-body">Provide details on dates and deadlines in this project.</p>
 	<hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
 
+	{% set headingMap = {
+  preApplication: 'Pre-application dates',
+  acceptance: 'Acceptance dates',
+  preExamination: 'Pre-examination',
+  examination: 'Examination dates',
+  recommendation: 'Recommendation dates',
+  decision: 'Decision dates',
+  postDecision: 'Judicial review dates',
+  withdrawal: 'Withdrawal dates'
+} %}
+
 	{% set items = [] %}
 
 	{% for key, section in sections %}
@@ -25,7 +36,7 @@
 						{% set subsectionHeading = subsectionHeading + ' dates' %}
 					{% endif %}
 
-					{{ createSummaryList(subsectionData, subsectionKey, subsectionHeading, caseId) }}
+					{{ createSummaryList(subsectionData, subsectionKey, subsectionHeading, caseId, headingMap) }}
 				{% endfor %}
 			{% endset %}
 
@@ -36,7 +47,7 @@
 		{% else %}
 			{# Handle regular sections #}
 			{% set summaryListHtml %}
-				{{ createSummaryList(section, key, heading, caseId) }}
+				{{ createSummaryList(section, key, heading, caseId, headingMap) }}
 			{% endset %}
 
 			{% set items = items | concat([{
