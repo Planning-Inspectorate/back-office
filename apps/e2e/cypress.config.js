@@ -19,16 +19,18 @@ const app = process.env.APP;
 
 module.exports = defineConfig({
 	e2e: {
-		async setupNodeEvents(on, config) {
-			on('task', { AzureSignIn: azureSignIn });
-			on('task', { ClearAllCookies: clearAllCookies });
-			on('task', { CookiesFileExists: cookiesFileExists });
-			on('task', { DeleteDownloads: deleteDownloads });
-			on('task', { DeleteUnwantedFixtures: deleteUnwantedFixtures });
-			on('task', { GetConfigByFile: getConfigByFile });
-			on('task', { GetCookiesFileContents: getCookiesFileContents });
-			on('task', { ValidateDownloadedFile: validateDownloadedFile });
-			on('task', { LogToTerminal: logToTerminal });
+		setupNodeEvents(on, config) {
+			on('task', {
+				AzureSignIn: azureSignIn,
+				ClearAllCookies: clearAllCookies,
+				CookiesFileExists: cookiesFileExists,
+				DeleteDownloads: deleteDownloads,
+				DeleteUnwantedFixtures: deleteUnwantedFixtures,
+				GetConfigByFile: getConfigByFile,
+				GetCookiesFileContents: getCookiesFileContents,
+				ValidateDownloadedFile: validateDownloadedFile,
+				LogToTerminal: logToTerminal
+			});
 			return config;
 		},
 		baseUrl: process.env.BASE_URL,
