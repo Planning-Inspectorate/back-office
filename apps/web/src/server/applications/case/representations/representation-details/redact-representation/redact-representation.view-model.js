@@ -21,6 +21,7 @@ export const getPreviousPageUrl = (caseId, representationId) =>
  * @property {string} representationId
  * @property {string} backLinkUrl
  * @property {string} originalRepresentation
+ * @property {string} originalRepresentationText
  * @property {string} redactedRepresentation
  * @property {string?} notes
  * @property {string?} redactedBy
@@ -59,15 +60,22 @@ export const getRedactRepresentationViewModel = (
 	},
 	projectName,
 	statusText
-) => ({
-	caseId,
-	representationId,
-	backLinkUrl: getPreviousPageUrl(caseId, representationId),
-	originalRepresentation,
-	redactedRepresentation: redactedRepresentation ? redactedRepresentation : originalRepresentation,
-	organisationOrFullname: `${firstName || ''} ${lastName || ''}`.trim() || organisationName,
-	notes: redactedNotes,
-	redactedBy,
-	projectName,
-	statusText
-});
+) => {
+	// normalise new lines before processing to ensure suggestion offsets align on the front-end
+	originalRepresentation = originalRepresentation.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+	return {
+		caseId,
+		representationId,
+		backLinkUrl: getPreviousPageUrl(caseId, representationId),
+		originalRepresentation,
+		originalRepresentationText: originalRepresentation,
+		redactedRepresentation: redactedRepresentation
+			? redactedRepresentation
+			: originalRepresentation,
+		organisationOrFullname: `${firstName || ''} ${lastName || ''}`.trim() || organisationName,
+		notes: redactedNotes,
+		redactedBy,
+		projectName,
+		statusText
+	};
+};

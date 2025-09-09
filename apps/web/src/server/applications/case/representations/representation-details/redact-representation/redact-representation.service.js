@@ -114,7 +114,8 @@ export function highlightRedactionSuggestions(text, entities) {
 			'</mark>' +
 			highlighted.substring(entity.offset + entity.length);
 	}
-	return highlighted;
+	// replace newlines with <br> tags
+	return highlighted.replace(/\r\n|\n/g, '<br>');
 }
 
 /**
