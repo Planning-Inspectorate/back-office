@@ -60,6 +60,72 @@ function splitPreApplicationSection(sections) {
 }
 
 /**
+ * @param {Record<string, any>} sections - The original sections object
+ * @returns {Record<string, any>} sections with grouped preExamination subsections
+ */
+function splitPreExaminationSection(sections) {
+	if (!sections?.preExamination) {
+		return sections;
+	}
+
+	const preExaminationData = sections.preExamination;
+
+	const relevantRepresentationsFields = [
+		'dateOfRepresentationPeriodOpen',
+		'dateOfRelevantRepresentationClose',
+		'extensionToDateRelevantRepresentationsClose',
+		'dateRRepAppearOnWebsite'
+	];
+
+	const relevantRepresentationsReOpenFields = [
+		'dateOfReOpenRelevantRepresentationStart',
+		'dateOfReOpenRelevantRepresentationClose'
+	];
+
+	const otherDatesFields = [
+		'dateIAPIDue',
+		'rule6LetterPublishDate',
+		'preliminaryMeetingStartDate',
+		'notificationDateForPMAndEventsDirectlyFollowingPM',
+		'notificationDateForEventsApplicant'
+	];
+
+	const relevantRepresentations = /** @type {Record<string, any>} */ ({});
+	const relevantRepresentationsReOpen = /** @type {Record<string, any>} */ ({});
+	const otherDates = /** @type {Record<string, any>} */ ({});
+
+	relevantRepresentationsFields.forEach((field) => {
+		if (preExaminationData[field] !== undefined) {
+			relevantRepresentations[field] = preExaminationData[field];
+		}
+	});
+
+	relevantRepresentationsReOpenFields.forEach((field) => {
+		if (preExaminationData[field] !== undefined) {
+			relevantRepresentationsReOpen[field] = preExaminationData[field];
+		}
+	});
+
+	otherDatesFields.forEach((field) => {
+		if (preExaminationData[field] !== undefined) {
+			otherDates[field] = preExaminationData[field];
+		}
+	});
+
+	const result = Object.assign({}, sections);
+	delete result.preExamination;
+
+	return {
+		...result,
+		preExamination: {
+			relevantRepresentations,
+			relevantRepresentationsReOpen,
+			otherDates
+		}
+	};
+}
+
+/**
  * Get the actual API section name for virtual sections
  * @param {string} sectionName
  * @returns {string}
@@ -67,6 +133,13 @@ function splitPreApplicationSection(sections) {
 function getApiSectionName(sectionName) {
 	if (sectionName === 'preApplicationSection' || sectionName === 'screeningAndScoping') {
 		return 'preApplication';
+	}
+	if (
+		sectionName === 'relevantRepresentations' ||
+		sectionName === 'relevantRepresentationsReOpen' ||
+		sectionName === 'otherDates'
+	) {
+		return 'preExamination';
 	}
 	return sectionName;
 }
@@ -81,17 +154,30 @@ export async function viewKeyDatesIndex(request, response) {
 
 	const sections = await getAllCaseKeyDates(+caseId);
 
-	const modifiedSections = splitPreApplicationSection(sections);
+	const modifiedSections = splitPreApplicationSection(splitPreExaminationSection(sections));
 
-	const {
-		preExamination: { dateOfReOpenRelevantRepresentationClose }
-	} = sections;
+	const orderedSectionKeys = ['preApplication', 'acceptance', 'preExamination'];
+	const orderedSections = /** @type {Record<string, any>} */ ({});
+
+	orderedSectionKeys.forEach((key) => {
+		if (modifiedSections[key]) {
+			orderedSections[key] = modifiedSections[key];
+		}
+	});
+
+	Object.keys(modifiedSections).forEach((key) => {
+		if (!orderedSectionKeys.includes(key)) {
+			orderedSections[key] = modifiedSections[key];
+		}
+	});
+
+	const { preExamination: { dateOfReOpenRelevantRepresentationClose = undefined } = {} } = sections;
 
 	return response.render(`applications/case-key-dates/key-dates-index.njk`, {
-		sections: modifiedSections,
+		sections: orderedSections,
 		selectedPageType: 'key-dates',
 		isRelevantRepresentationsReOpened: isRelevantRepresentationsReOpened(
-			dateOfReOpenRelevantRepresentationClose
+			dateOfReOpenRelevantRepresentationClose || ''
 		),
 		projectFormLink: getProjectFormLink(projectData)
 	});
@@ -107,13 +193,25 @@ export async function viewKeyDatesEditSection({ params }, response) {
 	const { caseId } = response.locals;
 
 	const sections = await getAllCaseKeyDates(+caseId);
-	const modifiedSections = splitPreApplicationSection(sections);
+	const modifiedSections = splitPreApplicationSection(splitPreExaminationSection(sections));
 	let targetSectionName = sectionName;
 	/** @type {Record<string, any>} */
-	let sectionValues = {};
+	let sectionValues;
+	let mainHeading = null;
+	let subHeading = null;
 
 	if (sectionName === 'preApplicationSection' || sectionName === 'screeningAndScoping') {
 		sectionValues = modifiedSections.preApplication?.[sectionName] || {};
+	} else if (sectionName === 'relevantRepresentations') {
+		sectionValues = modifiedSections.preExamination?.[sectionName] || {};
+		mainHeading = 'Pre-examination dates';
+		subHeading = 'Relevant representations';
+	} else if (sectionName === 'relevantRepresentationsReOpen') {
+		sectionValues = modifiedSections.preExamination?.[sectionName] || {};
+		mainHeading = 'Relevant representations re-open';
+		subHeading = null;
+	} else if (sectionName === 'otherDates') {
+		sectionValues = modifiedSections.preExamination?.[sectionName] || {};
 	} else if (sectionName === 'preApplication') {
 		targetSectionName = 'preApplicationSection';
 		sectionValues = modifiedSections.preApplication?.preApplicationSection || {};
@@ -123,7 +221,9 @@ export async function viewKeyDatesEditSection({ params }, response) {
 
 	return response.render(`applications/case-key-dates/key-dates-section.njk`, {
 		sectionName: targetSectionName,
-		sectionValues: sectionValues
+		sectionValues: sectionValues,
+		mainHeading: mainHeading,
+		subHeading: subHeading
 	});
 }
 
@@ -167,25 +267,40 @@ export async function updateKeyDatesSection({ params, body, errors: validationEr
 		}
 	});
 
+	/**
+	 * @param {Record<string, any>} obj
+	 * @returns {Record<string, any>}
+	 */
+	function removeUndefined(obj) {
+		return Object.fromEntries(Object.entries(obj).filter(([, v]) => v !== undefined));
+	}
+
 	if (!validationErrors) {
 		// Use the actual API section name for updates
 		const apiSectionName = getApiSectionName(sectionName);
+		const cleanedPayload = removeUndefined({ ...payload, ...validDates });
 		const { errors } = await updateKeyDates(+caseId, {
-			[apiSectionName]: { ...payload, ...validDates }
+			[apiSectionName]: cleanedPayload
 		});
 		apiErrors = errors;
 	}
 
 	if (validationErrors || apiErrors) {
 		const sections = await getAllCaseKeyDates(caseId);
-		const modifiedSections = splitPreApplicationSection(sections);
+		const modifiedSections = splitPreApplicationSection(splitPreExaminationSection(sections));
 
 		let targetSectionName = sectionName;
 		/** @type {Record<string, any>} */
-		let sectionValues = {};
+		let sectionValues;
 
 		if (sectionName === 'preApplicationSection' || sectionName === 'screeningAndScoping') {
 			sectionValues = modifiedSections.preApplication?.[sectionName] || {};
+		} else if (
+			sectionName === 'relevantRepresentations' ||
+			sectionName === 'relevantRepresentationsReOpen' ||
+			sectionName === 'otherDates'
+		) {
+			sectionValues = modifiedSections.preExamination?.[sectionName] || {};
 		} else if (sectionName === 'preApplication') {
 			targetSectionName = 'preApplicationSection';
 			sectionValues = modifiedSections.preApplication?.preApplicationSection || {};

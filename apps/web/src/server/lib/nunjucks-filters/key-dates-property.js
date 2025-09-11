@@ -38,6 +38,10 @@ const propertyToName = {
 	dateOfNonAcceptance_label: 'Date of decision not to accept.',
 
 	preExamination: 'Pre-examination',
+	relevantRepresentations: 'Relevant representations',
+	relevantRepresentationsReOpen: 'Relevant representations re-open',
+	otherDates: 'Other',
+
 	dateOfRepresentationPeriodOpen: 'Open',
 	dateOfRepresentationPeriodOpen_label:
 		'Start date of Relevant Representation (RR) period. The RR portal will open on this date on website.',
