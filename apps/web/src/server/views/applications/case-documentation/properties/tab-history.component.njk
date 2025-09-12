@@ -11,7 +11,7 @@
 		{% set isPreviewActive = isNotDisabled and (documentVersion.mime === 'application/pdf' or documentVersion.mime === 'image/jpeg' or documentVersion.mime === 'image/png') %}
 
 		{% if isPreviewActive %}
-			<a class="font-weight--700" href="{{ 'document-download'|url({caseId: caseId, documentGuid: documentVersion.documentGuid, version: documentVersion.version, isPreviewActive: isPreviewActive}) }}" class="govuk-link">{{ documentVersion.originalFilename }}</a>
+			<a class="font-weight--700 govuk-link" href="{{ 'document-download'|url({caseId: caseId, documentGuid: documentVersion.documentGuid, version: documentVersion.version, isPreviewActive: isPreviewActive}) }}">{{ documentVersion.originalFilename }}</a>
 		{% else %}
 			<p class="font-weight--700">
 				{{ documentVersion.originalFilename }}
@@ -53,7 +53,7 @@
 
 		{% set download %}
 		{% if isNotDisabled %}
-			<a href='{{ 'document-download'|url({caseId: caseId, documentGuid: documentVersion.documentGuid, version: documentVersion.version}) }}'>
+			<a class="govuk-link" href='{{ 'document-download'|url({caseId: caseId, documentGuid: documentVersion.documentGuid, version: documentVersion.version}) }}'>
 				Download
 				<span class="govuk-visually-hidden">{{ documentVersion.originalFilename }}</span>
 			</a>
