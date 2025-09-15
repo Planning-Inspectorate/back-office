@@ -8,7 +8,7 @@ import { representationsUrl } from '../config.js';
  */
 export const tableSortLinks = (query) => [
 	tableSortingHeaderLinks(query, 'Reference', 'reference', representationsUrl),
-	tableSortingHeaderLinks(query, 'From', '', representationsUrl),
+	tableSortingHeaderLinks(query, 'From', 'displayName', representationsUrl),
 	tableSortingHeaderLinks(query, 'Date received', 'received', representationsUrl),
 	tableSortingHeaderLinks(query, 'Redacted', 'redacted', representationsUrl),
 	tableSortingHeaderLinks(query, 'Status', 'status', representationsUrl),
