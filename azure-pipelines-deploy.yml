@@ -1,164 +1,198 @@
 parameters:
-  - name: deployAPI
-    displayName: Deploy API
-    type: boolean
-    default: true
-  - name: deployWeb
-    displayName: Deploy Web
-    type: boolean
-    default: true
-  - name: deployFunctionApplicationsMigration
-    displayName: Deploy Function - Applications Migration
-    type: boolean
-    default: true
-  - name: deployFunctionApplicationsBackgroundJobs
-    displayName: Deploy Function - Applications Background Jobs
-    type: boolean
-    default: true
-  - name: deployFunctionApplicationsCommandHandlers
-    displayName: Deploy Function - Applications Command Handlers
-    type: boolean
-    default: true
-  - name: region
-    displayName: Region
-    type: string
-    values:
-      - UK West
-      - UK South
-    default: UK West
-  - name: schemaMigration
-    displayName: Run Database Migration
-    type: boolean
-    default: true
-  - name: runCypressTests
-    displayName: Run Cypress Tests
-    type: boolean
-    default: true
+    - name: deployAPI
+      displayName: Deploy API
+      type: boolean
+      default: true
+    - name: deployWeb
+      displayName: Deploy Web
+      type: boolean
+      default: true
+    - name: deployFunctionApplicationsMigration
+      displayName: Deploy Function - Applications Migration
+      type: boolean
+      default: true
+    - name: deployFunctionApplicationsBackgroundJobs
+      displayName: Deploy Function - Applications Background Jobs
+      type: boolean
+      default: true
+    - name: deployFunctionApplicationsCommandHandlers
+      displayName: Deploy Function - Applications Command Handlers
+      type: boolean
+      default: true
+    - name: region
+      displayName: Region
+      type: string
+      values:
+          - UK West
+          - UK South
+      default: UK West
+    - name: schemaMigration
+      displayName: Run Database Migration
+      type: boolean
+      default: true
 
 pr: none
 trigger: none
 
 resources:
-  repositories:
-    - repository: templates
-      type: github
-      endpoint: Planning-Inspectorate
-      name: Planning-Inspectorate/common-pipeline-templates
-      ref: refs/tags/release/3.20.0
-  pipelines:
-    - pipeline: build
-      source: Back Office Build
-      trigger:
-        branches:
-          include:
-            - main
+    repositories:
+        - repository: templates
+          type: github
+          endpoint: Planning-Inspectorate
+          name: Planning-Inspectorate/common-pipeline-templates
+          ref: refs/tags/release/3.24.0
+    pipelines:
+        - pipeline: build
+          source: Back Office Build
+          trigger:
+              branches:
+                  include:
+                      - main
+
+# Stage
+# - Deploy API to staging slot
+# - Deploy WEB to staging slot
+# Deploy
+# - Run database migration
+# - Swap API slots
+# - Swap WEB slots
+# - Deploy Functions
 
 extends:
-  template: stages/wrapper_cd.yml@templates
-  parameters:
-    environments:
-      - name: Dev
-      - name: Test
-        dependsOn:
-          - Dev
-      - name: Training
-        dependsOn:
-          - Test
-      - name: Prod
-        dependsOn:
-          - Test
-    automaticDeployments:
-      environments:
-        - name: Dev
-        - name: Test
-          dependsOn:
-            - Dev
-    deploymentStages:
-      - name: Deploy Applications
-        deploymentJobs:
-          - name: Deploy Applications API
-            condition: eq(${{ parameters.deployAPI }}, 'true')
-            steps:
-              - checkout: self
-              - ${{ if eq(parameters.schemaMigration, true) }}:
-                  - template: ../steps/azure_get_secrets.yml
-                    parameters:
-                      secrets:
-                        - name: back-office-sql-server-connection-string
-                          variable: DATABASE_URL
-                  - template: ../steps/node_script.yml
-                    parameters:
-                      nodeVersion: 20
-                      environmentVariables:
-                        DATABASE_URL: $(DATABASE_URL)
-                      script: npm run db:migrate:prod
-                      workingDirectory: $(Build.Repository.LocalPath)/apps/api
-              - template: ../steps/azure_web_app_deploy_slot.yml
-                parameters:
-                  appName: pins-app-back-office-api-$(ENVIRONMENT)-$(REGION_SHORT)-001
-                  appResourceGroup: $(resourceGroup)
-                  azurecrName: $(azurecrName)
-                  repository: back-office/back-office-api
-                  slot: default
-              - script: |
-                      echo "Verifying API Version (using git hash)..."
-                      bash ./packages/scripts/verify_commit_hash.sh "API" "https://pins-app-back-office-api-$(ENVIRONMENT)-$(REGION_SHORT)-001.azurewebsites.net/health" "$(resources.pipeline.build.sourceCommit)" 3
-                displayName: API Verify Version
-                failOnStderr: true
-          - name: Deploy Applications Web
-            condition: eq(${{ parameters.deployWeb }}, 'true')
-            steps:
-              - checkout: self
-              - template: ../steps/azure_web_app_deploy_slot.yml
-                parameters:
-                  appName: pins-app-back-office-wfe-$(ENVIRONMENT)-$(REGION_SHORT)-001
-                  appResourceGroup: $(resourceGroup)
-                  azurecrName: $(azurecrName)
-                  repository: back-office/back-office-web
-                  slot: default
-              - script: |
-                    echo "Verifying Web Version (using git hash)..."
-                    if [ "$(ENVIRONMENT)" == "prod" ]; then
-                        url="https://back-office-applications.planninginspectorate.gov.uk/health"
-                    else
-                        url="https://back-office-$(ENVIRONMENT).planninginspectorate.gov.uk/health"
-                    fi
-                    bash ./packages/scripts/verify_commit_hash.sh "Web" "$url" "$(resources.pipeline.build.sourceCommit)" 3
-                displayName: Web Verify Version
-                failOnStderr: true
-          - name: Deploy Function - Applications Migration
-            condition: eq(${{ parameters.deployFunctionApplicationsMigration }}, 'true')
-            steps:
-              - download: build
-                artifact: function-apps-applications-migration
-                displayName: Download function-apps-applications-migration
-              - template: ../steps/function_app_deploy.yml
-                parameters:
-                  appName: pins-func-apps-migration-apps-migration-$(ENVIRONMENT)-$(REGION_SHORT)-001
-                  resourceGroup: $(resourceGroup)
-                  workingDirectory: $(Pipeline.Workspace)/build/function-apps-applications-migration
-          - name: Deploy Function - Applications Background Jobs
-            condition: eq(${{ parameters.deployFunctionApplicationsBackgroundJobs }}, 'true')
-            steps:
-              - download: build
-                artifact: function-apps-applications-background-jobs
-                displayName: Download function-apps-applications-background-jobs
-              - template: ../steps/function_app_deploy.yml
-                parameters:
-                  appName: pins-func-back-office-apps-background-jobs-$(ENVIRONMENT)-$(REGION_SHORT)-001
-                  resourceGroup: $(resourceGroup)
-                  workingDirectory: $(Pipeline.Workspace)/build/function-apps-applications-background-jobs
-          - name: Deploy Function - Applications Command Handlers
-            condition: eq(${{ parameters.deployFunctionApplicationsCommandHandlers }}, 'true')
-            steps:
-              - download: build
-                artifact: function-apps-applications-command-handlers
-                displayName: Download function-apps-applications-command-handlers
-              - template: ../steps/function_app_deploy.yml
-                parameters:
-                  appName: pins-func-back-office-apps-command-handlers-$(ENVIRONMENT)-$(REGION_SHORT)-001
-                  resourceGroup: $(resourceGroup)
-                  workingDirectory: $(Pipeline.Workspace)/build/function-apps-applications-command-handlers
-
-    globalVariables:
-      - template: azure-pipelines-variables.yml@self
+    template: stages/wrapper_cd.yml@templates
+    parameters:
+        environments:
+            - name: Dev
+            - name: Test
+              dependsOn:
+                  - Dev
+            - name: Training
+              dependsOn:
+                  - Test
+            - name: Prod
+              dependsOn:
+                  - Test
+        automaticDeployments:
+            environments:
+                - name: Dev
+                - name: Test
+                  dependsOn:
+                      - Dev
+        deploymentStages:
+            - name: Stage
+              deploymentJobs:
+                  - name: Stage API
+                    condition: eq(${{ parameters.deployAPI }}, 'true')
+                    steps:
+                        - template: ../steps/azure_web_app_deploy_slot.yml
+                          parameters:
+                              appName: pins-app-back-office-api-$(ENVIRONMENT)-$(REGION_SHORT)-001
+                              appResourceGroup: $(resourceGroup)
+                              slot: staging
+                              azurecrName: $(azurecrName)
+                              repository: back-office/back-office-api
+                        -   template: ../steps/azure_web_app_verify_git_hash.yml
+                            parameters:
+                                appName: Back Office API
+                                appUrl: $(deploySlotOutputs.slotUrl)/health
+                                buildCommit: $(resources.pipeline.build.sourceCommit)
+                  - name: Stage Web
+                    condition: eq(${{ parameters.deployWeb }}, 'true')
+                    steps:
+                        - template: ../steps/azure_web_app_deploy_slot.yml
+                          parameters:
+                              appName: pins-app-back-office-wfe-$(ENVIRONMENT)-$(REGION_SHORT)-001
+                              appResourceGroup: $(resourceGroup)
+                              slot: staging
+                              azurecrName: $(azurecrName)
+                              repository: back-office/back-office-web
+                        -   template: ../steps/azure_web_app_verify_git_hash.yml
+                            parameters:
+                                appName: Back Office Web
+                                appUrl: $(deploySlotOutputs.slotUrl)/health
+                                buildCommit: $(resources.pipeline.build.sourceCommit)
+                                auth_enabled: 'false'
+            - name: Deploy
+              dependsOn:
+                  - Stage
+              deploymentJobs:
+                  - ${{ if eq(parameters.schemaMigration, true) }}:
+                        - name: Database Migration
+                          steps:
+                              - checkout: self
+                              - template: ../steps/azure_get_secrets.yml
+                                parameters:
+                                    secrets:
+                                        - name: back-office-sql-server-connection-string
+                                          variable: DATABASE_URL
+                              - template: ../steps/node_script.yml
+                                parameters:
+                                    nodeVersion: 22
+                                    environmentVariables:
+                                        DATABASE_URL: $(DATABASE_URL)
+                                    script: npm run db:migrate:prod
+                                    workingDirectory: $(Build.Repository.LocalPath)/apps/api
+                  - name: Deploy API
+                    condition: eq(${{ parameters.deployAPI }}, 'true')
+                    steps:
+                        - template: ../steps/azure_web_app_slot_swap.yml
+                          parameters:
+                              appName: pins-app-back-office-api-$(ENVIRONMENT)-$(REGION_SHORT)-001
+                              appResourceGroup: $(resourceGroup)
+                              appStagingSlotName: staging
+                              appTargetSlotName: production
+                        -   template: ../steps/azure_web_app_verify_git_hash.yml
+                            parameters:
+                                appName: Application service API
+                                appUrl: https://pins-app-back-office-api-$(ENVIRONMENT)-$(REGION_SHORT)-001.azurewebsites.net/health
+                                buildCommit: $(resources.pipeline.build.sourceCommit)
+                  - name: Deploy Web
+                    condition: eq(${{ parameters.deployWeb }}, 'true')
+                    steps:
+                        - template: ../steps/azure_web_app_slot_swap.yml
+                          parameters:
+                              appName: pins-app-back-office-wfe-$(ENVIRONMENT)-$(REGION_SHORT)-001
+                              appResourceGroup: $(resourceGroup)
+                              appStagingSlotName: staging
+                              appTargetSlotName: production
+                        -   template: ../steps/azure_web_app_verify_git_hash.yml
+                            parameters:
+                                appName: Application service Web
+                                appUrl: $(WEB_URL)/health
+                                buildCommit: $(resources.pipeline.build.sourceCommit)
+                                auth_enabled: 'false'
+                  - name: Deploy Function - Applications Migration
+                    condition: eq(${{ parameters.deployFunctionApplicationsMigration }}, 'true')
+                    steps:
+                        - download: build
+                          artifact: function-apps-applications-migration
+                          displayName: Download function-apps-applications-migration
+                        - template: ../steps/function_app_deploy.yml
+                          parameters:
+                              appName: pins-func-apps-migration-apps-migration-$(ENVIRONMENT)-$(REGION_SHORT)-001
+                              resourceGroup: $(resourceGroup)
+                              workingDirectory: $(Pipeline.Workspace)/build/function-apps-applications-migration
+                  - name: Deploy Function - Applications Background Jobs
+                    condition: eq(${{ parameters.deployFunctionApplicationsBackgroundJobs }}, 'true')
+                    steps:
+                        - download: build
+                          artifact: function-apps-applications-background-jobs
+                          displayName: Download function-apps-applications-background-jobs
+                        - template: ../steps/function_app_deploy.yml
+                          parameters:
+                              appName: pins-func-back-office-apps-background-jobs-$(ENVIRONMENT)-$(REGION_SHORT)-001
+                              resourceGroup: $(resourceGroup)
+                              workingDirectory: $(Pipeline.Workspace)/build/function-apps-applications-background-jobs
+                  - name: Deploy Function - Applications Command Handlers
+                    condition: eq(${{ parameters.deployFunctionApplicationsCommandHandlers }}, 'true')
+                    steps:
+                        - download: build
+                          artifact: function-apps-applications-command-handlers
+                          displayName: Download function-apps-applications-command-handlers
+                        - template: ../steps/function_app_deploy.yml
+                          parameters:
+                              appName: pins-func-back-office-apps-command-handlers-$(ENVIRONMENT)-$(REGION_SHORT)-001
+                              resourceGroup: $(resourceGroup)
+                              workingDirectory: $(Pipeline.Workspace)/build/function-apps-applications-command-handlers
+        globalVariables:
+            - template: azure-pipelines-variables.yml@self
