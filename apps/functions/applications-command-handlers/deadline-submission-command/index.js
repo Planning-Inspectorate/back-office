@@ -60,6 +60,9 @@ async function run(context, msg) {
 			);
 			sourceBlobName = secondarySourceBlobName;
 			properties = await blob.getBlobProperties(submissionsContainer, sourceBlobName);
+		} else {
+			context.log(`Error getting blob properties for ${sourceBlobName}: ${error}`);
+			throw error;
 		}
 	}
 
@@ -172,6 +175,7 @@ export default async function (context, msg) {
 		});
 
 		context.log(`Failed to copy blob ${msg.blobGuid} from submissions to uploads store`);
+		context.log(`Error details: ${err}`);
 
 		throw err;
 	}
