@@ -135,8 +135,8 @@ exports[`S51 Advice Key dates page GET /case/123/key-dates/ should render the pa
                     <div id="accordion-key-dates-content-3" class="govuk-accordion__section-content">
                         <div class="govuk-summary-card">
                             <div class="govuk-summary-card__title-wrapper">
-                                <h2 class="govuk-summary-card__title"> Pre-examination</h2>
-                                <div class="govuk-summary-card__actions"><a class="govuk-link" href="/applications-service/case/123/key-dates/preExamination">Manage dates<span class="govuk-visually-hidden"> for Pre-examination (Pre-examination)</span></a>
+                                <h2 class="govuk-summary-card__title"> Relevant representations</h2>
+                                <div class="govuk-summary-card__actions"><a class="govuk-link" href="/applications-service/case/123/key-dates/relevantRepresentations">Manage dates<span class="govuk-visually-hidden"> for Relevant representations (Relevant representations)</span></a>
                                 </div>
                             </div>
                             <div class="govuk-summary-card__content">
@@ -153,6 +153,27 @@ exports[`S51 Advice Key dates page GET /case/123/key-dates/ should render the pa
                                     <div class="govuk-summary-list__row pins-key-dates-summary-list__row"><dt class="govuk-summary-list__key pins-key-dates-summary-list__key"> Relevant Representations appear on website</dt>
                                         <dd                                         class="govuk-summary-list__value">20 Aug 2023</dd>
                                     </div>
+                                </dl>
+                            </div>
+                        </div>
+                        <div class="govuk-summary-card">
+                            <div class="govuk-summary-card__title-wrapper">
+                                <h2 class="govuk-summary-card__title"> Relevant representations re-open</h2>
+                                <div class="govuk-summary-card__actions"><a class="govuk-link" href="/applications-service/case/123/key-dates/relevantRepresentationsReOpen">Manage dates<span class="govuk-visually-hidden"> for Relevant representations re-open (Relevant representations re-open)</span></a>
+                                </div>
+                            </div>
+                            <div class="govuk-summary-card__content">
+                                <dl class="govuk-summary-list"></dl>
+                            </div>
+                        </div>
+                        <div class="govuk-summary-card">
+                            <div class="govuk-summary-card__title-wrapper">
+                                <h2 class="govuk-summary-card__title"> Other dates</h2>
+                                <div class="govuk-summary-card__actions"><a class="govuk-link" href="/applications-service/case/123/key-dates/otherDates">Manage dates<span class="govuk-visually-hidden"> for Other dates (Other dates)</span></a>
+                                </div>
+                            </div>
+                            <div class="govuk-summary-card__content">
+                                <dl class="govuk-summary-list">
                                     <div class="govuk-summary-list__row pins-key-dates-summary-list__row"><dt class="govuk-summary-list__key pins-key-dates-summary-list__key"> IAPI due</dt>
                                         <dd                                         class="govuk-summary-list__value">15 Jun 2023</dd>
                                     </div>
@@ -562,17 +583,17 @@ exports[`S51 Advice Key dates page Sections GET /case/123/key-dates/:sectionName
                         <div class="govuk-form-group">
                             <label class="govuk-label govuk-hint" for="dateOfRepresentationPeriodOpen.day">Day</label>
                             <input class="govuk-input" id="dateOfRepresentationPeriodOpen.day"
-                            name="dateOfRepresentationPeriodOpen.day" type="text" value="22">
+                            name="dateOfRepresentationPeriodOpen.day" type="text">
                         </div>
                         <div class="govuk-form-group">
                             <label class="govuk-label govuk-hint" for="dateOfRepresentationPeriodOpen.month">Month</label>
                             <input class="govuk-input" id="dateOfRepresentationPeriodOpen.month"
-                            name="dateOfRepresentationPeriodOpen.month" type="text" value="09">
+                            name="dateOfRepresentationPeriodOpen.month" type="text">
                         </div>
                         <div class="govuk-form-group">
                             <label class="govuk-label govuk-hint" for="dateOfRepresentationPeriodOpen.year">Year</label>
                             <input class="govuk-input" id="dateOfRepresentationPeriodOpen.year"
-                            name="dateOfRepresentationPeriodOpen.year" type="text" value="2023">
+                            name="dateOfRepresentationPeriodOpen.year" type="text">
                         </div>
                     </div>
                 </div>
@@ -587,17 +608,17 @@ exports[`S51 Advice Key dates page Sections GET /case/123/key-dates/:sectionName
                         <div class="govuk-form-group">
                             <label class="govuk-label govuk-hint" for="dateOfRelevantRepresentationClose.day">Day</label>
                             <input class="govuk-input" id="dateOfRelevantRepresentationClose.day"
-                            name="dateOfRelevantRepresentationClose.day" type="text" value="09">
+                            name="dateOfRelevantRepresentationClose.day" type="text">
                         </div>
                         <div class="govuk-form-group">
                             <label class="govuk-label govuk-hint" for="dateOfRelevantRepresentationClose.month">Month</label>
                             <input class="govuk-input" id="dateOfRelevantRepresentationClose.month"
-                            name="dateOfRelevantRepresentationClose.month" type="text" value="04">
+                            name="dateOfRelevantRepresentationClose.month" type="text">
                         </div>
                         <div class="govuk-form-group">
                             <label class="govuk-label govuk-hint" for="dateOfRelevantRepresentationClose.year">Year</label>
                             <input class="govuk-input" id="dateOfRelevantRepresentationClose.year"
-                            name="dateOfRelevantRepresentationClose.year" type="text" value="2023">
+                            name="dateOfRelevantRepresentationClose.year" type="text">
                         </div>
                     </div>
                 </div>
@@ -613,17 +634,17 @@ exports[`S51 Advice Key dates page Sections GET /case/123/key-dates/:sectionName
                         <div class="govuk-form-group">
                             <label class="govuk-label govuk-hint" for="extensionToDateRelevantRepresentationsClose.day">Day</label>
                             <input class="govuk-input" id="extensionToDateRelevantRepresentationsClose.day"
-                            name="extensionToDateRelevantRepresentationsClose.day" type="text" value="01">
+                            name="extensionToDateRelevantRepresentationsClose.day" type="text">
                         </div>
                         <div class="govuk-form-group">
                             <label class="govuk-label govuk-hint" for="extensionToDateRelevantRepresentationsClose.month">Month</label>
                             <input class="govuk-input" id="extensionToDateRelevantRepresentationsClose.month"
-                            name="extensionToDateRelevantRepresentationsClose.month" type="text" value="01">
+                            name="extensionToDateRelevantRepresentationsClose.month" type="text">
                         </div>
                         <div class="govuk-form-group">
                             <label class="govuk-label govuk-hint" for="extensionToDateRelevantRepresentationsClose.year">Year</label>
                             <input class="govuk-input" id="extensionToDateRelevantRepresentationsClose.year"
-                            name="extensionToDateRelevantRepresentationsClose.year" type="text" value="2023">
+                            name="extensionToDateRelevantRepresentationsClose.year" type="text">
                         </div>
                     </div>
                 </div>
@@ -639,17 +660,17 @@ exports[`S51 Advice Key dates page Sections GET /case/123/key-dates/:sectionName
                         <div class="govuk-form-group">
                             <label class="govuk-label govuk-hint" for="dateRRepAppearOnWebsite.day">Day</label>
                             <input class="govuk-input" id="dateRRepAppearOnWebsite.day"
-                            name="dateRRepAppearOnWebsite.day" type="text" value="20">
+                            name="dateRRepAppearOnWebsite.day" type="text">
                         </div>
                         <div class="govuk-form-group">
                             <label class="govuk-label govuk-hint" for="dateRRepAppearOnWebsite.month">Month</label>
                             <input class="govuk-input" id="dateRRepAppearOnWebsite.month"
-                            name="dateRRepAppearOnWebsite.month" type="text" value="08">
+                            name="dateRRepAppearOnWebsite.month" type="text">
                         </div>
                         <div class="govuk-form-group">
                             <label class="govuk-label govuk-hint" for="dateRRepAppearOnWebsite.year">Year</label>
                             <input class="govuk-input" id="dateRRepAppearOnWebsite.year"
-                            name="dateRRepAppearOnWebsite.year" type="text" value="2023">
+                            name="dateRRepAppearOnWebsite.year" type="text">
                         </div>
                     </div>
                 </div>
@@ -722,17 +743,17 @@ exports[`S51 Advice Key dates page Sections GET /case/123/key-dates/:sectionName
                         <div class="govuk-form-group">
                             <label class="govuk-label govuk-hint" for="dateIAPIDue.day">Day</label>
                             <input class="govuk-input" id="dateIAPIDue.day" name="dateIAPIDue.day"
-                            type="text" value="15">
+                            type="text">
                         </div>
                         <div class="govuk-form-group">
                             <label class="govuk-label govuk-hint" for="dateIAPIDue.month">Month</label>
                             <input class="govuk-input" id="dateIAPIDue.month" name="dateIAPIDue.month"
-                            type="text" value="06">
+                            type="text">
                         </div>
                         <div class="govuk-form-group">
                             <label class="govuk-label govuk-hint" for="dateIAPIDue.year">Year</label>
                             <input class="govuk-input" id="dateIAPIDue.year" name="dateIAPIDue.year"
-                            type="text" value="2023">
+                            type="text">
                         </div>
                     </div>
                 </div>
@@ -748,17 +769,17 @@ exports[`S51 Advice Key dates page Sections GET /case/123/key-dates/:sectionName
                         <div class="govuk-form-group">
                             <label class="govuk-label govuk-hint" for="rule6LetterPublishDate.day">Day</label>
                             <input class="govuk-input" id="rule6LetterPublishDate.day"
-                            name="rule6LetterPublishDate.day" type="text" value="10">
+                            name="rule6LetterPublishDate.day" type="text">
                         </div>
                         <div class="govuk-form-group">
                             <label class="govuk-label govuk-hint" for="rule6LetterPublishDate.month">Month</label>
                             <input class="govuk-input" id="rule6LetterPublishDate.month"
-                            name="rule6LetterPublishDate.month" type="text" value="04">
+                            name="rule6LetterPublishDate.month" type="text">
                         </div>
                         <div class="govuk-form-group">
                             <label class="govuk-label govuk-hint" for="rule6LetterPublishDate.year">Year</label>
                             <input class="govuk-input" id="rule6LetterPublishDate.year"
-                            name="rule6LetterPublishDate.year" type="text" value="2023">
+                            name="rule6LetterPublishDate.year" type="text">
                         </div>
                     </div>
                 </div>
@@ -774,17 +795,17 @@ exports[`S51 Advice Key dates page Sections GET /case/123/key-dates/:sectionName
                         <div class="govuk-form-group">
                             <label class="govuk-label govuk-hint" for="preliminaryMeetingStartDate.day">Day</label>
                             <input class="govuk-input" id="preliminaryMeetingStartDate.day"
-                            name="preliminaryMeetingStartDate.day" type="text" value="10">
+                            name="preliminaryMeetingStartDate.day" type="text">
                         </div>
                         <div class="govuk-form-group">
                             <label class="govuk-label govuk-hint" for="preliminaryMeetingStartDate.month">Month</label>
                             <input class="govuk-input" id="preliminaryMeetingStartDate.month"
-                            name="preliminaryMeetingStartDate.month" type="text" value="04">
+                            name="preliminaryMeetingStartDate.month" type="text">
                         </div>
                         <div class="govuk-form-group">
                             <label class="govuk-label govuk-hint" for="preliminaryMeetingStartDate.year">Year</label>
                             <input class="govuk-input" id="preliminaryMeetingStartDate.year"
-                            name="preliminaryMeetingStartDate.year" type="text" value="2023">
+                            name="preliminaryMeetingStartDate.year" type="text">
                         </div>
                     </div>
                 </div>
@@ -799,20 +820,17 @@ exports[`S51 Advice Key dates page Sections GET /case/123/key-dates/:sectionName
                 <div class="govuk-form-group">
                     <label class="govuk-label govuk-hint" for="notificationDateForPMAndEventsDirectlyFollowingPM.day">Day</label>
                     <input class="govuk-input" id="notificationDateForPMAndEventsDirectlyFollowingPM.day"
-                    name="notificationDateForPMAndEventsDirectlyFollowingPM.day" type="text"
-                    value="13">
+                    name="notificationDateForPMAndEventsDirectlyFollowingPM.day" type="text">
                 </div>
                 <div class="govuk-form-group">
                     <label class="govuk-label govuk-hint" for="notificationDateForPMAndEventsDirectlyFollowingPM.month">Month</label>
                     <input class="govuk-input" id="notificationDateForPMAndEventsDirectlyFollowingPM.month"
-                    name="notificationDateForPMAndEventsDirectlyFollowingPM.month" type="text"
-                    value="05">
+                    name="notificationDateForPMAndEventsDirectlyFollowingPM.month" type="text">
                 </div>
                 <div class="govuk-form-group">
                     <label class="govuk-label govuk-hint" for="notificationDateForPMAndEventsDirectlyFollowingPM.year">Year</label>
                     <input class="govuk-input" id="notificationDateForPMAndEventsDirectlyFollowingPM.year"
-                    name="notificationDateForPMAndEventsDirectlyFollowingPM.year" type="text"
-                    value="2023">
+                    name="notificationDateForPMAndEventsDirectlyFollowingPM.year" type="text">
                 </div>
             </div>
             </div>
@@ -828,17 +846,17 @@ exports[`S51 Advice Key dates page Sections GET /case/123/key-dates/:sectionName
                             <div class="govuk-form-group">
                                 <label class="govuk-label govuk-hint" for="notificationDateForEventsApplicant.day">Day</label>
                                 <input class="govuk-input" id="notificationDateForEventsApplicant.day"
-                                name="notificationDateForEventsApplicant.day" type="text" value="18">
+                                name="notificationDateForEventsApplicant.day" type="text">
                             </div>
                             <div class="govuk-form-group">
                                 <label class="govuk-label govuk-hint" for="notificationDateForEventsApplicant.month">Month</label>
                                 <input class="govuk-input" id="notificationDateForEventsApplicant.month"
-                                name="notificationDateForEventsApplicant.month" type="text" value="07">
+                                name="notificationDateForEventsApplicant.month" type="text">
                             </div>
                             <div class="govuk-form-group">
                                 <label class="govuk-label govuk-hint" for="notificationDateForEventsApplicant.year">Year</label>
                                 <input class="govuk-input" id="notificationDateForEventsApplicant.year"
-                                name="notificationDateForEventsApplicant.year" type="text" value="2023">
+                                name="notificationDateForEventsApplicant.year" type="text">
                             </div>
                         </div>
                     </div>
@@ -1547,17 +1565,17 @@ exports[`S51 Advice Key dates page Sections POST /case/123/key-dates/:sectionNam
                         <div class="govuk-form-group">
                             <label class="govuk-label govuk-hint" for="dateOfRelevantRepresentationClose.day">Day</label>
                             <input class="govuk-input" id="dateOfRelevantRepresentationClose.day"
-                            name="dateOfRelevantRepresentationClose.day" type="text" value="09">
+                            name="dateOfRelevantRepresentationClose.day" type="text">
                         </div>
                         <div class="govuk-form-group">
                             <label class="govuk-label govuk-hint" for="dateOfRelevantRepresentationClose.month">Month</label>
                             <input class="govuk-input" id="dateOfRelevantRepresentationClose.month"
-                            name="dateOfRelevantRepresentationClose.month" type="text" value="04">
+                            name="dateOfRelevantRepresentationClose.month" type="text">
                         </div>
                         <div class="govuk-form-group">
                             <label class="govuk-label govuk-hint" for="dateOfRelevantRepresentationClose.year">Year</label>
                             <input class="govuk-input" id="dateOfRelevantRepresentationClose.year"
-                            name="dateOfRelevantRepresentationClose.year" type="text" value="2023">
+                            name="dateOfRelevantRepresentationClose.year" type="text">
                         </div>
                     </div>
                 </div>
@@ -1573,17 +1591,17 @@ exports[`S51 Advice Key dates page Sections POST /case/123/key-dates/:sectionNam
                         <div class="govuk-form-group">
                             <label class="govuk-label govuk-hint" for="extensionToDateRelevantRepresentationsClose.day">Day</label>
                             <input class="govuk-input" id="extensionToDateRelevantRepresentationsClose.day"
-                            name="extensionToDateRelevantRepresentationsClose.day" type="text" value="01">
+                            name="extensionToDateRelevantRepresentationsClose.day" type="text">
                         </div>
                         <div class="govuk-form-group">
                             <label class="govuk-label govuk-hint" for="extensionToDateRelevantRepresentationsClose.month">Month</label>
                             <input class="govuk-input" id="extensionToDateRelevantRepresentationsClose.month"
-                            name="extensionToDateRelevantRepresentationsClose.month" type="text" value="01">
+                            name="extensionToDateRelevantRepresentationsClose.month" type="text">
                         </div>
                         <div class="govuk-form-group">
                             <label class="govuk-label govuk-hint" for="extensionToDateRelevantRepresentationsClose.year">Year</label>
                             <input class="govuk-input" id="extensionToDateRelevantRepresentationsClose.year"
-                            name="extensionToDateRelevantRepresentationsClose.year" type="text" value="2023">
+                            name="extensionToDateRelevantRepresentationsClose.year" type="text">
                         </div>
                     </div>
                 </div>
@@ -1599,17 +1617,17 @@ exports[`S51 Advice Key dates page Sections POST /case/123/key-dates/:sectionNam
                         <div class="govuk-form-group">
                             <label class="govuk-label govuk-hint" for="dateRRepAppearOnWebsite.day">Day</label>
                             <input class="govuk-input" id="dateRRepAppearOnWebsite.day"
-                            name="dateRRepAppearOnWebsite.day" type="text" value="20">
+                            name="dateRRepAppearOnWebsite.day" type="text">
                         </div>
                         <div class="govuk-form-group">
                             <label class="govuk-label govuk-hint" for="dateRRepAppearOnWebsite.month">Month</label>
                             <input class="govuk-input" id="dateRRepAppearOnWebsite.month"
-                            name="dateRRepAppearOnWebsite.month" type="text" value="08">
+                            name="dateRRepAppearOnWebsite.month" type="text">
                         </div>
                         <div class="govuk-form-group">
                             <label class="govuk-label govuk-hint" for="dateRRepAppearOnWebsite.year">Year</label>
                             <input class="govuk-input" id="dateRRepAppearOnWebsite.year"
-                            name="dateRRepAppearOnWebsite.year" type="text" value="2023">
+                            name="dateRRepAppearOnWebsite.year" type="text">
                         </div>
                     </div>
                 </div>
@@ -1682,17 +1700,17 @@ exports[`S51 Advice Key dates page Sections POST /case/123/key-dates/:sectionNam
                         <div class="govuk-form-group">
                             <label class="govuk-label govuk-hint" for="dateIAPIDue.day">Day</label>
                             <input class="govuk-input" id="dateIAPIDue.day" name="dateIAPIDue.day"
-                            type="text" value="15">
+                            type="text">
                         </div>
                         <div class="govuk-form-group">
                             <label class="govuk-label govuk-hint" for="dateIAPIDue.month">Month</label>
                             <input class="govuk-input" id="dateIAPIDue.month" name="dateIAPIDue.month"
-                            type="text" value="06">
+                            type="text">
                         </div>
                         <div class="govuk-form-group">
                             <label class="govuk-label govuk-hint" for="dateIAPIDue.year">Year</label>
                             <input class="govuk-input" id="dateIAPIDue.year" name="dateIAPIDue.year"
-                            type="text" value="2023">
+                            type="text">
                         </div>
                     </div>
                 </div>
@@ -1708,17 +1726,17 @@ exports[`S51 Advice Key dates page Sections POST /case/123/key-dates/:sectionNam
                         <div class="govuk-form-group">
                             <label class="govuk-label govuk-hint" for="rule6LetterPublishDate.day">Day</label>
                             <input class="govuk-input" id="rule6LetterPublishDate.day"
-                            name="rule6LetterPublishDate.day" type="text" value="10">
+                            name="rule6LetterPublishDate.day" type="text">
                         </div>
                         <div class="govuk-form-group">
                             <label class="govuk-label govuk-hint" for="rule6LetterPublishDate.month">Month</label>
                             <input class="govuk-input" id="rule6LetterPublishDate.month"
-                            name="rule6LetterPublishDate.month" type="text" value="04">
+                            name="rule6LetterPublishDate.month" type="text">
                         </div>
                         <div class="govuk-form-group">
                             <label class="govuk-label govuk-hint" for="rule6LetterPublishDate.year">Year</label>
                             <input class="govuk-input" id="rule6LetterPublishDate.year"
-                            name="rule6LetterPublishDate.year" type="text" value="2023">
+                            name="rule6LetterPublishDate.year" type="text">
                         </div>
                     </div>
                 </div>
@@ -1734,17 +1752,17 @@ exports[`S51 Advice Key dates page Sections POST /case/123/key-dates/:sectionNam
                         <div class="govuk-form-group">
                             <label class="govuk-label govuk-hint" for="preliminaryMeetingStartDate.day">Day</label>
                             <input class="govuk-input" id="preliminaryMeetingStartDate.day"
-                            name="preliminaryMeetingStartDate.day" type="text" value="10">
+                            name="preliminaryMeetingStartDate.day" type="text">
                         </div>
                         <div class="govuk-form-group">
                             <label class="govuk-label govuk-hint" for="preliminaryMeetingStartDate.month">Month</label>
                             <input class="govuk-input" id="preliminaryMeetingStartDate.month"
-                            name="preliminaryMeetingStartDate.month" type="text" value="04">
+                            name="preliminaryMeetingStartDate.month" type="text">
                         </div>
                         <div class="govuk-form-group">
                             <label class="govuk-label govuk-hint" for="preliminaryMeetingStartDate.year">Year</label>
                             <input class="govuk-input" id="preliminaryMeetingStartDate.year"
-                            name="preliminaryMeetingStartDate.year" type="text" value="2023">
+                            name="preliminaryMeetingStartDate.year" type="text">
                         </div>
                     </div>
                 </div>
@@ -1759,20 +1777,17 @@ exports[`S51 Advice Key dates page Sections POST /case/123/key-dates/:sectionNam
                 <div class="govuk-form-group">
                     <label class="govuk-label govuk-hint" for="notificationDateForPMAndEventsDirectlyFollowingPM.day">Day</label>
                     <input class="govuk-input" id="notificationDateForPMAndEventsDirectlyFollowingPM.day"
-                    name="notificationDateForPMAndEventsDirectlyFollowingPM.day" type="text"
-                    value="13">
+                    name="notificationDateForPMAndEventsDirectlyFollowingPM.day" type="text">
                 </div>
                 <div class="govuk-form-group">
                     <label class="govuk-label govuk-hint" for="notificationDateForPMAndEventsDirectlyFollowingPM.month">Month</label>
                     <input class="govuk-input" id="notificationDateForPMAndEventsDirectlyFollowingPM.month"
-                    name="notificationDateForPMAndEventsDirectlyFollowingPM.month" type="text"
-                    value="05">
+                    name="notificationDateForPMAndEventsDirectlyFollowingPM.month" type="text">
                 </div>
                 <div class="govuk-form-group">
                     <label class="govuk-label govuk-hint" for="notificationDateForPMAndEventsDirectlyFollowingPM.year">Year</label>
                     <input class="govuk-input" id="notificationDateForPMAndEventsDirectlyFollowingPM.year"
-                    name="notificationDateForPMAndEventsDirectlyFollowingPM.year" type="text"
-                    value="2023">
+                    name="notificationDateForPMAndEventsDirectlyFollowingPM.year" type="text">
                 </div>
             </div>
             </div>
@@ -1788,17 +1803,17 @@ exports[`S51 Advice Key dates page Sections POST /case/123/key-dates/:sectionNam
                             <div class="govuk-form-group">
                                 <label class="govuk-label govuk-hint" for="notificationDateForEventsApplicant.day">Day</label>
                                 <input class="govuk-input" id="notificationDateForEventsApplicant.day"
-                                name="notificationDateForEventsApplicant.day" type="text" value="18">
+                                name="notificationDateForEventsApplicant.day" type="text">
                             </div>
                             <div class="govuk-form-group">
                                 <label class="govuk-label govuk-hint" for="notificationDateForEventsApplicant.month">Month</label>
                                 <input class="govuk-input" id="notificationDateForEventsApplicant.month"
-                                name="notificationDateForEventsApplicant.month" type="text" value="07">
+                                name="notificationDateForEventsApplicant.month" type="text">
                             </div>
                             <div class="govuk-form-group">
                                 <label class="govuk-label govuk-hint" for="notificationDateForEventsApplicant.year">Year</label>
                                 <input class="govuk-input" id="notificationDateForEventsApplicant.year"
-                                name="notificationDateForEventsApplicant.year" type="text" value="2023">
+                                name="notificationDateForEventsApplicant.year" type="text">
                             </div>
                         </div>
                     </div>

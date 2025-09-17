@@ -27,11 +27,9 @@
 		{% set heading = key | keyDatesProperty %}
 
 		{% if key === 'preApplication' %}
-			{# Handle special case for preApplication with subsections #}
 			{% set subsectionHtml %}
 				{% for subsectionKey, subsectionData in section %}
 					{% set subsectionHeading = subsectionKey | keyDatesProperty %}
-					{# Add "dates" suffix for subsection titles in accordion view #}
 					{% if subsectionKey === 'preApplicationSection' or subsectionKey === 'screeningAndScoping' %}
 						{% set subsectionHeading = subsectionHeading + ' dates' %}
 					{% endif %}
@@ -44,8 +42,27 @@
 				heading: { html: heading },
 				content: { html: subsectionHtml }
 			}]) %}
+		{% elif key === 'preExamination' %}
+			{% set subsectionHtml %}
+				{% for subsectionKey, subsectionData in section %}
+					{% set subsectionHeading = '' %}
+					{% if subsectionKey === 'relevantRepresentations' %}
+						{% set subsectionHeading = 'Relevant representations' %}
+					{% elif subsectionKey === 'relevantRepresentationsReOpen' %}
+						{% set subsectionHeading = 'Relevant representations re-open' %}
+					{% elif subsectionKey === 'otherDates' %}
+						{% set subsectionHeading = 'Other dates' %}
+					{% endif %}
+
+					{{ createSummaryList(subsectionData, subsectionKey, subsectionHeading, caseId) }}
+				{% endfor %}
+			{% endset %}
+
+			{% set items = items | concat([{
+				heading: { html: heading },
+				content: { html: subsectionHtml }
+			}]) %}
 		{% else %}
-			{# Handle regular sections #}
 			{% set summaryListHtml %}
 				{{ createSummaryList(section, key, heading, caseId, headingMap) }}
 			{% endset %}
