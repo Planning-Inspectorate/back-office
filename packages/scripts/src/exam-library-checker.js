@@ -48,6 +48,7 @@ const OLD_NI_PATH = {
 
 const NI_OLD_LINK_START =
 	'https://infrastructure.planninginspectorate.gov.uk/wp-content/ipc/uploads';
+const NEW_BLOB_LINK = 'https://nsip-documents.planninginspectorate.gov.uk/published-documents/';
 const DOCUMENT_LINK_PAGE_TMPL =
 	'https://{fo_prefix}.planninginspectorate.gov.uk/projects/{caseReference}/documents';
 
@@ -56,24 +57,29 @@ const DOCUMENT_LINK_PAGE_TMPL =
  * Checks the examination library PDF for a given case reference
  * and can verify that all document links are correctly redirected to the new CBOS Blob store.
  * It also checks that the documents can be accessed in the new location.
+ * And it can also check links without any remapping - ie check the original links in the old NI site before we switch over
+ * - or the updated exam libary file against Blob after we migrate and switch over
  *
  * @param {string} caseReference
  * @param {string} targetEnv
  * @param {boolean} doRedirectTest
  * @param {boolean} doBlobStoreTest
+ * @param {boolean} doCheckLinksWithoutRemapping
  */
 export async function examLibraryChecker(
 	caseReference,
 	targetEnv,
 	doRedirectTest,
-	doBlobStoreTest
+	doBlobStoreTest,
+	doCheckLinksWithoutRemapping
 ) {
 	console.log(
 		`-----------------------------------------\nStarting Exam Library Checker on case ${caseReference}`
 	);
 	console.log(`Target environment: ${targetEnv}`);
-	console.log(`Do Redirect test: ${doRedirectTest}`);
-	console.log(`Do Blob Store test: ${doBlobStoreTest}`);
+	console.log(`Do Redirect testing: ${doRedirectTest}`);
+	console.log(`Do Check links without remapping testing: ${doCheckLinksWithoutRemapping}`);
+	console.log(`Do Blob Store testing: ${doBlobStoreTest}`);
 
 	const examLibraryPdf = await fetchExamLibraryPdf(caseReference, targetEnv);
 	let allNiLinks = await extractLinksFromPdf(examLibraryPdf);
@@ -88,6 +94,14 @@ export async function examLibraryChecker(
 		if (totalDocsNotRedirected === 0) {
 			console.log(`Checking Permanent Redirects - total failed=${totalDocsNotRedirected}`);
 		}
+	}
+
+	// optional - check the the links without remapping - exactly a they are.
+	// Can be used before migration switching to check the original links in old NI site - to see how many are broken there
+	// or afterwwards to check the updated exam libary against blob store
+	if (doCheckLinksWithoutRemapping) {
+		console.log(`Checking original documents in exam library without remapping`);
+		await checkDocsInPublishedBlobStore(allNiLinks);
 	}
 
 	// now check if docs can be returned when mapping to the new location (ie CBOS Blob store)
@@ -187,12 +201,12 @@ async function checkDocsInPublishedBlobStore(allLinks) {
 	console.log(
 		`Successes: ${
 			Object.values(linkStatus).filter((status) => status === true).length
-		} links are successfully found in blob store`
+		} unique links are successfully found.`
 	);
 	console.log(
 		`Failures: ${
 			Object.values(linkStatus).filter((status) => status === false).length
-		} links are not found in blob store`
+		} unique links are not found.`
 	);
 	return Object.values(linkStatus).filter((status) => status === false).length;
 }
@@ -290,8 +304,8 @@ async function extractLinksFromPdf(pdfBuffer) {
 			.map((p) => p.links) // get links from each page
 			.flat() // flatten the array of arrays
 			// @ts-ignore
-			.filter((link) => link.startsWith(NI_OLD_LINK_START))
-	); // filter links that start with the NI domain
+			.filter((link) => link.startsWith(NI_OLD_LINK_START) || link.startsWith(NEW_BLOB_LINK))
+	); // filter links that start with the NI domain, or the new blob domain if testing post migration
 }
 
 /**

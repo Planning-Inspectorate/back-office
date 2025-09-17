@@ -6,10 +6,15 @@ const validEnvironments = ['DEV', 'TEST', 'PROD'];
 const args = process.argv.slice(2);
 const doRedirectTest = args.includes('-doRedirectTest') ? true : false;
 const doBlobStoreTest = args.includes('-doBlobStoreTest') ? true : false;
+const doCheckLinksWithoutRemapping = args.includes('-doCheckLinksWithoutRemapping') ? true : false;
+
+// =====================================================
+// This script is to be run in the LOCAL DEV environment
+// =====================================================
 
 if (!caseReference || !targetEnv) {
 	console.error(
-		'Usage: node exam-library-checker.js <caseReference> <targetEnv (DEV|TEST|PROD)> <-doRedirectTest> <-doBlobStoreTest>'
+		'Usage: node exam-library-checker.js <caseReference> <targetEnv (DEV|TEST|PROD)> <-doRedirectTest> <-doBlobStoreTest> <-doCheckLinksWithoutRemapping>'
 	);
 	process.exit(1);
 }
@@ -22,7 +27,13 @@ if (!validEnvironments.includes(targetEnv)) {
 	process.exit(1);
 }
 
-examLibraryChecker(caseReference, targetEnv, doRedirectTest, doBlobStoreTest)
+examLibraryChecker(
+	caseReference,
+	targetEnv,
+	doRedirectTest,
+	doBlobStoreTest,
+	doCheckLinksWithoutRemapping
+)
 	.then(() => {
 		console.log('Successfully checked the examination library doc links');
 	})
