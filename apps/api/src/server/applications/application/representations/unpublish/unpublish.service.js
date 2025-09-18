@@ -36,3 +36,9 @@ export const unpublishCaseRepresentations = async (caseId, representationIds, ac
 
 	return unpublishableRepresentations;
 };
+
+export const getUnpublishableCaseRepresentations = async (caseId) =>
+	representationsRepository.getUnpublishableRepresentations(caseId);
+
+export const isRepresentationsPreviouslyUnpublished = async (caseId) =>
+	representationsRepository.isRepresentationsPreviouslyUnpublished(caseId);

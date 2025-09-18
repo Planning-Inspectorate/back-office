@@ -1,7 +1,8 @@
 // @ts-nocheck
-import { getRepresentations } from '../applications-relevant-reps.service.js';
-import { getPublishedRepIdsAndCount } from '../utils/publish-representations.js';
-import { unpublishRepresentationsBatch } from './unpublish-representations.service.js';
+import {
+	unpublishRepresentationsBatch,
+	getUnpublishableRepresentations
+} from './unpublish-representations.service.js';
 import logger from '../../../../lib/logger.js';
 import { unpublishRepresentationsErrorUrl } from '../config.js';
 
@@ -36,7 +37,7 @@ export async function getUnpublishRepresentationsController(req, res) {
 
 	let representations;
 	try {
-		representations = await getRepresentations(caseId, '');
+		representations = await getUnpublishableRepresentations(caseId);
 	} catch (error) {
 		logger.error('[getUnpublishRepresentationsController] Error fetching representations:', error);
 		return res.redirect(unpublishRepresentationsErrorUrl);
@@ -47,7 +48,7 @@ export async function getUnpublishRepresentationsController(req, res) {
 		return res.redirect(unpublishRepresentationsErrorUrl);
 	}
 
-	const publishedRepsCount = getPublishedRepIdsAndCount(representations.items).publishedRepsCount;
+	const publishedRepsCount = representations.itemCount || representations.items.length;
 
 	return res.render(view, {
 		caseId,
@@ -65,8 +66,8 @@ export async function getUnpublishRepresentationsController(req, res) {
 export async function postUnpublishRepresentationsController(req, res) {
 	try {
 		const { caseId } = res.locals;
-		const representations = await getRepresentations(caseId, '');
-		const { publishedRepIds } = getPublishedRepIdsAndCount(representations.items || []);
+		const representations = await getUnpublishableRepresentations(caseId);
+		const publishedRepIds = representations.items?.map((item) => item.id) || [];
 
 		if (!publishedRepIds.length) {
 			return res.redirect(`/applications-service/case/${caseId}/relevant-representations`);

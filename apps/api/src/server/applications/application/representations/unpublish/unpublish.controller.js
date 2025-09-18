@@ -1,4 +1,20 @@
-import { unpublishCaseRepresentations } from './unpublish.service.js';
+import {
+	getUnpublishableCaseRepresentations,
+	isRepresentationsPreviouslyUnpublished,
+	unpublishCaseRepresentations
+} from './unpublish.service.js';
+import { mapRepresentationSummary } from '../representation.mapper.js';
+
+export const getUnpublishableRepresentations = async ({ params }, response) => {
+	const unpublishableRepresentations = await getUnpublishableCaseRepresentations(params.id);
+	const previouslyUnpublished = await isRepresentationsPreviouslyUnpublished(params.id);
+
+	return response.status(200).json({
+		previouslyUnpublished,
+		itemCount: unpublishableRepresentations.length,
+		items: unpublishableRepresentations.map(mapRepresentationSummary)
+	});
+};
 
 export const unpublishRepresentations = async ({ params, body }, response) => {
 	const unpublishedRepresentations = await unpublishCaseRepresentations(

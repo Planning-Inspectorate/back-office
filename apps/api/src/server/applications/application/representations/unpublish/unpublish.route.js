@@ -1,10 +1,56 @@
 import { validateApplicationId } from '../../application.validators.js';
 import { asyncHandler } from '@pins/express';
 import { Router as createRouter } from 'express';
-import { unpublishRepresentations } from './unpublish.controller.js';
+import {
+	getUnpublishableRepresentations,
+	unpublishRepresentations
+} from './unpublish.controller.js';
 import { validateUnpublishRepresentations } from './unpublish.validators.js';
 
 const router = createRouter({ mergeParams: true });
+
+router.get(
+	'/',
+	/*
+		#swagger.tags = ['Applications']
+		#swagger.path = '/applications/{id}/representations/unpublish'
+		#swagger.description = 'Gets unpublishable representations for an application'
+		#swagger.parameters['x-service-name'] = {
+			in: 'header',
+			description: 'Service name header',
+			required: false,
+			type: 'string',
+			default: 'swagger'
+		}
+		#swagger.parameters['x-api-key'] = {
+			in: 'header',
+			description: 'API key header',
+			required: false,
+			type: 'string',
+			default: '123'
+		}
+		#swagger.parameters['id'] = {
+			in: 'path',
+			description: 'Application ID',
+			required: true,
+			type: 'integer'
+		}
+		#swagger.responses[200] = {
+				description: 'Unpublishable Representations',
+				schema: {
+					previouslyUnpublished: false,
+					itemCount: 100,
+					items: [
+						{
+								"$ref": '#/definitions/RepresentationSummary'
+						}
+					]
+			}
+		}
+	*/
+	validateApplicationId,
+	asyncHandler(getUnpublishableRepresentations)
+);
 
 router.patch(
 	'/',

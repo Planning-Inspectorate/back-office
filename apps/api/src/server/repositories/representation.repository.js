@@ -1023,6 +1023,66 @@ export const getAllPublishedRepresentationsById = async (caseId, representationI
 	return publishableReps.flat();
 };
 
+/**
+ * Returns representations for the given case id that are 'unpublishable' - those where status is PUBLISHED
+ * @param {number} caseId
+ * @returns {PrismaPromise<GetFindResult<Prisma.RepresentationSelect>[]>}
+ */
+export const getUnpublishableRepresentations = async (caseId) => {
+	const totalUnpublishableRepsCount = await databaseConnector.representation.count({
+		where: {
+			caseId,
+			status: RELEVANT_REPRESENTATION_STATUS_MAP.PUBLISHED
+		}
+	});
+
+	const batchSize = 2000;
+	const unpublishableRepsPromises = [];
+
+	for (let i = 0; i < totalUnpublishableRepsCount; i += batchSize) {
+		unpublishableRepsPromises.push(
+			databaseConnector.representation.findMany({
+				select: {
+					id: true,
+					reference: true,
+					status: true,
+					redacted: true,
+					received: true,
+					represented: {
+						select: {
+							firstName: true,
+							lastName: true,
+							organisationName: true
+						}
+					}
+				},
+				where: {
+					caseId,
+					status: RELEVANT_REPRESENTATION_STATUS_MAP.PUBLISHED
+				},
+				orderBy: [{ status: 'desc' }, { reference: 'asc' }],
+				take: batchSize,
+				skip: i
+			})
+		);
+	}
+
+	const unpublishableReps = await Promise.all(unpublishableRepsPromises);
+
+	return unpublishableReps.flat();
+};
+
+export const isRepresentationsPreviouslyUnpublished = async (caseId) => {
+	const previouslyUnpublished = await databaseConnector.representation.count({
+		where: {
+			caseId,
+			status: RELEVANT_REPRESENTATION_STATUS_MAP.UNPUBLISHED
+		}
+	});
+
+	return previouslyUnpublished > 0;
+};
+
 /*
  * Return the count of attachments, that haven't been deleted, for a given case
  */
