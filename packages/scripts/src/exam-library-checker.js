@@ -101,7 +101,7 @@ export async function examLibraryChecker(
 	// or afterwwards to check the updated exam libary against blob store
 	if (doCheckLinksWithoutRemapping) {
 		console.log(`Checking original documents in exam library without remapping`);
-		await checkDocsInPublishedBlobStore(allNiLinks);
+		await checkDocUrlsResolve(allNiLinks);
 	}
 
 	// now check if docs can be returned when mapping to the new location (ie CBOS Blob store)
@@ -118,7 +118,7 @@ export async function examLibraryChecker(
 			return link.replace(OldNIPath, blobPathDirect);
 		});
 
-		await checkDocsInPublishedBlobStore(remappedLinks);
+		await checkDocUrlsResolve(remappedLinks);
 	}
 
 	console.log('Examination library checker completed');
@@ -162,12 +162,13 @@ async function checkAllRedirectStatus(allNiLinks) {
 }
 
 /**
- * Checks if array of doc URLs are all in the Published CBOS Blob store
+ * Checks if array of doc URLs correctly resolve to a document
+ * - can be used for checking old NI website links, or new CBOS Blob Store links
  *
  * @param {string[]} allLinks
  * @returns {Promise<number>} // returns total docs found
  */
-async function checkDocsInPublishedBlobStore(allLinks) {
+async function checkDocUrlsResolve(allLinks) {
 	/**
 	 * A map of link to status, where true is a valid redirect
 	 * @type {Object<string, boolean>}
