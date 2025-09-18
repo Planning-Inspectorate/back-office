@@ -612,7 +612,7 @@ model ProjectTeam {
 model Meeting {
   id          Int       @id @default(autoincrement())
   caseId      Int
-  type        String?
+  meetingType String?
   agenda      String?
   pinsRole    String?
   meetingDate DateTime?
