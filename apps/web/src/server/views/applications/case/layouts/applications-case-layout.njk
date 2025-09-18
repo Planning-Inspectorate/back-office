@@ -72,7 +72,7 @@
         {% set unpublishedBannerHtml %}
           <h4 class="govuk-notification-banner__heading">Unpublished changes have been made.</h4>
           <p class="govuk-body">
-            <a href="{{ 'case-view' | url({caseId:case.id, step: 'preview-and-publish'}) }}">Preview and publish</a> the project for changes to be applied.
+            <a class="govuk-link" href="{{ 'case-view' | url({caseId:case.id, step: 'preview-and-publish'}) }}">Preview and publish</a> the project for changes to be applied.
           </p>
         {% endset %}
 

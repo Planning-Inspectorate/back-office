@@ -15,6 +15,7 @@ export const parseHtml = (html, { rootElement = 'main', ...options } = {}) => {
 			.removeWhitespace()
 			.querySelector(rootElement)
 			.toString()
+			.replaceAll('\r\n', '\n') // normalise to Linux line endings
 	);
 
 	return /** @type {*} */ (htmlParser).parse(prettifiedHtml, options);

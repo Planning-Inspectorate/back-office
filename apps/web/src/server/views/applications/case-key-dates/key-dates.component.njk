@@ -1,7 +1,14 @@
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
 
-{% macro createSummaryList(sectionData, sectionKey, sectionHeading, caseId) %}
+{% macro createSummaryList(sectionData, sectionKey, sectionHeading, caseId, headingMap=None) %}
 	{% set rows = [] %}
+
+	{# Use headingMap if provided and has a value for sectionKey #}
+	{% if headingMap and headingMap[sectionKey] is defined %}
+		{% set displayHeading = headingMap[sectionKey] %}
+	{% else %}
+		{% set displayHeading = sectionHeading %}
+	{% endif %}
 
 	{% for field, value in sectionData %}
 		{% if field === 'submissionAtPublished' %}
@@ -19,12 +26,12 @@
 
 	{{ govukSummaryList({
 		card: {
-			title: { text: sectionHeading | trim },
+			title: { text: displayHeading | trim },
 			actions: {
 				items: [{
 					href: 'key-dates' | url({caseId: caseId, step: sectionKey}),
 					text: 'Manage dates',
-					visuallyHiddenText: 'for ' ~ sectionHeading | trim
+					visuallyHiddenText: 'for ' ~ displayHeading | trim
 				}]
 			}
 		},
