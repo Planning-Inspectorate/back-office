@@ -37,6 +37,8 @@ model Case {
   S51Advice             S51Advice[]
   ProjectTeam           ProjectTeam[]
   migrationStatus       Boolean?
+  meeting               Meeting[]
+  invoice               Invoice[]
 }
 
 // ServiceUser model which represents a person or oranisation who can have some role in a case
@@ -150,6 +152,49 @@ model ApplicationDetails {
   dateProjectWithdrawn                              DateTime?
   dateOfReOpenRelevantRepresentationStart           DateTime?
   dateOfReOpenRelevantRepresentationClose           DateTime?
+  courtDecisionDate                                 DateTime?
+  courtDecisionOutcome                              String?
+  courtDecisionOutcomeText                          String?
+  decisionChallengeSubmissionDate                   DateTime?
+  recommendation                                    String?
+  subProjectType                                    String?
+  newMaturity                                       String?
+  statutoryConsultationPeriodEndDate                DateTime?
+  submissionOfDraftDocumentsDate                    DateTime?
+  numberBand2Inspectors                             Int?
+  numberBand3Inspectors                             Int?
+  memLastUpdated                                    DateTime?
+  additionalComments                                String?                       @db.NText
+  inceptionMeetingDate                              DateTime?
+  draftDocumentSubmissionDate                       DateTime?
+  programmeDocumentSubmissionDate                   DateTime?
+  tier                                              String?
+  s61SummaryURI                                     String?
+  estimatedScopingSubmissionDate                    DateTime?
+  consultationMilestoneAdequacyDate                 DateTime?
+  planProcessEvidence                               Boolean?
+  issuesTracker                                     String?
+  essentialFastTrackComponents                      Boolean?
+  principalAreaDisagreementSummaryStmt              String?
+  principalAreaDisagreementSummaryStmtSubmittedDate DateTime?
+  policyComplianceDocument                          String?
+  policyComplianceDocumentSubmittedDate             DateTime?
+  designApproachDocument                            String?
+  designApproachDocumentSubmittedDate               DateTime?
+  matureOutlineControlDocument                      String?
+  matureOutlineControlDocumentSubmittedDate         DateTime?
+  caAndTpEvidence                                   String?
+  caAndTpEvidenceSubmittedDate                      DateTime?
+  publicSectorEqualityDuty                          String?
+  publicSectorEqualityDutySubmittedDate             DateTime?
+  fastTrackAdmissionDocument                        String?
+  fastTrackAdmissionDocumentSubmittedDate           DateTime?
+  multipartyApplicationCheckDocument                String?
+  multipartyApplicationCheckDocumentSubmittedDate   DateTime?
+  programmeDocumentURI                              String?
+  updatedProgrammeDocumentReceivedDate              DateTime?
+  programmeDocumentReviewedByEstDate                DateTime?
+  caseTeamIssuedCommentsDate                        DateTime?
   case                                              Case                          @relation(fields: [caseId], references: [id])
   subSector                                         SubSector?                    @relation(fields: [subSectorId], references: [id])
   zoomLevel                                         ZoomLevel?                    @relation(fields: [zoomLevelId], references: [id])
@@ -562,4 +607,30 @@ model ProjectTeam {
   case      Case     @relation(fields: [caseId], references: [id])
 
   @@id([caseId, userId])
+}
+
+model Meeting {
+  id          Int       @id @default(autoincrement())
+  caseId      Int
+  type        String?
+  agenda      String?
+  pinsRole    String?
+  meetingDate DateTime?
+  createdAt   DateTime  @default(now())
+  case        Case      @relation(fields: [caseId], references: [id])
+}
+
+model Invoice {
+  invoiceNumber          String    @id
+  caseId                 Int
+  invoiceStage           String?
+  amountDue              Decimal
+  paymentDueDate         DateTime?
+  invoicedDate           DateTime?
+  paymentDate            DateTime?
+  refundCreditNoteNumber String?
+  refundAmount           Decimal?
+  refundIssueDate        DateTime?
+  createdAt              DateTime  @default(now())
+  case                   Case      @relation(fields: [caseId], references: [id])
 }
