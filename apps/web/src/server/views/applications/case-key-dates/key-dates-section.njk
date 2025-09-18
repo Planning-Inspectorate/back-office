@@ -78,9 +78,11 @@
 	</form>
 {% endblock %}
 
-{% macro getDatesHint(key) %}
+{# ensure leading and trailing whitespace is removed using -%} option #}
+{# else the length check for the hint will pass with Windows line endings! #}
+{% macro getDatesHint(key) -%}
 	{% set datesHint = (key + '_label') | keyDatesProperty %}
 	{% set datesAdvisory = (key + '_advisory') | keyDatesProperty | bold %}
 
 	{{ (datesHint + ' ' + datesAdvisory) | trim | safe }}
-{% endmacro %}
+{%- endmacro %}
