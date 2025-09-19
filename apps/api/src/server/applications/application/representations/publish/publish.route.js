@@ -12,6 +12,20 @@ router.patch(
 			#swagger.tags = ['Applications']
 			#swagger.path = '/applications/{id}/representations/publish'
 			#swagger.description = 'Publishes representations on an application that are VALID or PUBLISHED with unpublishedUpdates'
+			#swagger.parameters['x-service-name'] = {
+									in: 'header',
+									description: 'Service name header',
+									required: false,
+									type: 'string',
+									default: 'swagger'
+			}
+			#swagger.parameters['x-api-key'] = {
+									in: 'header',
+									description: 'API key header',
+									required: false,
+									type: 'string',
+									default: '123'
+			}
 			#swagger.parameters['id'] = {
 									in: 'path',
 									description: 'Application ID',

@@ -1276,6 +1276,22 @@
 						"required": true,
 						"type": "integer",
 						"description": "Application ID"
+					},
+					{
+						"name": "x-service-name",
+						"in": "header",
+						"description": "Service name header",
+						"required": false,
+						"type": "string",
+						"default": "swagger"
+					},
+					{
+						"name": "x-api-key",
+						"in": "header",
+						"description": "API key header",
+						"required": false,
+						"type": "string",
+						"default": "123"
 					}
 				],
 				"responses": {
@@ -1318,6 +1334,22 @@
 						"required": true,
 						"type": "integer",
 						"description": "Application ID"
+					},
+					{
+						"name": "x-service-name",
+						"in": "header",
+						"description": "Service name header",
+						"required": false,
+						"type": "string",
+						"default": "swagger"
+					},
+					{
+						"name": "x-api-key",
+						"in": "header",
+						"description": "API key header",
+						"required": false,
+						"type": "string",
+						"default": "123"
 					},
 					{
 						"name": "body",
@@ -1370,6 +1402,86 @@
 				}
 			}
 		},
+		"/applications/{id}/representations/unpublish": {
+			"patch": {
+				"tags": ["Applications"],
+				"description": "Unpublishes representations on an application that are currently PUBLISHED",
+				"operationId": "unpublishRepresentations",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application ID"
+					},
+					{
+						"name": "x-service-name",
+						"in": "header",
+						"description": "Service name header",
+						"required": false,
+						"type": "string",
+						"default": "swagger"
+					},
+					{
+						"name": "x-api-key",
+						"in": "header",
+						"description": "API key header",
+						"required": false,
+						"type": "string",
+						"default": "123"
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Representation IDs to unpublish, and user performing action",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"representationIds": {
+									"type": "array",
+									"example": [123, 124, 125],
+									"items": {
+										"type": "number"
+									}
+								},
+								"actionBy": {
+									"type": "string",
+									"example": "Joe Bloggs"
+								}
+							}
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Unpublished Representations",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"unpublishedRepIds": {
+									"type": "array",
+									"example": [123, 134, 125],
+									"items": {
+										"type": "number"
+									}
+								}
+							},
+							"xml": {
+								"name": "main"
+							}
+						}
+					},
+					"400": {
+						"description": "Error: Bad Request",
+						"schema": {
+							"$ref": "#/definitions/GeneralError"
+						}
+					}
+				}
+			}
+		},
 		"/applications/{id}/representations/{repId}/redact": {
 			"patch": {
 				"tags": ["Applications"],
@@ -1387,6 +1499,22 @@
 						"in": "path",
 						"required": true,
 						"type": "string"
+					},
+					{
+						"name": "x-service-name",
+						"in": "header",
+						"description": "Service name header",
+						"required": false,
+						"type": "string",
+						"default": "swagger"
+					},
+					{
+						"name": "x-api-key",
+						"in": "header",
+						"description": "API key header",
+						"required": false,
+						"type": "string",
+						"default": "123"
 					},
 					{
 						"name": "body",
@@ -1582,6 +1710,22 @@
 						"in": "path",
 						"required": true,
 						"type": "string"
+					},
+					{
+						"name": "x-service-name",
+						"in": "header",
+						"description": "Service name header",
+						"required": false,
+						"type": "string",
+						"default": "swagger"
+					},
+					{
+						"name": "x-api-key",
+						"in": "header",
+						"description": "API key header",
+						"required": false,
+						"type": "string",
+						"default": "123"
 					},
 					{
 						"name": "body",
