@@ -238,8 +238,7 @@ describe('Representation repository', () => {
 		});
 
 		it('supports sort on nested field represented.displayName', async () => {
-			databaseConnector.representation.count.mockResolvedValue(2);
-			databaseConnector.representation.findMany.mockResolvedValue(existingRepresentations);
+			databaseConnector.$transaction.mockResolvedValue([2, existingRepresentations]);
 			const { count, items } = await representationRepository.getByCaseId(
 				1,
 				{
