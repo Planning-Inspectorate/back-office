@@ -14,27 +14,20 @@ export const unpublishCaseRepresentations = async (caseId, representationIds, ac
 		representationIds
 	);
 
-	// Filter out representations that are already unpublished
-	const unpublishableRepresentations = publishedRepresentations.filter(
-		(rep) => rep.status === 'PUBLISHED'
-	);
-
-	if (unpublishableRepresentations.length > 0) {
-		// Broadcast unpublish events using existing event broadcaster with Unpublish event type
+	if (publishedRepresentations.length > 0) {
 		await broadcastNsipRepresentationUnpublishEventBatch(
-			unpublishableRepresentations,
+			publishedRepresentations,
 			EventType.Unpublish,
 			caseId
 		);
 
-		// Use new repository batch function to update status to UNPUBLISHED and create action records
 		await representationsRepository.setRepresentationsAsUnpublishedBatch(
-			unpublishableRepresentations,
+			publishedRepresentations,
 			actionBy
 		);
 	}
 
-	return unpublishableRepresentations;
+	return publishedRepresentations;
 };
 
 export const getUnpublishableCaseRepresentations = async (caseId) =>
