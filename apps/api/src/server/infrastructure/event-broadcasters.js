@@ -234,18 +234,16 @@ export const broadcastNsipRepresentationEvent = async (
  * @param {RepresentationWithFullDetails[]} representations
  * @param {EventType} eventType
  * @param {number} caseId
+ * @param {(rep: RepresentationWithFullDetails) => any} nsipRepresentationPayloadBuilder
  */
-export const broadcastNsipRepresentationPublishEventBatch = async (
+const broadcastNsipRepresentationEventBatch = async (
 	representations,
-	eventType = EventType.Publish,
-	caseId
+	eventType,
+	caseId,
+	nsipRepresentationPayloadBuilder
 ) => {
-	// pull the ids from the reps array
 	const representationIds = representations.map((rep) => rep.id);
-	// TODO: DJW check this
-
-	// dont send events for TRAINING cases
-	const nsipRepresentationsPayload = representations.map(buildNsipRepresentationPayloadForPublish);
+	const nsipRepresentationsPayload = representations.map(nsipRepresentationPayloadBuilder);
 	const serviceUsersPayload = representations.flatMap(buildRepresentationServiceUserPayload);
 
 	try {
@@ -270,33 +268,34 @@ export const broadcastNsipRepresentationPublishEventBatch = async (
  * @param {EventType} eventType
  * @param {number} caseId
  */
+export const broadcastNsipRepresentationPublishEventBatch = async (
+	representations,
+	eventType = EventType.Publish,
+	caseId
+) => {
+	return broadcastNsipRepresentationEventBatch(
+		representations,
+		eventType,
+		caseId,
+		buildNsipRepresentationPayloadForPublish
+	);
+};
+
+/**
+ *
+ * @param {RepresentationWithFullDetails[]} representations
+ * @param {EventType} eventType
+ * @param {number} caseId
+ */
 export const broadcastNsipRepresentationUnpublishEventBatch = async (
 	representations,
 	eventType = EventType.Unpublish,
 	caseId
 ) => {
-	// pull the ids from the reps array
-	const representationIds = representations.map((rep) => rep.id);
-	// TODO: DJW check this
-
-	// dont send events for TRAINING cases
-	const nsipRepresentationsPayload = representations.map(
+	return broadcastNsipRepresentationEventBatch(
+		representations,
+		eventType,
+		caseId,
 		buildNsipRepresentationPayloadForUnpublish
 	);
-	const serviceUsersPayload = representations.flatMap(buildRepresentationServiceUserPayload);
-
-	try {
-		await verifyNotTraining(caseId);
-
-		await batchSendEvents(NSIP_REPRESENTATION, nsipRepresentationsPayload, eventType);
-
-		await batchSendEvents(SERVICE_USER, serviceUsersPayload, eventType, {
-			entityType: 'RepresentationContact'
-		});
-	} catch (/** @type {*} */ err) {
-		logger.error(
-			{ error: err.message },
-			`Blocked sending event for representations: ${representationIds}`
-		);
-	}
 };
