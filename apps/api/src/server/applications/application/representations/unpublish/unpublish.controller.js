@@ -7,10 +7,10 @@ import { mapRepresentationSummary } from '../representation.mapper.js';
 
 export const getUnpublishableRepresentations = async ({ params }, response) => {
 	const unpublishableRepresentations = await getUnpublishableCaseRepresentations(params.id);
-	const previouslyUnpublished = await isRepresentationsPreviouslyUnpublished(params.id);
+	const unpublishedRepresentations = await isRepresentationsPreviouslyUnpublished(params.id);
 
 	return response.status(200).json({
-		previouslyUnpublished,
+		unpublishedRepresentations,
 		itemCount: unpublishableRepresentations.length,
 		items: unpublishableRepresentations.map(mapRepresentationSummary)
 	});
