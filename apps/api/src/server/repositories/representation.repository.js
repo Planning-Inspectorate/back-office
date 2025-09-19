@@ -41,7 +41,8 @@ export const getByCaseId = async (caseId, { page, pageSize }, { searchTerm, filt
 					select: {
 						firstName: true,
 						lastName: true,
-						organisationName: true
+						organisationName: true,
+						displayName: true
 					}
 				}
 			},
@@ -948,12 +949,29 @@ function buildFilters(filters = {}) {
  */
 function buildOrderBy(sort) {
 	const primarySort = sort || [{ status: 'asc' }];
-	const secondarySort =
-		sort && sort.some((sortObject) => Object.keys(sortObject)[0] === 'received')
-			? []
-			: [{ received: 'desc' }];
 
-	return [...primarySort, ...secondarySort, { id: 'asc' }];
+	const SORT_FIELD_MAP = {
+		displayName: { represented: 'displayName' }
+	};
+
+	const orderBy = primarySort.map((sortObject) => {
+		const [sortField, direction] = Object.entries(sortObject)[0];
+
+		if (SORT_FIELD_MAP[sortField]) {
+			const [relation, nestedField] = Object.entries(SORT_FIELD_MAP[sortField])[0];
+			return { [relation]: { [nestedField]: direction } };
+		}
+
+		return { [sortField]: direction };
+	});
+
+	// Preserve fallback sorts
+	const hasReceived = primarySort.some((sortObject) => Object.keys(sortObject)[0] === 'received');
+	if (!hasReceived) {
+		orderBy.push({ received: 'desc' });
+	}
+	orderBy.push({ id: 'asc' });
+	return orderBy;
 }
 
 /**

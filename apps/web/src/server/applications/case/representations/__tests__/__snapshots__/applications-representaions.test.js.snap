@@ -159,7 +159,9 @@ exports[`applications representations GET /applications-service/:caseId/relevant
                     <th scope="col" class="govuk-table__header"><a href="relevant-representations?page=1&amp;sortBy=reference#rr-table"
                         class="sort-table__link "> Reference<span class="sort-table__link-icon  sort-table__link-icon--small "></span></a>
                     </th>
-                    <th scope="col" class="govuk-table__header">From</th>
+                    <th scope="col" class="govuk-table__header"><a href="relevant-representations?page=1&amp;sortBy=displayName#rr-table"
+                        class="sort-table__link "> From<span class="sort-table__link-icon  sort-table__link-icon--small "></span></a>
+                    </th>
                     <th scope="col" class="govuk-table__header"><a href="relevant-representations?page=1&amp;sortBy=received#rr-table"
                         class="sort-table__link "> Date received<span class="sort-table__link-icon  sort-table__link-icon--small "></span></a>
                     </th>
@@ -358,7 +360,9 @@ exports[`applications representations GET /applications-service/:id/relevant-rep
                     <th scope="col" class="govuk-table__header"><a href="relevant-representations?searchTerm=mock-search-term&amp;page=1&amp;sortBy=reference#rr-table"
                         class="sort-table__link "> Reference<span class="sort-table__link-icon  sort-table__link-icon--small "></span></a>
                     </th>
-                    <th scope="col" class="govuk-table__header">From</th>
+                    <th scope="col" class="govuk-table__header"><a href="relevant-representations?searchTerm=mock-search-term&amp;page=1&amp;sortBy=displayName#rr-table"
+                        class="sort-table__link "> From<span class="sort-table__link-icon  sort-table__link-icon--small "></span></a>
+                    </th>
                     <th scope="col" class="govuk-table__header"><a href="relevant-representations?searchTerm=mock-search-term&amp;page=1&amp;sortBy=received#rr-table"
                         class="sort-table__link "> Date received<span class="sort-table__link-icon  sort-table__link-icon--small "></span></a>
                     </th>

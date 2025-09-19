@@ -11,7 +11,8 @@ export const representationsFixture = {
 			received: '2022-01-01',
 			organisationName: 'org name 1',
 			reference: 'mock reference',
-			id: '1'
+			id: '1',
+			displayName: 'org name 1'
 		},
 		{
 			status: 'VALID',
@@ -21,7 +22,8 @@ export const representationsFixture = {
 			firstName: 'first',
 			lastName: 'lastName',
 			reference: 'mock reference',
-			id: '2'
+			id: '2',
+			displayName: 'first lastName'
 		}
 	]
 };
