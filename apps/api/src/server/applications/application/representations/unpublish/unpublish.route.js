@@ -3,7 +3,7 @@ import { asyncHandler } from '@pins/express';
 import { Router as createRouter } from 'express';
 import {
 	getUnpublishableRepresentations,
-	unpublishRepresentations
+	postUnpublishRepresentations
 } from './unpublish.controller.js';
 import { validateUnpublishRepresentations } from './unpublish.validators.js';
 
@@ -101,7 +101,7 @@ router.patch(
 	*/
 	validateApplicationId,
 	validateUnpublishRepresentations,
-	asyncHandler(unpublishRepresentations)
+	asyncHandler(postUnpublishRepresentations)
 );
 
 export const representationsUnpublishRouter = router;

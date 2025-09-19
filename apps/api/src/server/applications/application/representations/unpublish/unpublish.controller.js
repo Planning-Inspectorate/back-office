@@ -16,7 +16,7 @@ export const getUnpublishableRepresentations = async ({ params }, response) => {
 	});
 };
 
-export const unpublishRepresentations = async ({ params, body }, response) => {
+export const postUnpublishRepresentations = async ({ params, body }, response) => {
 	const unpublishedRepresentations = await unpublishCaseRepresentations(
 		params.id,
 		body.representationIds,
