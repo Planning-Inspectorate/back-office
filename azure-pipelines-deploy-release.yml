@@ -40,7 +40,7 @@ resources:
       type: github
       endpoint: Planning-Inspectorate
       name: Planning-Inspectorate/common-pipeline-templates
-      ref: refs/tags/release/3.20.0
+      ref: refs/tags/release/3.24.0
   pipelines:
     - pipeline: build
       source: Back Office Build
@@ -58,7 +58,22 @@ extends:
   template: stages/wrapper_cd.yml@templates
   parameters:
     environments:
-      - name: Prod
+        - name: Dev
+        - name: Test
+          dependsOn:
+              - Dev
+        - name: Training
+          dependsOn:
+              - Test
+        - name: Prod
+          dependsOn:
+              - Test
+    automaticDeployments:
+        environments:
+            - name: Dev
+            - name: Test
+              dependsOn:
+                  - Dev
     deploymentStages:
       - name: Stage
         deploymentJobs:
@@ -72,6 +87,11 @@ extends:
                   slot: staging
                   azurecrName: $(azurecrName)
                   repository: back-office/back-office-api
+              -   template: ../steps/azure_web_app_verify_git_hash.yml
+                  parameters:
+                      appName: Back Office API
+                      appUrl: $(deploySlotOutputs.slotUrl)/health
+                      buildCommit: $(resources.pipeline.build.sourceCommit)
           - name: Stage Web
             condition: eq(${{ parameters.deployWeb }}, 'true')
             steps:
@@ -82,6 +102,12 @@ extends:
                   slot: staging
                   azurecrName: $(azurecrName)
                   repository: back-office/back-office-web
+              -   template: ../steps/azure_web_app_verify_git_hash.yml
+                  parameters:
+                      appName: Back Office Web
+                      appUrl: $(deploySlotOutputs.slotUrl)/health
+                      buildCommit: $(resources.pipeline.build.sourceCommit)
+                      auth_enabled: 'false'
       - name: Deploy
         dependsOn:
           - Stage
@@ -97,7 +123,7 @@ extends:
                         variable: DATABASE_URL
                 - template: ../steps/node_script.yml
                   parameters:
-                    nodeVersion: 20
+                    nodeVersion: 22
                     environmentVariables:
                       DATABASE_URL: $(DATABASE_URL)
                     script: npm run db:migrate:prod
@@ -111,6 +137,11 @@ extends:
                   appResourceGroup: $(resourceGroup)
                   appStagingSlotName: staging
                   appTargetSlotName: production
+              -   template: ../steps/azure_web_app_verify_git_hash.yml
+                  parameters:
+                      appName: Application service API
+                      appUrl: https://pins-app-back-office-api-$(ENVIRONMENT)-$(REGION_SHORT)-001.azurewebsites.net/health
+                      buildCommit: $(resources.pipeline.build.sourceCommit)
           - name: Deploy Web
             condition: eq(${{ parameters.deployWeb }}, 'true')
             steps:
@@ -120,6 +151,12 @@ extends:
                   appResourceGroup: $(resourceGroup)
                   appStagingSlotName: staging
                   appTargetSlotName: production
+              -   template: ../steps/azure_web_app_verify_git_hash.yml
+                  parameters:
+                      appName: Application service Web
+                      appUrl: https://pins-app-back-office-wfe-$(ENVIRONMENT)-$(REGION_SHORT)-001.azurewebsites.net/health
+                      buildCommit: $(resources.pipeline.build.sourceCommit)
+                      auth_enabled: 'false'
           - name: Deploy Function - Applications Migration
             condition: eq(${{ parameters.deployFunctionApplicationsMigration }}, 'true')
             steps:
