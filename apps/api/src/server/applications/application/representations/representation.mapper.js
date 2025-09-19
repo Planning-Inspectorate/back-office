@@ -128,7 +128,7 @@ export const mapCaseRepresentationsStatusCount = (statusWithCount) =>
 /**
  * Return subset of Representation properties
  * @param {Prisma.RepresentationSelect} representation
- * @return {{id: string, reference: string, status: string, redacted: boolean, received: boolean, firstName: string, lastName: string, organisationName: string}}
+ * @return {{id: string, reference: string, status: string, redacted: boolean, received: boolean, firstName: string, lastName: string, organisationName: string, displayName: string}}
  */
 export const mapRepresentationSummary = (representation) => {
 	const representationSummary = pick(representation, [
@@ -145,6 +145,7 @@ export const mapRepresentationSummary = (representation) => {
 		...representationSummary,
 		firstName: contact?.firstName,
 		lastName: contact?.lastName,
-		organisationName: contact?.organisationName
+		organisationName: contact?.organisationName,
+		displayName: contact?.displayName
 	};
 };

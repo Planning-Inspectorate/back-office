@@ -51,7 +51,8 @@ describe('Representation repository', () => {
 						select: {
 							firstName: true,
 							lastName: true,
-							organisationName: true
+							organisationName: true,
+							displayName: true
 						}
 					}
 				},
@@ -88,7 +89,8 @@ describe('Representation repository', () => {
 						select: {
 							firstName: true,
 							lastName: true,
-							organisationName: true
+							organisationName: true,
+							displayName: true
 						}
 					}
 				},
@@ -141,7 +143,8 @@ describe('Representation repository', () => {
 						select: {
 							firstName: true,
 							lastName: true,
-							organisationName: true
+							organisationName: true,
+							displayName: true
 						}
 					}
 				},
@@ -185,7 +188,8 @@ describe('Representation repository', () => {
 						select: {
 							firstName: true,
 							lastName: true,
-							organisationName: true
+							organisationName: true,
+							displayName: true
 						}
 					}
 				},
@@ -221,12 +225,67 @@ describe('Representation repository', () => {
 						select: {
 							firstName: true,
 							lastName: true,
-							organisationName: true
+							organisationName: true,
+							displayName: true
 						}
 					}
 				},
 				where,
 				orderBy: [{ reference: 'desc' }, { received: 'desc' }, { id: 'asc' }],
+				skip: 0,
+				take: 25
+			});
+		});
+
+		it('supports sort on nested field represented.displayName', async () => {
+			databaseConnector.representation.count.mockResolvedValue(2);
+			databaseConnector.representation.findMany.mockResolvedValue(existingRepresentations);
+			const { count, items } = await representationRepository.getByCaseId(
+				1,
+				{
+					page: 1,
+					pageSize: 25
+				},
+				{
+					sort: [{ displayName: 'asc' }]
+				}
+			);
+			expect(count).toEqual(2);
+			expect(items).toEqual(existingRepresentations);
+			const where = {
+				caseId: 1
+			};
+			expect(databaseConnector.representation.count).toHaveBeenCalledWith({
+				where
+			});
+			expect(databaseConnector.representation.findMany).toHaveBeenCalledWith({
+				select: {
+					id: true,
+					reference: true,
+					status: true,
+					redacted: true,
+					received: true,
+					represented: {
+						select: {
+							firstName: true,
+							lastName: true,
+							organisationName: true,
+							displayName: true
+						}
+					}
+				},
+				where,
+				orderBy: [
+					{
+						represented: { displayName: 'asc' }
+					},
+					{
+						received: 'desc'
+					},
+					{
+						id: 'asc'
+					}
+				],
 				skip: 0,
 				take: 25
 			});
