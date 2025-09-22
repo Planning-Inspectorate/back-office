@@ -30,6 +30,23 @@
 {% endblock %}
 
 {% block pageContent %}
+	{% if unpublishedRepsCount > 0 %}
+		{% set successBannerHtml %}
+			<p class="govuk-notification-banner__heading">
+				{{ unpublishedRepsCount }} Representations have been unpublished.
+			</p>
+
+			<a href="{{ resetSuccessBannerURL }}" id="clear-success-notification-link" class="govuk-link">Clear notification</a>
+		{% endset %}
+		{{
+		govukNotificationBanner({
+			attributes: { id: "unpublish-success-banner" },
+			type: 'success',
+			html: successBannerHtml
+		})
+		}}
+	{% endif %}
+
 	{% if publishedRepsCount > 0 %}
 		{% set successBannerHtml %}
 			<p class="govuk-notification-banner__heading">
@@ -124,18 +141,24 @@
 				}) }}
 
 				<p class="govuk-body">
+					<a class="govuk-link" href="{{ publishQueueURL }}">View publishing queue</a>
+				</p>
+
+				{% if totalPublishedReps > 0 %}
+					<p class="govuk-body">
+						<a class="govuk-link" href="/applications-service/case/{{ caseId }}/relevant-representations/unpublish-representations">
+							Unpublish all published representations
+						</a>
+					</p>
+				{% endif %}
+
+				<p class="govuk-body">
 					<a class="govuk-link"
 					   href="/applications-service/case/{{ caseId }}/relevant-representations/api/download" download>
 						Download valid and published representations (CSV)</a>
 				</p>
 			</div>
 		</div>
-
-		{% if isRelevantRepsPeriodClosed %}
-			<p class="govuk-body">
-				<a class="govuk-link" href="{{ publishQueueURL }}">View publishing queue</a>
-			</p>
-		{% endif %}
 
 		<h3 class="govuk-heading-m">Search representations</h3>
 

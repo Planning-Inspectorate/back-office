@@ -18,6 +18,7 @@ import { getPublishQueueUrl } from './utils/get-publish-queue-url.js';
 import { getKeyDates } from './utils/get-key-dates.js';
 import documentationSessionHandlers from '../documentation/applications-documentation.session.js';
 import { url } from '../../../lib/nunjucks-filters/index.js';
+import { getPublishedRepIdsAndCount } from './utils/publish-representations.js';
 
 const view = 'applications/representations/representations.njk';
 
@@ -45,7 +46,8 @@ export async function relevantRepsApplications({ query, session }, res) {
 		pageSize = 25,
 		page = 1,
 		filters = [],
-		published: publishedRepsCount
+		published: publishedRepsCount,
+		unpublished: unpublishedRepsCount
 	} = query;
 
 	const caseReference = await getCase(caseId);
@@ -67,7 +69,9 @@ export async function relevantRepsApplications({ query, session }, res) {
 	const representations = await getRepresentations(caseId, queryString);
 
 	const publishableReps = await getPublishableRepresentations(caseId);
-
+	const { publishedRepsCount: totalPublishedReps } = getPublishedRepIdsAndCount(
+		representations.items
+	);
 	return res.render(view, {
 		representations: getRepresentationsViewModel(representations, caseId),
 		caseReference: getCaseReferenceViewModel(caseReference),
@@ -75,6 +79,8 @@ export async function relevantRepsApplications({ query, session }, res) {
 		publishQueueURL: getPublishQueueUrl(publishableReps, serviceUrl, caseId),
 		resetSuccessBannerURL: `?${queryString}`,
 		publishedRepsCount: Number(publishedRepsCount),
+		unpublishedRepsCount: Number(unpublishedRepsCount),
+		totalPublishedReps: totalPublishedReps,
 		isRelevantRepsPeriodClosed: isRelevantRepsPeriodClosed(
 			repsPeriodCloseDate,
 			repsPeriodCloseDateExtension

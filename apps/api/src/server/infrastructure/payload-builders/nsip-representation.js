@@ -82,6 +82,22 @@ export const buildNsipRepresentationPayloadForPublish = (representation) => {
 };
 
 /**
+ * Build Representation message event payload which optimistically sets the message status to unpublished before being
+ * updated in the database.  This avoids multiple reads of representation data in the controller.
+ * The message is idempotent so in case of failure to update in DB users would re-unpublish for eventual consistency.
+ *
+ * @param {RepresentationWithFullDetails} representation
+ * @returns {NSIPRepresentationSchema}
+ */
+export const buildNsipRepresentationPayloadForUnpublish = (representation) => {
+	let unpublishRepresentationPayload = buildNsipRepresentationPayload(representation);
+	// @ts-ignore
+	unpublishRepresentationPayload.status = mapRepresentationStatusToSchema('UNPUBLISHED');
+
+	return unpublishRepresentationPayload;
+};
+
+/**
  * Build Rel Rep Service User event message payload
  *
  * @param {RepresentationWithFullDetails} representation

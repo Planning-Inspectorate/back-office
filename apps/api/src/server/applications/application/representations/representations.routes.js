@@ -19,6 +19,7 @@ import { representationsStatusRouter } from './status/status.route.js';
 import { getRepDownloadRouter } from './download/rep-download.router.js';
 import { representationsPublishableRouter } from './publishable/publishable.route.js';
 import { representationsPublishRouter } from './publish/publish.route.js';
+import { representationsUnpublishRouter } from './unpublish/unpublish.route.js';
 
 const router = createRouter({ mergeParams: true });
 
@@ -114,6 +115,8 @@ router.use('/download', getRepDownloadRouter);
 router.use('/publishable', representationsPublishableRouter);
 
 router.use('/publish', representationsPublishRouter);
+
+router.use('/unpublish', representationsUnpublishRouter);
 
 router.get(
 	'/:repId',
