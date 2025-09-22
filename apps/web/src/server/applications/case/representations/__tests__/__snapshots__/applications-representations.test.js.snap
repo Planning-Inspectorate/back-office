@@ -93,6 +93,11 @@ exports[`applications representations GET /applications-service/:caseId/relevant
                                             type="checkbox" value="WITH_ATTACHMENT">
                                             <label class="govuk-label govuk-checkboxes__label" for="filters-10">With attachment (3)</label>
                                         </div>
+                                        <div class="govuk-checkboxes__item">
+                                            <input class="govuk-checkboxes__input" id="filters-11" name="filters"
+                                            type="checkbox" value="UNPUBLISHED">
+                                            <label class="govuk-label govuk-checkboxes__label" for="filters-11">Unpublished (0)</label>
+                                        </div>
                                     </div>
                                 </fieldset>
                             </div>
@@ -114,13 +119,13 @@ exports[`applications representations GET /applications-service/:caseId/relevant
                 <p class="govuk-body govuk-!-margin-bottom-6">Target date for review and completion</p><a href="/applications-service/case/1/relevant-representations/contact-details?repType=represented"
                 role="button" draggable="false" class="govuk-button govuk-button--secondary"
                 data-module="govuk-button"> Add a representation</a>
+                <p class="govuk-body"><a class="govuk-link" href="/applications-service/case/1/relevant-representations/select-representations-for-publishing">View publishing queue</a>
+                </p>
                 <p class="govuk-body"><a class="govuk-link" href="/applications-service/case/1/relevant-representations/api/download"
                     download> Download valid and published representations (CSV)</a>
                 </p>
             </div>
         </div>
-        <p class="govuk-body"><a class="govuk-link" href="/applications-service/case/1/relevant-representations/select-representations-for-publishing">View publishing queue</a>
-        </p>
         <h3 class="govuk-heading-m">Search representations</h3>
         <input type="hidden" name="page" value="1">
         <input type="hidden" name="pageSize" value="25">
@@ -293,6 +298,11 @@ exports[`applications representations GET /applications-service/:id/relevant-rep
                                             type="checkbox" value="WITH_ATTACHMENT">
                                             <label class="govuk-label govuk-checkboxes__label" for="filters-10">With attachment (0)</label>
                                         </div>
+                                        <div class="govuk-checkboxes__item">
+                                            <input class="govuk-checkboxes__input" id="filters-11" name="filters"
+                                            type="checkbox" value="UNPUBLISHED">
+                                            <label class="govuk-label govuk-checkboxes__label" for="filters-11">Unpublished (0)</label>
+                                        </div>
                                     </div>
                                 </fieldset>
                             </div>
@@ -314,13 +324,13 @@ exports[`applications representations GET /applications-service/:id/relevant-rep
                 <p class="govuk-body govuk-!-margin-bottom-6">Target date for review and completion</p><a href="/applications-service/case/1/relevant-representations/contact-details?repType=represented"
                 role="button" draggable="false" class="govuk-button govuk-button--secondary"
                 data-module="govuk-button"> Add a representation</a>
+                <p class="govuk-body"><a class="govuk-link" href="/applications-service/case/1/relevant-representations/select-representations-for-publishing">View publishing queue</a>
+                </p>
                 <p class="govuk-body"><a class="govuk-link" href="/applications-service/case/1/relevant-representations/api/download"
                     download> Download valid and published representations (CSV)</a>
                 </p>
             </div>
         </div>
-        <p class="govuk-body"><a class="govuk-link" href="/applications-service/case/1/relevant-representations/select-representations-for-publishing">View publishing queue</a>
-        </p>
         <h3 class="govuk-heading-m">Search representations</h3>
         <input type="hidden" name="page" value="1">
         <input type="hidden" name="pageSize" value="25">
