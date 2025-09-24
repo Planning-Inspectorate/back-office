@@ -12,8 +12,11 @@
   },
   "type": "module",
   "scripts": {
-    "test": "npm run prisma-generate && cross-env NODE_ENV=test NODE_OPTIONS=--experimental-vm-modules npx jest --forceExit --coverage",
-    "test:nocov": "npm run prisma-generate && cross-env NODE_ENV=test NODE_OPTIONS=--experimental-vm-modules npx jest --forceExit",
+    "test": "cross-env NODE_ENV=test NODE_OPTIONS=\"--experimental-vm-modules --max-old-space-size=8192\" npx jest --maxWorkers=50%",
+    "test:ci": "cross-env NODE_ENV=test NODE_OPTIONS=\"--experimental-vm-modules --max-old-space-size=4096\" npx jest --maxWorkers=2",
+    "test:heavy": "cross-env NODE_ENV=test NODE_OPTIONS=\"--experimental-vm-modules --max-old-space-size=8192\" npx jest --maxWorkers=4 --testPathPattern=integration",
+    "test:light": "cross-env NODE_ENV=test NODE_OPTIONS=\"--experimental-vm-modules --max-old-space-size=4096\" npx jest --maxWorkers=50% --testPathPattern=unit",
+    "test:nocov": "cross-env NODE_ENV=test NODE_OPTIONS=\"--experimental-vm-modules --max-old-space-size=8192\" npx jest --maxWorkers=50% --coverage=false",
     "test:watch": "npm run test -- --watch",
     "coverage": "npm run prisma-generate && cross-env NODE_ENV=test NODE_OPTIONS=--experimental-vm-modules npx jest --forceExit --coverage",
     "dev": "cross-env TZ=utc npm run prisma-generate && nodemon --experimental-json-modules -e js ./src/server.js",

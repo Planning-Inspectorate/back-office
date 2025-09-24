@@ -1,3 +1,10 @@
+# Pipeline optimizations for handling memory issues and test timeouts
+# Key problems being addressed:
+# 1. Tests taking too long to finish
+# 2. Memory exhaustion on build agents
+# 3. Difficulty identifying which tests are failing
+# 4. Resource contention between different test types
+
 trigger:
     branches:
         include:
@@ -29,13 +36,22 @@ extends:
         globalVariables:
             - template: azure-pipelines-variables.yml@self
         validationJobs:
-            - name: Run Linting & API Tests
+            # Setup job runs first and all other jobs depend on it
+            # This prevents duplicate npm installations and ensures consistent environment
+            - name: Setup
               steps:
                   - script: git fetch origin main:main
                   - template: ../steps/node_script.yml
                     parameters:
                         nodeVersion: 20
                         script: npm ci
+
+            # Static analysis runs independently of tests
+            # This allows faster feedback on code quality issues
+            # These checks are typically less memory intensive
+            - name: Static_Analysis
+              dependsOn: Setup
+              steps:
                   - template: ../steps/node_script.yml
                     parameters:
                         nodeVersion: 20
@@ -56,30 +72,108 @@ extends:
                     parameters:
                         nodeVersion: 20
                         script: npm run format-check
-                  - template: ../steps/node_script.yml
-                    parameters:
-                        nodeVersion: 20
-                        # Run tests for a subset of apps on Agent A
-                        script: npx turbo run test --filter=./apps/api
-                        environmentVariables:
-                            TURBO_TEAM: $(TURBO_TEAM)
-                            TURBO_API: $(TURBO_API)
-                            TURBO_TOKEN: $(TURBO_TOKEN)
-            - name: Run Web and Function Tests
+
+            # API tests split into Unit and Integration
+            # Benefits:
+            # - Smaller memory footprint per job
+            # - Faster feedback on unit test failures
+            # - Better isolation between test types
+            # - Easier to identify source of failures
+            - name: API_Unit_Tests
+              dependsOn: Setup
               steps:
                   - template: ../steps/node_script.yml
                     parameters:
                         nodeVersion: 20
-                        script: npm ci
-                  - template: ../steps/node_script.yml
-                    parameters:
-                        nodeVersion: 20
-                        # Run tests for the remaining apps on Agent B
-                        script: npx turbo run test --filter=./apps/web --filter=./apps/api-testing --filter=./apps/functions/*
+                        script: |
+                            cd apps/api && npm run test:light
                         environmentVariables:
                             TURBO_TEAM: $(TURBO_TEAM)
                             TURBO_API: $(TURBO_API)
                             TURBO_TOKEN: $(TURBO_TOKEN)
+
+            - name: API_Integration_Tests
+              dependsOn: Setup
+              steps:
+                  - template: ../steps/node_script.yml
+                    parameters:
+                        nodeVersion: 20
+                        script: |
+                            cd apps/api && npm run test:heavy
+                        environmentVariables:
+                            TURBO_TEAM: $(TURBO_TEAM)
+                            TURBO_API: $(TURBO_API)
+                            TURBO_TOKEN: $(TURBO_TOKEN)
+
+            # Web tests optimized for parallel execution
+            - name: Web_Unit_Tests
+              dependsOn: Setup
+              steps:
+                  - template: ../steps/node_script.yml
+                    parameters:
+                        nodeVersion: 20
+                        script: |
+                            cd apps/web && npm run test:light
+                        environmentVariables:
+                            TURBO_TEAM: $(TURBO_TEAM)
+                            TURBO_API: $(TURBO_API)
+                            TURBO_TOKEN: $(TURBO_TOKEN)
+
+            - name: Web_Integration_Tests
+              dependsOn: Setup
+              steps:
+                  - template: ../steps/node_script.yml
+                    parameters:
+                        nodeVersion: 20
+                        script: |
+                            cd apps/web && npm run test:heavy
+                        environmentVariables:
+                            TURBO_TEAM: $(TURBO_TEAM)
+                            TURBO_API: $(TURBO_API)
+                            TURBO_TOKEN: $(TURBO_TOKEN)
+
+            # Specialized test suites run independently
+            # These often have unique requirements and dependencies
+            - name: API_Testing
+              dependsOn: Setup
+              steps:
+                  - template: ../steps/node_script.yml
+                    parameters:
+                        nodeVersion: 20
+                        script: |
+                            cd apps/api-testing && npm run test:ci
+                        environmentVariables:
+                            TURBO_TEAM: $(TURBO_TEAM)
+                            TURBO_API: $(TURBO_API)
+                            TURBO_TOKEN: $(TURBO_TOKEN)
+
+            - name: Function_Tests
+              dependsOn: Setup
+              steps:
+                  - template: ../steps/node_script.yml
+                    parameters:
+                        nodeVersion: 20
+                        script: |
+                            export NODE_OPTIONS="--max-old-space-size=4096"
+                            npx turbo run test --filter=./apps/functions/* -- --maxWorkers=2
+                        environmentVariables:
+                            TURBO_TEAM: $(TURBO_TEAM)
+                            TURBO_API: $(TURBO_API)
+                            TURBO_TOKEN: $(TURBO_TOKEN)
+
+            # Final build only runs after ALL tests pass
+            # This ensures we don't waste resources building if tests fail
+            # Dependencies explicitly listed for clarity
+            - name: Build
+              dependsOn:
+                - Static_Analysis
+                - API_Unit_Tests
+                - API_Integration_Tests
+                - Web_Unit_Tests
+                - Web_Integration_Tests
+                - API_Testing
+                - Function_Tests
+              steps:
                   - template: ../steps/node_script.yml
                     parameters:
                         nodeVersion: 20
