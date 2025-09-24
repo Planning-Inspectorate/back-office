@@ -5,7 +5,7 @@ import blob from './blob-client.js';
 import events from './event-client.js';
 
 /**
- * @typedef {import('pins-data-model').Schemas.NewDeadlineSubmission} NewDeadlineSubmission
+ * @typedef {import('@planning-inspectorate/data-model').Schemas.NewDeadlineSubmission} NewDeadlineSubmission
  */
 
 const { submissionsContainer } = config;
@@ -41,9 +41,36 @@ async function run(context, msg) {
 
 	const { nameWelsh, descriptionWelsh } = lib.getWelshDetails(timetableItem, msg.submissionType);
 
-	const sourceBlobName = `${msg.blobGuid}/${msg.documentName}`;
+	//Due to a breaking change in FO to upload blob URLs, a temporary fallback is introduced to maintain compatibility without downtime.
+	//primarySourceBlobName can become the main sourceBlobName after both FO and CBOS upload and copy from <guid>/1 URL
+	//fallback to secondarySourceBlobName will then no longer be needed and can be removed
+	const primarySourceBlobName = `${msg.blobGuid}/1`;
+	const secondarySourceBlobName = `${msg.blobGuid}/${msg.documentName}`;
 
-	const properties = await blob.getBlobProperties(submissionsContainer, sourceBlobName);
+	let sourceBlobName = primarySourceBlobName;
+	let properties;
+
+	try {
+		properties = await blob.getBlobProperties(submissionsContainer, sourceBlobName);
+	} catch (error) {
+		//TODO: remove the fallback to secondarySourceBlobName once FO and CBOS have been released to production
+		if (error.statusCode === 404) {
+			context.log(
+				`Primary blob not found: ${primarySourceBlobName}. Attempting secondary: ${secondarySourceBlobName}`
+			);
+			sourceBlobName = secondarySourceBlobName;
+			properties = await blob.getBlobProperties(submissionsContainer, sourceBlobName);
+		} else {
+			context.log(`Error getting blob properties for ${sourceBlobName}: ${error}`);
+			throw error;
+		}
+	}
+
+	if (!properties) {
+		throw new Error(`Could not find properties for ${sourceBlobName}`);
+	}
+
+	context.log('Blob properties:', JSON.stringify(properties, null, 2));
 
 	// Check if the matching folder ID exists for the timetable item
 	const examItemfolderExists = await api.examTimetableItemFolderExists(
@@ -103,6 +130,7 @@ async function run(context, msg) {
 	}
 
 	const successful = await blob.copyFile(
+		context,
 		{ containerName: submissionsContainer, blobName: sourceBlobName },
 		{ containerName: privateBlobContainer, blobName: destinationName }
 	);
@@ -147,6 +175,7 @@ export default async function (context, msg) {
 		});
 
 		context.log(`Failed to copy blob ${msg.blobGuid} from submissions to uploads store`);
+		context.log(`Error details: ${err}`);
 
 		throw err;
 	}

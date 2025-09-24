@@ -1,0 +1,53 @@
+{% extends "../case/unpublish.njk" %}
+{% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+
+{% set pageTitle = "Unpublish relevant representations - " + case.title + " - NSIP applications" %}
+
+{% block title %}
+	{{ pageTitle }}
+{% endblock %}
+
+{% block beforeContent %}
+	{{
+	govukBackLink({
+		text: "Back",
+		href: "/applications-service/case/" + caseId + "/relevant-representations"
+	})
+	}}
+{% endblock %}
+
+{% block pageContent %}
+	<div class="govuk-grid-row unpublish-representations">
+		<div class="govuk-grid-column-two-thirds">
+			<h1 class="govuk-heading-l">Unpublish relevant representations</h1>
+			<p class="govuk-body">
+				<strong>Project Name:</strong>&nbsp;{{ projectName }}
+			</p>
+			<p class="govuk-body">
+				There are
+				<strong class="publishedRepsCount">{{ publishedRepsCount }}</strong>
+				published representations.
+			</p>
+			<p class="govuk-body">
+				Unpublishing will remove these representations from the external website.
+			</p>
+			<div class="govuk-inset-text">
+				You can republish a representation by changing its status to "Valid" and selecting "Publish representations" from the
+				publishing queue.
+			</div>
+			{% if publishedRepsCount > 0 %}
+				<form method="post">
+					{{
+						govukButton({
+							text: "Unpublish all representations",
+							classes: "govuk-button--warning",
+							preventDoubleClick: true
+						})
+					}}
+				</form>
+			{% endif %}
+		</div>
+	</div>
+{% endblock %}

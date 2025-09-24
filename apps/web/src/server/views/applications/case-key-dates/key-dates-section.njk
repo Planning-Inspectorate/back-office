@@ -5,7 +5,14 @@
 {% from '../components/inputs/date-input.component.njk' import dateInput %}
 
 {% set serviceName = case.title %}
-{% set pageTitle = sectionName | keyDatesProperty + " dates" %}
+{% if mainHeading %}
+	{% set pageTitle = mainHeading %}
+	{% if subHeading %}
+		{% set pageSubHeading = subHeading %}
+	{% endif %}
+{% else %}
+	{% set pageTitle = sectionName | keyDatesProperty + ' dates' %}
+{% endif %}
 
 {% block sectionMenu %}{% endblock %}
 
@@ -23,7 +30,12 @@
 {% block pageContent %}
 	<h1 class="govuk-heading-l govuk-!-margin-bottom-4">
 		<span class="govuk-caption-l">Manage key dates</span>
-		{{ pageTitle }}
+		{% if pageSubHeading %}
+			{{ pageTitle }}
+			<span class="govuk-heading-m govuk-!-margin-top-6 govuk-!-margin-bottom-6">{{ pageSubHeading }}</span>
+		{% else %}
+			{{ pageTitle }}
+		{% endif %}
 	</h1>
 
 	<form method="post" action="" novalidate="novalidate" class="pins-applications-create govuk-grid-row govuk-!-margin-top-8">
@@ -66,9 +78,11 @@
 	</form>
 {% endblock %}
 
-{% macro getDatesHint(key) %}
+{# ensure leading and trailing whitespace is removed using -%} option #}
+{# else the length check for the hint will pass with Windows line endings! #}
+{% macro getDatesHint(key) -%}
 	{% set datesHint = (key + '_label') | keyDatesProperty %}
 	{% set datesAdvisory = (key + '_advisory') | keyDatesProperty | bold %}
 
 	{{ (datesHint + ' ' + datesAdvisory) | trim | safe }}
-{% endmacro %}
+{%- endmacro %}

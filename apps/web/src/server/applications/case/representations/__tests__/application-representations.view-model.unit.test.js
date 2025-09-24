@@ -30,6 +30,18 @@ describe('application representations view-model', () => {
 					title: 'first lastName',
 					id: '2',
 					link: '/applications-service/case/1/relevant-representations/2/representation-details?repMode=summary'
+				},
+				{
+					received: '01 Jan 2022',
+					redacted: 'Unredacted',
+					reference: 'mock reference',
+					status: {
+						class: 'govuk-tag--green',
+						text: 'PUBLISHED'
+					},
+					title: 'org name 2',
+					id: '3',
+					link: '/applications-service/case/1/relevant-representations/3/representation-details?repMode=summary'
 				}
 			]);
 		});

@@ -1,4 +1,11 @@
-@media (min-width: 40.0625em) {
+@use "govuk-frontend/dist/govuk/helpers/_media-queries" as
+	govuk-helpers-media-queries;
+@use "govuk-frontend/dist/govuk/settings/_media-queries" as
+	govuk-settings-media-queries;
+
+@include govuk-helpers-media-queries.govuk-media-query(
+	$from: map-get(govuk-settings-media-queries.$govuk-breakpoints, "desktop")
+) {
 	nav.pins-nav-button-group {
 		.govuk-button-group {
 			display: inline-flex;

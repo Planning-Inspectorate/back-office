@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`applications GET / should render a placeholder when there are no open applications 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
             <h1 class="govuk-heading-xl">Sorry, there is a problem with the service</h1>
@@ -14,7 +14,7 @@ exports[`applications GET / should render a placeholder when there are no open a
 `;
 
 exports[`applications GET / should render the open applications belonging to the user 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
             <h1 class="govuk-heading-xl">Applications</h1>
@@ -29,9 +29,9 @@ exports[`applications GET / should render the open applications belonging to the
                     <div class="govuk-form-group">
                         <label class="govuk-label pins-dashboard-form--label" for="searchApplications">Enter keyword, case reference or case title</label>
                         <input class="govuk-input pins-dashboard-form--input"
-                        id="searchApplications" name="query" type="text" inputmode="search">
+                        id="searchApplications" name="query" type="text" value="" inputmode="search">
                     </div>
-                    <button class="govuk-button pins-dashboard-form--btn" data-module="govuk-button">Search</button>
+                    <button type="submit" class="govuk-button pins-dashboard-form--btn" data-module="govuk-button">Search</button>
                 </form>
             </div>
         </div>
@@ -47,14 +47,17 @@ exports[`applications GET / should render the open applications belonging to the
         </div>
     </div>
     <div class="pins-dashboard-list--drafts">
-        <h2 class="govuk-heading-l">Draft cases</h2>
-        <div class="govuk-accordion" data-module="govuk-accordion" id="draft-cases-list">
+        <div class="govuk-accordion" data-module="govuk-accordion" id="draft-cases-list"
+        data-i18n.hide-all-sections=" " data-i18n.hide-section="Hide all draft cases"
+        data-i18n.hide-section-aria-label="Hide all draft cases" data-i18n.show-all-sections=" "
+        data-i18n.show-section="Show all draft cases" data-i18n.show-section-aria-label="Show all draft cases">
             <div class="govuk-accordion__section">
                 <div class="govuk-accordion__section-header">
-                    <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="draft-cases-list-heading-1"></span></h2>
+                    <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="draft-cases-list-heading-1"><h2 class="govuk-heading-l">Draft cases</h2>
+                    </span>
+                    </h2>
                 </div>
-                <div id="draft-cases-list-content-1" class="govuk-accordion__section-content"
-                aria-labelledby="draft-cases-list-heading-1">
+                <div id="draft-cases-list-content-1" class="govuk-accordion__section-content">
                     <table class="govuk-table">
                         <thead class="govuk-table__head">
                             <tr class="govuk-table__row">
@@ -91,9 +94,8 @@ exports[`applications GET / should render the open applications belonging to the
                 <div class="govuk-accordion__section-header">
                     <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="cases-list-heading-1"> Transport EN</span></h2>
                 </div>
-                <div id="cases-list-content-1" class="govuk-accordion__section-content"
-                aria-labelledby="cases-list-heading-1">
-                    <details class="govuk-details" data-module="govuk-details">
+                <div id="cases-list-content-1" class="govuk-accordion__section-content">
+                    <details class="govuk-details">
                         <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> HIG Highways EN</span>
                         </summary>
                         <div class="govuk-details__text">
@@ -108,14 +110,14 @@ exports[`applications GET / should render the open applications belonging to the
                                     <tr class="govuk-table__row">
                                         <td class="govuk-table__cell"><a class="govuk-body" href="/applications-service/case/4/"> CASE/04 - Title CASE/04</a>
                                         </td>
-                                        <td class="govuk-table__cell govuk-!-width-one-quarter text-align--right"><strong class="govuk-tag govuk-tag--green">Pre-Application</strong>
+                                        <td class="govuk-table__cell govuk-!-width-one-quarter text-align--right"><strong class="govuk-tag govuk-tag--green pins-tag--no-max-width">Pre-Application</strong>
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
                     </details>
-                    <details class="govuk-details" data-module="govuk-details">
+                    <details class="govuk-details">
                         <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> WAT Water EN</span>
                         </summary>
                         <div class="govuk-details__text">
@@ -130,7 +132,7 @@ exports[`applications GET / should render the open applications belonging to the
                                     <tr class="govuk-table__row">
                                         <td class="govuk-table__cell"><a class="govuk-body" href="/applications-service/case/5/"> CASE/05 - Title CASE/05</a>
                                         </td>
-                                        <td class="govuk-table__cell govuk-!-width-one-quarter text-align--right"><strong class="govuk-tag govuk-tag--">Pre-application</strong>
+                                        <td class="govuk-table__cell govuk-!-width-one-quarter text-align--right"><strong class="govuk-tag govuk-tag-- pins-tag--no-max-width">Pre-application</strong>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -143,9 +145,8 @@ exports[`applications GET / should render the open applications belonging to the
                 <div class="govuk-accordion__section-header">
                     <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="cases-list-heading-2"> Item EN 23</span></h2>
                 </div>
-                <div id="cases-list-content-2" class="govuk-accordion__section-content"
-                aria-labelledby="cases-list-heading-2">
-                    <details class="govuk-details" data-module="govuk-details">
+                <div id="cases-list-content-2" class="govuk-accordion__section-content">
+                    <details class="govuk-details">
                         <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> ITEM24 Item EN 24</span>
                         </summary>
                         <div class="govuk-details__text">
@@ -160,7 +161,7 @@ exports[`applications GET / should render the open applications belonging to the
                                     <tr class="govuk-table__row">
                                         <td class="govuk-table__cell"><a class="govuk-body" href="/applications-service/case/6/"> CASE/06 - Title CASE/06</a>
                                         </td>
-                                        <td class="govuk-table__cell govuk-!-width-one-quarter text-align--right"><strong class="govuk-tag govuk-tag--">Pre-application</strong>
+                                        <td class="govuk-table__cell govuk-!-width-one-quarter text-align--right"><strong class="govuk-tag govuk-tag-- pins-tag--no-max-width">Pre-application</strong>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -173,9 +174,8 @@ exports[`applications GET / should render the open applications belonging to the
                 <div class="govuk-accordion__section-header">
                     <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="cases-list-heading-3"> Item EN 25</span></h2>
                 </div>
-                <div id="cases-list-content-3" class="govuk-accordion__section-content"
-                aria-labelledby="cases-list-heading-3">
-                    <details class="govuk-details" data-module="govuk-details">
+                <div id="cases-list-content-3" class="govuk-accordion__section-content">
+                    <details class="govuk-details">
                         <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> ITEM26 Item EN 26</span>
                         </summary>
                         <div class="govuk-details__text">
@@ -190,7 +190,7 @@ exports[`applications GET / should render the open applications belonging to the
                                     <tr class="govuk-table__row">
                                         <td class="govuk-table__cell"><a class="govuk-body" href="/applications-service/case/7/"> CASE/07 - Title CASE/07</a>
                                         </td>
-                                        <td class="govuk-table__cell govuk-!-width-one-quarter text-align--right"><strong class="govuk-tag govuk-tag--">Pre-application</strong>
+                                        <td class="govuk-table__cell govuk-!-width-one-quarter text-align--right"><strong class="govuk-tag govuk-tag-- pins-tag--no-max-width">Pre-application</strong>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -203,9 +203,8 @@ exports[`applications GET / should render the open applications belonging to the
                 <div class="govuk-accordion__section-header">
                     <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="cases-list-heading-4"> Item EN 21</span></h2>
                 </div>
-                <div id="cases-list-content-4" class="govuk-accordion__section-content"
-                aria-labelledby="cases-list-heading-4">
-                    <details class="govuk-details" data-module="govuk-details">
+                <div id="cases-list-content-4" class="govuk-accordion__section-content">
+                    <details class="govuk-details">
                         <summary class="govuk-details__summary"><span class="govuk-details__summary-text"> ITEM22 Item EN 22</span>
                         </summary>
                         <div class="govuk-details__text">
@@ -220,7 +219,7 @@ exports[`applications GET / should render the open applications belonging to the
                                     <tr class="govuk-table__row">
                                         <td class="govuk-table__cell"><a class="govuk-body" href="/applications-service/case/8/"> CASE/08 - Title CASE/08</a>
                                         </td>
-                                        <td class="govuk-table__cell govuk-!-width-one-quarter text-align--right"><strong class="govuk-tag govuk-tag--">Pre-application</strong>
+                                        <td class="govuk-table__cell govuk-!-width-one-quarter text-align--right"><strong class="govuk-tag govuk-tag-- pins-tag--no-max-width">Pre-application</strong>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -235,7 +234,7 @@ exports[`applications GET / should render the open applications belonging to the
 `;
 
 exports[`applications GET / should render there is a problem with the service 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
             <h1 class="govuk-heading-xl">Sorry, there is a problem with the service</h1>

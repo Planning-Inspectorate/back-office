@@ -3,7 +3,7 @@ import { isEmpty, pick } from 'lodash-es';
 
 /**
  * @typedef {import('@pins/applications.api/src/message-schemas/commands/register-subscription').RegisterRepresentation} PrevRegisterRepresentation
- * @typedef {import('pins-data-model').Schemas.RegisterRepresentation} RegisterRepresentation
+ * @typedef {import('@planning-inspectorate/data-model').Schemas.RegisterRepresentation} RegisterRepresentation
  */
 
 const mapContactDetails = (entity) => {

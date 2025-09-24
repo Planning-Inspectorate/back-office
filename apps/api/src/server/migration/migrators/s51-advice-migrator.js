@@ -1,5 +1,5 @@
 /**
- * @typedef {import('pins-data-model').Schemas.S51Advice} S51AdviceModel
+ * @typedef {import('@planning-inspectorate/data-model').Schemas.S51Advice} S51AdviceModel
  * @typedef {import('apps/api/src/database/schema.d.ts').S51Advice} S51Advice
  */
 

@@ -1,8 +1,11 @@
 {% extends "applications/layouts/applications.layout.njk" %}
 
 {% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/details/macro.njk" import govukDetails %}
 {% from "govuk/components/textarea/macro.njk" import govukTextarea %}
 {% from "applications/components/status-tag.component.njk" import statusTag %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+{% from "govuk/components/table/macro.njk" import govukTable %}
 
 {% block pageHeading %}
 	<h1 class="govuk-heading-l govuk-!-margin-bottom-2">{{ organisationOrFullname }}</h1>
@@ -17,154 +20,320 @@
 {% set pageTitle = "Redact representation" %}
 
 {% block pageContent %}
-	<form method="post">
-		<div class="govuk-grid-row govuk-!-margin-top-8">
-			<div class="govuk-grid-column-one-half" id="original-representation-section">
-        <span class="govuk-heading-s display--flex">
-          <span class="flex-grow--1">
-            Original representation
-          </span>
+	<form action="" method="post" novalidate>
+		<div class="govuk-grid-row">
+			<div class="govuk-grid-column-two-thirds">
+				<input type="hidden" name="_csrf" value="{{ _csrf }}">
 
-          <a class="govuk-link govuk-body govuk-!-margin-0" href="#" id="hide-original-representation-button">
-            Hide
-          </a>
-        </span>
-
-				<p class="govuk-body white-space--pre-line word-break--break-word">{{ originalRepresentation }}</p>
+				<h2 class="govuk-heading-m">Redaction suggestions</h2>
+				{% set hasSuggestions = redactionSuggestions.length > 0 %}
+				{% if hasSuggestions %}
+					<p class="govuk-body">
+						We have suggested some common redactions and hidden these for you.
+						To make these visible again, 'Reject' each suggestion.
+					</p>
+					{% set suggestionTableRows = [] %}
+					{% for s in redactionSuggestions %}
+						{% set category = s.category %}
+						{% if s.subCategory %}
+							{% set category = category + " (" +  s.subCategory + ")" %}
+						{% endif %}
+						{% set action = 'Accept' %}
+						{% if s.accepted %}
+							{% set action = 'Reject' %}
+						{% endif %}
+						{% set suggestionTableRows = (suggestionTableRows.push([
+							{text: s.text},
+							{text: category },
+							{
+								html: '<a href="#" class="govuk-link" data-redact="suggestion-reject-' + loop.index0 + '">' + action + '</a>'
+							}
+						]), suggestionTableRows) %}
+					{% endfor %}
+					{{ govukTable({
+						head: [
+							{
+								text: "Redaction suggestion"
+							},
+							{
+								text: "Type of information"
+							},
+							{
+								text: "Action"
+							}
+						],
+						rows: suggestionTableRows
+					}) }}
+				{% else %}
+					<p class="govuk-body">
+						No redaction suggestions found.
+					</p>
+				{% endif %}
 			</div>
+		</div>
+		<div class="govuk-grid-row">
+			<div class="govuk-grid-column-one-half">
 
-			<div class="govuk-grid-column-one-half" id="redact-representation-section">
-				<a class="govuk-link govuk-body govuk-!-display-none" href="#" id="show-original-representation-button">
-					Show original representation
-				</a>
+				{{ govukDetails({
+					summaryText: "Original representation",
+					html: originalRepresentation,
+					id: "representation-unredacted",
+					open: true,
+					attributes: {
+						"data-original": originalRepresentationText
+					}
+				}) }}
+			</div>
+			<div class="govuk-grid-column-one-half">
 
 				{{ govukTextarea({
-					id: "redact-representation-text",
 					label: {
-						classes: "govuk-label--s",
-						text: "Redact representation"
+						text: "Redacted representation",
+						classes: "govuk-label--s"
 					},
+					id: "redactedRepresentation",
 					name: "redactedRepresentation",
-					value: redactedRepresentation
+					value: redactedRepresentation,
+					errorMessage: errors["representation"] and {
+						text: errors["representation"].msg
+					},
+					rows: 8,
+					attributes: {
+						readonly: true
+					}
+				}) }}
+
+				<div class="govuk-button-group">
+					{{ govukButton({
+						text: "Redact selected text",
+						classes: "govuk-button--secondary",
+						id: "redact-selected-text",
+						type: "button"
+					}) }}
+
+					{{ govukButton({
+						text: "Undo",
+						classes: "govuk-button--secondary",
+						id: "redact-undo",
+						type: "button"
+					}) }}
+
+					{{ govukButton({
+						text: "Undo Selected",
+						classes: "govuk-button--secondary",
+						id: "redact-undo-selected",
+						type: "button"
+					}) }}
+
+					{{ govukButton({
+						text: "Undo all changes",
+						classes: "govuk-button--secondary",
+						id: "redact-undo-all",
+						type: "button"
+					}) }}
+				</div>
+			</div>
+		</div>
+		<div class="govuk-grid-row">
+			<div class="govuk-grid-column-one-half">
+				{{ govukTextarea({
+					id: "redact-representation-notes-text",
+					label: {
+						text: "Notes",
+						classes: "govuk-label--s"
+					},
+					name: "notes",
+					value: notes
 				}) }}
 
 				{{ govukButton({
-					attributes: { id: "submit-redact-representation" },
-					classes: "govuk-button--secondary",
-					text: "Redact",
-					type: "submit"
+					text: "Save and continue",
+					type: "submit",
+					attributes: { "data-cy":"button-save-and-continue" }
 				}) }}
 			</div>
-		</div>
-
-		<div class="govuk-!-margin-top-5">
-			{{ govukTextarea({
-				id: "redact-representation-notes-text",
-				label: {
-					text: "Notes",
-					classes: "govuk-label--s"
-				},
-				name: "notes",
-				value: notes
-			}) }}
-
-			{{ govukButton({
-				text: "Save and continue",
-				type: "submit"
-			}) }}
 		</div>
 	</form>
 
 	<script nonce="{{ cspNonce }}">
-			const getSelectedText = (text, selectionStart, selectionEnd) => text.value.substring(selectionStart, selectionEnd);
+		/**
+		 * @param {HTMLTextAreaElement} textArea
+		 * @param {HTMLButtonElement} redactSelectedText
+		 * @param {HTMLButtonElement} redactUndo
+		 * @param {HTMLButtonElement} redactUndoSelected
+		 * @param {HTMLButtonElement} redactUndoAll
+		 * @param {HTMLDetailsElement} unredactedText
+		 * @param {HTMLAnchorElement[]} rejectLinks
+		 * @param {import('@azure/ai-text-analytics').PiiEntity[]} suggestions
+		 * @param {HTMLTextAreaElement} notesText
+		 */
+		function registerEventListeners({textArea, redactSelectedText, redactUndo, redactUndoSelected, redactUndoAll, unredactedText, rejectLinks, suggestions, notesText}) {
+			const formGroup = textArea.parentElement;
+			const errorMessage = document.createElement('p');
+			errorMessage.id = 'representation-error';
+			errorMessage.classList.add('govuk-error-message');
 
-			const updateTextValue = (text, replacementText, startIndex, endIndex) => {
-				const startText = text.value.substring(0, startIndex);
-				const endText = text.value.substring(endIndex, text.value.length);
-				text.value = `${startText}${replacementText}${endText}`.trim();
-			};
+			function appendNote(text) {
+				notesText.value += `${notesText.value ? "\n" : ""}${text}`;
+			}
 
-			const addNotesText = (notesText, selectedText) => (notesText.value += `${notesText.value ? "\n" : ""}${selectedText}`);
+			const history = [];
 
-			const submitRedactRep = (redactRepText, notesText) => {
-				const { selectionStart, selectionEnd } = redactRepText;
-				const selectedText = getSelectedText(redactRepText, selectionStart, selectionEnd);
-				if (!selectedText) return;
-				updateTextValue(redactRepText, "(Redacted)", selectionStart, selectionEnd);
-				addNotesText(notesText, selectedText);
-			};
+			function showError(message) {
+				formGroup.classList.add('govuk-form-group--error');
+				errorMessage.textContent = message;
+				formGroup.prepend(errorMessage);
+			}
 
-			const initRedactRepAction = () => {
-				const submitRedactRepButton = document.querySelector("#submit-redact-representation");
-				const redactRepText = document.querySelector("#redact-representation-text");
-				const notesText = document.querySelector("#redact-representation-notes-text");
+			function hideError() {
+				textArea.parentElement.classList.remove('govuk-form-group--error');
+				errorMessage.remove();
+			}
+			// setup redaction box size
+			textArea.style.height = '1px';
+			textArea.style.height = `${textArea.scrollHeight + 5}px`;
 
-				submitRedactRepButton.addEventListener("click", (event) => {
-					event.preventDefault();
-					submitRedactRep(redactRepText, notesText);
-					initRedactRepTextHeight(false, true);
-				});
-			};
-
-			const hideOriginalRepSection = ({
-					originalRepSection,
-					redactRepSection,
-					showOriginalRepButton
-				}) => {
-				originalRepSection.classList.add("govuk-!-display-none");
-				redactRepSection.classList.add("govuk-grid-column-full");
-				showOriginalRepButton.classList.remove("govuk-!-display-none");
-				showOriginalRepButton.classList.add("govuk-!-display-inline-block");
-			};
-
-			const showOriginalRepSection = ({
-					originalRepSection,
-					redactRepSection,
-					showOriginalRepButton
-				}) => {
-				originalRepSection.classList.remove("govuk-!-display-none");
-				redactRepSection.classList.remove("govuk-grid-column-full");
-				showOriginalRepButton.classList.add("govuk-!-display-none");
-				showOriginalRepButton.classList.remove("govuk-!-display-inline-block");
-			};
-
-			const initRedactRepHideShow = () => {
-				const hideSlowEls = {
-					originalRepSection: document.querySelector("#original-representation-section"),
-					redactRepSection: document.querySelector("#redact-representation-section"),
-					hideOriginalRepButton: document.querySelector("#hide-original-representation-button"),
-					showOriginalRepButton: document.querySelector("#show-original-representation-button")
-				};
-
-				hideSlowEls.hideOriginalRepButton.addEventListener("click", (event) => {
-					event.preventDefault();
-					hideOriginalRepSection(hideSlowEls);
-					initRedactRepTextHeight();
-				});
-
-				hideSlowEls.showOriginalRepButton.addEventListener("click", (event) => {
-					event.preventDefault();
-					showOriginalRepSection(hideSlowEls);
-					initRedactRepTextHeight();
-				});
-			};
-
-			const initRedactRepTextHeight = (sizeRepresentationText = true, sizeRepresentationNotesText = true) => {
-				if (sizeRepresentationText) {
-					const redactRepresentationText = document.querySelector('#redact-representation-text');
-					redactRepresentationText.style.height = '1px';
-					redactRepresentationText.style.height = `${redactRepresentationText.scrollHeight + 5}px`;
-				}
-
-				if (sizeRepresentationNotesText) {
-					const redactRepresentationNotesText = document.querySelector('#redact-representation-notes-text');
-					redactRepresentationNotesText.style.height = '1px';
-					redactRepresentationNotesText.style.height = `${redactRepresentationNotesText.scrollHeight + 5}px`;
+			// populate notes field with any suggestions
+			if (!notesText.value) {
+				for (const suggestion of suggestions) {
+					if (suggestion.accepted) {
+						appendNote(suggestion.text);
+					}
 				}
 			}
 
-			initRedactRepAction();
-			initRedactRepHideShow();
-			initRedactRepTextHeight();
+			redactSelectedText.addEventListener('click', () => {
+				const { selectionStart, selectionEnd } = textArea;
+				if (selectionStart === selectionEnd) {
+					// no selected text
+					showError('Select text to redact');
+					return;
+				}
+				hideError();
+				const selectedText = textArea.value.substring(selectionStart, selectionEnd);
+				// check if the selected text already contains redacted characters
+				if (selectedText.includes('█')) {
+					showError('Selected text already includes redacted characters');
+					return;
+				}
+				// replace the text with the 'full block' █ character
+				const redactedText = '█'.repeat(selectionEnd - selectionStart);
+				textArea.value = textArea.value.substring(0, selectionStart) + redactedText + textArea.value.substring(selectionEnd);
+				// add to history for undo functionality
+				history.push({
+					selectionStart,
+					selectionEnd,
+					selectedText
+				});
+				// add to notes field
+				appendNote(selectedText);
+			});
+			redactUndo.addEventListener('click', () => {
+				const { selectionStart, selectionEnd, selectedText } = history.pop() || {};
+				if (selectionStart !== undefined && selectionEnd !== undefined && selectedText) {
+					hideError();
+					textArea.value = textArea.value.substring(0, selectionStart) + selectedText + textArea.value.substring(selectionEnd);
+				} else {
+					showError('No changes to undo');
+				}
+			});
+			redactUndoSelected.addEventListener('click', () => {
+				const { selectionStart, selectionEnd } = textArea;
+				if (selectionStart === selectionEnd) {
+					showError('Select text to undo');
+					return;
+				}
+				const selectedText = textArea.value.substring(selectionStart, selectionEnd);
+				if (selectedText.match(/^█+$/) === null) {
+					showError('Selected text is not redacted');
+					return;
+				}
+				hideError();
+				// replace the text with the original selected text
+				const originalText = unredactedText.dataset.original.substring(selectionStart, selectionEnd);
+				textArea.value = textArea.value.substring(0, selectionStart) + originalText + textArea.value.substring(selectionEnd);
+			});
+			redactUndoAll.addEventListener('click', () => {
+				const unredacted = unredactedText.dataset.original;
+				if (history.length === 0 && textArea.value === unredacted) {
+					showError('No changes to undo');
+					return;
+				}
+				hideError();
+				textArea.value = unredacted || '';
+				history.length = 0;
+
+				// reset suggestions to 'Accept'
+				for (const rejectLink of rejectLinks) {
+					rejectLink.text = 'Accept';
+				}
+			});
+			for (const rejectLink of rejectLinks) {
+				rejectLink.addEventListener('click', () => {
+					const index = parseInt(rejectLink.getAttribute('data-redact').replace('suggestion-reject-', ''));
+					const suggestion = suggestions[index];
+					if (rejectLink.text === 'Reject') {
+						textArea.value = textArea.value.substring(0, suggestion.offset) + suggestion.text + textArea.value.substring(suggestion.offset + suggestion.length);
+						rejectLink.text = 'Accept';
+					} else {
+						const redactedText = '█'.repeat(suggestion.length);
+						textArea.value = textArea.value.substring(0, suggestion.offset) + redactedText + textArea.value.substring(suggestion.offset + suggestion.length);
+						rejectLink.text = 'Reject';
+						appendNote(suggestion.text); // add to notes field
+					}
+				});
+			}
+		}
+
+		function initRedact() {
+			const textArea = document.querySelector('#redactedRepresentation');
+			const redactSelectedText = document.querySelector('#redact-selected-text');
+			const redactUndo = document.querySelector('#redact-undo');
+			const redactUndoSelected = document.querySelector('#redact-undo-selected');
+			const redactUndoAll = document.querySelector('#redact-undo-all');
+			const unredactedText = document.querySelector('#representation-unredacted');
+			const rejectLinks = document.querySelectorAll('[data-redact]');
+			const notesText = document.querySelector("#redact-representation-notes-text");
+			{% if not redactionSuggestions %}
+				{% set redactionSuggestions = [] %}
+			{% endif %}
+			const suggestions = {{ redactionSuggestions | dump | safe }}
+
+			if (!textArea || !(textArea instanceof HTMLTextAreaElement)) {
+				return;
+			}
+			if (!redactSelectedText || !(redactSelectedText instanceof HTMLButtonElement)) {
+				return;
+			}
+			if (!redactUndo || !(redactUndo instanceof HTMLButtonElement)) {
+				return;
+			}
+			if (!redactUndoSelected || !(redactUndoSelected instanceof HTMLButtonElement)) {
+				return;
+			}
+			if (!redactUndoAll || !(redactUndoAll instanceof HTMLButtonElement)) {
+				return;
+			}
+			if (!unredactedText || !(unredactedText instanceof HTMLDetailsElement)) {
+				return;
+			}
+			if (!notesText || !(notesText instanceof HTMLTextAreaElement)) {
+				return;
+			}
+
+			registerEventListeners({
+				textArea,
+				redactSelectedText,
+				redactUndo,
+				redactUndoSelected,
+				redactUndoAll,
+				unredactedText,
+				rejectLinks,
+				suggestions,
+				notesText
+			});
+		}
+
+		initRedact();
 	</script>
 {% endblock %}

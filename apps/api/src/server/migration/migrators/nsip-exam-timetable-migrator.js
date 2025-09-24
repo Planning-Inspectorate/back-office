@@ -10,7 +10,7 @@ import { examTimetableItemTypes } from '@pins/examination-timetable-utils';
 /**
  * Migrate NSIP Exam Timetable
  *
- * @param {import("pins-data-model").Schemas.ExaminationTimetable[]} examTimetables
+ * @param {import("@planning-inspectorate/data-model").Schemas.ExaminationTimetable[]} examTimetables
  */
 export const migrateExamTimetables = async (examTimetables) => {
 	console.info(`Migrating ${examTimetables.length} NSIP Exam Timetables`);
@@ -90,7 +90,7 @@ const getExamTimetableFolderId = async (caseId) => {
 
 /**
  *
- * @param {import("pins-data-model").Schemas.ExaminationTimetable} model
+ * @param {import("@planning-inspectorate/data-model").Schemas.ExaminationTimetable} model
  * @returns {Promise<import("@prisma/client").Prisma.ExaminationTimetableUncheckedCreateInput>}
  */
 const mapModelToTimetableEntity = async ({ caseReference }) => {
@@ -108,7 +108,7 @@ const mapModelToTimetableEntity = async ({ caseReference }) => {
 /**
  * @param {number} examinationTimetableId
  * @param {number} examTimetableFolderId
- * @param {import("pins-data-model").Schemas.Event} model
+ * @param {import("@planning-inspectorate/data-model").Schemas.Event} model
  * @returns {Promise<import("@prisma/client").Prisma.ExaminationTimetableItemUncheckedCreateInput>}
  */
 const mapModelToEventEntity = async (

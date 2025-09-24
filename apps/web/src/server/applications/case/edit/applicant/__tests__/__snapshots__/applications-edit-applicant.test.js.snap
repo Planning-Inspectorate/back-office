@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`applications create applicant GET edit/applicant-address should render the form page 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <h1 class="govuk-heading-l govuk-!-margin-bottom-3"> Enter the Applicant’s address (optional)</h1>
     <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
         <input type="hidden" name='currentFormStage' value="searchPostcode">
@@ -10,9 +10,9 @@ exports[`applications create applicant GET edit/applicant-address should render 
             <input class="govuk-input govuk-!-width-one-third" id="postcode"
             name="postcode" type="text" value="ABC123">
         </div>
-        <button value="skip-address-search" name="skipButton" class="govuk-button"
+        <button value="skip-address-search" type="submit" name="skipButton" class="govuk-button"
         data-module="govuk-button">Save and continue</button>
-        <button class="govuk-button govuk-button--secondary govuk-!-margin-left-2"
+        <button type="submit" class="govuk-button govuk-button--secondary govuk-!-margin-left-2"
         data-module="govuk-button">Find address</button>
         <div class="govuk-grid-row">
             <div class="govuk-button-group govuk-grid-column-one-half"></div>
@@ -22,7 +22,7 @@ exports[`applications create applicant GET edit/applicant-address should render 
 `;
 
 exports[`applications create applicant GET edit/applicant-address should render the read only page with the address 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <h1 class="govuk-heading-l govuk-!-margin-bottom-3"> Enter the Applicant’s address (optional)</h1>
     <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
         <div class="govuk-form-group">
@@ -50,7 +50,7 @@ exports[`applications create applicant GET edit/applicant-address should render 
 `;
 
 exports[`applications create applicant GET edit/applicant-address should render the read only page without the address 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <h1 class="govuk-heading-l govuk-!-margin-bottom-3"> Enter the Applicant’s address (optional)</h1>
     <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
         <input type="hidden" name='currentFormStage' value="searchPostcode">
@@ -60,7 +60,8 @@ exports[`applications create applicant GET edit/applicant-address should render 
             name="postcode" type="text" value="">
         </div><a href="/applications-service/case/456/project-information" role="button"
         draggable="false" class="govuk-button" data-module="govuk-button"> Save changes</a>
-        <button         class="govuk-button govuk-button--secondary govuk-!-margin-left-2" data-module="govuk-button">Find address</button>
+        <button         type="submit" class="govuk-button govuk-button--secondary govuk-!-margin-left-2"
+        data-module="govuk-button">Find address</button>
             <div class="govuk-grid-row">
                 <div class="govuk-button-group govuk-grid-column-one-half"></div>
             </div>
@@ -69,7 +70,7 @@ exports[`applications create applicant GET edit/applicant-address should render 
 `;
 
 exports[`applications create applicant GET edit/applicant-email should render the page 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <h1 class="govuk-heading-l govuk-!-margin-bottom-3"> Enter the Applicant’s email address (optional)</h1>
     <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
         <div class="govuk-form-group">
@@ -81,7 +82,7 @@ exports[`applications create applicant GET edit/applicant-email should render th
         </div>
         <div class="govuk-grid-row">
             <div class="govuk-button-group govuk-grid-column-one-half">
-                <button class="govuk-button" data-module="govuk-button">Save changes</button>
+                <button type="submit" class="govuk-button" data-module="govuk-button">Save changes</button>
             </div>
         </div>
     </form>
@@ -89,7 +90,7 @@ exports[`applications create applicant GET edit/applicant-email should render th
 `;
 
 exports[`applications create applicant GET edit/applicant-full-name should render the page 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <h1 class="govuk-heading-l govuk-!-margin-bottom-3"> Enter the Applicant’s contact name</h1>
     <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
         <div class="govuk-form-group">
@@ -104,7 +105,7 @@ exports[`applications create applicant GET edit/applicant-full-name should rende
         </div>
         <div class="govuk-grid-row">
             <div class="govuk-button-group govuk-grid-column-one-half">
-                <button class="govuk-button" data-module="govuk-button">Save changes</button>
+                <button type="submit" class="govuk-button" data-module="govuk-button">Save changes</button>
             </div>
         </div>
     </form>
@@ -112,18 +113,18 @@ exports[`applications create applicant GET edit/applicant-full-name should rende
 `;
 
 exports[`applications create applicant GET edit/applicant-organisation-name should render the page 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <h1 class="govuk-heading-l govuk-!-margin-bottom-3"> Enter the Applicant’s organisation</h1>
     <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
         <div class="govuk-form-group">
-            <label class="govuk-label govuk-visually-hidden" for="applicant.organisationName">Applicant organisation name</label>
+            <label class="govuk-label govuk-visually-hidden" for="applicant.organisationName">Enter the Applicant&#39;s organisation</label>
             <input class="govuk-input govuk-!-width-one-third"
             id="applicant.organisationName" name="applicant.organisationName" type="text"
             value="Org name">
         </div>
         <div class="govuk-grid-row">
             <div class="govuk-button-group govuk-grid-column-one-half">
-                <button class="govuk-button" data-module="govuk-button">Save changes</button>
+                <button type="submit" class="govuk-button" data-module="govuk-button">Save changes</button>
             </div>
         </div>
     </form>
@@ -131,7 +132,7 @@ exports[`applications create applicant GET edit/applicant-organisation-name shou
 `;
 
 exports[`applications create applicant GET edit/applicant-telephone-number should render the page 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <h1 class="govuk-heading-l govuk-!-margin-bottom-3"> Enter the Applicant’s phone number (optional)</h1>
     <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
         <div class="govuk-form-group">
@@ -144,7 +145,7 @@ exports[`applications create applicant GET edit/applicant-telephone-number shoul
         </div>
         <div class="govuk-grid-row">
             <div class="govuk-button-group govuk-grid-column-one-half">
-                <button class="govuk-button" data-module="govuk-button">Save changes</button>
+                <button type="submit" class="govuk-button" data-module="govuk-button">Save changes</button>
             </div>
         </div>
     </form>
@@ -152,19 +153,20 @@ exports[`applications create applicant GET edit/applicant-telephone-number shoul
 `;
 
 exports[`applications create applicant GET edit/applicant-website should render the page 1`] = `
-"<main class="govuk-main-wrapper " id="main-content" role="main">
+"<main class="govuk-main-wrapper" id="main-content">
     <h1 class="govuk-heading-l govuk-!-margin-bottom-3"> Enter the Applicant’s website (optional)</h1>
     <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
         <div class="govuk-form-group">
-            <label class="govuk-label govuk-visually-hidden" for="applicant.website">Applicant website</label>
-            <div id="applicant.website-hint" class="govuk-hint">for example, https://www.heathrow.com</div>
+            <label class="govuk-label govuk-visually-hidden" for="applicant.website">Enter the Applicant&#39;s website (optional)</label>
+            <div id="applicant.website-hint"
+            class="govuk-hint">for example, https://www.heathrow.com</div>
             <input class="govuk-input govuk-!-width-one-third"
             id="applicant.website" name="applicant.website" type="text" value="website.web"
             aria-describedby="applicant.website-hint">
         </div>
         <div class="govuk-grid-row">
             <div class="govuk-button-group govuk-grid-column-one-half">
-                <button class="govuk-button" data-module="govuk-button">Save changes</button>
+                <button type="submit" class="govuk-button" data-module="govuk-button">Save changes</button>
             </div>
         </div>
     </form>

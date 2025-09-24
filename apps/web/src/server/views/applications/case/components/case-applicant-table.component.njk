@@ -1,6 +1,6 @@
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
 
-{% macro caseApplicantTable(case, isPublishPage) %}
+{% macro caseApplicantTable(case, isPublishPage, sectionTitle, editLink, editText) %}
     {% set applicantFirstOrganisationName = case.applicant.organisationName %}
     {% set applicantFirstEmail = case.applicant.email %}
     {% set applicantFirstPhoneNumber = case.applicant.phoneNumber %}
@@ -16,14 +16,13 @@
       {title: 'Contact name (Internal use only)', text: writeFullName([case.applicant.firstName, case.applicant.middleName, case.applicant.lastName] ), url: 'applicant-full-name', isProjectInfoOnly: 1 },
       {title: 'Address (Internal use only)', text: case.applicant.address | formatAddress, url: 'applicant-address', isProjectInfoOnly: 1 },
       {title: 'Website', html: applicantFirstWebsiteValue, url: 'applicant-website' },
-      {title: 'Email address', text: applicantFirstEmail, url: 'applicant-email' },
+      {title: 'Email address (Internal use only)', text: applicantFirstEmail, url: 'applicant-email', isProjectInfoOnly: 1 },
       {title: 'Telephone number (Internal use only)', text: applicantFirstPhoneNumber, url: 'applicant-telephone-number', isProjectInfoOnly: 1 }
     ] %}
 
     {% set tableRows = [] %}
     {% for rowData in rowsData %}
         {% if not rowData.isProjectInfoOnly or (rowData.isProjectInfoOnly and not isPublishPage) %}
-        {#  In the value column, rowData can be used because "title" and "url" are ignored	#}
             {% set row = {
               key: {
                 text: rowData.title
@@ -39,17 +38,36 @@
                 ] if not isPublishPage else []
               }
             } %}
-
             {% set tableRows = (tableRows.push(row), tableRows) %}
         {% endif %}
     {% endfor %}
 
-    {{ govukSummaryList({
-      caption: 'Applicant details',
-      captionClasses: 'govuk-visually-hidden',
-      firstCellIsHeader: true,
-      rows: tableRows
-    }) }}
+    {% if isPublishPage %}
+      {{ govukSummaryList({
+        card: {
+          title: {
+            text: sectionTitle
+          },
+          actions: {
+            items: [
+              {
+                href: editLink,
+                text: editText,
+                visuallyHiddenText: sectionTitle
+              }
+            ]
+          }
+        },
+        rows: tableRows
+      }) }}
+    {% else %}
+      {{ govukSummaryList({
+        caption: 'Applicant details',
+        captionClasses: 'govuk-visually-hidden',
+        firstCellIsHeader: true,
+        rows: tableRows
+      }) }}
+    {% endif %}
 {% endmacro %}
 
 {% macro writeFullName(params) %}

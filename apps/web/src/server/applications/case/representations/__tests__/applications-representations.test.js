@@ -35,7 +35,8 @@ const nocks = () => {
 			page: 1,
 			pageSize: 25,
 			status: '',
-			under18: false
+			under18: false,
+			withAttachment: false
 		})
 		.reply(200, {
 			page: 1,
@@ -47,7 +48,15 @@ const nocks = () => {
 		.persist();
 	nock('http://test/')
 		.get(`/applications/1/representations`)
-		.query({ searchTerm: '', sortBy: '', status: '', page: 1, pageSize: 25, under18: false })
+		.query({
+			searchTerm: '',
+			sortBy: '',
+			status: '',
+			page: 1,
+			pageSize: 25,
+			under18: false,
+			withAttachment: false
+		})
 		.reply(200, representationsFixture)
 		.persist();
 	nock('http://test/')
@@ -86,10 +95,13 @@ describe('applications representations', () => {
 
 			// Assert - css classes applied to the status
 			expect(element.innerHTML).toContain(
-				`<td class="govuk-table__cell"><span class="govuk-tag govuk-tag--grey" id="list-convictions-status-1">AWAITING REVIEW</span>`
+				`<span class="govuk-tag govuk-tag--grey" id="list-convictions-status-1">AWAITING REVIEW</span>`
 			);
 			expect(element.innerHTML).toContain(
-				`<td class="govuk-table__cell"><span class="govuk-tag govuk-tag" id="list-convictions-status-2">VALID</span>`
+				`<span class="govuk-tag govuk-tag" id="list-convictions-status-2">VALID</span>`
+			);
+			expect(element.innerHTML).toContain(
+				`<span class="govuk-tag govuk-tag--green" id="list-convictions-status-3">PUBLISHED</span>`
 			);
 		});
 	});
@@ -112,7 +124,7 @@ describe('applications representations', () => {
 
 			// Assert - css classes applied to the status
 			expect(element.innerHTML).toContain(
-				`<td class="govuk-table__cell"><span class="govuk-tag govuk-tag--grey" id="list-convictions-status-1">AWAITING REVIEW</span>`
+				`<span class="govuk-tag govuk-tag--grey" id="list-convictions-status-1">AWAITING REVIEW</span>`
 			);
 		});
 	});

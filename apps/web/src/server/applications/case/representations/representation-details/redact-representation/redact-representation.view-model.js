@@ -12,6 +12,27 @@ export const getPreviousPageUrl = (caseId, representationId) =>
 	});
 
 /**
+ * @typedef {import('@azure/ai-text-analytics').PiiEntity & {accepted?: boolean}} RedactionSuggestion
+ */
+
+/**
+ * @typedef {Object} RedactRepresentationViewModel
+ * @property {string} caseId
+ * @property {string} representationId
+ * @property {string} backLinkUrl
+ * @property {string} originalRepresentation
+ * @property {string} originalRepresentationText
+ * @property {string} redactedRepresentation
+ * @property {string?} notes
+ * @property {string?} redactedBy
+ * @property {string} projectName
+ * @property {string} statusText
+ * @property {string?} organisationOrFullname
+ * @property {string} [containerSize]
+ * @property {RedactionSuggestion[]} [redactionSuggestions]
+ */
+
+/**
  * @param {string} caseId
  * @param {string} representationId
  * @param {object} representation
@@ -25,8 +46,7 @@ export const getPreviousPageUrl = (caseId, representationId) =>
  * @param {string?} representation.represented.organisationName
  * @param {string} projectName
  * @param {string} statusText
- * @returns {{ caseId: string, representationId: string, backLinkUrl: string, originalRepresentation: string, redactedRepresentation: string, notes: string?, redactedBy: string?, projectName: string, statusText: string, organisationOrFullname: string? }}
- *
+ * @returns {RedactRepresentationViewModel}
  */
 export const getRedactRepresentationViewModel = (
 	caseId,
@@ -40,15 +60,22 @@ export const getRedactRepresentationViewModel = (
 	},
 	projectName,
 	statusText
-) => ({
-	caseId,
-	representationId,
-	backLinkUrl: getPreviousPageUrl(caseId, representationId),
-	originalRepresentation,
-	redactedRepresentation: redactedRepresentation ? redactedRepresentation : originalRepresentation,
-	organisationOrFullname: `${firstName || ''} ${lastName || ''}`.trim() || organisationName,
-	notes: redactedNotes,
-	redactedBy,
-	projectName,
-	statusText
-});
+) => {
+	// normalise new lines before processing to ensure suggestion offsets align on the front-end
+	originalRepresentation = originalRepresentation.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+	return {
+		caseId,
+		representationId,
+		backLinkUrl: getPreviousPageUrl(caseId, representationId),
+		originalRepresentation,
+		originalRepresentationText: originalRepresentation,
+		redactedRepresentation: redactedRepresentation
+			? redactedRepresentation
+			: originalRepresentation,
+		organisationOrFullname: `${firstName || ''} ${lastName || ''}`.trim() || organisationName,
+		notes: redactedNotes,
+		redactedBy,
+		projectName,
+		statusText
+	};
+};

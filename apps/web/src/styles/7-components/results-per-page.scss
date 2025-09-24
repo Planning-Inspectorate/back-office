@@ -1,25 +1,24 @@
-@use "../govuk-frontend/govuk/settings/_colours-applied" as colors;
+@use "govuk-frontend/dist/govuk/settings/_colours-applied" as
+	govuk-colours-applied;
 
 .pins-content--sticky {
-  position: sticky;
-  top: 0;
+	position: sticky;
+	top: 0;
 }
 
 .results-per-page {
+	&__button {
+		background: none !important;
+		border: none;
+		padding: 0 !important;
+	}
+	&__button-link {
+		color: govuk-colours-applied.$govuk-brand-colour;
+		text-decoration: underline;
+		cursor: pointer;
+	}
 
-  &__button {
-	background: none!important;
-	border: none;
-	padding: 0!important;
-
-  }
-  &__button-link {
-	color:  colors.govuk-colour('blue');
-	text-decoration: underline;
-	cursor: pointer;
-  }
-
-  &__button-link-disabled {
-	color: colors.govuk-colour('black');
-  }
+	&__button-link-disabled {
+		color: govuk-colours-applied.$govuk-text-colour;
+	}
 }

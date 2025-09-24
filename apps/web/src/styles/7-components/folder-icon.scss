@@ -1,21 +1,24 @@
+@use "govuk-frontend/dist/govuk/settings/_colours-applied" as
+	govuk-colours-applied;
+
 .folder-icon {
-    position: relative;
-    top: 2px;
-    display: inline-block;
-    width: 20px;
-    height: 15px;
-    margin-right: 4px;
-    background-color: #708090;
-    border-radius: 0 2px 2px 2px;
+	position: relative;
+	top: 2px;
+	display: inline-block;
+	width: 20px;
+	height: 15px;
+	margin-right: govuk-spacing(1);
+	background-color: govuk-colours-applied.$govuk-secondary-text-colour;
+	border-radius: 0 2px 2px 2px;
 }
 
 .folder-icon:before {
-    content: '';
-    width: 40%;
-    height: 3px;
-    border-radius: 0 1px 0 0;
-    background-color: #708090;
-    position: absolute;
-    top: -2px;
-    left: 0px;
+	content: "";
+	width: 40%;
+	height: 3px;
+	border-radius: 0 1px 0 0;
+	background-color: govuk-colours-applied.$govuk-secondary-text-colour;
+	position: absolute;
+	top: -2px;
+	left: 0px;
 }

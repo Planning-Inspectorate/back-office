@@ -1,56 +1,78 @@
-@use "../govuk-frontend/govuk/settings/_colours-applied" as colors;
+@use "govuk-frontend/dist/govuk/settings/_colours-applied" as
+	govuk-colours-applied;
+@use "govuk-frontend/dist/govuk/helpers/_media-queries" as
+	govuk-helpers-media-queries;
+@use "govuk-frontend/dist/govuk/settings/_media-queries" as
+	govuk-settings-media-queries;
 @use "../1-settings/_settings.global.scss" as pins-colours;
-
+@import "govuk-frontend/dist/govuk/_base";
 
 #pins-applications-header {
-  background: white;
-  color: colors.govuk-colour("black");
-  height: 8rem;
-  display: inline-block;
-  width: 100%;
-  padding: 1rem 0;
-  border-bottom: .5rem solid pins-colours.$pins-colours-green-200;
-  margin-bottom: 1rem;
+	background: govuk-colours-applied.$govuk-body-background-colour;
+	color: govuk-colours-applied.$govuk-text-colour;
+	display: inline-block;
+	width: 100%;
+	border-bottom: 0.5rem solid pins-colours.$pins-colours-green-200;
+	margin-bottom: govuk-spacing(4);
 
 	&[data-env="training"] {
-		background: #ffef88;
+		background: govuk-colours-applied.$govuk-focus-colour;
 	}
 
-  .header-container {
-	display: flex;
-	align-items: center;
-	padding: .5rem 0 1rem 0;
+	.header-container {
+		display: flex;
+		align-items: center;
+		padding: govuk-spacing(4) 0;
 
-	&__logo {
-		margin-right: 1rem;
-		#pins-logo {
-			height: 80px;
-			@media (max-width: 640px ) {
-				height: 65px;
+		&__logo {
+			margin-right: govuk-spacing(4);
+
+			#pins-logo {
+				height: 80px;
+
+				@include govuk-helpers-media-queries.govuk-media-query(
+					$until:
+						map-get(govuk-settings-media-queries.$govuk-breakpoints, "tablet")
+				) {
+					height: 65px;
+				}
+			}
+		}
+
+		&__text {
+			flex-grow: 1;
+			font-weight: 700;
+			text-align: center;
+
+			@include govuk-font-size(24);
+
+			@include govuk-helpers-media-queries.govuk-media-query(
+				$until:
+					map-get(govuk-settings-media-queries.$govuk-breakpoints, "tablet")
+			) {
+				@include govuk-font-size(19);
+			}
+		}
+
+		&__links {
+			display: flex;
+
+			@media (max-width: 800px) {
+				flex-direction: column;
+			}
+
+			@include govuk-helpers-media-queries.govuk-media-query(
+				$until:
+					map-get(govuk-settings-media-queries.$govuk-breakpoints, "desktop")
+			) {
+				flex-direction: column;
+			}
+
+			a {
+				margin-left: govuk-spacing(4);
+
+				@include govuk-font-size(19);
 			}
 		}
 	}
-
-	&__text {
-		flex-grow: 1;
-		font-weight: 700;
-		font-size: 1.5rem;
-		text-align: center;
-		@media (max-width: 640px ) {
-			font-size: 1.2rem;
-		}
-	}
-
-	&__links {
-		display: flex;
-		@media (max-width: 800px ) {
-			flex-direction: column;
-		}
-
-		a {
-			margin-left: 1rem;
-			line-height: 1.5rem;
-		}
-	}
-  }
 }

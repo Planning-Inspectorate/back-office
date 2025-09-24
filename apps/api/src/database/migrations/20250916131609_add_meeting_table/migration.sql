@@ -1,0 +1,31 @@
+BEGIN TRY
+
+BEGIN TRAN;
+
+-- CreateTable
+CREATE TABLE [dbo].[Meeting] (
+    [id] INT NOT NULL IDENTITY(1,1),
+    [caseId] INT NOT NULL,
+    [type] NVARCHAR(1000),
+    [agenda] NVARCHAR(1000),
+    [pinsRole] NVARCHAR(1000),
+    [meetingDate] DATETIME2,
+    [createdAt] DATETIME2 NOT NULL CONSTRAINT [Meeting_createdAt_df] DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT [Meeting_pkey] PRIMARY KEY CLUSTERED ([id])
+);
+
+-- AddForeignKey
+ALTER TABLE [dbo].[Meeting] ADD CONSTRAINT [Meeting_caseId_fkey] FOREIGN KEY ([caseId]) REFERENCES [dbo].[Case]([id]) ON DELETE NO ACTION ON UPDATE CASCADE;
+
+COMMIT TRAN;
+
+END TRY
+BEGIN CATCH
+
+IF @@TRANCOUNT > 0
+BEGIN
+    ROLLBACK TRAN;
+END;
+THROW
+
+END CATCH

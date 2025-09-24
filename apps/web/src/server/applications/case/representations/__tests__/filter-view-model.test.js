@@ -1,4 +1,4 @@
-import { getFilterViewModel } from '../utils/filter/filter-view-model.js';
+import { getFilterViewModel, ensureArrayOfStrings } from '../utils/filter/filter-view-model.js';
 
 describe('#getFilterViewModel', () => {
 	it('should get the default filter view model', () => {
@@ -41,13 +41,18 @@ describe('#getFilterViewModel', () => {
 			},
 			{
 				checked: false,
-				text: 'Archived (0)',
-				value: 'ARCHIVED'
+				text: 'Under 18 (0)',
+				value: 'UNDER_18'
 			},
 			{
 				checked: false,
-				text: 'Under 18 (0)',
-				value: 'UNDER_18'
+				text: 'With attachment (0)',
+				value: 'WITH_ATTACHMENT'
+			},
+			{
+				checked: false,
+				text: 'Unpublished (0)',
+				value: 'UNPUBLISHED'
 			}
 		]);
 	});
@@ -91,18 +96,23 @@ describe('#getFilterViewModel', () => {
 			},
 			{
 				checked: false,
-				text: 'Archived (0)',
-				value: 'ARCHIVED'
+				text: 'Under 18 (0)',
+				value: 'UNDER_18'
 			},
 			{
 				checked: false,
-				text: 'Under 18 (0)',
-				value: 'UNDER_18'
+				text: 'With attachment (0)',
+				value: 'WITH_ATTACHMENT'
+			},
+			{
+				checked: false,
+				text: 'Unpublished (0)',
+				value: 'UNPUBLISHED'
 			}
 		]);
 	});
 	it('should get the filter view model for a multiple filters and mark it as checked', () => {
-		const response = getFilterViewModel(['AWAITING_REVIEW', 'VALID']);
+		const response = getFilterViewModel(['AWAITING_REVIEW', 'VALID', 'WITH_ATTACHMENT']);
 		expect(response).toEqual([
 			{
 				checked: true,
@@ -141,13 +151,18 @@ describe('#getFilterViewModel', () => {
 			},
 			{
 				checked: false,
-				text: 'Archived (0)',
-				value: 'ARCHIVED'
+				text: 'Under 18 (0)',
+				value: 'UNDER_18'
+			},
+			{
+				checked: true,
+				text: 'With attachment (0)',
+				value: 'WITH_ATTACHMENT'
 			},
 			{
 				checked: false,
-				text: 'Under 18 (0)',
-				value: 'UNDER_18'
+				text: 'Unpublished (0)',
+				value: 'UNPUBLISHED'
 			}
 		]);
 	});
@@ -157,7 +172,8 @@ describe('#getFilterViewModel', () => {
 			[
 				{ count: 1, name: 'UNDER_18' },
 				{ count: 2, name: 'VALID' },
-				{ count: 1, name: 'PUBLISHED' }
+				{ count: 1, name: 'PUBLISHED' },
+				{ count: 3, name: 'UNPUBLISHED' }
 			]
 		);
 		expect(response).toEqual([
@@ -198,14 +214,26 @@ describe('#getFilterViewModel', () => {
 			},
 			{
 				checked: false,
-				text: 'Archived (0)',
-				value: 'ARCHIVED'
+				text: 'Under 18 (1)',
+				value: 'UNDER_18'
 			},
 			{
 				checked: false,
-				text: 'Under 18 (1)',
-				value: 'UNDER_18'
+				text: 'With attachment (0)',
+				value: 'WITH_ATTACHMENT'
+			},
+			{
+				checked: false,
+				text: 'Unpublished (3)',
+				value: 'UNPUBLISHED'
 			}
 		]);
+	});
+});
+
+describe('ensureArray', () => {
+	it('should only return an array of strings or an empty array', () => {
+		expect(ensureArrayOfStrings('test')).toEqual(['test']);
+		expect(ensureArrayOfStrings(['test', 'test2'])).toEqual(['test', 'test2']);
 	});
 });

@@ -7,7 +7,12 @@
 export const getPageTitle = (response) => {
 	const match = response.text.match(/<title>([^<]*)<\/title>/);
 	return match
-		? match[1].replaceAll('\t', ' ').replaceAll('\n', '').replaceAll('  ', ' ').trim()
+		? match[1]
+				.replaceAll('\t', ' ')
+				.replaceAll('\r\n', '')
+				.replaceAll('\n', '')
+				.replaceAll('  ', ' ')
+				.trim()
 		: null;
 };
 

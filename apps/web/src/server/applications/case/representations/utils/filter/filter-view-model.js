@@ -10,11 +10,14 @@
  * @param {string|Array<string>} stringOrArray
  * @returns {Array<string>}
  */
-const ensureArray = (stringOrArray) => {
-	if (!Array.isArray(stringOrArray) && typeof stringOrArray === 'string') {
+export const ensureArrayOfStrings = (stringOrArray) => {
+	if (typeof stringOrArray === 'string') {
 		return [stringOrArray];
 	}
-	return stringOrArray;
+	if (Array.isArray(stringOrArray)) {
+		return stringOrArray.filter((el) => typeof el === 'string');
+	}
+	return [];
 };
 
 /**
@@ -32,7 +35,7 @@ const findCounterOrZero = (representationsFilters, value) =>
  * @param {string} value
  * @return {boolean}
  */
-const filterValueIsChecked = (filters = [], value) => ensureArray(filters).includes(value);
+const filterValueIsChecked = (filters = [], value) => ensureArrayOfStrings(filters).includes(value);
 /**
  *
  * @param {any} filters
@@ -48,8 +51,9 @@ export const getFilterViewModel = (filters = [], representationsFilters = []) =>
 		{ text: 'Referred', value: 'REFERRED' },
 		{ text: 'Withdrawn', value: 'WITHDRAWN' },
 		{ text: 'Invalid', value: 'INVALID' },
-		{ text: 'Archived', value: 'ARCHIVED' },
-		{ text: 'Under 18', value: 'UNDER_18' }
+		{ text: 'Under 18', value: 'UNDER_18' },
+		{ text: 'With attachment', value: 'WITH_ATTACHMENT' },
+		{ text: 'Unpublished', value: 'UNPUBLISHED' }
 	].map((el) => ({
 		text: `${el.text} (${findCounterOrZero(representationsFilters, el.value)})`,
 		value: el.value,
@@ -59,13 +63,16 @@ export const getFilterViewModel = (filters = [], representationsFilters = []) =>
 /**
  *
  * @param {any} filters
- * @returns {{under18: boolean, status: *[]}}
+ * @returns {{under18: boolean, status: *[], withAttachment: boolean}}
  */
 export const buildFilterQueryString = (filters) => {
-	const filtersArray = ensureArray(filters);
+	const filtersArray = ensureArrayOfStrings(filters);
 
 	return {
-		status: filtersArray.filter((element) => element !== 'UNDER_18'),
-		under18: filtersArray.includes('UNDER_18')
+		status: filtersArray.filter(
+			(element) => element !== 'UNDER_18' && element !== 'WITH_ATTACHMENT'
+		),
+		under18: filtersArray.includes('UNDER_18'),
+		withAttachment: filtersArray.includes('WITH_ATTACHMENT')
 	};
 };

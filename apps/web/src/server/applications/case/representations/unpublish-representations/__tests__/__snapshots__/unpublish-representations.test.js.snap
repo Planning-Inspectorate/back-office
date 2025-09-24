@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`unpublish-representations GET /applications-service/:caseId/relevant-representations/unpublish-representations and the unpublishable rep count is > 0 should render the page with the unpublish button 1`] = `
+"<main class="govuk-main-wrapper" id="main-content">
+    <div class="govuk-grid-row unpublish-representations">
+        <div class="govuk-grid-column-two-thirds">
+            <h1 class="govuk-heading-l">Unpublish relevant representations</h1>
+            <p class="govuk-body"><strong>Project Name:</strong>&nbsp;mock title</p>
+            <p class="govuk-body">There are<strong class="publishedRepsCount">3</strong> published representations.</p>
+            <p             class="govuk-body">Unpublishing will remove these representations from the external website.</p>
+                <div                 class="govuk-inset-text">You can republish a representation by changing its status to "Valid" and
+                    selecting "Publish representations" from the publishing queue.</div>
+        <form         method="post">
+            <button type="submit" data-prevent-double-click="true" class="govuk-button govuk-button--warning"
+            data-module="govuk-button">Unpublish all representations</button>
+            </form>
+    </div>
+    </div>
+</main>"
+`;
+
+exports[`unpublish-representations GET /applications-service/:caseId/relevant-representations/unpublish-representations and the unpublishable rep count is 0 should render the page without the unpublish button 1`] = `
+"<main class="govuk-main-wrapper" id="main-content">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <h1 class="govuk-heading-xl">Sorry, there is a problem with the service</h1>
+            <p class="govuk-body">If the problem persists, <a href="https://intranet.planninginspectorate.gov.uk/task/report-it-problem/"
+                class="govuk-link">report an IT problem or make an IT request.</a>
+            </p>
+        </div>
+    </div>
+</main>"
+`;

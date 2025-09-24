@@ -1,6 +1,6 @@
 /**
- * @typedef {import('pins-data-model').Schemas.Representation} NSIPRepresentationSchema
- * @typedef {import('pins-data-model').Schemas.ServiceUser} ServiceUserSchema
+ * @typedef {import('@planning-inspectorate/data-model').Schemas.Representation} NSIPRepresentationSchema
+ * @typedef {import('@planning-inspectorate/data-model').Schemas.ServiceUser} ServiceUserSchema
  *
  * @typedef {import('@prisma/client').Prisma.RepresentationGetPayload<{include: {case: true, user: true, represented: true, representative: true, attachments: true, representationActions: true} }>} RepresentationWithFullDetails
  * @typedef {import('@pins/applications.api').Schema.ServiceUser} ServiceUser
@@ -79,6 +79,22 @@ export const buildNsipRepresentationPayloadForPublish = (representation) => {
 	publishRepresentationPayload.status = mapRepresentationStatusToSchema('PUBLISHED');
 
 	return publishRepresentationPayload;
+};
+
+/**
+ * Build Representation message event payload which optimistically sets the message status to unpublished before being
+ * updated in the database.  This avoids multiple reads of representation data in the controller.
+ * The message is idempotent so in case of failure to update in DB users would re-unpublish for eventual consistency.
+ *
+ * @param {RepresentationWithFullDetails} representation
+ * @returns {NSIPRepresentationSchema}
+ */
+export const buildNsipRepresentationPayloadForUnpublish = (representation) => {
+	let unpublishRepresentationPayload = buildNsipRepresentationPayload(representation);
+	// @ts-ignore
+	unpublishRepresentationPayload.status = mapRepresentationStatusToSchema('UNPUBLISHED');
+
+	return unpublishRepresentationPayload;
 };
 
 /**

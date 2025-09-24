@@ -1,11 +1,16 @@
 // Use the GDS Design System as a foundation
-@use "../govuk-frontend/govuk/all" with (
+@use "govuk-frontend/dist/govuk" with (
 	// see https://frontend.design-system.service.gov.uk/importing-css-assets-and-javascript/#if-you-have-your-own-folder-structure
-	$govuk-assets-path: "/",
-	$govuk-images-path: "/images/",
-	$govuk-fonts-path: "/fonts/",
-  $govuk-link-visited-colour: #1d70b8
+	$govuk-assets-path: "/assets/",
+	$govuk-images-path: "/assets/images/",
+	$govuk-fonts-path: "/assets/fonts/",
+	$govuk-link-visited-colour: #1d70b8,
+	// Suppress deprecation warnings for features we're still using
+	// Format: map of warning keys to boolean true values
+	$govuk-suppressed-warnings: ("govuk-typography-scale-14": true)
 );
+
+@use "govuk-frontend/dist/govuk/settings/spacing" as *;
 
 // These are standalone dependencies loaded by the modules bellow.
 // ENV
@@ -74,5 +79,5 @@
 
 @use "dev" as *;
 
-// Shame file used for everytihng you will be shamed for.
+// Shame file used for everything you will be shamed for.
 @use "shame";

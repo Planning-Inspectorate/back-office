@@ -16,21 +16,16 @@ pr: none
 trigger: none
 
 jobs:
-  - job: Run_Cypress_Tests_For_Applications
-    pool:
-      vmImage: "ubuntu-latest"
 
+  - job: E2E_Tests_Group_1
+    timeoutInMinutes: 60
+    pool: pins-odt-agent-pool-tests
     steps:
+
       - task: NodeTool@0
         inputs:
           versionSpec: "20.x"
         displayName: "Install Node.js"
-
-      - task: ShellScript@2
-        inputs:
-          scriptPath: 'apps/e2e/install-chromium.sh'
-        displayName: 'Install Chromium'
-        condition: eq(variables['agent.os'], 'Linux')
 
       - task: Npm@1
         inputs:
@@ -38,9 +33,12 @@ jobs:
           workingDir: $(System.DefaultWorkingDirectory)/apps/e2e
         displayName: "Install Dependencies"
 
-      - task: ShellScript@2
+      - task: Bash@3
         inputs:
-          scriptPath: 'apps/e2e/run-tests.sh'
+          targetType: 'inline'
+          script: npx cypress run --spec "cypress/e2e/back-office-applications/addRepresentation.spec.js,cypress/e2e/back-office-applications/addTeam.spec.js,cypress/e2e/back-office-applications/createCase.spec.js,cypress/e2e/back-office-applications/documentProperties.spec.js,cypress/e2e/back-office-applications/documentPropertiesWelsh.spec.js,cypress/e2e/back-office-applications/documentUpload.spec.js"
+          workingDirectory: 'apps/e2e'
+
         env:
           BASE_URL: $(BASE_URL)
           CASE_TEAM_EMAIL: $(CASE_TEAM_EMAIL)
@@ -48,7 +46,118 @@ jobs:
           INSPECTOR_EMAIL: $(INSPECTOR_EMAIL)
           USER_PASSWORD: $(USER_PASSWORD)
           FEATURE_FLAG_CONNECTION_STRING: $(FEATURE_FLAG_CONNECTION_STRING)
-        displayName: "Run Cypress Tests"
+        displayName: "Run Cypress Tests Group 1"
+
+      - task: PublishBuildArtifacts@1
+        inputs:
+          pathToPublish: 'apps/e2e/cypress/screenshots'
+          artifactName: 'FailedTests'
+        displayName: "Publish Failed Tests Artifacts"
+        condition: failed()
+
+  - job: E2E_Tests_Group_2
+    timeoutInMinutes: 60
+    pool: pins-odt-agent-pool-tests
+    steps:
+      - task: NodeTool@0
+        inputs:
+          versionSpec: "20.x"
+        displayName: "Install Node.js"
+
+      - task: Npm@1
+        inputs:
+          command: "install"
+          workingDir: $(System.DefaultWorkingDirectory)/apps/e2e
+        displayName: "Install Dependencies"
+
+      - task: Bash@3
+        inputs:
+          targetType: 'inline'
+          script: npx cypress run --spec "cypress/e2e/back-office-applications/documentVersioning.spec.js,cypress/e2e/back-office-applications/editCase.spec.js,cypress/e2e/back-office-applications/examTimetable.spec.js"
+          workingDirectory: 'apps/e2e'
+
+        env:
+          BASE_URL: $(BASE_URL)
+          CASE_TEAM_EMAIL: $(CASE_TEAM_EMAIL)
+          CASE_ADMIN_EMAIL: $(CASE_ADMIN_EMAIL)
+          INSPECTOR_EMAIL: $(INSPECTOR_EMAIL)
+          USER_PASSWORD: $(USER_PASSWORD)
+          FEATURE_FLAG_CONNECTION_STRING: $(FEATURE_FLAG_CONNECTION_STRING)
+        displayName: "Run Cypress Tests Group 2"
+
+      - task: PublishBuildArtifacts@1
+        inputs:
+          pathToPublish: 'apps/e2e/cypress/screenshots'
+          artifactName: 'FailedTests'
+        displayName: "Publish Failed Tests Artifacts"
+        condition: failed()
+
+  - job: E2E_Tests_Group_3
+    timeoutInMinutes: 60
+    pool: pins-odt-agent-pool-tests
+    steps:
+      - task: NodeTool@0
+        inputs:
+          versionSpec: "20.x"
+        displayName: "Install Node.js"
+
+      - task: Npm@1
+        inputs:
+          command: "install"
+          workingDir: $(System.DefaultWorkingDirectory)/apps/e2e
+        displayName: "Install Dependencies"
+
+      - task: Bash@3
+        inputs:
+          targetType: 'inline'
+          script: npx cypress run --spec "cypress/e2e/back-office-applications/publishDocuments.spec.js,cypress/e2e/back-office-applications/s51Advice.spec.js,cypress/e2e/back-office-applications/search.spec.js,cypress/e2e/back-office-applications/searchDocuments.spec.js,cypress/e2e/back-office-applications/sectorAsTraing.spec.js,cypress/e2e/back-office-applications/smokeTests.spec.js"
+          workingDirectory: 'apps/e2e'
+
+        env:
+          BASE_URL: $(BASE_URL)
+          CASE_TEAM_EMAIL: $(CASE_TEAM_EMAIL)
+          CASE_ADMIN_EMAIL: $(CASE_ADMIN_EMAIL)
+          INSPECTOR_EMAIL: $(INSPECTOR_EMAIL)
+          USER_PASSWORD: $(USER_PASSWORD)
+          FEATURE_FLAG_CONNECTION_STRING: $(FEATURE_FLAG_CONNECTION_STRING)
+        displayName: "Run Cypress Tests Group 3"
+
+      - task: PublishBuildArtifacts@1
+        inputs:
+          pathToPublish: 'apps/e2e/cypress/screenshots'
+          artifactName: 'FailedTests'
+        displayName: "Publish Failed Tests Artifacts"
+        condition: failed()
+
+  - job: E2E_Tests_Group_4
+    timeoutInMinutes: 60
+    pool: pins-odt-agent-pool-tests
+    steps:
+      - task: NodeTool@0
+        inputs:
+          versionSpec: "20.x"
+        displayName: "Install Node.js"
+
+      - task: Npm@1
+        inputs:
+          command: "install"
+          workingDir: $(System.DefaultWorkingDirectory)/apps/e2e
+        displayName: "Install Dependencies"
+
+      - task: Bash@3
+        inputs:
+          targetType: 'inline'
+          script: DEBUG=cypress:* npx cypress run --headed --browser chrome --spec "cypress/e2e/back-office-applications/publishDocuments.spec.js,cypress/e2e/back-office-applications/s51Advice.spec.js,cypress/e2e/back-office-applications/search.spec.js,cypress/e2e/back-office-applications/searchDocuments.spec.js,cypress/e2e/back-office-applications/sectorAsTraing.spec.js,cypress/e2e/back-office-applications/smokeTests.spec.js"
+          workingDirectory: 'apps/e2e'
+
+        env:
+          BASE_URL: $(BASE_URL)
+          CASE_TEAM_EMAIL: $(CASE_TEAM_EMAIL)
+          CASE_ADMIN_EMAIL: $(CASE_ADMIN_EMAIL)
+          INSPECTOR_EMAIL: $(INSPECTOR_EMAIL)
+          USER_PASSWORD: $(USER_PASSWORD)
+          FEATURE_FLAG_CONNECTION_STRING: $(FEATURE_FLAG_CONNECTION_STRING)
+        displayName: "Run Cypress Tests Group 4"
 
       - task: PublishBuildArtifacts@1
         inputs:

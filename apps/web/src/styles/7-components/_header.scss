@@ -1,8 +1,12 @@
-@use "../govuk-frontend/govuk/helpers/media-queries" as mixins;
-@use "../govuk-frontend/govuk/settings/media-queries" as settings;
+@use "govuk-frontend/dist/govuk/helpers/_media-queries" as
+	govuk-helpers-media-queries;
+@use "govuk-frontend/dist/govuk/settings/_media-queries" as
+	govuk-settings-media-queries;
 
 .pins-header__navigation--align-right {
-  @include mixins.govuk-media-query ($from: map-get(settings.$govuk-breakpoints, 'desktop')) {
-    float: right;
-  }
+	@include govuk-helpers-media-queries.govuk-media-query(
+		$from: map-get(govuk-settings-media-queries.$govuk-breakpoints, "desktop")
+	) {
+		float: right;
+	}
 }

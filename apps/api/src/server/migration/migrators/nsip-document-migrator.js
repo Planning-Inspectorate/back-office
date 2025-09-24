@@ -7,7 +7,7 @@ import { getDocumentFolderId } from './folder/folder.js';
 import logger from '#utils/logger.js';
 import { broadcastNsipDocumentEvent } from '#infrastructure/event-broadcasters.js';
 import { EventType } from '@pins/event-client/src/event-type.js';
-import { trimDocumentNameKnownSuffix } from '#utils/file-fns.js';
+import { removeMultipleSpacesAndTrim, trimDocumentNameKnownSuffix } from '#utils/file-fns.js';
 
 /**
  * Convert HZN Document Version DocumentType to CBOS Document Version DocumentType
@@ -33,7 +33,7 @@ const hznDocVersionTypes = {
  * Handle an HTTP trigger/request to run the migration.
  * Migrates NSIP documents
  *
- * @param {import("pins-data-model").Schemas.NSIPDocument[]} documents
+ * @param {import("@planning-inspectorate/data-model").Schemas.NSIPDocument[]} documents
  * @param {Function} updateProgress
  */
 export const migrateNsipDocuments = async (documents, updateProgress) => {
@@ -52,7 +52,10 @@ export const migrateNsipDocuments = async (documents, updateProgress) => {
 	for (const [index, document] of documents.entries()) {
 		const folderId = await getDocumentFolderId(document, caseId);
 		let documentId = document.documentId;
-		let documentFilename = trimDocumentNameKnownSuffix(document.filename); // take HZN display name and trim off file suffix if in known list
+		// take HZN display name and trim off file suffix if in known list. and then trim and remove any multiple spaces
+		let documentFilename = removeMultipleSpacesAndTrim(
+			trimDocumentNameKnownSuffix(document.filename)
+		);
 		if (documentId !== parentDocumentId) {
 			// new doc to process
 			parentDocumentId = documentId;

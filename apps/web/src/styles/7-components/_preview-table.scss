@@ -1,21 +1,17 @@
-@use "../govuk-frontend/govuk/settings/_colours-applied" as colors;
+@use "govuk-frontend/dist/govuk/settings/_colours-applied" as
+	govuk-colours-applied;
 
 .pins-preview-table {
-	border: 1px solid colors.$govuk-border-colour;
-
+	border: 1px solid govuk-colours-applied.$govuk-border-colour;
 
 	> * {
-		padding: 0 1rem;
+		padding: 0 govuk-spacing(4);
 	}
 
 	&__header {
-		background-color: colors.govuk-colour('light-grey');;
+		background-color: govuk-colours-applied.$govuk-canvas-background-colour;
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-
-		a {
-
-		}
 	}
 }

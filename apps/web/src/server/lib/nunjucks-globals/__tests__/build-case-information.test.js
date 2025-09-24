@@ -36,16 +36,13 @@ const fullParams = {
 };
 
 const fullResult = [
-	{ title: 'Reference number', text: 'TEST_REFERENCE' },
 	{
-		title: 'Is this an application for a material change?',
+		title: 'Material change',
 		text: 'Yes',
 		url: 'material-change'
 	},
 	{ title: 'Case manager', text: 'Test case manager' },
 	{ title: 'NSIP officers', text: 'NSIP Officer 1, NSIP Officer 2' },
-	{ title: 'Sector', text: 'Test sector' },
-	{ title: 'Subsector', text: 'Test subsector' },
 	{
 		title: featureFlagClient.isFeatureActive('applic-55-welsh-translation')
 			? 'Regions'

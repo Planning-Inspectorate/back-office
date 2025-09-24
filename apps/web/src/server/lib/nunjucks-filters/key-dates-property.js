@@ -1,6 +1,8 @@
 /** @type {Record<string, string>} */
 const propertyToName = {
 	preApplication: 'Pre-application',
+	preApplicationSection: 'Pre-application',
+	screeningAndScoping: 'Screening and scoping',
 	datePINSFirstNotifiedOfProject: 'Date first notified of project',
 	datePINSFirstNotifiedOfProject_label:
 		'Applicant notifies the Planning Inspectorate of a project.',
@@ -36,6 +38,10 @@ const propertyToName = {
 	dateOfNonAcceptance_label: 'Date of decision not to accept.',
 
 	preExamination: 'Pre-examination',
+	relevantRepresentations: 'Relevant representations',
+	relevantRepresentationsReOpen: 'Relevant representations re-open',
+	otherDates: 'Other',
+
 	dateOfRepresentationPeriodOpen: 'Open',
 	dateOfRepresentationPeriodOpen_label:
 		'Start date of Relevant Representation (RR) period. The RR portal will open on this date on website.',

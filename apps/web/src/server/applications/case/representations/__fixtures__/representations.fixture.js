@@ -3,6 +3,7 @@ export const representationsFixture = {
 	pageSize: 25,
 	pageCount: 1,
 	itemCount: 3,
+	filters: [{ count: 3, name: 'WITH_ATTACHMENT' }],
 	items: [
 		{
 			status: 'AWAITING_REVIEW',
@@ -10,7 +11,8 @@ export const representationsFixture = {
 			received: '2022-01-01',
 			organisationName: 'org name 1',
 			reference: 'mock reference',
-			id: '1'
+			id: '1',
+			displayName: 'org name 1'
 		},
 		{
 			status: 'VALID',
@@ -20,15 +22,25 @@ export const representationsFixture = {
 			firstName: 'first',
 			lastName: 'lastName',
 			reference: 'mock reference',
-			id: '2'
+			id: '2',
+			displayName: 'first lastName'
+		},
+		{
+			status: 'PUBLISHED',
+			redacted: false,
+			received: '2022-01-01',
+			organisationName: 'org name 2',
+			reference: 'mock reference',
+			id: '3',
+			displayName: 'org name 2'
 		}
 	]
 };
 
 export const representationFixture = {
 	id: 1,
+	status: 'VALID',
 	reference: 'BC0110001-11',
-	status: 'ARCHIVED',
 	redacted: true,
 	received: '2023-05-31T07:49:38.077Z',
 	originalRepresentation:

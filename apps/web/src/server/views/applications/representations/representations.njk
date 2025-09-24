@@ -1,4 +1,4 @@
-{% extends "applications/layouts/applications.layout.njk" %}
+{% extends "../case/layouts/applications-case-layout.njk" %}
 
 {% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
@@ -9,7 +9,8 @@
 {% from "applications/components/pagination/results-per-page.component.njk" import uiPageSizeInformation, uiPaginationLinks %}
 {% from "applications/representations/components/pre-search.component.njk" import preSearch %}
 {% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
-
+{% set pageTitle = "Relevant representations - " + case.title + " - NSIP applications" %}
+{% block title %}{{ pageTitle }}{% endblock %}
 {% block beforeContent %}
     <aside>
 	    {{ govukBreadcrumbs({
@@ -28,24 +29,23 @@
     </aside>
 {% endblock %}
 
-{% block pageHeading %}
-{% endblock %}
-
-{% block pageContent %}	
-	<div class="govuk-!-margin-left-0 govuk-!-margin-bottom-7">
-		<div class="pins-masthead-summary govuk-!-padding-4 govuk-!-padding-top-9 govuk-!-padding-bottom-2">
-			<span class="govuk-caption-xl"> {{ caseReference.reference }} </span>
-			<h1 class="govuk-heading-xl govuk-!-margin-bottom-3"> {{ caseReference.title }} </h1>
-
-			<p class="govuk-body">
-				{{ caseReference.title }}
+{% block pageContent %}
+	{% if unpublishedRepsCount > 0 %}
+		{% set successBannerHtml %}
+			<p class="govuk-notification-banner__heading">
+				{{ unpublishedRepsCount }} Representations have been unpublished.
 			</p>
 
-			<strong class="govuk-heading-s">
-				{{ statusTag(caseReference.status.text ) }}
-			</strong>
-		</div>
-	</div>
+			<a href="{{ resetSuccessBannerURL }}" id="clear-success-notification-link" class="govuk-link">Clear notification</a>
+		{% endset %}
+		{{
+		govukNotificationBanner({
+			attributes: { id: "unpublish-success-banner" },
+			type: 'success',
+			html: successBannerHtml
+		})
+		}}
+	{% endif %}
 
 	{% if publishedRepsCount > 0 %}
 		{% set successBannerHtml %}
@@ -93,13 +93,13 @@
 
 	<h2 class="govuk-heading-l">Relevant representations</h2>
 
-	<form method="GET">
+	<form method="GET" action="{{ clearFilterRefreshUrl }}">
 		<div class="govuk-grid-row">
-			<div class="govuk-grid-column-one-half">
-				{{ preSearch(filters) }}
+			<div class="govuk-grid-column-two-thirds">
+				{{ preSearch(filters, clearFilterRefreshUrl) }}
 			</div>
 
-			<div class="govuk-grid-column-one-half">
+			<div class="govuk-grid-column-one-third">
 				<h3 class="govuk-heading-m govuk-!-margin-bottom-6">
 					Key dates
 				</h3>
@@ -141,18 +141,24 @@
 				}) }}
 
 				<p class="govuk-body">
+					<a class="govuk-link" href="{{ publishQueueURL }}">View publishing queue</a>
+				</p>
+
+				{% if totalPublishedReps > 0 %}
+					<p class="govuk-body">
+						<a class="govuk-link" href="/applications-service/case/{{ caseId }}/relevant-representations/unpublish-representations">
+							Unpublish all published representations
+						</a>
+					</p>
+				{% endif %}
+
+				<p class="govuk-body">
 					<a class="govuk-link"
 					   href="/applications-service/case/{{ caseId }}/relevant-representations/api/download" download>
 						Download valid and published representations (CSV)</a>
 				</p>
 			</div>
 		</div>
-
-		{% if isRelevantRepsPeriodClosed %}
-			<p class="govuk-body">
-				<a class="govuk-link" href="{{ publishQueueURL }}">View publishing queue</a>
-			</p>
-		{% endif %}
 
 		<h3 class="govuk-heading-m">Search representations</h3>
 
@@ -189,5 +195,3 @@
 
 	</form>
 {% endblock %}
-
-
