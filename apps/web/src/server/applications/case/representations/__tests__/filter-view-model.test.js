@@ -41,11 +41,6 @@ describe('#getFilterViewModel', () => {
 			},
 			{
 				checked: false,
-				text: 'Archived (0)',
-				value: 'ARCHIVED'
-			},
-			{
-				checked: false,
 				text: 'Under 18 (0)',
 				value: 'UNDER_18'
 			},
@@ -101,11 +96,6 @@ describe('#getFilterViewModel', () => {
 			},
 			{
 				checked: false,
-				text: 'Archived (0)',
-				value: 'ARCHIVED'
-			},
-			{
-				checked: false,
 				text: 'Under 18 (0)',
 				value: 'UNDER_18'
 			},
@@ -158,11 +148,6 @@ describe('#getFilterViewModel', () => {
 				checked: false,
 				text: 'Invalid (0)',
 				value: 'INVALID'
-			},
-			{
-				checked: false,
-				text: 'Archived (0)',
-				value: 'ARCHIVED'
 			},
 			{
 				checked: false,
@@ -226,11 +211,6 @@ describe('#getFilterViewModel', () => {
 				checked: false,
 				text: 'Invalid (0)',
 				value: 'INVALID'
-			},
-			{
-				checked: false,
-				text: 'Archived (0)',
-				value: 'ARCHIVED'
 			},
 			{
 				checked: false,

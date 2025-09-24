@@ -95,13 +95,13 @@ describe('applications representations', () => {
 
 			// Assert - css classes applied to the status
 			expect(element.innerHTML).toContain(
-				`<td class="govuk-table__cell"><span class="govuk-tag govuk-tag--grey" id="list-convictions-status-1">AWAITING REVIEW</span>`
+				`<span class="govuk-tag govuk-tag--grey" id="list-convictions-status-1">AWAITING REVIEW</span>`
 			);
 			expect(element.innerHTML).toContain(
-				`<td class="govuk-table__cell"><span class="govuk-tag govuk-tag" id="list-convictions-status-2">VALID</span>`
+				`<span class="govuk-tag govuk-tag" id="list-convictions-status-2">VALID</span>`
 			);
 			expect(element.innerHTML).toContain(
-				`<label class="govuk-label govuk-checkboxes__label" for="filters-10">With attachment (3)</label>`
+				`<span class="govuk-tag govuk-tag--green" id="list-convictions-status-3">PUBLISHED</span>`
 			);
 		});
 	});
@@ -124,7 +124,7 @@ describe('applications representations', () => {
 
 			// Assert - css classes applied to the status
 			expect(element.innerHTML).toContain(
-				`<td class="govuk-table__cell"><span class="govuk-tag govuk-tag--grey" id="list-convictions-status-1">AWAITING REVIEW</span>`
+				`<span class="govuk-tag govuk-tag--grey" id="list-convictions-status-1">AWAITING REVIEW</span>`
 			);
 		});
 	});
