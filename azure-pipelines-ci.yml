@@ -36,9 +36,8 @@ extends:
         globalVariables:
             - template: azure-pipelines-variables.yml@self
         validationJobs:
-            # Setup job runs first and all other jobs depend on it
-            # This prevents duplicate npm installations and ensures consistent environment
-            - name: Setup
+            - job: Setup
+              displayName: Setup Environment
               steps:
                   - script: git fetch origin main:main
                   - template: ../steps/node_script.yml
@@ -46,10 +45,8 @@ extends:
                         nodeVersion: 20
                         script: npm ci
 
-            # Static analysis runs independently of tests
-            # This allows faster feedback on code quality issues
-            # These checks are typically less memory intensive
-            - name: Static_Analysis
+            - job: Static_Analysis
+              displayName: Static Analysis
               dependsOn: Setup
               steps:
                   - template: ../steps/node_script.yml
@@ -73,13 +70,8 @@ extends:
                         nodeVersion: 20
                         script: npm run format-check
 
-            # API tests split into Unit and Integration
-            # Benefits:
-            # - Smaller memory footprint per job
-            # - Faster feedback on unit test failures
-            # - Better isolation between test types
-            # - Easier to identify source of failures
-            - name: API_Unit_Tests
+            - job: API_Unit_Tests
+              displayName: API Unit Tests
               dependsOn: Setup
               steps:
                   - template: ../steps/node_script.yml
@@ -92,7 +84,8 @@ extends:
                             TURBO_API: $(TURBO_API)
                             TURBO_TOKEN: $(TURBO_TOKEN)
 
-            - name: API_Integration_Tests
+            - job: API_Integration_Tests
+              displayName: API Integration Tests
               dependsOn: Setup
               steps:
                   - template: ../steps/node_script.yml
@@ -105,8 +98,8 @@ extends:
                             TURBO_API: $(TURBO_API)
                             TURBO_TOKEN: $(TURBO_TOKEN)
 
-            # Web tests optimized for parallel execution
-            - name: Web_Unit_Tests
+            - job: Web_Unit_Tests
+              displayName: Web Unit Tests
               dependsOn: Setup
               steps:
                   - template: ../steps/node_script.yml
@@ -119,7 +112,8 @@ extends:
                             TURBO_API: $(TURBO_API)
                             TURBO_TOKEN: $(TURBO_TOKEN)
 
-            - name: Web_Integration_Tests
+            - job: Web_Integration_Tests
+              displayName: Web Integration Tests
               dependsOn: Setup
               steps:
                   - template: ../steps/node_script.yml
@@ -132,9 +126,8 @@ extends:
                             TURBO_API: $(TURBO_API)
                             TURBO_TOKEN: $(TURBO_TOKEN)
 
-            # Specialized test suites run independently
-            # These often have unique requirements and dependencies
-            - name: API_Testing
+            - job: API_Testing
+              displayName: API Testing
               dependsOn: Setup
               steps:
                   - template: ../steps/node_script.yml
@@ -147,7 +140,8 @@ extends:
                             TURBO_API: $(TURBO_API)
                             TURBO_TOKEN: $(TURBO_TOKEN)
 
-            - name: Function_Tests
+            - job: Function_Tests
+              displayName: Function Tests
               dependsOn: Setup
               steps:
                   - template: ../steps/node_script.yml
@@ -161,10 +155,8 @@ extends:
                             TURBO_API: $(TURBO_API)
                             TURBO_TOKEN: $(TURBO_TOKEN)
 
-            # Final build only runs after ALL tests pass
-            # This ensures we don't waste resources building if tests fail
-            # Dependencies explicitly listed for clarity
-            - name: Build
+            - job: Build
+              displayName: Build Release
               dependsOn:
                 - Static_Analysis
                 - API_Unit_Tests
