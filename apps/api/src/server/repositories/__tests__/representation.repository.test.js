@@ -120,13 +120,7 @@ describe('Representation repository', () => {
 					{ originalRepresentation: { contains: 'James Bond' } },
 					{
 						represented: {
-							OR: [
-								{ organisationName: { contains: 'James Bond' } },
-								{ firstName: { contains: 'James' } },
-								{ firstName: { contains: 'Bond' } },
-								{ lastName: { contains: 'James' } },
-								{ lastName: { contains: 'Bond' } }
-							]
+							AND: [{ displayName: { contains: 'James' } }, { displayName: { contains: 'Bond' } }]
 						}
 					}
 				]

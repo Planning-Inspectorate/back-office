@@ -469,15 +469,7 @@ function buildSearch(rawSearchTerm) {
 			},
 			{
 				represented: {
-					OR: [
-						{
-							organisationName: {
-								contains: searchTerm
-							}
-						},
-						...buildSplitContains('firstName', searchTerm),
-						...buildSplitContains('lastName', searchTerm)
-					]
+					AND: buildSplitContains('displayName', searchTerm)
 				}
 			}
 		]
