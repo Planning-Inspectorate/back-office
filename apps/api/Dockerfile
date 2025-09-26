@@ -17,7 +17,7 @@ ENV DATABASE_URL=$DATABASE_URL
 ENV GIT_SHA=$GIT_SHA
 
 WORKDIR /src/app/apps/api
-RUN npx prisma generate
+RUN npm run prisma-generate
 
 EXPOSE 3000
 

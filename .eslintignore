@@ -4,3 +4,4 @@
 /apps/web/src/server/static/scripts/*
 /apps/web/src/server/static/styles/*
 /apps/functions/migration/database/db-client/*
+/apps/api/src/database/client/*
