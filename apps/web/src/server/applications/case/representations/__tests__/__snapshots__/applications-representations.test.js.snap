@@ -10,7 +10,7 @@ exports[`applications representations GET /applications-service/:caseId/relevant
             <div class="govuk-grid-row">
                 <div class="govuk-grid-column-full govuk-body">,
                     <br>
-                    <br><strong class="govuk-tag govuk-tag-- pins-tag--no-max-width">in test</strong>
+                    <br><span class="govuk-tag govuk-tag-- pins-tag--no-max-width">in test</span>
                 </div>
             </div>
         </div>
@@ -181,7 +181,7 @@ exports[`applications representations GET /applications-service/:caseId/relevant
                     <td class="govuk-table__cell">org name 1</td>
                     <td class="govuk-table__cell">01 Jan 2022</td>
                     <td class="govuk-table__cell">Redacted</td>
-                    <td class="govuk-table__cell"><span class="govuk-tag govuk-tag--grey" id="list-convictions-status-1">AWAITING REVIEW</span>
+                    <td class="govuk-table__cell"><span class="govuk-tag govuk-tag--grey" id="list-convictions-status-1">Awaiting Review</span>
                     </td>
                     <td class="govuk-table__cell"><a class="govuk-link" href="/applications-service/case/1/relevant-representations/1/representation-details?repMode=summary"> Review <span class="govuk-visually-hidden">org name 1</span></a>
                     </td>
@@ -191,7 +191,7 @@ exports[`applications representations GET /applications-service/:caseId/relevant
                     <td class="govuk-table__cell">first lastName</td>
                     <td class="govuk-table__cell">01 Jan 2022</td>
                     <td class="govuk-table__cell">Unredacted</td>
-                    <td class="govuk-table__cell"><span class="govuk-tag govuk-tag" id="list-convictions-status-2">VALID</span>
+                    <td class="govuk-table__cell"><span class="govuk-tag govuk-tag--green" id="list-convictions-status-2">Valid</span>
                     </td>
                     <td class="govuk-table__cell"><a class="govuk-link" href="/applications-service/case/1/relevant-representations/2/representation-details?repMode=summary"> Review <span class="govuk-visually-hidden">first lastName</span></a>
                     </td>
@@ -201,7 +201,7 @@ exports[`applications representations GET /applications-service/:caseId/relevant
                     <td class="govuk-table__cell">org name 2</td>
                     <td class="govuk-table__cell">01 Jan 2022</td>
                     <td class="govuk-table__cell">Unredacted</td>
-                    <td class="govuk-table__cell"><span class="govuk-tag govuk-tag--green" id="list-convictions-status-3">PUBLISHED</span>
+                    <td class="govuk-table__cell"><span class="govuk-tag govuk-tag--green" id="list-convictions-status-3">Published</span>
                     </td>
                     <td class="govuk-table__cell"><a class="govuk-link" href="/applications-service/case/1/relevant-representations/3/representation-details?repMode=summary"> Review <span class="govuk-visually-hidden">org name 2</span></a>
                     </td>
@@ -222,7 +222,7 @@ exports[`applications representations GET /applications-service/:id/relevant-rep
             <div class="govuk-grid-row">
                 <div class="govuk-grid-column-full govuk-body">,
                     <br>
-                    <br><strong class="govuk-tag govuk-tag-- pins-tag--no-max-width">in test</strong>
+                    <br><span class="govuk-tag govuk-tag-- pins-tag--no-max-width">in test</span>
                 </div>
             </div>
         </div>
@@ -393,7 +393,7 @@ exports[`applications representations GET /applications-service/:id/relevant-rep
                     <td class="govuk-table__cell">org name 1</td>
                     <td class="govuk-table__cell">01 Jan 2022</td>
                     <td class="govuk-table__cell">Redacted</td>
-                    <td class="govuk-table__cell"><span class="govuk-tag govuk-tag--grey" id="list-convictions-status-1">AWAITING REVIEW</span>
+                    <td class="govuk-table__cell"><span class="govuk-tag govuk-tag--grey" id="list-convictions-status-1">Awaiting Review</span>
                     </td>
                     <td class="govuk-table__cell"><a class="govuk-link" href="/applications-service/case/1/relevant-representations/1/representation-details?repMode=summary"> Review <span class="govuk-visually-hidden">org name 1</span></a>
                     </td>

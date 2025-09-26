@@ -10,7 +10,7 @@ exports[`project-updates GET /applications-service/:caseId/project-updates shoul
             <div class="govuk-grid-row">
                 <div class="govuk-grid-column-full govuk-body">,
                     <br>
-                    <br><strong class="govuk-tag govuk-tag-- pins-tag--no-max-width">in test</strong>
+                    <br><span class="govuk-tag govuk-tag-- pins-tag--no-max-width">in test</span>
                 </div>
             </div>
         </div>
@@ -373,7 +373,7 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/:pro
             <div class="govuk-grid-row">
                 <div class="govuk-grid-column-full govuk-body">,
                     <br>
-                    <br><strong class="govuk-tag govuk-tag-- pins-tag--no-max-width">in test</strong>
+                    <br><span class="govuk-tag govuk-tag-- pins-tag--no-max-width">in test</span>
                 </div>
             </div>
         </div>
@@ -476,7 +476,7 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/:pro
             <div class="govuk-grid-row">
                 <div class="govuk-grid-column-full govuk-body">,
                     <br>
-                    <br><strong class="govuk-tag govuk-tag-- pins-tag--no-max-width">in test</strong>
+                    <br><span class="govuk-tag govuk-tag-- pins-tag--no-max-width">in test</span>
                 </div>
             </div>
         </div>
@@ -579,7 +579,7 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/:pro
             <div class="govuk-grid-row">
                 <div class="govuk-grid-column-full govuk-body">,
                     <br>
-                    <br><strong class="govuk-tag govuk-tag-- pins-tag--no-max-width">in test</strong>
+                    <br><span class="govuk-tag govuk-tag-- pins-tag--no-max-width">in test</span>
                 </div>
             </div>
         </div>

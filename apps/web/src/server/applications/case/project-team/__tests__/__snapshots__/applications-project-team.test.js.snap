@@ -384,7 +384,7 @@ exports[`Project team List page GET /case/123/project-team/ should render the pa
             <div class="govuk-grid-row">
                 <div class="govuk-grid-column-full govuk-body">Transport EN, Highways EN
                     <br>
-                    <br><strong class="govuk-tag govuk-tag--green pins-tag--no-max-width">Pre-Application</strong>
+                    <br><span class="govuk-tag govuk-tag--green pins-tag--no-max-width">Pre-Application</span>
                 </div>
             </div>
         </div>
@@ -449,7 +449,7 @@ exports[`Project team List page GET /case/123/project-team/ should render the pa
             <div class="govuk-grid-row">
                 <div class="govuk-grid-column-full govuk-body">Transport EN, Highways EN
                     <br>
-                    <br><strong class="govuk-tag govuk-tag--green pins-tag--no-max-width">Pre-Application</strong>
+                    <br><span class="govuk-tag govuk-tag--green pins-tag--no-max-width">Pre-Application</span>
                 </div>
             </div>
         </div>
