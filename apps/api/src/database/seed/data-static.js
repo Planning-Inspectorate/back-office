@@ -4,10 +4,10 @@
 
 /**
  *
- * @typedef {import('@prisma/client').Prisma.SectorCreateInput} SectorCreateInput
- * @typedef {import('@prisma/client').Prisma.RegionCreateInput} RegionCreateInput
- * @typedef {import('@prisma/client').Prisma.ZoomLevelCreateInput} ZoomLevelCreateInput
- * @typedef {import('@prisma/client').Prisma.ExaminationTimetableTypeCreateInput} ExaminationTimetableTypeCreateInput
+ * @typedef {import('#database-client').Prisma.SectorCreateInput} SectorCreateInput
+ * @typedef {import('#database-client').Prisma.RegionCreateInput} RegionCreateInput
+ * @typedef {import('#database-client').Prisma.ZoomLevelCreateInput} ZoomLevelCreateInput
+ * @typedef {import('#database-client').Prisma.ExaminationTimetableTypeCreateInput} ExaminationTimetableTypeCreateInput
  *
  * @typedef {{ abbreviation: string, name: string, displayNameEn: string, displayNameCy: string}} SubSectorPartial
  * @typedef {{ sectorName: string, subSector: SubSectorPartial}} SubSectorPartialWithSectorName
@@ -490,7 +490,7 @@ export const examinationTimetableTypes = [
 /**
  * seed static data into the database. Does not disconnect from the database or handle errors.
  *
- * @param {import('@prisma/client').PrismaClient} databaseConnector
+ * @param {import('#database-client').PrismaClient} databaseConnector
  */
 export async function seedStaticData(databaseConnector) {
 	for (const sector of sectors) {

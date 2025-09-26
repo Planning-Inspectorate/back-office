@@ -21,7 +21,7 @@ import { hasRealErrors } from '../../lib/has-real-errors.js';
 /**
  * View the overview for a single case (legacy)
  *
- * @type {import('@pins/express').RenderHandler<{}>}
+ * @type {import('@pins/express').RenderHandlerNoNext<{}>}
  */
 export async function viewApplicationsCaseOverviewLegacy({ session }, response) {
 	const {
@@ -70,7 +70,7 @@ export async function viewApplicationsCaseOverviewLegacy({ session }, response) 
 /**
  * View the overview for a single case
  *
- * @type {import('@pins/express').RenderHandler<{}>}
+ * @type {import('@pins/express').RenderHandlerNoNext<{}>}
  */
 export async function viewApplicationsCaseOverview(request, response) {
 	const {
@@ -88,7 +88,7 @@ export async function viewApplicationsCaseOverview(request, response) {
 		response.locals.case?.geographicalInformation?.regions
 	);
 	const caseIsGeneratingStation =
-		response.locals.case?.subSector?.name === SUB_SECTORS.GENERATING_STATIONS ?? false;
+		response.locals.case?.subSector?.name === SUB_SECTORS.GENERATING_STATIONS || false;
 
 	const rawErrors = {
 		...(request.errors || {}),

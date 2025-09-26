@@ -177,7 +177,8 @@ export async function viewKeyDatesIndex(request, response) {
 		}
 	});
 
-	const { preExamination: { dateOfReOpenRelevantRepresentationClose = undefined } = {} } = sections;
+	const dateOfReOpenRelevantRepresentationClose =
+		sections?.preExamination?.dateOfReOpenRelevantRepresentationClose;
 
 	return response.render(`applications/case-key-dates/key-dates-index.njk`, {
 		sections: orderedSections,
