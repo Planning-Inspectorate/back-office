@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma/client';
-import { modifyPrismaDocumentQueryMiddleware } from './prisma-middleware.js';
+import { softDeleteExtension } from '#utils/prisma-extension.js';
 
 /** @type {PrismaClient} */
 let prismaClient;
@@ -12,9 +12,7 @@ function createPrismaClient() {
 		prismaClient = new PrismaClient();
 	}
 
-	prismaClient.$use(modifyPrismaDocumentQueryMiddleware);
-
-	return prismaClient;
+	return prismaClient.$extends(softDeleteExtension);
 }
 
 export const databaseConnector = createPrismaClient();
