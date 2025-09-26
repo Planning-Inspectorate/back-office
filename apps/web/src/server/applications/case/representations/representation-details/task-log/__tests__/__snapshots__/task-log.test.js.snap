@@ -7,7 +7,7 @@ exports[`Representation task log page GET /applications-service/case/1/relevant-
             <fieldset class="govuk-fieldset">
                 <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
                     <h1 class="govuk-fieldset__heading"> Mrs Sue</h1>
-                </legend><strong class="govuk-heading-s govuk-!-margin-bottom-6"><span class="govuk-tag govuk-tag--grey">Awaiting Review</span></strong>
+                </legend><strong class="govuk-heading-s govuk-!-margin-bottom-6"><strong class="govuk-tag govuk-tag--">Awaiting Review</strong></strong>
                 <table                 class="govuk-table">
                     <caption class="govuk-table__caption govuk-table__caption--m">Task Log</caption>
                     <thead class="govuk-table__head">
@@ -37,9 +37,9 @@ exports[`Representation task log page GET /applications-service/case/1/relevant-
                         <tr class="govuk-table__row">
                             <td class="govuk-table__cell">30 June 2023</td>
                             <td class="govuk-table__cell">Status change</td>
-                            <td class="govuk-table__cell"><span class="govuk-tag govuk-tag--blue">Referred</span>
+                            <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--blue">Referred</strong>
                             </td>
-                            <td class="govuk-table__cell"><span class="govuk-tag govuk-tag--blue">Referred</span>
+                            <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--blue">Referred</strong>
                             </td>
                             <td class="govuk-table__cell">user 1</td>
                         </tr>

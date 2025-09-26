@@ -342,7 +342,7 @@ exports[`Applications case pages Project information page GET /case/123/project-
             <div class="govuk-grid-row">
                 <div class="govuk-grid-column-full govuk-body">Transport EN, Highways EN
                     <br>
-                    <br><span class="govuk-tag govuk-tag--green pins-tag--no-max-width">Pre-Application</span>
+                    <br><strong class="govuk-tag govuk-tag--green pins-tag--no-max-width">Pre-Application</strong>
                 </div>
             </div>
         </div>
@@ -543,7 +543,7 @@ exports[`Applications case pages Project information page GET /case/123/project-
             <div class="govuk-grid-row">
                 <div class="govuk-grid-column-full govuk-body">Transport EN, Highways EN
                     <br>
-                    <br><span class="govuk-tag govuk-tag--green pins-tag--no-max-width">Pre-Application</span>
+                    <br><strong class="govuk-tag govuk-tag--green pins-tag--no-max-width">Pre-Application</strong>
                 </div>
             </div>
         </div>
@@ -744,7 +744,7 @@ exports[`Applications case pages Project information page GET /case/123/project-
             <div class="govuk-grid-row">
                 <div class="govuk-grid-column-full govuk-body">Transport EN, Highways EN
                     <br>
-                    <br><span class="govuk-tag govuk-tag--green pins-tag--no-max-width">Pre-Application</span>
+                    <br><strong class="govuk-tag govuk-tag--green pins-tag--no-max-width">Pre-Application</strong>
                 </div>
             </div>
         </div>

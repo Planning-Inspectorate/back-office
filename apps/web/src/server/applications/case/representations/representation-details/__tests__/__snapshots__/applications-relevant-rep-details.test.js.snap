@@ -16,7 +16,7 @@ exports[`/applications-service/case/1/relevant-representations/1/representation-
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
             <h1 class="govuk-heading-l govuk-!-margin-bottom-2"> Mrs Sue</h1>
-            <div class="govuk-!-margin-bottom-4"><span class="govuk-tag govuk-tag--blue">Referred</span>
+            <div class="govuk-!-margin-bottom-4"><strong class="govuk-tag govuk-tag--blue">Referred</strong>
             </div>
             <p class="govuk-body-s govuk-!-margin-bottom-6"><strong>Project name:</strong> mock case title</p>
             <h3 class="govuk-heading-m">Contact details</h3>
@@ -241,7 +241,7 @@ exports[`/applications-service/case/1/relevant-representations/1/representation-
             </dd>
         </div>
         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Status</dt>
-            <dd class="govuk-summary-list__value"><span class="govuk-tag govuk-tag--blue">Referred</span>
+            <dd class="govuk-summary-list__value"><strong class="govuk-tag govuk-tag--blue">Referred</strong>
             </dd>
             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="representation-details/change-status">Change<span class="govuk-visually-hidden"> Change status</span></a>
             </dd>
@@ -272,7 +272,7 @@ exports[`/applications-service/case/1/relevant-representations/1/representation-
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
             <h1 class="govuk-heading-l govuk-!-margin-bottom-2"> Mrs Sue</h1>
-            <div class="govuk-!-margin-bottom-4"><span class="govuk-tag govuk-tag--grey">Awaiting Review</span>
+            <div class="govuk-!-margin-bottom-4"><strong class="govuk-tag govuk-tag--">Awaiting Review</strong>
             </div>
             <p class="govuk-body-s govuk-!-margin-bottom-6"><strong>Project name:</strong> mock case title</p>
             <h3 class="govuk-heading-m">Contact details</h3>
@@ -497,7 +497,7 @@ exports[`/applications-service/case/1/relevant-representations/1/representation-
             </dd>
         </div>
         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Status</dt>
-            <dd class="govuk-summary-list__value"><span class="govuk-tag govuk-tag--grey">Awaiting Review</span>
+            <dd class="govuk-summary-list__value"><strong class="govuk-tag govuk-tag--">Awaiting Review</strong>
             </dd>
             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="representation-details/change-status">Change<span class="govuk-visually-hidden"> Change status</span></a>
             </dd>

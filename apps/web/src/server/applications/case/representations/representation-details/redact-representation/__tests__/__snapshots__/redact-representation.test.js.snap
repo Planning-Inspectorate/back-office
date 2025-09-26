@@ -2,7 +2,7 @@
 
 exports[`Representation redact page GET /applications-service/case/1/relevant-representations/1/representations-details/redact-representation should render the new page if feature flag is enabled 1`] = `
 "<main class="govuk-main-wrapper" id="main-content">
-    <h1 class="govuk-heading-l govuk-!-margin-bottom-2">Mrs Sue</h1><span class="govuk-tag govuk-tag-- pins-tag--no-max-width">in test</span>
+    <h1 class="govuk-heading-l govuk-!-margin-bottom-2">Mrs Sue</h1><strong class="govuk-tag govuk-tag-- pins-tag--no-max-width">in test</strong>
     <p     class="govuk-body govuk-!-margin-0 govuk-!-margin-top-5"><strong>Project name:</strong> mock title</p>
         <form action="" method="post"
         novalidate>
@@ -267,7 +267,7 @@ exports[`Representation redact page GET /applications-service/case/1/relevant-re
 
 exports[`Representation redact page GET /applications-service/case/1/relevant-representations/1/representations-details/redact-representation should render the page 1`] = `
 "<main class="govuk-main-wrapper" id="main-content">
-    <h1 class="govuk-heading-l govuk-!-margin-bottom-2">Mrs Sue</h1><span class="govuk-tag govuk-tag-- pins-tag--no-max-width">in test</span>
+    <h1 class="govuk-heading-l govuk-!-margin-bottom-2">Mrs Sue</h1><strong class="govuk-tag govuk-tag-- pins-tag--no-max-width">in test</strong>
     <p     class="govuk-body govuk-!-margin-0 govuk-!-margin-top-5"><strong>Project name:</strong> mock title</p>
         <form method="post">
             <div class="govuk-grid-row govuk-!-margin-top-8">
