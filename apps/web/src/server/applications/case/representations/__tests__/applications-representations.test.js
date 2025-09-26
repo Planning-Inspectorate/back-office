@@ -95,13 +95,13 @@ describe('applications representations', () => {
 
 			// Assert - css classes applied to the status
 			expect(element.innerHTML).toContain(
-				`<span class="govuk-tag govuk-tag--grey" id="list-convictions-status-1">Awaiting Review</span>`
+				`<strong class="govuk-tag govuk-tag--grey" id="list-convictions-status-1">Awaiting Review</strong>`
 			);
 			expect(element.innerHTML).toContain(
-				`<span class="govuk-tag govuk-tag--green" id="list-convictions-status-2">Valid</span>`
+				`<strong class="govuk-tag govuk-tag--green" id="list-convictions-status-2">Valid</strong>`
 			);
 			expect(element.innerHTML).toContain(
-				`<span class="govuk-tag govuk-tag--green" id="list-convictions-status-3">Published</span>`
+				`<strong class="govuk-tag govuk-tag--green" id="list-convictions-status-3">Published</strong>`
 			);
 		});
 	});
@@ -124,7 +124,7 @@ describe('applications representations', () => {
 
 			// Assert - css classes applied to the status
 			expect(element.innerHTML).toContain(
-				`<span class="govuk-tag govuk-tag--grey" id="list-convictions-status-1">Awaiting Review</span>`
+				`<strong class="govuk-tag govuk-tag--grey" id="list-convictions-status-1">Awaiting Review</strong>`
 			);
 		});
 	});

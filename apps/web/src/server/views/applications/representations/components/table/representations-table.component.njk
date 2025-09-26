@@ -1,4 +1,4 @@
-{% import "applications/representations/representation-details/components/representation-status-tag.njk" as statusMacros %}
+{% from "applications/representations/representation-details/components/representation-status-tag.njk" import representationStatusTag %}
 
 {% macro representationsTableComponent(representations, table, caseId) %}
 	<table id="rr-table" class="govuk-table pins-table--representations">
@@ -35,7 +35,7 @@
 			<td class="govuk-table__cell">{{ reps.title }}</td>
 			<td class="govuk-table__cell">{{ reps.received }}</td>
 			<td class="govuk-table__cell">{{ reps.redacted }}</td>
-			<td class="govuk-table__cell">{{ statusMacros.representationStatusTag(reps.status.text, 'list-convictions-status-' ~ loop.index) }}</td>
+			<td class="govuk-table__cell">{{ representationStatusTag(reps.status.text, 'list-convictions-status-' ~ loop.index) }}</td>
 			<td class="govuk-table__cell">
 				<a class="govuk-link" href="{{reps.link}}"> Review <span class="govuk-visually-hidden">{{ reps.title }}</span> </a>
 			</td>

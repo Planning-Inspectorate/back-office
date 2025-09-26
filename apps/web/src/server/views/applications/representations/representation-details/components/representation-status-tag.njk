@@ -17,7 +17,6 @@
             {% set statusTagColor = 'orange' %}
         {% case 'invalid' %}
             {% set statusTagColor = 'red' %}
-		{% case 'awaiting_review' %}
         {% case 'awaiting review' %}
         {% case 'unpublished' %}
         {% case 'archived' %}
@@ -27,5 +26,5 @@
             {% set statusTagColor = 'green' %}
     {% endswitch %}
 
-    <span class="govuk-tag govuk-tag--{{statusTagColor}}"{% if id is defined %} id="{{ id }}"{% endif %}>{{statusLabel}}</span>
+    <strong class="govuk-tag govuk-tag--{{statusTagColor}}"{% if id is defined %} id="{{ id }}"{% endif %}>{{statusLabel}}</strong>
 {% endmacro %}

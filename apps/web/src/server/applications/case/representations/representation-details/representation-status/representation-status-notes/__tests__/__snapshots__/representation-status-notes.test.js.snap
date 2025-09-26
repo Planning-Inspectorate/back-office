@@ -2,7 +2,7 @@
 
 exports[`Change representation status page GET /applications-service/case/1/relevant-representations/1/representations-details/status-result should render the page 1`] = `
 "<main class="govuk-main-wrapper" id="main-content"><span class="govuk-caption-l"></span>
-    <h1 class="govuk-heading-l govuk-!-margin-bottom-2">Notes (optional)</h1><strong class="govuk-heading-s govuk-!-margin-bottom-6"><span class="govuk-tag govuk-tag--grey">Awaiting Review</span></strong>
+    <h1 class="govuk-heading-l govuk-!-margin-bottom-2">Notes (optional)</h1><strong class="govuk-heading-s govuk-!-margin-bottom-6"><strong class="govuk-tag govuk-tag--">Awaiting Review</strong></strong>
     <div     class="govuk-grid-row">
         <div class="govuk-grid-column-full">
             <form method="post" novalidate>

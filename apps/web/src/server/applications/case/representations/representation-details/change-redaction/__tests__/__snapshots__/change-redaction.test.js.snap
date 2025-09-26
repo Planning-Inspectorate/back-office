@@ -8,7 +8,7 @@ exports[`Representation change redacted page GET /applications-service/case/1/re
                 <fieldset class="govuk-fieldset">
                     <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
                         <h1 class="govuk-fieldset__heading"> Change redaction</h1>
-                    </legend><strong class="govuk-heading-s govuk-!-margin-bottom-6"><span class="govuk-tag govuk-tag--grey">Awaiting Review</span></strong>
+                    </legend><strong class="govuk-heading-s govuk-!-margin-bottom-6"><strong class="govuk-tag govuk-tag--">Awaiting Review</strong></strong>
                     <div                     class="govuk-form-group">
                         <div class="govuk-radios" data-module="govuk-radios">
                             <div class="govuk-radios__item">
@@ -54,7 +54,7 @@ exports[`Representation change redacted page POST /applications-service/case/1/r
                 <fieldset class="govuk-fieldset">
                     <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
                         <h1 class="govuk-fieldset__heading"> Change redaction</h1>
-                    </legend><strong class="govuk-heading-s govuk-!-margin-bottom-6"><span class="govuk-tag govuk-tag--grey">Awaiting Review</span></strong>
+                    </legend><strong class="govuk-heading-s govuk-!-margin-bottom-6"><strong class="govuk-tag govuk-tag--">Awaiting Review</strong></strong>
                     <div                     class="govuk-form-group govuk-form-group--error">
                         <p id="changeRedaction-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> Select one option</p>
                         <div                         class="govuk-radios" data-module="govuk-radios">
