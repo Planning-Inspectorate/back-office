@@ -1,3 +1,5 @@
+{% import "applications/representations/representation-details/components/representation-status-tag.njk" as statusMacros %}
+
 {% macro representationsTableComponent(representations, table, caseId) %}
 	<table id="rr-table" class="govuk-table pins-table--representations">
 		{{ tableHead(table) }}
@@ -33,17 +35,11 @@
 			<td class="govuk-table__cell">{{ reps.title }}</td>
 			<td class="govuk-table__cell">{{ reps.received }}</td>
 			<td class="govuk-table__cell">{{ reps.redacted }}</td>
-			{{ statusTag(reps.status, loop.index) }}
+			<td class="govuk-table__cell">{{ statusMacros.representationStatusTag(reps.status.text, 'list-convictions-status-' ~ loop.index) }}</td>
 			<td class="govuk-table__cell">
 				<a class="govuk-link" href="{{reps.link}}"> Review <span class="govuk-visually-hidden">{{ reps.title }}</span> </a>
 			</td>
 		</tr>
 	{% endfor %}
 	</tbody>
-{% endmacro %}
-
-{% macro statusTag(status, index) %}
-	<td class="govuk-table__cell">
-		<span class="govuk-tag {{ status.class }}" id="list-convictions-status-{{ index }}">{{ status.text }}</span>
-	</td>
 {% endmacro %}

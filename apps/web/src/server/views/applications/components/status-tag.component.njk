@@ -1,25 +1,27 @@
+{# Project status tag macro #}
+
 {% macro statusTag(status) %}
 	{% set statusTagColor = '' %}
 	{% set statusLabel = status %}
 
 	{% switch (status) %}
-	{% case 'Decision' %}
-		{% set statusTagColor = 'pink' %}
-	{% case 'Post-Decision' %}
-		{% set statusTagColor = 'grey' %}
-	{% case 'Pre-Application' %}
-		{% set statusTagColor = 'green' %}
-	{% case 'Acceptance' %}
-		{% set statusTagColor = 'turquoise' %}
-	{% case 'Pre-Examination' %}
-		{% set statusTagColor = 'blue' %}
-	{% case 'Examination' %}
-		{% set statusTagColor = 'purple' %}
-	{% case 'Recommendation' %}
-		{% set statusTagColor = 'yellow' %}
-	{% case 'Withdrawn' %}
-		{% set statusTagColor = 'orange' %}
+		{% case 'Decision' %}
+			{% set statusTagColor = 'pink' %}
+		{% case 'Post-Decision' %}
+			{% set statusTagColor = 'grey' %}
+		{% case 'Pre-Application' %}
+			{% set statusTagColor = 'green' %}
+		{% case 'Acceptance' %}
+			{% set statusTagColor = 'turquoise' %}
+		{% case 'Pre-Examination' %}
+			{% set statusTagColor = 'blue' %}
+		{% case 'Examination' %}
+			{% set statusTagColor = 'purple' %}
+		{% case 'Recommendation' %}
+			{% set statusTagColor = 'yellow' %}
+		{% case 'Withdrawn' %}
+			{% set statusTagColor = 'orange' %}
 	{% endswitch %}
 
-	<strong class="govuk-tag govuk-tag--{{statusTagColor}} pins-tag--no-max-width">{{ statusLabel }}</strong>
+	<span class="govuk-tag govuk-tag--{{statusTagColor}} pins-tag--no-max-width">{{ statusLabel }}</span>
 {% endmacro %}

@@ -10,7 +10,7 @@ exports[`S51 Advice Key dates page GET /case/123/key-dates/ should render the pa
             <div class="govuk-grid-row">
                 <div class="govuk-grid-column-full govuk-body">Transport EN, Highways EN
                     <br>
-                    <br><strong class="govuk-tag govuk-tag--green pins-tag--no-max-width">Pre-Application</strong>
+                    <br><span class="govuk-tag govuk-tag--green pins-tag--no-max-width">Pre-Application</span>
                 </div>
             </div>
         </div>
