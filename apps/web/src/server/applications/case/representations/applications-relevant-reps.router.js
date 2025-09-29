@@ -15,7 +15,10 @@ import representationDetailsRouter from './representation-details/application-re
 import publishValidRepresentationsRouter from './publish-valid-representations/publish-valid-reps.router.js';
 import { fileUploadController } from './file-upload/file-upload.controller.js';
 import { repRoutes } from './representation/utils/get-representation-page-urls.js';
-import { getRepDownloadController } from './download/download.controller.js';
+import {
+	getPublishedRepDownloadController,
+	getValidRepDownloadController
+} from './download/download.controller.js';
 import { registerRepsParams } from './applications-relevant-reps.locals.js';
 import unpublishRepresentationsRouter from './unpublish-representations/unpublish-representations.router.js';
 import { unpublishRepresentationsErrorRouter } from './unpublish-representations-error/unpublish-representations-error.router.js';
@@ -45,6 +48,11 @@ relevantRepsRouter.use('/', unpublishRepresentationsErrorRouter);
 
 relevantRepsRouter.route('/:repId/api/upload').post(registerRepsParams, fileUploadController);
 
-relevantRepsRouter.route('/api/download').get(registerRepsParams, getRepDownloadController);
+relevantRepsRouter
+	.route('/api/download/published')
+	.get(registerRepsParams, getPublishedRepDownloadController);
+relevantRepsRouter
+	.route('/api/download/valid')
+	.get(registerRepsParams, getValidRepDownloadController);
 
 export default relevantRepsRouter;

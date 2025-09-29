@@ -28,11 +28,61 @@ const mapContactDetails = (data) => {
 		'Email or Post?': contactMethod
 	};
 };
-const mapToCSV = (arrayToMap) =>
-	arrayToMap.map((representaion) => ({
-		'IP number': representaion.reference,
-		...mapContactDetails(representaion)
+
+const mapShortenedContactDetails = (data) => {
+	const { represented, representative } = data;
+	const { address, organisationName, firstName, lastName } = representative
+		? representative
+		: represented;
+
+	return {
+		Name: getOrgNameOrName({ organisationName, firstName, lastName }),
+		Postcode: address?.postcode
+	};
+};
+
+const mapPublishedToCSV = (arrayToMap) =>
+	arrayToMap.map((representation) => ({
+		'IP number': representation.reference,
+		...mapContactDetails(representation)
 	}));
 
-export const mapRepToCsv = (chunk) =>
-	stringify(mapToCSV(chunk), { header: chunk.setCSVHeader, escape_formulas: true });
+const mapValidToCSV = (arrayToMap) => {
+	const mapped = arrayToMap.map((representation) => ({
+		...mapShortenedContactDetails(representation),
+		Attachments: representation._count.attachments > 0 ? 'Yes' : 'No',
+		'IP number': representation.reference,
+		Status: representation.status,
+		'Action Date': (() => {
+			const validActions = representation?.representationActions?.filter(
+				(action) => action.status === 'VALID'
+			);
+			if (!validActions?.length) return '';
+			return validActions
+				.map((action) => new Date(action.actionDate))
+				.sort((a, b) => b - a)[0]
+				.toISOString();
+		})(),
+		Representation: (() => {
+			const value = representation.editedRepresentation?.trim()
+				? representation.editedRepresentation
+				: representation.originalRepresentation;
+			const CSV_CELL_LIMIT = 32759;
+			if (value && value.length > CSV_CELL_LIMIT) {
+				return 'This representation exceeds the character limit, please view on the Relevant Representations page.';
+			}
+			return value;
+		})()
+	}));
+	return mapped.sort((a, b) => {
+		if (!a['Action Date']) return 1;
+		if (!b['Action Date']) return -1;
+		return new Date(b['Action Date']) - new Date(a['Action Date']);
+	});
+};
+
+export const mapPublishedRepToCsv = (chunk) =>
+	stringify(mapPublishedToCSV(chunk), { header: chunk.setCSVHeader, escape_formulas: true });
+
+export const mapValidRepToCsv = (chunk) =>
+	stringify(mapValidToCSV(chunk), { header: chunk.setCSVHeader, escape_formulas: true });
