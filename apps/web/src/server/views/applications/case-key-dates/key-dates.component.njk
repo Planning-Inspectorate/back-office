@@ -31,7 +31,10 @@
 				items: [{
 					href: 'key-dates' | url({caseId: caseId, step: sectionKey}),
 					text: 'Manage dates',
-					visuallyHiddenText: 'for ' ~ displayHeading | trim
+					visuallyHiddenText: 'for ' ~ displayHeading | trim,
+					attributes: {
+						"data-cy": "manage-dates-" ~ (sectionKey | trim | kebabCase)
+					}
 				}]
 			}
 		},
