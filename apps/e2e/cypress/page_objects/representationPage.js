@@ -32,7 +32,7 @@ export class RepresentationPage extends Page {
 			cy.get(
 				'div.govuk-accordion__section:nth-child(4) > div:nth-child(1) > h2:nth-child(1) > button:nth-child(1) > span:nth-child(3) > span:nth-child(1) > span:nth-child(2)'
 			),
-		manageDate: () => cy.get('#accordion-key-dates-content-3 > div:nth-child(1) > a:nth-child(1)'),
+		manageDate: () => cy.get('a[data-cy="manage-dates-relevant-representations"]'),
 		repDay: () =>
 			cy.get(
 				'body > div:nth-child(4) > main:nth-child(2) > form:nth-child(2) > div:nth-child(3) > fieldset:nth-child(1) > div:nth-child(3) > div:nth-child(1) > div:nth-child(1) > input:nth-child(2)'
@@ -106,13 +106,13 @@ export class RepresentationPage extends Page {
 		searchResultsPage.clickLinkByText('Relevant representations');
 		this.clickLinkByText('View publishing queue');
 		this.clickButtonByText('Publish representations');
-		this.elements.statusVerify().contains('PUBLISHED');
+		this.elements.statusVerify().contains('Published');
 		this.elements.reviewLink().click();
 		this.elements.statusLink().click();
 		this.elements.optionStatusInvalid().click();
 		this.clickContinue();
 		this.clickButtonByText('Save changes');
 		this.clickBackLink();
-		this.elements.statusVerify().contains('AWAITING REVIEW');
+		this.elements.statusVerify().contains('Awaiting Review');
 	}
 }
