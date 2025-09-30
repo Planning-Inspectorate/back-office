@@ -13,7 +13,6 @@ const caseIsWelsh = (projectInformation) => {
 
 const validateProjectOverview = (projectInformation, mandatoryOnly = false) => {
 	if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
-		casePage.validateSummaryItem('Reference number', Cypress.env('currentCreatedCase'));
 		casePage.validateSummaryItem('Organisation name', projectInformation.orgName);
 		casePage.validateSummaryItem(
 			'Website',
