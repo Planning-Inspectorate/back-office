@@ -7,7 +7,7 @@ exports[`Representation task log page GET /applications-service/case/1/relevant-
             <fieldset class="govuk-fieldset">
                 <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
                     <h1 class="govuk-fieldset__heading"> Mrs Sue</h1>
-                </legend><strong class="govuk-heading-s govuk-!-margin-bottom-6"><strong class="govuk-tag govuk-tag--">Awaiting Review</strong></strong>
+                </legend><strong class="govuk-heading-s govuk-!-margin-bottom-6"><strong class="govuk-tag govuk-tag--grey">Awaiting review</strong></strong>
                 <table                 class="govuk-table">
                     <caption class="govuk-table__caption govuk-table__caption--m">Task Log</caption>
                     <thead class="govuk-table__head">

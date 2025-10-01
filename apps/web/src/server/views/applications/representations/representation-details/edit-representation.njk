@@ -1,0 +1,35 @@
+{% extends "applications/layouts/applications.layout.njk" %}
+
+{% from "./components/representation-status-tag.njk" import representationStatusTag %}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+
+{% block pageHeading %}
+  <a href="/applications/{{ caseId }}/representations/{{ representationId }}" class="govuk-back-link">Back</a>
+  <h1 class="govuk-heading-l govuk-!-margin-bottom-2">{{ organisationOrFullname }}</h1>
+  {{ representationStatusTag(statusText) }}
+  <p class="govuk-body govuk-!-margin-0 govuk-!-margin-top-5 govuk-!-margin-bottom-5">
+    <strong>Project name:</strong> {{ projectName | escape if projectName else 'Not provided' }}
+  </p>
+{% endblock %}
+
+{% set pageTitle = "Edit Relevant Representation" %}
+
+{% block pageContent %}
+  <form method="post" novalidate>
+    <div class="govuk-form-group{% if errors and errors.originalRepresentation %} govuk-form-group--error{% endif %}">
+      {% if errors and errors.originalRepresentation %}
+        <span class="govuk-error-message">{{ errors.originalRepresentation.msg }}</span>
+      {% endif %}
+      <textarea class="govuk-textarea" id="originalRepresentation" name="originalRepresentation" rows="7">{{ editedRepresentation if editedRepresentation else originalRepresentation }}</textarea>
+    </div>
+    <div class="govuk-form-group">
+      <label class="govuk-label govuk-label--m" for="notes">Notes</label>
+      <textarea class="govuk-textarea" id="notes" name="notes" rows="4">{{ notes }}</textarea>
+    </div>
+    {{ govukWarningText({
+      text: "Editing a representation will remove any current redactions",
+      iconFallbackText: "Warning"
+    }) }}
+    <button class="govuk-button govuk-button--success" type="submit">Save and return</button>
+  </form>
+{% endblock %}

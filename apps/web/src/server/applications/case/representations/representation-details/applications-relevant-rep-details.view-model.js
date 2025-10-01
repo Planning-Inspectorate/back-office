@@ -17,16 +17,28 @@ export const getRepresentationDetailsViewModel = async (
 	{ caseId, representationId },
 	{ repMode, depublished },
 	{ representation }
-) => ({
-	...getPageLinks(caseId, repMode, representationId, representation.status),
-	...getPageTitles(representation.status),
-	caseId,
-	representationId,
-	selectedOptionsText: getSelectedOptionsText(representation),
-	representationExcerpts: getRepresentationExcerpts(representation),
-	representationWorkflowValues: getRepresentationWorkflowValues(representation),
-	relevantRepDocumentFolder: await getRelevantRepFolder(Number(caseId)),
-	organisationOrFullname: getOrganisationOrFullname(representation.represented),
-	repModePageURLs: getRepModePageURLs(representation),
-	depublishedRepresentation: depublished === 'true'
-});
+) => {
+	if (!representation) {
+		throw new Error('Representation not found. Please check the case and representation ID.');
+	}
+	return {
+		representation: {
+			...representation,
+			editedRepresentation: representation.editedRepresentation || '',
+			editNotes: representation.editNotes || ''
+		},
+		...getPageLinks(caseId, repMode, representationId, representation.status),
+		...getPageTitles(representation.status),
+		caseId,
+		representationId,
+		selectedOptionsText: getSelectedOptionsText(representation),
+		representationExcerpts: getRepresentationExcerpts(representation),
+		representationWorkflowValues: getRepresentationWorkflowValues(representation),
+		relevantRepDocumentFolder: await getRelevantRepFolder(Number(caseId)),
+		organisationOrFullname: getOrganisationOrFullname(representation.represented),
+		repModePageURLs: getRepModePageURLs(representation),
+		depublishedRepresentation: depublished === 'true',
+		statusText: representation.status,
+		projectName: representation.projectName
+	};
+};
