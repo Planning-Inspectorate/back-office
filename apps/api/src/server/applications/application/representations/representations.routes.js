@@ -304,6 +304,13 @@ router.patch(
 	asyncHandler(patchRepresentation)
 );
 
+router.post(
+	'/:repId',
+	validateApplicationId,
+	representationPatchValidator,
+	asyncHandler(patchRepresentation)
+);
+
 router.use('/:repId/redact', representationsRedactRouter);
 
 router.use('/:repId/attachment', representationsAttachmentRouter);
