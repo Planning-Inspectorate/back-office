@@ -606,14 +606,14 @@ const createNewStatuses = (id, status) => {
  * @param {number} id
  * @param {number |undefined} applicationDetailsId
  * @param {{status: string | object, data: {regionNames?: string[]}, currentStatuses: object[], setReference: boolean}} updateData
- * @param {import('@prisma/client').PrismaPromise<any>[]} additionalTransactions
+ * @param {Promise<Folder>[] | null} additionalTransactions
  * @returns {Promise<import('@pins/applications.api').Schema.Case | null>}
  */
 export const updateApplicationStatusAndDataById = async (
 	id,
 	applicationDetailsId,
 	{ status, data, currentStatuses, setReference = false },
-	additionalTransactions
+	additionalTransactions = []
 ) => {
 	const { caseStatesToInvalidate, caseStatesToCreate } = separateStatusesToSaveAndInvalidate(
 		status,
@@ -637,7 +637,7 @@ export const updateApplicationStatusAndDataById = async (
 		transactions.push(assignApplicationReference(id));
 	}
 
-	transactions.push(...additionalTransactions);
+	if (additionalTransactions) transactions.push(...additionalTransactions);
 
 	await databaseConnector.$transaction(transactions);
 

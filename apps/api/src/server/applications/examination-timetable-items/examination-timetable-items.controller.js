@@ -19,6 +19,7 @@ import { EventType } from '@pins/event-client';
 import { buildFolderPayload } from '#infrastructure/payload-builders/folder.js';
 import { verifyNotTraining } from '../application/application.validators.js';
 import { folderDocumentCaseStageMappings } from '../constants.js';
+import { setPath } from '#repositories/folder.repository.js';
 
 /** @typedef {import('@pins/applications.api').Schema.Folder} Folder */
 
@@ -161,11 +162,15 @@ export const createExaminationTimetableItem = async ({ body }, response) => {
 		throw new BackOfficeAppError('Failed to create sub folder for the examination item.', 500);
 	}
 
-	const project = await caseRepository.getById(body.caseId, { sector: true });
+	try {
+		await setPath(itemFolder.id, itemFolder.parentFolderId);
+	} catch (e) {
+		throw new BackOfficeAppError(`Failed to set path for folder ${itemFolder.id}`, 500);
+	}
 
 	// now send broadcast event for folder creation - ignoring folders on training cases.
 	try {
-		await verifyNotTraining(body.caseId);
+		const project = await verifyNotTraining(body.caseId);
 
 		await eventClient.sendEvents(
 			FOLDER,

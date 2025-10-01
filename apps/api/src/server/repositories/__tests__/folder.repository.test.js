@@ -1,3 +1,5 @@
+import { setPath } from '../folder.repository.js';
+
 const { databaseConnector } = await import('../../utils/database-connector.js');
 
 import * as folderRepository from '../folder.repository.js';
@@ -128,5 +130,21 @@ describe('Folder repository', () => {
 
 		// THEN
 		expect(updatedFolder).toEqual(updatedFolderExpected);
+	});
+});
+
+describe('setPath', () => {
+	it('should update the folder path with the correct id', async () => {
+		const id = 42;
+		const expectedResult = { id, path: '/42/' };
+		databaseConnector.folder.update.mockResolvedValue(expectedResult);
+
+		const path = await setPath(id);
+
+		expect(databaseConnector.folder.update).toHaveBeenCalledWith({
+			where: { id },
+			data: { path: '/42/' }
+		});
+		expect(path).toEqual(expectedResult);
 	});
 });

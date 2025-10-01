@@ -150,9 +150,37 @@ export const getFoldersByParentId = (parentFolderId, options = null) => {
  * @param {number|null} folder.displayOrder
  * @returns {Promise<(Folder |null)>}
  */
-export const createFolder = (folder, isCustom = true) => {
-	return databaseConnector.folder.create({
+export const createFolder = async (folder, isCustom = true) => {
+	const newFolder = await databaseConnector.folder.create({
 		data: { ...folder, isCustom }
+	});
+	await setPath(newFolder.id, newFolder.parentFolderId);
+	return newFolder;
+	// return databaseConnector.folder.create({
+	// 	data: { ...folder, isCustom }
+	// });
+};
+
+/**
+ *
+ * @param {number} id
+ * @param {number|null} parentFolderId
+ * @returns {*}
+ */
+// sets the path for the folder
+export const setPath = async (id, parentFolderId) => {
+	if (parentFolderId) {
+		const parentFolder = await getById(parentFolderId);
+		if (parentFolder.path) {
+			return databaseConnector.folder.update({
+				where: { id },
+				data: { path: `${parentFolder.path}/${id}` }
+			});
+		}
+	}
+	return databaseConnector.folder.update({
+		where: { id },
+		data: { path: `/${id}` }
 	});
 };
 
@@ -249,8 +277,8 @@ const mapFolderTemplateWithCaseId = (caseId, folder) => {
  * @param {FolderTemplate[]} folders
  * @returns {Promise<Folder>[]}
  */
-export const createFolders = (caseId, folders = defaultCaseFolders) => {
-	const foldersCreated = [];
+export const createFolders = async (caseId, folders = defaultCaseFolders) => {
+	// const foldersCreated = [];
 
 	// Prisma many to nested many does not work, so we cannot create the top folders and all subfolders nested using createMany.
 	// so we loop through the top folders, using create to create the folder and all its subfolders, correctly assigning caseId, parentFolderId etc
@@ -260,12 +288,36 @@ export const createFolders = (caseId, folders = defaultCaseFolders) => {
 			data: mapFolderTemplateWithCaseId(caseId, topLevelFolder)
 		};
 
-		const topFoldersCreated = databaseConnector.folder.create(newFolders);
+		const topFoldersCreated = await databaseConnector.folder.create(newFolders);
+		await recursivelySetPaths(topFoldersCreated.id);
+		// foldersCreated.push(topFoldersCreated);
+	}
+	// return foldersCreated;
+};
 
-		foldersCreated.push(topFoldersCreated);
+/**
+ * recursively navigates the folder structure and sets the path for each folder
+ * @param {number} folderId
+ **/
+const recursivelySetPaths = async (folderId) => {
+	const folder = await databaseConnector.folder.findUnique({
+		where: { id: folderId },
+		include: { childFolders: true }
+	});
+
+	if (folder && !folder.parentFolderId) await setPath(folder.id, null);
+
+	if (!folder && !folder.childFolders) return;
+
+	if (folder && !folder.childFolders) {
+		await setPath(folder.id, folder.parentFolderId);
+		return;
 	}
 
-	return foldersCreated;
+	for (const childFolder of folder.childFolders) {
+		await setPath(childFolder.id, childFolder.parentFolderId);
+		await recursivelySetPaths(childFolder.id);
+	}
 };
 
 /**
