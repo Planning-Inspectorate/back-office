@@ -118,8 +118,11 @@ exports[`applications representations GET /applications-service/:caseId/relevant
                 </p>
                 <p class="govuk-body"><a class="govuk-link" href="/applications-service/case/1/relevant-representations/unpublish-representations"> Unpublish all published representations</a>
                 </p>
-                <p class="govuk-body"><a class="govuk-link" href="/applications-service/case/1/relevant-representations/api/download"
-                    download> Download valid and published representations (CSV)</a>
+                <p class="govuk-body"><a class="govuk-link" href="/applications-service/case/1/relevant-representations/api/download/published"
+                    download> Download mailing list (CSV)</a>
+                </p>
+                <p class="govuk-body"><a class="govuk-link" href="/applications-service/case/1/relevant-representations/api/download/valid"
+                    download> Download valid representations (CSV)</a>
                 </p>
             </div>
         </div>
@@ -328,8 +331,11 @@ exports[`applications representations GET /applications-service/:id/relevant-rep
                 data-module="govuk-button"> Add a representation</a>
                 <p class="govuk-body"><a class="govuk-link" href="/applications-service/case/1/relevant-representations/select-representations-for-publishing">View publishing queue</a>
                 </p>
-                <p class="govuk-body"><a class="govuk-link" href="/applications-service/case/1/relevant-representations/api/download"
-                    download> Download valid and published representations (CSV)</a>
+                <p class="govuk-body"><a class="govuk-link" href="/applications-service/case/1/relevant-representations/api/download/published"
+                    download> Download mailing list (CSV)</a>
+                </p>
+                <p class="govuk-body"><a class="govuk-link" href="/applications-service/case/1/relevant-representations/api/download/valid"
+                    download> Download valid representations (CSV)</a>
                 </p>
             </div>
         </div>
