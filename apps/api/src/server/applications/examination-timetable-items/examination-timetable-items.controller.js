@@ -47,8 +47,7 @@ export const getExaminationTimetableItems = async ({ params }, response) => {
 	const examinationTimetableItemsForCase = await pMap(
 		examinationTimetableItems,
 		async (item) => {
-			const submissions = await service.validateSubmissions(item, examinationTimetable.caseId);
-
+			const submissions = await folderRepository.getDocumentCount(item.folderId);
 			return {
 				...item,
 				submissions,

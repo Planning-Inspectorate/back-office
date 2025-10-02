@@ -298,7 +298,7 @@ model Folder {
   childFolders             Folder[]                   @relation("FolderTree")
   stage                    String?
   ExaminationTimetableItem ExaminationTimetableItem[]
-  documentCount            Int?
+  documentCount            Int?                       @default(0)
   path                     String?
 
   @@unique([caseId, displayNameEn, parentFolderId, deletedAt])

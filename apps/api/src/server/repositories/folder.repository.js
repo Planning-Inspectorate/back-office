@@ -1,5 +1,6 @@
 import { databaseConnector } from '#utils/database-connector.js';
 import { folderDocumentCaseStageMappings } from '#api-constants';
+import BackOfficeAppError from '#utils/app-error.js';
 
 /** @typedef {import('@pins/applications.api').Schema.Folder} Folder */
 /** @typedef {import('@pins/applications').FolderTemplate} FolderTemplate */
@@ -156,16 +157,40 @@ export const createFolder = async (folder, isCustom = true) => {
 	});
 	await setPath(newFolder.id, newFolder.parentFolderId);
 	return newFolder;
-	// return databaseConnector.folder.create({
-	// 	data: { ...folder, isCustom }
-	// });
+};
+
+/**
+ * @param {number} folderId
+ * @returns {Promise<{ documentCount: number }>}
+ * returns document count for a folder
+ */
+export const getDocumentCount = async (folderId) => {
+	try {
+		const documentCount = await databaseConnector.folder.findUnique({
+			where: {
+				id: folderId
+			},
+			select: {
+				documentCount: true
+			}
+		});
+		if (!documentCount) {
+			console.error(`No document count for folder: ${folderId}`);
+			return null;
+		}
+		return documentCount.documentCount;
+	} catch (e) {
+		throw new BackOfficeAppError(
+			`Error connecting to DB when getting document count for folder: ${folderId}`
+		);
+	}
 };
 
 /**
  *
  * @param {number} id
  * @param {number|null} parentFolderId
- * @returns {*}
+ * @returns {Promise<(Folder |null)>}
  */
 // sets the path for the folder
 export const setPath = async (id, parentFolderId) => {
