@@ -53,7 +53,6 @@ import { getRedactionStatus, validateDocumentVersionMetadataBody } from './docum
  */
 export const createDocumentsOnCase = async ({ params, body }, response) => {
 	const documentsToUpload = body[''];
-
 	const latestDocumentReference =
 		await documentRepository.getLatestDocReferenceByCaseIdExcludingMigrated({
 			caseId: /** @type {number} */ (params.id)

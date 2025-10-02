@@ -144,6 +144,11 @@ const attemptInsertDocuments = async (caseId, documents, isS51) => {
 					fromFrontOffice: documentToDB.fromFrontOffice,
 					documentType: isS51 ? DOCUMENT_TYPES.S51Attachment : DOCUMENT_TYPES.Document
 				});
+				await documentRepository.incrementDocumentCount(
+					document.folderId,
+					document.caseId,
+					documentToDB.documentName
+				);
 			} catch (err) {
 				logger.error(err);
 				failed.add(documentToDB.documentName);
@@ -1067,7 +1072,14 @@ export const deleteDocument = async (guid, caseId) => {
 	// step 3: mark the document as deleted
 	const deletedDocument = await documentRepository.deleteDocument(guid);
 
-	// Step 4: broadcast event message - ignoring training cases
+	// step 4: decrement documentCount of folder and ancestor folders
+	await documentRepository.decreaseDocumentCount(
+		deletedDocument.folderId,
+		caseId,
+		deletedDocument.guid
+	);
+
+	// Step 5: broadcast event message - ignoring training cases
 	await broadcastNsipDocumentEvent(documentToDelete, EventType.Delete);
 
 	return deletedDocument;
