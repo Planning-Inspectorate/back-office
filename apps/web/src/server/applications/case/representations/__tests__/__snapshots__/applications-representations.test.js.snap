@@ -118,8 +118,11 @@ exports[`applications representations GET /applications-service/:caseId/relevant
                 </p>
                 <p class="govuk-body"><a class="govuk-link" href="/applications-service/case/1/relevant-representations/unpublish-representations"> Unpublish all published representations</a>
                 </p>
-                <p class="govuk-body"><a class="govuk-link" href="/applications-service/case/1/relevant-representations/api/download"
-                    download> Download valid and published representations (CSV)</a>
+                <p class="govuk-body"><a class="govuk-link" href="/applications-service/case/1/relevant-representations/api/download/published"
+                    download> Download mailing list (CSV)</a>
+                </p>
+                <p class="govuk-body"><a class="govuk-link" href="/applications-service/case/1/relevant-representations/api/download/valid"
+                    download> Download valid representations (CSV)</a>
                 </p>
             </div>
         </div>
@@ -181,7 +184,7 @@ exports[`applications representations GET /applications-service/:caseId/relevant
                     <td class="govuk-table__cell">org name 1</td>
                     <td class="govuk-table__cell">01 Jan 2022</td>
                     <td class="govuk-table__cell">Redacted</td>
-                    <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--grey" id="list-convictions-status-1">Awaiting Review</strong>
+                    <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--grey" id="list-convictions-status-1">Awaiting review</strong>
                     </td>
                     <td class="govuk-table__cell"><a class="govuk-link" href="/applications-service/case/1/relevant-representations/1/representation-details?repMode=summary"> Review <span class="govuk-visually-hidden">org name 1</span></a>
                     </td>
@@ -328,8 +331,11 @@ exports[`applications representations GET /applications-service/:id/relevant-rep
                 data-module="govuk-button"> Add a representation</a>
                 <p class="govuk-body"><a class="govuk-link" href="/applications-service/case/1/relevant-representations/select-representations-for-publishing">View publishing queue</a>
                 </p>
-                <p class="govuk-body"><a class="govuk-link" href="/applications-service/case/1/relevant-representations/api/download"
-                    download> Download valid and published representations (CSV)</a>
+                <p class="govuk-body"><a class="govuk-link" href="/applications-service/case/1/relevant-representations/api/download/published"
+                    download> Download mailing list (CSV)</a>
+                </p>
+                <p class="govuk-body"><a class="govuk-link" href="/applications-service/case/1/relevant-representations/api/download/valid"
+                    download> Download valid representations (CSV)</a>
                 </p>
             </div>
         </div>
@@ -393,7 +399,7 @@ exports[`applications representations GET /applications-service/:id/relevant-rep
                     <td class="govuk-table__cell">org name 1</td>
                     <td class="govuk-table__cell">01 Jan 2022</td>
                     <td class="govuk-table__cell">Redacted</td>
-                    <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--grey" id="list-convictions-status-1">Awaiting Review</strong>
+                    <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--grey" id="list-convictions-status-1">Awaiting review</strong>
                     </td>
                     <td class="govuk-table__cell"><a class="govuk-link" href="/applications-service/case/1/relevant-representations/1/representation-details?repMode=summary"> Review <span class="govuk-visually-hidden">org name 1</span></a>
                     </td>
