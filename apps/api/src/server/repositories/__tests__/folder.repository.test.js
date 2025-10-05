@@ -1,8 +1,10 @@
-import { setPath } from '../folder.repository.js';
+import { decreaseDocumentCount, increaseDocumentCount, setPath } from '../folder.repository.js';
 
 const { databaseConnector } = await import('../../utils/database-connector.js');
 
 import * as folderRepository from '../folder.repository.js';
+import BackOfficeAppError from '#utils/app-error.js';
+import { jest } from '@jest/globals';
 
 const existingTopLevelFolders = [
 	{
@@ -134,17 +136,103 @@ describe('Folder repository', () => {
 });
 
 describe('setPath', () => {
-	it('should update the folder path with the correct id', async () => {
+	it('sets the path as the /ID when no parent folder', async () => {
+		//Arrange
 		const id = 42;
 		const expectedResult = { id, path: '/42/' };
 		databaseConnector.folder.update.mockResolvedValue(expectedResult);
 
+		//Act
 		const path = await setPath(id);
 
+		//Assert
 		expect(databaseConnector.folder.update).toHaveBeenCalledWith({
 			where: { id },
-			data: { path: '/42/' }
+			data: { path: '/42' }
 		});
 		expect(path).toEqual(expectedResult);
+	});
+	it('sets the path as the "/parentId/ID" when no parent folder', async () => {
+		//Arrange
+		const id = 2;
+		const folder = { id, parentFolderId: 1, path: null };
+		const expectedResult = { ...folder, path: '/1/2' };
+		databaseConnector.folder.findUnique.mockResolvedValue(folder);
+		databaseConnector.folder.update.mockResolvedValue(expectedResult);
+
+		//Act
+		const path = await setPath(id);
+
+		//Assert
+		expect(path).toEqual(expectedResult);
+	});
+});
+
+describe('decreaseDocumentCount', () => {
+	it('decreases document count for folder and ancestors', async () => {
+		//Arrange
+		const folder = { id: 1, path: '/1', documentCount: 1 };
+		const expectedResult = { ...folder, documentCount: 0 };
+		databaseConnector.folder.findUnique.mockResolvedValue(folder);
+		databaseConnector.$executeRaw = jest.fn().mockResolvedValue(expectedResult);
+
+		//Act
+		const result = await decreaseDocumentCount(1);
+
+		//Assert
+		expect(result).toEqual(expectedResult);
+	});
+
+	it('throws error if folder or path is missing', async () => {
+		//Arrange
+		databaseConnector.folder.findUnique.mockResolvedValue(null);
+		//Act and assert
+		await expect(decreaseDocumentCount(1)).rejects.toThrow(BackOfficeAppError);
+	});
+
+	it('throws error if $executeRaw fails', async () => {
+		//Arrange
+		const folder = { id: 1, path: '/1' };
+		databaseConnector.folder.findUnique.mockResolvedValue(folder);
+		databaseConnector.$executeRaw.mockImplementation(() => {
+			throw new Error('DB error');
+		});
+		//Act and assert
+		await expect(decreaseDocumentCount(1)).rejects.toThrow(BackOfficeAppError);
+	});
+});
+
+describe('increaseDocumentCount', () => {
+	it('increases document count for folder', async () => {
+		//Arrange
+		const folder = { id: 2, path: '/1/2', documentCount: 0 };
+		const expectedResult = { ...folder, documentCount: 1 };
+		databaseConnector.folder.findUnique.mockResolvedValue(folder);
+		databaseConnector.$executeRaw = jest.fn().mockResolvedValue(expectedResult);
+
+		//Act
+		const result = await increaseDocumentCount(1);
+
+		//Assert
+		expect(result).toEqual(expectedResult);
+	});
+
+	it('throws error if folder or path is missing', async () => {
+		// Arrange
+		databaseConnector.folder.findUnique.mockResolvedValue(null);
+		//Act and Assert
+		await expect(increaseDocumentCount(1)).rejects.toThrow(BackOfficeAppError);
+	});
+
+	it('throws error if $executeRaw fails', async () => {
+		//Arrange
+		const folder = { id: 1, path: '/1' };
+		databaseConnector.folder.findUnique.mockResolvedValue(folder);
+		databaseConnector.$executeRaw.mockImplementation(() => {
+			throw new Error('DB error');
+		});
+
+		//Act and assert
+		await expect(increaseDocumentCount(1)).rejects.toThrow(BackOfficeAppError);
 	});
 });

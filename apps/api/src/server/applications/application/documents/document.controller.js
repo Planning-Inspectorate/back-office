@@ -213,7 +213,7 @@ export const updateDocuments = async ({ body }, response) => {
  * @type {import('express').RequestHandler<{id: number}, any, any, any>}
  * */
 export const moveDocumentsToAnotherFolder = async ({ body }, response) => {
-	const { documents, destinationFolderId, destinationFolderStage } = body;
+	const { documents, destinationFolderId, destinationFolderStage, currentFolderId } = body;
 
 	const documentNamesToMove = documents.map((document) => document.fileName);
 	const destinationFolderDocuments = await documentRepository.getDocumentsInFolder(
@@ -249,6 +249,8 @@ export const moveDocumentsToAnotherFolder = async ({ body }, response) => {
 		destinationFolderStage
 	});
 
+	// updateDocuments[0] is the array of Document objects updated
+	// updateDocuments[1] is array of DocumentVersion objects
 	if (updateDocuments[0].count === 0 || updateDocuments[1].count === 0) {
 		return response.send({
 			errors: {
@@ -256,6 +258,12 @@ export const moveDocumentsToAnotherFolder = async ({ body }, response) => {
 			}
 		});
 	}
+
+	// decrease documentCount for current folder and ancestors
+	await folderRepository.decreaseDocumentCount(Number(currentFolderId), updateDocuments[0].count);
+
+	// update documentCount for new folder and ancestors
+	await folderRepository.increaseDocumentCount(destinationFolderId, updateDocuments[0].count);
 
 	response.send(updateDocuments);
 };

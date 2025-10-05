@@ -114,7 +114,8 @@ const examinationFolder = {
 	stage: 'Examination',
 	parentFolderId: null,
 	displayOrder: 100,
-	isCustom: false
+	isCustom: false,
+	documentCount: 0
 };
 
 const examinationSubFolders = [
@@ -303,6 +304,7 @@ describe('Test examination timetable items API', () => {
 	});
 
 	test('gets all examination timetable items for case', async () => {
+		//Arrange
 		databaseConnector.folder.findUnique.mockResolvedValue(examinationFolder);
 		databaseConnector.document.count.mockResolvedValue(0);
 		databaseConnector.folder.findMany.mockResolvedValue([]);
@@ -310,9 +312,13 @@ describe('Test examination timetable items API', () => {
 			examinationTimetableItem
 		]);
 		databaseConnector.examinationTimetable.findUnique.mockResolvedValue(examinationTimetableData);
+
+		//Act
 		const resp = await request.get('/applications/examination-timetable-items/case/1');
+
+		//Assert
 		expect(resp.status).toEqual(200);
-		expect(resp.body.items[0].submissions).toBe(false);
+		expect(resp.body.items[0].submissions).toEqual(0);
 		expect(resp.body.items[0].description).toBe(
 			`{"preText":"pretext\\r\\n","bulletPoints":[" pointone\\r\\n"," pointtwo"]}`
 		);
@@ -351,6 +357,11 @@ describe('Test examination timetable items API', () => {
 		databaseConnector.case.findUnique.mockResolvedValue(project);
 		databaseConnector.folder.findFirst.mockResolvedValue(examinationFolder);
 		databaseConnector.folder.create.mockResolvedValue(examinationSubFolders[0]);
+		databaseConnector.folder.findUnique.mockResolvedValue(examinationFolder);
+		databaseConnector.folder.update.mockResolvedValue({
+			...examinationSubFolders[0],
+			path: '/1/2'
+		});
 		databaseConnector.examinationTimetableType.findUnique.mockResolvedValue({ name: 'NODeadline' });
 		databaseConnector.examinationTimetableItem.create.mockResolvedValue(
 			examinationTimetableItemDeadline
@@ -384,6 +395,11 @@ describe('Test examination timetable items API', () => {
 		databaseConnector.case.findUnique.mockResolvedValue(project);
 		databaseConnector.folder.findFirst.mockResolvedValue(examinationFolder);
 		databaseConnector.folder.create.mockResolvedValue(examinationSubFolders[0]);
+		databaseConnector.folder.findUnique.mockResolvedValue(examinationFolder);
+		databaseConnector.folder.update({
+			...examinationSubFolders[0],
+			path: '/1/2'
+		});
 		databaseConnector.examinationTimetableType.findUnique.mockResolvedValue({
 			name: 'NODeadline',
 			templateType: 'procedural-deadline'
@@ -455,11 +471,29 @@ describe('Test examination timetable items API', () => {
 		databaseConnector.examinationTimetable.findUnique.mockResolvedValue(null);
 		databaseConnector.examinationTimetable.create.mockResolvedValue(examinationTimetableData);
 		databaseConnector.folder.findFirst.mockResolvedValue(examinationFolder);
-		databaseConnector.folder.create
-			.mockResolvedValueOnce(examinationFolder)
-			.mockResolvedValueOnce(examinationSubFolders[0])
-			.mockResolvedValueOnce(examinationSubFolders[1])
-			.mockResolvedValueOnce(examinationSubFolders[2]);
+		databaseConnector.folder.create.mockResolvedValueOnce(examinationFolder);
+		databaseConnector.folder.update.mockResolvedValueOnce({
+			...examinationFolder,
+			path: '/1'
+		});
+		databaseConnector.folder.create.mockResolvedValueOnce(examinationSubFolders[0]);
+		databaseConnector.folder.findUnique.mockResolvedValueOnce(examinationFolder);
+		databaseConnector.folder.update.mockResolvedValueOnce({
+			...examinationSubFolders[0],
+			path: '/1/2'
+		});
+		databaseConnector.folder.create.mockResolvedValueOnce(examinationSubFolders[1]);
+		databaseConnector.folder.findUnique.mockResolvedValueOnce(examinationFolder);
+		databaseConnector.folder.update.mockResolvedValueOnce({
+			...examinationSubFolders[1],
+			path: '/1/3'
+		});
+		databaseConnector.folder.create.mockResolvedValueOnce(examinationSubFolders[2]);
+		databaseConnector.folder.findUnique.mockResolvedValueOnce(examinationFolder);
+		databaseConnector.folder.update.mockResolvedValueOnce({
+			...examinationSubFolders[2],
+			path: '/1/4'
+		});
 		databaseConnector.examinationTimetableType.findUnique.mockResolvedValue({ name: 'Deadline' });
 		databaseConnector.examinationTimetableItem.create.mockResolvedValue(
 			examinationTimetableItemDeadline
@@ -795,8 +829,8 @@ describe('Test examination timetable items API', () => {
 		expect(resp.status).toEqual(200);
 		expect(resp.body).toEqual(examinationTimetableItemDeadlineUpdateResponse);
 		expect(databaseConnector.folder.deleteMany).toHaveBeenCalledTimes(1);
-		expect(databaseConnector.folder.findUnique).toHaveBeenCalledTimes(1);
-		expect(databaseConnector.folder.update).toHaveBeenCalledTimes(1);
+		expect(databaseConnector.folder.findUnique).toHaveBeenCalledTimes(4);
+		expect(databaseConnector.folder.update).toHaveBeenCalledTimes(4);
 
 		expect(databaseConnector.folder.create).toHaveBeenCalledTimes(3);
 

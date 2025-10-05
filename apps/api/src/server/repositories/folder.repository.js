@@ -155,7 +155,11 @@ export const createFolder = async (folder, isCustom = true) => {
 	const newFolder = await databaseConnector.folder.create({
 		data: { ...folder, isCustom }
 	});
-	await setPath(newFolder.id, newFolder.parentFolderId);
+	try {
+		await setPath(newFolder.id, newFolder.parentFolderId);
+	} catch (e) {
+		throw new BackOfficeAppError(`Failed to set path for folder ${newFolder.id}`, 500);
+	}
 	return newFolder;
 };
 
@@ -372,6 +376,44 @@ export const getS51AdviceFolder = (caseId) => {
 			parentFolderId: null
 		}
 	});
+};
+
+/**
+ * decreases the document count for the folder a file is added to, and the ancestor folders
+ * @param {number} folderId
+ * @param {number} [decreaseBy=1] - Optional value to decrease document count by, default == 1
+ * @returns Prisma.PrismaPromise<number>
+ */
+export const decreaseDocumentCount = async (folderId, decreaseBy) => {
+	decreaseBy = decreaseBy || 1;
+	const folder = await getById(folderId);
+	if (!folder || !folder.path)
+		throw new BackOfficeAppError(`Folder or folder path not found ${folderId}`);
+	try {
+		return databaseConnector.$executeRaw`UPDATE folder SET documentCount = documentCount - ${decreaseBy}
+		WHERE ${folder.path} LIKE CONCAT(path, '%')`;
+	} catch (e) {
+		throw new BackOfficeAppError(`Couldn't decrease document count for folder ${folderId}`);
+	}
+};
+
+/**
+ * updates document count for the folder a file is added to, and the ancestor folders
+ * @param {number} folderId
+ * @param {number} [increaseBy=1] - Optional value to increase document count by, default == 1
+ * @returns Prisma.PrismaPromise<number>
+ */
+export const increaseDocumentCount = async (folderId, increaseBy) => {
+	increaseBy = increaseBy || 1;
+	const folder = await getById(folderId);
+	if (!folder || !folder.path)
+		throw new BackOfficeAppError(`Folder or folder path not found ${folderId}`);
+	try {
+		return databaseConnector.$executeRaw`UPDATE folder SET documentCount = documentCount + ${increaseBy}
+		WHERE ${folder.path} LIKE CONCAT(path, '%')`;
+	} catch (e) {
+		throw new BackOfficeAppError(`Couldn't increase document count for folder ${folderId}`);
+	}
 };
 
 /**

@@ -1,7 +1,5 @@
 import { databaseConnector } from '#utils/database-connector.js';
 import { getFileNameWithoutSuffix } from '../applications/application/documents/document.service.js';
-import BackOfficeAppError from '#utils/app-error.js';
-import { getById as getFolderById } from '#repositories/folder.repository.js';
 
 /**
  * @typedef {import('@prisma/client').Document} Document
@@ -678,46 +676,4 @@ export const getInFolderByName = (folderId, fileName, includeDeleted) => {
 			...(includeDeleted ? {} : { isDeleted: false })
 		}
 	});
-};
-
-/**
- * updates document count for the folder a file is added to, and the ancestor folders
- * @param {number} folderId
- * @param {number} caseId
- * @param {string} documentName
- * @returns Prisma.PrismaPromise<number>
- */
-export const incrementDocumentCount = async (folderId, caseId, documentName) => {
-	const folder = await getFolderById(folderId);
-	if (!folder || !folder.path)
-		throw new BackOfficeAppError(`Folder or folder path not found ${folder.id}`);
-	try {
-		return databaseConnector.$executeRaw`UPDATE folder SET documentCount = COALESCE(documentCount,0) + 1
-		WHERE caseId = ${caseId} AND ${folder.path} LIKE CONCAT(path, '%')`;
-	} catch (e) {
-		throw new BackOfficeAppError(
-			`Couldn't increase document count for ${documentName} in folder ${folderId}`
-		);
-	}
-};
-
-/**
- * decreases the document count for the folder a file is added to, and the ancestor folders
- * @param {number} folderId
- * @param {number} caseId
- * @param {string} documentGuid
- * @returns Prisma.PrismaPromise<number>
- */
-export const decreaseDocumentCount = async (folderId, caseId, documentGuid) => {
-	const folder = await getFolderById(folderId);
-	if (!folder || !folder.path)
-		throw new BackOfficeAppError(`Folder or folder path not found ${folder.id}`);
-	try {
-		return databaseConnector.$executeRaw`UPDATE folder SET documentCount = documentCount - 1
-		WHERE caseId = ${caseId} AND ${folder.path} LIKE CONCAT(path, '%')`;
-	} catch (e) {
-		throw new BackOfficeAppError(
-			`Couldn't decrease document count for ${documentGuid} in folder ${folderId}`
-		);
-	}
 };

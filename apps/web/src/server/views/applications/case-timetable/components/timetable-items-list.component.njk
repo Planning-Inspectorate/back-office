@@ -15,7 +15,7 @@
 			{% endif %}
 
 			{% set content %}
-				{% if not timetableItem.submissions %}
+				{% if timetableItem.submissions == 0 %}
 					<div class="top-right-link">
 						<a class="govuk-link" href="{{'timetable-item'|url({caseId: caseId, step: 'delete', timetableId: timetableItem.id})}}">Delete timetable item</a>
 					</div>
@@ -23,11 +23,18 @@
 
 				{{timetableItemSummary(timetableItem, isCaseWelsh, caseId)}}
 
-				{% if timetableItem.submissions %}
+				{% if timetableItem.submissions > 0 %}
 					<p class="govuk-body-s font-weight--700">
 						There are already submissions in a folder associated with this timetable item. You cannot edit or delete items with existing submissions.
 					</p>
 				{% endif %}
+
+				{% if timetableItem.submissions is null %}
+					<p class="govuk-body-s font-weight--700">
+						This folder can not be deleted. There was an issue counting the documents for it.
+					</p>
+				{% endif %}
+
 			{% endset %}
 
 			{% set row = {

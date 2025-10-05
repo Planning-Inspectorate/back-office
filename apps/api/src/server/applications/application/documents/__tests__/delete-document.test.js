@@ -49,7 +49,9 @@ const folderContainingDocumentToDelete = {
 	case: {
 		id: 100000001,
 		reference: 'BC010001'
-	}
+	},
+	documentCount: 1,
+	path: '/10003'
 };
 
 const DocumentToDelete = {
@@ -163,6 +165,13 @@ describe('delete Document', () => {
 			documentVersionWithDocumentToDelete.Document.folder
 		);
 		databaseConnector.document.findUnique.mockResolvedValue(DocumentToDelete);
+		databaseConnector.folder.findUnique = jest
+			.fn()
+			.mockResolvedValue(folderContainingDocumentToDelete);
+		databaseConnector.$executeRaw = jest.fn().mockResolvedValue({
+			...folderContainingDocumentToDelete,
+			documentCount: 0
+		});
 		databaseConnector.case.findUnique.mockResolvedValue(application1);
 
 		const isDeleted = true;
