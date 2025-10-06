@@ -15,7 +15,7 @@
 			{% endif %}
 
 			{% set content %}
-				{% if timetableItem.submissions == 0 %}
+				{% if timetableItem.submissions === 0 %}
 					<div class="top-right-link">
 						<a class="govuk-link" href="{{'timetable-item'|url({caseId: caseId, step: 'delete', timetableId: timetableItem.id})}}">Delete timetable item</a>
 					</div>
