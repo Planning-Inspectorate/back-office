@@ -198,7 +198,7 @@ describe('/applications-service/case/1/relevant-representations/1/representation
 
 				expect(element.innerHTML).toContain('Workflow');
 				expect(element.innerHTML).toContain('Redacted');
-				expect(element.innerHTML).toContain('Awaiting Review');
+				expect(element.innerHTML).toContain('Awaiting review');
 				expect(element.innerHTML).toContain('representation-details/task-log');
 
 				expect(element.innerHTML).toContain('Attachments');

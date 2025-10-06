@@ -294,6 +294,8 @@ describe('Representation repository', () => {
 			redacted: true,
 			received: true,
 			originalRepresentation: true,
+			editedRepresentation: true,
+			editNotes: true,
 			redactedRepresentation: true,
 			type: true,
 			user: {

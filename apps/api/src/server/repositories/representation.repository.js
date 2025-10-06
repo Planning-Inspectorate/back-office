@@ -76,6 +76,8 @@ export const getById = async (id) =>
 			received: true,
 			originalRepresentation: true,
 			redactedRepresentation: true,
+			editedRepresentation: true,
+			editNotes: true,
 			type: true,
 			user: {
 				select: {
@@ -727,7 +729,7 @@ export const setRepresentationsAsUnpublishedBatch = async (representations, acti
  * @param {number} batchSize
  * @returns {any}
  */
-export const getApplicationRepresentationForDownload = async (caseId, skip, batchSize) => {
+export const getApplicationPublishedRepresentationForDownload = async (caseId, skip, batchSize) => {
 	return databaseConnector.representation.findMany({
 		take: batchSize,
 		skip,
@@ -776,6 +778,67 @@ export const getApplicationRepresentationForDownload = async (caseId, skip, batc
 							country: true
 						}
 					}
+				}
+			}
+		}
+	});
+};
+
+/**
+ *
+ * @param {number} caseId
+ * @param {number} skip
+ * @param {number} batchSize
+ * @returns {any}
+ */
+export const getApplicationValidRepresentationForDownload = async (caseId, skip, batchSize) => {
+	return databaseConnector.representation.findMany({
+		take: batchSize,
+		skip,
+		where: {
+			caseId,
+			status: {
+				in: [RELEVANT_REPRESENTATION_STATUS_MAP.VALID]
+			}
+		},
+		select: {
+			reference: true,
+			status: true,
+			originalRepresentation: true,
+			editedRepresentation: true,
+			represented: {
+				select: {
+					firstName: true,
+					lastName: true,
+					organisationName: true,
+					address: {
+						select: {
+							postcode: true
+						}
+					}
+				}
+			},
+			representative: {
+				select: {
+					firstName: true,
+					lastName: true,
+					organisationName: true,
+					address: {
+						select: {
+							postcode: true
+						}
+					}
+				}
+			},
+			representationActions: {
+				select: {
+					status: true,
+					actionDate: true
+				}
+			},
+			_count: {
+				select: {
+					attachments: true
 				}
 			}
 		}
