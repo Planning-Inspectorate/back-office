@@ -2,29 +2,22 @@ import { databaseConnector } from '#utils/database-connector.js';
 import assert from 'assert';
 
 /*
+ * This script checks the paths for all folders
+ *
  * usage: `cd` into directory, then `node create-paths-test-script.js`
  * This test script was designed to run using the `node` command
  * instead of `npm run test`, so it can run on a server that does not have
  * libraries for unit testing installed, e.g. production
+ *
  */
-const randomFolderForACaseId = await databaseConnector.folder.findFirst({
-	where: {
-		caseId: {
-			not: null
-		}
-	}
-});
-let caseId = randomFolderForACaseId.caseId;
+
 let rootFolders = await databaseConnector.folder.findMany({
 	where: {
-		caseId,
 		parentFolderId: null
 	}
 });
 
-for (const folder of rootFolders) {
-	await checkPaths(folder, folder.path);
-}
+await Promise.all(rootFolders.map((folder) => checkPaths(folder, folder.path)));
 
 async function checkPaths(folder, parentPath) {
 	const expectedPath = folder.parentFolderId ? `${parentPath}/${folder.id}` : `/${folder.id}`;
