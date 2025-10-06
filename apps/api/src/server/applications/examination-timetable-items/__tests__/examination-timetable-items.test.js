@@ -396,7 +396,7 @@ describe('Test examination timetable items API', () => {
 		databaseConnector.folder.findFirst.mockResolvedValue(examinationFolder);
 		databaseConnector.folder.create.mockResolvedValue(examinationSubFolders[0]);
 		databaseConnector.folder.findUnique.mockResolvedValue(examinationFolder);
-		databaseConnector.folder.update({
+		databaseConnector.folder.update.mockResolvedValue({
 			...examinationSubFolders[0],
 			path: '/1/2'
 		});
