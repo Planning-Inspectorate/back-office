@@ -11,7 +11,7 @@ import assert from 'assert';
  *
  */
 
-let rootFolders = await databaseConnector.folder.findMany({
+const rootFolders = await databaseConnector.folder.findMany({
 	where: {
 		parentFolderId: null
 	}
