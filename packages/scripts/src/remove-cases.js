@@ -1,8 +1,4 @@
 // @ts-nocheck
-import {
-	getById as getCaseById,
-	getByRef as getCaseByRef
-} from '@pins/applications.api/src/server/repositories/case.repository.js';
 import { databaseConnector } from '@pins/applications.api/src/server/utils/database-connector.js';
 
 const isSimulatedTest = process.env.REMOVE_ALL_CASES?.toLowerCase() !== 'true';
@@ -211,6 +207,7 @@ const removeDocument = async (tx, document, folderPath) => {
 		hardDelete: true
 	});
 };
+
 /**
  * Delete all the S51AdviceDocument records on the case (associating S51 advice with documents), and all the S51Advice records on the case
  *
@@ -305,6 +302,8 @@ const removeOtherAssociatedRecords = async (tx, caseDetails) => {
 };
 
 /**
+ * Remove a case and associated records
+ *
  * @param {string} reference
  * @returns {Promise<void>}
  */
@@ -316,14 +315,11 @@ const removeCase = async (reference) => {
 				if (!reference.startsWith('TRAIN')) {
 					throw new Error('Case is not a training case ' + reference);
 				}
-				const { id: caseId } = (await getCaseByRef(reference)) || {};
-				if (!caseId) {
+				const caseDetails = (await getCaseByReference(tx, reference)) || {};
+				if (!caseDetails?.id) {
 					throw new Error('No such case ' + reference);
 				}
-				const caseDetails = await getCaseById(caseId, {
-					applicationDetails: true,
-					applicant: true
-				});
+				const caseId = caseDetails.id;
 
 				/* To remove a case fully:
 					1 - Delete the RegionsOnApplicationDetails associative records, and the Application Details record
@@ -367,7 +363,7 @@ const removeCase = async (reference) => {
 };
 
 /**
- * Remove cases and associated records that match the references supplied
+ * Remove cases and associated records that match the references supplied using the removeCase fn
  *
  * @param {string[]} references
  * @returns {Promise<{successes,errors}>}
@@ -450,4 +446,19 @@ export const removeSpecifiedCases = async () => {
 		console.log('');
 	}
 	await removeCases(specifiedCases);
+};
+
+// ----- database functions -----
+/**
+ * get a case using case reference
+ *
+ * @param {PrismaClient} tx
+ * @param {string} reference
+ * @returns {import('@prisma/client').PrismaPromise<import('@prisma/client').Case | null>}
+ * */
+const getCaseByReference = async (tx, reference) => {
+	return tx.case.findFirst({
+		include: { ApplicationDetails: true, applicant: true },
+		where: { reference }
+	});
 };
