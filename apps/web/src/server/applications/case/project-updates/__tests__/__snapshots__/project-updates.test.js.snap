@@ -8,7 +8,7 @@ exports[`project-updates GET /applications-service/:caseId/project-updates shoul
             <h4 class="govuk-heading-m"> mock reference </h4>
             <h1 class="govuk-heading-xl">mock title</h1>
             <div class="govuk-grid-row">
-                <div class="govuk-grid-column-full govuk-body">,
+                <div class="govuk-grid-column-full govuk-body"><span id="sectors" data-cy="header-sectors"> Mock Sector Display Name, Mock Sub-Sector Display Name </span>
                     <br>
                     <br><strong class="govuk-tag govuk-tag-- pins-tag--no-max-width">in test</strong>
                 </div>
@@ -371,7 +371,7 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/:pro
             <h4 class="govuk-heading-m"> mock reference </h4>
             <h1 class="govuk-heading-xl">mock title</h1>
             <div class="govuk-grid-row">
-                <div class="govuk-grid-column-full govuk-body">,
+                <div class="govuk-grid-column-full govuk-body"><span id="sectors" data-cy="header-sectors"> Mock Sector Display Name, Mock Sub-Sector Display Name </span>
                     <br>
                     <br><strong class="govuk-tag govuk-tag-- pins-tag--no-max-width">in test</strong>
                 </div>
@@ -474,7 +474,7 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/:pro
             <h4 class="govuk-heading-m"> mock reference </h4>
             <h1 class="govuk-heading-xl">mock title</h1>
             <div class="govuk-grid-row">
-                <div class="govuk-grid-column-full govuk-body">,
+                <div class="govuk-grid-column-full govuk-body"><span id="sectors" data-cy="header-sectors"> Mock Sector Display Name, Mock Sub-Sector Display Name </span>
                     <br>
                     <br><strong class="govuk-tag govuk-tag-- pins-tag--no-max-width">in test</strong>
                 </div>
@@ -577,7 +577,7 @@ exports[`project-updates POST /applications-service/:caseId/project-updates/:pro
             <h4 class="govuk-heading-m"> mock reference </h4>
             <h1 class="govuk-heading-xl">mock title</h1>
             <div class="govuk-grid-row">
-                <div class="govuk-grid-column-full govuk-body">,
+                <div class="govuk-grid-column-full govuk-body"><span id="sectors" data-cy="header-sectors"> Mock Sector Display Name, Mock Sub-Sector Display Name </span>
                     <br>
                     <br><strong class="govuk-tag govuk-tag-- pins-tag--no-max-width">in test</strong>
                 </div>

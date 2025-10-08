@@ -58,6 +58,7 @@ export async function relevantRepsApplications({ query, session }, res) {
 		extensionToDateRelevantRepresentationsClose: repsPeriodCloseDateExtension,
 		dateRRepAppearOnWebsite: publishedDate
 	} = preExamination;
+
 	const queryString = buildQueryString({
 		searchTerm,
 		sortBy,
@@ -72,6 +73,7 @@ export async function relevantRepsApplications({ query, session }, res) {
 	const { publishedRepsCount: totalPublishedReps } = getPublishedRepIdsAndCount(
 		representations.items
 	);
+
 	return res.render(view, {
 		representations: getRepresentationsViewModel(representations, caseId),
 		caseReference: getCaseReferenceViewModel(caseReference),
