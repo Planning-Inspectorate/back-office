@@ -30,6 +30,7 @@ export class Page {
 		link: '.govuk-link',
 		list: '.govuk-list',
 		mediumHeader: '.govuk-heading-m',
+		headerSectors: '[data-cy="header-sectors"]',
 		panel: '.govuk-panel',
 		panelBody: '.govuk-panel__body',
 		panelTitle: '.govuk-panel__title',

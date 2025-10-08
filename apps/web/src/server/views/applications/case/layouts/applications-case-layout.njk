@@ -36,7 +36,7 @@
 				{% block pageHeadingData %}
 						<div class="govuk-grid-row">
 							<div class="govuk-grid-column-full govuk-body">
-								{{ case.sector.displayNameEn }}, {{ case.subSector.displayNameEn }}
+								<span id="sectors" data-cy="header-sectors"> {{ case.sector.displayNameEn  | trim }}, {{ case.subSector.displayNameEn  | trim }} </span>
 								<br><br>
 
 								{% if  customFeaturesByCase.sensitiveCases | includes(case.reference) %}

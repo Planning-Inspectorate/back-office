@@ -31,7 +31,10 @@ export class CasePage extends Page {
 		summaryTableValue: (keyText) =>
 			cy.contains(this.selectors.summaryListKey, keyText, { matchCase: false }).next()
 	};
-
+	checkProjectSectors(sector, subsector) {
+		cy.contains(this.selectors.headerSectors, sector, { matchCase: false });
+		cy.contains(this.selectors.headerSectors, subsector, { matchCase: false });
+	}
 	checkProjectAnswer(question, answer, forceSummaryTest = false) {
 		if (Cypress.env('featureFlags')['applic-55-welsh-translation'] || forceSummaryTest) {
 			this.elements
