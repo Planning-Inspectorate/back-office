@@ -308,15 +308,9 @@ const getRandomQuarterDate = (direction = 'future') => {
 	return `${quarter} ${year}`;
 };
 
-const validateSectorSubsectorValues = (caseRef) => {
-	if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
-		casePage.validateSummaryItem('Reference number', caseRef);
-	} else {
-		casePage.clickLinkByText('Update project information');
-		casePage.checkProjectAnswer('Case reference number', caseRef);
-	}
-	casePage.checkProjectAnswer('Sector', 'Training');
-	casePage.checkProjectAnswer('Subsector', 'Training');
+const validateSectorSubsectorValues = (sector, subsector) => {
+	casePage.checkProjectSectors(sector, subsector);
+	casePage.checkProjectSectors(sector, subsector);
 };
 
 const validateWelshProjectInformation = (
