@@ -23,6 +23,14 @@ const mockCaseReference = {
 		preExamination: {
 			dateOfRelevantRepresentationClose: '1672531200'
 		}
+	},
+	sector: {
+		name: 'mock_sector',
+		displayNameEn: 'Mock Sector Display Name'
+	},
+	subSector: {
+		name: 'mock_sub_sector',
+		displayNameEn: 'Mock Sub-Sector Display Name'
 	}
 };
 const nocks = () => {

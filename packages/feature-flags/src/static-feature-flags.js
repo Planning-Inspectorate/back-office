@@ -5,7 +5,7 @@ export default {
 	'applic-55-welsh-translation': true,
 	'applic-625-custom-folders': true,
 	'applics-861-fo-submissions': true,
-	'applics-1036-training-sector': true,
+	'applics-1036-training-sector': false,
 	[AZURE_AI_LANGUAGE_REDACTION]: false
 };
 

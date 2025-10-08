@@ -3308,7 +3308,7 @@ exports[`Examination timetable page GET /case/123/examination-timetable should s
             <h4 class="govuk-heading-m"> CASE/04 </h4>
             <h1 class="govuk-heading-xl">Title CASE/04</h1>
             <div class="govuk-grid-row">
-                <div class="govuk-grid-column-full govuk-body">Transport EN, Highways EN
+                <div class="govuk-grid-column-full govuk-body"><span id="sectors" data-cy="header-sectors"> Transport EN, Highways EN </span>
                     <br>
                     <br><strong class="govuk-tag govuk-tag--green pins-tag--no-max-width">Pre-Application</strong>
                 </div>
