@@ -1,5 +1,8 @@
 import { request } from '#app-test';
-import { expectedCSVStringTest } from '../__fixtures__/expected-csv-string-120.js';
+import {
+	expectedCSVStringTest,
+	expectedValidCSVStringTest
+} from '../__fixtures__/expected-csv-string-120.js';
 import { existingRepresentationsTestData } from '../__fixtures__/existing-representations.js';
 import { jest } from '@jest/globals';
 const { databaseConnector } = await import('../../../../../utils/database-connector.js');
@@ -12,11 +15,11 @@ describe('Get Application Representation Download', () => {
 	it('representation has a single valid rep', async () => {
 		databaseConnector.representation.findMany.mockResolvedValue([existingRepresentationsTestData]);
 
-		const response = await request.get('/applications/1/representations/download');
+		const response = await request.get('/applications/1/representations/download/published');
 
 		expect(response.status).toEqual(200);
 		expect(response.headers['content-disposition']).toEqual(
-			'attachment; filename=relevant-reps-1-2020-01-01-00_00_00.csv'
+			'attachment; filename=mailing-list-1-2020-01-01-00_00_00.csv'
 		);
 		expect(response.headers['content-type']).toEqual('text/csv; charset=utf-8');
 		// This is the text for the CSV string
@@ -35,14 +38,45 @@ describe('Get Application Representation Download', () => {
 
 		// jest.useFakeTimers({ doNotFake: ['performance'] }).setSystemTime(new Date('2020-01-01'));
 
-		const response = await request.get('/applications/1/representations/download');
+		const response = await request.get('/applications/1/representations/download/published');
+
+		expect(response.status).toEqual(200);
+		expect(response.headers['content-disposition']).toEqual(
+			'attachment; filename=mailing-list-1-2020-01-01-00_00_00.csv'
+		);
+		expect(response.headers['content-type']).toEqual('text/csv; charset=utf-8');
+		// This is the text for the CSV string
+		expect(response.text).toEqual(expectedCSVStringTest);
+	});
+
+	it('representation has a single valid rep (valid endpoint)', async () => {
+		databaseConnector.representation.findMany.mockResolvedValue([existingRepresentationsTestData]);
+
+		const response = await request.get('/applications/1/representations/download/valid');
 
 		expect(response.status).toEqual(200);
 		expect(response.headers['content-disposition']).toEqual(
 			'attachment; filename=relevant-reps-1-2020-01-01-00_00_00.csv'
 		);
 		expect(response.headers['content-type']).toEqual('text/csv; charset=utf-8');
-		// This is the text for the CSV string
-		expect(response.text).toEqual(expectedCSVStringTest);
+		expect(response.text).toEqual(
+			'Name,Postcode,Attachments,IP number,Status,Action Date,Representation\n' +
+				'James Bond,BS48 1PN,Yes,BC0110001-36,VALID,2020-01-01T12:00:00.000Z,Edited comment for valid rep\n'
+		);
+	});
+
+	it('gets rep download for a case by id - test 120 reps (valid endpoint)', async () => {
+		databaseConnector.representation.findMany
+			.mockResolvedValueOnce(Array(100).fill(existingRepresentationsTestData))
+			.mockResolvedValueOnce(Array(20).fill(existingRepresentationsTestData));
+
+		const response = await request.get('/applications/1/representations/download/valid');
+
+		expect(response.status).toEqual(200);
+		expect(response.headers['content-disposition']).toEqual(
+			'attachment; filename=relevant-reps-1-2020-01-01-00_00_00.csv'
+		);
+		expect(response.headers['content-type']).toEqual('text/csv; charset=utf-8');
+		expect(response.text).toEqual(expectedValidCSVStringTest);
 	});
 });

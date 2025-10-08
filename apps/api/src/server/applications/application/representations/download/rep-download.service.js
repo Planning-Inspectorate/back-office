@@ -1,11 +1,23 @@
-import { getApplicationRepresentationForDownload } from '#repositories/representation.repository.js';
+import {
+	getApplicationPublishedRepresentationForDownload,
+	getApplicationValidRepresentationForDownload
+} from '#repositories/representation.repository.js';
 
-export async function getCaseRepresentationToDownloadInBatches(readableStream, batchSize, caseId) {
+export async function getCaseRepresentationToDownloadInBatches(
+	readableStream,
+	batchSize,
+	caseId,
+	type
+) {
 	let skip = 0;
 	let hasMore = true;
+	const getRepresentation =
+		type === 'published'
+			? getApplicationPublishedRepresentationForDownload
+			: getApplicationValidRepresentationForDownload;
 
 	while (hasMore) {
-		const items = await getApplicationRepresentationForDownload(caseId, skip, batchSize);
+		const items = await getRepresentation(caseId, skip, batchSize);
 
 		// Set the CSV Header key to toggle the first csv string to capture headers
 		if (skip === 0) items.setCSVHeader = true;

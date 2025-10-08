@@ -158,8 +158,9 @@ exports[`/applications-service/case/1/relevant-representations/1/representation-
                 <p class="govuk-body govuk-!-margin-bottom-4"><a href="#" hidden class="section-text-toggle govuk-link govuk-link--no-visited-state">Show full representation</a>
                 </p>
             </dd>
-            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/1/relevant-representations/1/representation-details/redact-representation"> Redact<span class="govuk-visually-hidden"> original representation</span></a>
-            </dd>
+        </div>
+        <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Redacted by</dt>
+            <dd class="govuk-summary-list__value">mock redacted by</dd>
         </div>
         <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"
         id="redacted-representation-section"><dt class="govuk-summary-list__key"> Redacted representation</dt>
@@ -183,9 +184,11 @@ exports[`/applications-service/case/1/relevant-representations/1/representation-
                 <p class="govuk-body white-space--pre-line">Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p>
             </dd>
         </div>
-        <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Redacted by</dt>
-            <dd class="govuk-summary-list__value">
-                <p class="govuk-body white-space--pre-line">mock redacted by</p>
+        <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"
+        style="border:none;">
+            <dd class="govuk-summary-list__actions" style="border:none;background:none;box-shadow:none;padding-top:0;margin-top:0;"><a class="govuk-button govuk-button--secondary" href="/applications/1/representations/1/edit-representation"> Edit<span class="govuk-visually-hidden"> original representation</span></a>
+                <a                 class="govuk-button govuk-button--secondary govuk-!-margin-left-3" href="/applications-service/case/1/relevant-representations/1/representation-details/redact-representation">Redact<span class="govuk-visually-hidden"> original representation</span>
+                    </a>
             </dd>
         </div>
     </dl>
@@ -227,6 +230,8 @@ exports[`/applications-service/case/1/relevant-representations/1/representation-
               'representation'
             );
         
+        
+        
             const toggleRedactedRepresentationText = new ToggleText();
             toggleRedactedRepresentationText.toggle(
               '#redacted-representation-section',
@@ -262,6 +267,11 @@ exports[`/applications-service/case/1/relevant-representations/1/representation-
             </dd>
         </div>
         </dl>
+        <h2 class="govuk-heading-m">Original Representation</h2>
+        <div class="govuk-body">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
+            ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis
+            dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies
+            nec, pellentesque eu, pretium quis, sem. Nulla con.</div>
         </div>
         </div>
 </main>"
@@ -272,7 +282,7 @@ exports[`/applications-service/case/1/relevant-representations/1/representation-
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
             <h1 class="govuk-heading-l govuk-!-margin-bottom-2"> Mrs Sue</h1>
-            <div class="govuk-!-margin-bottom-4"><strong class="govuk-tag govuk-tag--">Awaiting Review</strong>
+            <div class="govuk-!-margin-bottom-4"><strong class="govuk-tag govuk-tag--grey">Awaiting review</strong>
             </div>
             <p class="govuk-body-s govuk-!-margin-bottom-6"><strong>Project name:</strong> mock case title</p>
             <h3 class="govuk-heading-m">Contact details</h3>
@@ -414,8 +424,9 @@ exports[`/applications-service/case/1/relevant-representations/1/representation-
                 <p class="govuk-body govuk-!-margin-bottom-4"><a href="#" hidden class="section-text-toggle govuk-link govuk-link--no-visited-state">Show full representation</a>
                 </p>
             </dd>
-            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/1/relevant-representations/1/representation-details/redact-representation"> Redact<span class="govuk-visually-hidden"> original representation</span></a>
-            </dd>
+        </div>
+        <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Redacted by</dt>
+            <dd class="govuk-summary-list__value">mock redacted by</dd>
         </div>
         <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"
         id="redacted-representation-section"><dt class="govuk-summary-list__key"> Redacted representation</dt>
@@ -439,9 +450,11 @@ exports[`/applications-service/case/1/relevant-representations/1/representation-
                 <p class="govuk-body white-space--pre-line">Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p>
             </dd>
         </div>
-        <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Redacted by</dt>
-            <dd class="govuk-summary-list__value">
-                <p class="govuk-body white-space--pre-line">mock redacted by</p>
+        <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"
+        style="border:none;">
+            <dd class="govuk-summary-list__actions" style="border:none;background:none;box-shadow:none;padding-top:0;margin-top:0;"><a class="govuk-button govuk-button--secondary" href="/applications/1/representations/1/edit-representation"> Edit<span class="govuk-visually-hidden"> original representation</span></a>
+                <a                 class="govuk-button govuk-button--secondary govuk-!-margin-left-3" href="/applications-service/case/1/relevant-representations/1/representation-details/redact-representation">Redact<span class="govuk-visually-hidden"> original representation</span>
+                    </a>
             </dd>
         </div>
     </dl>
@@ -483,6 +496,8 @@ exports[`/applications-service/case/1/relevant-representations/1/representation-
               'representation'
             );
         
+        
+        
             const toggleRedactedRepresentationText = new ToggleText();
             toggleRedactedRepresentationText.toggle(
               '#redacted-representation-section',
@@ -497,7 +512,7 @@ exports[`/applications-service/case/1/relevant-representations/1/representation-
             </dd>
         </div>
         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Status</dt>
-            <dd class="govuk-summary-list__value"><strong class="govuk-tag govuk-tag--">Awaiting Review</strong>
+            <dd class="govuk-summary-list__value"><strong class="govuk-tag govuk-tag--grey">Awaiting review</strong>
             </dd>
             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="representation-details/change-status">Change<span class="govuk-visually-hidden"> Change status</span></a>
             </dd>
@@ -515,6 +530,11 @@ exports[`/applications-service/case/1/relevant-representations/1/representation-
             </dd>
         </div>
         </dl>
+        <h2 class="govuk-heading-m">Original Representation</h2>
+        <div class="govuk-body">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
+            ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis
+            dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies
+            nec, pellentesque eu, pretium quis, sem. Nulla con.</div>
         </div>
         </div>
 </main>"
@@ -672,6 +692,11 @@ exports[`/applications-service/case/1/relevant-representations/1/representation-
     <form method="post">
         <button value="1" type="submit" class="govuk-button" data-module="govuk-button">Submit for review</button>
     </form>
+    <h2 class="govuk-heading-m">Original Representation</h2>
+    <div class="govuk-body">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
+        ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis
+        dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies
+        nec, pellentesque eu, pretium quis, sem. Nulla con.</div>
     </div>
     </div>
 </main>"
@@ -847,6 +872,11 @@ exports[`/applications-service/case/1/relevant-representations/1/representation-
     <form method="post">
         <button value="1" type="submit" class="govuk-button" data-module="govuk-button">Submit for review</button>
     </form>
+    <h2 class="govuk-heading-m">Original Representation</h2>
+    <div class="govuk-body">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
+        ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis
+        dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies
+        nec, pellentesque eu, pretium quis, sem. Nulla con.</div>
     </div>
     </div>
 </main>"

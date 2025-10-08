@@ -127,5 +127,15 @@ router.post(
 	 */
 	asyncHandler(processHTMLForYouTube)
 );
+router.post(
+	'/case/:caseId/relevant-representations/:repId/representation-details/change-edit',
+	(req, res) => {
+		res.status(200).json({ message: 'edit successful' });
+	}
+);
+
+router.get('/case/:caseId/relevant-representations/:repId/representation-details', (req, res) => {
+	res.status(200).send('<div>mock redacted by</div>');
+});
 
 export { router as applicationsRoutes };
