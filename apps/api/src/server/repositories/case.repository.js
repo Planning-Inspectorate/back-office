@@ -447,6 +447,7 @@ export const updateApplication = async ({
 		applicant: true,
 		gridReference: true,
 		projectTeam: true,
+		meeting: true,
 		invoice: true
 	});
 };
@@ -479,6 +480,7 @@ export const publishCase = async ({ caseId }) => {
 		applicant: true,
 		gridReference: true,
 		projectTeam: true,
+		meeting: true,
 		invoice: true
 	});
 };
@@ -510,6 +512,7 @@ export const unpublishCase = async ({ caseId }) => {
 		applicant: true,
 		gridReference: true,
 		projectTeam: true,
+		meeting: true,
 		invoice: true
 	});
 };
@@ -533,6 +536,7 @@ export const getById = (
 		applicant = false,
 		gridReference = false,
 		projectTeam = false,
+		meeting = false,
 		invoice = false
 	}
 ) => {
@@ -547,6 +551,7 @@ export const getById = (
 			casePublishedState ||
 			applicant ||
 			projectTeam ||
+			meeting ||
 			invoice) && {
 			include: {
 				...((applicationDetails || subSector || zoomLevel || regions || sector) && {
@@ -567,6 +572,7 @@ export const getById = (
 				}),
 				...(gridReference && { gridReference: true }),
 				...(projectTeam && { ProjectTeam: { orderBy: { createdAt: 'desc' } } }),
+				...(meeting && { meeting: { orderBy: { createdAt: 'desc' } } }),
 				...(invoice && { invoice: { orderBy: { createdAt: 'desc' } } })
 			}
 		})
@@ -658,6 +664,7 @@ export const updateApplicationStatusAndDataById = async (
 		applicant: true,
 		gridReference: true,
 		projectTeam: true,
+		meeting: true,
 		invoice: true
 	});
 };
