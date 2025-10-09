@@ -446,7 +446,8 @@ export const updateApplication = async ({
 		casePublishedState: true,
 		applicant: true,
 		gridReference: true,
-		projectTeam: true
+		projectTeam: true,
+		meeting: true
 	});
 };
 
@@ -477,7 +478,8 @@ export const publishCase = async ({ caseId }) => {
 		casePublishedState: true,
 		applicant: true,
 		gridReference: true,
-		projectTeam: true
+		projectTeam: true,
+		meeting: true
 	});
 };
 
@@ -507,7 +509,8 @@ export const unpublishCase = async ({ caseId }) => {
 		casePublishedState: true,
 		applicant: true,
 		gridReference: true,
-		projectTeam: true
+		projectTeam: true,
+		meeting: true
 	});
 };
 
@@ -529,7 +532,8 @@ export const getById = (
 		casePublishedState = false,
 		applicant = false,
 		gridReference = false,
-		projectTeam = false
+		projectTeam = false,
+		meeting = false
 	}
 ) => {
 	return databaseConnector.case.findUnique({
@@ -561,7 +565,8 @@ export const getById = (
 					applicant: { include: { address: true } }
 				}),
 				...(gridReference && { gridReference: true }),
-				...(projectTeam && { ProjectTeam: { orderBy: { createdAt: 'desc' } } })
+				...(projectTeam && { ProjectTeam: { orderBy: { createdAt: 'desc' } } }),
+				...(meeting && { meeting: { orderBy: { createdAt: 'desc' } } })
 			}
 		})
 	});
@@ -651,7 +656,8 @@ export const updateApplicationStatusAndDataById = async (
 		casePublishedState: true,
 		applicant: true,
 		gridReference: true,
-		projectTeam: true
+		projectTeam: true,
+		meeting: true
 	});
 };
 
