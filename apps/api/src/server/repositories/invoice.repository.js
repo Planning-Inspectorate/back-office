@@ -1,7 +1,6 @@
 import { databaseConnector } from '#utils/database-connector.js';
 
 /**
- *
  * @param {number} caseId
  * @returns {Promise<import('@pins/applications.api').Schema.Invoice[]>}
  */
@@ -13,7 +12,6 @@ export const getInvoicesByCase = (caseId) => {
 };
 
 /**
- *
  * @param {string} invoiceNumber
  * @returns {Promise<import('@pins/applications.api').Schema.Invoice | null>}
  */
@@ -24,28 +22,58 @@ export const getInvoiceById = (invoiceNumber) => {
 };
 
 /**
- *
  * @param {string} invoiceNumber
- * @param {Omit<Partial<import('@pins/applications.api').Schema.Invoice>, 'invoiceNumber'> & { caseId: number }} data
+ * @param {number} caseId
+ * @param {string} invoiceStage
+ * @param {number | string} amountDue
+ * @param {DateTime} paymentDueDate
+ * @param {DateTime} invoicedDate
+ * @param {DateTime} paymentDate
+ * @param {string} refundCreditNoteNumber
+ * @param {number | string} refundAmount
+ * @param {DateTime} refundIssueDate
  * @returns {Promise<import('@pins/applications.api').Schema.Invoice>}
  */
-export const updateInvoiceById = (invoiceNumber, data) => {
-	const { caseId, ...rest } = data;
+export const updateInvoiceById = (
+	invoiceNumber,
+	caseId,
+	invoiceStage,
+	amountDue,
+	paymentDueDate,
+	invoicedDate,
+	paymentDate,
+	refundCreditNoteNumber,
+	refundAmount,
+	refundIssueDate
+) => {
 	return databaseConnector.invoice.upsert({
 		where: { invoiceNumber },
 		create: {
 			invoiceNumber,
 			caseId,
-			...rest
+			invoiceStage,
+			amountDue,
+			paymentDueDate,
+			invoicedDate,
+			paymentDate,
+			refundCreditNoteNumber,
+			refundAmount,
+			refundIssueDate
 		},
 		update: {
-			...rest
+			invoiceStage,
+			amountDue,
+			paymentDueDate,
+			invoicedDate,
+			paymentDate,
+			refundCreditNoteNumber,
+			refundAmount,
+			refundIssueDate
 		}
 	});
 };
 
 /**
- *
  * @param {string} invoiceNumber
  * @returns {Promise<import('@pins/applications.api').Schema.Invoice>}
  */

@@ -24,8 +24,6 @@ const includeAll = {
 	invoice: { orderBy: { createdAt: 'asc' } }
 };
 
-/** @typedef {import('@prisma/client').Prisma.CaseGetPayload<{ include: typeof includeAll }>} CaseWithAll */
-
 // where clause to exclude the General S51 Advice case
 export const whereNotGeneralS51AdviceCase = {
 	OR: [
@@ -221,7 +219,6 @@ export const getApplicationsCountBySearchCriteria = (query) => {
 
 /**
  * @param {CreateApplicationParams} caseInfo
- * @returns {import('@prisma/client').PrismaPromise<CaseWithAll>}
  */
 export const createApplication = ({
 	caseDetails,
@@ -520,7 +517,7 @@ export const unpublishCase = async ({ caseId }) => {
 /**
  *
  * @param {number} id
- * @param {{subSector?: boolean, sector?: boolean, applicationDetails?: boolean, zoomLevel?: boolean, regions?: boolean, caseStatus?: boolean, casePublishedState?: boolean, applicant?: boolean, gridReference?: boolean, projectTeam?: boolean, invoice?: boolean}} inclusions
+ * @param {{subSector?: boolean, sector?: boolean, applicationDetails?: boolean, zoomLevel?: boolean, regions?: boolean, caseStatus?: boolean, casePublishedState?: boolean, applicant?: boolean, gridReference?: boolean, projectTeam?: boolean}} inclusions
  * @returns {import('@prisma/client').PrismaPromise<import('@pins/applications.api').Schema.Case | null>}
  */
 export const getById = (
@@ -570,7 +567,7 @@ export const getById = (
 				}),
 				...(gridReference && { gridReference: true }),
 				...(projectTeam && { ProjectTeam: { orderBy: { createdAt: 'desc' } } }),
-				...(invoice && { invoice: { orderBy: { createdAt: 'asc' } } })
+				...(invoice && { invoice: { orderBy: { createdAt: 'desc' } } })
 			}
 		})
 	});
@@ -639,9 +636,7 @@ export const updateApplicationStatusAndDataById = async (
 	}
 
 	if (!isEmpty(data)) {
-		transactions.push(
-			/** @type {any} */ (updateApplicationSansRegionsRemoval({ caseId: id, ...data }))
-		);
+		transactions.push(updateApplicationSansRegionsRemoval({ caseId: id, ...data }));
 	}
 
 	if (setReference) {
