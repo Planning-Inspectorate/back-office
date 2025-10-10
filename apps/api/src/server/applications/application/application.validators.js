@@ -342,4 +342,5 @@ export const verifyNotTraining = async (caseId) => {
 	) {
 		throw new Error(`Case with ID ${caseId} is a training case.`);
 	}
+	return projectWithSector;
 };

@@ -1,5 +1,7 @@
 import { databaseConnector } from '#utils/database-connector.js';
 import { folderDocumentCaseStageMappings } from '#api-constants';
+import BackOfficeAppError from '#utils/app-error.js';
+import logger from '#utils/logger.js';
 
 /** @typedef {import('@pins/applications.api').Schema.Folder} Folder */
 /** @typedef {import('@pins/applications').FolderTemplate} FolderTemplate */
@@ -150,9 +152,69 @@ export const getFoldersByParentId = (parentFolderId, options = null) => {
  * @param {number|null} folder.displayOrder
  * @returns {Promise<(Folder |null)>}
  */
-export const createFolder = (folder, isCustom = true) => {
-	return databaseConnector.folder.create({
+export const createFolder = async (folder, isCustom = true) => {
+	const newFolder = await databaseConnector.folder.create({
 		data: { ...folder, isCustom }
+	});
+	try {
+		await setPath(newFolder.id, newFolder.parentFolderId);
+	} catch (e) {
+		throw new BackOfficeAppError(`Failed to set path for folder ${newFolder.id}`, 500);
+	}
+	return newFolder;
+};
+
+/**
+ * @param {number} folderId
+ * @returns {Promise<{ documentCount: number }>}
+ * returns document count for a folder
+ */
+export const getDocumentCount = async (folderId) => {
+	try {
+		const documentCount = await databaseConnector.folder.findUnique({
+			where: {
+				id: folderId
+			},
+			select: {
+				documentCount: true
+			}
+		});
+		if (!documentCount) {
+			logger.info(`No document count for folder: ${folderId}`);
+			return null;
+		}
+		return documentCount.documentCount;
+	} catch (e) {
+		throw new BackOfficeAppError(
+			`Error connecting to DB when getting document count for folder: ${folderId}`
+		);
+	}
+};
+
+/**
+ *
+ * @param {number} id
+ * @param {number|null} parentFolderId
+ * @returns {Promise<(Folder |null)>}
+ */
+// sets the path for the folder
+export const setPath = async (id, parentFolderId) => {
+	try {
+		if (parentFolderId) {
+			const parentFolder = await getById(parentFolderId);
+			if (parentFolder.path) {
+				return databaseConnector.folder.update({
+					where: { id },
+					data: { path: `${parentFolder.path}/${id}` }
+				});
+			}
+		}
+	} catch (e) {
+		throw new BackOfficeAppError(`There was a problem getting folder ${parentFolderId}`);
+	}
+	return databaseConnector.folder.update({
+		where: { id },
+		data: { path: `/${id}` }
 	});
 };
 
@@ -249,9 +311,7 @@ const mapFolderTemplateWithCaseId = (caseId, folder) => {
  * @param {FolderTemplate[]} folders
  * @returns {Promise<Folder>[]}
  */
-export const createFolders = (caseId, folders = defaultCaseFolders) => {
-	const foldersCreated = [];
-
+export const createFolders = async (caseId, folders = defaultCaseFolders) => {
 	// Prisma many to nested many does not work, so we cannot create the top folders and all subfolders nested using createMany.
 	// so we loop through the top folders, using create to create the folder and all its subfolders, correctly assigning caseId, parentFolderId etc
 	// and we return an array of these promises
@@ -260,12 +320,34 @@ export const createFolders = (caseId, folders = defaultCaseFolders) => {
 			data: mapFolderTemplateWithCaseId(caseId, topLevelFolder)
 		};
 
-		const topFoldersCreated = databaseConnector.folder.create(newFolders);
-
-		foldersCreated.push(topFoldersCreated);
+		const topFoldersCreated = await databaseConnector.folder.create(newFolders);
+		await recursivelySetPaths(topFoldersCreated.id);
 	}
+};
 
-	return foldersCreated;
+/**
+ * recursively navigates the folder structure and sets the path for each folder
+ * @param {number} folderId
+ **/
+const recursivelySetPaths = async (folderId) => {
+	try {
+		const folder = await databaseConnector.folder.findUnique({
+			where: { id: folderId },
+			include: { childFolders: true }
+		});
+		if (!folder) return;
+		if (folder && !folder.childFolders) {
+			await setPath(folder.id, folder.parentFolderId);
+			return;
+		}
+		await setPath(folder.id, folder.parentFolderId);
+		for (const childFolder of folder.childFolders) {
+			await setPath(childFolder.id, childFolder.parentFolderId);
+			await recursivelySetPaths(childFolder.id);
+		}
+	} catch (e) {
+		throw new BackOfficeAppError(`there was a problem setting the path for ${folderId}`);
+	}
 };
 
 /**
@@ -295,6 +377,44 @@ export const getS51AdviceFolder = (caseId) => {
 			parentFolderId: null
 		}
 	});
+};
+
+/**
+ * decreases the document count for the folder a file is added to, and the ancestor folders
+ * @param {number} folderId
+ * @param {number} [decreaseBy=1] - Optional value to decrease document count by, default == 1
+ * @returns Prisma.PrismaPromise<number>
+ */
+export const decreaseDocumentCount = async (folderId, decreaseBy) => {
+	decreaseBy = decreaseBy || 1;
+	const folder = await getById(folderId);
+	if (!folder || !folder.path)
+		throw new BackOfficeAppError(`Folder or folder path not found ${folderId}`);
+	try {
+		return databaseConnector.$executeRaw`UPDATE folder SET documentCount = documentCount - ${decreaseBy}
+		WHERE ${folder.path} LIKE CONCAT(path, '%')`;
+	} catch (e) {
+		throw new BackOfficeAppError(`Couldn't decrease document count for folder ${folderId}`);
+	}
+};
+
+/**
+ * updates document count for the folder a file is added to, and the ancestor folders
+ * @param {number} folderId
+ * @param {number} [increaseBy=1] - Optional value to increase document count by, default == 1
+ * @returns Prisma.PrismaPromise<number>
+ */
+export const increaseDocumentCount = async (folderId, increaseBy) => {
+	increaseBy = increaseBy || 1;
+	const folder = await getById(folderId);
+	if (!folder || !folder.path)
+		throw new BackOfficeAppError(`Folder or folder path not found ${folderId}`);
+	try {
+		return databaseConnector.$executeRaw`UPDATE folder SET documentCount = documentCount + ${increaseBy}
+		WHERE ${folder.path} LIKE CONCAT(path, '%')`;
+	} catch (e) {
+		throw new BackOfficeAppError(`Couldn't increase document count for folder ${folderId}`);
+	}
 };
 
 /**
