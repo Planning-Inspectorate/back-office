@@ -551,7 +551,8 @@ export const getById = (
 			casePublishedState ||
 			applicant ||
 			projectTeam ||
-			meeting || invoice) && {
+			meeting ||
+			invoice) && {
 			include: {
 				...((applicationDetails || subSector || zoomLevel || regions || sector) && {
 					ApplicationDetails: {
