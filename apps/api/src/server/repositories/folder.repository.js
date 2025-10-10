@@ -335,20 +335,18 @@ const recursivelySetPaths = async (folderId) => {
 			where: { id: folderId },
 			include: { childFolders: true }
 		});
-
 		if (!folder) return;
-		if (folder && Array.isArray(folder.childFolders) && folder.childFolders.length === 0) {
+		if (folder && !folder.childFolders) {
 			await setPath(folder.id, folder.parentFolderId);
 			return;
 		}
 		await setPath(folder.id, folder.parentFolderId);
-
 		for (const childFolder of folder.childFolders) {
 			await setPath(childFolder.id, childFolder.parentFolderId);
 			await recursivelySetPaths(childFolder.id);
 		}
 	} catch (e) {
-		throw new BackOfficeAppError(`Couldn't find folder ${folderId}`);
+		throw new BackOfficeAppError(`there was a problem setting the path for ${folderId}`);
 	}
 };
 
