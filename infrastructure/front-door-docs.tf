@@ -63,13 +63,45 @@ resource "azurerm_cdn_frontdoor_route" "docs" {
   patterns_to_match      = ["/*"]
   supported_protocols    = ["Http", "Https"]
 
-
+  # link the domain to the route
   cdn_frontdoor_custom_domain_ids = [azurerm_cdn_frontdoor_custom_domain.docs.id]
   link_to_default_domain          = false
+
+  # link the ruleset to the route
+  cdn_frontdoor_rule_set_ids = [azurerm_cdn_frontdoor_rule_set.robot_header_tags.id]
 }
 
 resource "azurerm_cdn_frontdoor_custom_domain_association" "docs" {
   cdn_frontdoor_custom_domain_id = azurerm_cdn_frontdoor_custom_domain.docs.id
   cdn_frontdoor_route_ids        = [azurerm_cdn_frontdoor_route.docs.id]
   provider                       = azurerm.front_door
+}
+
+# add robot header tags to files/routes which should not be indexed
+resource "azurerm_cdn_frontdoor_rule_set" "robot_header_tags" {
+  name                     = "RobotsHeaderTags"
+  cdn_frontdoor_profile_id = data.azurerm_cdn_frontdoor_profile.shared.id
+}
+
+resource "azurerm_cdn_frontdoor_rule" "robot_header_tags_book_reference" {
+  name                      = "RobotsHeaderTagsBookReference"
+  cdn_frontdoor_rule_set_id = azurerm_cdn_frontdoor_rule_set.robot_header_tags.id
+  order                     = 1
+  behavior_on_match         = "Continue"
+
+  actions {
+    response_header_action {
+      header_action = "Append"
+      header_name   = "X-Robots-Tag"
+      value         = "noindex,nofollow"
+    }
+  }
+
+  conditions {
+    url_filename_condition {
+      operator     = "Contains"
+      match_values = ["book"]
+      transforms   = ["Lowercase"]
+    }
+  }
 }
