@@ -3,7 +3,9 @@ import { asyncHandler } from '@pins/express';
 
 import {
 	getRepresentationDetailsController,
-	postRepresentationDetailsController
+	postRepresentationDetailsController,
+	getEditRepresentationController,
+	postEditRepresentationController
 } from './applications-relevant-rep-details.controller.js';
 
 import { addRepresentationToLocals } from '../representation/representation.middleware.js';
@@ -31,8 +33,11 @@ import {
 } from './representation-status/representation-status-notes/representation-status-notes.controller.js';
 import { representationStatusNotesValidation } from './representation-status/representation-status-notes/representation-status-notes.validators.js';
 import { registerRepsParams } from '../applications-relevant-reps.locals.js';
+import changeEditRouter from './change-edit/change-edit.routes.js';
 
 const representationDetailsRouter = createRouter({ mergeParams: true });
+
+representationDetailsRouter.use('/change-edit', changeEditRouter);
 
 representationDetailsRouter
 	.route('/')
@@ -75,5 +80,10 @@ representationDetailsRouter
 		registerRepsParams,
 		asyncHandler(postRepresentationStatusNotesController)
 	);
+
+representationDetailsRouter
+	.route('/edit-representation')
+	.get(addRepresentationToLocals, asyncHandler(getEditRepresentationController))
+	.post(addRepresentationToLocals, asyncHandler(postEditRepresentationController));
 
 export default representationDetailsRouter;

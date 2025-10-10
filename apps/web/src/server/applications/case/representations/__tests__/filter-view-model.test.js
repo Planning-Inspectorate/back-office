@@ -41,11 +41,6 @@ describe('#getFilterViewModel', () => {
 			},
 			{
 				checked: false,
-				text: 'Archived (0)',
-				value: 'ARCHIVED'
-			},
-			{
-				checked: false,
 				text: 'Under 18 (0)',
 				value: 'UNDER_18'
 			},
@@ -53,6 +48,11 @@ describe('#getFilterViewModel', () => {
 				checked: false,
 				text: 'With attachment (0)',
 				value: 'WITH_ATTACHMENT'
+			},
+			{
+				checked: false,
+				text: 'Unpublished (0)',
+				value: 'UNPUBLISHED'
 			}
 		]);
 	});
@@ -96,11 +96,6 @@ describe('#getFilterViewModel', () => {
 			},
 			{
 				checked: false,
-				text: 'Archived (0)',
-				value: 'ARCHIVED'
-			},
-			{
-				checked: false,
 				text: 'Under 18 (0)',
 				value: 'UNDER_18'
 			},
@@ -108,6 +103,11 @@ describe('#getFilterViewModel', () => {
 				checked: false,
 				text: 'With attachment (0)',
 				value: 'WITH_ATTACHMENT'
+			},
+			{
+				checked: false,
+				text: 'Unpublished (0)',
+				value: 'UNPUBLISHED'
 			}
 		]);
 	});
@@ -151,11 +151,6 @@ describe('#getFilterViewModel', () => {
 			},
 			{
 				checked: false,
-				text: 'Archived (0)',
-				value: 'ARCHIVED'
-			},
-			{
-				checked: false,
 				text: 'Under 18 (0)',
 				value: 'UNDER_18'
 			},
@@ -163,6 +158,11 @@ describe('#getFilterViewModel', () => {
 				checked: true,
 				text: 'With attachment (0)',
 				value: 'WITH_ATTACHMENT'
+			},
+			{
+				checked: false,
+				text: 'Unpublished (0)',
+				value: 'UNPUBLISHED'
 			}
 		]);
 	});
@@ -172,7 +172,8 @@ describe('#getFilterViewModel', () => {
 			[
 				{ count: 1, name: 'UNDER_18' },
 				{ count: 2, name: 'VALID' },
-				{ count: 1, name: 'PUBLISHED' }
+				{ count: 1, name: 'PUBLISHED' },
+				{ count: 3, name: 'UNPUBLISHED' }
 			]
 		);
 		expect(response).toEqual([
@@ -213,11 +214,6 @@ describe('#getFilterViewModel', () => {
 			},
 			{
 				checked: false,
-				text: 'Archived (0)',
-				value: 'ARCHIVED'
-			},
-			{
-				checked: false,
 				text: 'Under 18 (1)',
 				value: 'UNDER_18'
 			},
@@ -225,6 +221,11 @@ describe('#getFilterViewModel', () => {
 				checked: false,
 				text: 'With attachment (0)',
 				value: 'WITH_ATTACHMENT'
+			},
+			{
+				checked: false,
+				text: 'Unpublished (3)',
+				value: 'UNPUBLISHED'
 			}
 		]);
 	});

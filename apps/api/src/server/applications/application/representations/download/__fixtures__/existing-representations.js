@@ -30,7 +30,18 @@ export const existingRepresentationsTestData = {
 			postcode: 'BS48 1PN',
 			country: null
 		}
-	}
+	},
+	_count: {
+		attachments: 1
+	},
+	representationActions: [
+		{
+			status: 'VALID',
+			actionDate: '2020-01-01T12:00:00.000Z'
+		}
+	],
+	editedRepresentation: 'Edited comment for valid rep',
+	originalRepresentation: 'Original comment for valid rep'
 };
 
 export const existingRepresentationsTestDataNoAgent = {
@@ -50,5 +61,16 @@ export const existingRepresentationsTestDataNoAgent = {
 			postcode: 'MD21 5XY',
 			country: null
 		}
-	}
+	},
+	_count: {
+		attachments: 0
+	},
+	representationActions: [
+		{
+			status: 'VALID',
+			actionDate: '2020-01-01T12:00:00.000Z'
+		}
+	],
+	editedRepresentation: '',
+	originalRepresentation: 'Original comment for valid rep'
 };

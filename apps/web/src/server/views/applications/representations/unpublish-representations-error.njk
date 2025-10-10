@@ -1,0 +1,28 @@
+{% extends "applications/layouts/applications.layout.njk" %}
+
+{% set pageTitle = "Unpublishing error" %}
+
+{% block pageHeading %}
+{% endblock %}
+
+{% block pageContent %}
+  <span class="govuk-caption-m">
+    Publishing queue
+  </span>
+
+  <h2 class="govuk-heading-l">
+    Sorry, there is a problem
+  </h2>
+
+  <p class="govuk-body">
+    The publishing service is unavailable.
+  </p>
+
+  <p class="govuk-body">
+    None of your representations have been unpublished. Please try again later.
+  </p>
+
+  <p class="govuk-body">
+    If you continue to have problems with this service, <a href="https://mhclg.service-now.com/sp" class="govuk-link">contact Littlefish</a>
+  </p>
+{% endblock %}

@@ -48,6 +48,6 @@ describe('Create Case with sector as training', () => {
 		assert(caseRef.startsWith('TRAIN'));
 		applicationsHomePage.searchFor(caseRef);
 		searchResultsPage.clickTopSearchResult();
-		validateSectorSubsectorValues(caseRef);
+		validateSectorSubsectorValues('Training', 'Training');
 	});
 });

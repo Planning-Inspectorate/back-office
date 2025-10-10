@@ -1,6 +1,7 @@
 trigger:
     branches:
         include:
+            - main # run on main before build
             # trigger for merge queue branches
             - gh-readonly-queue/*
 
@@ -38,6 +39,8 @@ extends:
                         script: npm ci
                   - template: ../steps/node_script.yml
                     parameters:
+                        # only run commitlint on branches, not main
+                        condition: ne(variables['Build.SourceBranchName'], 'main')
                         nodeVersion: 20
                         script: npm run commitlint
                   - template: ../steps/node_script.yml
@@ -88,4 +91,3 @@ extends:
                             TURBO_TEAM: $(TURBO_TEAM)
                             TURBO_API: $(TURBO_API)
                             TURBO_TOKEN: $(TURBO_TOKEN)
-

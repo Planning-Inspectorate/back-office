@@ -7,7 +7,9 @@ import { get, patch } from '../../../../lib/request.js';
  * @returns {Promise<any>}
  */
 export const getRepresentationDetails = async (caseId, representationId) => {
-	return get(`applications/${caseId}/representations/${representationId}`);
+	const result = await get(`applications/${caseId}/representations/${representationId}`);
+	console.log('DEBUG: Representation details API response:', JSON.stringify(result, null, 2)); // TEMP LOG
+	return result;
 };
 
 /**

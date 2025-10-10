@@ -2,6 +2,7 @@ import config from '@pins/applications.web/environment/config.js';
 import { Router as createRouter } from 'express';
 import { installAuthMock } from '../../../testing/app/mocks/auth.js';
 import applicationsRouter from '../applications/applications.router.js';
+import representationDetailsRouter from '../applications/case/representations/representation-details/application-representation-details.router.js';
 
 import { asyncHandler } from '@pins/express';
 
@@ -83,5 +84,6 @@ router
 router.route('/documents/process-html').post(asyncHandler(postProcessHTMLFile));
 router.route('/documents/validate-file-signatures').post(asyncHandler(postValidateFileSignatures));
 router.use('/applications-service', applicationsRouter);
+router.use('/applications/:caseId/representations/:representationId', representationDetailsRouter);
 
 export default router;

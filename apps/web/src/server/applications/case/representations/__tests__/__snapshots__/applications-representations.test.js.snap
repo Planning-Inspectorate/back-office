@@ -8,7 +8,7 @@ exports[`applications representations GET /applications-service/:caseId/relevant
             <h4 class="govuk-heading-m"> mock reference </h4>
             <h1 class="govuk-heading-xl">mock title</h1>
             <div class="govuk-grid-row">
-                <div class="govuk-grid-column-full govuk-body">,
+                <div class="govuk-grid-column-full govuk-body"><span id="sectors" data-cy="header-sectors"> Mock Sector Display Name, Mock Sub-Sector Display Name </span>
                     <br>
                     <br><strong class="govuk-tag govuk-tag-- pins-tag--no-max-width">in test</strong>
                 </div>
@@ -80,18 +80,18 @@ exports[`applications representations GET /applications-service/:caseId/relevant
                                         </div>
                                         <div class="govuk-checkboxes__item">
                                             <input class="govuk-checkboxes__input" id="filters-8" name="filters" type="checkbox"
-                                            value="ARCHIVED">
-                                            <label class="govuk-label govuk-checkboxes__label" for="filters-8">Archived (0)</label>
+                                            value="UNDER_18">
+                                            <label class="govuk-label govuk-checkboxes__label" for="filters-8">Under 18 (0)</label>
                                         </div>
                                         <div class="govuk-checkboxes__item">
                                             <input class="govuk-checkboxes__input" id="filters-9" name="filters" type="checkbox"
-                                            value="UNDER_18">
-                                            <label class="govuk-label govuk-checkboxes__label" for="filters-9">Under 18 (0)</label>
+                                            value="WITH_ATTACHMENT">
+                                            <label class="govuk-label govuk-checkboxes__label" for="filters-9">With attachment (3)</label>
                                         </div>
                                         <div class="govuk-checkboxes__item">
                                             <input class="govuk-checkboxes__input" id="filters-10" name="filters"
-                                            type="checkbox" value="WITH_ATTACHMENT">
-                                            <label class="govuk-label govuk-checkboxes__label" for="filters-10">With attachment (3)</label>
+                                            type="checkbox" value="UNPUBLISHED">
+                                            <label class="govuk-label govuk-checkboxes__label" for="filters-10">Unpublished (0)</label>
                                         </div>
                                     </div>
                                 </fieldset>
@@ -114,13 +114,18 @@ exports[`applications representations GET /applications-service/:caseId/relevant
                 <p class="govuk-body govuk-!-margin-bottom-6">Target date for review and completion</p><a href="/applications-service/case/1/relevant-representations/contact-details?repType=represented"
                 role="button" draggable="false" class="govuk-button govuk-button--secondary"
                 data-module="govuk-button"> Add a representation</a>
-                <p class="govuk-body"><a class="govuk-link" href="/applications-service/case/1/relevant-representations/api/download"
-                    download> Download valid and published representations (CSV)</a>
+                <p class="govuk-body"><a class="govuk-link" href="/applications-service/case/1/relevant-representations/select-representations-for-publishing">View publishing queue</a>
+                </p>
+                <p class="govuk-body"><a class="govuk-link" href="/applications-service/case/1/relevant-representations/unpublish-representations"> Unpublish all published representations</a>
+                </p>
+                <p class="govuk-body"><a class="govuk-link" href="/applications-service/case/1/relevant-representations/api/download/published"
+                    download> Download mailing list (CSV)</a>
+                </p>
+                <p class="govuk-body"><a class="govuk-link" href="/applications-service/case/1/relevant-representations/api/download/valid"
+                    download> Download valid representations (CSV)</a>
                 </p>
             </div>
         </div>
-        <p class="govuk-body"><a class="govuk-link" href="/applications-service/case/1/relevant-representations/select-representations-for-publishing">View publishing queue</a>
-        </p>
         <h3 class="govuk-heading-m">Search representations</h3>
         <input type="hidden" name="page" value="1">
         <input type="hidden" name="pageSize" value="25">
@@ -179,7 +184,7 @@ exports[`applications representations GET /applications-service/:caseId/relevant
                     <td class="govuk-table__cell">org name 1</td>
                     <td class="govuk-table__cell">01 Jan 2022</td>
                     <td class="govuk-table__cell">Redacted</td>
-                    <td class="govuk-table__cell"><span class="govuk-tag govuk-tag--grey" id="list-convictions-status-1">AWAITING REVIEW</span>
+                    <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--grey" id="list-convictions-status-1">Awaiting review</strong>
                     </td>
                     <td class="govuk-table__cell"><a class="govuk-link" href="/applications-service/case/1/relevant-representations/1/representation-details?repMode=summary"> Review <span class="govuk-visually-hidden">org name 1</span></a>
                     </td>
@@ -189,9 +194,19 @@ exports[`applications representations GET /applications-service/:caseId/relevant
                     <td class="govuk-table__cell">first lastName</td>
                     <td class="govuk-table__cell">01 Jan 2022</td>
                     <td class="govuk-table__cell">Unredacted</td>
-                    <td class="govuk-table__cell"><span class="govuk-tag govuk-tag" id="list-convictions-status-2">VALID</span>
+                    <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--green" id="list-convictions-status-2">Valid</strong>
                     </td>
                     <td class="govuk-table__cell"><a class="govuk-link" href="/applications-service/case/1/relevant-representations/2/representation-details?repMode=summary"> Review <span class="govuk-visually-hidden">first lastName</span></a>
+                    </td>
+                </tr>
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell">mock reference</td>
+                    <td class="govuk-table__cell">org name 2</td>
+                    <td class="govuk-table__cell">01 Jan 2022</td>
+                    <td class="govuk-table__cell">Unredacted</td>
+                    <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--green" id="list-convictions-status-3">Published</strong>
+                    </td>
+                    <td class="govuk-table__cell"><a class="govuk-link" href="/applications-service/case/1/relevant-representations/3/representation-details?repMode=summary"> Review <span class="govuk-visually-hidden">org name 2</span></a>
                     </td>
                 </tr>
             </tbody>
@@ -208,7 +223,7 @@ exports[`applications representations GET /applications-service/:id/relevant-rep
             <h4 class="govuk-heading-m"> mock reference </h4>
             <h1 class="govuk-heading-xl">mock title</h1>
             <div class="govuk-grid-row">
-                <div class="govuk-grid-column-full govuk-body">,
+                <div class="govuk-grid-column-full govuk-body"><span id="sectors" data-cy="header-sectors"> Mock Sector Display Name, Mock Sub-Sector Display Name </span>
                     <br>
                     <br><strong class="govuk-tag govuk-tag-- pins-tag--no-max-width">in test</strong>
                 </div>
@@ -280,18 +295,18 @@ exports[`applications representations GET /applications-service/:id/relevant-rep
                                         </div>
                                         <div class="govuk-checkboxes__item">
                                             <input class="govuk-checkboxes__input" id="filters-8" name="filters" type="checkbox"
-                                            value="ARCHIVED">
-                                            <label class="govuk-label govuk-checkboxes__label" for="filters-8">Archived (0)</label>
+                                            value="UNDER_18">
+                                            <label class="govuk-label govuk-checkboxes__label" for="filters-8">Under 18 (0)</label>
                                         </div>
                                         <div class="govuk-checkboxes__item">
                                             <input class="govuk-checkboxes__input" id="filters-9" name="filters" type="checkbox"
-                                            value="UNDER_18">
-                                            <label class="govuk-label govuk-checkboxes__label" for="filters-9">Under 18 (0)</label>
+                                            value="WITH_ATTACHMENT">
+                                            <label class="govuk-label govuk-checkboxes__label" for="filters-9">With attachment (0)</label>
                                         </div>
                                         <div class="govuk-checkboxes__item">
                                             <input class="govuk-checkboxes__input" id="filters-10" name="filters"
-                                            type="checkbox" value="WITH_ATTACHMENT">
-                                            <label class="govuk-label govuk-checkboxes__label" for="filters-10">With attachment (0)</label>
+                                            type="checkbox" value="UNPUBLISHED">
+                                            <label class="govuk-label govuk-checkboxes__label" for="filters-10">Unpublished (0)</label>
                                         </div>
                                     </div>
                                 </fieldset>
@@ -314,13 +329,16 @@ exports[`applications representations GET /applications-service/:id/relevant-rep
                 <p class="govuk-body govuk-!-margin-bottom-6">Target date for review and completion</p><a href="/applications-service/case/1/relevant-representations/contact-details?repType=represented"
                 role="button" draggable="false" class="govuk-button govuk-button--secondary"
                 data-module="govuk-button"> Add a representation</a>
-                <p class="govuk-body"><a class="govuk-link" href="/applications-service/case/1/relevant-representations/api/download"
-                    download> Download valid and published representations (CSV)</a>
+                <p class="govuk-body"><a class="govuk-link" href="/applications-service/case/1/relevant-representations/select-representations-for-publishing">View publishing queue</a>
+                </p>
+                <p class="govuk-body"><a class="govuk-link" href="/applications-service/case/1/relevant-representations/api/download/published"
+                    download> Download mailing list (CSV)</a>
+                </p>
+                <p class="govuk-body"><a class="govuk-link" href="/applications-service/case/1/relevant-representations/api/download/valid"
+                    download> Download valid representations (CSV)</a>
                 </p>
             </div>
         </div>
-        <p class="govuk-body"><a class="govuk-link" href="/applications-service/case/1/relevant-representations/select-representations-for-publishing">View publishing queue</a>
-        </p>
         <h3 class="govuk-heading-m">Search representations</h3>
         <input type="hidden" name="page" value="1">
         <input type="hidden" name="pageSize" value="25">
@@ -381,7 +399,7 @@ exports[`applications representations GET /applications-service/:id/relevant-rep
                     <td class="govuk-table__cell">org name 1</td>
                     <td class="govuk-table__cell">01 Jan 2022</td>
                     <td class="govuk-table__cell">Redacted</td>
-                    <td class="govuk-table__cell"><span class="govuk-tag govuk-tag--grey" id="list-convictions-status-1">AWAITING REVIEW</span>
+                    <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--grey" id="list-convictions-status-1">Awaiting review</strong>
                     </td>
                     <td class="govuk-table__cell"><a class="govuk-link" href="/applications-service/case/1/relevant-representations/1/representation-details?repMode=summary"> Review <span class="govuk-visually-hidden">org name 1</span></a>
                     </td>

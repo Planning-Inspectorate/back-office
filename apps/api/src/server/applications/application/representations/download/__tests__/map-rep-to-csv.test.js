@@ -1,8 +1,8 @@
-import { mapRepToCsv } from '../utils/map-rep-to-csv.js';
+import { mapPublishedRepToCsv } from '../utils/map-rep-to-csv.js';
 
 describe('Map Application Representation Download', () => {
 	it('should map with empty value if data missing', () => {
-		const response = mapRepToCsv([
+		const response = mapPublishedRepToCsv([
 			{
 				reference: '1234',
 				type: 'VALID',
@@ -15,7 +15,7 @@ describe('Map Application Representation Download', () => {
 		expect(response).toEqual('1234,,,, ,,,,,,\n');
 	});
 	it('should map the first element if the second element (agent) is not in the contacts array', () => {
-		const response = mapRepToCsv([
+		const response = mapPublishedRepToCsv([
 			{
 				reference: '1234',
 				type: 'VALID',
@@ -38,7 +38,7 @@ describe('Map Application Representation Download', () => {
 		);
 	});
 	it('should map the second element in the array if present (and use the first element for the "On behalf of")', () => {
-		const response = mapRepToCsv([
+		const response = mapPublishedRepToCsv([
 			{
 				reference: '1234',
 				type: 'VALID',

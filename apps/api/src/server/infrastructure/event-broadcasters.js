@@ -21,6 +21,7 @@ import { buildNsipDocumentPayload } from '#infrastructure/payload-builders/nsip-
 import {
 	buildNsipRepresentationPayload,
 	buildNsipRepresentationPayloadForPublish,
+	buildNsipRepresentationPayloadForUnpublish,
 	buildRepresentationServiceUserPayload
 } from '#infrastructure/payload-builders/nsip-representation.js';
 
@@ -233,18 +234,16 @@ export const broadcastNsipRepresentationEvent = async (
  * @param {RepresentationWithFullDetails[]} representations
  * @param {EventType} eventType
  * @param {number} caseId
+ * @param {(rep: RepresentationWithFullDetails) => any} nsipRepresentationPayloadBuilder
  */
-export const broadcastNsipRepresentationPublishEventBatch = async (
+const broadcastNsipRepresentationEventBatch = async (
 	representations,
-	eventType = EventType.Publish,
-	caseId
+	eventType,
+	caseId,
+	nsipRepresentationPayloadBuilder
 ) => {
-	// pull the ids from the reps array
 	const representationIds = representations.map((rep) => rep.id);
-	// TODO: DJW check this
-
-	// dont send events for TRAINING cases
-	const nsipRepresentationsPayload = representations.map(buildNsipRepresentationPayloadForPublish);
+	const nsipRepresentationsPayload = representations.map(nsipRepresentationPayloadBuilder);
 	const serviceUsersPayload = representations.flatMap(buildRepresentationServiceUserPayload);
 
 	try {
@@ -261,4 +260,42 @@ export const broadcastNsipRepresentationPublishEventBatch = async (
 			`Blocked sending event for representations: ${representationIds}`
 		);
 	}
+};
+
+/**
+ *
+ * @param {RepresentationWithFullDetails[]} representations
+ * @param {EventType} eventType
+ * @param {number} caseId
+ */
+export const broadcastNsipRepresentationPublishEventBatch = async (
+	representations,
+	eventType = EventType.Publish,
+	caseId
+) => {
+	return broadcastNsipRepresentationEventBatch(
+		representations,
+		eventType,
+		caseId,
+		buildNsipRepresentationPayloadForPublish
+	);
+};
+
+/**
+ *
+ * @param {RepresentationWithFullDetails[]} representations
+ * @param {EventType} eventType
+ * @param {number} caseId
+ */
+export const broadcastNsipRepresentationUnpublishEventBatch = async (
+	representations,
+	eventType = EventType.Unpublish,
+	caseId
+) => {
+	return broadcastNsipRepresentationEventBatch(
+		representations,
+		eventType,
+		caseId,
+		buildNsipRepresentationPayloadForUnpublish
+	);
 };

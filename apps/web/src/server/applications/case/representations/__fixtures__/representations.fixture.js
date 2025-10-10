@@ -24,14 +24,23 @@ export const representationsFixture = {
 			reference: 'mock reference',
 			id: '2',
 			displayName: 'first lastName'
+		},
+		{
+			status: 'PUBLISHED',
+			redacted: false,
+			received: '2022-01-01',
+			organisationName: 'org name 2',
+			reference: 'mock reference',
+			id: '3',
+			displayName: 'org name 2'
 		}
 	]
 };
 
 export const representationFixture = {
 	id: 1,
+	status: 'VALID',
 	reference: 'BC0110001-11',
-	status: 'ARCHIVED',
 	redacted: true,
 	received: '2023-05-31T07:49:38.077Z',
 	originalRepresentation:

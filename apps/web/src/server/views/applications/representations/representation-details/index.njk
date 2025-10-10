@@ -32,7 +32,7 @@
       {% if representation.representedType == 'AGENT' %}
         {% include "./includes/representative-details.include.njk" %}
       {% endif %}
-      
+
       {% if representation.status == 'DRAFT' %}
         {% include "./includes/check/representation.include.njk" %}
         {% include "./includes/check/attachments.include.njk" %}
@@ -46,6 +46,17 @@
         {% include "./includes/change/representation.include.njk" %}
         {% include "./includes/change/workflow.include.njk" %}
         {% include "./includes/change/attachments.include.njk" %}
+      {% endif %}
+
+      <h2 class="govuk-heading-m">Original Representation</h2>
+      <div class="govuk-body">{{ representation.originalRepresentation }}</div>
+      {% if representation.editedRepresentation %}
+        <h2 class="govuk-heading-m">Edited Representation</h2>
+        <div class="govuk-body">{{ representation.editedRepresentation }}</div>
+        {% if representation.editNotes %}
+          <h3 class="govuk-heading-s">Edit notes</h3>
+          <div class="govuk-body">{{ representation.editNotes }}</div>
+        {% endif %}
       {% endif %}
     </div>
   </div>

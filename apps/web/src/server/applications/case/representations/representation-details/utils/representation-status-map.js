@@ -6,5 +6,6 @@ export const repStatusMap = {
 	invalid: 'INVALID',
 	published: 'PUBLISHED',
 	valid: 'VALID',
-	withdrawn: 'WITHDRAWN'
+	withdrawn: 'WITHDRAWN',
+	unpublished: 'UNPUBLISHED'
 };

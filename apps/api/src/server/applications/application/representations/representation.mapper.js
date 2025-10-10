@@ -18,7 +18,9 @@ export const mapCreateOrUpdateRepRequestToRepository = (
 		'redacted',
 		'received',
 		'type',
-		'representedType'
+		'representedType',
+		'editedRepresentation',
+		'editNotes'
 	]);
 
 	if (method === 'POST') {
@@ -30,7 +32,9 @@ export const mapCreateOrUpdateRepRequestToRepository = (
 			redacted: representation.redacted || false,
 			received: representation.received,
 			representedType: representation.representedType,
-			type: representation.type
+			type: representation.type,
+			editedRepresentation: representation.editedRepresentation || '',
+			editNotes: representation.editNotes || ''
 		};
 	}
 

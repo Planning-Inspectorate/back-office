@@ -23,6 +23,14 @@ const mockCaseReference = {
 		preExamination: {
 			dateOfRelevantRepresentationClose: '1672531200'
 		}
+	},
+	sector: {
+		name: 'mock_sector',
+		displayNameEn: 'Mock Sector Display Name'
+	},
+	subSector: {
+		name: 'mock_sub_sector',
+		displayNameEn: 'Mock Sub-Sector Display Name'
 	}
 };
 const nocks = () => {
@@ -95,13 +103,13 @@ describe('applications representations', () => {
 
 			// Assert - css classes applied to the status
 			expect(element.innerHTML).toContain(
-				`<td class="govuk-table__cell"><span class="govuk-tag govuk-tag--grey" id="list-convictions-status-1">AWAITING REVIEW</span>`
+				`<strong class="govuk-tag govuk-tag--grey" id="list-convictions-status-1">Awaiting review</strong>`
 			);
 			expect(element.innerHTML).toContain(
-				`<td class="govuk-table__cell"><span class="govuk-tag govuk-tag" id="list-convictions-status-2">VALID</span>`
+				`<strong class="govuk-tag govuk-tag--green" id="list-convictions-status-2">Valid</strong>`
 			);
 			expect(element.innerHTML).toContain(
-				`<label class="govuk-label govuk-checkboxes__label" for="filters-10">With attachment (3)</label>`
+				`<strong class="govuk-tag govuk-tag--green" id="list-convictions-status-3">Published</strong>`
 			);
 		});
 	});
@@ -124,7 +132,7 @@ describe('applications representations', () => {
 
 			// Assert - css classes applied to the status
 			expect(element.innerHTML).toContain(
-				`<td class="govuk-table__cell"><span class="govuk-tag govuk-tag--grey" id="list-convictions-status-1">AWAITING REVIEW</span>`
+				`<strong class="govuk-tag govuk-tag--grey" id="list-convictions-status-1">Awaiting review</strong>`
 			);
 		});
 	});

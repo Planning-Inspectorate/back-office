@@ -60,9 +60,9 @@ const mockSubSectorFindMany = jest.fn().mockResolvedValue({});
 const mockZoomLevelFindUnique = jest.fn().mockResolvedValue({});
 const mockZoomLevelFindMany = jest.fn().mockResolvedValue({});
 
-const mockRepresentationCount = jest.fn().mockResolvedValue({});
-const mockRepresentationGroupBy = jest.fn().mockResolvedValue({});
-const mockRepresentationFindMany = jest.fn().mockResolvedValue({});
+const mockRepresentationCount = jest.fn().mockResolvedValue(0);
+const mockRepresentationGroupBy = jest.fn().mockResolvedValue([]);
+const mockRepresentationFindMany = jest.fn().mockResolvedValue([]);
 const mockRepresentationFindFirst = jest.fn().mockResolvedValue({});
 const mockRepresentationFindUnique = jest.fn().mockResolvedValue({});
 const mockRepresentationCreate = jest.fn().mockResolvedValue({});
@@ -346,15 +346,23 @@ class MockPrismaClient {
 	};
 
 	// see https://www.prisma.io/docs/concepts/components/prisma-client/transactions#the-transaction-api
-	$transaction(queries = []) {
+	$transaction = jest.fn().mockImplementation(async (queries = []) => {
 		if (typeof queries === 'function') {
 			// transactions can be a function, run with an instance of the client
 			return queries(this);
 		} else {
 			// or just an array of queries to run
-			return Promise.all(queries);
+			// For getByCaseId tests, we need to handle the specific case where
+			// queries[0] is a count operation and queries[1] is a findMany operation
+			if (queries.length === 2) {
+				const results = await Promise.all(queries);
+				return results;
+			}
+			// For other cases, just return results of executing the queries
+			const results = await Promise.all(queries);
+			return Array.isArray(results) ? results : [];
 		}
-	}
+	});
 }
 
 const mockPrismaUse = jest.fn().mockResolvedValue();

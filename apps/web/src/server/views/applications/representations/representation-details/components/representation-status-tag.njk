@@ -1,19 +1,35 @@
-{% macro representationStatusTag(status) %}
-	{% set statusTagColor = '' %}
-	{% set statusLabel = status %}
+{# Representations status tag macro #}
 
-	{% switch (status | lower) %}
-        {% case 'invalid' %}
-        {% case 'reffered' %}
-        {% case 'withdrawn' %}
+{% macro representationStatusTag(status, id) %}
+    {% set statusLower = status | lower %}
+    {% set statusTagColor = '' %}
+    {% if statusLower == 'awaiting_review' or statusLower == 'awaiting review' %}
+        {% set statusLabel = 'Awaiting Review' %}
+    {% else %}
+        {% set statusLabel = statusLower.replace('_', ' ') | capitalize %}
+    {% endif %}
+
+    {% switch (statusLower) %}
+        {% case 'draft' %}
+        {% case 'referred' %}
             {% set statusTagColor = 'blue' %}
+        {% case 'withdrawn' %}
+            {% set statusTagColor = 'orange' %}
+        {% case 'invalid' %}
+            {% set statusTagColor = 'red' %}
+        {% case 'awaiting review' %}
         {% case 'awaiting_review' %}
             {% set statusTagColor = 'grey' %}
-            {% set statusLabel = 'awaiting review' %}
-		{% case 'unpublished' %}
-			{% set statusTagColor = 'grey' %}
-			{% set statusLabel = 'unpublished' %}
-	{% endswitch %}
+            {% set statusLabel = 'Awaiting review' %}
+        {% case 'unpublished' %}
+            {% set statusTagColor = 'grey' %}
+            {% set statusLabel = 'Unpublished' %}
+        {% case 'archived' %}
+            {% set statusTagColor = 'grey' %}
+        {% case 'published' %}
+        {% case 'valid' %}
+            {% set statusTagColor = 'green' %}
+    {% endswitch %}
 
-	<strong class="govuk-tag govuk-tag--{{statusTagColor}}">{{ statusLabel}}</strong>
+    <strong class="govuk-tag govuk-tag--{{statusTagColor}}"{% if id is defined %} id="{{ id }}"{% endif %}>{{statusLabel}}</strong>
 {% endmacro %}

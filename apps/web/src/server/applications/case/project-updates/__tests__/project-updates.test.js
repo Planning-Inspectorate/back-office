@@ -11,7 +11,15 @@ const mockCaseReference = {
 	id: 1,
 	title: 'mock title',
 	status: 'in test',
-	reference: 'mock reference'
+	reference: 'mock reference',
+	sector: {
+		name: 'mock_sector',
+		displayNameEn: 'Mock Sector Display Name'
+	},
+	subSector: {
+		name: 'mock_sub_sector',
+		displayNameEn: 'Mock Sub-Sector Display Name'
+	}
 };
 const mockProjectUpdate = {
 	id: 1,

@@ -271,7 +271,7 @@ exports[`Representation redact page GET /applications-service/case/1/relevant-re
     <p     class="govuk-body govuk-!-margin-0 govuk-!-margin-top-5"><strong>Project name:</strong> mock title</p>
         <form method="post">
             <div class="govuk-grid-row govuk-!-margin-top-8">
-                <div class="govuk-grid-column-one-half" id="original-representation-section"><span class="govuk-heading-s display--flex"><span class="flex-grow--1"> Original representation</span>
+                <div class="govuk-grid-column-one-half" id="original-representation-section"><span class="govuk-heading-s display--flex"><span class="flex-grow--1"> Unredacted representation</span>
                     <a                     class="govuk-link govuk-body govuk-!-margin-0" href="#" id="hide-original-representation-button">Hide</a>
                         </span>
                         <p class="govuk-body white-space--pre-line word-break--break-word">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo

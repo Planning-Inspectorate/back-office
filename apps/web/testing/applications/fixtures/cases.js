@@ -9,7 +9,7 @@ const welshCase = createCase({
 	publishedDate: `${new Date(2023, 0, 31).getTime() / 1000}`,
 	title: 'Welsh Case',
 	reference: 'CASE/08',
-	status: 'Pre-application'
+	status: 'Pre-Application'
 });
 welshCase.geographicalInformation?.regions.push({
 	id: 999,
@@ -61,7 +61,7 @@ export const fixtureCases = [
 		reference: 'CASE/05',
 		sector: fixtureSectors[0],
 		subSector: fixtureSectors[1],
-		status: 'Pre-application',
+		status: 'Pre-Application',
 		applicant: createApplicant(false)
 	}),
 	createCase({
@@ -70,7 +70,7 @@ export const fixtureCases = [
 		publishedDate: `${new Date(2023, 0, 31).getTime() / 1000}`,
 		title: 'Published case with no unpublished changes',
 		reference: 'CASE/06',
-		status: 'Pre-application'
+		status: 'Pre-Application'
 	}),
 	createCase({
 		id: 7,
@@ -78,7 +78,7 @@ export const fixtureCases = [
 		publishedDate: `${new Date(2023, 0, 30).getTime() / 1000}`,
 		title: 'Published case with unpublished changes',
 		reference: 'CASE/07',
-		status: 'Pre-application'
+		status: 'Pre-Application'
 	}),
 	welshCase
 ];

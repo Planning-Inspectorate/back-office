@@ -14,10 +14,7 @@ parameters:
 
 pr: none
 
-trigger:
-  branches:
-    include:
-      - main
+trigger: none
 
 resources:
   repositories:
@@ -26,6 +23,13 @@ resources:
       endpoint: Planning-Inspectorate
       name: Planning-Inspectorate/common-pipeline-templates
       ref: refs/tags/release/3.20.0
+  pipelines:
+      - pipeline: Back Office PR
+        source: Back Office PR
+        trigger:
+            branches:
+                include:
+                    - main
 
 extends:
   template: stages/wrapper_ci.yml@templates
@@ -33,31 +37,6 @@ extends:
     globalVariables:
       - template: azure-pipelines-variables.yml@self
     validationJobs:
-      - name: Run Linting & Tests
-        steps:
-          - template: ../steps/node_script.yml
-            parameters:
-              nodeVersion: 20
-              script: npm ci
-          - template: ../steps/node_script.yml
-            parameters:
-              nodeVersion: 20
-              script: npm run tscheck
-              environmentVariables:
-                TURBO_TEAM: $(TURBO_TEAM)
-                TURBO_API: $(TURBO_API)
-          - template: ../steps/node_script.yml
-            parameters:
-              nodeVersion: 20
-              script: npm run lint:js
-          - template: ../steps/node_script.yml
-            parameters:
-              nodeVersion: 20
-              script: npm run test
-              environmentVariables:
-                TURBO_TEAM: $(TURBO_TEAM)
-                TURBO_API: $(TURBO_API)
-                TURBO_TOKEN: $(TURBO_TOKEN)
       - name: Build Applications BO API
         condition: >-
           and(
@@ -70,8 +49,6 @@ extends:
               ne(variables['Build.Reason'], 'Manual')
             )
           )
-        dependsOn:
-          - Run Linting & Tests
         steps:
           - template: ../steps/azure_web_app_docker_build_push.yml@templates
             parameters:
@@ -92,8 +69,6 @@ extends:
               ne(variables['Build.Reason'], 'Manual')
             )
           )
-        dependsOn:
-          - Run Linting & Tests
         steps:
           - template: ../steps/azure_web_app_docker_build_push.yml@templates
             parameters:
@@ -114,8 +89,6 @@ extends:
               ne(variables['Build.Reason'], 'Manual')
             )
           )
-        dependsOn:
-          - Run Linting & Tests
         steps:
           # install function specific node_modules
           - template: azure-pipelines-package-function-dep-install.yml@self
