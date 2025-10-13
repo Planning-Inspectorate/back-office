@@ -17,6 +17,6 @@ insert_final_newline = true
 [*.md]
 trim_trailing_whitespace = false
 
-[*.json,*.yml,.browserslistrc,.prettierrc]
+[{*.{json,yml},.browserslistrc,.prettierrc}]
 indent_style = space
 indent_size = 2
