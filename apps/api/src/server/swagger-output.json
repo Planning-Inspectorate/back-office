@@ -1244,7 +1244,52 @@
 				}
 			}
 		},
-		"/applications/{id}/representations/download": {
+		"/{id}/representations/{repId}": {
+			"post": {
+				"description": "",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "repId",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"default": {
+						"description": ""
+					}
+				}
+			}
+		},
+		"/applications/{id}/representations/download/published": {
+			"get": {
+				"tags": ["Applications"],
+				"description": "Downloads VALID representations that are PUBLISHED on an application",
+				"produces": ["text/csv"],
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application ID"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Representations CSV"
+					}
+				}
+			}
+		},
+		"/applications/{id}/representations/download/valid": {
 			"get": {
 				"tags": ["Applications"],
 				"description": "Downloads VALID representations on an application",
@@ -1403,6 +1448,62 @@
 			}
 		},
 		"/applications/{id}/representations/unpublish": {
+			"get": {
+				"tags": ["Applications"],
+				"description": "Gets unpublishable representations for an application",
+				"parameters": [
+					{
+						"name": "id",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application ID"
+					},
+					{
+						"name": "x-service-name",
+						"in": "header",
+						"description": "Service name header",
+						"required": false,
+						"type": "string",
+						"default": "swagger"
+					},
+					{
+						"name": "x-api-key",
+						"in": "header",
+						"description": "API key header",
+						"required": false,
+						"type": "string",
+						"default": "123"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Unpublishable Representations",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"previouslyUnpublished": {
+									"type": "boolean",
+									"example": false
+								},
+								"itemCount": {
+									"type": "number",
+									"example": 100
+								},
+								"items": {
+									"type": "array",
+									"items": {
+										"$ref": "#/definitions/RepresentationSummary"
+									}
+								}
+							},
+							"xml": {
+								"name": "main"
+							}
+						}
+					}
+				}
+			},
 			"patch": {
 				"tags": ["Applications"],
 				"description": "Unpublishes representations on an application that are currently PUBLISHED",
@@ -3940,6 +4041,24 @@
 				}
 			}
 		},
+		"/{repId}": {
+			"post": {
+				"description": "",
+				"parameters": [
+					{
+						"name": "repId",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"default": {
+						"description": ""
+					}
+				}
+			}
+		},
 		"/applications/documents/{documentGUID}/status": {
 			"patch": {
 				"tags": ["Applications"],
@@ -4050,6 +4169,54 @@
 						"schema": {
 							"$ref": "#/definitions/DocumentBadHTMLResponse"
 						}
+					}
+				}
+			}
+		},
+		"/case/{caseId}/relevant-representations/{repId}/representation-details/change-edit": {
+			"post": {
+				"description": "",
+				"parameters": [
+					{
+						"name": "caseId",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "repId",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK"
+					}
+				}
+			}
+		},
+		"/case/{caseId}/relevant-representations/{repId}/representation-details": {
+			"get": {
+				"description": "",
+				"parameters": [
+					{
+						"name": "caseId",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "repId",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK"
 					}
 				}
 			}
@@ -4223,6 +4390,40 @@
 						"schema": {
 							"$ref": "#/definitions/MapZoomLevelForApplications"
 						}
+					}
+				}
+			}
+		},
+		"/applications/examination-timetable/case/{caseId}": {
+			"get": {
+				"tags": ["Applications"],
+				"description": "Gets the examination timetable record for a case (no items)",
+				"parameters": [
+					{
+						"name": "caseId",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Case ID"
+					},
+					{
+						"name": "x-service-name",
+						"in": "header",
+						"type": "string",
+						"description": "Service name header",
+						"default": "swagger"
+					},
+					{
+						"name": "x-api-key",
+						"in": "header",
+						"type": "string",
+						"description": "API key header",
+						"default": "123"
+					}
+				],
+				"responses": {
+					"default": {
+						"description": ""
 					}
 				}
 			}
