@@ -113,6 +113,6 @@ export class RepresentationPage extends Page {
 		this.clickContinue();
 		this.clickButtonByText('Save changes');
 		this.clickBackLink();
-		this.elements.statusVerify().contains('Awaiting Review');
+		this.elements.statusVerify().contains('Awaiting review');
 	}
 }
