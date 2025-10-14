@@ -7,7 +7,8 @@ import {
 	publishExaminationTimetable,
 	unpublishExaminationTimetable,
 	deleteExaminationTimetableItem,
-	updateExaminationTimetableItem
+	updateExaminationTimetableItem,
+	getExaminationTimetableItemByNameAndTimetableId
 } from './examination-timetable-items.controller.js';
 import {
 	validateCreateExaminationTimetableItem,
@@ -81,6 +82,44 @@ router.get(
 		}
     */
 	asyncHandler(getExaminationTimetableItem)
+);
+
+router.get(
+	'/timetable/:timetableId/name/:name',
+	/*
+		#swagger.tags = ['Applications']
+		#swagger.path = '/applications/examination-timetable-items/timetable/{timetableId}/name/{name}'
+		#swagger.description = 'Gets examination timetable item by timetable ID and name'
+		#swagger.parameters['timetableId'] = {
+			in: 'path',
+			description: 'Examination timetable ID',
+			required: true,
+			type: 'integer'
+		}
+		#swagger.parameters['name'] = {
+			in: 'path',
+			description: 'Examination timetable item name',
+			required: true,
+			type: 'string'
+		}
+		#swagger.parameters['x-service-name'] = {
+			in: 'header',
+			type: 'string',
+			description: 'Service name header',
+			default: 'swagger'
+		}
+		#swagger.parameters['x-api-key'] = {
+			in: 'header',
+			type: 'string',
+			description: 'API key header',
+			default: '123'
+		}
+		#swagger.responses[200] = {
+			description: 'Examination timetable item',
+			schema: { $ref: '#/definitions/ExaminationTimetableItem' }
+		}
+	*/
+	asyncHandler(getExaminationTimetableItemByNameAndTimetableId)
 );
 
 router.post(

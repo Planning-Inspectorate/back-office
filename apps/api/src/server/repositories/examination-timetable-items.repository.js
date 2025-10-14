@@ -64,6 +64,24 @@ export const getByExaminationTimetableName = (
 };
 
 /**
+ * Gets a single exam timetable item by the exam timetable id and the item name
+ * @param {number} examinationTimetableId
+ * @param {string} examinationTimetableItemName
+ * @returns {Promise<import('@pins/applications.api').Schema.ExaminationTimetableItem>}
+ */
+export const getByExaminationTimetableIdAndItemName = (
+	examinationTimetableId,
+	examinationTimetableItemName
+) => {
+	return databaseConnector.examinationTimetableItem.findUnique({
+		where: {
+			examinationTimetableId,
+			name: examinationTimetableItemName
+		}
+	});
+};
+
+/**
  *
  * @param {import('@pins/applications.api').Schema.ExaminationTimetableItem} examinationTimetableItem
  * @returns {Promise<import('@pins/applications.api').Schema.ExaminationTimetableItem>}
