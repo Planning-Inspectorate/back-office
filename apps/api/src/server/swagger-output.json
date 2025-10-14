@@ -4633,6 +4633,50 @@
 				}
 			}
 		},
+		"/applications/examination-timetable-items/timetable/{timetableId}/name/{name}": {
+			"get": {
+				"tags": ["Applications"],
+				"description": "Gets examination timetable item by timetable ID and name",
+				"parameters": [
+					{
+						"name": "timetableId",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Examination timetable ID"
+					},
+					{
+						"name": "name",
+						"in": "path",
+						"required": true,
+						"type": "string",
+						"description": "Examination timetable item name"
+					},
+					{
+						"name": "x-service-name",
+						"in": "header",
+						"type": "string",
+						"description": "Service name header",
+						"default": "swagger"
+					},
+					{
+						"name": "x-api-key",
+						"in": "header",
+						"type": "string",
+						"description": "API key header",
+						"default": "123"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Examination timetable item",
+						"schema": {
+							"$ref": "#/definitions/ExaminationTimetableItem"
+						}
+					}
+				}
+			}
+		},
 		"/applications/examination-timetable-items": {
 			"post": {
 				"tags": ["Applications"],
