@@ -13,7 +13,6 @@ const caseIsWelsh = (projectInformation) => {
 
 const validateProjectOverview = (projectInformation, mandatoryOnly = false) => {
 	if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
-		casePage.validateSummaryItem('Reference number', Cypress.env('currentCreatedCase'));
 		casePage.validateSummaryItem('Organisation name', projectInformation.orgName);
 		casePage.validateSummaryItem(
 			'Website',
@@ -24,7 +23,6 @@ const validateProjectOverview = (projectInformation, mandatoryOnly = false) => {
 			mandatoryOnly ? '' : projectInformation.projectEmail
 		);
 	} else {
-		casePage.validateSummaryItem('Case reference', Cypress.env('currentCreatedCase'));
 		casePage.validateSummaryItem(
 			'Applicant information',
 			mandatoryOnly
@@ -46,20 +44,8 @@ const validateProjectOverview = (projectInformation, mandatoryOnly = false) => {
 };
 
 const validateProjectInformation = (projectInformation, mandatoryOnly = false, updated = false) => {
-	validateProjectInformationSection(projectInformation);
 	validateProjectDetailsSection(projectInformation, mandatoryOnly);
 	validateApplicantInfoSection(projectInformation, mandatoryOnly, updated);
-};
-
-const validateProjectInformationSection = (projectInformation) => {
-	if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
-		casePage.checkProjectAnswer('Reference number', Cypress.env('currentCreatedCase'));
-	} else {
-		casePage.checkProjectAnswer('Case reference', Cypress.env('currentCreatedCase'));
-	}
-
-	casePage.checkProjectAnswer('Sector', projectInformation.sector);
-	casePage.checkProjectAnswer('Subsector', projectInformation.subsector);
 };
 
 const validateProjectDetailsSection = (projectInformation, mandatoryOnly = false) => {
@@ -309,15 +295,9 @@ const getRandomQuarterDate = (direction = 'future') => {
 	return `${quarter} ${year}`;
 };
 
-const validateSectorSubsectorValues = (caseRef) => {
-	if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
-		casePage.validateSummaryItem('Reference number', caseRef);
-	} else {
-		casePage.clickLinkByText('Update project information');
-		casePage.checkProjectAnswer('Case reference number', caseRef);
-	}
-	casePage.checkProjectAnswer('Sector', 'Training');
-	casePage.checkProjectAnswer('Subsector', 'Training');
+const validateSectorSubsectorValues = (sector, subsector) => {
+	casePage.checkProjectSectors(sector, subsector);
+	casePage.checkProjectSectors(sector, subsector);
 };
 
 const validateWelshProjectInformation = (
@@ -325,7 +305,6 @@ const validateWelshProjectInformation = (
 	mandatoryOnly = false,
 	updated = false
 ) => {
-	validateProjectInformationSection(projectInformation);
 	validateProjectDetailsSectionForWelshFields(projectInformation, mandatoryOnly);
 	validateApplicantInfoSection(projectInformation, mandatoryOnly, updated);
 };

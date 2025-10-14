@@ -9,6 +9,37 @@ updates:
     directory: '/' # Location of package manifests
     schedule:
       interval: 'weekly'
+    groups:
+      azure:
+        patterns:
+          - '@azure/*'
+      commitlint:
+        patterns:
+          - '@commitlint/*'
+      jest:
+        patterns:
+          - 'jest'
+          - 'jest-each'
+          - 'jest-environment-jsdom'
+          - '@types/jest'
+      opentelemetry:
+        patterns:
+          - '@opentelemetry/*'
+      prettier:
+        patterns:
+          - 'prettier'
+          - 'prettier-*'
+      prisma: # group prisma library and client updates together
+        patterns:
+          - 'prisma'
+          - '@prisma/*'
+      rollup:
+        patterns:
+          - '@rollup/*'
+      types:
+        patterns:
+          - '@microsoft/microsoft-graph-types'
+          - '@types/*'
   - package-ecosystem: 'terraform'
     directory: '/infrastructure' # Location of package manifests
     schedule:
