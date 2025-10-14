@@ -26,7 +26,12 @@ async function run(context, msg) {
 		throw new Error(`No case found with reference: ${msg.caseReference}`);
 	}
 
-	const timetableItem = await api.getTimetableItem(caseID, msg.deadline);
+	const timetableId = await api.getTimetableIdByCaseId(caseID);
+	if (!timetableId) {
+		throw new Error(`No examination timetable found for case ID: ${caseID}`);
+	}
+
+	const timetableItem = await api.getTimetableItem(timetableId, msg.deadline);
 	if (!timetableItem) {
 		throw new Error(`Timetable item "${msg.deadline}" does not exist.`);
 	}
