@@ -116,8 +116,6 @@ exports[`applications representations GET /applications-service/:caseId/relevant
                 data-module="govuk-button"> Add a representation</a>
                 <p class="govuk-body"><a class="govuk-link" href="/applications-service/case/1/relevant-representations/select-representations-for-publishing">View publishing queue</a>
                 </p>
-                <p class="govuk-body"><a class="govuk-link" href="/applications-service/case/1/relevant-representations/unpublish-representations"> Unpublish all published representations</a>
-                </p>
                 <p class="govuk-body"><a class="govuk-link" href="/applications-service/case/1/relevant-representations/api/download/published"
                     download> Download mailing list (CSV)</a>
                 </p>
