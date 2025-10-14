@@ -18,7 +18,7 @@ import { getPublishQueueUrl } from './utils/get-publish-queue-url.js';
 import { getKeyDates } from './utils/get-key-dates.js';
 import documentationSessionHandlers from '../documentation/applications-documentation.session.js';
 import { url } from '../../../lib/nunjucks-filters/index.js';
-import { getPublishedRepIdsAndCount } from './utils/publish-representations.js';
+//import { getPublishedRepIdsAndCount } from './utils/publish-representations.js';
 
 const view = 'applications/representations/representations.njk';
 
@@ -58,6 +58,7 @@ export async function relevantRepsApplications({ query, session }, res) {
 		extensionToDateRelevantRepresentationsClose: repsPeriodCloseDateExtension,
 		dateRRepAppearOnWebsite: publishedDate
 	} = preExamination;
+
 	const queryString = buildQueryString({
 		searchTerm,
 		sortBy,
@@ -69,9 +70,15 @@ export async function relevantRepsApplications({ query, session }, res) {
 	const representations = await getRepresentations(caseId, queryString);
 
 	const publishableReps = await getPublishableRepresentations(caseId);
-	const { publishedRepsCount: totalPublishedReps } = getPublishedRepIdsAndCount(
-		representations.items
-	);
+
+	let totalPublishedReps = 0;
+	if (Array.isArray(representations.filters)) {
+		totalPublishedReps =
+			representations.filters.find(
+				(/** @type {{ name: string; }} */ publishedFilter) => publishedFilter.name === 'PUBLISHED'
+			)?.count || 0;
+	}
+
 	return res.render(view, {
 		representations: getRepresentationsViewModel(representations, caseId),
 		caseReference: getCaseReferenceViewModel(caseReference),
