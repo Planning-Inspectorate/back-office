@@ -50,5 +50,5 @@ export const getManyProjectTeamMembersInfo = async (projectTeamMembers, session)
 		};
 	});
 
-	return projectTeamMembersInfo;
+	return projectTeamMembersInfo.filter((member) => member.givenName && member.surname);
 };
