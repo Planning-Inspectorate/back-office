@@ -16,6 +16,7 @@ import { tableSortLinks } from './utils/table.js';
 import { isRelevantRepsPeriodClosed } from './utils/is-relevant-reps-period-closed.js';
 import { getPublishQueueUrl } from './utils/get-publish-queue-url.js';
 import { getKeyDates } from './utils/get-key-dates.js';
+import { getPublishedRepresentationsCount } from './utils/get-published-representations-count.js';
 import documentationSessionHandlers from '../documentation/applications-documentation.session.js';
 import { url } from '../../../lib/nunjucks-filters/index.js';
 
@@ -67,16 +68,9 @@ export async function relevantRepsApplications({ query, session }, res) {
 	});
 
 	const representations = await getRepresentations(caseId, queryString);
-
 	const publishableReps = await getPublishableRepresentations(caseId);
 
-	let AllPublishedReps = 0;
-	if (Array.isArray(representations.filters)) {
-		AllPublishedReps =
-			representations.filters.find(
-				(/** @type {{ name: string; }} */ publishedFilter) => publishedFilter.name === 'PUBLISHED'
-			)?.count || 0;
-	}
+	const allPublishedReps = getPublishedRepresentationsCount(representations.filters);
 
 	return res.render(view, {
 		representations: getRepresentationsViewModel(representations, caseId),
@@ -86,7 +80,7 @@ export async function relevantRepsApplications({ query, session }, res) {
 		resetSuccessBannerURL: `?${queryString}`,
 		publishedRepsCount: Number(publishedRepsCount),
 		unpublishedRepsCount: Number(unpublishedRepsCount),
-		AllPublishedReps: AllPublishedReps,
+		allPublishedReps: allPublishedReps,
 		isRelevantRepsPeriodClosed: isRelevantRepsPeriodClosed(
 			repsPeriodCloseDate,
 			repsPeriodCloseDateExtension
