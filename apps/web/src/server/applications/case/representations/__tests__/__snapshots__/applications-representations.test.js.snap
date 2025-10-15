@@ -46,12 +46,12 @@ exports[`applications representations GET /applications-service/:caseId/relevant
                                         <div class="govuk-checkboxes__item">
                                             <input class="govuk-checkboxes__input" id="filters" name="filters" type="checkbox"
                                             value="AWAITING_REVIEW">
-                                            <label class="govuk-label govuk-checkboxes__label" for="filters">Awaiting review (0)</label>
+                                            <label class="govuk-label govuk-checkboxes__label" for="filters">Awaiting review (1)</label>
                                         </div>
                                         <div class="govuk-checkboxes__item">
                                             <input class="govuk-checkboxes__input" id="filters-2" name="filters" type="checkbox"
                                             value="VALID">
-                                            <label class="govuk-label govuk-checkboxes__label" for="filters-2">Valid (0)</label>
+                                            <label class="govuk-label govuk-checkboxes__label" for="filters-2">Valid (1)</label>
                                         </div>
                                         <div class="govuk-checkboxes__item">
                                             <input class="govuk-checkboxes__input" id="filters-3" name="filters" type="checkbox"
@@ -61,7 +61,7 @@ exports[`applications representations GET /applications-service/:caseId/relevant
                                         <div class="govuk-checkboxes__item">
                                             <input class="govuk-checkboxes__input" id="filters-4" name="filters" type="checkbox"
                                             value="PUBLISHED">
-                                            <label class="govuk-label govuk-checkboxes__label" for="filters-4">Published (0)</label>
+                                            <label class="govuk-label govuk-checkboxes__label" for="filters-4">Published (1)</label>
                                         </div>
                                         <div class="govuk-checkboxes__item">
                                             <input class="govuk-checkboxes__input" id="filters-5" name="filters" type="checkbox"
@@ -86,7 +86,7 @@ exports[`applications representations GET /applications-service/:caseId/relevant
                                         <div class="govuk-checkboxes__item">
                                             <input class="govuk-checkboxes__input" id="filters-9" name="filters" type="checkbox"
                                             value="WITH_ATTACHMENT">
-                                            <label class="govuk-label govuk-checkboxes__label" for="filters-9">With attachment (3)</label>
+                                            <label class="govuk-label govuk-checkboxes__label" for="filters-9">With attachment (0)</label>
                                         </div>
                                         <div class="govuk-checkboxes__item">
                                             <input class="govuk-checkboxes__input" id="filters-10" name="filters"
@@ -261,12 +261,12 @@ exports[`applications representations GET /applications-service/:id/relevant-rep
                                         <div class="govuk-checkboxes__item">
                                             <input class="govuk-checkboxes__input" id="filters" name="filters" type="checkbox"
                                             value="AWAITING_REVIEW">
-                                            <label class="govuk-label govuk-checkboxes__label" for="filters">Awaiting review (0)</label>
+                                            <label class="govuk-label govuk-checkboxes__label" for="filters">Awaiting review (1)</label>
                                         </div>
                                         <div class="govuk-checkboxes__item">
                                             <input class="govuk-checkboxes__input" id="filters-2" name="filters" type="checkbox"
                                             value="VALID">
-                                            <label class="govuk-label govuk-checkboxes__label" for="filters-2">Valid (0)</label>
+                                            <label class="govuk-label govuk-checkboxes__label" for="filters-2">Valid (1)</label>
                                         </div>
                                         <div class="govuk-checkboxes__item">
                                             <input class="govuk-checkboxes__input" id="filters-3" name="filters" type="checkbox"
@@ -276,7 +276,7 @@ exports[`applications representations GET /applications-service/:id/relevant-rep
                                         <div class="govuk-checkboxes__item">
                                             <input class="govuk-checkboxes__input" id="filters-4" name="filters" type="checkbox"
                                             value="PUBLISHED">
-                                            <label class="govuk-label govuk-checkboxes__label" for="filters-4">Published (0)</label>
+                                            <label class="govuk-label govuk-checkboxes__label" for="filters-4">Published (1)</label>
                                         </div>
                                         <div class="govuk-checkboxes__item">
                                             <input class="govuk-checkboxes__input" id="filters-5" name="filters" type="checkbox"
@@ -330,6 +330,8 @@ exports[`applications representations GET /applications-service/:id/relevant-rep
                 role="button" draggable="false" class="govuk-button govuk-button--secondary"
                 data-module="govuk-button"> Add a representation</a>
                 <p class="govuk-body"><a class="govuk-link" href="/applications-service/case/1/relevant-representations/select-representations-for-publishing">View publishing queue</a>
+                </p>
+                <p class="govuk-body"><a class="govuk-link" href="/applications-service/case/1/relevant-representations/unpublish-representations"> Unpublish all published representations</a>
                 </p>
                 <p class="govuk-body"><a class="govuk-link" href="/applications-service/case/1/relevant-representations/api/download/published"
                     download> Download mailing list (CSV)</a>

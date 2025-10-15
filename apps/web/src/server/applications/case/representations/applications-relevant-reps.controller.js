@@ -74,6 +74,14 @@ export async function relevantRepsApplications({ query, session }, res) {
 		representations.items
 	);
 
+	let AllPublishedReps = 0;
+	if (Array.isArray(representations.filters)) {
+		AllPublishedReps =
+			representations.filters.find(
+				(/** @type {{ name: string; }} */ publishedFilter) => publishedFilter.name === 'PUBLISHED'
+			)?.count || 0;
+	}
+
 	return res.render(view, {
 		representations: getRepresentationsViewModel(representations, caseId),
 		caseReference: getCaseReferenceViewModel(caseReference),
@@ -82,6 +90,7 @@ export async function relevantRepsApplications({ query, session }, res) {
 		resetSuccessBannerURL: `?${queryString}`,
 		publishedRepsCount: Number(publishedRepsCount),
 		unpublishedRepsCount: Number(unpublishedRepsCount),
+		AllPublishedReps: AllPublishedReps,
 		totalPublishedReps: totalPublishedReps,
 		isRelevantRepsPeriodClosed: isRelevantRepsPeriodClosed(
 			repsPeriodCloseDate,
