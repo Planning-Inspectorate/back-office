@@ -39,21 +39,27 @@
 				{% endif %}
 			{% endfor %}
 
-			{% set teamMemberRolePageUrl %}
-				<a class='govuk-link govuk-!-margin-right-3' href='{{'project-team-member'|url({
-					caseId: caseId,
-					userId: teamMember.id,
-					step: 'choose-role'
-					})}}'>Change role<span class="govuk-visually-hidden">for {{ teamMember.givenName }} {{ teamMember.surname }}</span>
-				</a>
-			{% endset %}
+			{% if teamMember.givenName and teamMember.surname and teamMember.userPrincipalName %}
+				{% set teamMemberRolePageUrl %}
+					<a class='govuk-link govuk-!-margin-right-3' href='{{'project-team-member'|url({
+						caseId: caseId,
+						userId: teamMember.id or teamMember.userId,
+						step: 'choose-role'
+						})}}'>Change role<span class="govuk-visually-hidden">for {{ teamMember.givenName }} {{ teamMember.surname }}</span>
+					</a>
+				{% endset %}
+				{% set displayGivenName = teamMember.givenName %}
+				{% set displaySurname = teamMember.surname %}
+			{% else %}
+				{% set teamMemberRolePageUrl %}{% endset %}
+			{% endif %}
 
 			{% set teamMemberDeletePageUrl %}
 				<a class='govuk-link' href='{{'project-team-member'|url({
 					caseId: caseId,
-					userId: teamMember.id,
+					userId: teamMember.id or teamMember.userId,
 					step: 'remove'
-					})}}'>Remove<span class="govuk-visually-hidden">{{ teamMember.givenName }} {{ teamMember.surname }}</span>
+					})}}'>Remove<span class="govuk-visually-hidden">{{ displayGivenName }} {{ displaySurname }}</span>
 				</a>
 			{% endset %}
 
@@ -62,7 +68,7 @@
 					{
 						html: '<strong>' + teamMemberRole + '</strong>'
 					}, {
-						text: (teamMember.givenName + ' ' + teamMember.surname)
+						text: (displayGivenName + ' ' + displaySurname)
 					}, {
 						html: (teamMemberRolePageUrl + teamMemberDeletePageUrl)
 					}
