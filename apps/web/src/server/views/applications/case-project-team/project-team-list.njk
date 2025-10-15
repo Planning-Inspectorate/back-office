@@ -10,15 +10,17 @@
 
 	{% if showSuccessBanner %}
 		{% set html %}
-		<h3 class="govuk-notification-banner__heading">
-			Team member removed
-		</h3>
+			<h3 class="govuk-notification-banner__heading">
+				Team member removed
+			</h3>
 		{% endset %}
 
-		{{ govukNotificationBanner({
-			html: html,
-			type: 'success'
-		}) }}
+		{{
+			govukNotificationBanner({
+				html: html,
+				type: 'success'
+			})
+		}}
 	{% endif %}
 
 	<h3 class="govuk-heading-m">{{pageTitle}}</h3>
@@ -38,49 +40,54 @@
 			{% endfor %}
 
 			{% set teamMemberRolePageUrl %}
-			<a class='govuk-link govuk-!-margin-right-3' href='{{'project-team-member'|url({
-						caseId: caseId,
-						userId: teamMember.id,
-						step: 'choose-role'
-						})}}'>Change role<span class="govuk-visually-hidden">for {{ teamMember.givenName }} {{ teamMember.surname }}</span></a>
+				<a class='govuk-link govuk-!-margin-right-3' href='{{'project-team-member'|url({
+					caseId: caseId,
+					userId: teamMember.id,
+					step: 'choose-role'
+					})}}'>Change role<span class="govuk-visually-hidden">for {{ teamMember.givenName }} {{ teamMember.surname }}</span>
+				</a>
 			{% endset %}
 
 			{% set teamMemberDeletePageUrl %}
-			<a class='govuk-link' href='{{'project-team-member'|url({
-						caseId: caseId,
-						userId: teamMember.id,
-						step: 'remove'
-						})}}'>Remove<span class="govuk-visually-hidden">{{ teamMember.givenName }} {{ teamMember.surname }}</span></a>
+				<a class='govuk-link' href='{{'project-team-member'|url({
+					caseId: caseId,
+					userId: teamMember.id,
+					step: 'remove'
+					})}}'>Remove<span class="govuk-visually-hidden">{{ teamMember.givenName }} {{ teamMember.surname }}</span>
+				</a>
 			{% endset %}
 
-			{% set row = [
-				{
-					html: '<strong>' + teamMemberRole + '</strong>'
-				}, {
-					text: (teamMember.givenName + ' ' + teamMember.surname)
-				}, {
-					html: (teamMemberRolePageUrl + teamMemberDeletePageUrl)
-				}
-			]
- %}
+			{%
+				set row = [
+					{
+						html: '<strong>' + teamMemberRole + '</strong>'
+					}, {
+						text: (teamMember.givenName + ' ' + teamMember.surname)
+					}, {
+						html: (teamMemberRolePageUrl + teamMemberDeletePageUrl)
+					}
+				]
+			%}
 
 			{% set teamMembersRows = teamMembersRows.concat([row]) %}
 
 		{% endfor %}
 
-		{{govukTable({
-			classes: 'stretch-last-column',
-			head: [
-								{ text: "Role" },
-								{ text: "Team Member" },
-								{ text: "Actions" }
-							],
-							rows: teamMembersRows
-						})}}
+		{{
+			govukTable({
+				classes: 'stretch-last-column',
+				head: [
+					{ text: "Role" },
+					{ text: "Team Member" },
+					{ text: "Actions" }
+				],
+				rows: teamMembersRows
+			})
+		}}
 
 	{% endif %}
-	<a class='govuk-button govuk-!-margin-top-6'
-		href='{{'project-team'|url({caseId: caseId, step: 'search'})}}'>
+
+	<a class='govuk-button govuk-!-margin-top-6' href='{{'project-team'|url({caseId: caseId, step: 'search'})}}'>
 		Add team member
 	</a>
 
