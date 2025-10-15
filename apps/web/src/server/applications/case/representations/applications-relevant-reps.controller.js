@@ -18,7 +18,6 @@ import { getPublishQueueUrl } from './utils/get-publish-queue-url.js';
 import { getKeyDates } from './utils/get-key-dates.js';
 import documentationSessionHandlers from '../documentation/applications-documentation.session.js';
 import { url } from '../../../lib/nunjucks-filters/index.js';
-import { getPublishedRepIdsAndCount } from './utils/publish-representations.js';
 
 const view = 'applications/representations/representations.njk';
 
@@ -70,9 +69,6 @@ export async function relevantRepsApplications({ query, session }, res) {
 	const representations = await getRepresentations(caseId, queryString);
 
 	const publishableReps = await getPublishableRepresentations(caseId);
-	const { publishedRepsCount: totalPublishedReps } = getPublishedRepIdsAndCount(
-		representations.items
-	);
 
 	let AllPublishedReps = 0;
 	if (Array.isArray(representations.filters)) {
@@ -91,7 +87,6 @@ export async function relevantRepsApplications({ query, session }, res) {
 		publishedRepsCount: Number(publishedRepsCount),
 		unpublishedRepsCount: Number(unpublishedRepsCount),
 		AllPublishedReps: AllPublishedReps,
-		totalPublishedReps: totalPublishedReps,
 		isRelevantRepsPeriodClosed: isRelevantRepsPeriodClosed(
 			repsPeriodCloseDate,
 			repsPeriodCloseDateExtension
