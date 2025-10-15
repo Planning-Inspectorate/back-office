@@ -8,10 +8,12 @@
 
 {% block beforeContent %}
 	<aside>
-		{{ govukBackLink({
-			text: "Back to Project team",
-			href: 'project-team'|url({caseId: caseId })
-	}) }}
+		{{
+			govukBackLink({
+				text: "Back to Project team",
+				href: 'project-team'|url({caseId: caseId })
+			})
+		}}
 	</aside>
 {% endblock %}
 
@@ -23,19 +25,27 @@
 	</h1>
 
 	<form method="post" action="" novalidate="novalidate" class="govuk-!-margin-top-6">
+		{{
+			govukTable({
+				head: [
+					{ text: "Name" },
+					{ text: "Email" }
+				],
+				rows: [
+					[
+						{ text: projectTeamMember.givenName + ' ' + projectTeamMember.surname },
+						{ text: projectTeamMember.userPrincipalName }
+					]
+				]
+			})
+		}}
 
-		{{govukTable({
-			head: [
-								{ text: "Name" },
-								{ text: "Email" }
-							],
-							rows: [[
-								{text: projectTeamMember.givenName + ' ' + projectTeamMember.surname },
-								{text: projectTeamMember.userPrincipalName]
-								]]
-						})}}
-
-		{{ govukButton({ classes: 'govuk-!-margin-top-4', text: 'Remove team member' }) }}
+		{{
+			govukButton({
+				classes: 'govuk-!-margin-top-4',
+				text: 'Remove team member'
+			})
+		}}
 	</form>
 
 {% endblock %}
