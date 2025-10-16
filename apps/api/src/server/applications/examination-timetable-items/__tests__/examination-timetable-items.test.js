@@ -349,7 +349,7 @@ describe('Test examination timetable items API', () => {
 	});
 
 	test('gets a single examination timetable item by timetable ID and name', async () => {
-		databaseConnector.examinationTimetableItem.findUnique.mockResolvedValue(
+		databaseConnector.examinationTimetableItem.findFirst.mockResolvedValue(
 			examinationTimetableItem
 		);
 
@@ -364,7 +364,7 @@ describe('Test examination timetable items API', () => {
 			examinationTimetableId: examinationTimetableItem.examinationTimetableId,
 			name: examinationTimetableItem.name
 		});
-		expect(databaseConnector.examinationTimetableItem.findUnique).toHaveBeenCalledWith({
+		expect(databaseConnector.examinationTimetableItem.findFirst).toHaveBeenCalledWith({
 			where: {
 				examinationTimetableId: 1,
 				name: 'Examination Timetable Item'
@@ -373,7 +373,7 @@ describe('Test examination timetable items API', () => {
 	});
 
 	test('returns 404 when examination timetable item is not found', async () => {
-		databaseConnector.examinationTimetableItem.findUnique.mockResolvedValue(null);
+		databaseConnector.examinationTimetableItem.findFirst.mockResolvedValue(null);
 
 		const timetableId = 1;
 		const name = 'Non Existent Item';
@@ -389,7 +389,7 @@ describe('Test examination timetable items API', () => {
 			/Examination timetable item with name: Non Existent Item and timetable Id: 1 not found/i
 		);
 
-		expect(databaseConnector.examinationTimetableItem.findUnique).toHaveBeenCalledWith({
+		expect(databaseConnector.examinationTimetableItem.findFirst).toHaveBeenCalledWith({
 			where: {
 				examinationTimetableId: timetableId,
 				name

@@ -73,7 +73,7 @@ export const getByExaminationTimetableIdAndItemName = (
 	examinationTimetableId,
 	examinationTimetableItemName
 ) => {
-	return databaseConnector.examinationTimetableItem.findUnique({
+	return databaseConnector.examinationTimetableItem.findFirst({
 		where: {
 			examinationTimetableId,
 			name: examinationTimetableItemName
