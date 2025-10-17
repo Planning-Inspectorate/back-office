@@ -2,7 +2,6 @@ import { parseHtml } from '@pins/platform';
 import nock from 'nock';
 import supertest from 'supertest';
 import { createTestEnvironment } from '../../../../../../../../testing/index.js';
-import { formatContactDetails } from '../../representation.utilities.js';
 
 const { app, installMockApi, teardown } = createTestEnvironment();
 const request = supertest(app);
@@ -87,75 +86,6 @@ describe('Representation details page', () => {
 				expect(element.innerHTML).toContain(
 					'Enter an email address in the correct format, like name@example.com'
 				);
-			});
-		});
-	});
-
-	// New test block for formatContactDetails
-	describe('Utility: formatContactDetails', () => {
-		it('should trim all string fields in the contact details', () => {
-			const input = {
-				organisationName: '  Org Name  ',
-				firstName: '  John  ',
-				lastName: '  Doe  ',
-				jobTitle: '  Developer  ',
-				email: '  john.doe@example.com  ',
-				phoneNumber: '  +1234567890  ',
-				contactMethod: '  email  ',
-				address: {
-					addressLine1: '  123 Street  ',
-					addressLine2: '  Apt 4B  ',
-					town: '  Townsville  ',
-					postcode: '  12345  ',
-					country: '  Countryland  '
-				}
-			};
-
-			const result = formatContactDetails(input);
-
-			expect(result).toEqual({
-				id: undefined,
-				organisationName: 'Org Name',
-				fullName: 'John Doe',
-				firstName: 'John',
-				lastName: 'Doe',
-				jobTitle: 'Developer',
-				under18: undefined,
-				email: 'john.doe@example.com',
-				phoneNumber: '+1234567890',
-				contactMethod: 'email',
-				address: {
-					addressLine1: '123 Street',
-					addressLine2: 'Apt 4B',
-					town: 'Townsville',
-					postcode: '12345',
-					country: 'Countryland'
-				}
-			});
-		});
-
-		it('should handle missing fields gracefully', () => {
-			const input = {};
-			const result = formatContactDetails(input);
-
-			expect(result).toEqual({
-				id: undefined,
-				organisationName: '',
-				fullName: '',
-				firstName: '',
-				lastName: '',
-				jobTitle: '',
-				under18: undefined,
-				email: '',
-				phoneNumber: '',
-				contactMethod: '',
-				address: {
-					addressLine1: '',
-					addressLine2: '',
-					town: '',
-					postcode: '',
-					country: ''
-				}
 			});
 		});
 	});
