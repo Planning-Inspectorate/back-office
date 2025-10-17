@@ -51,7 +51,12 @@ const nocks = () => {
 			pageSize: 25,
 			pageCount: 1,
 			itemCount: 3,
-			items: [representationsFixture.items[0]]
+			items: [representationsFixture.items[0]],
+			filters: [
+				{ name: 'PUBLISHED', count: 1 },
+				{ name: 'AWAITING_REVIEW', count: 1 },
+				{ name: 'VALID', count: 1 }
+			]
 		})
 		.persist();
 	nock('http://test/')
@@ -65,11 +70,24 @@ const nocks = () => {
 			under18: false,
 			withAttachment: false
 		})
-		.reply(200, representationsFixture)
+		.reply(200, {
+			...representationsFixture,
+			filters: [
+				{ name: 'PUBLISHED', count: 1 },
+				{ name: 'AWAITING_REVIEW', count: 1 },
+				{ name: 'VALID', count: 1 }
+			]
+		})
 		.persist();
 	nock('http://test/')
 		.get('/applications/1/representations/publishable')
 		.reply(200, { previouslyPublished: true, itemCount: 1 });
+	nock('http://test/')
+		.get('/applications/1/representations')
+		.query({
+			status: 'PUBLISHED'
+		})
+		.reply(200, { itemCount: 1, items: [representationsFixture.items[2]] });
 };
 
 describe('applications representations', () => {

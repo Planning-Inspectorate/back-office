@@ -225,25 +225,43 @@ async function getOrCreateUnassignedFolderId(caseID, timetableItemFolderId, cont
 }
 
 /**
- * Get an Exam timetable item by case ID and timetable item name
+ * Get an Exam timetable item by timetable ID and timetable item name
  *
- * @param {number} caseID
+ * @param {number} timetableID
  * @param {string} timetableItemName
  * @returns {Promise<ExaminationTimetableItem | null>}
  * */
-async function getTimetableItem(caseID, timetableItemName) {
-	/** @type {{ items: ExaminationTimetableItem[] }} */
-	const results = await (async () => {
-		try {
-			return await requestWithApiKey
-				.get(`https://${config.apiHost}/applications/examination-timetable-items/case/${caseID}`)
-				.json();
-		} catch (err) {
-			throw new Error(`Fetch for examination timetable failed for case ID ${caseID}: ${err}`);
-		}
-	})();
+async function getTimetableItem(timetableID, timetableItemName) {
+	const encodedName = encodeURIComponent(timetableItemName);
+	try {
+		return await requestWithApiKey
+			.get(
+				`https://${config.apiHost}/applications/examination-timetable-items/timetable/${timetableID}/name/${encodedName}`
+			)
+			.json();
+	} catch (err) {
+		throw new Error(
+			`Fetch for examination timetable item failed for template ID ${timetableID} and item name ${timetableItemName}: ${err}`
+		);
+	}
+}
 
-	return results?.items?.find((item) => item.name === timetableItemName) ?? null;
+/**
+ * Get an Exam timetable by case ID
+ *
+ * @param {number} caseId
+ * @returns {Promise<number | null>}
+ * */
+async function getTimetableIdByCaseId(caseId) {
+	try {
+		const timetable = await requestWithApiKey
+			.get(`https://${config.apiHost}/applications/examination-timetable/case/${caseId}`)
+			.json();
+
+		return timetable.id;
+	} catch (err) {
+		throw new Error(`Fetch for examination timetable failed for case ID ${caseId}: ${err}`);
+	}
 }
 
 /**
@@ -276,6 +294,7 @@ export default {
 	examTimetableItemFolderExists,
 	getExamTimetableLineItemFolderID,
 	getTimetableItem,
+	getTimetableIdByCaseId,
 	getOrCreateUnassignedFolderId,
 	submitDocument,
 	populateDocumentMetadata
