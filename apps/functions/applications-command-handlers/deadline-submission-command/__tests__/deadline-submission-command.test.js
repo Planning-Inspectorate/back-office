@@ -17,6 +17,7 @@ describe('deadline-submission-command', () => {
 		 * unassigned folder id = 3
 		 */
 		api.getCaseID = jest.fn().mockResolvedValue(1);
+		api.getTimetableIdByCaseId = jest.fn().mockResolvedValue(1);
 		api.examTimetableItemFolderExists = jest.fn().mockResolvedValue(true);
 		api.getExamTimetableLineItemFolderID = jest.fn().mockResolvedValue(2);
 		// api.getOrCreateUnassignedFolderId = jest.fn().mockResolvedValue(3);

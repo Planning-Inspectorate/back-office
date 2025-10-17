@@ -34,6 +34,7 @@ It is now possible to run the e2e tests against your local branch running in htt
 - CASE_ADMIN_EMAIL=
 - INSPECTOR_EMAIL=
 - APP=applications
+- STATIC_FEATURE_FLAGS_ENABLED="true"
 
 The above email addresses can be requested from the Tech Lead or Senior Developer.
 
@@ -43,12 +44,16 @@ The above email addresses can be requested from the Tech Lead or Senior Develope
 - SESSION_SECRET=session-secret
 - DUMMY_USER_DATA=true
 - DUMMY_ADDRESS_DATA=true
+- STATIC_FEATURE_FLAGS_ENABLED=true
 
 #### apps/api/.env
 - AUTH_DISABLED=true
 - VIRUS_SCANNING_DISABLED=true
 - AZURE_BLOB_STORE_HOST=blob-store-host
 - AZURE_BLOB_STORE_CONTAINER=blob-store-container
+- STATIC_FEATURE_FLAGS_ENABLED=true
+
+Ensure that features flags are enabled/disabled as required for your tests.
 
 ### Add the following json files for address and user look-ups
 
