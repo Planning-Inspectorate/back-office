@@ -8,7 +8,7 @@ import { isEmpty, omitBy } from 'lodash-es';
  */
 
 /**
- * Format contact details by trimming all string fields.
+ *
  * @param {Contact} contact
  * @returns {Record<string, any>}
  */
