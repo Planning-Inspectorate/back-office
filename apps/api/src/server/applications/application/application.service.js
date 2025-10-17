@@ -110,9 +110,9 @@ export const startApplication = async (id) => {
 			data: {},
 			currentStatuses: caseDetails.CaseStatus,
 			setReference: true
-		},
-		folderRepository.createFolders(caseDetails.id)
+		}
 	);
+	await folderRepository.createFolders(caseDetails.id);
 
 	if (!updatedCase) {
 		throw new Error('Case does not exist');
