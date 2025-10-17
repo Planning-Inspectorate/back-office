@@ -15,21 +15,21 @@ import { isEmpty, omitBy } from 'lodash-es';
 
 export const formatContactDetails = (contact = {}) => ({
 	id: contact.id,
-	organisationName: contact.organisationName?.trim() || '',
-	fullName: `${contact.firstName?.trim() || ''} ${contact.lastName?.trim() || ''}`.trim(),
-	firstName: contact.firstName?.trim() || '',
-	lastName: contact.lastName?.trim() || '',
-	jobTitle: contact.jobTitle?.trim() || '',
+	organisationName: contact.organisationName || '',
+	fullName: `${contact.firstName || ''} ${contact.lastName || ''}`.trim(),
+	firstName: contact.firstName || '',
+	lastName: contact.lastName || '',
+	jobTitle: contact.jobTitle || '',
 	under18: contact.under18,
-	email: contact.email?.trim() || '',
-	phoneNumber: contact.phoneNumber?.trim() || '',
-	contactMethod: contact.contactMethod?.trim() || '',
+	email: contact.email || '',
+	phoneNumber: contact.phoneNumber || '',
+	contactMethod: contact.contactMethod || '',
 	address: {
-		addressLine1: contact.address?.addressLine1?.trim() || '',
-		addressLine2: contact.address?.addressLine2?.trim() || '',
-		town: contact.address?.town?.trim() || '',
-		postcode: contact.address?.postcode?.trim() || '',
-		country: contact.address?.country?.trim() || ''
+		addressLine1: contact.address?.addressLine1 || '',
+		addressLine2: contact.address?.addressLine2 || '',
+		town: contact.address?.town || '',
+		postcode: contact.address?.postcode || '',
+		country: contact.address?.country || ''
 	}
 });
 
