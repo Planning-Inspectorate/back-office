@@ -22,15 +22,9 @@ trigger: none
 
 jobs:
   - job: Run_API_Tests
-    pool:
-      vmImage: "ubuntu-latest"
+    pool: pins-odt-agent-pool
 
     steps:
-      - task: NodeTool@0
-        inputs:
-          versionSpec: "20.x"
-        displayName: "Install Node.js"
-
       - task: Npm@1
         inputs:
           command: "install"
