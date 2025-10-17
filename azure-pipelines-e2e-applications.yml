@@ -21,6 +21,14 @@ jobs:
     timeoutInMinutes: 60
     pool: pins-odt-agent-pool-tests
     steps:
+      - task: Bash@3
+        inputs:
+          targetType: 'inline'
+          script: |
+            nvm use 20
+            nvm alias default 20
+        displayName: "Set default Node to 20"
+
       - task: Npm@1
         inputs:
           command: "install"
@@ -53,6 +61,14 @@ jobs:
     timeoutInMinutes: 60
     pool: pins-odt-agent-pool-tests
     steps:
+      - task: Bash@3
+        inputs:
+          targetType: 'inline'
+          script: |
+            nvm use 20
+            nvm alias default 20
+        displayName: "Set default node to 20"
+
       - task: Npm@1
         inputs:
           command: "install"
@@ -85,6 +101,14 @@ jobs:
     timeoutInMinutes: 60
     pool: pins-odt-agent-pool-tests
     steps:
+      - task: Bash@3
+        inputs:
+          targetType: 'inline'
+          script: |
+            nvm use 20
+            nvm alias default 20
+        displayName: "Set default Node to 20"
+
       - task: Npm@1
         inputs:
           command: "install"
@@ -117,6 +141,14 @@ jobs:
     timeoutInMinutes: 60
     pool: pins-odt-agent-pool-tests
     steps:
+      - task: Bash@3
+        inputs:
+          targetType: 'inline'
+          script: |
+            nvm use 20
+            nvm alias default 20
+        displayName: "Set default Node to 20"
+
       - task: Npm@1
         inputs:
           command: "install"
