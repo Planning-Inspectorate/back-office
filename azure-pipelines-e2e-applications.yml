@@ -16,16 +16,19 @@ pr: none
 trigger: none
 
 jobs:
-
   - job: E2E_Tests_Group_1
     timeoutInMinutes: 60
     pool: pins-odt-agent-pool-tests
     steps:
-
       - task: NodeTool@0
         inputs:
           versionSpec: "20.x"
         displayName: "Install Node.js"
+
+      - task: UseNode@1
+        inputs:
+          version: '20.x'
+        displayName: "Set default Node to 20"
 
       - task: Npm@1
         inputs:
@@ -64,6 +67,11 @@ jobs:
           versionSpec: "20.x"
         displayName: "Install Node.js"
 
+      - task: UseNode@1
+        inputs:
+          version: '20.x'
+        displayName: "Set default node to 20"
+
       - task: Npm@1
         inputs:
           command: "install"
@@ -101,6 +109,11 @@ jobs:
           versionSpec: "20.x"
         displayName: "Install Node.js"
 
+      - task: UseNode@1
+        inputs:
+          version: '20.x'
+        displayName: "Set default Node to 20"
+
       - task: Npm@1
         inputs:
           command: "install"
@@ -137,6 +150,11 @@ jobs:
         inputs:
           versionSpec: "20.x"
         displayName: "Install Node.js"
+        
+      - task: UseNode@1
+        inputs:
+          version: '20.x'
+        displayName: "Set default Node to 20"
 
       - task: Npm@1
         inputs:
