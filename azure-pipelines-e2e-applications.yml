@@ -16,7 +16,7 @@ pr: none
 trigger: none
 
 jobs:
-  - job: Testing Install of Node
+  - job: E2E_Tests_Group_1
     timeoutInMinutes: 60
     pool: pins-odt-agent-pool-tests
     steps:
