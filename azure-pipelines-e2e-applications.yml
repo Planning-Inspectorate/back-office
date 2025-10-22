@@ -16,12 +16,10 @@ pr: none
 trigger: none
 
 jobs:
-
   - job: E2E_Tests_Group_1
     timeoutInMinutes: 60
     pool: pins-odt-agent-pool-tests
     steps:
-
       - task: NodeTool@0
         inputs:
           versionSpec: "20.x"

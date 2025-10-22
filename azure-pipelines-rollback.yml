@@ -1,0 +1,65 @@
+parameters:
+  - name: rollbackAPI
+    displayName: Rollback the Back Office API
+    type: boolean
+    default: false
+  - name: rollbackWeb
+    displayName: Rollback the Back Office web app
+    type: boolean
+    default: false
+  - name: region
+    displayName: Region
+    type: string
+    values:
+      - UK West
+      - UK South
+    default: UK West
+
+pr: none
+trigger: none
+
+resources:
+  repositories:
+    - repository: templates
+      type: github
+      endpoint: Planning-Inspectorate
+      name: Planning-Inspectorate/common-pipeline-templates
+      ref: refs/tags/release/3.24.0
+extends:
+  template: stages/wrapper_cd.yml@templates
+  parameters:
+    variableGroupPrefix: 'cd'
+    environments:
+      - name: Dev
+      - name: Test
+        dependsOn:
+          - Dev
+      - name: Training
+        dependsOn:
+          - Test
+      - name: Prod
+        dependsOn:
+          - Training
+    globalVariables:
+      - template: .azure/pipelines/azure-pipelines-variables.yml@self
+    deploymentStages:
+      - name: Rollback API
+        condition: ${{ eq(parameters.rollbackAPI, true) }}
+        steps:
+          - template: ../steps/azure_web_app_slot_swap.yml
+            parameters:
+              appName: pins-app-back-office-api-$(ENVIRONMENT)-$(REGION_SHORT)-001
+              appResourceGroup: $(resourceGroup)
+              appStagingSlotName: staging
+              appTargetSlotName: production
+      - name: Rollback
+        deploymentJobs:
+          - name: Rollback Web App
+            condition: ${{ eq(parameters.rollbackWeb, true) }}
+            steps:
+              - template: ../steps/azure_web_app_slot_swap.yml
+                parameters:
+                  appName: pins-app-back-office-wfe-$(ENVIRONMENT)-$(REGION_SHORT)-001
+                  appResourceGroup: $(resourceGroup)
+                  appStagingSlotName: staging
+                  appTargetSlotName: production
