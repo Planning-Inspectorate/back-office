@@ -20,10 +20,22 @@ jobs:
     timeoutInMinutes: 60
     pool: pins-odt-agent-pool-tests
     steps:
-      - task: NodeTool@0
+      - task: Bash@3
+        displayName: "Select preinstalled Node 20.19.5"
         inputs:
-          versionSpec: "20.x"
-        displayName: "Install Node.js"
+          targetType: 'inline'
+          script: |
+            set -euo pipefail
+            NODE_DIR=/usr/local/nvm/versions/node/v20.19.5
+            if [ ! -x "$NODE_DIR/bin/node" ]; then
+              echo "Expected Node not found at $NODE_DIR"
+              exit 1
+            fi
+            echo "Using Node from $NODE_DIR"
+            # Persist Node 20.19.5 for subsequent tasks in this job
+            echo "##vso[task.prependpath]$NODE_DIR/bin"
+            node -v
+            npm -v
 
       - task: Npm@1
         inputs:
