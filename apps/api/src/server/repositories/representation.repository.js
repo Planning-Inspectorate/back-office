@@ -796,7 +796,7 @@ export const getApplicationValidRepresentationForDownload = async (caseId, skip,
 		where: {
 			caseId,
 			status: {
-				in: [RELEVANT_REPRESENTATION_STATUS_MAP.VALID]
+				in: [RELEVANT_REPRESENTATION_STATUS_MAP.VALID, RELEVANT_REPRESENTATION_STATUS_MAP.PUBLISHED]
 			}
 		},
 		select: {

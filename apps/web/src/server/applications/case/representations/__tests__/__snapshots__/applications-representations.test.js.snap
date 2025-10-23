@@ -122,7 +122,7 @@ exports[`applications representations GET /applications-service/:caseId/relevant
                     download> Download mailing list (CSV)</a>
                 </p>
                 <p class="govuk-body"><a class="govuk-link" href="/applications-service/case/1/relevant-representations/api/download/valid"
-                    download> Download valid representations (CSV)</a>
+                    download> Download valid and published representations (CSV)</a>
                 </p>
             </div>
         </div>
@@ -337,7 +337,7 @@ exports[`applications representations GET /applications-service/:id/relevant-rep
                     download> Download mailing list (CSV)</a>
                 </p>
                 <p class="govuk-body"><a class="govuk-link" href="/applications-service/case/1/relevant-representations/api/download/valid"
-                    download> Download valid representations (CSV)</a>
+                    download> Download valid and published representations (CSV)</a>
                 </p>
             </div>
         </div>
