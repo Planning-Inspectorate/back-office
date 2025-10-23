@@ -31,10 +31,17 @@ jobs:
               echo "Node 20.19.5 not found at $NODE_DIR"
               exit 1
             fi
+            # Persist for subsequent tasks
             echo "##vso[task.prependpath]$NODE_DIR/bin"
+            # Also update PATH in this current script execution so npm's shebang /usr/bin/env node works now.
+            export PATH="$NODE_DIR/bin:$PATH"
             echo "Using Node from $NODE_DIR"
+            echo "PATH after update: $PATH"
+            # Show direct path and which resolution
             "$NODE_DIR/bin/node" -v
-            "$NODE_DIR/bin/npm" -v
+            which node || echo "node still not resolved via PATH"
+            # npm uses /usr/bin/env node; ensure it now works
+            "$NODE_DIR/bin/npm" -v || { echo "Direct npm call failed"; exit 1; }
 
       - task: Npm@1
         inputs:
