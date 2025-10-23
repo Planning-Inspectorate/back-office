@@ -20,28 +20,10 @@ jobs:
     timeoutInMinutes: 60
     pool: pins-odt-agent-pool-tests
     steps:
-      - task: Bash@3
-        displayName: "Set Node 20.19.5 PATH"
+      - task: UseNode@1
+        displayName: "Use Node.js 20.19.5"
         inputs:
-          targetType: 'inline'
-          script: |
-            set -e
-            NODE_DIR=/usr/local/nvm/versions/node/v20.19.5
-            if [ ! -x "$NODE_DIR/bin/node" ]; then
-              echo "Node 20.19.5 not found at $NODE_DIR"
-              exit 1
-            fi
-            # Persist for subsequent tasks
-            echo "##vso[task.prependpath]$NODE_DIR/bin"
-            # Also update PATH in this current script execution so npm's shebang /usr/bin/env node works now.
-            export PATH="$NODE_DIR/bin:$PATH"
-            echo "Using Node from $NODE_DIR"
-            echo "PATH after update: $PATH"
-            # Show direct path and which resolution
-            "$NODE_DIR/bin/node" -v
-            which node || echo "node still not resolved via PATH"
-            # npm uses /usr/bin/env node; ensure it now works
-            "$NODE_DIR/bin/npm" -v || { echo "Direct npm call failed"; exit 1; }
+          version: '20.19.5'
 
       - task: Npm@1
         inputs:
