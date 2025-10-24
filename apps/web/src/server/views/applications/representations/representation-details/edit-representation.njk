@@ -16,11 +16,11 @@
 
 {% block pageContent %}
   <form method="post" novalidate>
-    <div class="govuk-form-group{% if errors and errors.originalRepresentation %} govuk-form-group--error{% endif %}">
-      {% if errors and errors.originalRepresentation %}
-        <span class="govuk-error-message">{{ errors.originalRepresentation.msg }}</span>
+    <div class="govuk-form-group{% if errors and errors.proposedRepresentation %} govuk-form-group--error{% endif %}">
+      {% if errors and errors.proposedRepresentation %}
+        <span class="govuk-error-message">{{ errors.proposedRepresentation.msg }}</span>
       {% endif %}
-      <textarea class="govuk-textarea" id="originalRepresentation" name="originalRepresentation" rows="7">{{ editedRepresentation if editedRepresentation else originalRepresentation }}</textarea>
+		<textarea class="govuk-textarea" id="originalRepresentation" name="originalRepresentation" rows="7">{{ proposedRepresentation if errors else (editedRepresentation if editedRepresentation else originalRepresentation) }}</textarea>
     </div>
     <div class="govuk-form-group">
       <label class="govuk-label govuk-label--m" for="notes">Notes</label>
