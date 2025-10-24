@@ -78,10 +78,11 @@ export const getEditRepresentationController = async (req, res) => {
 export const postEditRepresentationController = async (req, res) => {
 	const { caseId, representationId, representation } = res.locals;
 	const { originalRepresentation, notes } = req.body;
+	console.log(req.body);
 	console.log('Edit form submission:', { originalRepresentation, notes });
 	let errors = {};
 	if (!originalRepresentation || !originalRepresentation.trim()) {
-		errors.originalRepresentation = { msg: 'Enter Edited Representation' };
+		errors.proposedRepresentation = { msg: 'Enter edited representation' };
 	}
 	if (Object.keys(errors).length) {
 		/** @type {any} */
@@ -93,7 +94,7 @@ export const postEditRepresentationController = async (req, res) => {
 		return res.render(editView, {
 			caseId,
 			representationId,
-			originalRepresentation,
+			proposedRepresentation: originalRepresentation,
 			editedRepresentation: viewModel.representation.editedRepresentation,
 			notes,
 			organisationOrFullname: viewModel.organisationOrFullname,
@@ -128,7 +129,7 @@ export const postEditRepresentationController = async (req, res) => {
 		return res.render(editView, {
 			caseId,
 			representationId,
-			originalRepresentation,
+			proposedRepresentation: originalRepresentation,
 			editedRepresentation: viewModel.representation.editedRepresentation,
 			notes,
 			organisationOrFullname: viewModel.organisationOrFullname,
