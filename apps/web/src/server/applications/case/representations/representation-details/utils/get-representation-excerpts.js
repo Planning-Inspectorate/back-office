@@ -17,13 +17,9 @@ const getExcerpt = (text) =>
 export const getRepresentationExcerpts = ({
 	originalRepresentation,
 	redactedRepresentation,
-	redactedNotes,
-	editedRepresentation,
-	editNotes
+	redactedNotes
 }) => ({
 	originalRepresentationExcerpt: getExcerpt(originalRepresentation),
 	redactedRepresentationExcerpt: getExcerpt(redactedRepresentation),
-	redactedNotesExcerpt: getExcerpt(redactedNotes),
-	editedRepresentationExcerpt: getExcerpt(editedRepresentation),
-	editNotesExcerpt: getExcerpt(editNotes)
+	redactedNotesExcerpt: getExcerpt(redactedNotes)
 });

@@ -143,8 +143,6 @@ describe('Create Representation', () => {
 				case: { connect: { id: 1 } },
 				status: 'DRAFT',
 				originalRepresentation: '',
-				editedRepresentation: '',
-				editNotes: '',
 				redacted: false,
 				received: '2023-05-11T09:57:06.139Z',
 				represented: {
@@ -223,8 +221,6 @@ describe('Create Representation', () => {
 				status: 'DRAFT',
 				type: undefined,
 				originalRepresentation: 'This is a rep',
-				editedRepresentation: '',
-				editNotes: '',
 				redacted: false,
 				received: '2023-05-11T09:57:06.139Z',
 				represented: {

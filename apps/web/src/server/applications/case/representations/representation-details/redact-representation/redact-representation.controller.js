@@ -25,15 +25,10 @@ export const getRedactRepresentationController = async (req, res) => {
 
 	const caseReference = await getCase(caseId);
 	const representationDetails = await getRepresentationDetails(caseId, representationId);
-	const fullRepresentationDetails = {
-		...representationDetails,
-		editedRepresentation: representationDetails.editedRepresentation || ''
-	};
-
 	const viewModel = getRedactRepresentationViewModel(
 		caseId,
 		representationId,
-		fullRepresentationDetails,
+		representationDetails,
 		caseReference.title,
 		caseReference.status
 	);
