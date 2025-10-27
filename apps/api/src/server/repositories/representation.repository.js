@@ -76,8 +76,6 @@ export const getById = async (id) =>
 			received: true,
 			originalRepresentation: true,
 			redactedRepresentation: true,
-			editedRepresentation: true,
-			editNotes: true,
 			type: true,
 			user: {
 				select: {

@@ -68,8 +68,6 @@ export const addRepresentationToLocals = async (req, res, next) => {
 				...res.locals.representation,
 				...representationData
 			};
-
-			res.locals.representation.projectName = res.locals.case.projectName;
 		}
 
 		return next();
