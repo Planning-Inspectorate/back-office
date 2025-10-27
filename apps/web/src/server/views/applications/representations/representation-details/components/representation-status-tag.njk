@@ -4,7 +4,7 @@
     {% set statusLower = status | lower %}
     {% set statusTagColor = '' %}
     {% if statusLower == 'awaiting_review' or statusLower == 'awaiting review' %}
-        {% set statusLabel = 'Awaiting Review' %}
+        {% set statusLabel = 'Awaiting review' %}
     {% else %}
         {% set statusLabel = statusLower.replace('_', ' ') | capitalize %}
     {% endif %}
