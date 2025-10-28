@@ -1,6 +1,31 @@
 import { isEmpty, pick } from 'lodash-es';
 
 /**
+ * Format contact details by picking and trimming relevant fields
+ * @param {object} contact
+ * @returns {object}
+ */
+export const formatContactDetails = (contact) => {
+	return Object.entries(
+		pick(contact, [
+			'organisationName',
+			'firstName',
+			'middleName',
+			'lastName',
+			'jobTitle',
+			'email',
+			'website',
+			'under18',
+			'contactMethod',
+			'phoneNumber'
+		])
+	).reduce((acc, [key, value]) => {
+		acc[key] = typeof value === 'string' ? value.trim() : value;
+		return acc;
+	}, {});
+};
+
+/**
  * @param {number} caseId
  * @param {import("@pins/applications").CreateUpdateRepresentation} representation
  * @param {string} method
@@ -33,26 +58,6 @@ export const mapCreateOrUpdateRepRequestToRepository = (
 			type: representation.type
 		};
 	}
-
-	const formatContactDetails = (contact) => {
-		return Object.entries(
-			pick(contact, [
-				'organisationName',
-				'firstName',
-				'middleName',
-				'lastName',
-				'jobTitle',
-				'email',
-				'website',
-				'under18',
-				'contactMethod',
-				'phoneNumber'
-			])
-		).reduce((acc, [key, value]) => {
-			acc[key] = typeof value === 'string' ? value.trim() : value;
-			return acc;
-		}, {});
-	};
 
 	const formatAddressDetails = (address) => {
 		return pick(address, ['addressLine1', 'addressLine2', 'town', 'county', 'postcode', 'country']);
