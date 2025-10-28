@@ -136,9 +136,8 @@ exports[`applications representations GET /applications-service/:caseId/relevant
                     <input class="govuk-input" id="searchTerm" name="searchTerm" type="text">
                 </div>
             </div>
-            <div class="govuk-grid-column-one-half">
-                <button value="updated" type="submit" name="searchUpdated" class="govuk-button govuk-button--secondary"
-                data-module="govuk-button">Search</button>
+            <div class="govuk-grid-column-one-half" id="searchButton">
+                <button type="submit" class="govuk-button govuk-button--secondary" data-module="govuk-button">Search</button>
             </div>
         </div>
         <div class="govuk-grid-row">
@@ -211,6 +210,25 @@ exports[`applications representations GET /applications-service/:caseId/relevant
                 </tr>
             </tbody>
         </table>
+        <script nonce="EdcOUaJ8lczj9tIPO0lPow==">
+            document.addEventListener('DOMContentLoaded', () => {
+            				const pageInput = document.querySelector('input[name="page"]');
+            				const filterButton = document.getElementById('toggleButton')
+            				const searchButton = document.getElementById('searchButton')
+            
+            				if (filterButton) {
+            					filterButton.addEventListener('click', () => {
+            						pageInput.value = 1;
+            					});
+            				}
+            
+            				if (searchButton) {
+            					filterButton.addEventListener('click', () => {
+            						pageInput.value = 1;
+            					});
+            				}
+            			})
+        </script>
     </form>
 </main>"
 `;
@@ -352,9 +370,8 @@ exports[`applications representations GET /applications-service/:id/relevant-rep
                     value="mock-search-term">
                 </div>
             </div>
-            <div class="govuk-grid-column-one-half">
-                <button value="updated" type="submit" name="searchUpdated" class="govuk-button govuk-button--secondary"
-                data-module="govuk-button">Search</button>
+            <div class="govuk-grid-column-one-half" id="searchButton">
+                <button type="submit" class="govuk-button govuk-button--secondary" data-module="govuk-button">Search</button>
             </div>
         </div>
         <div class="govuk-grid-row">
@@ -408,6 +425,25 @@ exports[`applications representations GET /applications-service/:id/relevant-rep
                 </tr>
             </tbody>
         </table>
+        <script nonce="EdcOUaJ8lczj9tIPO0lPow==">
+            document.addEventListener('DOMContentLoaded', () => {
+            				const pageInput = document.querySelector('input[name="page"]');
+            				const filterButton = document.getElementById('toggleButton')
+            				const searchButton = document.getElementById('searchButton')
+            
+            				if (filterButton) {
+            					filterButton.addEventListener('click', () => {
+            						pageInput.value = 1;
+            					});
+            				}
+            
+            				if (searchButton) {
+            					filterButton.addEventListener('click', () => {
+            						pageInput.value = 1;
+            					});
+            				}
+            			})
+        </script>
     </form>
 </main>"
 `;

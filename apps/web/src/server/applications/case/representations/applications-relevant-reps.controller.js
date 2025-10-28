@@ -10,7 +10,6 @@ import {
 } from './applications-relevant-reps.service.js';
 import { buildFilterQueryString, getFilterViewModel } from './utils/filter/filter-view-model.js';
 import { getPagination } from './utils/pagination.js';
-import { hasSearchUpdated } from './utils/search/has-search-updated.js';
 import { hasUnpublishedRepUpdates } from './utils/has-unpublished-rep-updates.js';
 import { tableSortLinks } from './utils/table.js';
 import { isRelevantRepsPeriodClosed } from './utils/is-relevant-reps-period-closed.js';
@@ -31,7 +30,6 @@ export async function relevantRepsApplications({ query, session }, res) {
 	const {
 		locals: { serviceUrl }
 	} = res;
-	hasSearchUpdated(query);
 
 	documentationSessionHandlers.setSessionFolderPage(
 		session,
