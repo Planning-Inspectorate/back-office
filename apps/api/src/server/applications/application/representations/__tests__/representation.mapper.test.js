@@ -1,7 +1,8 @@
 import { formatContactDetails } from '../representation.mapper.js';
 
 describe('formatContactDetails', () => {
-	it('should trim string fields', () => {
+	// Positive test: valid fields and values
+	it('should trim and accept only valid string fields', () => {
 		// GIVEN
 		const contact = {
 			organisationName: '  Org Name  ',
@@ -24,6 +25,7 @@ describe('formatContactDetails', () => {
 		});
 	});
 
+	// Negative test: non-string fields should be left unchanged
 	it('should leave non-string fields unchanged', () => {
 		// GIVEN
 		const contact = {
@@ -41,6 +43,7 @@ describe('formatContactDetails', () => {
 		});
 	});
 
+	// Test: missing fields
 	it('should handle missing fields gracefully', () => {
 		// GIVEN
 		const contact = {
@@ -56,6 +59,7 @@ describe('formatContactDetails', () => {
 		});
 	});
 
+	// Test: empty input
 	it('should return an empty object for empty input', () => {
 		// GIVEN
 		const contact = {};
@@ -67,6 +71,7 @@ describe('formatContactDetails', () => {
 		expect(result).toEqual({});
 	});
 
+	// Negative test: ignore fields not in the allowed list
 	it('should ignore fields not in the allowed list', () => {
 		// GIVEN
 		const contact = {
@@ -80,6 +85,28 @@ describe('formatContactDetails', () => {
 		// THEN
 		expect(result).toEqual({
 			organisationName: 'Org Name'
+		});
+	});
+
+	// Negative test: invalid fields and values for schema
+	it('should ignore fields not matching schema and trim valid ones', () => {
+		// GIVEN
+		const contact = {
+			organisationName: '  Org Name  ',
+			firstName: '  John  ',
+			badFieldThatDoesNotExistOnSchema: 'bad',
+			origin: 'badOriginFieldThatDoesNotMatchEnum',
+			redactedStatus: 'badFieldThatDoesNotMatchEnum',
+			published: 1233
+		};
+
+		// WHEN
+		const result = formatContactDetails(contact);
+
+		// THEN
+		expect(result).toEqual({
+			organisationName: 'Org Name',
+			firstName: 'John'
 		});
 	});
 });
