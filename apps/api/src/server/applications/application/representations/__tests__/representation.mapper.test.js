@@ -25,7 +25,6 @@ describe('formatContactDetails', () => {
 		});
 	});
 
-	// Negative test: non-string fields should be left unchanged
 	it('should leave non-string fields unchanged', () => {
 		// GIVEN
 		const contact = {
@@ -59,7 +58,6 @@ describe('formatContactDetails', () => {
 		});
 	});
 
-	// Test: empty input
 	it('should return an empty object for empty input', () => {
 		// GIVEN
 		const contact = {};
@@ -88,7 +86,6 @@ describe('formatContactDetails', () => {
 		});
 	});
 
-	// Negative test: invalid fields and values for schema
 	it('should ignore fields not matching schema and trim valid ones', () => {
 		// GIVEN
 		const contact = {
