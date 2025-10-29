@@ -55,7 +55,7 @@ const mapValidToCSV = (arrayToMap) => {
 		Status: representation.status,
 		'Action Date': (() => {
 			const validActions = representation?.representationActions?.filter(
-				(action) => action.status === 'VALID'
+				(action) => action.status === 'VALID' || action.status === 'PUBLISHED'
 			);
 			if (!validActions?.length) return '';
 			return validActions
