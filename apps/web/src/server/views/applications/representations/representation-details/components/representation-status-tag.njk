@@ -4,7 +4,7 @@
     {% set statusLower = status | lower %}
     {% set statusTagColor = '' %}
     {% if statusLower == 'awaiting_review' or statusLower == 'awaiting review' %}
-        {% set statusLabel = 'Awaiting Review' %}
+        {% set statusLabel = 'Awaiting review' %}
     {% else %}
         {% set statusLabel = statusLower.replace('_', ' ') | capitalize %}
     {% endif %}
@@ -18,12 +18,7 @@
         {% case 'invalid' %}
             {% set statusTagColor = 'red' %}
         {% case 'awaiting review' %}
-        {% case 'awaiting_review' %}
-            {% set statusTagColor = 'grey' %}
-            {% set statusLabel = 'Awaiting review' %}
         {% case 'unpublished' %}
-            {% set statusTagColor = 'grey' %}
-            {% set statusLabel = 'Unpublished' %}
         {% case 'archived' %}
             {% set statusTagColor = 'grey' %}
         {% case 'published' %}

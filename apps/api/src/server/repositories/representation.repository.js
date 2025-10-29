@@ -76,8 +76,6 @@ export const getById = async (id) =>
 			received: true,
 			originalRepresentation: true,
 			redactedRepresentation: true,
-			editedRepresentation: true,
-			editNotes: true,
 			type: true,
 			user: {
 				select: {
@@ -798,7 +796,7 @@ export const getApplicationValidRepresentationForDownload = async (caseId, skip,
 		where: {
 			caseId,
 			status: {
-				in: [RELEVANT_REPRESENTATION_STATUS_MAP.VALID]
+				in: [RELEVANT_REPRESENTATION_STATUS_MAP.VALID, RELEVANT_REPRESENTATION_STATUS_MAP.PUBLISHED]
 			}
 		},
 		select: {

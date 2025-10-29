@@ -96,6 +96,30 @@ export const getExaminationTimetableItem = async (_request, response) => {
 };
 
 /**
+ * Get a single examination timetable item by timetable ID and timetable item name
+ * @type {import('express').RequestHandler}
+ * @throws {Error}
+ * @returns {Promise<import('@pins/applications.api').Schema.ExaminationTimetableItem
+ */
+export const getExaminationTimetableItemByNameAndTimetableId = async (req, res) => {
+	const { timetableId, name } = req.params;
+
+	const item = await examinationTimetableItemsRepository.getByExaminationTimetableIdAndItemName(
+		Number(timetableId),
+		name
+	);
+
+	if (!item) {
+		throw new BackOfficeAppError(
+			`Examination timetable item with name: ${name} and timetable Id: ${timetableId} not found.`,
+			404
+		);
+	}
+
+	return res.send(item);
+};
+
+/**
  * Create a new timetable item.  Will also create a parent Timetable record if one does not exist.
  * Will create a matching folder in Examination Timetable folder for this item, and any line item sub folders for Deadline line items.
  *

@@ -110,12 +110,7 @@ export const patchRepresentation = async ({ params, body, method }, response) =>
 		return response.status(400).json({ errors: { representation: `Request body empty` } });
 	}
 
-	const mappedRepresentation = {
-		...mapCreateOrUpdateRepRequestToRepository(caseId, body, method),
-		originalRepresentation: body.originalRepresentation,
-		editedRepresentation: body.editedRepresentation,
-		editNotes: body.editNotes
-	};
+	const mappedRepresentation = mapCreateOrUpdateRepRequestToRepository(caseId, body, method);
 
 	const representation = await updateCaseRepresentation(
 		mappedRepresentation,

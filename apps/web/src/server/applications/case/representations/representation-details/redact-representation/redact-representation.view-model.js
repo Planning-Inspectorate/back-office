@@ -40,7 +40,6 @@ export const getPreviousPageUrl = (caseId, representationId) =>
  * @param {string?} representation.redactedRepresentation
  * @param {string?} representation.redactedNotes
  * @param {string?} representation.redactedBy
- * @param {string?} representation.editedRepresentation
  * @param {object} representation.represented
  * @param {string?} representation.represented.firstName
  * @param {string?} representation.represented.lastName
@@ -57,7 +56,6 @@ export const getRedactRepresentationViewModel = (
 		redactedRepresentation,
 		redactedNotes,
 		redactedBy,
-		editedRepresentation,
 		represented: { firstName, lastName, organisationName }
 	},
 	projectName,
@@ -65,27 +63,15 @@ export const getRedactRepresentationViewModel = (
 ) => {
 	// normalise new lines before processing to ensure suggestion offsets align on the front-end
 	originalRepresentation = originalRepresentation.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
-
-	// If redactedRepresentation is present but is identical to the original, prefer editedRepresentation if it exists
-	let redactBoxValue = redactedRepresentation;
-	if (
-		redactedRepresentation === originalRepresentation &&
-		editedRepresentation &&
-		editedRepresentation !== originalRepresentation
-	) {
-		redactBoxValue = editedRepresentation;
-	}
-	if (!redactBoxValue) {
-		redactBoxValue = editedRepresentation || originalRepresentation;
-	}
-
 	return {
 		caseId,
 		representationId,
 		backLinkUrl: getPreviousPageUrl(caseId, representationId),
 		originalRepresentation,
 		originalRepresentationText: originalRepresentation,
-		redactedRepresentation: redactBoxValue,
+		redactedRepresentation: redactedRepresentation
+			? redactedRepresentation
+			: originalRepresentation,
 		organisationOrFullname: `${firstName || ''} ${lastName || ''}`.trim() || organisationName,
 		notes: redactedNotes,
 		redactedBy,

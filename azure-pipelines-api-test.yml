@@ -22,8 +22,7 @@ trigger: none
 
 jobs:
   - job: Run_API_Tests
-    pool:
-      vmImage: "ubuntu-latest"
+    pool: pins-odt-agent-pool
 
     steps:
       - task: NodeTool@0

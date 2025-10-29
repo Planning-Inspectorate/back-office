@@ -20,6 +20,7 @@ const project = {
 
 const examinationTimetableItem = {
 	id: 1,
+	examinationTimetableId: 1,
 	examinationTypeId: 1,
 	name: 'Examination Timetable Item',
 	description: '{"preText":"pretext", "bulletPoints":["pointone", "pointtwo"]}',
@@ -350,6 +351,55 @@ describe('Test examination timetable items API', () => {
 		expect(databaseConnector.examinationTimetableItem.findUnique).toHaveBeenCalledWith({
 			include: { ExaminationTimetable: true, ExaminationTimetableType: true },
 			where: { id: 1 }
+		});
+	});
+
+	test('gets a single examination timetable item by timetable ID and name', async () => {
+		databaseConnector.examinationTimetableItem.findFirst.mockResolvedValue(
+			examinationTimetableItem
+		);
+
+		const resp = await request.get(
+			`/applications/examination-timetable-items/timetable/${
+				examinationTimetableItem.examinationTimetableId
+			}/name/${encodeURIComponent(examinationTimetableItem.name)}`
+		);
+
+		expect(resp.status).toEqual(200);
+		expect(resp.body).toMatchObject({
+			examinationTimetableId: examinationTimetableItem.examinationTimetableId,
+			name: examinationTimetableItem.name
+		});
+		expect(databaseConnector.examinationTimetableItem.findFirst).toHaveBeenCalledWith({
+			where: {
+				examinationTimetableId: 1,
+				name: 'Examination Timetable Item'
+			}
+		});
+	});
+
+	test('returns 404 when examination timetable item is not found', async () => {
+		databaseConnector.examinationTimetableItem.findFirst.mockResolvedValue(null);
+
+		const timetableId = 1;
+		const name = 'Non Existent Item';
+
+		const resp = await request.get(
+			`/applications/examination-timetable-items/timetable/${timetableId}/name/${encodeURIComponent(
+				name
+			)}`
+		);
+
+		expect(resp.statusCode).toEqual(404);
+		expect(resp.body.errors).toMatch(
+			/Examination timetable item with name: Non Existent Item and timetable Id: 1 not found/i
+		);
+
+		expect(databaseConnector.examinationTimetableItem.findFirst).toHaveBeenCalledWith({
+			where: {
+				examinationTimetableId: timetableId,
+				name
+			}
 		});
 	});
 

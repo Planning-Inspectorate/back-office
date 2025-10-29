@@ -7,6 +7,7 @@ import { fileFoldersRoutes } from './application/file-folders/folders.routes.js'
 import { projectUpdateRoutes } from './application/project-updates/project-updates.routes.js';
 import { updateDocumentStatus, processHTMLForYouTube } from './documents/documents.controller.js';
 import { validateDocumentGUID, validateMachineAction } from './documents/documents.validators.js';
+import { examinationTimetableRoutes } from './examination-timetable/examination-timetable.routes.js';
 import { examinationTimetableItemRoutes } from './examination-timetable-items/examination-timetable-items.routes.js';
 import { examinationTimetableTypeRoutes } from './examination-timetable-type/examination-timetable-type.routes.js';
 import { regionRoutes } from './region/region.routes.js';
@@ -30,6 +31,7 @@ router.use('/search', caseSearchRoutes);
 router.use('/region', regionRoutes);
 router.use('/sector', sectorRoutes);
 router.use('/zoom-level', zoomLevelRoutes);
+router.use('/examination-timetable', examinationTimetableRoutes);
 router.use('/examination-timetable-type', examinationTimetableTypeRoutes);
 router.use('/examination-timetable-items', examinationTimetableItemRoutes);
 router.use('/', s51AdviceRoutes);
@@ -127,15 +129,5 @@ router.post(
 	 */
 	asyncHandler(processHTMLForYouTube)
 );
-router.post(
-	'/case/:caseId/relevant-representations/:repId/representation-details/change-edit',
-	(req, res) => {
-		res.status(200).json({ message: 'edit successful' });
-	}
-);
-
-router.get('/case/:caseId/relevant-representations/:repId/representation-details', (req, res) => {
-	res.status(200).send('<div>mock redacted by</div>');
-});
 
 export { router as applicationsRoutes };
