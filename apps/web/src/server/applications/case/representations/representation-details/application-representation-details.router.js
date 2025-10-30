@@ -31,6 +31,11 @@ import {
 } from './representation-status/representation-status-notes/representation-status-notes.controller.js';
 import { representationStatusNotesValidation } from './representation-status/representation-status-notes/representation-status-notes.validators.js';
 import { registerRepsParams } from '../applications-relevant-reps.locals.js';
+import {
+	getEditRepresentationController,
+	postEditRepresentationController
+} from './edit-representation/edit-representation.controller.js';
+import { editRepresentationValidation } from './edit-representation/edit-representation.validator.js';
 
 const representationDetailsRouter = createRouter({ mergeParams: true });
 
@@ -42,6 +47,15 @@ representationDetailsRouter
 		addRepresentationValuesToBody,
 		representationDetailsValidation,
 		asyncHandler(postRepresentationDetailsController)
+	);
+
+representationDetailsRouter
+	.route('/edit-representation')
+	.get(registerRepsParams, asyncHandler(getEditRepresentationController))
+	.post(
+		registerRepsParams,
+		editRepresentationValidation,
+		asyncHandler(postEditRepresentationController)
 	);
 
 representationDetailsRouter

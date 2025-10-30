@@ -1,0 +1,70 @@
+{% extends "applications/layouts/applications.layout.njk" %}
+
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "./components/representation-status-tag.njk" import representationStatusTag %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from "govuk/components/textarea/macro.njk" import govukTextarea %}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% block pageHeading %}
+{% endblock %}
+
+
+{% block beforeContent %}
+	<aside>
+		<div class="govuk-width-container">
+			{{ govukBackLink({
+				href: backLink
+			}) }}
+		</div>
+	</aside>
+{% endblock %}
+
+{% block pageContent %}
+	<div class="govuk-grid-row">
+		<div class="govuk-grid-column-two-thirds">
+			<form method="post" novalidate>
+				<h1 class="govuk-heading-l govuk-!-margin-bottom-2">{{  pageHeading  }}</h1>
+				<strong class="govuk-heading-s">{{ representationStatusTag(representationDetails.status) }}</strong>
+				<p class="govuk-body-s"><strong>Project name:</strong> {{ projectName }}</p>
+
+				{{ govukTextarea({
+					name: "editedRepresentation",
+					id: "edited-representation",
+					rows: "7",
+					value: representationText,
+					label: {
+						text: "Representation content",
+						classes: "govuk-label--s"
+					},
+					errorMessage: errors["editedRepresentation"] and {
+						text: errors["editedRepresentation"].msg
+					}
+				}) }}
+
+				{{ govukTextarea({
+					name: "editNotes",
+					id: "edit-notes",
+					rows: "2",
+					label: {
+						text: "Notes",
+						classes: "govuk-label--s"
+					}
+				}) }}
+
+				{{ govukWarningText({
+					text: "Editing a representation will remove any current redactions",
+					iconFallbackText: "Warning"
+				}) }}
+
+				{{ govukButton({
+					text: "Save and return",
+					type: "submit",
+					classes: "govuk-!-margin-top-3"
+				}) }}
+			</form>
+		</div>
+	</div>
+
+{% endblock %}
