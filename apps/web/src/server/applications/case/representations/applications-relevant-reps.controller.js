@@ -4,7 +4,6 @@ import {
 	getRepresentationsViewModel
 } from './application-representations.view-model.js';
 import {
-	getCase,
 	getPublishableRepresentations,
 	getRepresentations
 } from './applications-relevant-reps.service.js';
@@ -31,7 +30,8 @@ export async function relevantRepsApplications({ query, session }, res) {
 	const {
 		locals: { serviceUrl }
 	} = res;
-	hasSearchUpdated(query);
+
+	const searchChanged = hasSearchUpdated(query);
 
 	documentationSessionHandlers.setSessionFolderPage(
 		session,
@@ -50,8 +50,25 @@ export async function relevantRepsApplications({ query, session }, res) {
 		unpublished: unpublishedRepsCount
 	} = query;
 
-	const caseReference = await getCase(caseId);
-	const { keyDates } = caseReference;
+	/*
+	 * When filters applied or new search performed
+	 * reset pagination to page 1 by redirecting with updated query params
+	 * Redirect query is built from the original 'filters' from the request
+	 * so that the UI checkboxes remain checked after reload
+	 */
+	if (searchChanged) {
+		const redirectQueries = buildQueryString({
+			searchTerm,
+			sortBy,
+			pageSize,
+			page,
+			filters
+		});
+		return res.redirect(`?${redirectQueries}`);
+	}
+
+	const caseData = res.locals.case;
+	const { keyDates } = caseData;
 	const { preExamination } = keyDates;
 	const {
 		dateOfRelevantRepresentationClose: repsPeriodCloseDate,
@@ -59,6 +76,9 @@ export async function relevantRepsApplications({ query, session }, res) {
 		dateRRepAppearOnWebsite: publishedDate
 	} = preExamination;
 
+	/*
+	 * Build the query string for the API request to get filtered reps
+	 * This includes the filter parameters the API expects*/
 	const queryString = buildQueryString({
 		searchTerm,
 		sortBy,
@@ -74,7 +94,7 @@ export async function relevantRepsApplications({ query, session }, res) {
 
 	return res.render(view, {
 		representations: getRepresentationsViewModel(representations, caseId),
-		caseReference: getCaseReferenceViewModel(caseReference),
+		caseReference: getCaseReferenceViewModel(caseData),
 		caseId,
 		publishQueueURL: getPublishQueueUrl(publishableReps, serviceUrl, caseId),
 		resetSuccessBannerURL: `?${queryString}`,

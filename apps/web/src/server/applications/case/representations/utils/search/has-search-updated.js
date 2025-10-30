@@ -5,8 +5,10 @@
  * @param {number=} query.page
  */
 export const hasSearchUpdated = (query) => {
-	if (query.searchUpdated) {
+	const changed = Boolean(query.searchUpdated);
+	if (changed) {
 		query.page = 1;
 		delete query.searchUpdated;
 	}
+	return changed;
 };
