@@ -31,17 +31,34 @@ const dateToTimestamp = (date) => Math.floor(new Date(date).getTime() / 1000);
  */
 const mapTaskLog = (representationActions) => ({
 	head: ['Date', 'Log type', 'Change from', 'Change to', 'Author'],
-	body: representationActions.map((action) => ({
-		date: dateToTimestamp(action.actionDate),
-		isStatus: action.type === 'STATUS',
-		logType: action.type === 'STATUS' ? 'Status change' : 'Redacted change',
-		from:
-			action.type === 'STATUS'
-				? action.previousStatus
-				: mapBooleanToRedacted(action.previousRedactStatus),
-		to: action.type === 'STATUS' ? action.status : mapBooleanToRedacted(action.redactStatus),
-		author: action.actionBy
-	}))
+	body: representationActions.map((action) => {
+		let logType = '';
+		let from = '';
+		let to = '';
+
+		if (action.type === 'STATUS') {
+			logType = 'Status change';
+			from = action.previousStatus ?? '';
+			to = action.status ?? '';
+		} else if (action.type === 'REDACTION' || action.type === 'REDACT_STATUS') {
+			logType = 'Redacted change';
+			from = mapBooleanToRedacted(action.previousRedactStatus);
+			to = mapBooleanToRedacted(action.redactStatus);
+		} else if (action.type === 'EDIT') {
+			logType = 'Edit change';
+			from = '';
+			to = '';
+		}
+
+		return {
+			date: dateToTimestamp(action.actionDate),
+			isStatus: action.type === 'STATUS',
+			logType,
+			from,
+			to,
+			author: action.actionBy
+		};
+	})
 });
 
 /**
