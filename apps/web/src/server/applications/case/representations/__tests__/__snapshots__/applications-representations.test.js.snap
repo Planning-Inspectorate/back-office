@@ -99,7 +99,8 @@ exports[`applications representations GET /applications-service/:caseId/relevant
                         </div>
                     </div>
                     <div class="govuk-button-group govuk-!-margin-top-0">
-                        <button class="govuk-button" id="toggleButton" data-module="govuk-button">Apply filters</button><a href="/applications-service/case/1/relevant-representations"
+                        <button class="govuk-button" id="toggleButton" data-module="govuk-button"
+                        name="searchUpdated" value="updated">Apply filters</button><a href="/applications-service/case/1/relevant-representations"
                         class="govuk-link govuk-link--no-visited-state"> Clear filters</a>
                     </div>
                 </div>
@@ -122,7 +123,7 @@ exports[`applications representations GET /applications-service/:caseId/relevant
                     download> Download mailing list (CSV)</a>
                 </p>
                 <p class="govuk-body"><a class="govuk-link" href="/applications-service/case/1/relevant-representations/api/download/valid"
-                    download> Download valid representations (CSV)</a>
+                    download> Download valid and published representations (CSV)</a>
                 </p>
             </div>
         </div>
@@ -314,7 +315,8 @@ exports[`applications representations GET /applications-service/:id/relevant-rep
                         </div>
                     </div>
                     <div class="govuk-button-group govuk-!-margin-top-0">
-                        <button class="govuk-button" id="toggleButton" data-module="govuk-button">Apply filters</button><a href="/applications-service/case/1/relevant-representations"
+                        <button class="govuk-button" id="toggleButton" data-module="govuk-button"
+                        name="searchUpdated" value="updated">Apply filters</button><a href="/applications-service/case/1/relevant-representations"
                         class="govuk-link govuk-link--no-visited-state"> Clear filters</a>
                     </div>
                 </div>
@@ -337,7 +339,7 @@ exports[`applications representations GET /applications-service/:id/relevant-rep
                     download> Download mailing list (CSV)</a>
                 </p>
                 <p class="govuk-body"><a class="govuk-link" href="/applications-service/case/1/relevant-representations/api/download/valid"
-                    download> Download valid representations (CSV)</a>
+                    download> Download valid and published representations (CSV)</a>
                 </p>
             </div>
         </div>
