@@ -32,22 +32,29 @@ const dateToTimestamp = (date) => Math.floor(new Date(date).getTime() / 1000);
 const mapTaskLog = (representationActions) => ({
 	head: ['Date', 'Log type', 'Change from', 'Change to', 'Author'],
 	body: representationActions.map((action) => {
-		let logType = '';
-		let from = '';
-		let to = '';
+		let logType, from, to;
 
-		if (action.type === 'STATUS') {
-			logType = 'Status change';
-			from = action.previousStatus ?? '';
-			to = action.status ?? '';
-		} else if (action.type === 'REDACTION' || action.type === 'REDACT_STATUS') {
-			logType = 'Redacted change';
-			from = mapBooleanToRedacted(action.previousRedactStatus);
-			to = mapBooleanToRedacted(action.redactStatus);
-		} else if (action.type === 'EDIT') {
-			logType = 'Edit change';
-			from = '';
-			to = '';
+		switch (action.type) {
+			case 'STATUS':
+				logType = 'Status change';
+				from = action.previousStatus ?? '';
+				to = action.status ?? '';
+				break;
+			case 'REDACTION':
+			case 'REDACT_STATUS':
+				logType = 'Redacted change';
+				from = mapBooleanToRedacted(action.previousRedactStatus);
+				to = mapBooleanToRedacted(action.redactStatus);
+				break;
+			case 'EDIT':
+				logType = 'Edit representation';
+				from = mapBooleanToRedacted(action.previousRedactStatus);
+				to = mapBooleanToRedacted(action.redactStatus);
+				break;
+			default:
+				logType = action.type;
+				from = mapBooleanToRedacted(action.previousRedactStatus);
+				to = mapBooleanToRedacted(action.redactStatus);
 		}
 
 		return {
