@@ -181,10 +181,12 @@
 					}) }}
 				</div>
 
-				<div class="govuk-grid-column-one-half" id="searchButton">
+				<div class="govuk-grid-column-one-half">
 					{{ govukButton({
 						classes: "govuk-button--secondary",
-						text: "Search"
+						text: "Search",
+						name: "searchUpdated",
+						value: "updated"
 					}) }}
 				</div>
 			</div>
@@ -197,24 +199,5 @@
 				<p>No matching representations to show.</p>
 			{% endif %}
 
-		<script nonce="{{ cspNonce }}">
-			document.addEventListener('DOMContentLoaded', () => {
-				const pageInput = document.querySelector('input[name="page"]');
-				const filterButton = document.getElementById('toggleButton')
-				const searchButton = document.getElementById('searchButton')
-
-				if (filterButton) {
-					filterButton.addEventListener('click', () => {
-						pageInput.value = 1;
-					});
-				}
-
-				if (searchButton) {
-					filterButton.addEventListener('click', () => {
-						pageInput.value = 1;
-					});
-				}
-			})
-		</script>
 	</form>
 {% endblock %}
