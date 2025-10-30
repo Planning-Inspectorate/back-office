@@ -23,6 +23,7 @@ export const getPreviousPageUrl = (caseId, representationId) =>
  * @property {string} originalRepresentation
  * @property {string} originalRepresentationText
  * @property {string|null} editedRepresentation
+ * @property {string|null} editedRepresentationText
  * @property {string} redactedRepresentation
  * @property {string?} notes
  * @property {string?} redactedBy
@@ -73,6 +74,7 @@ export const getRedactRepresentationViewModel = (
 		originalRepresentation,
 		originalRepresentationText: originalRepresentation,
 		editedRepresentation,
+		editedRepresentationText: editedRepresentation,
 		redactedRepresentation: redactedRepresentation
 			? redactedRepresentation
 			: editedRepresentation
