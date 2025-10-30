@@ -22,6 +22,7 @@ export const getPreviousPageUrl = (caseId, representationId) =>
  * @property {string} backLinkUrl
  * @property {string} originalRepresentation
  * @property {string} originalRepresentationText
+ * @property {string|null} editedRepresentation
  * @property {string} redactedRepresentation
  * @property {string?} notes
  * @property {string?} redactedBy
@@ -37,6 +38,7 @@ export const getPreviousPageUrl = (caseId, representationId) =>
  * @param {string} representationId
  * @param {object} representation
  * @param {string} representation.originalRepresentation
+ * @param {string|null} representation.editedRepresentation
  * @param {string?} representation.redactedRepresentation
  * @param {string?} representation.redactedNotes
  * @param {string?} representation.redactedBy
@@ -53,6 +55,7 @@ export const getRedactRepresentationViewModel = (
 	representationId,
 	{
 		originalRepresentation,
+		editedRepresentation,
 		redactedRepresentation,
 		redactedNotes,
 		redactedBy,
@@ -69,8 +72,11 @@ export const getRedactRepresentationViewModel = (
 		backLinkUrl: getPreviousPageUrl(caseId, representationId),
 		originalRepresentation,
 		originalRepresentationText: originalRepresentation,
+		editedRepresentation,
 		redactedRepresentation: redactedRepresentation
 			? redactedRepresentation
+			: editedRepresentation
+			? editedRepresentation
 			: originalRepresentation,
 		organisationOrFullname: `${firstName || ''} ${lastName || ''}`.trim() || organisationName,
 		notes: redactedNotes,
