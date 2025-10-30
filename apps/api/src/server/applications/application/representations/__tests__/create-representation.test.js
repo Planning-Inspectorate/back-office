@@ -38,6 +38,8 @@ const createdRepresentation = {
 	},
 	status: 'DRAFT',
 	originalRepresentation: 'the original representation',
+	editedRepresentation: null,
+	editNotes: null,
 	redacted: false,
 	userId: null,
 	received: new Date('2023-05-11T09:57:06.139Z')
@@ -61,6 +63,8 @@ const rep1CreateMsgPayload = buildPayloadEventsForSchema(NSIP_REPRESENTATION, {
 	status: 'draft',
 	redacted: false,
 	originalRepresentation: 'the original representation',
+	editedRepresentation: null,
+	editNotes: null,
 	representationType: null,
 	representativeId: '10382',
 	representedId: '10381',
@@ -143,6 +147,8 @@ describe('Create Representation', () => {
 				case: { connect: { id: 1 } },
 				status: 'DRAFT',
 				originalRepresentation: '',
+				editedRepresentation: '',
+				editNotes: '',
 				redacted: false,
 				received: '2023-05-11T09:57:06.139Z',
 				represented: {
@@ -221,6 +227,8 @@ describe('Create Representation', () => {
 				status: 'DRAFT',
 				type: undefined,
 				originalRepresentation: 'This is a rep',
+				editedRepresentation: '',
+				editNotes: '',
 				redacted: false,
 				received: '2023-05-11T09:57:06.139Z',
 				represented: {

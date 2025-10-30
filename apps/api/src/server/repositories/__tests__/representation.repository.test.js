@@ -13,6 +13,8 @@ const createdRepresentation = {
 	caseId: 1,
 	status: 'DRAFT',
 	originalRepresentation: '',
+	editedRepresentation: null,
+	editNotes: null,
 	redactedRepresentation: null,
 	redacted: false,
 	userId: null,
@@ -118,6 +120,7 @@ describe('Representation repository', () => {
 				OR: [
 					{ reference: { contains: 'James Bond' } },
 					{ originalRepresentation: { contains: 'James Bond' } },
+					{ editedRepresentation: { contains: 'James Bond' } },
 					{
 						represented: {
 							AND: [{ displayName: { contains: 'James' } }, { displayName: { contains: 'Bond' } }]
@@ -294,6 +297,8 @@ describe('Representation repository', () => {
 			redacted: true,
 			received: true,
 			originalRepresentation: true,
+			editedRepresentation: true,
+			editNotes: true,
 			redactedRepresentation: true,
 			type: true,
 			user: {
@@ -548,6 +553,8 @@ describe('Representation repository', () => {
 				caseId: 1,
 				id: 1,
 				originalRepresentation: '',
+				editedRepresentation: null,
+				editNotes: null,
 				received: '2023-05-11T09:57:06.139Z',
 				redacted: false,
 				redactedRepresentation: null,
@@ -639,6 +646,8 @@ describe('Representation repository', () => {
 				caseId: 1,
 				id: 1,
 				originalRepresentation: '',
+				editedRepresentation: null,
+				editNotes: null,
 				received: '2023-05-11T09:57:06.139Z',
 				redacted: false,
 				redactedRepresentation: null,

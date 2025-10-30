@@ -114,6 +114,8 @@ const rep1UpdatePayload = buildPayloadEventsForSchema(NSIP_REPRESENTATION, {
 	dateReceived: '2023-03-14T14:28:25.704Z',
 	examinationLibraryRef: '',
 	originalRepresentation: 'the original representation',
+	editedRepresentation: null,
+	editNotes: null,
 	redactedRepresentation: 'redacted version',
 	redacted: true,
 	redactedBy: 'Bill Baily',

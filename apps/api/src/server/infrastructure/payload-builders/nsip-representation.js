@@ -31,6 +31,8 @@ export const buildNsipRepresentationPayload = (representation) => {
 		redactedNotes: lastRepresentativeAction?.notes ?? null,
 		redactedRepresentation: representation.redactedRepresentation ?? null,
 		originalRepresentation: representation.originalRepresentation,
+		editedRepresentation: representation.editedRepresentation ?? null,
+		editNotes: representation.editNotes ?? null,
 		representationType: mapRepresentationTypeToSchema(representation.type),
 		representedId: representation.represented?.id.toString() ?? null,
 		representativeId:

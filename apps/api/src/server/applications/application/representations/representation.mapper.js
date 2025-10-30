@@ -38,6 +38,8 @@ export const mapCreateOrUpdateRepRequestToRepository = (
 ) => {
 	let defaultRepresentationDetails = pick(representation, [
 		'originalRepresentation',
+		'editedRepresentation',
+		'editNotes',
 		'status',
 		'reference',
 		'redacted',
@@ -52,6 +54,8 @@ export const mapCreateOrUpdateRepRequestToRepository = (
 			caseId,
 			status: representation.status || 'DRAFT',
 			originalRepresentation: representation.originalRepresentation || '',
+			editedRepresentation: representation.editedRepresentation || '',
+			editNotes: representation.editNotes || '',
 			redacted: representation.redacted || false,
 			received: representation.received,
 			representedType: representation.representedType,
