@@ -4,7 +4,7 @@ import { RELEVANT_REPRESENTATION_STATUS_MAP } from '#utils/mapping/map-relevant-
 
 /**
  * @typedef {{
- *  representationDetails: { caseId: number, status: string, originalRepresentation?: string | null, redacted: boolean, received: Date },
+ *  representationDetails: { caseId: number, status: string, originalRepresentation?: string | null, editedRepresentation?: string | null, editNotes?: string | null, redacted: boolean, received: Date },
  *  represented?: { organisationName?: string | null, firstName?: string | null, lastName?: string | null, email?: string | null, phoneNumber?: string | null, jobTitle?: string | null, under18: boolean, type: string},
  *  representedAddress?: { addressLine1?: string | null, addressLine2?: string | null, town?: string | null, county?: string | null, postcode?: string | null},
  *  representative?: { organisationName?: string | null, firstName?: string | null, lastName?: string | null, email?: string | null, phoneNumber?: string | null, jobTitle?: string | null, under18: boolean, type: string},
@@ -75,6 +75,8 @@ export const getById = async (id) =>
 			redacted: true,
 			received: true,
 			originalRepresentation: true,
+			editedRepresentation: true,
+			editNotes: true,
 			redactedRepresentation: true,
 			type: true,
 			user: {
@@ -409,6 +411,49 @@ export const updateApplicationRepresentation = async (
 	return getFirstById(representationId, caseId);
 };
 
+export const updateApplicationRepresentationEdit = async (
+	{ representation, representationAction },
+	caseId,
+	representationId
+) => {
+	//  Validate case rep id is on case id
+	const response = await getFirstById(representationId, caseId);
+
+	if (!response)
+		throw new Error(`Representation Id ${representationId} does not belong to case Id ${caseId}`);
+
+	if (response.status === RELEVANT_REPRESENTATION_STATUS_MAP.PUBLISHED)
+		representation.unpublishedUpdates = true;
+
+	if (!isEmpty(representation)) {
+		if (response.redacted === true) {
+			representation.redacted = false;
+			representation.redactedRepresentation = null;
+		}
+
+		await databaseConnector.representation.update({
+			where: { id: representationId },
+			data: {
+				...representation
+			}
+		});
+	}
+
+	if (!isEmpty(representationAction)) {
+		await databaseConnector.representationAction.create({
+			data: {
+				...representationAction,
+				representationId,
+				actionDate: new Date(),
+				previousRedactStatus: response.redacted
+			}
+		});
+	}
+
+	//  returns updated edited
+	return getFirstById(representationId, caseId);
+};
+
 export const updateApplicationRepresentationRedaction = async (
 	{ representation, representationAction },
 	caseId,
@@ -464,6 +509,11 @@ function buildSearch(rawSearchTerm) {
 			},
 			{
 				originalRepresentation: {
+					contains: searchTerm
+				}
+			},
+			{
+				editedRepresentation: {
 					contains: searchTerm
 				}
 			},

@@ -1,6 +1,6 @@
 import { composeMiddleware } from '@pins/express';
 import { body } from 'express-validator';
-import { validationErrorHandler } from '../../../middleware/error-handler.js';
+import { validationErrorHandler } from '#middleware/error-handler.js';
 
 const isStrictTypeBoolean = async (value) => {
 	if (typeof value !== 'boolean') throw new TypeError(`Must be a boolean or null`);
@@ -73,6 +73,8 @@ export const representationPatchValidator = composeMiddleware(
 	body('redacted').optional().custom(isStrictTypeBoolean),
 	body('received').optional(),
 	body('originalRepresentation').optional().isString(),
+	body('editedRepresentation').optional().isString(),
+	body('editNotes').optional().isString(),
 	body('reference').optional().isString(),
 	body('type').optional().isIn(repTypes).withMessage(`Must be a valid type: ${repTypes}`),
 	representedValidations(),

@@ -20,6 +20,7 @@ import { getRepDownloadRouter } from './download/rep-download.router.js';
 import { representationsPublishableRouter } from './publishable/publishable.route.js';
 import { representationsPublishRouter } from './publish/publish.route.js';
 import { representationsUnpublishRouter } from './unpublish/unpublish.route.js';
+import { representationsEditRouter } from './edit/edit.route.js';
 
 const router = createRouter({ mergeParams: true });
 
@@ -157,6 +158,8 @@ router.get(
 							redacted: true,
 							received: '2023-03-14T14:28:25.704Z',
 							originalRepresentation: '',
+							editedRepresentation: '',
+							editNotes: '',
 							redactedRepresentation: '',
 							redactedBy: {},
 							represented: {},
@@ -190,6 +193,10 @@ router.post(
 							redacted: false,
 							received: '2023-03-14T14:28:25.704Z',
 							originalRepresentation: 'This is the representation text',
+							editedRepresentation: 'This is the edited representation text',
+							editNotes: 'These are the edit notes',
+							reference: 'BC0110001-2',
+							type: 'Members of the public/businesses',
 							representedType: 'PERSON',
 							represented: {
 									firstName: 'Peter',
@@ -258,6 +265,8 @@ router.patch(
 							redactedNotes: 'A string if redacted text',
 							received: '2023-03-14T14:28:25.704Z',
 							originalRepresentation: 'This is the representation text',
+							editedRepresentation: 'This is the edited representation text',
+							editNotes: 'These are the edit notes',
 							representedType: 'PERSON',
 							represented: {
 									firstName: 'Peter',
@@ -303,6 +312,8 @@ router.patch(
 	representationPatchValidator,
 	asyncHandler(patchRepresentation)
 );
+
+router.use('/:repId/edit', representationsEditRouter);
 
 router.use('/:repId/redact', representationsRedactRouter);
 
