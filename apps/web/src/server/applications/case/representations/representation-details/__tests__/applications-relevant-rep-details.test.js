@@ -181,9 +181,7 @@ describe('/applications-service/case/1/relevant-representations/1/representation
 				expect(element.innerHTML).toContain('No');
 
 				expect(element.innerHTML).toContain('Representation');
-				expect(element.innerHTML).toContain(
-					'/applications-service/case/1/relevant-representations/1/representation-details/redact-representation'
-				);
+				expect(element.innerHTML).toContain('representation-details/redact-representation');
 				expect(element.innerHTML).toContain('BC0110001-1');
 				expect(element.innerHTML).toContain('BC0110001-1');
 				expect(element.innerHTML).toContain('27 April 2023');

@@ -1,0 +1,77 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Edit Representation Page GET renders the edit representation page 1`] = `
+"<main class="govuk-main-wrapper" id="main-content">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <form method="post" novalidate>
+                <h1 class="govuk-heading-l govuk-!-margin-bottom-2">Mrs Sue</h1><strong class="govuk-heading-s"><strong class="govuk-tag govuk-tag--">Awaiting review</strong></strong>
+                <p                 class="govuk-body-s"><strong>Project name:</strong> mock title</p>
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-label--s" for="edited-representation">Representation content</label>
+                        <textarea class="govuk-textarea" id="edited-representation"
+                        name="editedRepresentation" rows="7">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
+                            ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis
+                            dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies
+                            nec, pellentesque eu, pretium quis, sem. Nulla con.</textarea>
+                    </div>
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-label--s" for="edit-notes">Notes</label>
+                        <textarea class="govuk-textarea" id="edit-notes" name="editNotes"
+                        rows="2"></textarea>
+                    </div>
+                    <div class="govuk-warning-text"><span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                        <strong                         class="govuk-warning-text__text"><span class="govuk-visually-hidden">Warning</span> Editing a representation
+                            will remove any current redactions</strong>
+                    </div>
+                    <button type="submit" class="govuk-button govuk-!-margin-top-3" data-module="govuk-button">Save and return</button>
+            </form>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`Edit Representation Page POST shows error when editedRepresentation is missing 1`] = `
+"<main class="govuk-main-wrapper" id="main-content">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#editedRepresentation">Enter representation content</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <form method="post" novalidate>
+                <h1 class="govuk-heading-l govuk-!-margin-bottom-2">Mrs Sue</h1><strong class="govuk-heading-s"><strong class="govuk-tag govuk-tag--">Awaiting review</strong></strong>
+                <p                 class="govuk-body-s"><strong>Project name:</strong> mock title</p>
+                    <div class="govuk-form-group govuk-form-group--error">
+                        <label class="govuk-label govuk-label--s" for="edited-representation">Representation content</label>
+                        <p id="edited-representation-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> Enter representation
+                            content</p>
+                        <textarea class="govuk-textarea govuk-textarea--error" id="edited-representation"
+                        name="editedRepresentation" rows="7" aria-describedby="edited-representation-error"></textarea>
+                    </div>
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-label--s" for="edit-notes">Notes</label>
+                        <textarea class="govuk-textarea" id="edit-notes" name="editNotes"
+                        rows="2"></textarea>
+                    </div>
+                    <div class="govuk-warning-text"><span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                        <strong                         class="govuk-warning-text__text"><span class="govuk-visually-hidden">Warning</span> Editing a representation
+                            will remove any current redactions</strong>
+                    </div>
+                    <button type="submit" class="govuk-button govuk-!-margin-top-3" data-module="govuk-button">Save and return</button>
+            </form>
+        </div>
+    </div>
+</main>"
+`;

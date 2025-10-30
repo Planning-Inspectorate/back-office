@@ -40,13 +40,31 @@
         <p class="govuk-body white-space--pre-line">{{ representation.originalRepresentation }}</p>
       {% endif %}
     </dd>
-
-    <dd class="govuk-summary-list__actions">
-      <a class="govuk-link" href="{{ 'redact-representation' | url({ caseId: caseId, representationId: representationId }) }}">
-        Redact<span class="govuk-visually-hidden"> original representation</span>
-      </a>
-    </dd>
   </div>
+
+  {% if representation.editedRepresentation %}
+		<div class="govuk-summary-list__row govuk-summary-list__row--no-actions" id="edited-representation-section">
+				<dt class="govuk-summary-list__key">
+				Edited representation
+				</dt>
+
+				<dd class="govuk-summary-list__value">
+					<p class="govuk-body white-space--pre-line">{{ representation.editedRepresentation }}</p>
+				</dd>
+		</div>
+	{% endif %}
+
+	{% if representation.editNotes %}
+		<div class="govuk-summary-list__row govuk-summary-list__row--no-actions" id="edit-notes-section">
+				<dt class="govuk-summary-list__key">
+				Edit notes
+				</dt>
+
+				<dd class="govuk-summary-list__value">
+					<p class="govuk-body white-space--pre-line">{{ representation.editNotes }}</p>
+				</dd>
+		</div>
+  {% endif %}
 
   {% if representation.redacted %}
     <div class="govuk-summary-list__row govuk-summary-list__row--no-actions" id="redacted-representation-section">
@@ -103,6 +121,19 @@
       </dd>
     </div>
   {% endif %}
+	<div class="govuk-button-group govuk-!-margin-top-6">
+			{{ govukButton({
+				text: "Edit",
+				href: "representation-details/edit-representation",
+				classes: "govuk-button--secondary"
+			}) }}
+
+		{{ govukButton({
+				text: "Redact",
+				href: "representation-details/redact-representation",
+				classes: "govuk-button--secondary"
+			}) }}
+	</div>
 </dl>
 
 <script nonce="{{cspNonce}}">

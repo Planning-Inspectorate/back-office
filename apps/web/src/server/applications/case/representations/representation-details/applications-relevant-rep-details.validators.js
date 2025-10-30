@@ -38,5 +38,7 @@ export const representationDetailsValidation = [
 			.notEmpty()
 			.withMessage('Enter agent preferred method of contact')
 	),
-	createValidator(body('originalRepresentation').notEmpty().withMessage('Enter representation'))
+	createValidator(
+		body('originalRepresentation').notEmpty().withMessage('Enter relevant representation')
+	)
 ];
