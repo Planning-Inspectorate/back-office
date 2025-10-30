@@ -76,11 +76,11 @@
 
 				{{ govukDetails({
 					summaryText: "Original representation",
-					html: originalRepresentation,
+					html: {{ editedRepresentation if editedRepresentation else originalRepresentation }},
 					id: "representation-unredacted",
 					open: true,
 					attributes: {
-						"data-original": originalRepresentationText
+						"data-original": {{ editedRepresentationText if editedRepresentationText else originalRepresentationText }}
 					}
 				}) }}
 			</div>
