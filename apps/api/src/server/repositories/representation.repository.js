@@ -419,36 +419,39 @@ export const updateApplicationRepresentationEdit = async (
 	//  Validate case rep id is on case id
 	const response = await getFirstById(representationId, caseId);
 
-	if (!response)
+	if (!response) {
 		throw new Error(`Representation Id ${representationId} does not belong to case Id ${caseId}`);
+	}
 
-	if (response.status === RELEVANT_REPRESENTATION_STATUS_MAP.PUBLISHED)
-		representation.unpublishedUpdates = true;
+	await databaseConnector.$transaction(async (tx) => {
+		if (!isEmpty(representation)) {
+			if (response.status === RELEVANT_REPRESENTATION_STATUS_MAP.PUBLISHED) {
+				representation.unpublishedUpdates = true;
+			}
+			if (response.redacted === true) {
+				representation.redacted = false;
+				representation.redactedRepresentation = null;
+			}
 
-	if (!isEmpty(representation)) {
-		if (response.redacted === true) {
-			representation.redacted = false;
-			representation.redactedRepresentation = null;
+			await tx.representation.update({
+				where: { id: representationId },
+				data: {
+					...representation
+				}
+			});
 		}
 
-		await databaseConnector.representation.update({
-			where: { id: representationId },
-			data: {
-				...representation
-			}
-		});
-	}
-
-	if (!isEmpty(representationAction)) {
-		await databaseConnector.representationAction.create({
-			data: {
-				...representationAction,
-				representationId,
-				actionDate: new Date(),
-				previousRedactStatus: response.redacted
-			}
-		});
-	}
+		if (!isEmpty(representationAction)) {
+			await tx.representationAction.create({
+				data: {
+					...representationAction,
+					representationId,
+					actionDate: new Date(),
+					previousRedactStatus: response.redacted
+				}
+			});
+		}
+	});
 
 	//  returns updated edited
 	return getFirstById(representationId, caseId);
