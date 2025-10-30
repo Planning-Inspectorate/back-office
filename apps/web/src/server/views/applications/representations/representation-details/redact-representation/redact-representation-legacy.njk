@@ -22,7 +22,7 @@
 			<div class="govuk-grid-column-one-half" id="original-representation-section">
         <span class="govuk-heading-s display--flex">
           <span class="flex-grow--1">
-            Original representation
+            {% if editedRepresentation %}Edited representation{% else %}Original representation{% endif %}
           </span>
 
           <a class="govuk-link govuk-body govuk-!-margin-0" href="#" id="hide-original-representation-button">
@@ -30,12 +30,12 @@
           </a>
         </span>
 
-				<p class="govuk-body white-space--pre-line word-break--break-word">{{ originalRepresentation }}</p>
+				<p class="govuk-body white-space--pre-line word-break--break-word">{{ editedRepresentation if editedRepresentation else originalRepresentation }}</p>
 			</div>
 
 			<div class="govuk-grid-column-one-half" id="redact-representation-section">
 				<a class="govuk-link govuk-body govuk-!-display-none" href="#" id="show-original-representation-button">
-					Show original representation
+					Show {% if editedRepresentation %}edited representation{% else %}original representation{% endif %}
 				</a>
 
 				{{ govukTextarea({
