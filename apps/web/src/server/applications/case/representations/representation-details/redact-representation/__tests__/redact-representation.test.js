@@ -38,8 +38,10 @@ describe('Representation redact page', () => {
 		beforeEach(async () => {
 			nocks();
 		});
+		const flags = staticFlags;
 
-		it('should render the page', async () => {
+		it('should render the legacy page when the feature flag is disabled', async () => {
+			flags['azure-ai-language-redaction'] = false;
 			const response = await request.get(baseUrl);
 			const element = parseHtml(response.text);
 
@@ -47,7 +49,6 @@ describe('Representation redact page', () => {
 		});
 
 		it('should render the new page if feature flag is enabled', async () => {
-			const flags = staticFlags;
 			flags['azure-ai-language-redaction'] = true;
 			// @ts-ignore
 			getAzureTextAnalyticsClient().recognizePiiEntities.mockResolvedValue([
