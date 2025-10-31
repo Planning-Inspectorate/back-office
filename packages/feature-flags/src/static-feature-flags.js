@@ -6,7 +6,7 @@ export default {
 	'applic-625-custom-folders': true,
 	'applics-861-fo-submissions': true,
 	'applics-1036-training-sector': false,
-	[AZURE_AI_LANGUAGE_REDACTION]: false
+	[AZURE_AI_LANGUAGE_REDACTION]: true
 };
 
 export const flagsByReference = {
