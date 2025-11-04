@@ -74,8 +74,13 @@
 		<div class="govuk-grid-row">
 			<div class="govuk-grid-column-one-half">
 
+				{% if editedRepresentation %}
+					{% set summaryText = "Edited representation" %}
+				{% else %}
+					{% set summaryText = "Original representation" %}
+				{% endif %}
 				{{ govukDetails({
-					summaryText: "Original representation",
+					summaryText: summaryText,
 					html: (editedRepresentation or originalRepresentation),
 					id: "representation-unredacted",
 					open: true,
