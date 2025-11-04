@@ -295,6 +295,6 @@ router.patch(
 
 router.use('/:id/representations', representationsRouter);
 
-router.use('/', meetingsRouter);
+router.use('/:id/meetings', meetingsRouter);
 
 export { router as applicationRoutes };
