@@ -45,11 +45,10 @@ export const createMeeting = ({ caseId, agenda, pinsRole, meetingDate, meetingTy
  * @param {string} meetingType
  * @returns {Promise<import('@pins/applications.api').Schema.Meeting>}
  */
-export const updateMeetingById = ({ id, caseId, agenda, pinsRole, meetingDate, meetingType }) => {
-	return databaseConnector.meeting.upsert({
+export const updateMeetingById = ({ id, agenda, pinsRole, meetingDate, meetingType }) => {
+	return databaseConnector.meeting.update({
 		where: { id },
-		create: { caseId, agenda, pinsRole, meetingDate, meetingType },
-		update: { agenda, pinsRole, meetingDate, meetingType }
+		data: { agenda, pinsRole, meetingDate, meetingType }
 	});
 };
 

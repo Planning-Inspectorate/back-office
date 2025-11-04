@@ -114,7 +114,7 @@ const mockProjectTeamDelete = jest.fn().mockResolvedValue({});
 const mockMeetingFindMany = jest.fn().mockResolvedValue([]);
 const mockMeetingFindFirst = jest.fn().mockResolvedValue({});
 const mockMeetingCreate = jest.fn().mockResolvedValue({});
-const mockMeetingUpsert = jest.fn().mockResolvedValue({});
+const mockMeetingUpdate = jest.fn().mockResolvedValue({});
 const mockMeetingDelete = jest.fn().mockResolvedValue({});
 
 class MockPrismaClient {
@@ -334,7 +334,7 @@ class MockPrismaClient {
 			findMany: mockMeetingFindMany,
 			findFirst: mockMeetingFindFirst,
 			create: mockMeetingCreate,
-			upsert: mockMeetingUpsert,
+			update: mockMeetingUpdate,
 			delete: mockMeetingDelete
 		};
 	}
