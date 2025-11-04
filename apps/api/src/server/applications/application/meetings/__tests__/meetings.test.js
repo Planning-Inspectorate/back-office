@@ -135,7 +135,7 @@ describe('Test Meetings API Endpoints', () => {
 			databaseConnector.meeting.findFirst
 				.mockResolvedValueOnce(allMeetings[0])
 				.mockResolvedValueOnce({ ...allMeetings[0], agenda: updatePayload.agenda });
-			databaseConnector.meeting.upsert.mockResolvedValueOnce({
+			databaseConnector.meeting.update.mockResolvedValueOnce({
 				...allMeetings[0],
 				agenda: updatePayload.agenda
 			});
@@ -143,16 +143,15 @@ describe('Test Meetings API Endpoints', () => {
 			const res = await request.patch(`/applications/100000000/meetings/1`).send(updatePayload);
 
 			expect(res.status).toBe(200);
-			expect(databaseConnector.meeting.upsert).toHaveBeenCalledWith({
+			expect(databaseConnector.meeting.update).toHaveBeenCalledWith({
 				where: { id: 1 },
-				create: { caseId: 100000000, agenda: updatePayload.agenda },
-				update: { agenda: updatePayload.agenda }
+				data: { agenda: updatePayload.agenda }
 			});
 			expect(res.body).toEqual({ ...allMeetings[0], agenda: updatePayload.agenda });
 		});
 
 		it('should return 400 if the meeting could not be updated', async () => {
-			databaseConnector.meeting.upsert.mockResolvedValueOnce(null);
+			databaseConnector.meeting.update.mockResolvedValueOnce(null);
 
 			const res = await request.patch(`/applications/100000000/meetings/1`).send(updatePayload);
 
