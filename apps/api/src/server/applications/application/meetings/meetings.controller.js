@@ -100,9 +100,6 @@ export const deleteMeeting = async ({ params }, res) => {
 		throw new BackOfficeAppError(`Meeting with id: ${meetingId} not found`, 404);
 	}
 
-	console.log(meetingExists);
-	console.log('AAASJHFASUIJKFHJAISUJKFHUIASGHAS');
-
 	const meeting = deleteCaseMeeting(meetingId);
 	if (!meeting) {
 		throw new BackOfficeAppError(`Meeting with id: ${meetingId} could not be deleted`, 400);

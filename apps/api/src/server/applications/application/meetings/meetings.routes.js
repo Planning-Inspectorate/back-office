@@ -10,10 +10,10 @@ import {
 import { validateApplicationId } from '../application.validators.js';
 import { validateCreateMeeting, validatePatchMeeting } from './meetings.validators.js';
 
-const router = createRouter();
+const router = createRouter({ mergeParams: true });
 
 router.get(
-	'/:id/meetings',
+	'/',
 	/*
 		#swagger.tags = ['Applications/Meetings']
 		#swagger.path = '/applications/{id}/meetings'
@@ -54,7 +54,7 @@ router.get(
 );
 
 router.post(
-	'/:id/meetings',
+	'/',
 	/*
 		#swagger.tags = ['Applications/Meetings']
 		#swagger.path = '/applications/{id}/meetings'
@@ -99,7 +99,7 @@ router.post(
 );
 
 router.get(
-	'/:id/meetings/:meetingId',
+	'/:meetingId',
 	/*
 	#swagger.tags = ['Applications/Meetings']
 	#swagger.path = '/applications/{id}/meetings/{meetingId}'
@@ -142,7 +142,7 @@ router.get(
 );
 
 router.patch(
-	'/:id/meetings/:meetingId',
+	'/:meetingId',
 	/*
 	#swagger.tags = ['Applications/Meetings']
 	#swagger.path = '/applications/{id}/meetings/{meetingId}'
@@ -193,7 +193,7 @@ router.patch(
 );
 
 router.delete(
-	'/:id/meetings/:meetingId',
+	'/:meetingId',
 	/*
 	#swagger.tags = ['Applications/Meetings']
 	#swagger.path = '/applications/{id}/meetings/{meetingId}'
