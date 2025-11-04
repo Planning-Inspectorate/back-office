@@ -3129,6 +3129,119 @@ export const spec = {
 					example: '2022-12-21T12:42:40.885Z'
 				}
 			}
+		},
+		Invoice: {
+			type: 'object',
+			required: ['invoiceNumber', 'caseId', 'invoiceStage', 'amountDue', 'createdAt'],
+			properties: {
+				invoiceNumber: {
+					type: 'string',
+					example: 'INV-2025-000123'
+				},
+				caseId: {
+					type: 'integer',
+					example: 100000001
+				},
+				invoiceStage: {
+					type: 'string',
+					enum: [
+						'pre_acceptance',
+						'acceptance',
+						'pre_examination',
+						'initial_examination',
+						'final_examination'
+					],
+					example: 'pre_acceptance'
+				},
+				amountDue: {
+					type: 'string',
+					pattern: '\\d+(\\.\\d{2})$',
+					example: '100.00'
+				},
+				paymentDueDate: {
+					type: 'string',
+					format: 'date-time',
+					nullable: true,
+					example: '2025-12-01T00:00:00.000Z'
+				},
+				invoicedDate: {
+					type: 'string',
+					format: 'date-time',
+					nullable: true,
+					example: '2025-11-20T00:00:00.000Z'
+				},
+				paymentDate: {
+					type: 'string',
+					format: 'date-time',
+					nullable: true,
+					example: '2025-11-28T00:00:00.000Z'
+				},
+				refundCreditNoteNumber: { type: 'string', nullable: true, example: 'CN-000045' },
+				refundAmount: {
+					type: 'string',
+					nullable: true,
+					pattern: '\\d+(\\.\\d{2})$',
+					example: '25.00'
+				},
+				refundIssueDate: {
+					type: 'string',
+					format: 'date-time',
+					nullable: true,
+					example: '2025-12-15T00:00:00.000Z'
+				},
+				createdAt: {
+					type: 'string',
+					format: 'date-time'
+				}
+			}
+		},
+		InvoiceCreateOrUpdateRequest: {
+			type: 'object',
+			required: ['invoiceNumber', 'amountDue', 'invoiceStage'],
+			properties: {
+				invoiceNumber: {
+					type: 'string',
+					example: 'INV-2025-000124'
+				},
+				invoiceStage: {
+					type: 'string',
+					enum: [
+						'pre_acceptance',
+						'acceptance',
+						'pre_examination',
+						'initial_examination',
+						'final_examination'
+					]
+				},
+				amountDue: {
+					type: 'string',
+					pattern: '\\d+(\\.\\d{2})$',
+					example: '250.00'
+				},
+				paymentDueDate: {
+					type: 'string',
+					format: 'date-time'
+				},
+				invoicedDate: {
+					type: 'string',
+					format: 'date-time'
+				},
+				paymentDate: {
+					type: 'string',
+					format: 'date-time'
+				},
+				refundCreditNoteNumber: {
+					type: 'string'
+				},
+				refundAmount: {
+					type: 'string',
+					pattern: '\\d+(\\.\\d{2})$'
+				},
+				refundIssueDate: {
+					type: 'string',
+					format: 'date-time'
+				}
+			}
 		}
 	},
 	components: {}

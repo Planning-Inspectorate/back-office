@@ -3005,3 +3005,78 @@ export interface Meeting {
 	 */
 	createdAt?: string;
 }
+
+export interface Invoice {
+	/** @example "INV-2025-000123" */
+	invoiceNumber: string;
+	/** @example 100000001 */
+	caseId: number;
+	/** @example "pre_acceptance" */
+	invoiceStage:
+		| 'pre_acceptance'
+		| 'acceptance'
+		| 'pre_examination'
+		| 'initial_examination'
+		| 'final_examination';
+	/**
+	 * @pattern \d+(\.\d{2})$
+	 * @example "100.00"
+	 */
+	amountDue: string;
+	/**
+	 * @format date-time
+	 * @example "2025-12-01T00:00:00.000Z"
+	 */
+	paymentDueDate?: string | null;
+	/**
+	 * @format date-time
+	 * @example "2025-11-20T00:00:00.000Z"
+	 */
+	invoicedDate?: string | null;
+	/**
+	 * @format date-time
+	 * @example "2025-11-28T00:00:00.000Z"
+	 */
+	paymentDate?: string | null;
+	/** @example "CN-000045" */
+	refundCreditNoteNumber?: string | null;
+	/**
+	 * @pattern \d+(\.\d{2})$
+	 * @example "25.00"
+	 */
+	refundAmount?: string | null;
+	/**
+	 * @format date-time
+	 * @example "2025-12-15T00:00:00.000Z"
+	 */
+	refundIssueDate?: string | null;
+	/** @format date-time */
+	createdAt: string;
+}
+
+export interface InvoiceCreateOrUpdateRequest {
+	/** @example "INV-2025-000124" */
+	invoiceNumber: string;
+	invoiceStage:
+		| 'pre_acceptance'
+		| 'acceptance'
+		| 'pre_examination'
+		| 'initial_examination'
+		| 'final_examination';
+	/**
+	 * @pattern \d+(\.\d{2})$
+	 * @example "250.00"
+	 */
+	amountDue: string;
+	/** @format date-time */
+	paymentDueDate?: string;
+	/** @format date-time */
+	invoicedDate?: string;
+	/** @format date-time */
+	paymentDate?: string;
+	refundCreditNoteNumber?: string;
+	/** @pattern \d+(\.\d{2})$ */
+	refundAmount?: string;
+	/** @format date-time */
+	refundIssueDate?: string;
+}

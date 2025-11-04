@@ -17,6 +17,7 @@ import {
 	validateGetApplicationQuery
 } from './application.validators.js';
 import { representationsRouter as representationsRouter } from './representations/representations.routes.js';
+import { invoicesRouter as invoicesRouter } from './invoices/invoices.routes.js';
 import { getAllApplications } from '../all-applications/get-all-applications.controller.js';
 import { meetingsRouter } from './meetings/meetings.routes.js';
 
@@ -294,6 +295,8 @@ router.patch(
 );
 
 router.use('/:id/representations', representationsRouter);
+
+router.use('/:id/invoices', invoicesRouter);
 
 router.use('/:id/meetings', meetingsRouter);
 

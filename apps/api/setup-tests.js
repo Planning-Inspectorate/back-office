@@ -117,6 +117,12 @@ const mockMeetingCreate = jest.fn().mockResolvedValue({});
 const mockMeetingUpdate = jest.fn().mockResolvedValue({});
 const mockMeetingDelete = jest.fn().mockResolvedValue({});
 
+const mockInvoiceFindMany = jest.fn().mockResolvedValue([]);
+const mockInvoiceFindFirst = jest.fn().mockResolvedValue({});
+const mockInvoiceCreate = jest.fn().mockResolvedValue({});
+const mockInvoiceUpdate = jest.fn().mockResolvedValue({});
+const mockInvoiceDelete = jest.fn().mockResolvedValue({});
+
 class MockPrismaClient {
 	get address() {
 		return {
@@ -336,6 +342,16 @@ class MockPrismaClient {
 			create: mockMeetingCreate,
 			update: mockMeetingUpdate,
 			delete: mockMeetingDelete
+		};
+	}
+
+	get invoice() {
+		return {
+			findMany: mockInvoiceFindMany,
+			findFirst: mockInvoiceFindFirst,
+			create: mockInvoiceCreate,
+			update: mockInvoiceUpdate,
+			delete: mockInvoiceDelete
 		};
 	}
 
