@@ -3094,6 +3094,41 @@ export const spec = {
 				}
 			},
 			required: ['document', 'folderId', 'folderStage']
+		},
+		Meeting: {
+			type: 'object',
+			properties: {
+				id: {
+					type: 'number',
+					example: 1
+				},
+				caseId: {
+					type: 'number',
+					example: 100
+				},
+				meetingType: {
+					type: 'string',
+					example: 'Planning Meeting'
+				},
+				agenda: {
+					type: 'string',
+					example: 'This is an agenda for a meeting'
+				},
+				pinsRole: {
+					type: 'string',
+					example: 'Observer'
+				},
+				meetingDate: {
+					type: 'string',
+					format: 'date-time',
+					example: '2022-12-21T12:42:40.885Z'
+				},
+				createdAt: {
+					type: 'string',
+					format: 'date-time',
+					example: '2022-12-21T12:42:40.885Z'
+				}
+			}
 		}
 	},
 	components: {}

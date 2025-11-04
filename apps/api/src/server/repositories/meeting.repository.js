@@ -13,11 +13,26 @@ export const getMeetingsByCase = (caseId) => {
 
 /**
  * @param {number} id
+ * @param {number} caseId
  * @returns {Promise<import('@pins/applications.api').Schema.Meeting | null>}
  */
-export const getMeetingById = (id) => {
-	return databaseConnector.meeting.findUnique({
-		where: { id }
+export const getMeetingById = (id, caseId) => {
+	return databaseConnector.meeting.findFirst({
+		where: { id, caseId }
+	});
+};
+
+/**
+ * @param {number} caseId
+ * @param {string} agenda
+ * @param {string} pinsRole
+ * @param {DateTime} meetingDate
+ * @param {string} meetingType
+ * @returns {Promise<import('@pins/applications.api').Schema.Meeting>}
+ */
+export const createMeeting = ({ caseId, agenda, pinsRole, meetingDate, meetingType }) => {
+	return databaseConnector.meeting.create({
+		data: { caseId, agenda, pinsRole, meetingDate, meetingType }
 	});
 };
 
@@ -30,7 +45,7 @@ export const getMeetingById = (id) => {
  * @param {string} meetingType
  * @returns {Promise<import('@pins/applications.api').Schema.Meeting>}
  */
-export const updateMeetingById = (id, caseId, agenda, pinsRole, meetingDate, meetingType) => {
+export const updateMeetingById = ({ id, caseId, agenda, pinsRole, meetingDate, meetingType }) => {
 	return databaseConnector.meeting.upsert({
 		where: { id },
 		create: { caseId, agenda, pinsRole, meetingDate, meetingType },

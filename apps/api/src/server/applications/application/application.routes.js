@@ -18,6 +18,7 @@ import {
 } from './application.validators.js';
 import { representationsRouter as representationsRouter } from './representations/representations.routes.js';
 import { getAllApplications } from '../all-applications/get-all-applications.controller.js';
+import { meetingsRouter } from './meetings/meetings.routes.js';
 
 const router = createRouter();
 
@@ -293,5 +294,7 @@ router.patch(
 );
 
 router.use('/:id/representations', representationsRouter);
+
+router.use('/', meetingsRouter);
 
 export { router as applicationRoutes };
