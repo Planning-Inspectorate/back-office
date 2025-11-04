@@ -2982,3 +2982,26 @@ export interface MoveDocumentsRequestBody {
 	 */
 	folderStage: string;
 }
+
+export interface Meeting {
+	/** @example 1 */
+	id?: number;
+	/** @example 100 */
+	caseId?: number;
+	/** @example "Planning Meeting" */
+	meetingType?: string;
+	/** @example "This is an agenda for a meeting" */
+	agenda?: string;
+	/** @example "Observer" */
+	pinsRole?: string;
+	/**
+	 * @format date-time
+	 * @example "2022-12-21T12:42:40.885Z"
+	 */
+	meetingDate?: string;
+	/**
+	 * @format date-time
+	 * @example "2022-12-21T12:42:40.885Z"
+	 */
+	createdAt?: string;
+}
