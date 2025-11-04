@@ -1893,6 +1893,206 @@
 				}
 			}
 		},
+		"/applications/{caseId}/invoices": {
+			"get": {
+				"tags": ["Applications"],
+				"description": "Get all invoices for a case",
+				"parameters": [
+					{
+						"name": "caseId",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application ID"
+					},
+					{
+						"name": "x-service-name",
+						"in": "header",
+						"type": "string",
+						"description": "Service name header",
+						"default": "swagger"
+					},
+					{
+						"name": "x-api-key",
+						"in": "header",
+						"type": "string",
+						"description": "API key header",
+						"default": "123"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "List of invoices",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"type": {
+									"type": "string",
+									"example": "array"
+								},
+								"items": {
+									"$ref": "#/definitions/Invoice"
+								}
+							},
+							"xml": {
+								"name": "main"
+							}
+						}
+					}
+				}
+			},
+			"post": {
+				"tags": ["Applications"],
+				"description": "Create an invoice",
+				"parameters": [
+					{
+						"name": "caseId",
+						"in": "path",
+						"required": true,
+						"type": "integer"
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/InvoiceCreateRequest"
+						}
+					},
+					{
+						"name": "x-service-name",
+						"in": "header",
+						"type": "string",
+						"default": "swagger"
+					},
+					{
+						"name": "x-api-key",
+						"in": "header",
+						"type": "string",
+						"default": "123"
+					}
+				],
+				"responses": {
+					"201": {
+						"description": "Created",
+						"schema": {
+							"$ref": "#/definitions/Invoice"
+						}
+					}
+				}
+			}
+		},
+		"/applications/{caseId}/invoices/{invoiceId}": {
+			"get": {
+				"tags": ["Applications"],
+				"description": "Get a single invoice by invoice Id",
+				"parameters": [
+					{
+						"name": "caseId",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application ID"
+					},
+					{
+						"name": "invoiceId",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Invoice ID"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Invoice",
+						"schema": {
+							"$ref": "#/definitions/Invoice"
+						}
+					}
+				}
+			},
+			"patch": {
+				"tags": ["Applications"],
+				"description": "Update an invoice",
+				"parameters": [
+					{
+						"name": "caseId",
+						"in": "path",
+						"required": true,
+						"type": "integer"
+					},
+					{
+						"name": "invoiceId",
+						"in": "path",
+						"required": true,
+						"type": "integer"
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/InvoiceUpdate"
+						}
+					},
+					{
+						"name": "x-service-name",
+						"in": "header",
+						"type": "string",
+						"default": "swagger"
+					},
+					{
+						"name": "x-api-key",
+						"in": "header",
+						"type": "string",
+						"default": "123"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Updated",
+						"schema": {
+							"$ref": "#/definitions/Invoice"
+						}
+					}
+				}
+			},
+			"delete": {
+				"tags": ["Applications"],
+				"description": "Delete an invoice",
+				"parameters": [
+					{
+						"name": "caseId",
+						"in": "path",
+						"required": true,
+						"type": "integer"
+					},
+					{
+						"name": "invoiceId",
+						"in": "path",
+						"required": true,
+						"type": "integer"
+					},
+					{
+						"name": "x-service-name",
+						"in": "header",
+						"type": "string",
+						"default": "swagger"
+					},
+					{
+						"name": "x-api-key",
+						"in": "header",
+						"type": "string",
+						"default": "123"
+					}
+				],
+				"responses": {
+					"204": {
+						"description": "Deleted"
+					}
+				}
+			}
+		},
 		"/applications/{id}/meetings": {
 			"get": {
 				"tags": ["Applications/Meetings"],
@@ -10648,6 +10848,123 @@
 					"type": "string",
 					"format": "date-time",
 					"example": "2022-12-21T12:42:40.885Z"
+				}
+			}
+		},
+		"Invoice": {
+			"type": "object",
+			"required": ["invoiceNumber", "caseId", "invoiceStage", "amountDue", "createdAt"],
+			"properties": {
+				"invoiceNumber": {
+					"type": "string",
+					"example": "INV-2025-000123"
+				},
+				"caseId": {
+					"type": "integer",
+					"example": 100000001
+				},
+				"invoiceStage": {
+					"type": "string",
+					"enum": [
+						"pre_acceptance",
+						"acceptance",
+						"pre_examination",
+						"initial_examination",
+						"final_examination"
+					],
+					"example": "pre_acceptance"
+				},
+				"amountDue": {
+					"type": "string",
+					"pattern": "\\d+(\\.\\d{2})$",
+					"example": "100.00"
+				},
+				"paymentDueDate": {
+					"type": "string",
+					"format": "date-time",
+					"nullable": true,
+					"example": "2025-12-01T00:00:00.000Z"
+				},
+				"invoicedDate": {
+					"type": "string",
+					"format": "date-time",
+					"nullable": true,
+					"example": "2025-11-20T00:00:00.000Z"
+				},
+				"paymentDate": {
+					"type": "string",
+					"format": "date-time",
+					"nullable": true,
+					"example": "2025-11-28T00:00:00.000Z"
+				},
+				"refundCreditNoteNumber": {
+					"type": "string",
+					"nullable": true,
+					"example": "CN-000045"
+				},
+				"refundAmount": {
+					"type": "string",
+					"nullable": true,
+					"pattern": "\\d+(\\.\\d{2})$",
+					"example": "25.00"
+				},
+				"refundIssueDate": {
+					"type": "string",
+					"format": "date-time",
+					"nullable": true,
+					"example": "2025-12-15T00:00:00.000Z"
+				},
+				"createdAt": {
+					"type": "string",
+					"format": "date-time"
+				}
+			}
+		},
+		"InvoiceCreateOrUpdateRequest": {
+			"type": "object",
+			"required": ["invoiceNumber", "amountDue", "invoiceStage"],
+			"properties": {
+				"invoiceNumber": {
+					"type": "string",
+					"example": "INV-2025-000124"
+				},
+				"invoiceStage": {
+					"type": "string",
+					"enum": [
+						"pre_acceptance",
+						"acceptance",
+						"pre_examination",
+						"initial_examination",
+						"final_examination"
+					]
+				},
+				"amountDue": {
+					"type": "string",
+					"pattern": "\\d+(\\.\\d{2})$",
+					"example": "250.00"
+				},
+				"paymentDueDate": {
+					"type": "string",
+					"format": "date-time"
+				},
+				"invoicedDate": {
+					"type": "string",
+					"format": "date-time"
+				},
+				"paymentDate": {
+					"type": "string",
+					"format": "date-time"
+				},
+				"refundCreditNoteNumber": {
+					"type": "string"
+				},
+				"refundAmount": {
+					"type": "string",
+					"pattern": "\\d+(\\.\\d{2})$"
+				},
+				"refundIssueDate": {
+					"type": "string",
+					"format": "date-time"
 				}
 			}
 		}

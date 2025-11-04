@@ -1,10 +1,14 @@
 import { databaseConnector } from '#utils/database-connector.js';
 
 /**
+ * @typedef { import('@pins/applications.api').Schema.InvoiceCreateOrUpdateRequest } createOrUpdateInvoiceData
+ */
+
+/**
  * @param {number} caseId
  * @returns {Promise<import('@pins/applications.api').Schema.Invoice[]>}
  */
-export const getInvoicesByCase = (caseId) => {
+export const getInvoicesByCaseId = (caseId) => {
 	return databaseConnector.invoice.findMany({
 		where: { caseId },
 		orderBy: { createdAt: 'asc' }
@@ -12,55 +16,39 @@ export const getInvoicesByCase = (caseId) => {
 };
 
 /**
- * @param {string} invoiceNumber
+ * @param {number} invoiceId
  * @returns {Promise<import('@pins/applications.api').Schema.Invoice | null>}
  */
-export const getInvoiceById = (invoiceNumber) => {
-	return databaseConnector.invoice.findUnique({
-		where: { invoiceNumber }
+export const getInvoiceById = (invoiceId) => {
+	return databaseConnector.invoice.findFirst({
+		where: {
+			id: invoiceId
+		}
 	});
 };
 
 /**
- * @param {string} invoiceNumber
- * @param {number} caseId
- * @param {string} invoiceStage
- * @param {decimal} amountDue
- * @param {DateTime} paymentDueDate
- * @param {DateTime} invoicedDate
- * @param {DateTime} paymentDate
- * @param {string} refundCreditNoteNumber
- * @param {decimal} refundAmount
- * @param {DateTime} refundIssueDate
- * @returns {Promise<import('@pins/applications.api').Schema.Invoice>}
+ *@param {number} caseId
+ * @param {createOrUpdateInvoiceData} createOrUpdateInvoiceData
+ * @returns{Promise<import('@pins/applications.api').Schema.Invoice>}
  */
-export const updateInvoiceById = (
-	invoiceNumber,
-	caseId,
-	invoiceStage,
-	amountDue,
-	paymentDueDate,
-	invoicedDate,
-	paymentDate,
-	refundCreditNoteNumber,
-	refundAmount,
-	refundIssueDate
-) => {
-	return databaseConnector.invoice.upsert({
-		where: { invoiceNumber },
-		create: {
-			invoiceNumber,
+export const createInvoiceById = (caseId, createOrUpdateInvoiceData) => {
+	const {
+		invoiceNumber,
+		invoiceStage,
+		amountDue,
+		paymentDueDate,
+		invoicedDate,
+		paymentDate,
+		refundCreditNoteNumber,
+		refundAmount,
+		refundIssueDate
+	} = createOrUpdateInvoiceData;
+
+	return databaseConnector.invoice.create({
+		data: {
 			caseId,
-			invoiceStage,
-			amountDue,
-			paymentDueDate,
-			invoicedDate,
-			paymentDate,
-			refundCreditNoteNumber,
-			refundAmount,
-			refundIssueDate
-		},
-		update: {
+			invoiceNumber,
 			invoiceStage,
 			amountDue,
 			paymentDueDate,
@@ -74,11 +62,48 @@ export const updateInvoiceById = (
 };
 
 /**
- * @param {string} invoiceNumber
- * @returns {Promise<import('@pins/applications.api').Schema.Invoice>}
+ *@param {number} caseId
+ * @param {number} invoiceId
+ * @param {createOrUpdateInvoiceData} createOrUpdateInvoiceData
+ * @returns{Promise<import('@pins/applications.api').Schema.Invoice>}
  */
-export const deleteInvoiceById = (invoiceNumber) => {
+export const updateInvoiceById = (caseId, invoiceId, createOrUpdateInvoiceData) => {
+	const {
+		invoiceNumber,
+		invoiceStage,
+		amountDue,
+		paymentDueDate,
+		invoicedDate,
+		paymentDate,
+		refundCreditNoteNumber,
+		refundAmount,
+		refundIssueDate
+	} = createOrUpdateInvoiceData;
+
+	return databaseConnector.invoice.update({
+		where: { id: invoiceId },
+		data: {
+			invoiceNumber,
+			invoiceStage,
+			amountDue,
+			paymentDueDate,
+			invoicedDate,
+			paymentDate,
+			refundCreditNoteNumber,
+			refundAmount,
+			refundIssueDate
+		}
+	});
+};
+
+/**
+ * @param {number} invoiceId
+ * @returns {Promise<void|null>}
+ */
+export const deleteInvoiceById = (invoiceId) => {
 	return databaseConnector.invoice.delete({
-		where: { invoiceNumber }
+		where: {
+			id: invoiceId
+		}
 	});
 };
