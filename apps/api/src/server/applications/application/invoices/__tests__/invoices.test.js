@@ -64,7 +64,7 @@ describe('Invoices API', () => {
 				orderBy: { createdAt: 'asc' }
 			});
 			expect(res.body).toEqual({
-				errors: { invoices: `No invoices found for case ${caseId}` }
+				errors: `No invoices found for case ${caseId}`
 			});
 		});
 	});
@@ -86,7 +86,7 @@ describe('Invoices API', () => {
 			const res = await request.get(`/applications/${caseId}/invoices/INV-DOES-NOT-EXIST`);
 			expect(res.status).toBe(404);
 			expect(res.body).toEqual({
-				errors: { invoice: `Invoice INV-DOES-NOT-EXIST not found` }
+				errors: `Invoice INV-DOES-NOT-EXIST not found`
 			});
 		});
 	});
@@ -130,7 +130,7 @@ describe('Invoices API', () => {
 
 			expect(res.status).toBe(400);
 			expect(res.body).toEqual({
-				errors: { invoice: `An invoice with this invoice number already exists` }
+				errors: `An invoice with this invoice number already exists`
 			});
 		});
 
@@ -156,7 +156,7 @@ describe('Invoices API', () => {
 
 			const res = await request
 				.patch(`/applications/${caseId}/invoices/${invoices[1].id}`)
-				.send(updatePayload);
+				.send({ ...invoices[1], updatePayload });
 
 			expect(res.status).toBe(200);
 			expect(res.body).toEqual({ ...invoices[1], amountDue: updatePayload.amountDue });
@@ -172,11 +172,11 @@ describe('Invoices API', () => {
 
 			const res = await request
 				.patch(`/applications/${caseId}/invoices/${missingId}`)
-				.send({ amountDue: '10.00' });
+				.send({ ...invoices[1], amountDue: '10.00' });
 
 			expect(res.status).toBe(404);
 			expect(res.body).toEqual({
-				errors: { invoice: `Invoice ${missingId} not found` }
+				errors: `Invoice ${missingId} not found`
 			});
 		});
 	});
@@ -199,7 +199,7 @@ describe('Invoices API', () => {
 			const res = await request.delete(`/applications/${caseId}/invoices/${missingId}`);
 			expect(res.status).toBe(404);
 			expect(res.body).toEqual({
-				errors: { invoice: `Invoice ${missingId} not found` }
+				errors: `Invoice ${missingId} not found`
 			});
 		});
 	});

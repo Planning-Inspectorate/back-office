@@ -4,6 +4,7 @@ import {
 	createOrUpdateInvoiceForCase,
 	deleteInvoiceForCase
 } from './invoices.service.js';
+import BackOfficeAppError from '../../../utils/app-error.js';
 
 /**
  * Gets all invoices for a case by case Id
@@ -16,18 +17,16 @@ export const getAllCaseInvoicesController = async ({ params }, res) => {
 	const invoices = await getInvoicesForCase(caseId);
 
 	if (!invoices || invoices.length === 0) {
-		return res.status(404).json({
-			errors: { invoices: `No invoices found for case ${caseId}` }
-		});
+		throw new BackOfficeAppError(`No invoices found for case ${caseId}`, 404);
 	}
 
 	return res.send(invoices);
 };
 
 /**
- * Gets a single invoice by invoice Id and case Id
+ * Gets a single invoice by invoice Id
  *
- * @type {import('express').RequestHandler<{id:number, invoiceId:number}>}
+ * @type {import('express').RequestHandler<{invoiceId:number}>}
  */
 export const getCaseInvoiceController = async ({ params }, res) => {
 	const { invoiceId } = params;
@@ -35,9 +34,7 @@ export const getCaseInvoiceController = async ({ params }, res) => {
 	const invoice = await getInvoiceForCaseById(invoiceId);
 
 	if (!invoice) {
-		return res.status(404).json({
-			errors: { invoice: `Invoice ${invoiceId} not found` }
-		});
+		throw new BackOfficeAppError(`Invoice ${invoiceId} not found`, 404);
 	}
 	return res.send(invoice);
 };
@@ -57,14 +54,10 @@ export const createOrUpdateInvoiceController = async ({ params, body }, res) => 
 		return res.status(isCreateRequest ? 201 : 200).send(invoice);
 	} catch (error) {
 		if (error?.code === 'P2002') {
-			return res.status(400).json({
-				errors: { invoice: 'An invoice with this invoice number already exists' }
-			});
+			throw new BackOfficeAppError('An invoice with this invoice number already exists', 400);
 		}
 		if (error?.code === 'P2025') {
-			return res.status(404).json({
-				errors: { invoice: `Invoice ${invoiceId} not found` }
-			});
+			throw new BackOfficeAppError(`Invoice ${invoiceId} not found`, 404);
 		}
 	}
 };
@@ -82,9 +75,7 @@ export const deleteInvoiceController = async ({ params }, res) => {
 		return res.status(204).send();
 	} catch (error) {
 		if (error?.code === 'P2025') {
-			return res.status(404).json({
-				errors: { invoice: `Invoice ${invoiceId} not found` }
-			});
+			throw new BackOfficeAppError(`Invoice ${invoiceId} not found`, 404);
 		}
 	}
 };

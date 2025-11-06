@@ -1,7 +1,7 @@
 import { Router as createRouter } from 'express';
 import { asyncHandler } from '@pins/express';
 import { validateApplicationId } from '../application.validators.js';
-import { validateCreateInvoice, validateUpdateInvoice } from './invoices.validators.js';
+import { validateCreateOrUpdateInvoice } from './invoices.validators.js';
 import {
 	getAllCaseInvoicesController,
 	getCaseInvoiceController,
@@ -90,7 +90,7 @@ router.post(
 		#swagger.parameters['body'] = {
 			in: 'body',
 			required: true,
-			schema: { $ref: '#/definitions/InvoiceCreateRequest' }
+			schema: { $ref: '#/definitions/InvoiceCreateOrUpdateRequest' }
 		}
 		#swagger.parameters['x-service-name'] = {
 			in: 'header',
@@ -108,7 +108,7 @@ router.post(
 		}
 	*/
 	validateApplicationId,
-	validateCreateInvoice,
+	validateCreateOrUpdateInvoice,
 	asyncHandler(createOrUpdateInvoiceController)
 );
 
@@ -131,7 +131,7 @@ router.patch(
 		#swagger.parameters['body'] = {
 			in: 'body',
 			required: true,
-			schema: { $ref: '#/definitions/InvoiceUpdate' }
+			schema: { $ref: '#/definitions/InvoiceCreateOrUpdateRequest' }
 		 }
 		#swagger.parameters['x-service-name'] = {
 			in: 'header',
@@ -149,7 +149,7 @@ router.patch(
 		}
 	*/
 	validateApplicationId,
-	validateUpdateInvoice,
+	validateCreateOrUpdateInvoice,
 	asyncHandler(createOrUpdateInvoiceController)
 );
 
