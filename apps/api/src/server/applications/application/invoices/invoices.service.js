@@ -26,12 +26,10 @@ export const getInvoiceForCaseById = async (invoiceId) => {
  * @returns {Promise<import('@pins/applications.api').Schema.Invoice>}
  */
 export const createOrUpdateInvoiceForCase = async (caseId, invoiceId, invoiceData) => {
-	if (!invoiceId) {
-		return invoicesRepository.createInvoiceById(Number(caseId), invoiceData);
-	}
-
 	if (invoiceId) {
-		return invoicesRepository.updateInvoiceById(Number(caseId), Number(invoiceId), invoiceData);
+		return invoicesRepository.updateInvoiceById(Number(invoiceId), invoiceData);
+	} else {
+		return invoicesRepository.createInvoiceById(Number(caseId), invoiceData);
 	}
 };
 

@@ -62,12 +62,11 @@ export const createInvoiceById = (caseId, createOrUpdateInvoiceData) => {
 };
 
 /**
- *@param {number} caseId
  * @param {number} invoiceId
  * @param {createOrUpdateInvoiceData} createOrUpdateInvoiceData
  * @returns{Promise<import('@pins/applications.api').Schema.Invoice>}
  */
-export const updateInvoiceById = (caseId, invoiceId, createOrUpdateInvoiceData) => {
+export const updateInvoiceById = (invoiceId, createOrUpdateInvoiceData) => {
 	const {
 		invoiceNumber,
 		invoiceStage,
