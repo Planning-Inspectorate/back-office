@@ -18,12 +18,11 @@ describe('redact-representation view-models', () => {
 					'/applications-service/case/1/relevant-representations/1/representation-details',
 				caseId: '1',
 				organisationOrFullname: 'Mrs Sue',
-				originalRepresentation:
+				representation:
 					'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla con.',
-				originalRepresentationText:
+				representationText:
 					'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla con.',
-				editedRepresentation: null,
-				editedRepresentationText: null,
+				editedRepresentation: false,
 				projectName: 'mock case reference title',
 				representationId: '1',
 				statusText: 'AWAITING_REVIEW',
@@ -46,10 +45,10 @@ describe('redact-representation view-models', () => {
 				caseReference.title,
 				caseReference.status
 			);
-			expect(response.originalRepresentation).toEqual(
+			expect(response.representation).toEqual(
 				'Lorem ipsum dolor sit amet,\nconsectetuer adipiscing elit.\nAenean commodo ligula eget dolor.\nAenean massa. Cum sociis natoque penatibus et magnis dis parturient montes'
 			);
-			expect(response.originalRepresentationText).toEqual(
+			expect(response.representationText).toEqual(
 				'Lorem ipsum dolor sit amet,\nconsectetuer adipiscing elit.\nAenean commodo ligula eget dolor.\nAenean massa. Cum sociis natoque penatibus et magnis dis parturient montes'
 			);
 		});

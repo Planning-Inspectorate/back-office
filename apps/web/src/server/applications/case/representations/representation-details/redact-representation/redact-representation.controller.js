@@ -39,14 +39,14 @@ export const getRedactRepresentationController = async (req, res) => {
 		featureFlagClient.isFeatureActiveForCase(AZURE_AI_LANGUAGE_REDACTION, caseReference.reference)
 	) {
 		logger.info('Redact representation page is using Azure AI Language Redaction feature');
-		const redactionResult = await fetchRedactionSuggestions(viewModel.originalRepresentation);
+		const redactionResult = await fetchRedactionSuggestions(viewModel.representation);
 		if (redactionResult) {
 			view =
 				'applications/representations/representation-details/redact-representation/redact-representation.njk';
 			viewModel.containerSize = 'xl';
 			viewModel.redactionSuggestions = redactionResult.entities || [];
 
-			if (viewModel.originalRepresentation === viewModel.redactedRepresentation) {
+			if (viewModel.representation === viewModel.redactedRepresentation) {
 				// 'accept' all suggestions if there haven't been any changes made by the user
 				viewModel.redactedRepresentation = redactionResult.redactedText;
 				for (const redactionSuggestion of viewModel.redactionSuggestions) {
@@ -60,8 +60,8 @@ export const getRedactRepresentationController = async (req, res) => {
 						REDACT_CHARACTER;
 				}
 			}
-			viewModel.originalRepresentation = highlightRedactionSuggestions(
-				viewModel.originalRepresentation,
+			viewModel.representation = highlightRedactionSuggestions(
+				viewModel.representation,
 				viewModel.redactionSuggestions
 			);
 		} // else fallback to legacy view
