@@ -4,11 +4,24 @@ import logger from './logger.js';
 import { DefaultAzureCredential } from '@azure/identity';
 
 /**
- * All categories are used by default, can be overridden in the config
+ * Default categories for PII redaction as per AC1 requirements
  * @see https://learn.microsoft.com/en-us/javascript/api/%40azure/ai-language-text/piientitycategory?view=azure-node-latest
- * @type {string[]|undefined}
+ * @type {string[]}
  */
-export const DEFAULT_CATEGORIES = undefined;
+export const DEFAULT_CATEGORIES = [
+	'Address',
+	'Age',
+	'Email',
+	'Person',
+	'PhoneNumber',
+	'UKDriversLicenseNumber',
+	'UKElectoralRollNumber',
+	'UKNationalHealthNumber',
+	'UKNationalInsuranceNumber',
+	'UKUniqueTaxpayerNumber',
+	'URL',
+	'USUKPassportNumber'
+];
 
 // cache the instance of the client
 /** @type {TextAnalyticsClient|undefined} */
@@ -38,6 +51,7 @@ export function getAzureTextAnalyticsClient() {
  * @returns {string[]|undefined}
  */
 export function getAzureLanguageCategories() {
+	console.log('Categories from config:', config.azureAiLanguage.categories);
 	if (config.azureAiLanguage.categories && typeof config.azureAiLanguage.categories === 'string') {
 		return config.azureAiLanguage.categories.split(',').map((e) => e.trim());
 	}
