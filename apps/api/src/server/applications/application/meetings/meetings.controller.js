@@ -93,17 +93,14 @@ export const patchMeeting = async ({ params, body }, res) => {
  * @type {import('express').RequestHandler<{id: number, meetingId: number}>}
  */
 export const deleteMeeting = async ({ params }, res) => {
-	const { meetingId: meetingId, id: caseId } = params;
+	const { meetingId: meetingId } = params;
 
-	const meetingExists = await getCaseMeeting(Number(meetingId), caseId);
-	if (!meetingExists) {
-		throw new BackOfficeAppError(`Meeting with id: ${meetingId} not found`, 404);
+	try {
+		await deleteCaseMeeting(meetingId);
+		return res.status(204).send();
+	} catch (error) {
+		if (error?.code === 'P2025') {
+			throw new BackOfficeAppError(`Meeting with id: ${meetingId} not found`, 404);
+		}
 	}
-
-	const meeting = deleteCaseMeeting(meetingId);
-	if (!meeting) {
-		throw new BackOfficeAppError(`Meeting with id: ${meetingId} could not be deleted`, 400);
-	}
-
-	res.status(204).send();
 };

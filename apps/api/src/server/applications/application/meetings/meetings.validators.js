@@ -15,6 +15,7 @@ export const validateCreateMeeting = composeMiddleware(
 );
 
 export const validatePatchMeeting = composeMiddleware(
+	body('agenda').optional().notEmpty().withMessage('Agenda cannot be empty.'),
 	body('pinsRole')
 		.optional()
 		.isIn(['Facilitator', 'Advisor', 'Observer'])

@@ -176,7 +176,9 @@ describe('Test Meetings API Endpoints', () => {
 		});
 
 		it('should return 404 if the meeting to delete is not found', async () => {
-			databaseConnector.meeting.findFirst.mockResolvedValueOnce(null);
+			databaseConnector.meeting.delete.mockRejectedValueOnce(
+				Object.assign(new Error('Record not found'), { code: 'P2025' })
+			);
 
 			const res = await request.delete(`/applications/100000000/meetings/999`);
 
