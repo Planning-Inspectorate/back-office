@@ -75,6 +75,7 @@ export async function fetchRedactionSuggestions(
 			});
 			results.push(...res);
 		}
+		console.log('Azure AI response:', JSON.stringify(results, null, 2));
 
 		if (isSuccessResults(results)) {
 			const { entities, redactedText } = combineResults(results, originalRepresentation);
