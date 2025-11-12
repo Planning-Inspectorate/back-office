@@ -51,7 +51,6 @@ export function getAzureTextAnalyticsClient() {
  * @returns {string[]|undefined}
  */
 export function getAzureLanguageCategories() {
-	console.log('Categories from config:', config.azureAiLanguage.categories);
 	if (config.azureAiLanguage.categories && typeof config.azureAiLanguage.categories === 'string') {
 		return config.azureAiLanguage.categories.split(',').map((e) => e.trim());
 	}
