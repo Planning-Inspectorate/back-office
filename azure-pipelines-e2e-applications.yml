@@ -147,18 +147,18 @@ jobs:
   #         script: DEBUG=cypress:* npx cypress run --headed --browser chrome --spec "cypress/e2e/back-office-applications/publishDocuments.spec.js,cypress/e2e/back-office-applications/s51Advice.spec.js,cypress/e2e/back-office-applications/search.spec.js,cypress/e2e/back-office-applications/searchDocuments.spec.js,cypress/e2e/back-office-applications/sectorAsTraing.spec.js,cypress/e2e/back-office-applications/smokeTests.spec.js"
   #         workingDirectory: 'apps/e2e'
 
-        env:
-          BASE_URL: $(BASE_URL)
-          CASE_TEAM_EMAIL: $(CASE_TEAM_EMAIL)
-          CASE_ADMIN_EMAIL: $(CASE_ADMIN_EMAIL)
-          INSPECTOR_EMAIL: $(INSPECTOR_EMAIL)
-          USER_PASSWORD: $(USER_PASSWORD)
-          FEATURE_FLAG_CONNECTION_STRING: $(FEATURE_FLAG_CONNECTION_STRING)
-        displayName: "Run Cypress Tests Group 4"
+      #   env:
+      #     BASE_URL: $(BASE_URL)
+      #     CASE_TEAM_EMAIL: $(CASE_TEAM_EMAIL)
+      #     CASE_ADMIN_EMAIL: $(CASE_ADMIN_EMAIL)
+      #     INSPECTOR_EMAIL: $(INSPECTOR_EMAIL)
+      #     USER_PASSWORD: $(USER_PASSWORD)
+      #     FEATURE_FLAG_CONNECTION_STRING: $(FEATURE_FLAG_CONNECTION_STRING)
+      #   displayName: "Run Cypress Tests Group 4"
 
-      - task: PublishBuildArtifacts@1
-        inputs:
-          pathToPublish: 'apps/e2e/cypress/screenshots'
-          artifactName: 'FailedTests'
-        displayName: "Publish Failed Tests Artifacts"
-        condition: failed()
+      # - task: PublishBuildArtifacts@1
+      #   inputs:
+      #     pathToPublish: 'apps/e2e/cypress/screenshots'
+      #     artifactName: 'FailedTests'
+      #   displayName: "Publish Failed Tests Artifacts"
+      #   condition: failed()
