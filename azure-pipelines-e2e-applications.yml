@@ -21,8 +21,13 @@ jobs:
     pool: pins-template-test
     steps:
       - script: |
-          echo "node: $(node -v 2>/dev/null || echo 'not found')"
+          echo "node: $(node -v)"
         displayName: 'check node version'
+
+      - script: |
+          export PATH="/usr/local/bin/:$PATH"
+          echo "node: $(node -v)"
+        displayName: 'Force Node 20 on PATH'
 
       - task: Npm@1
         inputs:
