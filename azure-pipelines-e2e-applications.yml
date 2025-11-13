@@ -18,7 +18,7 @@ trigger: none
 jobs:
   - job: E2E_Tests_Group_1
     timeoutInMinutes: 60
-    pool: pins-template-test
+    pool: pins-odt-agent-pool-tests
     steps:
       - script: |
 #          export NVM_DIR="/usr/local/nvm"
