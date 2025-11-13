@@ -18,7 +18,7 @@ trigger: none
 jobs:
   - job: E2E_Tests_Group_1
     timeoutInMinutes: 60
-    pool: pins-odt-agent-pool-tests
+    pool: pins-template-test
     steps:
       - script: |
           echo "node: $(node -v 2>/dev/null || echo 'not found')"
