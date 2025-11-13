@@ -24,10 +24,10 @@ jobs:
           echo "node: $(node -v)"
         displayName: 'check node version'
 
-      - script: |
-          export PATH="/usr/local/bin/:$PATH"
-          echo "node: $(node -v)"
-        displayName: 'Force Node 20 on PATH'
+      - task: NodeTool@0
+        inputs:
+          versionSpec: '20.x'
+        displayName: 'Use Node 20'
 
       - task: Npm@1
         inputs:
