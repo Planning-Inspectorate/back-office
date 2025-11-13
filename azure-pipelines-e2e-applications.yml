@@ -21,7 +21,7 @@ jobs:
     pool: pins-odt-agent-pool-tests
     steps:
       - script: |
-        echo "node: $(node -v 2>/dev/null || echo 'not found')"
+          echo "node: $(node -v 2>/dev/null || echo 'not found')"
         displayName: 'check node version'
 
       - task: Npm@1
