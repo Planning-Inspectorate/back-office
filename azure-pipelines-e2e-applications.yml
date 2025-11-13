@@ -21,14 +21,9 @@ jobs:
     pool: pins-odt-agent-pool-tests
     steps:
       - script: |
-#          export NVM_DIR="/usr/local/nvm"
-#          [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-#          nvm use 22
-#          NODE_PATH=$(dirname $(nvm which 20))
-#          echo "##vso[task.setvariable variable=PATH]$NODE_PATH:$PATH"
-#          echo "✅ Using Node.js $(node -v) and NPM $(npm -v)"
-#          echo "✅ Node.js path set to: $NODE_PATH"
-        displayName: 'Setup Node.js 20 Environment'
+        echo "node: $(node -v 2>/dev/null || echo 'not found')"
+        displayName: 'check node version'
+
       - task: Npm@1
         inputs:
           command: "install"
