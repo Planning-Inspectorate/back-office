@@ -82,6 +82,28 @@ const mapApplicationDetails = (projectEntity) => {
 		notificationDateForEventsDeveloper:
 			appDetails.notificationDateForEventsApplicant?.toISOString() ?? null,
 		transboundary: null,
+		tier: appDetails?.tier,
+		subProjectType: appDetails?.subProjectType,
+		newMaturity: appDetails?.newMaturity,
+		recommendation: appDetails?.recommendation,
+		courtDecisionOutcome: appDetails?.courtDecisionOutcome,
+		courtDecisionOutcomeText: appDetails?.courtDecisionOutcomeText,
+		s61SummaryURI: appDetails?.s61SummaryURI,
+		programmeDocumentURI: appDetails?.programmeDocumentURI,
+		additionalComments: appDetails?.additionalComments,
+		issuesTracker: appDetails?.issuesTracker,
+		principalAreaDisagreementSummaryStmt: appDetails?.principalAreaDisagreementSummaryStmt,
+		policyComplianceDocument: appDetails?.policyComplianceDocument,
+		designApproachDocument: appDetails?.designApproachDocument,
+		matureOutlineControlDocument: appDetails?.matureOutlineControlDocument,
+		caAndTpEvidence: appDetails?.caAndTpEvidence,
+		publicSectorEqualityDuty: appDetails?.publicSectorEqualityDuty,
+		fastTrackAdmissionDocument: appDetails?.fastTrackAdmissionDocument,
+		multipartyApplicationCheckDocument: appDetails?.multipartyApplicationCheckDocument,
+		numberBand2Inspectors: appDetails?.numberBand2Inspectors,
+		numberBand3Inspectors: appDetails?.numberBand3Inspectors,
+		essentialFastTrackComponents: appDetails?.essentialFastTrackComponents,
+		planProcessEvidence: appDetails?.planProcessEvidence,
 		decision: null
 	};
 };

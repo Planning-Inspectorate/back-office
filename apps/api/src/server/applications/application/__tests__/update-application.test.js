@@ -551,4 +551,120 @@ describe('Update application', () => {
 		expect(response.status).toEqual(200);
 		expect(eventClient.sendEvents).not.toHaveBeenCalledWith(NSIP_PROJECT);
 	});
+
+	test('update-application coerces booleans and numbers for additionalDetails', async () => {
+		// GIVEN
+		databaseConnector.case.findUnique.mockImplementation(mockApplicationGet(mockCase));
+		databaseConnector.case.update.mockResolvedValue({});
+		jest.useFakeTimers({ doNotFake: ['performance'], now: 1_649_319_144_000 });
+		// WHEN
+		const response = await request.patch('/applications/1').send({
+			essentialFastTrackComponents: true,
+			planProcessEvidence: false,
+			numberBand2Inspectors: '3', // string -> number
+			numberBand3Inspectors: '' // empty string -> null
+		});
+		// THEN
+
+		expect(response.status).toEqual(200);
+		expect(response.body).toEqual({ id: 1, applicantId: 1 });
+		expect(databaseConnector.case.update).toHaveBeenCalledWith({
+			where: { id: 1 },
+			data: {
+				modifiedAt: new Date(1_649_319_144_000),
+				ApplicationDetails: {
+					upsert: {
+						create: {
+							essentialFastTrackComponents: true,
+							planProcessEvidence: false,
+							numberBand2Inspectors: 3,
+							numberBand3Inspectors: null
+						},
+						update: {
+							essentialFastTrackComponents: true,
+							planProcessEvidence: false,
+							numberBand2Inspectors: 3,
+							numberBand3Inspectors: null
+						}
+					}
+				}
+			},
+			include: { applicant: true }
+		});
+		// events still fire
+		expect(eventClient.sendEvents).toHaveBeenCalledTimes(2);
+		expect(eventClient.sendEvents).toHaveBeenNthCalledWith(
+			1,
+			NSIP_PROJECT,
+			expectedNsipProjectPayload,
+			'Update'
+		);
+		expect(eventClient.sendEvents).toHaveBeenNthCalledWith(
+			2,
+			SERVICE_USER,
+			expectedApplicantPayload,
+			'Update',
+			{ entityType: 'Applicant' }
+		);
+	});
+
+	test('update-application updates string/enum additionalDetails fields', async () => {
+		// GIVEN
+		databaseConnector.case.findUnique.mockImplementation(mockApplicationGet(mockCase));
+		databaseConnector.case.update.mockResolvedValue({});
+		jest.useFakeTimers({ doNotFake: ['performance'], now: 1_649_319_144_000 });
+		// WHEN
+		const response = await request.patch('/applications/1').send({
+			tier: 'standard',
+			subProjectType: 'energy_from_waste',
+			newMaturity: 'C',
+			recommendation: 'recommend_partial_consent',
+			courtDecisionOutcome: 'upheld',
+			courtDecisionOutcomeText: 'Some reasoning text',
+			s61SummaryURI: 'https://example.org/s61',
+			programmeDocumentURI: 'https://example.org/prog',
+			additionalComments: 'some notes',
+			issuesTracker: 'JIRA-123'
+		});
+		// THEN
+
+		expect(response.status).toEqual(200);
+		expect(response.body).toEqual({ id: 1, applicantId: 1 });
+		expect(databaseConnector.case.update).toHaveBeenCalledWith({
+			where: { id: 1 },
+			data: {
+				modifiedAt: new Date(1_649_319_144_000),
+				ApplicationDetails: {
+					upsert: {
+						create: {
+							tier: 'standard',
+							subProjectType: 'energy_from_waste',
+							newMaturity: 'C',
+							recommendation: 'recommend_partial_consent',
+							courtDecisionOutcome: 'upheld',
+							courtDecisionOutcomeText: 'Some reasoning text',
+							s61SummaryURI: 'https://example.org/s61',
+							programmeDocumentURI: 'https://example.org/prog',
+							additionalComments: 'some notes',
+							issuesTracker: 'JIRA-123'
+						},
+						update: {
+							tier: 'standard',
+							subProjectType: 'energy_from_waste',
+							newMaturity: 'C',
+							recommendation: 'recommend_partial_consent',
+							courtDecisionOutcome: 'upheld',
+							courtDecisionOutcomeText: 'Some reasoning text',
+							s61SummaryURI: 'https://example.org/s61',
+							programmeDocumentURI: 'https://example.org/prog',
+							additionalComments: 'some notes',
+							issuesTracker: 'JIRA-123'
+						}
+					}
+				}
+			},
+			include: { applicant: true }
+		});
+		expect(eventClient.sendEvents).toHaveBeenCalledTimes(2);
+	});
 });

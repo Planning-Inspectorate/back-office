@@ -32,13 +32,66 @@ export const mapApplicationDetailsToRepository = (applicationDetails) => {
 			'submissionAtPublished',
 			'caseEmail',
 			'dateOfReOpenRelevantRepresentationStart',
-			'dateOfReOpenRelevantRepresentationClose'
+			'dateOfReOpenRelevantRepresentationClose',
+			// enums / strings
+			'tier',
+			'subProjectType',
+			'newMaturity',
+			'recommendation',
+			'courtDecisionOutcome',
+			'courtDecisionOutcomeText',
+			's61SummaryURI',
+			'programmeDocumentURI',
+			'additionalComments',
+			'issuesTracker',
+			// document enums
+			'principalAreaDisagreementSummaryStmt',
+			'policyComplianceDocument',
+			'designApproachDocument',
+			'matureOutlineControlDocument',
+			'caAndTpEvidence',
+			'publicSectorEqualityDuty',
+			'fastTrackAdmissionDocument',
+			'multipartyApplicationCheckDocument',
+			// numbers / booleans
+			'numberBand2Inspectors',
+			'numberBand3Inspectors',
+			'essentialFastTrackComponents',
+			'planProcessEvidence'
 		]
 	);
 
 	if (formattedApplicationDetails.caseEmail === '') {
 		// Make sure caseEmail is saved as a null if blank
 		formattedApplicationDetails.caseEmail = null;
+	}
+
+	if (formattedApplicationDetails.planProcessEvidence != null) {
+		formattedApplicationDetails.planProcessEvidence = Boolean(
+			formattedApplicationDetails.planProcessEvidence
+		);
+	}
+
+	if (formattedApplicationDetails.essentialFastTrackComponents != null) {
+		formattedApplicationDetails.essentialFastTrackComponents = Boolean(
+			formattedApplicationDetails.essentialFastTrackComponents
+		);
+	}
+
+	if (formattedApplicationDetails.numberBand2Inspectors === '') {
+		formattedApplicationDetails.numberBand2Inspectors = null;
+	} else if (formattedApplicationDetails.numberBand2Inspectors != null) {
+		formattedApplicationDetails.numberBand2Inspectors = Number(
+			formattedApplicationDetails.numberBand2Inspectors
+		);
+	}
+
+	if (formattedApplicationDetails.numberBand3Inspectors === '') {
+		formattedApplicationDetails.numberBand3Inspectors = null;
+	} else if (formattedApplicationDetails.numberBand3Inspectors != null) {
+		formattedApplicationDetails.numberBand3Inspectors = Number(
+			formattedApplicationDetails.numberBand3Inspectors
+		);
 	}
 
 	const applicant = applicationDetails?.applicant;

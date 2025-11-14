@@ -112,6 +112,10 @@ const propertyToName = {
 	postDecision: 'Post-decision',
 	jRPeriodEndDate: 'Judicial review period end date',
 	jRPeriodEndDate_label: 'Close of the judicial review period.',
+	courtDecisionDate: 'Date of court decision',
+	courtDecisionDate_label: 'Date of the court decision.',
+	decisionChallengeSubmissionDate: 'Date of decision challenge submission',
+	decisionChallengeSubmissionDate_label: 'Date of decision challenge submission',
 
 	withdrawal: 'Withdrawal',
 	dateProjectWithdrawn: 'Date project withdrawn',
