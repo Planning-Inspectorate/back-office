@@ -7,7 +7,26 @@ export const preApplicationDateNames = [
 	'screeningOpinionIssued',
 	'scopingOpinionSought',
 	'scopingOpinionIssued',
-	'section46Notification'
+	'section46Notification',
+	'inceptionMeetingDate',
+	'draftDocumentSubmissionDate',
+	'programmeDocumentSubmissionDate',
+	'estimatedScopingSubmissionDate',
+	'consultationMilestoneAdequacyDate',
+	'principalAreaDisagreementSummaryStmtSubmittedDate',
+	'policyComplianceDocumentSubmittedDate',
+	'designApproachDocumentSubmittedDate',
+	'matureOutlineControlDocumentSubmittedDate',
+	'caAndTpEvidenceSubmittedDate',
+	'publicSectorEqualityDutySubmittedDate',
+	'fastTrackAdmissionDocumentSubmittedDate',
+	'multipartyApplicationCheckDocumentSubmittedDate',
+	'updatedProgrammeDocumentReceivedDate',
+	'programmeDocumentReviewedByEstDate',
+	'caseTeamIssuedCommentsDate',
+	'statutoryConsultationPeriodEndDate',
+	'submissionOfDraftDocumentsDate',
+	'memLastUpdated'
 ];
 export const acceptanceDateNames = [
 	'dateOfDCOSubmission',
@@ -46,7 +65,11 @@ export const decisionDateNames = [
 	'confirmedDateOfDecision',
 	'stage5ExtensionToDecisionDeadline'
 ];
-export const postDecisionDateNames = ['jRPeriodEndDate'];
+export const postDecisionDateNames = [
+	'jRPeriodEndDate',
+	'courtDecisionDate',
+	'decisionChallengeSubmissionDate'
+];
 export const withdrawalDateNames = ['dateProjectWithdrawn'];
 
 export const allKeyDateNames = preApplicationDateNames.concat(

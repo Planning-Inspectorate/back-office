@@ -149,6 +149,103 @@ export const validateCreateUpdateApplication = composeMiddleware(
 		.custom(validateCaseStage)
 		.withMessage('Must be a valid case stage')
 		.optional({ nullable: true }),
+	body('tier')
+		.isIn(['basic', 'standard', 'enhanced'])
+		.withMessage("tier must be one of 'basic','standard','enhanced'")
+		.optional({ nullable: true }),
+	body('subProjectType')
+		.isIn([
+			'energy_from_waste',
+			'gas_power_station',
+			'hydrogen_power_station',
+			'nuclear',
+			'offshore_wind',
+			'onshore_wind',
+			'solar'
+		])
+		.withMessage('Invalid sub project type')
+		.optional({ nullable: true }),
+	body('newMaturity')
+		.isIn(['A', 'B', 'C', 'D', 'E', 'F', 'G'])
+		.withMessage('new maturity must be A–G')
+		.optional({ nullable: true }),
+	body('recommendation')
+		.isIn(['recommend_consent', 'recommend_partial_consent', 'recommend_refusal'])
+		.withMessage('Invalid recommendation')
+		.optional({ nullable: true }),
+	body('courtDecisionOutcome')
+		.isIn(['upheld', 'partially_upheld', 'quashed', 'other'])
+		.withMessage('Invalid court decision outcome')
+		.optional({ nullable: true }),
+	body('courtDecisionOutcomeText').optional({ nullable: true }),
+	body('s61SummaryURI').optional({ nullable: true }),
+	body('programmeDocumentURI').optional({ nullable: true }),
+	body('additionalComments').optional({ nullable: true }),
+	body('issuesTracker').optional({ nullable: true }),
+
+	(() => {
+		const docEnum = ['submitted_by_applicant', 'awaiting_submission', 'not_applicable'];
+		return [
+			body('principalAreaDisagreementSummaryStmt')
+				.isIn(docEnum)
+				.withMessage(
+					'Document status must be one of submitted by applicant, awaiting submission or not applicable'
+				)
+				.optional({ nullable: true }),
+			body('policyComplianceDocument')
+				.isIn(docEnum)
+				.withMessage(
+					'Document status must be one of submitted by applicant, awaiting submission or not applicable'
+				)
+				.optional({ nullable: true }),
+			body('designApproachDocument')
+				.isIn(docEnum)
+				.withMessage(
+					'Document status must be one of submitted by applicant, awaiting submission or not applicable'
+				)
+				.optional({ nullable: true }),
+			body('matureOutlineControlDocument')
+				.isIn(docEnum)
+				.withMessage(
+					'Document status must be one of submitted by applicant, awaiting submission or not applicable'
+				)
+				.optional({ nullable: true }),
+			body('caAndTpEvidence')
+				.isIn(docEnum)
+				.withMessage(
+					'Document status must be one of submitted by applicant, awaiting submission or not applicable'
+				)
+				.optional({ nullable: true }),
+			body('publicSectorEqualityDuty')
+				.isIn(docEnum)
+				.withMessage(
+					'Document status must be one of submitted by applicant, awaiting submission or not applicable'
+				)
+				.optional({ nullable: true }),
+			body('fastTrackAdmissionDocument')
+				.isIn(docEnum)
+				.withMessage(
+					'Document status must be one of submitted by applicant, awaiting submission or not applicable'
+				)
+				.optional({ nullable: true }),
+			body('multipartyApplicationCheckDocument')
+				.isIn(docEnum)
+				.withMessage(
+					'Document status must be one of submitted by applicant, awaiting submission or not applicable'
+				)
+				.optional({ nullable: true })
+		];
+	})(),
+	body('numberBand2Inspectors')
+		.customSanitizer((value) => (value === '' ? null : value))
+		.optional({ nullable: true })
+		.isInt({ min: 0, max: 100 })
+		.withMessage('Number of Band 2 Inspectors must be a number between 0 and 100'),
+	body('numberBand3Inspectors')
+		.customSanitizer((value) => (value === '' ? null : value))
+		.optional({ nullable: true })
+		.isInt({ min: 0, max: 100 })
+		.withMessage('Number of Band 3 Inspectors must be a number between 0 and 100'),
 	body('geographicalInformation.gridReference.easting')
 		.isNumeric()
 		.withMessage('Easting must be integer with 6 digits')
