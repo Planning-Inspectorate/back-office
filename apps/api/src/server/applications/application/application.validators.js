@@ -11,6 +11,16 @@ import * as representationRepository from '#repositories/representation.reposito
 import * as subSectorRepository from '#repositories/sub-sector.repository.js';
 import * as zoomLevelRepository from '#repositories/zoom-level.repository.js';
 import { isTrainingCase } from '#utils/is-training-case.js';
+import { VALIDATE_APPLICATION_ENUMS } from '../constants.js';
+
+const {
+	TIER,
+	SUB_PROJECT_TYPE,
+	NEW_MATURITY,
+	RECOMMENDATION,
+	COURT_DECISION_OUTCOME,
+	DOCUMENT_STATUS
+} = VALIDATE_APPLICATION_ENUMS;
 
 /**
  *
@@ -150,31 +160,23 @@ export const validateCreateUpdateApplication = composeMiddleware(
 		.withMessage('Must be a valid case stage')
 		.optional({ nullable: true }),
 	body('tier')
-		.isIn(['basic', 'standard', 'enhanced'])
-		.withMessage("tier must be one of 'basic','standard','enhanced'")
+		.isIn(TIER)
+		.withMessage(`tier must be one of ${TIER.join(', ')}`)
 		.optional({ nullable: true }),
 	body('subProjectType')
-		.isIn([
-			'energy_from_waste',
-			'gas_power_station',
-			'hydrogen_power_station',
-			'nuclear',
-			'offshore_wind',
-			'onshore_wind',
-			'solar'
-		])
+		.isIn(SUB_PROJECT_TYPE)
 		.withMessage('Invalid sub project type')
 		.optional({ nullable: true }),
 	body('newMaturity')
-		.isIn(['A', 'B', 'C', 'D', 'E', 'F', 'G'])
+		.isIn(NEW_MATURITY)
 		.withMessage('new maturity must be A–G')
 		.optional({ nullable: true }),
 	body('recommendation')
-		.isIn(['recommend_consent', 'recommend_partial_consent', 'recommend_refusal'])
+		.isIn(RECOMMENDATION)
 		.withMessage('Invalid recommendation')
 		.optional({ nullable: true }),
 	body('courtDecisionOutcome')
-		.isIn(['upheld', 'partially_upheld', 'quashed', 'other'])
+		.isIn(COURT_DECISION_OUTCOME)
 		.withMessage('Invalid court decision outcome')
 		.optional({ nullable: true }),
 	body('courtDecisionOutcomeText').optional({ nullable: true }),
@@ -184,52 +186,51 @@ export const validateCreateUpdateApplication = composeMiddleware(
 	body('issuesTracker').optional({ nullable: true }),
 
 	(() => {
-		const docEnum = ['submitted_by_applicant', 'awaiting_submission', 'not_applicable'];
 		return [
 			body('principalAreaDisagreementSummaryStmt')
-				.isIn(docEnum)
+				.isIn(DOCUMENT_STATUS)
 				.withMessage(
 					'Document status must be one of submitted by applicant, awaiting submission or not applicable'
 				)
 				.optional({ nullable: true }),
 			body('policyComplianceDocument')
-				.isIn(docEnum)
+				.isIn(DOCUMENT_STATUS)
 				.withMessage(
 					'Document status must be one of submitted by applicant, awaiting submission or not applicable'
 				)
 				.optional({ nullable: true }),
 			body('designApproachDocument')
-				.isIn(docEnum)
+				.isIn(DOCUMENT_STATUS)
 				.withMessage(
 					'Document status must be one of submitted by applicant, awaiting submission or not applicable'
 				)
 				.optional({ nullable: true }),
 			body('matureOutlineControlDocument')
-				.isIn(docEnum)
+				.isIn(DOCUMENT_STATUS)
 				.withMessage(
 					'Document status must be one of submitted by applicant, awaiting submission or not applicable'
 				)
 				.optional({ nullable: true }),
 			body('caAndTpEvidence')
-				.isIn(docEnum)
+				.isIn(DOCUMENT_STATUS)
 				.withMessage(
 					'Document status must be one of submitted by applicant, awaiting submission or not applicable'
 				)
 				.optional({ nullable: true }),
 			body('publicSectorEqualityDuty')
-				.isIn(docEnum)
+				.isIn(DOCUMENT_STATUS)
 				.withMessage(
 					'Document status must be one of submitted by applicant, awaiting submission or not applicable'
 				)
 				.optional({ nullable: true }),
 			body('fastTrackAdmissionDocument')
-				.isIn(docEnum)
+				.isIn(DOCUMENT_STATUS)
 				.withMessage(
 					'Document status must be one of submitted by applicant, awaiting submission or not applicable'
 				)
 				.optional({ nullable: true }),
 			body('multipartyApplicationCheckDocument')
-				.isIn(docEnum)
+				.isIn(DOCUMENT_STATUS)
 				.withMessage(
 					'Document status must be one of submitted by applicant, awaiting submission or not applicable'
 				)
