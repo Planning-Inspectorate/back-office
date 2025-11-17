@@ -92,3 +92,20 @@ export const REPRESENTATION_FROM_TYPE = {
 	ORGANISATION: 'ORGANISATION',
 	PERSON: 'PERSON'
 };
+
+export const VALIDATE_APPLICATION_ENUMS = {
+	TIER: ['basic', 'standard', 'enhanced'],
+	SUB_PROJECT_TYPE: [
+		'energy_from_waste',
+		'gas_power_station',
+		'hydrogen_power_station',
+		'nuclear',
+		'offshore_wind',
+		'onshore_wind',
+		'solar'
+	],
+	NEW_MATURITY: ['A', 'B', 'C', 'D', 'E', 'F', 'G'],
+	RECOMMENDATION: ['recommend_consent', 'recommend_partial_consent', 'recommend_refusal'],
+	COURT_DECISION_OUTCOME: ['upheld', 'partially_upheld', 'quashed', 'other'],
+	DOCUMENT_STATUS: ['submitted_by_applicant', 'awaiting_submission', 'not_applicable']
+};
