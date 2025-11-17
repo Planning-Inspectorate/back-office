@@ -621,7 +621,8 @@ model Meeting {
 }
 
 model Invoice {
-  invoiceNumber          String    @id
+  id                     Int       @id @default(autoincrement())
+  invoiceNumber          String    @unique
   caseId                 Int
   invoiceStage           String?
   amountDue              Decimal

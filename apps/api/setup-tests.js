@@ -111,6 +111,18 @@ const mockProjectTeamFindUnique = jest.fn().mockResolvedValue({});
 const mockProjectTeamFindMany = jest.fn().mockResolvedValue({});
 const mockProjectTeamDelete = jest.fn().mockResolvedValue({});
 
+const mockMeetingFindMany = jest.fn().mockResolvedValue([]);
+const mockMeetingFindFirst = jest.fn().mockResolvedValue({});
+const mockMeetingCreate = jest.fn().mockResolvedValue({});
+const mockMeetingUpdate = jest.fn().mockResolvedValue({});
+const mockMeetingDelete = jest.fn().mockResolvedValue({});
+
+const mockInvoiceFindMany = jest.fn().mockResolvedValue([]);
+const mockInvoiceFindFirst = jest.fn().mockResolvedValue({});
+const mockInvoiceCreate = jest.fn().mockResolvedValue({});
+const mockInvoiceUpdate = jest.fn().mockResolvedValue({});
+const mockInvoiceDelete = jest.fn().mockResolvedValue({});
+
 class MockPrismaClient {
 	get address() {
 		return {
@@ -320,6 +332,26 @@ class MockPrismaClient {
 	get representationAction() {
 		return {
 			create: mockRepresentationActionCreate
+		};
+	}
+
+	get meeting() {
+		return {
+			findMany: mockMeetingFindMany,
+			findFirst: mockMeetingFindFirst,
+			create: mockMeetingCreate,
+			update: mockMeetingUpdate,
+			delete: mockMeetingDelete
+		};
+	}
+
+	get invoice() {
+		return {
+			findMany: mockInvoiceFindMany,
+			findFirst: mockInvoiceFindFirst,
+			create: mockInvoiceCreate,
+			update: mockInvoiceUpdate,
+			delete: mockInvoiceDelete
 		};
 	}
 
