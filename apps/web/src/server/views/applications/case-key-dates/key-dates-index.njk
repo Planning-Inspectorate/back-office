@@ -54,7 +54,21 @@
 						{% set subsectionHeading = 'Other dates' %}
 					{% endif %}
 
-					{{ createSummaryList(subsectionData, subsectionKey, subsectionHeading, caseId) }}
+					{{ createSummaryList(subsectionData, subsectionKey, subsectionHeading, caseId, headingMap, isRelevantRepresentationsReOpened) }}
+
+					{% if (subsectionKey === 'relevantRepresentationsReOpen') and (isRelevantRepresentationsReOpened) %}
+						<script nonce="{{ cspNonce }}">
+							document.addEventListener('DOMContentLoaded', () => {
+								document
+									.getElementById('copy-form-link-button')
+									.addEventListener('click', () => {
+										navigator
+											.clipboard
+											.writeText('{{ projectFormLink }}')
+									})
+							})
+						</script>
+					{% endif %}
 				{% endfor %}
 			{% endset %}
 

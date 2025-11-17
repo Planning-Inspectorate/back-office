@@ -1,6 +1,7 @@
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
 
-{% macro createSummaryList(sectionData, sectionKey, sectionHeading, caseId, headingMap=None) %}
+{% macro createSummaryList(sectionData, sectionKey, sectionHeading, caseId, headingMap, isRelevantRepresentationsReOpened=false) %}
 	{% set rows = [] %}
 
 	{# Use headingMap if provided and has a value for sectionKey #}
@@ -23,6 +24,14 @@
 			classes: "pins-key-dates-summary-list__row"
 		}]) %}
 	{% endfor %}
+
+	{% if (sectionKey === 'relevantRepresentationsReOpen') and (isRelevantRepresentationsReOpened) %}
+		{% set rows = rows | concat([{
+			key: { text: "The register to have your say form is now open. It will not be visible in the site menu. You can share the form in email and project updates by copying the link.", classes: "pins-key-dates-summary-list__key govuk-!-font-weight-regular" },
+			value: { text: govukButton({ attributes: { id: "copy-form-link-button" }, classes: "govuk-button--secondary", text: "Copy form link" }) },
+			classes: "pins-key-dates-summary-list__row"
+		}]) %}
+	{% endif %}
 
 	{{ govukSummaryList({
 		card: {
