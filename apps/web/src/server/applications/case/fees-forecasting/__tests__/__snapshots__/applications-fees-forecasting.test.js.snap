@@ -1,0 +1,60 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Fees and Forecasting GET /case/123/fees-forecasting/ should NOT render the page when feature flag is OFF: fees-forecasting-off 1`] = `
+"<main class="govuk-main-wrapper" id="main-content">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <h1 class="govuk-heading-xl">Page not found</h1>
+            <p class="govuk-body">If you typed the web address, check it is correct.</p>
+            <p class="govuk-body">If you pasted the web address, check you copied the entire address.</p>
+            <p             class="govuk-body"><a href="https://intranet.planninginspectorate.gov.uk/task/report-it-problem/"
+                class="govuk-link">Contact the Planning Inspectorate Customer Support</a> if
+                the problem persists</p>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`Fees and Forecasting GET /case/123/fees-forecasting/ should render the page when feature flag is ON: fees-forecasting-on 1`] = `
+"<main class="govuk-main-wrapper" id="main-content">
+    <div class="top-errors-hook" role="alert"></div>
+    <div class="govuk-grid-row govuk-!-padding-top-9 govuk-!-padding-bottom-2 govuk-!-margin-left-0 govuk-!-margin-bottom-7 pins-masthead-summary">
+        <div class="govuk-grid-column-full">
+            <h4 class="govuk-heading-m"> CASE/04 </h4>
+            <h1 class="govuk-heading-xl">Title CASE/04</h1>
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-full govuk-body"><span id="sectors" data-cy="header-sectors"> Transport EN, Highways EN </span>
+                    <br>
+                    <br><strong class="govuk-tag govuk-tag--green pins-tag--no-max-width">Pre-Application</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="govuk-grid-row govuk-!-margin-left-0 display--flex">
+        <div class="pins-list-menu-container">
+            <aside class="govuk-!-margin-bottom-8 pins-list-menu" aria-label="Case navigation">
+                <h2 class="govuk-visually-hidden">Case Details Menu</h2>
+                <nav>
+                    <ul class="gov-list pins-list-menu">
+                        <li><a class="govuk-link " href="/applications-service/case/4/"> Overview</a>
+                        </li>
+                        <li><a class="govuk-link " href="/applications-service/case/4/key-dates"> Key dates</a>
+                        </li>
+                        <li><a class="govuk-link " href="/applications-service/case/4/project-team"> Project team</a>
+                        </li>
+                        <li><a class="govuk-link " href="/applications-service/case/4/project-documentation"> Project documentation</a>
+                        </li>
+                        <li><a class="govuk-link " href="/applications-service/case/4/project-updates"> Project updates</a>
+                        </li>
+                        <li><a class="govuk-link " href="/applications-service/case/4/examination-timetable"> Examination timetable</a>
+                        </li>
+                        <li><a class="govuk-link pins-selected-item" href="/applications-service/case/4/fees-forecasting"> Fees and forecasting</a>
+                        </li>
+                    </ul>
+                </nav>
+            </aside>
+        </div>
+        <div class="govuk-grid-column-full"></div>
+    </div>
+</main>"
+`;

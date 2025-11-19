@@ -12,6 +12,7 @@ import projectUpdatesRouter from './project-updates/project-updates.router.js';
 import applicationsKeyDateRouter from './key-dates/applications-key-dates.router.js';
 import applicationsProjectTeamRouter from './project-team/applications-project-team.router.js';
 import * as validators from '../create-new-case/case/applications-create-case.validators.js';
+import applicationsFeesForecastingRouter from './fees-forecasting/applications-fees-forecasting.router.js';
 
 const applicationsCaseRouter = createRouter();
 const applicationsCaseSummaryRouter = createRouter({ mergeParams: true });
@@ -30,6 +31,13 @@ applicationsCaseRouter.use('/:caseId/examination-timetable', applicationsTimetab
 applicationsCaseRouter.use('/:caseId/key-dates', applicationsKeyDateRouter);
 applicationsCaseRouter.use('/:caseId/project-team', applicationsProjectTeamRouter);
 
+applicationsCaseRouter.use('/:caseId/fees-forecasting', (req, res, next) => {
+	if (featureFlagClient.isFeatureActive('applics-1845-fees-forecasting')) {
+		return applicationsFeesForecastingRouter(req, res, next);
+	}
+	next();
+});
+
 applicationsCaseRouter
 	.route('/:caseId/preview-and-publish')
 	.get(asyncHandler(controller.viewApplicationsCasePublishPage))
@@ -47,7 +55,7 @@ applicationsCaseSummaryRouter
 	.get(asyncHandler(controller.viewApplicationsCaseInformation));
 
 applicationsCaseSummaryRouter
-	.route('/:overview?')
+	.route('/')
 	.get(
 		asyncHandler(
 			/** @type {import('@pins/express').RenderHandler<{}>} */ (req, res) =>
