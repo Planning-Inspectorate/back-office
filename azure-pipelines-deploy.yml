@@ -125,6 +125,11 @@ extends:
                                     secrets:
                                         - name: back-office-sql-server-connection-string
                                           variable: DATABASE_URL
+                              - template: ../steps/node_script.yml@templates
+                                parameters:
+                                  nodeVersion: 22
+                                  script: npm ci --workspace=@pins/applications.api
+                                  workingDirectory: $(Build.Repository.LocalPath)
                               - template: ../steps/node_script.yml
                                 parameters:
                                     nodeVersion: 22
