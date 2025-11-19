@@ -24,6 +24,10 @@
 						caseId: case.id }) }}</li>
 				<li>{{ writeMenuLink({ pageTitle: 'Examination timetable', pageType: 'examination-timetable', selectedPageType: selectedPageType,
 						caseId: case.id }) }}</li>
+				{% if 'applics-1845-fees-forecasting' | isFeatureActive %}
+					<li>{{ writeMenuLink({ pageTitle: 'Fees and forecasting', pageType: 'fees-forecasting', selectedPageType: selectedPageType,
+							caseId: case.id}) }}</li>
+				{% endif %}
 			</ul>
 		</nav>
 	</aside>
