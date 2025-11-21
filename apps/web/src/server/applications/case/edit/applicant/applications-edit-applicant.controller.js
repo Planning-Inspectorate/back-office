@@ -114,7 +114,7 @@ export async function updateApplicationsEditApplicantOrganisationName(request, r
 
 	response.redirect(
 		featureFlagClient.isFeatureActive('applic-55-welsh-translation')
-			? `/applications-service/case/${updatedCaseId}`
+			? `/applications-service/case/${updatedCaseId}/overview`
 			: `/applications-service/case/${updatedCaseId}/project-information`
 	);
 }
@@ -151,7 +151,7 @@ export async function updateApplicationsEditApplicantFullName(request, response)
 
 	response.redirect(
 		featureFlagClient.isFeatureActive('applic-55-welsh-translation')
-			? `/applications-service/case/${updatedCaseId}`
+			? `/applications-service/case/${updatedCaseId}/overview`
 			: `/applications-service/case/${updatedCaseId}/project-information`
 	);
 }
@@ -186,7 +186,7 @@ export async function updateApplicationsEditApplicantEmail(request, response) {
 
 	response.redirect(
 		featureFlagClient.isFeatureActive('applic-55-welsh-translation')
-			? `/applications-service/case/${updatedCaseId}`
+			? `/applications-service/case/${updatedCaseId}/overview`
 			: `/applications-service/case/${updatedCaseId}/project-information`
 	);
 }
@@ -242,7 +242,7 @@ export async function updateApplicationsEditApplicantAddress(request, response) 
 
 	response.redirect(
 		featureFlagClient.isFeatureActive('applic-55-welsh-translation')
-			? `/applications-service/case/${caseId}`
+			? `/applications-service/case/${caseId}/overview`
 			: `/applications-service/case/${caseId}/project-information`
 	);
 }
@@ -277,7 +277,7 @@ export async function updateApplicationsEditApplicantWebsite(request, response) 
 
 	response.redirect(
 		featureFlagClient.isFeatureActive('applic-55-welsh-translation')
-			? `/applications-service/case/${updatedCaseId}`
+			? `/applications-service/case/${updatedCaseId}/overview`
 			: `/applications-service/case/${updatedCaseId}/project-information`
 	);
 }
@@ -315,7 +315,7 @@ export async function updateApplicationsEditApplicantTelephoneNumber(request, re
 
 	response.redirect(
 		featureFlagClient.isFeatureActive('applic-55-welsh-translation')
-			? `/applications-service/case/${updatedCaseId}`
+			? `/applications-service/case/${updatedCaseId}/overview`
 			: `/applications-service/case/${updatedCaseId}/project-information`
 	);
 }

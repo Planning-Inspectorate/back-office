@@ -75,7 +75,7 @@
 
 
 {% macro casePageLink(searchItem) %}
-	{% set viewCaseLink = 'case-view'|url({caseId: searchItem.id}) %}
+	{% set viewCaseLink = 'case-view'|url({caseId: searchItem.id, step: 'overview'}) %}
 	{% set checkYourAnswersLink = 'case-create'|url({caseId: searchItem.id, step: 'check-your-answers'}) %}
 	{% set rowHref = viewCaseLink if searchItem.reference else checkYourAnswersLink %}
 	{% set rowTitle = [searchItem.reference, " - "]|join if searchItem.reference else "" %}
