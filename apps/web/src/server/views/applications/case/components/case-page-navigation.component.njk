@@ -6,7 +6,7 @@
 		<h2 class="govuk-visually-hidden">Case Details Menu</h2>
 		<nav>
 			<ul class="gov-list pins-list-menu">
-				<li>{{ writeMenuLink({ pageTitle: 'Overview', pageType: '', selectedPageType: selectedPageType,
+				<li>{{ writeMenuLink({ pageTitle: 'Overview', pageType: 'overview', selectedPageType: selectedPageType,
 						caseId: case.id }) }}</li>
 
         {% if not ('applic-55-welsh-translation' | isFeatureActive) %}

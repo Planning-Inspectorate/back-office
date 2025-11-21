@@ -55,7 +55,7 @@ applicationsCaseSummaryRouter
 	.get(asyncHandler(controller.viewApplicationsCaseInformation));
 
 applicationsCaseSummaryRouter
-	.route('/')
+	.route('/overview')
 	.get(
 		asyncHandler(
 			/** @type {import('@pins/express').RenderHandler<{}>} */ (req, res) =>

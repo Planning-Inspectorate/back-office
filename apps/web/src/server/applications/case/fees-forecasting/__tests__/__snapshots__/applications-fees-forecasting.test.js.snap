@@ -36,7 +36,7 @@ exports[`Fees and Forecasting GET /case/123/fees-forecasting/ should render the 
                 <h2 class="govuk-visually-hidden">Case Details Menu</h2>
                 <nav>
                     <ul class="gov-list pins-list-menu">
-                        <li><a class="govuk-link " href="/applications-service/case/4/"> Overview</a>
+                        <li><a class="govuk-link " href="/applications-service/case/4/overview"> Overview</a>
                         </li>
                         <li><a class="govuk-link " href="/applications-service/case/4/key-dates"> Key dates</a>
                         </li>
