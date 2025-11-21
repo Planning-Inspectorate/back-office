@@ -326,7 +326,7 @@ exports[`Applications case pages Preview and publish page POST /case/123/preview
                     <p class='govuk-!-font-size-19'>Case: Title CASE/04
                         <br>Reference: CASE/04</p>
                 </div>
-            </div><a href="/applications-service/case/4/" class="govuk-link"> Go back to Overview</a>
+            </div><a href="/applications-service/case/4/overview" class="govuk-link"> Go back to Overview</a>
         </div>
     </div>
 </main>"
@@ -969,7 +969,7 @@ exports[`Applications case pages Unpublish case page POST /case/123/unpublish sh
                     <p class='govuk-!-font-size-19'>Case: Title CASE/04
                         <br>Reference: CASE/04</p>
                 </div>
-            </div><a href="/applications-service/case/4/" class="govuk-link"> Go back to Overview</a>
+            </div><a href="/applications-service/case/4/overview" class="govuk-link"> Go back to Overview</a>
         </div>
     </div>
 </main>"

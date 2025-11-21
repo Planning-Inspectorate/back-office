@@ -283,7 +283,7 @@ export async function updateApplicationsEditCaseNameAndDescription(request, resp
 
 	response.redirect(
 		featureFlagClient.isFeatureActive('applic-55-welsh-translation')
-			? `/applications-service/case/${updatedCaseId}`
+			? `/applications-service/case/${updatedCaseId}/overview`
 			: `/applications-service/case/${updatedCaseId}/project-information`
 	);
 }
@@ -321,7 +321,7 @@ export async function updateApplicationsEditCaseTeamEmail(request, response) {
 
 	response.redirect(
 		featureFlagClient.isFeatureActive('applic-55-welsh-translation')
-			? `/applications-service/case/${updatedCaseId}`
+			? `/applications-service/case/${updatedCaseId}/overview`
 			: `/applications-service/case/${updatedCaseId}/project-information`
 	);
 }
@@ -358,7 +358,7 @@ export async function updateApplicationsEditCaseStage(request, response) {
 
 	return response.redirect(
 		featureFlagClient.isFeatureActive('applic-55-welsh-translation')
-			? `/applications-service/case/${updatedCaseId}`
+			? `/applications-service/case/${updatedCaseId}/overview`
 			: `/applications-service/case/${updatedCaseId}/project-information`
 	);
 }
@@ -462,7 +462,7 @@ export async function updateApplicationsEditCaseGeographicalInformation(request,
 
 	response.redirect(
 		featureFlagClient.isFeatureActive('applic-55-welsh-translation')
-			? `/applications-service/case/${updatedCaseId}`
+			? `/applications-service/case/${updatedCaseId}/overview`
 			: `/applications-service/case/${updatedCaseId}/project-information`
 	);
 }
@@ -503,7 +503,7 @@ export async function updateApplicationsEditCaseRegions(request, response) {
 
 	response.redirect(
 		featureFlagClient.isFeatureActive('applic-55-welsh-translation')
-			? `/applications-service/case/${updatedCaseId}`
+			? `/applications-service/case/${updatedCaseId}/overview`
 			: `/applications-service/case/${updatedCaseId}/project-information`
 	);
 }
@@ -544,7 +544,7 @@ export async function updateApplicationsEditCaseZoomLevel(request, response) {
 
 	response.redirect(
 		featureFlagClient.isFeatureActive('applic-55-welsh-translation')
-			? `/applications-service/case/${updatedCaseId}`
+			? `/applications-service/case/${updatedCaseId}/overview`
 			: `/applications-service/case/${updatedCaseId}/project-information`
 	);
 }
@@ -583,7 +583,7 @@ export async function updateApplicationsEditIsMaterialChange(request, response) 
 
 	return response.redirect(
 		featureFlagClient.isFeatureActive('applic-55-welsh-translation')
-			? `/applications-service/case/${updatedCaseId}`
+			? `/applications-service/case/${updatedCaseId}/overview`
 			: `/applications-service/case/${updatedCaseId}/project-information`
 	);
 }

@@ -12,7 +12,7 @@ export const registerBackPath = (request, response, next) => {
 	response.locals.backPath = url('case-view', {
 		caseId,
 		step: featureFlagClient.isFeatureActive('applic-55-welsh-translation')
-			? undefined
+			? 'overview'
 			: 'project-information'
 	});
 

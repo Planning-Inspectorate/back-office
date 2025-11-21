@@ -7191,7 +7191,7 @@ exports[`applications documentation Document properties page page should render 
         <div class="govuk-grid-column-full govuk-!-margin-top-0">
             <nav class="govuk-breadcrumbs govuk-!-margin-top-0" aria-label="Breadcrumb">
                 <ol class="govuk-breadcrumbs__list">
-                    <li class="govuk-breadcrumbs__list-item"><a class="govuk-breadcrumbs__link" href="/applications-service/case/123/">Project overview</a>
+                    <li class="govuk-breadcrumbs__list-item"><a class="govuk-breadcrumbs__link" href="/applications-service/case/123/overview">Project overview</a>
                     </li>
                     <li class="govuk-breadcrumbs__list-item"><a class="govuk-breadcrumbs__link" href="/applications-service/case/123/project-documentation">Project documentation</a>
                     </li>
@@ -7355,7 +7355,7 @@ exports[`applications documentation Document properties page page should render 
         <div class="govuk-grid-column-full govuk-!-margin-top-0">
             <nav class="govuk-breadcrumbs govuk-!-margin-top-0" aria-label="Breadcrumb">
                 <ol class="govuk-breadcrumbs__list">
-                    <li class="govuk-breadcrumbs__list-item"><a class="govuk-breadcrumbs__link" href="/applications-service/case/123/">Project overview</a>
+                    <li class="govuk-breadcrumbs__list-item"><a class="govuk-breadcrumbs__link" href="/applications-service/case/123/overview">Project overview</a>
                     </li>
                     <li class="govuk-breadcrumbs__list-item"><a class="govuk-breadcrumbs__link" href="/applications-service/case/123/project-documentation">Project documentation</a>
                     </li>
@@ -7521,7 +7521,7 @@ exports[`applications documentation Document properties page should not show pub
         <div class="govuk-grid-column-full govuk-!-margin-top-0">
             <nav class="govuk-breadcrumbs govuk-!-margin-top-0" aria-label="Breadcrumb">
                 <ol class="govuk-breadcrumbs__list">
-                    <li class="govuk-breadcrumbs__list-item"><a class="govuk-breadcrumbs__link" href="/applications-service/case/123/">Project overview</a>
+                    <li class="govuk-breadcrumbs__list-item"><a class="govuk-breadcrumbs__link" href="/applications-service/case/123/overview">Project overview</a>
                     </li>
                     <li class="govuk-breadcrumbs__list-item"><a class="govuk-breadcrumbs__link" href="/applications-service/case/123/project-documentation">Project documentation</a>
                     </li>
@@ -7685,7 +7685,7 @@ exports[`applications documentation Document properties page should not show pub
         <div class="govuk-grid-column-full govuk-!-margin-top-0">
             <nav class="govuk-breadcrumbs govuk-!-margin-top-0" aria-label="Breadcrumb">
                 <ol class="govuk-breadcrumbs__list">
-                    <li class="govuk-breadcrumbs__list-item"><a class="govuk-breadcrumbs__link" href="/applications-service/case/123/">Project overview</a>
+                    <li class="govuk-breadcrumbs__list-item"><a class="govuk-breadcrumbs__link" href="/applications-service/case/123/overview">Project overview</a>
                     </li>
                     <li class="govuk-breadcrumbs__list-item"><a class="govuk-breadcrumbs__link" href="/applications-service/case/123/project-documentation">Project documentation</a>
                     </li>
@@ -7851,7 +7851,7 @@ exports[`applications documentation Document properties page should show publish
         <div class="govuk-grid-column-full govuk-!-margin-top-0">
             <nav class="govuk-breadcrumbs govuk-!-margin-top-0" aria-label="Breadcrumb">
                 <ol class="govuk-breadcrumbs__list">
-                    <li class="govuk-breadcrumbs__list-item"><a class="govuk-breadcrumbs__link" href="/applications-service/case/123/">Project overview</a>
+                    <li class="govuk-breadcrumbs__list-item"><a class="govuk-breadcrumbs__link" href="/applications-service/case/123/overview">Project overview</a>
                     </li>
                     <li class="govuk-breadcrumbs__list-item"><a class="govuk-breadcrumbs__link" href="/applications-service/case/123/project-documentation">Project documentation</a>
                     </li>

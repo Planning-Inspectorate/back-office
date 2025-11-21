@@ -134,7 +134,7 @@ export const buildBreadcrumbItems = async (caseId, folderId) => {
 
 	return [
 		{
-			href: url('case-view', { caseId }),
+			href: url('case-view', { caseId, step: 'overview' }),
 			text: 'Project overview'
 		},
 		{
