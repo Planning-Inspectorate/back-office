@@ -6,7 +6,7 @@
 		<h2 class="govuk-visually-hidden">Case Details Menu</h2>
 		<nav>
 			<ul class="gov-list pins-list-menu">
-				<li>{{ writeMenuLink({ pageTitle: 'Overview', pageType: '', selectedPageType: selectedPageType,
+				<li>{{ writeMenuLink({ pageTitle: 'Overview', pageType: 'overview', selectedPageType: selectedPageType,
 						caseId: case.id }) }}</li>
 
         {% if not ('applic-55-welsh-translation' | isFeatureActive) %}
@@ -24,6 +24,10 @@
 						caseId: case.id }) }}</li>
 				<li>{{ writeMenuLink({ pageTitle: 'Examination timetable', pageType: 'examination-timetable', selectedPageType: selectedPageType,
 						caseId: case.id }) }}</li>
+				{% if 'applics-1845-fees-forecasting' | isFeatureActive %}
+					<li>{{ writeMenuLink({ pageTitle: 'Fees and forecasting', pageType: 'fees-forecasting', selectedPageType: selectedPageType,
+							caseId: case.id}) }}</li>
+				{% endif %}
 			</ul>
 		</nav>
 	</aside>

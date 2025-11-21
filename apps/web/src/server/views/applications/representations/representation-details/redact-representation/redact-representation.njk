@@ -81,11 +81,11 @@
 				{% endif %}
 				{{ govukDetails({
 					summaryText: summaryText,
-					html: (editedRepresentation or originalRepresentation),
+					html: representation,
 					id: "representation-unredacted",
 					open: true,
 					attributes: {
-						"data-original": (editedRepresentationText or originalRepresentationText)
+						"data-original": representationText
 					}
 				}) }}
 			</div>

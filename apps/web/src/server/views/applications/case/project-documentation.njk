@@ -12,7 +12,7 @@
 	<aside>
 		{{ govukBackLink({
 		text: "Back to project overview",
-		href: 'case-view'|url({caseId: caseId})
+		href: 'case-view'|url({caseId: caseId, step: 'overview'})
 	}) }}
 	</aside>
 {% endblock %}

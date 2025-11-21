@@ -213,6 +213,43 @@ describe('Get Application details', () => {
 		});
 	});
 
+	test('get application details omits additionalDetails when empty', async () => {
+		// GIVEN
+		const baseCase = {
+			...application1,
+			ApplicationDetails: { id: 1, caseId: 1 }
+		};
+		databaseConnector.case.findUnique.mockResolvedValue(baseCase);
+		// WHEN
+		const res = await request.get('/applications/1');
+		// THEN
+		expect(res.status).toBe(200);
+		expect(res.body.additionalDetails).toBeUndefined();
+	});
+
+	test('get application details includes additionalDetails when any field is set', async () => {
+		// GIVEN
+		const caseWithNewFields = {
+			...application1,
+			ApplicationDetails: {
+				...(application1.ApplicationDetails || { id: 1, caseId: 1 }),
+				tier: 'standard',
+				essentialFastTrackComponents: true
+			}
+		};
+		databaseConnector.case.findUnique.mockResolvedValue(caseWithNewFields);
+		// WHEN
+		const res = await request.get('/applications/1');
+		// THEN
+		expect(res.status).toBe(200);
+		expect(res.body.additionalDetails).toEqual(
+			expect.objectContaining({
+				tier: 'standard',
+				essentialFastTrackComponents: true
+			})
+		);
+	});
+
 	test('throws an error if case does not exist', async () => {
 		// GIVEN
 		databaseConnector.case.findUnique.mockResolvedValue(null);

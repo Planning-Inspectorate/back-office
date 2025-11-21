@@ -1,4 +1,4 @@
-import { pick } from 'lodash-es';
+import { pick, isEmpty } from 'lodash-es';
 import { mapSector } from '../../utils/mapping/map-sector.js';
 import { mapCaseStatus } from './map-case-status.js';
 import { mapDateStringToUnixTimestamp } from './map-date-string-to-unix-timestamp.js';
@@ -84,6 +84,34 @@ export const mapApplicationDetails = (caseDetails) => {
 		return [null, timestamp];
 	})();
 
+	const additionalDetailsFormatted = pick(caseDetails?.ApplicationDetails, [
+		// enums / strings
+		'tier',
+		'subProjectType',
+		'newMaturity',
+		'recommendation',
+		'courtDecisionOutcome',
+		'courtDecisionOutcomeText',
+		's61SummaryURI',
+		'programmeDocumentURI',
+		'additionalComments',
+		'issuesTracker',
+		// document enums
+		'principalAreaDisagreementSummaryStmt',
+		'policyComplianceDocument',
+		'designApproachDocument',
+		'matureOutlineControlDocument',
+		'caAndTpEvidence',
+		'publicSectorEqualityDuty',
+		'fastTrackAdmissionDocument',
+		'multipartyApplicationCheckDocument',
+		// numbers / booleans
+		'numberBand2Inspectors',
+		'numberBand3Inspectors',
+		'essentialFastTrackComponents',
+		'planProcessEvidence'
+	]);
+
 	return {
 		...caseDetailsFormatted,
 		...(caseDetails.CaseStatus && { status: mapCaseStatus(caseDetails.CaseStatus) }),
@@ -93,6 +121,7 @@ export const mapApplicationDetails = (caseDetails) => {
 		sector: sectorFormatted,
 		subSector: subSectorFormatted,
 		applicant: applicantFormatted,
+		...(!isEmpty(additionalDetailsFormatted) && { additionalDetails: additionalDetailsFormatted }),
 		geographicalInformation: {
 			mapZoomLevel: zoomLevelFormatted,
 			locationDescription: caseDetails?.ApplicationDetails?.locationDescription,

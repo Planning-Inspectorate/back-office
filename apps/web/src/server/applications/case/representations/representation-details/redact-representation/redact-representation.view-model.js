@@ -20,10 +20,9 @@ export const getPreviousPageUrl = (caseId, representationId) =>
  * @property {string} caseId
  * @property {string} representationId
  * @property {string} backLinkUrl
- * @property {string} originalRepresentation
- * @property {string} originalRepresentationText
- * @property {string|null} editedRepresentation
- * @property {string|null} editedRepresentationText
+ * @property {string} representation
+ * @property {string} representationText
+ * @property {boolean} editedRepresentation
  * @property {string} redactedRepresentation
  * @property {string?} notes
  * @property {string?} redactedBy
@@ -66,15 +65,18 @@ export const getRedactRepresentationViewModel = (
 	statusText
 ) => {
 	// normalise new lines before processing to ensure suggestion offsets align on the front-end
-	originalRepresentation = originalRepresentation.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+	if (!editedRepresentation) {
+		originalRepresentation = originalRepresentation.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+	} else {
+		editedRepresentation = editedRepresentation.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+	}
 	return {
 		caseId,
 		representationId,
 		backLinkUrl: getPreviousPageUrl(caseId, representationId),
-		originalRepresentation,
-		originalRepresentationText: originalRepresentation,
-		editedRepresentation,
-		editedRepresentationText: editedRepresentation,
+		representation: editedRepresentation ? editedRepresentation : originalRepresentation,
+		representationText: editedRepresentation ? editedRepresentation : originalRepresentation,
+		editedRepresentation: !!editedRepresentation,
 		redactedRepresentation: redactedRepresentation
 			? redactedRepresentation
 			: editedRepresentation

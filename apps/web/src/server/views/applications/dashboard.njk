@@ -97,7 +97,7 @@
   {% endfor %}
 {% endmacro %}
 {% macro casePageLink(case) %}
-  {% set viewCaseLink = 'case-view'|url({caseId: case.id}) %}
+  {% set viewCaseLink = 'case-view'|url({caseId: case.id, step: 'overview'}) %}
   {% set checkYourAnswersLink = 'case-create'|url({caseId: case.id, step: 'check-your-answers'}) %}
   {% set rowHref = checkYourAnswersLink if case.status == 'Draft' else viewCaseLink %}
   {% set rowTitle = case.title if case.status == 'Draft' else [case.reference, " - ", case.title]|join %}
