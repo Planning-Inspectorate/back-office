@@ -1,6 +1,7 @@
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
 
-{% macro createSummaryList(sectionData, sectionKey, sectionHeading, caseId, headingMap=None) %}
+{% macro createSummaryList(sectionData, sectionKey, sectionHeading, caseId, headingMap, isRelevantRepresentationsReOpened=false, projectFormLink='') %}
 	{% set rows = [] %}
 
 	{# Use headingMap if provided and has a value for sectionKey #}
@@ -23,6 +24,18 @@
 			classes: "pins-key-dates-summary-list__row"
 		}]) %}
 	{% endfor %}
+
+	{% if (sectionKey === 'relevantRepresentationsReOpen') and (isRelevantRepresentationsReOpened) %}
+		{% set html %}
+			<p>The register to have your say form is open, but not visible on the site menu. Copy the form link to share in project updates.</p>
+			<a href="{{ projectFormLink }}" rel="noreferrer noopener" target="_blank" class="govuk-link">Register to have your say (opens in a new tab)</a>
+		{% endset %}
+
+		{% set rows = rows | concat([{
+			key: { html: govukInsetText({ html: html, classes: "pins-key-dates-inset-text" }), classes: "pins-key-dates-summary-list__key govuk-!-width-full" },
+			classes: "pins-key-dates-summary-list__row"
+		}]) %}
+	{% endif %}
 
 	{{ govukSummaryList({
 		card: {
