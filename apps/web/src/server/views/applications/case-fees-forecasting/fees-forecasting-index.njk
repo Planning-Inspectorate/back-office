@@ -1,6 +1,11 @@
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
 {% extends "../case/layouts/applications-case-layout.njk" %}
 
 {% set pageTitle = 'Fees and forecasting' %}
 
 {% block sectionContent %}
+	<h2 class="govuk-heading-m">Fees and forecasting (internal use only)</h2>
+	<p class="govuk-body">Provide details on fees and forecasting in this project.</p>
+
+	{{ govukSummaryList({ rows: internalUseSection }) }}
 {% endblock %}
