@@ -3,15 +3,15 @@ import { parseHtml } from '@pins/platform';
 import nock from 'nock';
 import supertest from 'supertest';
 import { createTestEnvironment } from '../../../../../../testing/index.js';
-import { fixtureCases } from '../../../../../../testing/applications/applications.js';
 import { featureFlagClient } from '../../../../../common/feature-flags.js';
+import fixtureFeesForecastingCase from '../../../../../../testing/applications/fixtures/fees-forecasting.js';
 
 const { app, installMockApi, teardown } = createTestEnvironment();
 const request = supertest(app);
 
 const nocks = () => {
 	nock('http://test/').get('/applications').reply(200, []);
-	nock('http://test/').get('/applications/123').reply(200, fixtureCases[3]);
+	nock('http://test/').get('/applications/123').reply(200, fixtureFeesForecastingCase);
 	nock('http://test/').get('/applications-service/').reply(200, {});
 };
 
@@ -37,9 +37,7 @@ describe('Fees and Forecasting', () => {
 			const element = parseHtml(response.text);
 
 			expect(element.innerHTML).toMatchSnapshot('fees-forecasting-on');
-			expect(element.querySelector('a.pins-selected-item')?.textContent).toContain(
-				'Fees and forecasting'
-			);
+			expect(element.innerHTML).toContain('Fees and forecasting (internal use only)');
 		});
 
 		it('should NOT render the page when feature flag is OFF', async () => {

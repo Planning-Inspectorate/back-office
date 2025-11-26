@@ -365,6 +365,8 @@ exports[`Applications case pages Project information page GET /case/123/project-
                         </li>
                         <li><a class="govuk-link " href="/applications-service/case/4/examination-timetable"> Examination timetable</a>
                         </li>
+                        <li><a class="govuk-link " href="/applications-service/case/4/fees-forecasting"> Fees and forecasting</a>
+                        </li>
                     </ul>
                 </nav>
             </aside>
@@ -566,6 +568,8 @@ exports[`Applications case pages Project information page GET /case/123/project-
                         </li>
                         <li><a class="govuk-link " href="/applications-service/case/4/examination-timetable"> Examination timetable</a>
                         </li>
+                        <li><a class="govuk-link " href="/applications-service/case/4/fees-forecasting"> Fees and forecasting</a>
+                        </li>
                     </ul>
                 </nav>
             </aside>
@@ -766,6 +770,8 @@ exports[`Applications case pages Project information page GET /case/123/project-
                         <li><a class="govuk-link " href="/applications-service/case/4/project-updates"> Project updates</a>
                         </li>
                         <li><a class="govuk-link " href="/applications-service/case/4/examination-timetable"> Examination timetable</a>
+                        </li>
+                        <li><a class="govuk-link " href="/applications-service/case/4/fees-forecasting"> Fees and forecasting</a>
                         </li>
                     </ul>
                 </nav>

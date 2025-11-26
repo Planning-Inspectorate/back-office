@@ -407,6 +407,8 @@ exports[`Project team List page GET /case/123/project-team/ should render the pa
                         </li>
                         <li><a class="govuk-link " href="/applications-service/case/4/examination-timetable"> Examination timetable</a>
                         </li>
+                        <li><a class="govuk-link " href="/applications-service/case/4/fees-forecasting"> Fees and forecasting</a>
+                        </li>
                     </ul>
                 </nav>
             </aside>
@@ -471,6 +473,8 @@ exports[`Project team List page GET /case/123/project-team/ should render the pa
                         <li><a class="govuk-link " href="/applications-service/case/4/project-updates"> Project updates</a>
                         </li>
                         <li><a class="govuk-link " href="/applications-service/case/4/examination-timetable"> Examination timetable</a>
+                        </li>
+                        <li><a class="govuk-link " href="/applications-service/case/4/fees-forecasting"> Fees and forecasting</a>
                         </li>
                     </ul>
                 </nav>
