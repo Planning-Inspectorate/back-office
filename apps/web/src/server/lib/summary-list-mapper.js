@@ -1,5 +1,5 @@
 /**
- * Builds a summary list from the given items.
+ * Builds a GOVUK summary list from the given items.
  *
  * @param {Array<{
  *   key: string,

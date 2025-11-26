@@ -1,6 +1,7 @@
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
 {% from "govuk/components/table/macro.njk" import govukTable %}
 {% from "govuk/components/accordion/macro.njk" import govukAccordion %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
 {% extends "../case/layouts/applications-case-layout.njk" %}
 
 {% set pageTitle = 'Fees and forecasting' %}
@@ -19,7 +20,11 @@
 		{% if accordionSection.component === 'summary-list' %}
 			{% set content = govukSummaryList({ rows: accordionSection.content }) %}
 		{% else %}
-			{% set content = govukTable({}) %}
+			{% set content = govukTable(accordionSection.content) + govukButton({
+				text: accordionSection.buttonText,
+				href: accordionSection.buttonLink,
+				classes: "govuk-button--secondary"
+			}) %}
 		{% endif %}
 
 		{% set row = {
