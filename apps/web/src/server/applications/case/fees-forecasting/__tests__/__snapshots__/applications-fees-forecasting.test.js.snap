@@ -80,6 +80,62 @@ exports[`Fees and Forecasting GET /case/123/fees-forecasting/ should render the 
                         </dd>
                 </div>
             </dl>
+            <div class="govuk-accordion" data-module="govuk-accordion" id="accordion-default">
+                <div class="govuk-accordion__section">
+                    <div class="govuk-accordion__section-header">
+                        <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="accordion-default-heading-1"> Pre-application overview</span></h2>
+                    </div>
+                    <div id="accordion-default-content-1" class="govuk-accordion__section-content">
+                        <dl class="govuk-summary-list"></dl>
+                    </div>
+                </div>
+                <div class="govuk-accordion__section">
+                    <div class="govuk-accordion__section-header">
+                        <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="accordion-default-heading-2"> Fees</span></h2>
+                    </div>
+                    <div id="accordion-default-content-2" class="govuk-accordion__section-content">
+                        <table class="govuk-table">
+                            <tbody class="govuk-table__body"></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="govuk-accordion__section">
+                    <div class="govuk-accordion__section-header">
+                        <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="accordion-default-heading-3"> Pre-application project meetings</span></h2>
+                    </div>
+                    <div id="accordion-default-content-3" class="govuk-accordion__section-content">
+                        <table class="govuk-table">
+                            <tbody class="govuk-table__body"></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="govuk-accordion__section">
+                    <div class="govuk-accordion__section-header">
+                        <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="accordion-default-heading-4"> Pre-application evidence plan meetings</span></h2>
+                    </div>
+                    <div id="accordion-default-content-4" class="govuk-accordion__section-content">
+                        <table class="govuk-table">
+                            <tbody class="govuk-table__body"></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="govuk-accordion__section">
+                    <div class="govuk-accordion__section-header">
+                        <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="accordion-default-heading-5"> Pre-application supplementary components</span></h2>
+                    </div>
+                    <div id="accordion-default-content-5" class="govuk-accordion__section-content">
+                        <dl class="govuk-summary-list"></dl>
+                    </div>
+                </div>
+                <div class="govuk-accordion__section">
+                    <div class="govuk-accordion__section-header">
+                        <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="accordion-default-heading-6"> Pre-application programme document</span></h2>
+                    </div>
+                    <div id="accordion-default-content-6" class="govuk-accordion__section-content">
+                        <dl class="govuk-summary-list"></dl>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </main>"

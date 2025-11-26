@@ -10,7 +10,7 @@ import { buildSummaryList } from '../../../lib/summary-list-mapper.js';
 
 /**
  * @param {object|*} params
- * @returns {Promise<{ selectedPageType: string, internalUseSection: Array<Object> }>}
+ * @returns {Promise<{ selectedPageType: string, internalUseSection: Array<Object>, accordionSections: Array<Object> }>}
  */
 export const getFeesForecastingViewModel = async ({ caseData }) => {
 	const internalUseSectionItems = [
@@ -51,8 +51,42 @@ export const getFeesForecastingViewModel = async ({ caseData }) => {
 		}
 	];
 
+	const accordionSections = [
+		{
+			heading: 'Pre-application overview',
+			content: '',
+			component: 'summary-list'
+		},
+		{
+			heading: 'Fees',
+			content: '',
+			component: 'table'
+		},
+		{
+			heading: 'Pre-application project meetings',
+			content: '',
+			component: 'table'
+		},
+		{
+			heading: 'Pre-application evidence plan meetings',
+			content: '',
+			component: 'table'
+		},
+		{
+			heading: 'Pre-application supplementary components',
+			content: '',
+			component: 'summary-list'
+		},
+		{
+			heading: 'Pre-application programme document',
+			content: '',
+			component: 'summary-list'
+		}
+	];
+
 	return {
 		selectedPageType: 'fees-forecasting',
-		internalUseSection: buildSummaryList(internalUseSectionItems)
+		internalUseSection: buildSummaryList(internalUseSectionItems),
+		accordionSections: accordionSections
 	};
 };
