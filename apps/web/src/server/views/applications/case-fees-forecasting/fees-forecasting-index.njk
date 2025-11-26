@@ -1,4 +1,6 @@
 {% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "govuk/components/table/macro.njk" import govukTable %}
+{% from "govuk/components/accordion/macro.njk" import govukAccordion %}
 {% extends "../case/layouts/applications-case-layout.njk" %}
 
 {% set pageTitle = 'Fees and forecasting' %}
@@ -8,4 +10,26 @@
 	<p class="govuk-body">Provide details on fees and forecasting in this project.</p>
 
 	{{ govukSummaryList({ rows: internalUseSection }) }}
+
+	{% set accordionItems = [] %}
+
+	{% for accordionSection in accordionSections %}
+		{% set heading = accordionSection.heading %}
+
+		{% if accordionSection.component === 'summary-list' %}
+			{% set content = govukSummaryList({ rows: accordionSection.content }) %}
+		{% else %}
+			{% set content = govukTable({}) %}
+		{% endif %}
+
+		{% set row = {
+			heading: { text: heading },
+			content: { html: content}
+		} %}
+
+		{% set accordionItems = accordionItems.concat([row]) %}
+	{% endfor %}
+
+	{{ govukAccordion({ id: "accordion-default", items: accordionItems }) }}
+
 {% endblock %}
