@@ -13,8 +13,6 @@ import { buildSummaryList } from '../../../lib/summary-list-mapper.js';
  * @returns {Promise<{ selectedPageType: string, internalUseSection: Array<Object> }>}
  */
 export const getFeesForecastingViewModel = async ({ caseData }) => {
-	console.log(caseData.keyDates.preApplication.memLastUpdated);
-
 	const internalUseSectionItems = [
 		{
 			key: 'New maturity',

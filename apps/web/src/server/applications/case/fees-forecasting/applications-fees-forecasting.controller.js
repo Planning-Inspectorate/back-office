@@ -6,9 +6,6 @@ import { getFeesForecastingViewModel } from './applications-fees-forecasting-ind
  * @type {import('@pins/express').RenderHandler<{}, {}, {}, {}, {}>}
  */
 export async function getFeesForecastingIndex(request, response) {
-	console.log(response.locals);
-	console.log(response.locals.case.additionalDetails.numberBand2Inspectors);
-
 	const viewModel = await getFeesForecastingViewModel({ caseData: response.locals.case });
 
 	return response.render(

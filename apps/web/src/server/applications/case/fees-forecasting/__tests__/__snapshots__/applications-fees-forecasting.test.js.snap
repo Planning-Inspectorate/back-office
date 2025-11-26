@@ -54,7 +54,33 @@ exports[`Fees and Forecasting GET /case/123/fees-forecasting/ should render the 
                 </nav>
             </aside>
         </div>
-        <div class="govuk-grid-column-full"></div>
+        <div class="govuk-grid-column-full">
+            <h2 class="govuk-heading-m">Fees and forecasting (internal use only)</h2>
+            <p class="govuk-body">Provide details on fees and forecasting in this project.</p>
+            <dl class="govuk-summary-list">
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> New maturity</dt>
+                    <dd class="govuk-summary-list__value">C</dd>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> new maturity</span></a>
+                    </dd>
+                </div>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Examining inspectors</dt>
+                    <dd class="govuk-summary-list__value">2 band 2 inspectors
+                        <br>1 band 3 inspectors</dd>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> examining inspectors</span></a>
+                    </dd>
+                </div>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> MEM last updated</dt>
+                    <dd class="govuk-summary-list__value">09 Mar 2024</dd>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> MEM last updated</span></a>
+                    </dd>
+                </div>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Additional comments (optional)</dt>
+                    <dd                     class="govuk-summary-list__value">Some comments</dd>
+                        <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> additional comments</span></a>
+                        </dd>
+                </div>
+            </dl>
+        </div>
     </div>
 </main>"
 `;

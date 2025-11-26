@@ -3333,6 +3333,8 @@ exports[`Examination timetable page GET /case/123/examination-timetable should s
                         </li>
                         <li><a class="govuk-link pins-selected-item" href="/applications-service/case/4/examination-timetable"> Examination timetable</a>
                         </li>
+                        <li><a class="govuk-link " href="/applications-service/case/4/fees-forecasting"> Fees and forecasting</a>
+                        </li>
                     </ul>
                 </nav>
             </aside>
