@@ -17,7 +17,7 @@ export const getManyMeetings = async ({ params }, res) => {
 	const meetingsForCase = await getCaseMeetings(caseId);
 
 	if (!meetingsForCase || meetingsForCase.length === 0) {
-		throw new BackOfficeAppError(`No meetings found for application with id: ${caseId}`, 404);
+		return res.send([]);
 	}
 
 	res.send(meetingsForCase);
