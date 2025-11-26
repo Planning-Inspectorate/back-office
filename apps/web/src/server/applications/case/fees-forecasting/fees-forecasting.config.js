@@ -1,4 +1,6 @@
-export const hrefText = 'Change';
+export const genericHrefText = 'Change';
+export const meetingsHrefText = 'Change';
+export const feesHrefText = 'Review';
 
 export const newMaturityURL = '#';
 export const examiningInspectorsURL = '#';

@@ -1,23 +1,47 @@
 import {
 	additionalCommentsURL,
 	examiningInspectorsURL,
-	hrefText,
+	feesHrefText,
+	genericHrefText,
 	memLastUpdatedURL,
 	newMaturityURL
 } from './fees-forecasting.config.js';
 import { format } from 'date-fns';
 import { buildSummaryList } from '../../../lib/summary-list-mapper.js';
+import { buildTable } from '../../../lib/table-mapper.js';
+
+/**
+ * Determines the status tag for an invoice.
+ *
+ * @param {object|*} invoice
+ * @returns {string}
+ */
+function getStatusTag(invoice) {
+	if (invoice.refundIssueDate) {
+		return `<strong class="govuk-tag govuk-tag--purple">Refunded</strong>`;
+	}
+
+	if (invoice.paymentDate) {
+		return `<strong class="govuk-tag govuk-tag--green">Paid</strong>`;
+	}
+
+	if (invoice.paymentDueDate && new Date(invoice.paymentDueDate) < new Date()) {
+		return `<strong class="govuk-tag govuk-tag--orange">Due</strong>`;
+	}
+
+	return `<strong class="govuk-tag govuk-tag--yellow">Issued</strong>`;
+}
 
 /**
  * @param {object|*} params
  * @returns {Promise<{ selectedPageType: string, internalUseSection: Array<Object>, accordionSections: Array<Object> }>}
  */
-export const getFeesForecastingViewModel = async ({ caseData }) => {
+export const getFeesForecastingViewModel = async ({ caseData, invoices }) => {
 	const internalUseSectionItems = [
 		{
 			key: 'New maturity',
 			value: caseData.additionalDetails.newMaturity,
-			actions: [{ href: newMaturityURL, text: hrefText, visuallyHiddenText: 'new maturity' }]
+			actions: [{ href: newMaturityURL, text: genericHrefText, visuallyHiddenText: 'new maturity' }]
 		},
 		{
 			key: 'Examining inspectors',
@@ -32,7 +56,11 @@ export const getFeesForecastingViewModel = async ({ caseData }) => {
 				.filter(Boolean)
 				.join('<br/>'),
 			actions: [
-				{ href: examiningInspectorsURL, text: hrefText, visuallyHiddenText: 'examining inspectors' }
+				{
+					href: examiningInspectorsURL,
+					text: genericHrefText,
+					visuallyHiddenText: 'examining inspectors'
+				}
 			]
 		},
 		{
@@ -40,16 +68,36 @@ export const getFeesForecastingViewModel = async ({ caseData }) => {
 			value: caseData.keyDates.preApplication.memLastUpdated
 				? format(new Date(caseData.keyDates.preApplication.memLastUpdated * 1000), 'dd MMM yyyy')
 				: '',
-			actions: [{ href: memLastUpdatedURL, text: hrefText, visuallyHiddenText: 'MEM last updated' }]
+			actions: [
+				{ href: memLastUpdatedURL, text: genericHrefText, visuallyHiddenText: 'MEM last updated' }
+			]
 		},
 		{
 			key: 'Additional comments (optional)',
 			value: caseData.additionalDetails.additionalComments,
 			actions: [
-				{ href: additionalCommentsURL, text: hrefText, visuallyHiddenText: 'additional comments' }
+				{
+					href: additionalCommentsURL,
+					text: genericHrefText,
+					visuallyHiddenText: 'additional comments'
+				}
 			]
 		}
 	];
+
+	const feesSection = buildTable({
+		headers: ['Stage', 'Amount', 'Invoice number', 'Status', 'Action'],
+		rows: invoices.map(
+			/** @param {object|*} invoice */
+			(invoice) => [
+				{ text: invoice.invoiceStage },
+				{ text: `£${Number(invoice.amountDue).toLocaleString('en-GB')}` },
+				{ text: invoice.invoiceNumber },
+				{ html: getStatusTag(invoice) },
+				{ html: `<a href="#" class="govuk-link">${feesHrefText}</a>` }
+			]
+		)
+	});
 
 	const accordionSections = [
 		{
@@ -59,18 +107,24 @@ export const getFeesForecastingViewModel = async ({ caseData }) => {
 		},
 		{
 			heading: 'Fees',
-			content: '',
-			component: 'table'
+			content: feesSection,
+			component: 'table',
+			buttonText: 'Add new fee',
+			buttonLink: '#'
 		},
 		{
 			heading: 'Pre-application project meetings',
 			content: '',
-			component: 'table'
+			component: 'table',
+			buttonText: 'Add project meeting',
+			buttonLink: '#'
 		},
 		{
 			heading: 'Pre-application evidence plan meetings',
 			content: '',
-			component: 'table'
+			component: 'table',
+			buttonText: 'Add evidence plan meeting',
+			buttonLink: '#'
 		},
 		{
 			heading: 'Pre-application supplementary components',
@@ -87,6 +141,6 @@ export const getFeesForecastingViewModel = async ({ caseData }) => {
 	return {
 		selectedPageType: 'fees-forecasting',
 		internalUseSection: buildSummaryList(internalUseSectionItems),
-		accordionSections: accordionSections
+		accordionSections
 	};
 };
