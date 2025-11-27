@@ -1,10 +1,16 @@
 import {
 	additionalCommentsURL,
+	adequacyDateURL,
+	anticipatedDateURL,
 	examiningInspectorsURL,
 	feesHrefText,
 	genericHrefText,
 	memLastUpdatedURL,
-	newMaturityURL
+	newMaturityURL,
+	planProcessURL,
+	s61SummaryURL,
+	scopingDateURL,
+	tierURL
 } from './fees-forecasting.config.js';
 import { format } from 'date-fns';
 import { buildSummaryList } from '../../../lib/summary-list-mapper.js';
@@ -85,6 +91,80 @@ export const getFeesForecastingViewModel = async ({ caseData, invoices, meetings
 		}
 	];
 
+	const overviewSectionItems = [
+		{
+			key: 'Tier',
+			value: caseData.additionalDetails.tier,
+			actions: [{ href: tierURL, text: genericHrefText, visuallyHiddenText: 'tier' }]
+		},
+		{
+			key: 'Link to s61 summary',
+			html: `<a href="#" class="govuk-link">${caseData.additionalDetails.s61SummaryURI}</a>`,
+			actions: [
+				{ href: s61SummaryURL, text: genericHrefText, visuallyHiddenText: 'link to s61 summary' }
+			]
+		},
+		{
+			key: 'Estimated scoping submission date',
+			value: caseData.keyDates.preApplication.estimatedScopingSubmissionDate
+				? format(
+						new Date(caseData.keyDates.preApplication.estimatedScopingSubmissionDate * 1000),
+						'dd MMM yyyy'
+				  )
+				: '',
+			actions: [
+				{
+					href: scopingDateURL,
+					text: genericHrefText,
+					visuallyHiddenText: 'estimated scoping submission date'
+				}
+			]
+		},
+		{
+			key: 'Adequacy of Consulation Milestone date',
+			value: caseData.keyDates.preApplication.consultationMilestoneAdequacyDate
+				? format(
+						new Date(caseData.keyDates.preApplication.consultationMilestoneAdequacyDate * 1000),
+						'dd MMM yyyy'
+				  )
+				: '',
+			actions: [
+				{
+					href: adequacyDateURL,
+					text: genericHrefText,
+					visuallyHiddenText: 'adequacy of consultation milestone date'
+				}
+			]
+		},
+		{
+			key: 'Evidence plan process',
+			value: caseData.additionalDetails.planProcessEvidence
+				? 'Required'
+				: caseData.additionalDetails.planProcessEvidence
+				? 'Not Required'
+				: caseData.additionalDetails.planProcessEvidence,
+			actions: [
+				{ href: planProcessURL, text: genericHrefText, visuallyHiddenText: 'evidence plan process' }
+			]
+		},
+		{
+			key: 'Anticipated submission date internal',
+			value: caseData.keyDates.preApplication.submissionAtInternal
+				? format(
+						new Date(caseData.keyDates.preApplication.submissionAtInternal * 1000),
+						'dd MMM yyyy'
+				  )
+				: '',
+			actions: [
+				{
+					href: anticipatedDateURL,
+					text: genericHrefText,
+					visuallyHiddenText: 'anticipated submission date internal'
+				}
+			]
+		}
+	];
+
 	const feesSection = buildTable({
 		headers: ['Stage', 'Amount', 'Invoice number', 'Status', 'Action'],
 		rows: invoices.map(
@@ -119,7 +199,7 @@ export const getFeesForecastingViewModel = async ({ caseData, invoices, meetings
 	const accordionSections = [
 		{
 			heading: 'Pre-application overview',
-			content: '',
+			content: buildSummaryList(overviewSectionItems),
 			component: 'summary-list'
 		},
 		{

@@ -6,3 +6,10 @@ export const newMaturityURL = '#';
 export const examiningInspectorsURL = '#';
 export const memLastUpdatedURL = '#';
 export const additionalCommentsURL = '#';
+
+export const tierURL = '#';
+export const s61SummaryURL = '#';
+export const scopingDateURL = '#';
+export const adequacyDateURL = '#';
+export const planProcessURL = '#';
+export const anticipatedDateURL = '#';
