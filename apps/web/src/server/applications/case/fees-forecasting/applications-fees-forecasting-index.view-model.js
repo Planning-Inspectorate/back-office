@@ -36,7 +36,7 @@ function getStatusTag(invoice) {
  * @param {object|*} params
  * @returns {Promise<{ selectedPageType: string, internalUseSection: Array<Object>, accordionSections: Array<Object> }>}
  */
-export const getFeesForecastingViewModel = async ({ caseData, invoices }) => {
+export const getFeesForecastingViewModel = async ({ caseData, invoices, meetings }) => {
 	const internalUseSectionItems = [
 		{
 			key: 'New maturity',
@@ -99,6 +99,23 @@ export const getFeesForecastingViewModel = async ({ caseData, invoices }) => {
 		)
 	});
 
+	const projectMeetingsSection = buildTable({
+		headers: ['Meeting agenda', 'Date', 'Action'],
+		rows: meetings
+			.filter(
+				/** @param {object|*} meeting */
+				(meeting) => meeting.meetingType === 'Pre-application'
+			)
+			.map(
+				/** @param {object|*} meeting */
+				(meeting) => [
+					{ text: meeting.agenda },
+					{ text: format(new Date(meeting.meetingDate), 'dd MMM yyyy') },
+					{ html: `<a href="#" class="govuk-link">${genericHrefText}</a>` }
+				]
+			)
+	});
+
 	const accordionSections = [
 		{
 			heading: 'Pre-application overview',
@@ -114,7 +131,7 @@ export const getFeesForecastingViewModel = async ({ caseData, invoices }) => {
 		},
 		{
 			heading: 'Pre-application project meetings',
-			content: '',
+			content: projectMeetingsSection,
 			component: 'table',
 			buttonText: 'Add project meeting',
 			buttonLink: '#'
