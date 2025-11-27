@@ -33,10 +33,19 @@ extends:
             - name: Run Linting & API Tests
               steps:
                   - script: git fetch origin main:main
+                  - task: Cache@2
+                    inputs:
+                      key: 'npm | "$(Agent.OS)" | package-lock.json'
+                      restoreKeys: |
+                        npm | "$(Agent.OS)" | package-lock.json
+                      path: $(npm_config_cache)
+                    displayName: Cache npm
                   - template: ../steps/node_script.yml
                     parameters:
                         nodeVersion: 20
                         script: npm ci
+                        environmentVariables:
+                          npm_config_cache: $(npm_config_cache)
                   - template: ../steps/node_script.yml
                     parameters:
                         # only run commitlint on branches, not main
@@ -70,10 +79,19 @@ extends:
                             TURBO_TOKEN: $(TURBO_TOKEN)
             - name: Run Web and Function Tests
               steps:
+                  - task: Cache@2
+                    inputs:
+                      key: 'npm | "$(Agent.OS)" | package-lock.json'
+                      restoreKeys: |
+                        npm | "$(Agent.OS)" | package-lock.json
+                      path: $(npm_config_cache)
+                    displayName: Cache npm
                   - template: ../steps/node_script.yml
                     parameters:
                         nodeVersion: 20
                         script: npm ci
+                        environmentVariables:
+                          npm_config_cache: $(npm_config_cache)
                   - template: ../steps/node_script.yml
                     parameters:
                         nodeVersion: 20
