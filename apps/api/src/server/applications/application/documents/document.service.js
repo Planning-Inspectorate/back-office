@@ -29,10 +29,10 @@ import { getApplicationDocumentsFolderName } from '#utils/mapping/map-document-f
 import { handleCreationOfDocumentActivityLogs } from '../../../migration/migrators/nsip-document-migrator.js';
 
 /**
- * @typedef {import('@prisma/client').DocumentVersion} DocumentVersion
- * @typedef {import('@prisma/client').Document} Document
- * @typedef {import('@prisma/client').Document & {documentName: string}} DocumentWithDocumentName
- * @typedef {import('@prisma/client').Prisma.DocumentVersionGetPayload<{include: {Document: {include: {folder: {include: {case: {include: {CaseStatus: true}}}}}}}}> } DocumentVersionWithDocumentAndFolder
+ * @typedef {import('#database-client').DocumentVersion} DocumentVersion
+ * @typedef {import('#database-client').Document} Document
+ * @typedef {import('#database-client').Document & {documentName: string}} DocumentWithDocumentName
+ * @typedef {import('#database-client').Prisma.DocumentVersionGetPayload<{include: {Document: {include: {folder: {include: {case: {include: {CaseStatus: true}}}}}}}}> } DocumentVersionWithDocumentAndFolder
  * @typedef {import('@pins/applications.api').Schema.DocumentDetails} DocumentDetails
  * @typedef {import('@pins/applications.api').Schema.DocumentVersionWithDocument} DocumentVersionWithDocument
  * @typedef {import('@pins/applications.api').Api.DocumentAndBlobInfoManyResponse} DocumentAndBlobInfoManyResponse
@@ -316,7 +316,7 @@ export const createDocuments = async (documentsToUpload, caseId, isS51) => {
 		documentsWithBlobStorageInfo.privateBlobContainer
 	);
 
-	/** @type {Promise<import('@prisma/client').DocumentActivityLog>[]} */
+	/** @type {Promise<import('#database-client').DocumentActivityLog>[]} */
 	// TODO: refactor to use createMany instead?
 	const documentActivityLogs = requestToGetDocumentStorageProperties.map((document) =>
 		documentActivityLogRepository.create({

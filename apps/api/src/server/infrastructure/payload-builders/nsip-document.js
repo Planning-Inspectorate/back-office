@@ -9,7 +9,7 @@ const NSIP_CASETYPE = 'nsip';
 
 /**
  * @typedef {import('@planning-inspectorate/data-model').Schemas.NSIPDocument} NSIPDocumentSchema
- * @typedef {import('@prisma/client').Prisma.DocumentVersionGetPayload<{include: {Document: {include: {folder: {include: {case: {include: {CaseStatus: true}}}}}}}}> } DocumentVersionWithDocumentAndFolder
+ * @typedef {import('#database-client').Prisma.DocumentVersionGetPayload<{include: {Document: {include: {folder: {include: {case: {include: {CaseStatus: true}}}}}}}}> } DocumentVersionWithDocumentAndFolder
  */
 
 /**

@@ -85,7 +85,7 @@ describe('subscriptions', () => {
 	describe('get (list)', () => {
 		/**
 		 *
-		 * @returns {import('@prisma/client').Subscription}
+		 * @returns {import('#database-client').Subscription}
 		 */
 		const dummySubscription = () => {
 			return {
@@ -665,7 +665,7 @@ describe('subscriptions', () => {
 		 * @typedef {Object} Test
 		 * @property {string} name
 		 * @property {*} request
-		 * @property {import('@prisma/client').Prisma.SubscriptionCreateInput} want
+		 * @property {import('#database-client').Prisma.SubscriptionCreateInput} want
 		 */
 		/** @type {Test[]} */
 		const tests = [

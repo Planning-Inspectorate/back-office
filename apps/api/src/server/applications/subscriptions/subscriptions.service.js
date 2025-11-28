@@ -90,13 +90,13 @@ export async function createOrUpdateSubscription(request) {
 
 /**
  * @param {any} request
- * @returns {Promise<{isExistingUser: boolean, subscription: import('@prisma/client').Prisma.SubscriptionCreateInput}>}
+ * @returns {Promise<{isExistingUser: boolean, subscription: import('#database-client').Prisma.SubscriptionCreateInput}>}
  */
 export async function prepareInput(request) {
 	const emailAddress = request.emailAddress;
 	const existingServiceUser = await serviceUserRepository.findByEmail(request.emailAddress);
 
-	/** @type {import('@prisma/client').Prisma.SubscriptionCreateInput} */
+	/** @type {import('#database-client').Prisma.SubscriptionCreateInput} */
 	let subscription = {
 		caseReference: request.caseReference,
 		serviceUser: existingServiceUser

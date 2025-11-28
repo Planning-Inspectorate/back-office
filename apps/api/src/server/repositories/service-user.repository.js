@@ -6,7 +6,7 @@ import { databaseConnector } from '#utils/database-connector.js';
  * In practice, service user emails are unique - but they're also nullable.
  *
  * @param {string} email
- * @returns {Promise<import('@prisma/client').ServiceUser|null>}
+ * @returns {Promise<import('#database-client').ServiceUser|null>}
  */
 export function findByEmail(email) {
 	return databaseConnector.serviceUser.findFirst({

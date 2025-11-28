@@ -4,7 +4,7 @@ import { getSkipValue } from '../utils/database-pagination.js';
 import BackOfficeAppError from '#utils/app-error.js';
 
 /**
- * @typedef {import('@prisma/client').Prisma.ProjectUpdateGetPayload<{include: {case: true}}>} ProjectUpdateWithCase
+ * @typedef {import('#database-client').Prisma.ProjectUpdateGetPayload<{include: {case: true}}>} ProjectUpdateWithCase
  */
 
 /**
@@ -17,7 +17,7 @@ import BackOfficeAppError from '#utils/app-error.js';
  * @typedef {Object} ListProjectUpdatesOptions
  * @property {number} page
  * @property {number} pageSize
- * @property {import('@prisma/client').Prisma.ProjectUpdateOrderByWithRelationInput} [orderBy]
+ * @property {import('#database-client').Prisma.ProjectUpdateOrderByWithRelationInput} [orderBy]
  * @property {number} [caseId] - filter option
  * @property {string} [status] - filter option
  * @property {Date} [publishedBefore] - filter option (datePublished < publishedBefore)
@@ -28,7 +28,7 @@ import BackOfficeAppError from '#utils/app-error.js';
  * List project updates for a particular case, with filter options such as by case
  *
  * @param {ListProjectUpdatesOptions} opts
- * @returns {Promise<{count: number, items: import('@prisma/client').ProjectUpdate[]}>}
+ * @returns {Promise<{count: number, items: import('#database-client').ProjectUpdate[]}>}
  */
 export async function listProjectUpdates({
 	caseId,
@@ -39,7 +39,7 @@ export async function listProjectUpdates({
 	publishedBefore,
 	sentToSubscribers
 }) {
-	/** @type {import('@prisma/client').Prisma.ProjectUpdateWhereInput} */
+	/** @type {import('#database-client').Prisma.ProjectUpdateWhereInput} */
 	const where = {};
 	if (caseId) {
 		where.caseId = caseId;
@@ -75,7 +75,7 @@ export async function listProjectUpdates({
 /**
  * Create a new project update
  *
- * @param {import('@prisma/client').Prisma.ProjectUpdateCreateInput} req
+ * @param {import('#database-client').Prisma.ProjectUpdateCreateInput} req
  * @returns {Promise<ProjectUpdateWithCase>}
  */
 export async function createProjectUpdate(req) {
@@ -93,7 +93,7 @@ export async function createProjectUpdate(req) {
  *
  * @param {number} id
  * @param {*} include
- * @returns {Promise<import('@prisma/client').ProjectUpdate|null>}
+ * @returns {Promise<import('#database-client').ProjectUpdate|null>}
  */
 export async function getProjectUpdate(id, include = {}) {
 	return databaseConnector.projectUpdate.findUnique({
@@ -108,7 +108,7 @@ export async function getProjectUpdate(id, include = {}) {
  * Update a project update. Verifies the status change is allowed in a transaction.
  *
  * @param {number} id
- * @param {import('@prisma/client').Prisma.ProjectUpdateUpdateInput} req
+ * @param {import('#database-client').Prisma.ProjectUpdateUpdateInput} req
  * @returns {Promise<ProjectUpdateWithCase>}
  * @throws {BackOfficeAppError}
  */
@@ -184,10 +184,10 @@ export async function deleteProjectUpdate(id) {
  * List notification logs
  *
  * @param {PaginationOptions & {projectUpdateId:number}} opts
- * @returns {Promise<{count: number, items: import('@prisma/client').ProjectUpdateNotificationLog[]}>}
+ * @returns {Promise<{count: number, items: import('#database-client').ProjectUpdateNotificationLog[]}>}
  */
 export async function listNotificationLogs({ projectUpdateId, page, pageSize }) {
-	/** @type {import('@prisma/client').Prisma.ProjectUpdateNotificationLogWhereInput} */
+	/** @type {import('#database-client').Prisma.ProjectUpdateNotificationLogWhereInput} */
 	const where = {
 		projectUpdateId
 	};
@@ -212,8 +212,8 @@ export async function listNotificationLogs({ projectUpdateId, page, pageSize }) 
 /**
  * Create notification logs
  *
- * @param {import('@prisma/client').Prisma.ProjectUpdateNotificationLogCreateManyInput} logs
- * @returns {Promise<import('@prisma/client').Prisma.BatchPayload>}
+ * @param {import('#database-client').Prisma.ProjectUpdateNotificationLogCreateManyInput} logs
+ * @returns {Promise<import('#database-client').Prisma.BatchPayload>}
  */
 export async function createNotificationLogs(logs) {
 	return databaseConnector.projectUpdateNotificationLog.createMany({

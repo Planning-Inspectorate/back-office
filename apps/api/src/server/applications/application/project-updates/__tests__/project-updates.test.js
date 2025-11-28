@@ -20,7 +20,7 @@ import { mockApplicationGet } from '#utils/application-factory-for-tests.js';
 
 /**
  * @param {Date} now
- * @returns {(caseId: number) => import('@prisma/client').ProjectUpdate}
+ * @returns {(caseId: number) => import('#database-client').ProjectUpdate}
  */
 const makeDummyProjectUpdate = (now) => (caseId) => ({
 	id: 1,

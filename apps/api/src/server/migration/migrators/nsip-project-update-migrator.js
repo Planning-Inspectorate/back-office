@@ -93,7 +93,7 @@ const buildEventPayloads = async (projectUpdateIds) => {
  *
  * @param {NSIPProjectUpdateMigrateModel} m
  *
- * @returns {Promise<import('@prisma/client').ProjectUpdate>} projectUpdate
+ * @returns {Promise<import('#database-client').ProjectUpdate>} projectUpdate
  */
 const mapModelToEntity = async (m) => {
 	const caseId = await getCaseIdFromRef(m.caseReference);

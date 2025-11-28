@@ -35,8 +35,8 @@ import {
 import { getRedactionStatus, validateDocumentVersionMetadataBody } from './document.validators.js';
 
 /**
- * @typedef {import('@prisma/client').Document} Document
- * @typedef {import('@prisma/client').DocumentVersion} DocumentVersion
+ * @typedef {import('#database-client').Document} Document
+ * @typedef {import('#database-client').DocumentVersion} DocumentVersion
  * @typedef {import('@pins/applications.api').Schema.DocumentDetails} DocumentDetails
  * @typedef {import('@pins/applications.api').Schema.DocumentVersionWithDocument} DocumentVersionWithDocument
  * @typedef {import('@pins/applications.api').Api.DocumentToSave} DocumentToSave

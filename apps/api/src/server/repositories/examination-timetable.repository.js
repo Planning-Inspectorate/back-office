@@ -1,7 +1,7 @@
 import { databaseConnector } from '#utils/database-connector.js';
 
 /**
- * @typedef {import('@prisma/client').Prisma.ExaminationTimetableGetPayload<{include: {ExaminationTimetableItem: {include: {ExaminationTimetableType: true}}, case: true } }>} ExaminationTimetableWithCaseAndItemsAndType
+ * @typedef {import('#database-client').Prisma.ExaminationTimetableGetPayload<{include: {ExaminationTimetableItem: {include: {ExaminationTimetableType: true}}, case: true } }>} ExaminationTimetableWithCaseAndItemsAndType
  */
 
 /**
@@ -16,7 +16,7 @@ export const getById = (id) =>
  * Returns a whole Examination Timetable inc case, with associated Examination Timetable Item records inc Exam Type records
  *
  * @param {number} id
- * @returns {import('@prisma/client').PrismaPromise<ExaminationTimetableWithCaseAndItemsAndType |null>}
+ * @returns {import('#database-client').PrismaPromise<ExaminationTimetableWithCaseAndItemsAndType |null>}
  * */
 export const getWithItems = (id) => {
 	return databaseConnector.examinationTimetable.findUnique({
@@ -55,7 +55,7 @@ export const create = (examinationTimetable) => {
 /**
  *
  * @param {Number} caseId
- * @param {import('@prisma/client').Prisma.ExaminationTimetableUpdateInput} examinationTimetable
+ * @param {import('#database-client').Prisma.ExaminationTimetableUpdateInput} examinationTimetable
  * @returns {Promise<import('@pins/applications.api').Schema.ExaminationTimetable>}
  */
 export const updateByCaseId = (caseId, examinationTimetable) => {
@@ -68,7 +68,7 @@ export const updateByCaseId = (caseId, examinationTimetable) => {
 /**
  *
  * @param {Number} id
- * @param {import('@prisma/client').Prisma.ExaminationTimetableUpdateInput} examinationTimetable
+ * @param {import('#database-client').Prisma.ExaminationTimetableUpdateInput} examinationTimetable
  * @returns {Promise<import('@pins/applications.api').Schema.ExaminationTimetable>}
  */
 export const update = (id, examinationTimetable) => {

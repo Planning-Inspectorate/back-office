@@ -2,7 +2,7 @@ import { mapDateStringToUnixTimestamp } from './map-date-string-to-unix-timestam
 import { mapDateToUnixTimestamp } from './map-date-to-unix-timestamp.js';
 
 /**
- * @typedef {import('@prisma/client').Document} Document
+ * @typedef {import('#database-client').Document} Document
  * @typedef {import('@pins/applications.api').Schema.DocumentDetails} DocumentDetails
  * @typedef {import('@pins/applications.api').Schema.DocumentVersionWithDocumentAndActivityLog} DocumentVersionWithDocumentAndActivityLog
  */

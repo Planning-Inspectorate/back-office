@@ -18,8 +18,8 @@ import { featureFlagClient } from '#utils/feature-flags.js';
 /** @typedef {{ guid: string}} documentGuid */
 
 /**
- * @typedef {import('@prisma/client').DocumentVersion} DocumentVersion
- * @typedef {import('@prisma/client').Document} Document
+ * @typedef {import('#database-client').DocumentVersion} DocumentVersion
+ * @typedef {import('#database-client').Document} Document
  * @typedef {import('@pins/applications.api').Api.DocumentVersionUpsertRequestBody} DocumentVersionUpsertRequestBody
  * @typedef {import('@pins/applications.api').Schema.DocumentVersionUpsertInput} DocumentVersionUpsertInput
  */
