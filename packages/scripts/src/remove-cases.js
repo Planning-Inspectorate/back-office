@@ -12,7 +12,7 @@ const specifiedCases =
 const blobs = [];
 
 /**
- * @typedef {import('@prisma/client')} PrismaClient
+ * @typedef {import('@pins/applications.api/src/database/client')} PrismaClient
  */
 
 /**
@@ -37,7 +37,7 @@ const removeApplicationDetails = async (tx, caseDetails) => {
 /**
  * Delete all the ProjectUpdateNotifications records for a case, and all the ProjectUpdate records on the case
  *
- * @param {import('@prisma/client')} tx
+ * @param {PrismaClient} tx
  * @param caseDetails
  * @returns {Promise<void>}
  */
@@ -60,7 +60,7 @@ const removeProjectUpdates = async (tx, caseDetails) => {
  * Delete all the RepresentationAction records on Reps on the case, all RepresentationAttachment associative records, and all the Representations on the case,
  * and associated ServiceUser records and Address records
  *
- * @param {import('@prisma/client')} tx
+ * @param {PrismaClient} tx
  * @param caseDetails
  * @returns {Promise<void>}
  */
@@ -103,7 +103,7 @@ const removeRepresentations = async (tx, caseDetails) => {
 /**
  * Delete the Exam timetable item records, and the exam timetable parent record on a case
  *
- * @param {import('@prisma/client')} tx
+ * @param {PrismaClient} tx
  * @param caseDetails
  * @returns {Promise<void>}
  */
@@ -454,7 +454,7 @@ export const removeSpecifiedCases = async () => {
  *
  * @param {PrismaClient} tx
  * @param {string} reference
- * @returns {import('@prisma/client').PrismaPromise<import('@prisma/client').Case | null>}
+ * @returns {PrismaClient.PrismaPromise<PrismaClient.Case | null>}
  * */
 const getCaseByReference = async (tx, reference) => {
 	return tx.case.findFirst({

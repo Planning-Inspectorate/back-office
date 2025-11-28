@@ -6,10 +6,6 @@
   "engines": {
     "node": ">=20.0.0 <21.0.0"
   },
-  "prisma": {
-    "schema": "src/database/schema.prisma",
-    "seed": "node src/database/seed/seed-development.js"
-  },
   "type": "module",
   "scripts": {
     "test": "npm run prisma-generate && cross-env NODE_ENV=test NODE_OPTIONS=\"--experimental-vm-modules --max-old-space-size=8192\" npx jest --forceExit --coverage",
@@ -49,6 +45,7 @@
     "@pins/examination-timetable-utils": "*",
     "@pins/platform": "*",
     "@prisma/instrumentation": "*",
+		"@prisma/adapter-mssql": "*",
     "@prisma/client": "*",
     "@supercharge/promise-pool": "*",
     "ajv": "*",
@@ -94,7 +91,8 @@
   "imports": {
     "#app-test": "./src/server/app-test.js",
 		"#api-constants": "./src/server/applications/constants.js",
-    "#config/*": "./src/server/config/*",
+		"#database-client": "./src/database/client",
+		"#config/*": "./src/server/config/*",
     "#infrastructure/*": "./src/server/infrastructure/*",
     "#middleware/*": "./src/server/middleware/*",
     "#repositories/*": "./src/server/repositories/*",

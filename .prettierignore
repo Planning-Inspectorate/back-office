@@ -9,3 +9,4 @@ coverage
 apps/e2e/cypress/fixtures/*
 .vscode
 .build
+apps/api/src/database/client
