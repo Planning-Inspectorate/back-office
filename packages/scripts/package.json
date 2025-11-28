@@ -18,5 +18,9 @@
 	"dependencies": {
 		"@azure/identity": "*",
 		"@azure/keyvault-secrets": "*"
+	},
+	"imports": {
+		"#database-client": "../../apps/api/src/database/client",
+		"#utils/*": "../../apps/api/src/server/utils/*"
 	}
 }

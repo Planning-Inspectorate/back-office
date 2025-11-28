@@ -415,9 +415,13 @@ class MockPrisma {
 	}
 }
 
-jest.unstable_mockModule('@prisma/client', () => ({
+jest.unstable_mockModule('./src/database/client', () => ({
 	PrismaClient: MockPrismaClient,
 	Prisma: MockPrisma
+}));
+
+jest.unstable_mockModule('@prisma/adapter-mssql', () => ({
+	PrismaMssql: jest.fn()
 }));
 
 const mockSendEvents = jest.fn().mockImplementation(sendEvents);

@@ -1,4 +1,4 @@
-import { Prisma } from '@prisma/client';
+import { Prisma } from '#database-client';
 
 const isSeeding = process.env.NODE_ENV === 'seeding';
 
