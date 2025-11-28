@@ -168,7 +168,7 @@ export const handleCreationOfDocumentActivityLogs = async (documentVersion) => {
 
 const createDocumentActivityLog = async ({ documentGuid, version, status, activityDate }) => {
 	/**
-	 * @type {import("@prisma/client").Prisma.DocumentActivityLogCreateInput}
+	 * @type {import("#database-client").Prisma.DocumentActivityLogCreateInput}
 	 */
 	const activityLog = {
 		documentGuid,

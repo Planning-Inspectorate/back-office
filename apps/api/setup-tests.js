@@ -415,7 +415,7 @@ class MockPrisma {
 	}
 }
 
-jest.unstable_mockModule('./src/database/client', () => ({
+jest.unstable_mockModule('#database-client', () => ({
 	PrismaClient: MockPrismaClient,
 	Prisma: MockPrisma
 }));
