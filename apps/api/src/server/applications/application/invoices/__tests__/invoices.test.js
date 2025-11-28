@@ -55,17 +55,15 @@ describe('Invoices API', () => {
 			expect(res.body).toEqual(invoices);
 		});
 
-		it('returns 404 when there are no invoices for the given case', async () => {
+		it('returns 200 when there are no invoices for the given case', async () => {
 			databaseConnector.invoice.findMany.mockResolvedValue([]);
 			const res = await request.get(`/applications/${caseId}/invoices`);
-			expect(res.status).toBe(404);
+			expect(res.status).toBe(200);
 			expect(databaseConnector.invoice.findMany).toHaveBeenCalledWith({
 				where: { caseId },
 				orderBy: { createdAt: 'asc' }
 			});
-			expect(res.body).toEqual({
-				errors: `No invoices found for case ${caseId}`
-			});
+			expect(res.body).toEqual([]);
 		});
 	});
 

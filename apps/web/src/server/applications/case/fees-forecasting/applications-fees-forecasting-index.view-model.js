@@ -10,7 +10,11 @@ import {
 	planProcessURL,
 	s61SummaryURL,
 	scopingDateURL,
-	tierURL
+	tierURL,
+	documentLinkURL,
+	updatedDocumentReceivedDateURL,
+	documentReviewedByEstDateURL,
+	caseTeamIssuedCommentsDateURL
 } from './fees-forecasting.config.js';
 import { format } from 'date-fns';
 import { buildSummaryList } from '../../../lib/summary-list-mapper.js';
@@ -196,6 +200,68 @@ export const getFeesForecastingViewModel = async ({ caseData, invoices, meetings
 			)
 	});
 
+	const programmeDocumentSectionItems = [
+		{
+			key: 'Link to programme document',
+			html: `<a href="#" class="govuk-link">${caseData.additionalDetails.programmeDocumentURI}</a>`,
+			actions: [
+				{
+					href: documentLinkURL,
+					text: genericHrefText,
+					visuallyHiddenText: 'link to programme document'
+				}
+			]
+		},
+		{
+			key: 'Date updated programme document is received',
+			value: caseData.keyDates.preApplication.updatedProgrammeDocumentReceivedDate
+				? format(
+						new Date(caseData.keyDates.preApplication.updatedProgrammeDocumentReceivedDate * 1000),
+						'dd MMM yyyy'
+				  )
+				: '',
+			actions: [
+				{
+					href: updatedDocumentReceivedDateURL,
+					text: genericHrefText,
+					visuallyHiddenText: 'date updated programme document is received'
+				}
+			]
+		},
+		{
+			key: 'Date programme document reviewed by EST',
+			value: caseData.keyDates.preApplication.programmeDocumentReviewedByEstDate
+				? format(
+						new Date(caseData.keyDates.preApplication.programmeDocumentReviewedByEstDate * 1000),
+						'dd MMM yyyy'
+				  )
+				: '',
+			actions: [
+				{
+					href: documentReviewedByEstDateURL,
+					text: genericHrefText,
+					visuallyHiddenText: 'date programme document reviewed by EST'
+				}
+			]
+		},
+		{
+			key: 'Date case team issued comments on programme document',
+			value: caseData.keyDates.preApplication.caseTeamIssuedCommentsDate
+				? format(
+						new Date(caseData.keyDates.preApplication.caseTeamIssuedCommentsDate * 1000),
+						'dd MMM yyyy'
+				  )
+				: '',
+			actions: [
+				{
+					href: caseTeamIssuedCommentsDateURL,
+					text: genericHrefText,
+					visuallyHiddenText: 'date case team issued comments on programme document'
+				}
+			]
+		}
+	];
+
 	const accordionSections = [
 		{
 			heading: 'Pre-application overview',
@@ -230,7 +296,7 @@ export const getFeesForecastingViewModel = async ({ caseData, invoices, meetings
 		},
 		{
 			heading: 'Pre-application programme document',
-			content: '',
+			content: buildSummaryList(programmeDocumentSectionItems),
 			component: 'summary-list'
 		}
 	];

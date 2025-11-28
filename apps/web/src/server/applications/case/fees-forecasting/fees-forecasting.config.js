@@ -13,3 +13,8 @@ export const scopingDateURL = '#';
 export const adequacyDateURL = '#';
 export const planProcessURL = '#';
 export const anticipatedDateURL = '#';
+
+export const documentLinkURL = '#';
+export const updatedDocumentReceivedDateURL = '#';
+export const documentReviewedByEstDateURL = '#';
+export const caseTeamIssuedCommentsDateURL = '#';

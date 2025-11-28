@@ -86,7 +86,39 @@ exports[`Fees and Forecasting GET /case/123/fees-forecasting/ should render the 
                         <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="accordion-default-heading-1"> Pre-application overview</span></h2>
                     </div>
                     <div id="accordion-default-content-1" class="govuk-accordion__section-content">
-                        <dl class="govuk-summary-list"></dl>
+                        <dl class="govuk-summary-list">
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Tier</dt>
+                                <dd class="govuk-summary-list__value">mock-tier</dd>
+                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> tier</span></a>
+                                </dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Link to s61 summary</dt>
+                                <dd class="govuk-summary-list__value"><a href="#" class="govuk-link">mock-s61-summary-uri</a>
+                                </dd>
+                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> link to s61 summary</span></a>
+                                </dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Estimated scoping submission date</dt>
+                                <dd                                 class="govuk-summary-list__value">09 Feb 2025</dd>
+                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> estimated scoping submission date</span></a>
+                                    </dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Adequacy of Consulation Milestone date</dt>
+                                <dd                                 class="govuk-summary-list__value">13 Mar 2025</dd>
+                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> adequacy of consultation milestone date</span></a>
+                                    </dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Evidence plan process</dt>
+                                <dd class="govuk-summary-list__value">Required</dd>
+                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> evidence plan process</span></a>
+                                </dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Anticipated submission date internal</dt>
+                                <dd                                 class="govuk-summary-list__value">05 Jan 2025</dd>
+                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> anticipated submission date internal</span></a>
+                                    </dd>
+                            </div>
+                        </dl>
                     </div>
                 </div>
                 <div class="govuk-accordion__section">
@@ -95,8 +127,37 @@ exports[`Fees and Forecasting GET /case/123/fees-forecasting/ should render the 
                     </div>
                     <div id="accordion-default-content-2" class="govuk-accordion__section-content">
                         <table class="govuk-table">
-                            <tbody class="govuk-table__body"></tbody>
-                        </table>
+                            <thead class="govuk-table__head">
+                                <tr class="govuk-table__row">
+                                    <th scope="col" class="govuk-table__header">Stage</th>
+                                    <th scope="col" class="govuk-table__header">Amount</th>
+                                    <th scope="col" class="govuk-table__header">Invoice number</th>
+                                    <th scope="col" class="govuk-table__header">Status</th>
+                                    <th scope="col" class="govuk-table__header">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody class="govuk-table__body">
+                                <tr class="govuk-table__row">
+                                    <td class="govuk-table__cell">Pre-application</td>
+                                    <td class="govuk-table__cell">£20,500</td>
+                                    <td class="govuk-table__cell">180000000</td>
+                                    <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--purple">Refunded</strong>
+                                    </td>
+                                    <td class="govuk-table__cell"><a href="#" class="govuk-link">Review</a>
+                                    </td>
+                                </tr>
+                                <tr class="govuk-table__row">
+                                    <td class="govuk-table__cell">Pre-application</td>
+                                    <td class="govuk-table__cell">£30,000</td>
+                                    <td class="govuk-table__cell">180000001</td>
+                                    <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--purple">Refunded</strong>
+                                    </td>
+                                    <td class="govuk-table__cell"><a href="#" class="govuk-link">Review</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table><a href="#" role="button" draggable="false" class="govuk-button govuk-button--secondary"
+                        data-module="govuk-button"> Add new fee</a>
                     </div>
                 </div>
                 <div class="govuk-accordion__section">
@@ -105,8 +166,29 @@ exports[`Fees and Forecasting GET /case/123/fees-forecasting/ should render the 
                     </div>
                     <div id="accordion-default-content-3" class="govuk-accordion__section-content">
                         <table class="govuk-table">
-                            <tbody class="govuk-table__body"></tbody>
-                        </table>
+                            <thead class="govuk-table__head">
+                                <tr class="govuk-table__row">
+                                    <th scope="col" class="govuk-table__header">Meeting agenda</th>
+                                    <th scope="col" class="govuk-table__header">Date</th>
+                                    <th scope="col" class="govuk-table__header">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody class="govuk-table__body">
+                                <tr class="govuk-table__row">
+                                    <td class="govuk-table__cell">Inception meeting</td>
+                                    <td class="govuk-table__cell">09 Jan 2025</td>
+                                    <td class="govuk-table__cell"><a href="#" class="govuk-link">Change</a>
+                                    </td>
+                                </tr>
+                                <tr class="govuk-table__row">
+                                    <td class="govuk-table__cell">Project Update Meeting (PUM)</td>
+                                    <td class="govuk-table__cell">11 Jan 2025</td>
+                                    <td class="govuk-table__cell"><a href="#" class="govuk-link">Change</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table><a href="#" role="button" draggable="false" class="govuk-button govuk-button--secondary"
+                        data-module="govuk-button"> Add project meeting</a>
                     </div>
                 </div>
                 <div class="govuk-accordion__section">
@@ -116,7 +198,8 @@ exports[`Fees and Forecasting GET /case/123/fees-forecasting/ should render the 
                     <div id="accordion-default-content-4" class="govuk-accordion__section-content">
                         <table class="govuk-table">
                             <tbody class="govuk-table__body"></tbody>
-                        </table>
+                        </table><a href="#" role="button" draggable="false" class="govuk-button govuk-button--secondary"
+                        data-module="govuk-button"> Add evidence plan meeting</a>
                     </div>
                 </div>
                 <div class="govuk-accordion__section">
@@ -132,7 +215,29 @@ exports[`Fees and Forecasting GET /case/123/fees-forecasting/ should render the 
                         <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="accordion-default-heading-6"> Pre-application programme document</span></h2>
                     </div>
                     <div id="accordion-default-content-6" class="govuk-accordion__section-content">
-                        <dl class="govuk-summary-list"></dl>
+                        <dl class="govuk-summary-list">
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Link to programme document</dt>
+                                <dd                                 class="govuk-summary-list__value"><a href="#" class="govuk-link">mock-programme-document-uri</a>
+                                    </dd>
+                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> link to programme document</span></a>
+                                    </dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Date updated programme document is received</dt>
+                                <dd                                 class="govuk-summary-list__value">10 Apr 2025</dd>
+                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> date updated programme document is received</span></a>
+                                    </dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Date programme document reviewed by EST</dt>
+                                <dd                                 class="govuk-summary-list__value">11 May 2025</dd>
+                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> date programme document reviewed by EST</span></a>
+                                    </dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Date case team issued comments on programme document</dt>
+                                <dd                                 class="govuk-summary-list__value">07 Jun 2025</dd>
+                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> date case team issued comments on programme document</span></a>
+                                    </dd>
+                            </div>
+                        </dl>
                     </div>
                 </div>
             </div>
