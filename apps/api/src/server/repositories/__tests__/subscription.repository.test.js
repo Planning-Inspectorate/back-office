@@ -7,8 +7,8 @@ describe('subscription-repository', () => {
 		 * @typedef {Object} SubTest
 		 * @property {string} name
 		 * @property {string} type
-		 * @property {import('@prisma/client').Prisma.SubscriptionWhereInput} where
-		 * @property {import('@prisma/client').Prisma.SubscriptionWhereInput} want
+		 * @property {import('#database-client').Prisma.SubscriptionWhereInput} where
+		 * @property {import('#database-client').Prisma.SubscriptionWhereInput} want
 		 */
 		/**
 		 * @type {SubTest[]}
