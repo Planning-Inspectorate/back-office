@@ -197,7 +197,27 @@ exports[`Fees and Forecasting GET /case/123/fees-forecasting/ should render the 
                     </div>
                     <div id="accordion-default-content-4" class="govuk-accordion__section-content">
                         <table class="govuk-table">
-                            <tbody class="govuk-table__body"></tbody>
+                            <thead class="govuk-table__head">
+                                <tr class="govuk-table__row">
+                                    <th scope="col" class="govuk-table__header">Issues discussed</th>
+                                    <th scope="col" class="govuk-table__header">Date</th>
+                                    <th scope="col" class="govuk-table__header">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody class="govuk-table__body">
+                                <tr class="govuk-table__row">
+                                    <td class="govuk-table__cell">Flood Risk Assessment</td>
+                                    <td class="govuk-table__cell">09 Jan 2025</td>
+                                    <td class="govuk-table__cell"><a href="#" class="govuk-link">Change</a>
+                                    </td>
+                                </tr>
+                                <tr class="govuk-table__row">
+                                    <td class="govuk-table__cell">Habitat Regulation Assessment</td>
+                                    <td class="govuk-table__cell">11 Jan 2025</td>
+                                    <td class="govuk-table__cell"><a href="#" class="govuk-link">Change</a>
+                                    </td>
+                                </tr>
+                            </tbody>
                         </table><a href="#" role="button" draggable="false" class="govuk-button govuk-button--secondary"
                         data-module="govuk-button"> Add evidence plan meeting</a>
                     </div>

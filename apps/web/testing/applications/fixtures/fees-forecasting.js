@@ -66,6 +66,7 @@ export const fixtureFeesForecastingMeetings = [
 		caseId: 4,
 		meetingType: 'Pre-application',
 		agenda: 'Inception meeting',
+		pinsRole: null,
 		meetingDate: '2025-01-09T00:00:00.000Z'
 	},
 	{
@@ -73,6 +74,23 @@ export const fixtureFeesForecastingMeetings = [
 		caseId: 4,
 		meetingType: 'Pre-application',
 		agenda: 'Project Update Meeting (PUM)',
+		pinsRole: null,
+		meetingDate: '2025-01-11T00:00:00.000Z'
+	},
+	{
+		id: 3,
+		caseId: 4,
+		meetingType: 'Pre-application',
+		agenda: 'Flood Risk Assessment',
+		pinsRole: 'Facilitator',
+		meetingDate: '2025-01-09T00:00:00.000Z'
+	},
+	{
+		id: 4,
+		caseId: 4,
+		meetingType: 'Pre-application',
+		agenda: 'Habitat Regulation Assessment',
+		pinsRole: 'Advisor',
 		meetingDate: '2025-01-11T00:00:00.000Z'
 	}
 ];

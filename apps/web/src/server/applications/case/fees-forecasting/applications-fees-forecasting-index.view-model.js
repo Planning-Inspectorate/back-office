@@ -188,7 +188,7 @@ export const getFeesForecastingViewModel = async ({ caseData, invoices, meetings
 		rows: meetings
 			.filter(
 				/** @param {object|*} meeting */
-				(meeting) => meeting.meetingType === 'Pre-application'
+				(meeting) => meeting.meetingType === 'Pre-application' && meeting.pinsRole === null
 			)
 			.map(
 				/** @param {object|*} meeting */
@@ -199,6 +199,29 @@ export const getFeesForecastingViewModel = async ({ caseData, invoices, meetings
 				]
 			)
 	});
+
+	const getEvidencePlanMeetingSection = () => {
+		const evidencePlanMeetings = meetings.filter(
+			/** @param {object|*} meeting */
+			(meeting) => meeting.meetingType === 'Pre-application' && meeting.pinsRole !== null
+		);
+
+		if (!evidencePlanMeetings.length) {
+			return '';
+		}
+
+		return buildTable({
+			headers: ['Issues discussed', 'Date', 'Action'],
+			rows: evidencePlanMeetings.map(
+				/** @param {object|*} meeting */
+				(meeting) => [
+					{ text: meeting.agenda },
+					{ text: format(new Date(meeting.meetingDate), 'dd MMM yyyy') },
+					{ html: `<a href="#" class="govuk-link">${genericHrefText}</a>` }
+				]
+			)
+		});
+	};
 
 	const programmeDocumentSectionItems = [
 		{
@@ -284,7 +307,7 @@ export const getFeesForecastingViewModel = async ({ caseData, invoices, meetings
 		},
 		{
 			heading: 'Pre-application evidence plan meetings',
-			content: '',
+			content: getEvidencePlanMeetingSection(),
 			component: 'table',
 			buttonText: 'Add evidence plan meeting',
 			buttonLink: '#'
