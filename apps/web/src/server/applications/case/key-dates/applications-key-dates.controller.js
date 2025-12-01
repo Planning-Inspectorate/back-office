@@ -171,6 +171,7 @@ export async function viewKeyDatesIndex(request, response) {
 		}
 	});
 
+	// @ts-expect-error - TODO fix this type
 	const { preExamination: { dateOfReOpenRelevantRepresentationClose = undefined } = {} } = sections;
 
 	return response.render(`applications/case-key-dates/key-dates-index.njk`, {

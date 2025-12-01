@@ -73,6 +73,20 @@ export interface RenderHandler<
 	): void;
 }
 
+export interface RenderHandlerNoNext<
+	RenderOptions extends Record<string, any>,
+	ReqLocals extends Record<string, any> = undefined,
+	ReqBody = undefined,
+	ReqQuery extends ParsedQs = ParsedQs,
+	Params extends ParamsDictionary = ParamsDictionary,
+	Locals extends Record<string, any> = Record<string, any>
+> {
+	(
+		req: Request<ReqLocals, Params, string, ReqBody, ReqQuery, Locals>,
+		res: RenderedResponse<RenderOptions, Locals>
+	): void;
+}
+
 interface RenderedResponse<
 	RenderOptions extends Record<string, any>,
 	Locals extends Record<string, any>,

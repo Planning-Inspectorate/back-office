@@ -5,7 +5,7 @@ import { random } from 'lodash-es';
  * @param {{prefix: string}} [options={prefix: 'APP'}]
  * @returns {string}
  */
-export const createCaseReference = ({ prefix = 'APP' }) =>
+export const createCaseReference = ({ prefix } = { prefix: 'APP' }) =>
 	[
 		prefix,
 		`${fake.randomLetter()}${random(1000, 9999)}`,
@@ -61,7 +61,9 @@ export const createUniqueRandomDateFromSeed = (seed, minYear, maxYear) => {
  * @param {{wordsNumber: number, startOffset: number}} [options={}]
  * @returns {string}
  */
-export const createRandomDescription = ({ wordsNumber = 40, startOffset = 0 }) => {
+export const createRandomDescription = (
+	{ wordsNumber = 40, startOffset = 0 } = { wordsNumber: 40, startOffset: 0 }
+) => {
 	const loremIpsumString =
 		'Lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat';
 	const loremIpsumWords = loremIpsumString.split(' ');
