@@ -15,14 +15,24 @@ const baseCase = createCase({
 export const fixtureFeesForecastingCase = {
 	...baseCase,
 	additionalDetails: {
-		tier: 'mock-tier',
-		newMaturity: 'C',
+		tier: 'basic',
+		newMaturity: 'c',
 		s61SummaryURI: 'mock-s61-summary-uri',
 		programmeDocumentURI: 'mock-programme-document-uri',
 		numberBand2Inspectors: 2,
 		numberBand3Inspectors: 1,
 		additionalComments: 'Some comments',
-		planProcessEvidence: 'Required'
+		planProcessEvidence: 'true',
+		issuesTracker: 'mock-issues-tracker-uri',
+		essentialFastTrackComponents: true,
+		principalAreaDisagreementSummaryStmt: 'submitted_by_applicant',
+		policyComplianceDocument: 'not_applicable',
+		designApproachDocument: 'awaiting_submission',
+		matureOutlineControlDocument: 'awaiting_submission',
+		caAndTpEvidence: 'awaiting_submission',
+		publicSectorEqualityDuty: 'not_applicable',
+		fastTrackAdmissionDocument: 'submitted_by_applicant',
+		multipartyApplicationCheckDocument: 'awaiting_submission'
 	},
 	keyDates: {
 		preApplication: {
@@ -32,7 +42,8 @@ export const fixtureFeesForecastingCase = {
 			updatedProgrammeDocumentReceivedDate: 1744291200,
 			programmeDocumentReviewedByEstDate: 1746969600,
 			caseTeamIssuedCommentsDate: 1749273600,
-			memLastUpdated: 1710000000
+			memLastUpdated: 1710000000,
+			principalAreaDisagreementSummaryStmtSubmittedDate: 1710000000
 		}
 	}
 };
@@ -42,7 +53,7 @@ export const fixtureFeesForecastingInvoices = [
 		id: 1,
 		caseId: 4,
 		invoiceNumber: '180000000',
-		invoiceStage: 'Pre-application',
+		invoiceStage: 'pre_application',
 		amountDue: '20500',
 		paymentDueDate: '2025-11-05T00:00:00.000Z',
 		paymentDate: '2025-11-05T00:00:00.000Z',
@@ -52,7 +63,7 @@ export const fixtureFeesForecastingInvoices = [
 		id: 2,
 		caseId: 4,
 		invoiceNumber: '180000001',
-		invoiceStage: 'Pre-application',
+		invoiceStage: 'acceptance',
 		amountDue: '30000',
 		paymentDueDate: '2025-10-05T00:00:00.000Z',
 		paymentDate: '2025-10-05T00:00:00.000Z',
@@ -82,7 +93,7 @@ export const fixtureFeesForecastingMeetings = [
 		caseId: 4,
 		meetingType: 'Pre-application',
 		agenda: 'Flood Risk Assessment',
-		pinsRole: 'Facilitator',
+		pinsRole: 'facilitator',
 		meetingDate: '2025-01-09T00:00:00.000Z'
 	},
 	{
@@ -90,7 +101,7 @@ export const fixtureFeesForecastingMeetings = [
 		caseId: 4,
 		meetingType: 'Pre-application',
 		agenda: 'Habitat Regulation Assessment',
-		pinsRole: 'Advisor',
+		pinsRole: 'advisor',
 		meetingDate: '2025-01-11T00:00:00.000Z'
 	}
 ];
