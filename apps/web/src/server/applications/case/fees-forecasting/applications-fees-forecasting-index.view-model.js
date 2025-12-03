@@ -11,10 +11,24 @@ import {
 	s61SummaryURL,
 	scopingDateURL,
 	tierURL,
+	issuesTrackerURL,
+	essentialFastTrackComponentsURL,
+	principalAreaDisagreementSummaryStmtURL,
+	policyComplianceDocumentURL,
+	designApproachDocumentURL,
+	matureOutlineControlDocumentURL,
+	caAndTpEvidenceURL,
+	publicSectorEqualityDutyURL,
+	fastTrackAdmissionDocumentURL,
+	multipartyApplicationCheckDocumentURL,
 	documentLinkURL,
 	updatedDocumentReceivedDateURL,
 	documentReviewedByEstDateURL,
-	caseTeamIssuedCommentsDateURL
+	caseTeamIssuedCommentsDateURL,
+	newMaturityDisplayValues,
+	tierDisplayValues,
+	invoiceStageDisplayValues,
+	supplementaryComponentsDisplayValues
 } from './fees-forecasting.config.js';
 import { format } from 'date-fns';
 import { buildSummaryList } from '../../../lib/summary-list-mapper.js';
@@ -43,6 +57,34 @@ function getStatusTag(invoice) {
 }
 
 /**
+ * Converts unix timestamp into date string.
+ *
+ * @param {number} timestamp
+ * @returns {string}
+ */
+const formatUnixTimestamp = (timestamp) =>
+	timestamp ? format(new Date(timestamp * 1000), 'dd MMM yyyy') : '';
+
+/**
+ * Creates HTML string for link text.
+ *
+ * @param {string} linkText
+ * @param {string} href
+ * @returns {string}
+ */
+const getLinkHTML = (linkText, href) =>
+	linkText ? `<a href="${href}" class="govuk-link">${linkText}</a>` : '';
+
+/**
+ * Converts snake_case enum value into string for display.
+ *
+ * @param {Record<string,string>} displayValues
+ * @param {string} enumValue
+ * @returns {string}
+ */
+const getDisplayValue = (displayValues, enumValue) => (enumValue ? displayValues[enumValue] : '');
+
+/**
  * @param {object|*} params
  * @returns {Promise<{ selectedPageType: string, internalUseSection: Array<Object>, accordionSections: Array<Object> }>}
  */
@@ -50,7 +92,7 @@ export const getFeesForecastingViewModel = async ({ caseData, invoices, meetings
 	const internalUseSectionItems = [
 		{
 			key: 'New maturity',
-			value: caseData.additionalDetails.newMaturity,
+			value: getDisplayValue(newMaturityDisplayValues, caseData.additionalDetails.newMaturity),
 			actions: [{ href: newMaturityURL, text: genericHrefText, visuallyHiddenText: 'new maturity' }]
 		},
 		{
@@ -75,9 +117,7 @@ export const getFeesForecastingViewModel = async ({ caseData, invoices, meetings
 		},
 		{
 			key: 'MEM last updated',
-			value: caseData.keyDates.preApplication.memLastUpdated
-				? format(new Date(caseData.keyDates.preApplication.memLastUpdated * 1000), 'dd MMM yyyy')
-				: '',
+			value: formatUnixTimestamp(caseData.keyDates.preApplication.memLastUpdated),
 			actions: [
 				{ href: memLastUpdatedURL, text: genericHrefText, visuallyHiddenText: 'MEM last updated' }
 			]
@@ -98,24 +138,19 @@ export const getFeesForecastingViewModel = async ({ caseData, invoices, meetings
 	const overviewSectionItems = [
 		{
 			key: 'Tier',
-			value: caseData.additionalDetails.tier,
+			value: getDisplayValue(tierDisplayValues, caseData.additionalDetails.tier),
 			actions: [{ href: tierURL, text: genericHrefText, visuallyHiddenText: 'tier' }]
 		},
 		{
 			key: 'Link to s61 summary',
-			html: `<a href="#" class="govuk-link">${caseData.additionalDetails.s61SummaryURI}</a>`,
+			html: getLinkHTML(caseData.additionalDetails.s61SummaryURI, '#'),
 			actions: [
 				{ href: s61SummaryURL, text: genericHrefText, visuallyHiddenText: 'link to s61 summary' }
 			]
 		},
 		{
 			key: 'Estimated scoping submission date',
-			value: caseData.keyDates.preApplication.estimatedScopingSubmissionDate
-				? format(
-						new Date(caseData.keyDates.preApplication.estimatedScopingSubmissionDate * 1000),
-						'dd MMM yyyy'
-				  )
-				: '',
+			value: formatUnixTimestamp(caseData.keyDates.preApplication.estimatedScopingSubmissionDate),
 			actions: [
 				{
 					href: scopingDateURL,
@@ -126,12 +161,9 @@ export const getFeesForecastingViewModel = async ({ caseData, invoices, meetings
 		},
 		{
 			key: 'Adequacy of Consulation Milestone date',
-			value: caseData.keyDates.preApplication.consultationMilestoneAdequacyDate
-				? format(
-						new Date(caseData.keyDates.preApplication.consultationMilestoneAdequacyDate * 1000),
-						'dd MMM yyyy'
-				  )
-				: '',
+			value: formatUnixTimestamp(
+				caseData.keyDates.preApplication.consultationMilestoneAdequacyDate
+			),
 			actions: [
 				{
 					href: adequacyDateURL,
@@ -153,12 +185,7 @@ export const getFeesForecastingViewModel = async ({ caseData, invoices, meetings
 		},
 		{
 			key: 'Anticipated submission date internal',
-			value: caseData.keyDates.preApplication.submissionAtInternal
-				? format(
-						new Date(caseData.keyDates.preApplication.submissionAtInternal * 1000),
-						'dd MMM yyyy'
-				  )
-				: '',
+			value: formatUnixTimestamp(caseData.keyDates.preApplication.submissionAtInternal),
 			actions: [
 				{
 					href: anticipatedDateURL,
@@ -174,11 +201,11 @@ export const getFeesForecastingViewModel = async ({ caseData, invoices, meetings
 		rows: invoices.map(
 			/** @param {object|*} invoice */
 			(invoice) => [
-				{ text: invoice.invoiceStage },
+				{ text: getDisplayValue(invoiceStageDisplayValues, invoice.invoiceStage) },
 				{ text: `£${Number(invoice.amountDue).toLocaleString('en-GB')}` },
 				{ text: invoice.invoiceNumber },
 				{ html: getStatusTag(invoice) },
-				{ html: `<a href="#" class="govuk-link">${feesHrefText}</a>` }
+				{ html: getLinkHTML(feesHrefText, '#') }
 			]
 		)
 	});
@@ -188,14 +215,14 @@ export const getFeesForecastingViewModel = async ({ caseData, invoices, meetings
 		rows: meetings
 			.filter(
 				/** @param {object|*} meeting */
-				(meeting) => meeting.meetingType === 'Pre-application' && meeting.pinsRole === null
+				(meeting) => meeting.meetingType === 'pre_application' && meeting.pinsRole === null
 			)
 			.map(
 				/** @param {object|*} meeting */
 				(meeting) => [
 					{ text: meeting.agenda },
 					{ text: format(new Date(meeting.meetingDate), 'dd MMM yyyy') },
-					{ html: `<a href="#" class="govuk-link">${genericHrefText}</a>` }
+					{ html: getLinkHTML(genericHrefText, '#') }
 				]
 			)
 	});
@@ -203,7 +230,7 @@ export const getFeesForecastingViewModel = async ({ caseData, invoices, meetings
 	const getEvidencePlanMeetingSection = () => {
 		const evidencePlanMeetings = meetings.filter(
 			/** @param {object|*} meeting */
-			(meeting) => meeting.meetingType === 'Pre-application' && meeting.pinsRole !== null
+			(meeting) => meeting.meetingType === 'pre_application' && meeting.pinsRole !== null
 		);
 
 		if (!evidencePlanMeetings.length) {
@@ -217,16 +244,166 @@ export const getFeesForecastingViewModel = async ({ caseData, invoices, meetings
 				(meeting) => [
 					{ text: meeting.agenda },
 					{ text: format(new Date(meeting.meetingDate), 'dd MMM yyyy') },
-					{ html: `<a href="#" class="govuk-link">${genericHrefText}</a>` }
+					{ html: getLinkHTML(genericHrefText, '#') }
 				]
 			)
 		});
 	};
 
+	const supplementaryComponentsSectionItems = [
+		{
+			key: 'Link to issues tracker',
+			html: getLinkHTML(caseData.additionalDetails.issuesTracker, '#'),
+			actions: [
+				{
+					href: issuesTrackerURL,
+					text: genericHrefText,
+					visuallyHiddenText: 'link to issues tracker'
+				}
+			]
+		},
+		{
+			key: 'Essential fast track components',
+			value:
+				caseData.additionalDetails.essentialFastTrackComponents === true
+					? 'Yes'
+					: caseData.additionalDetails.essentialFastTrackComponents === false
+					? 'No'
+					: '',
+			actions: [
+				{
+					href: essentialFastTrackComponentsURL,
+					text: genericHrefText,
+					visuallyHiddenText: 'essential fast track components'
+				}
+			]
+		},
+		{
+			key: 'Principal area disagreement summary statement (PADSS)',
+			value:
+				caseData.additionalDetails.principalAreaDisagreementSummaryStmt === 'submitted_by_applicant'
+					? `${getDisplayValue(
+							supplementaryComponentsDisplayValues,
+							caseData.additionalDetails.principalAreaDisagreementSummaryStmt
+					  )}, ${formatUnixTimestamp(
+							caseData.keyDates.preApplication.principalAreaDisagreementSummaryStmtSubmittedDate
+					  )}`
+					: getDisplayValue(
+							supplementaryComponentsDisplayValues,
+							caseData.additionalDetails.principalAreaDisagreementSummaryStmt
+					  ),
+			actions: [
+				{
+					href: principalAreaDisagreementSummaryStmtURL,
+					text: genericHrefText,
+					visuallyHiddenText: 'principal area disagreement summary statement (PADSS)'
+				}
+			]
+		},
+		{
+			key: 'Policy compliance document (PCD)',
+			value: getDisplayValue(
+				supplementaryComponentsDisplayValues,
+				caseData.additionalDetails.policyComplianceDocument
+			),
+			actions: [
+				{
+					href: policyComplianceDocumentURL,
+					text: genericHrefText,
+					visuallyHiddenText: 'policy compliance document (PCD)'
+				}
+			]
+		},
+		{
+			key: 'Design approach document (DAD)',
+			value: getDisplayValue(
+				supplementaryComponentsDisplayValues,
+				caseData.additionalDetails.designApproachDocument
+			),
+			actions: [
+				{
+					href: designApproachDocumentURL,
+					text: genericHrefText,
+					visuallyHiddenText: 'design approach document (DAD)'
+				}
+			]
+		},
+		{
+			key: 'Mature outline control documents',
+			value: getDisplayValue(
+				supplementaryComponentsDisplayValues,
+				caseData.additionalDetails.matureOutlineControlDocument
+			),
+			actions: [
+				{
+					href: matureOutlineControlDocumentURL,
+					text: genericHrefText,
+					visuallyHiddenText: 'mature outline control documents'
+				}
+			]
+		},
+		{
+			key: 'CA and TP evidence',
+			value: getDisplayValue(
+				supplementaryComponentsDisplayValues,
+				caseData.additionalDetails.caAndTpEvidence
+			),
+			actions: [
+				{
+					href: caAndTpEvidenceURL,
+					text: genericHrefText,
+					visuallyHiddenText: 'CA and TP evidence'
+				}
+			]
+		},
+		{
+			key: 'Public sector equality duty (PSED)',
+			value: getDisplayValue(
+				supplementaryComponentsDisplayValues,
+				caseData.additionalDetails.publicSectorEqualityDuty
+			),
+			actions: [
+				{
+					href: publicSectorEqualityDutyURL,
+					text: genericHrefText,
+					visuallyHiddenText: 'public sector equality duty (PSED)'
+				}
+			]
+		},
+		{
+			key: 'Fast track admission document',
+			value: getDisplayValue(
+				supplementaryComponentsDisplayValues,
+				caseData.additionalDetails.fastTrackAdmissionDocument
+			),
+			actions: [
+				{
+					href: fastTrackAdmissionDocumentURL,
+					text: genericHrefText,
+					visuallyHiddenText: 'fast track admission document'
+				}
+			]
+		},
+		{
+			key: 'Multiparty application readiness gate-check (trial)',
+			value: getDisplayValue(
+				supplementaryComponentsDisplayValues,
+				caseData.additionalDetails.multipartyApplicationCheckDocument
+			),
+			actions: [
+				{
+					href: multipartyApplicationCheckDocumentURL,
+					text: genericHrefText,
+					visuallyHiddenText: 'multiparty application readiness gate-check (trial)'
+				}
+			]
+		}
+	];
+
 	const programmeDocumentSectionItems = [
 		{
 			key: 'Link to programme document',
-			html: `<a href="#" class="govuk-link">${caseData.additionalDetails.programmeDocumentURI}</a>`,
+			html: getLinkHTML(caseData.additionalDetails.programmeDocumentURI, '#'),
 			actions: [
 				{
 					href: documentLinkURL,
@@ -237,12 +414,9 @@ export const getFeesForecastingViewModel = async ({ caseData, invoices, meetings
 		},
 		{
 			key: 'Date updated programme document is received',
-			value: caseData.keyDates.preApplication.updatedProgrammeDocumentReceivedDate
-				? format(
-						new Date(caseData.keyDates.preApplication.updatedProgrammeDocumentReceivedDate * 1000),
-						'dd MMM yyyy'
-				  )
-				: '',
+			value: formatUnixTimestamp(
+				caseData.keyDates.preApplication.updatedProgrammeDocumentReceivedDate
+			),
 			actions: [
 				{
 					href: updatedDocumentReceivedDateURL,
@@ -253,12 +427,9 @@ export const getFeesForecastingViewModel = async ({ caseData, invoices, meetings
 		},
 		{
 			key: 'Date programme document reviewed by EST',
-			value: caseData.keyDates.preApplication.programmeDocumentReviewedByEstDate
-				? format(
-						new Date(caseData.keyDates.preApplication.programmeDocumentReviewedByEstDate * 1000),
-						'dd MMM yyyy'
-				  )
-				: '',
+			value: formatUnixTimestamp(
+				caseData.keyDates.preApplication.programmeDocumentReviewedByEstDate
+			),
 			actions: [
 				{
 					href: documentReviewedByEstDateURL,
@@ -269,12 +440,7 @@ export const getFeesForecastingViewModel = async ({ caseData, invoices, meetings
 		},
 		{
 			key: 'Date case team issued comments on programme document',
-			value: caseData.keyDates.preApplication.caseTeamIssuedCommentsDate
-				? format(
-						new Date(caseData.keyDates.preApplication.caseTeamIssuedCommentsDate * 1000),
-						'dd MMM yyyy'
-				  )
-				: '',
+			value: formatUnixTimestamp(caseData.keyDates.preApplication.caseTeamIssuedCommentsDate),
 			actions: [
 				{
 					href: caseTeamIssuedCommentsDateURL,
@@ -314,7 +480,7 @@ export const getFeesForecastingViewModel = async ({ caseData, invoices, meetings
 		},
 		{
 			heading: 'Pre-application supplementary components',
-			content: '',
+			content: buildSummaryList(supplementaryComponentsSectionItems),
 			component: 'summary-list'
 		},
 		{

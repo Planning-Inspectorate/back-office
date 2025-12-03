@@ -88,7 +88,7 @@ exports[`Fees and Forecasting GET /case/123/fees-forecasting/ should render the 
                     <div id="accordion-default-content-1" class="govuk-accordion__section-content">
                         <dl class="govuk-summary-list">
                             <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Tier</dt>
-                                <dd class="govuk-summary-list__value">mock-tier</dd>
+                                <dd class="govuk-summary-list__value">Basic</dd>
                                 <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> tier</span></a>
                                 </dd>
                             </div>
@@ -147,7 +147,7 @@ exports[`Fees and Forecasting GET /case/123/fees-forecasting/ should render the 
                                     </td>
                                 </tr>
                                 <tr class="govuk-table__row">
-                                    <td class="govuk-table__cell">Pre-application</td>
+                                    <td class="govuk-table__cell">Acceptance</td>
                                     <td class="govuk-table__cell">£30,000</td>
                                     <td class="govuk-table__cell">180000001</td>
                                     <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--purple">Refunded</strong>
@@ -227,7 +227,59 @@ exports[`Fees and Forecasting GET /case/123/fees-forecasting/ should render the 
                         <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="accordion-default-heading-5"> Pre-application supplementary components</span></h2>
                     </div>
                     <div id="accordion-default-content-5" class="govuk-accordion__section-content">
-                        <dl class="govuk-summary-list"></dl>
+                        <dl class="govuk-summary-list">
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Link to issues tracker</dt>
+                                <dd class="govuk-summary-list__value"><a href="#" class="govuk-link">mock-issues-tracker-uri</a>
+                                </dd>
+                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> link to issues tracker</span></a>
+                                </dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Essential fast track components</dt>
+                                <dd                                 class="govuk-summary-list__value">Yes</dd>
+                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> essential fast track components</span></a>
+                                    </dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Principal area disagreement summary statement (PADSS)</dt>
+                                <dd                                 class="govuk-summary-list__value">Submitted, 09 Mar 2024</dd>
+                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> principal area disagreement summary statement (PADSS)</span></a>
+                                    </dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Policy compliance document (PCD)</dt>
+                                <dd                                 class="govuk-summary-list__value">Not applicable</dd>
+                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> policy compliance document (PCD)</span></a>
+                                    </dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Design approach document (DAD)</dt>
+                                <dd                                 class="govuk-summary-list__value">Awaiting submission</dd>
+                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> design approach document (DAD)</span></a>
+                                    </dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Mature outline control documents</dt>
+                                <dd                                 class="govuk-summary-list__value">Awaiting submission</dd>
+                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> mature outline control documents</span></a>
+                                    </dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> CA and TP evidence</dt>
+                                <dd class="govuk-summary-list__value">Awaiting submission</dd>
+                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> CA and TP evidence</span></a>
+                                </dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Public sector equality duty (PSED)</dt>
+                                <dd                                 class="govuk-summary-list__value">Not applicable</dd>
+                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> public sector equality duty (PSED)</span></a>
+                                    </dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Fast track admission document</dt>
+                                <dd                                 class="govuk-summary-list__value">Submitted</dd>
+                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> fast track admission document</span></a>
+                                    </dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Multiparty application readiness gate-check (trial)</dt>
+                                <dd                                 class="govuk-summary-list__value">Awaiting submission</dd>
+                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> multiparty application readiness gate-check (trial)</span></a>
+                                    </dd>
+                            </div>
+                        </dl>
                     </div>
                 </div>
                 <div class="govuk-accordion__section">
