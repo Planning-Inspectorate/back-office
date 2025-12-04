@@ -10,6 +10,7 @@ import {
 } from '../../../../../../testing/applications/fixtures/timetable-types.js';
 import { createTestEnvironment } from '../../../../../../testing/index.js';
 import { buildPageTitle, getPageTitle } from '../../../../../../testing/util/title.js';
+import staticFlags from '@pins/feature-flags/src/static-feature-flags.js';
 
 const { app } = createTestEnvironment();
 const request = supertest(app);
@@ -51,6 +52,10 @@ const nocks = () => {
 };
 
 const projectName = 'Title CASE/04';
+
+// Disable fees and forecasting flag so the page link does not display in the nav menu HTML for other pages
+const flags = staticFlags;
+flags['applics-1845-fees-forecasting'] = false;
 
 describe('Examination timetable page', () => {
 	describe('GET /case/123/examination-timetable', () => {

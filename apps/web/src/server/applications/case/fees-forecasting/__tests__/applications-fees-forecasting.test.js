@@ -1,10 +1,9 @@
-import { jest } from '@jest/globals';
 import { parseHtml } from '@pins/platform';
 import nock from 'nock';
 import supertest from 'supertest';
 import { createTestEnvironment } from '../../../../../../testing/index.js';
-import { featureFlagClient } from '../../../../../common/feature-flags.js';
 import { fixtureFeesForecasting } from '../../../../../../testing/applications/fixtures/fees-forecasting.js';
+import staticFlags from '@pins/feature-flags/src/static-feature-flags.js';
 
 const { app, installMockApi, teardown } = createTestEnvironment();
 const request = supertest(app);
@@ -37,7 +36,8 @@ describe('Fees and Forecasting', () => {
 
 	describe('GET /case/123/fees-forecasting/', () => {
 		it('should render the page when feature flag is ON', async () => {
-			jest.spyOn(featureFlagClient, 'isFeatureActive').mockImplementation(() => true);
+			const flags = staticFlags;
+			flags['applics-1845-fees-forecasting'] = true;
 
 			const response = await request.get(`${baseUrl}`);
 			const element = parseHtml(response.text);
@@ -47,7 +47,8 @@ describe('Fees and Forecasting', () => {
 		});
 
 		it('should NOT render the page when feature flag is OFF', async () => {
-			jest.spyOn(featureFlagClient, 'isFeatureActive').mockImplementation(() => false);
+			const flags = staticFlags;
+			flags['applics-1845-fees-forecasting'] = false;
 
 			const response = await request.get(`${baseUrl}`);
 			const element = parseHtml(response.text);
