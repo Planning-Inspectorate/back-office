@@ -40,7 +40,7 @@ import { buildTable } from '../../../lib/table-mapper.js';
  * @param {object|*} invoice
  * @returns {string}
  */
-function getStatusTag(invoice) {
+export function getStatusTag(invoice) {
 	if (invoice.refundIssueDate) {
 		return `<strong class="govuk-tag govuk-tag--purple">Refunded</strong>`;
 	}
@@ -59,30 +59,31 @@ function getStatusTag(invoice) {
 /**
  * Converts unix timestamp into date string.
  *
- * @param {number} timestamp
+ * @param {number|null} timestamp
  * @returns {string}
  */
-const formatUnixTimestamp = (timestamp) =>
+export const formatUnixTimestamp = (timestamp) =>
 	timestamp ? format(new Date(timestamp * 1000), 'dd MMM yyyy') : '';
 
 /**
  * Creates HTML string for link text.
  *
- * @param {string} linkText
+ * @param {string|null} linkText
  * @param {string} href
  * @returns {string}
  */
-const getLinkHTML = (linkText, href) =>
+export const getLinkHTML = (linkText, href) =>
 	linkText ? `<a href="${href}" class="govuk-link">${linkText}</a>` : '';
 
 /**
  * Converts snake_case enum value into string for display.
  *
  * @param {Record<string,string>} displayValues
- * @param {string} enumValue
+ * @param {string|null} enumValue
  * @returns {string}
  */
-const getDisplayValue = (displayValues, enumValue) => (enumValue ? displayValues[enumValue] : '');
+export const getDisplayValue = (displayValues, enumValue) =>
+	enumValue ? displayValues[enumValue] : '';
 
 /**
  * @param {object|*} params
@@ -160,7 +161,7 @@ export const getFeesForecastingViewModel = async ({ caseData, invoices, meetings
 			]
 		},
 		{
-			key: 'Adequacy of Consulation Milestone date',
+			key: 'Adequacy of Consultation Milestone date',
 			value: formatUnixTimestamp(
 				caseData.keyDates.preApplication.consultationMilestoneAdequacyDate
 			),

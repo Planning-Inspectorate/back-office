@@ -4,20 +4,20 @@ import nock from 'nock';
 import supertest from 'supertest';
 import { createTestEnvironment } from '../../../../../../testing/index.js';
 import { featureFlagClient } from '../../../../../common/feature-flags.js';
-import {
-	fixtureFeesForecastingCase,
-	fixtureFeesForecastingInvoices,
-	fixtureFeesForecastingMeetings
-} from '../../../../../../testing/applications/fixtures/fees-forecasting.js';
+import { fixtureFeesForecasting } from '../../../../../../testing/applications/fixtures/fees-forecasting.js';
 
 const { app, installMockApi, teardown } = createTestEnvironment();
 const request = supertest(app);
 
 const nocks = () => {
 	nock('http://test/').get('/applications').reply(200, []);
-	nock('http://test/').get('/applications/123').reply(200, fixtureFeesForecastingCase);
-	nock('http://test/').get('/applications/123/invoices').reply(200, fixtureFeesForecastingInvoices);
-	nock('http://test/').get('/applications/123/meetings').reply(200, fixtureFeesForecastingMeetings);
+	nock('http://test/').get('/applications/123').reply(200, fixtureFeesForecasting.caseData);
+	nock('http://test/')
+		.get('/applications/123/invoices')
+		.reply(200, fixtureFeesForecasting.invoices);
+	nock('http://test/')
+		.get('/applications/123/meetings')
+		.reply(200, fixtureFeesForecasting.meetings);
 	nock('http://test/').get('/applications-service/').reply(200, {});
 };
 
