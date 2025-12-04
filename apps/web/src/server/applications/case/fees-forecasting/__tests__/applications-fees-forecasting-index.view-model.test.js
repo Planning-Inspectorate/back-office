@@ -20,7 +20,7 @@ describe('applications fees and forecasting view-model', () => {
 			jest.useRealTimers();
 		});
 
-		it('should return the Refunded tag HTML if there is an refund issue date', () => {
+		it('should return the Refunded tag HTML if there is a refund issue date', () => {
 			const invoice = {
 				paymentDueDate: '2025-10-10T00:00:00.000Z',
 				paymentDate: '2025-10-05T00:00:00.000Z',
