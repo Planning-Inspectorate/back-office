@@ -213,19 +213,31 @@ export const getFeesForecastingViewModel = async ({ caseData, invoices, meetings
 
 	const projectMeetingsSection = buildTable({
 		headers: ['Meeting agenda', 'Date', 'Action'],
-		rows: meetings
-			.filter(
+		rows:
+			meetings.filter(
 				/** @param {object|*} meeting */
 				(meeting) => meeting.meetingType === 'pre_application' && meeting.pinsRole === null
-			)
-			.map(
-				/** @param {object|*} meeting */
-				(meeting) => [
-					{ text: meeting.agenda },
-					{ text: format(new Date(meeting.meetingDate), 'dd MMM yyyy') },
-					{ html: getLinkHTML(genericHrefText, '#') }
-				]
-			)
+			).length === 0
+				? [
+						[
+							{ text: 'Inception meeting' },
+							{ text: '' },
+							{ html: getLinkHTML(genericHrefText, '#') }
+						]
+				  ]
+				: meetings
+						.filter(
+							/** @param {object|*} meeting */
+							(meeting) => meeting.meetingType === 'pre_application' && meeting.pinsRole === null
+						)
+						.map(
+							/** @param {object|*} meeting */
+							(meeting) => [
+								{ text: meeting.agenda },
+								{ text: format(new Date(meeting.meetingDate), 'dd MMM yyyy') },
+								{ html: getLinkHTML(genericHrefText, '#') }
+							]
+						)
 	});
 
 	const getEvidencePlanMeetingSection = () => {
