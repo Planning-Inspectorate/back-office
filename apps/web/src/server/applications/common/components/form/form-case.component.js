@@ -8,8 +8,10 @@ import {
 	getSubSectorsBySectorName
 } from '../../services/entities.service.js';
 import { getSessionCaseSectorName } from '../../services/session.service.js';
+import { getProjectTypesViewModel } from '../mappers/project-types.mapper.js';
 import { camelToSnake } from '../../../../lib/camel-to-snake.js';
 import { featureFlagClient } from '../../../../../common/feature-flags.js';
+import { SECTORS, SUB_SECTORS } from '../../constants.js';
 
 /** @typedef {import('../../../applications.types').Region} Region */
 /** @typedef {import('../../../create-new-case/case/applications-create-case.types').ApplicationsCreateCaseNameProps} ApplicationsCreateCaseNameProps */
@@ -17,6 +19,7 @@ import { featureFlagClient } from '../../../../../common/feature-flags.js';
 /** @typedef {import('../../../create-new-case/case/applications-create-case.types').ApplicationsCreateCaseStageProps} ApplicationsCreateCaseStageProps */
 /** @typedef {import('../../../create-new-case/case/applications-create-case.types').ApplicationsCreateCaseZoomLevelProps} ApplicationsCreateCaseZoomLevelProps */
 /** @typedef {import('../../../create-new-case/case/applications-create-case.types').ApplicationsCreateCaseSubSectorProps} ApplicationsCreateCaseSubSectorProps */
+/** @typedef {import('../../../create-new-case/case/applications-create-case.types').ApplicationsCreateCaseProjectTypeProps} ApplicationsCreateCaseProjectTypeProps */
 /** @typedef {import('../../../create-new-case/case/applications-create-case.types').ApplicationsCreateCaseRegionsProps} ApplicationsCreateCaseRegionsProps */
 /** @typedef {import('../../../create-new-case/case/applications-create-case.types').ApplicationsCreateCaseTeamEmailProps} ApplicationsCreateCaseTeamEmailProps */
 /** @typedef {import('../../../create-new-case/case/applications-create-case.types').ApplicationsCreateCaseGeographicalInformationProps} ApplicationsCreateCaseGeographicalInformationProps */
@@ -182,7 +185,7 @@ export async function caseSectorDataUpdate({ errors, body }) {
  */
 export function caseGeographicalInformationData(request, locals) {
 	const { currentCase } = locals;
-	const { geographicalInformation } = currentCase;
+	const { geographicalInformation, additionalDetails } = currentCase;
 	const { locationDescription, locationDescriptionWelsh, gridReference } =
 		geographicalInformation || {};
 
@@ -190,7 +193,8 @@ export function caseGeographicalInformationData(request, locals) {
 		'geographicalInformation.locationDescription': locationDescription,
 		'geographicalInformation.locationDescriptionWelsh': locationDescriptionWelsh,
 		'geographicalInformation.gridReference.easting': gridReference?.easting,
-		'geographicalInformation.gridReference.northing': gridReference?.northing
+		'geographicalInformation.gridReference.northing': gridReference?.northing,
+		subProjectType: additionalDetails?.subProjectType
 	};
 
 	return { values };
@@ -269,6 +273,15 @@ export async function caseSubSectorDataUpdate({ session, errors: validationError
 	const { subSectorName } = body;
 	const payload = bodyToPayload(body);
 
+	const { sector, additionalDetails } = await getCase(caseId, ['sector', 'additionalDetails']);
+
+	const isEnergy = sector?.name === SECTORS.ENERGY;
+	const isGeneratingStation = subSectorName === SUB_SECTORS.GENERATING_STATIONS;
+
+	if (additionalDetails?.subProjectType && !(isEnergy && isGeneratingStation)) {
+		payload.subProjectType = null;
+	}
+
 	const { errors: apiErrors, id: updatedCaseId = null } = validationErrors
 		? { errors: validationErrors }
 		: await updateCase(caseId, payload);
@@ -281,12 +294,54 @@ export async function caseSubSectorDataUpdate({ session, errors: validationError
 	};
 
 	if (validationErrors || apiErrors || !updatedCaseId) {
-		const { sector } = await getCase(caseId, ['sector']);
 		const selectedSectorName = getSessionCaseSectorName(session) || sector?.name;
 		const subSectors = await getSubSectorsBySectorName(selectedSectorName);
 
 		properties = { ...properties, subSectors };
 	}
+
+	return { properties, updatedCaseId };
+}
+
+/**
+ * Format properties for project type page
+ *
+ *
+ * @param {import('express').Request} request
+ * @param {Record<string, any>} locals
+ * @returns {Promise<ApplicationsCreateCaseProjectTypeProps>}
+ */
+export async function caseProjectTypeData(request, locals) {
+	const { currentCase } = locals;
+
+	const selected = currentCase?.additionalDetails?.subProjectType || '';
+
+	return {
+		values: { subProjectType: selected },
+		subProjectTypes: getProjectTypesViewModel()
+	};
+}
+
+/**
+ * Format properties for project type update page
+ *
+ * @param {{ body: any, errors?: any }} request
+ * @param {Record<string, any>} locals
+ * @returns {Promise<{properties: ApplicationsCreateCaseProjectTypeProps, updatedCaseId: number|null}>}
+ */
+export async function caseProjectTypeDataUpdate({ body, errors: validationErrors }, locals) {
+	const { caseId } = locals;
+	const payload = bodyToPayload(body);
+
+	const { errors: apiErrors, id: updatedCaseId = null } = validationErrors
+		? { errors: validationErrors }
+		: await updateCase(caseId, payload);
+
+	const properties = {
+		values: { subProjectType: body.subProjectType },
+		errors: validationErrors || apiErrors,
+		subProjectTypes: getProjectTypesViewModel()
+	};
 
 	return { properties, updatedCaseId };
 }

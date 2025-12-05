@@ -26,6 +26,7 @@ export const fixtureCases = [
 		reference: 'CASE/01',
 		sector: fixtureSectors[0],
 		subSector: fixtureSubSectors[0],
+		additionalDetails: { subProjectType: 'solar' },
 		status: 'Draft',
 		caseEmail: 'some@ema.il'
 	}),

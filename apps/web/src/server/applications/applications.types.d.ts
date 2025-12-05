@@ -45,6 +45,9 @@ export interface Case {
 	createdDate?: string;
 	sector?: Sector;
 	subSector?: Sector;
+	additionalDetails?: {
+		subProjectType?: string | null;
+	};
 	caseEmail?: string;
 	applicant?: Applicant;
 	keyDates?: {

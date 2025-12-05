@@ -59,6 +59,12 @@ exports[`applications create: check your answers Check your answers GET /check-y
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
+                            <td class="govuk-table__cell font-weight--700 pins-table__cell--s">Project type</td>
+                            <td class="govuk-table__cell pins-table__cell--s">Solar</td>
+                            <td class="govuk-table__cell text-align--right pins-table__cell--s"><a id="subProjectType" class="govuk-link" href="/applications-service/create-new-case/1/project-type/edit">Change</a>
+                            </td>
+                        </tr>
+                        <tr class="govuk-table__row">
                             <td class="govuk-table__cell font-weight--700 pins-table__cell--s">Project location</td>
                             <td class="govuk-table__cell pins-table__cell--s">London</td>
                             <td class="govuk-table__cell text-align--right pins-table__cell--s"><a id="projectLocation" class="govuk-link" href="/applications-service/create-new-case/1/geographical-information/edit">Change</a>
@@ -243,6 +249,12 @@ exports[`applications create: check your answers Check your answers POST /check-
                             <td class="govuk-table__cell font-weight--700 pins-table__cell--s">Subsector</td>
                             <td class="govuk-table__cell pins-table__cell--s">Highways EN</td>
                             <td class="govuk-table__cell text-align--right pins-table__cell--s"><a id="subSector" class="govuk-link" href="/applications-service/create-new-case/1/sub-sector/edit">Change</a>
+                            </td>
+                        </tr>
+                        <tr class="govuk-table__row">
+                            <td class="govuk-table__cell font-weight--700 pins-table__cell--s">Project type</td>
+                            <td class="govuk-table__cell pins-table__cell--s">Solar</td>
+                            <td class="govuk-table__cell text-align--right pins-table__cell--s"><a id="subProjectType" class="govuk-link" href="/applications-service/create-new-case/1/project-type/edit">Change</a>
                             </td>
                         </tr>
                         <tr class="govuk-table__row">

@@ -29,9 +29,20 @@ applicationsCreateCaseRouter
 	);
 
 applicationsCreateCaseRouter
+	.route('/project-type/:edit?')
+	.get(
+		registerCaseWithQuery(['additionalDetails', 'sector', 'subSector'], true),
+		asyncHandler(controller.viewApplicationsCreateCaseProjectType)
+	)
+	.post(
+		validators.validateApplicationsCreateCaseProjectType,
+		asyncHandler(controller.updateApplicationsCreateCaseProjectType)
+	);
+
+applicationsCreateCaseRouter
 	.route('/geographical-information/:edit?')
 	.get(
-		registerCaseWithQuery(['geographicalInformation'], true),
+		registerCaseWithQuery(['geographicalInformation', 'additionalDetails'], true),
 		asyncHandler(controller.viewApplicationsCreateCaseGeographicalInformation)
 	)
 	.post(

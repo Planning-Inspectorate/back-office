@@ -43,6 +43,18 @@ export interface ApplicationsCreateCaseSubSectorProps
 	subSectors: Sector[];
 }
 
+export interface ApplicationsCreateCaseProjectTypeBody {
+	subProjectType?: string;
+}
+export interface ProjectTypeItem {
+	name: string;
+	displayNameEn: string;
+}
+export interface ApplicationsCreateCaseProjectTypeProps
+	extends CaseCreateProps<ApplicationsCreateCaseProjectTypeBody> {
+	subProjectTypes: ProjectTypeItem[];
+}
+
 //Geo Info
 export interface ApplicationsCreateCaseGeographicalInformationBody
 	extends Record<string, string | undefined> {

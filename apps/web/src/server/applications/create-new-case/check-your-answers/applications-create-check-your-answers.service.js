@@ -1,6 +1,7 @@
 import { addressToString } from '../../../lib/address-formatter.js';
 import { nameToString } from '../../../lib/person-name-formatter.js';
 import { getErrorMessageCaseCreate } from '../applications-create.service.js';
+import { getProjectTypeDisplayName } from '../../common/components/mappers/project-types.mapper.js';
 
 /** @typedef {import('./applications-create-check-your-answers.types.js').ApplicationsCreateCheckYourAnswersProps} ApplicationsCreateCheckYourAnswersProps */
 /**
@@ -18,6 +19,7 @@ export const mapCaseData = (caseData) => {
 			'case.description': caseData.description,
 			'case.sector': caseData?.sector?.displayNameEn,
 			'case.subSector': caseData?.subSector?.displayNameEn,
+			'case.subProjectType': getProjectTypeDisplayName(caseData?.additionalDetails?.subProjectType),
 			'case.location': caseData?.geographicalInformation?.locationDescription,
 			'case.easting': caseData?.geographicalInformation?.gridReference?.easting,
 			'case.northing': caseData?.geographicalInformation?.gridReference?.northing,

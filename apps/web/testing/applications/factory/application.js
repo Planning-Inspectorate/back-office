@@ -38,6 +38,7 @@ export const createCase = ({
 	reference = createCaseReference(),
 	sector = createOptionsItem(),
 	subSector = createOptionsItem(),
+	additionalDetails = {},
 	status = `Status ${id}000`,
 	applicant = createApplicant(true),
 	caseEmail
@@ -52,6 +53,10 @@ export const createCase = ({
 		publishedDate,
 		sector,
 		subSector,
+		additionalDetails: {
+			subProjectType: '',
+			...additionalDetails
+		},
 		applicant,
 		geographicalInformation: {
 			locationDescription: 'London',
