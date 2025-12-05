@@ -161,7 +161,7 @@ export const getFeesForecastingViewModel = async ({ caseData, invoices, meetings
 			]
 		},
 		{
-			key: 'Adequacy of Consultation Milestone date',
+			key: 'Adequacy of Consultation Milestone (AoCM) date',
 			value: formatUnixTimestamp(
 				caseData.keyDates.preApplication.consultationMilestoneAdequacyDate
 			),
@@ -175,11 +175,12 @@ export const getFeesForecastingViewModel = async ({ caseData, invoices, meetings
 		},
 		{
 			key: 'Evidence plan process',
-			value: caseData.additionalDetails.planProcessEvidence
-				? 'Required'
-				: caseData.additionalDetails.planProcessEvidence
-				? 'Not Required'
-				: caseData.additionalDetails.planProcessEvidence,
+			value:
+				caseData.additionalDetails.planProcessEvidence === true
+					? 'Required'
+					: caseData.additionalDetails.planProcessEvidence === false
+					? 'Not required'
+					: '',
 			actions: [
 				{ href: planProcessURL, text: genericHrefText, visuallyHiddenText: 'evidence plan process' }
 			]
@@ -197,19 +198,25 @@ export const getFeesForecastingViewModel = async ({ caseData, invoices, meetings
 		}
 	];
 
-	const feesSection = buildTable({
-		headers: ['Stage', 'Amount', 'Invoice number', 'Status', 'Action'],
-		rows: invoices.map(
-			/** @param {object|*} invoice */
-			(invoice) => [
-				{ text: getDisplayValue(invoiceStageDisplayValues, invoice.invoiceStage) },
-				{ text: `£${Number(invoice.amountDue).toLocaleString('en-GB')}` },
-				{ text: invoice.invoiceNumber },
-				{ html: getStatusTag(invoice) },
-				{ html: getLinkHTML(feesHrefText, '#') }
-			]
-		)
-	});
+	const getFeesSection = () => {
+		if (!invoices.length) {
+			return '';
+		}
+
+		return buildTable({
+			headers: ['Stage', 'Amount', 'Invoice number', 'Status', 'Action'],
+			rows: invoices.map(
+				/** @param {object|*} invoice */
+				(invoice) => [
+					{ text: getDisplayValue(invoiceStageDisplayValues, invoice.invoiceStage) },
+					{ text: `£${invoice.amountDue}` },
+					{ text: invoice.invoiceNumber },
+					{ html: getStatusTag(invoice) },
+					{ html: getLinkHTML(feesHrefText, '#') }
+				]
+			)
+		});
+	};
 
 	const projectMeetingsSection = buildTable({
 		headers: ['Meeting agenda', 'Date', 'Action'],
@@ -472,7 +479,7 @@ export const getFeesForecastingViewModel = async ({ caseData, invoices, meetings
 		},
 		{
 			heading: 'Fees',
-			content: feesSection,
+			content: getFeesSection(),
 			component: 'table',
 			buttonText: 'Add new fee',
 			buttonLink: '#'
