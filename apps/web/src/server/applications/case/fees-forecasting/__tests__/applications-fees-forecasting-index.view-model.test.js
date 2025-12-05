@@ -219,7 +219,7 @@ describe('applications fees and forecasting view-model', () => {
 								}
 							},
 							{
-								key: { text: 'Adequacy of Consultation Milestone date' },
+								key: { text: 'Adequacy of Consultation Milestone (AoCM) date' },
 								value: { text: '13 Mar 2025' },
 								actions: {
 									items: [
@@ -267,7 +267,7 @@ describe('applications fees and forecasting view-model', () => {
 							rows: [
 								[
 									{ text: 'Pre-application' },
-									{ text: '£20,500' },
+									{ text: '£20500' },
 									{ text: '180000000' },
 									{
 										html: '<strong class="govuk-tag govuk-tag--purple">Refunded</strong>'
@@ -276,7 +276,7 @@ describe('applications fees and forecasting view-model', () => {
 								],
 								[
 									{ text: 'Acceptance' },
-									{ text: '£30,000' },
+									{ text: '£30000' },
 									{ text: '180000001' },
 									{
 										html: '<strong class="govuk-tag govuk-tag--purple">Refunded</strong>'
