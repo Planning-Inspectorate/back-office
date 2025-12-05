@@ -11,6 +11,8 @@ import {
 	caseSectorDataUpdate,
 	caseSubSectorData,
 	caseSubSectorDataUpdate,
+	caseProjectTypeData,
+	caseProjectTypeDataUpdate,
 	caseTeamEmailData,
 	caseTeamEmailDataUpdate,
 	caseZoomLevelData,
@@ -19,8 +21,10 @@ import {
 import {
 	destroySessionCaseSectorName,
 	setSessionCaseSectorName,
-	setSessionApplicantOrganisationName
+	setSessionApplicantOrganisationName,
+	destroySessionAdditionalDetails
 } from '../../common/services/session.service.js';
+import { SUB_SECTORS } from '../../common/constants.js';
 
 /** @typedef {import('./applications-create-case.types.js').ApplicationsCreateCaseNameProps} ApplicationsCreateCaseNameProps */
 /** @typedef {import('./applications-create-case.types.js').ApplicationsCreateCaseNameBody} ApplicationsCreateCaseNameBody */
@@ -36,6 +40,8 @@ import {
 /** @typedef {import('./applications-create-case.types.js').ApplicationsCreateCaseZoomLevelBody} ApplicationsCreateCaseZoomLevelBody */
 /** @typedef {import('./applications-create-case.types.js').ApplicationsCreateCaseTeamEmailProps} ApplicationsCreateCaseTeamEmailProps */
 /** @typedef {import('./applications-create-case.types.js').ApplicationsCreateCaseTeamEmailBody} ApplicationsCreateCaseTeamEmailBody */
+/** @typedef {import('./applications-create-case.types.js').ApplicationsCreateCaseProjectTypeProps} ApplicationsCreateCaseProjectTypeProps */
+/** @typedef {import('./applications-create-case.types.js').ApplicationsCreateCaseProjectTypeBody} ApplicationsCreateCaseProjectTypeBody */
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
 
 const nameLayout = {
@@ -48,6 +54,11 @@ const subSectorLayout = {
 	pageTitle: 'Choose a subsector',
 	components: ['sub-sector'],
 	backLink: 'sector'
+};
+const projectTypeLayout = {
+	pageTitle: 'Choose a project type',
+	components: ['project-type'],
+	backLink: 'sub-sector'
 };
 const geographicalInformationLayout = {
 	pageTitle: 'Enter geographical information',
@@ -182,6 +193,17 @@ export async function updateApplicationsCreateCaseSubSector(request, response) {
 		return handleErrors(properties, subSectorLayout, response);
 	}
 
+	const isGeneratingStationsSubSector =
+		properties.values.subSectorName === SUB_SECTORS.GENERATING_STATIONS;
+
+	if (request.params.edit && isGeneratingStationsSubSector) {
+		return response.redirect(
+			`/applications-service/create-new-case/${updatedCaseId}/project-type/edit`
+		);
+	} else if (isGeneratingStationsSubSector) {
+		return response.redirect(`/applications-service/create-new-case/${updatedCaseId}/project-type`);
+	}
+
 	destroySessionCaseSectorName(request.session);
 
 	if (request.params.edit) {
@@ -196,6 +218,44 @@ export async function updateApplicationsCreateCaseSubSector(request, response) {
 }
 
 /**
+ * View the project type choice step of the casecreation
+ *
+ * @type {import('@pins/express').RenderHandler<*, *>}
+ */
+export async function viewApplicationsCreateCaseProjectType(request, response) {
+	const properties = await caseProjectTypeData(request, response.locals);
+
+	response.render('applications/components/case-form/case-form-layout', {
+		...properties,
+		layout: { ...projectTypeLayout, isEdit: request.params.edit }
+	});
+}
+
+/**
+ * Save the project type for the draft case
+ *
+ * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseProjectTypeProps, {},
+ *  ApplicationsCreateCaseProjectTypeBody, {}, {edit?: string}>}
+ */
+export async function updateApplicationsCreateCaseProjectType(request, response) {
+	const { properties, updatedCaseId } = await caseProjectTypeDataUpdate(request, response.locals);
+
+	if (properties?.errors || !updatedCaseId) {
+		return handleErrors(properties, projectTypeLayout, response);
+	}
+
+	if (request.params.edit) {
+		return response.redirect(
+			`/applications-service/create-new-case/${updatedCaseId}/check-your-answers`
+		);
+	}
+
+	return response.redirect(
+		`/applications-service/create-new-case/${updatedCaseId}/geographical-information`
+	);
+}
+
+/**
  * View the geographical information step of the casecreation
  *
  * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseGeographicalInformationProps,
@@ -203,10 +263,17 @@ export async function updateApplicationsCreateCaseSubSector(request, response) {
  */
 export async function viewApplicationsCreateCaseGeographicalInformation(request, response) {
 	const properties = await caseGeographicalInformationData(request, response.locals);
+	const { subProjectType } = properties.values;
+
+	const backLink = subProjectType ? 'project-type' : 'sub-sector';
 
 	response.render('applications/components/case-form/case-form-layout', {
 		...properties,
-		layout: { ...geographicalInformationLayout, isEdit: !!request.params.edit }
+		layout: {
+			...geographicalInformationLayout,
+			backLink,
+			isEdit: !!request.params.edit
+		}
 	});
 }
 
@@ -225,6 +292,8 @@ export async function updateApplicationsCreateCaseGeographicalInformation(reques
 	if (properties.errors || !updatedCaseId) {
 		return handleErrors(properties, geographicalInformationLayout, response);
 	}
+
+	destroySessionAdditionalDetails(request.session);
 
 	if (request.params.edit) {
 		return response.redirect(
