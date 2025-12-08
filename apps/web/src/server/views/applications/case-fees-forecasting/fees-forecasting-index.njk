@@ -12,6 +12,58 @@
 
 	{{ govukSummaryList({ rows: internalUseSection }) }}
 
+
+<script nonce="{{ cspNonce }}">
+  (function () {
+    var container = document.getElementById('additional-comments');
+    if (!container) return;
+
+    var span = container.querySelector('.comment-text');
+    var toggle = container.querySelector('.comment-toggle');
+    if (!span || !toggle) return;
+
+    var full = '';
+    try {
+      full = decodeURIComponent(container.dataset.full || '').trim();
+    } catch (e) {
+      full = (container.getAttribute('data-full') || '').trim();
+    }
+
+    if (!full) return;
+
+    var MAX = 70;
+    var isOpen = false;
+
+    function setState(open) {
+      isOpen = open;
+      if (open) {
+        span.textContent = full;
+        toggle.textContent = 'Hide more';
+        toggle.setAttribute('aria-expanded', 'true');
+      } else {
+        var excerpt = full.length > MAX ? (full.slice(0, MAX) + '…') : full;
+        span.textContent = excerpt;
+        toggle.textContent = 'See more';
+        toggle.setAttribute('aria-expanded', 'false');
+      }
+    }
+
+    if (full.length <= MAX) {
+      span.textContent = full;
+      toggle.hidden = true;
+      toggle.setAttribute('aria-expanded', 'false');
+    } else {
+      setState(false);
+      toggle.hidden = false;
+
+      toggle.addEventListener('click', function (e) {
+        e.preventDefault();
+        setState(!isOpen);
+      });
+    }
+  })();
+</script>
+
 	{% set accordionItems = [] %}
 
 	{% for accordionSection in accordionSections %}
