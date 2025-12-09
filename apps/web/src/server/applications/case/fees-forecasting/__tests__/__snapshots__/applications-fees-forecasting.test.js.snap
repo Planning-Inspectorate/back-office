@@ -192,7 +192,7 @@ exports[`Fees and Forecasting GET /case/123/fees-forecasting/ should render the 
                             </thead>
                             <tbody class="govuk-table__body">
                                 <tr class="govuk-table__row">
-                                    <td class="govuk-table__cell">Pre-application</td>
+                                    <td class="govuk-table__cell">Pre-acceptance</td>
                                     <td class="govuk-table__cell">£20500</td>
                                     <td class="govuk-table__cell">180000000</td>
                                     <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--purple">Refunded</strong>

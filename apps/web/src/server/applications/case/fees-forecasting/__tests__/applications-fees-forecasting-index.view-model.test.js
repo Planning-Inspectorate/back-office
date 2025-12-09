@@ -268,7 +268,7 @@ describe('applications fees and forecasting view-model', () => {
 							firstCellIsHeader: false,
 							rows: [
 								[
-									{ text: 'Pre-application' },
+									{ text: 'Pre-acceptance' },
 									{ text: '£20500' },
 									{ text: '180000000' },
 									{

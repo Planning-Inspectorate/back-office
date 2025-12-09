@@ -47,7 +47,7 @@ export const tierDisplayValues = {
 };
 
 export const invoiceStageDisplayValues = {
-	pre_application: 'Pre-application',
+	pre_acceptance: 'Pre-acceptance',
 	acceptance: 'Acceptance',
 	pre_examination: 'Pre-examination',
 	initial_examination: 'Initial examination',

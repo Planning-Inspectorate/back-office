@@ -17,7 +17,7 @@
  *   actions?: { items: Array<{ href: string, text: string, visuallyHiddenText?: string }> }
  * }>}
  */
-export function buildSummaryList(items) {
+export function buildSummaryListRows(items) {
 	return items.map((item) => {
 		/** @type {{
 		 *   key: { text: string },

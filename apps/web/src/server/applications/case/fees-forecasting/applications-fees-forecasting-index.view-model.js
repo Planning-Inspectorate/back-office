@@ -31,7 +31,7 @@ import {
 	supplementaryComponentsDisplayValues
 } from './fees-forecasting.config.js';
 import { format } from 'date-fns';
-import { buildSummaryList } from '../../../lib/summary-list-mapper.js';
+import { buildSummaryListRows } from '../../../lib/summary-list-mapper.js';
 import { buildTable } from '../../../lib/table-mapper.js';
 
 /**
@@ -474,7 +474,7 @@ export const getFeesForecastingViewModel = async ({ caseData, invoices, meetings
 	const accordionSections = [
 		{
 			heading: 'Pre-application overview',
-			content: buildSummaryList(overviewSectionItems),
+			content: buildSummaryListRows(overviewSectionItems),
 			component: 'summary-list'
 		},
 		{
@@ -500,19 +500,19 @@ export const getFeesForecastingViewModel = async ({ caseData, invoices, meetings
 		},
 		{
 			heading: 'Pre-application supplementary components',
-			content: buildSummaryList(supplementaryComponentsSectionItems),
+			content: buildSummaryListRows(supplementaryComponentsSectionItems),
 			component: 'summary-list'
 		},
 		{
 			heading: 'Pre-application programme document',
-			content: buildSummaryList(programmeDocumentSectionItems),
+			content: buildSummaryListRows(programmeDocumentSectionItems),
 			component: 'summary-list'
 		}
 	];
 
 	return {
 		selectedPageType: 'fees-forecasting',
-		internalUseSection: buildSummaryList(internalUseSectionItems),
+		internalUseSection: buildSummaryListRows(internalUseSectionItems),
 		accordionSections
 	};
 };
