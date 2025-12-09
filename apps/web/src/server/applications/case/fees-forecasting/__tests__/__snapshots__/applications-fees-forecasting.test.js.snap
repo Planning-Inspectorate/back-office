@@ -75,11 +75,65 @@ exports[`Fees and Forecasting GET /case/123/fees-forecasting/ should render the 
                     </dd>
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Additional comments (optional)</dt>
-                    <dd                     class="govuk-summary-list__value">Some comments</dd>
+                    <dd                     class="govuk-summary-list__value">
+                        <p id="additional-comments" class="govuk-body" data-full="Some comments"><span class="comment-text"></span><a href="#" class="comment-toggle govuk-link govuk-link--no-visited-state">See more</a>
+                            <noscript>Some comments</noscript>
+                        </p>
+                        </dd>
                         <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> additional comments</span></a>
                         </dd>
                 </div>
             </dl>
+            <script nonce="EdcOUaJ8lczj9tIPO0lPow==">
+                (function () {
+                    var container = document.getElementById('additional-comments');
+                    if (!container) return;
+                
+                    var span = container.querySelector('.comment-text');
+                    var toggle = container.querySelector('.comment-toggle');
+                    if (!span || !toggle) return;
+                
+                    var full = '';
+                    try {
+                      full = decodeURIComponent(container.dataset.full || '').trim();
+                    } catch (e) {
+                      full = (container.getAttribute('data-full') || '').trim();
+                    }
+                
+                    if (!full) return;
+                
+                    var MAX = 70;
+                    var isOpen = false;
+                
+                    function setState(open) {
+                      isOpen = open;
+                      if (open) {
+                        span.textContent = full;
+                        toggle.textContent = 'Hide more';
+                        toggle.setAttribute('aria-expanded', 'true');
+                      } else {
+                        var excerpt = full.length > MAX ? (full.slice(0, MAX) + '…') : full;
+                        span.textContent = excerpt;
+                        toggle.textContent = 'See more';
+                        toggle.setAttribute('aria-expanded', 'false');
+                      }
+                    }
+                
+                    if (full.length <= MAX) {
+                      span.textContent = full;
+                      toggle.hidden = true;
+                      toggle.setAttribute('aria-expanded', 'false');
+                    } else {
+                      setState(false);
+                      toggle.hidden = false;
+                
+                      toggle.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        setState(!isOpen);
+                      });
+                    }
+                  })();
+            </script>
             <div class="govuk-accordion" data-module="govuk-accordion" id="accordion-default">
                 <div class="govuk-accordion__section">
                     <div class="govuk-accordion__section-header">
