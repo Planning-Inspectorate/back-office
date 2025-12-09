@@ -5,7 +5,7 @@ import BackOfficeAppError from '#utils/app-error.js';
 /**
  * Map a project update from the database to the type returned by the API
  *
- * @param {import('@prisma/client').ProjectUpdate} projectUpdate
+ * @param {import('#database-client').ProjectUpdate} projectUpdate
  * @returns {import('@pins/applications').ProjectUpdate}
  */
 export function mapProjectUpdate(projectUpdate) {
@@ -40,7 +40,7 @@ export function mapProjectUpdate(projectUpdate) {
 /**
  * Create a payload (event) for the given update
  *
- * @param {import('@prisma/client').ProjectUpdate} update
+ * @param {import('#database-client').ProjectUpdate} update
  * @param {string} caseReference
  * @returns {NSIPProjectUpdate}
  * @throws {Error} if the HTML content isn't safe
@@ -82,10 +82,10 @@ export function buildProjectUpdatePayload(update, caseReference) {
  *
  * @param {*} body
  * @param {number} caseId
- * @returns {import('@prisma/client').Prisma.ProjectUpdateCreateInput}
+ * @returns {import('#database-client').Prisma.ProjectUpdateCreateInput}
  */
 export function projectUpdateCreateReq(body, caseId) {
-	/** @type {import('@prisma/client').Prisma.ProjectUpdateCreateInput} */
+	/** @type {import('#database-client').Prisma.ProjectUpdateCreateInput} */
 	const createReq = {
 		emailSubscribers: body.emailSubscribers,
 		status: body.status,
@@ -117,10 +117,10 @@ export function projectUpdateCreateReq(body, caseId) {
  * Map a request body to a update request object, and sanitise the HTML
  *
  * @param {*} body
- * @returns {import('@prisma/client').Prisma.ProjectUpdateUpdateInput}
+ * @returns {import('#database-client').Prisma.ProjectUpdateUpdateInput}
  */
 export function projectUpdateUpdateReq(body) {
-	/** @type {import('@prisma/client').Prisma.ProjectUpdateUpdateInput} */
+	/** @type {import('#database-client').Prisma.ProjectUpdateUpdateInput} */
 	const updateReq = {};
 	if (Object.prototype.hasOwnProperty.call(body, 'emailSubscribers')) {
 		updateReq.emailSubscribers = body.emailSubscribers;

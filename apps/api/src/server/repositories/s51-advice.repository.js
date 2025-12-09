@@ -1,8 +1,8 @@
 import { databaseConnector } from '#utils/database-connector.js';
 
 /**
- * @typedef {import('@prisma/client').Prisma.S51AdviceGetPayload<{include: {S51AdviceDocument: {include: {Document: {include: {latestDocumentVersion: true}}}} }}>} S51AdviceWithS51AdviceDocumentsWithLatestVersion
- * @typedef {import('@prisma/client').Prisma.S51AdviceGetPayload<{include: {S51AdviceDocument: true}}>} S51AdviceWithS51AdviceDocuments
+ * @typedef {import('#database-client').Prisma.S51AdviceGetPayload<{include: {S51AdviceDocument: {include: {Document: {include: {latestDocumentVersion: true}}}} }}>} S51AdviceWithS51AdviceDocumentsWithLatestVersion
+ * @typedef {import('#database-client').Prisma.S51AdviceGetPayload<{include: {S51AdviceDocument: true}}>} S51AdviceWithS51AdviceDocuments
  */
 
 /**
@@ -31,7 +31,7 @@ export const get = (id) => {
  *
  * @param {number} caseId
  * @param {boolean} includeDeleted
- * @returns {import('@prisma/client').PrismaPromise<number>}
+ * @returns {import('#database-client').PrismaPromise<number>}
  */
 export const getS51AdviceCountOnCase = (caseId, includeDeleted = true) => {
 	/** @type {{caseId: number, isDeleted?:boolean}} */
@@ -50,7 +50,7 @@ export const getS51AdviceCountOnCase = (caseId, includeDeleted = true) => {
  * returns and array of all undeleted S51 Advice on a case
  *
  * @param {{caseId: number, skipValue: number, pageSize: number }} caseId
- * @returns {import('@prisma/client').PrismaPromise<import('@pins/applications.api').Schema.S51Advice[]>}
+ * @returns {import('#database-client').PrismaPromise<import('@pins/applications.api').Schema.S51Advice[]>}
  */
 export const getManyS51AdviceOnCase = ({ caseId, skipValue, pageSize }) => {
 	return databaseConnector.s51Advice.findMany({
@@ -103,7 +103,7 @@ export const update = (id, s51AdviceDetails) => {
  *
  * @param {number} caseId
  * @param {*} s51AdviceDetails
- * @returns {import('@prisma/client').PrismaPromise<import('@pins/applications.api').Schema.BatchPayload<S51Advice>>}
+ * @returns {import('#database-client').PrismaPromise<import('@pins/applications.api').Schema.BatchPayload<S51Advice>>}
  * */
 export const updateForCase = (caseId, s51AdviceDetails) => {
 	return databaseConnector.s51Advice.updateMany({
@@ -194,7 +194,7 @@ export const getPublishedAdvicesByIds = (s51AdviceIds) => {
  * and not including any deleted attachments
  *
  * @param {{skipValue: number, pageSize: number, caseId: number}} params
- * @returns {import('@prisma/client').PrismaPromise<S51AdviceWithS51AdviceDocumentsWithLatestVersion[]>}
+ * @returns {import('#database-client').PrismaPromise<S51AdviceWithS51AdviceDocumentsWithLatestVersion[]>}
  */
 export const getReadyToPublishAdvices = ({ skipValue, pageSize, caseId }) => {
 	// in order to ensure only non-deleted attachments are included, have to use a select instead of an include, to be able to add a where clause
@@ -264,7 +264,7 @@ export const getReadyToPublishAdvices = ({ skipValue, pageSize, caseId }) => {
  * Returns total number of S51 advice by published status (ready-to-publish), ignoring deleted advice
  *
  * @param {number} caseId
- * @returns {import('@prisma/client').PrismaPromise<number>}
+ * @returns {import('#database-client').PrismaPromise<number>}
  */
 export const getS51AdviceCountInByPublishStatus = (caseId) => {
 	return databaseConnector.s51Advice.count({
