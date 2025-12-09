@@ -53,7 +53,7 @@ export const fixtureFeesForecasting = {
 			id: 1,
 			caseId: 4,
 			invoiceNumber: '180000000',
-			invoiceStage: 'pre_application',
+			invoiceStage: 'pre_acceptance',
 			amountDue: '20500',
 			paymentDueDate: '2025-11-05T00:00:00.000Z',
 			paymentDate: '2025-11-05T00:00:00.000Z',

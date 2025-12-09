@@ -1,15 +1,15 @@
-import { buildSummaryList } from '../summary-list-mapper';
+import { buildSummaryListRows } from '../summary-list-mapper';
 
 describe('buildSummaryList', () => {
 	it('maps items with value only', () => {
 		const items = [{ key: 'Name', value: 'John Doe' }];
-		const result = buildSummaryList(items);
+		const result = buildSummaryListRows(items);
 		expect(result).toEqual([{ key: { text: 'Name' }, value: { text: 'John Doe' } }]);
 	});
 
 	it('maps items with html', () => {
 		const items = [{ key: 'Description', html: '<b>Bold</b>' }];
-		const result = buildSummaryList(items);
+		const result = buildSummaryListRows(items);
 		expect(result).toEqual([{ key: { text: 'Description' }, value: { html: '<b>Bold</b>' } }]);
 	});
 
@@ -21,7 +21,7 @@ describe('buildSummaryList', () => {
 				actions: [{ href: '/edit', text: 'Edit', visuallyHiddenText: 'hidden' }]
 			}
 		];
-		const result = buildSummaryList(items);
+		const result = buildSummaryListRows(items);
 		expect(result).toEqual([
 			{
 				key: { text: 'Edit' },
@@ -41,13 +41,13 @@ describe('buildSummaryList', () => {
 				actions: []
 			}
 		];
-		const result = buildSummaryList(items);
+		const result = buildSummaryListRows(items);
 		expect(result).toEqual([{ key: { text: 'No Actions' }, value: { text: 'Nothing' } }]);
 	});
 
 	it('handles missing value and html', () => {
 		const items = [{ key: 'Empty' }];
-		const result = buildSummaryList(items);
+		const result = buildSummaryListRows(items);
 		expect(result).toEqual([{ key: { text: 'Empty' }, value: { text: undefined } }]);
 	});
 });
