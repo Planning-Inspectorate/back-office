@@ -294,20 +294,6 @@ describe('applications create', () => {
 
 					expect(response?.headers?.location).toContain('1/geographical-information');
 				});
-
-				it('should navigate to the project type page when sector is energy and sub-sector is generating stations', async () => {
-					await request
-						.post('/applications-service/create-new-case/1/sector')
-						.send({ sectorName: SECTORS.ENERGY });
-
-					nock('http://test/').patch('/applications/1').reply(200, successResponse);
-
-					const response = await request
-						.post('/applications-service/create-new-case/1/sub-sector')
-						.send({ subSectorName: SUB_SECTORS.GENERATING_STATIONS });
-
-					expect(response?.headers?.location).toContain('1/project-type');
-				});
 			});
 		});
 	});
@@ -338,6 +324,20 @@ describe('applications create', () => {
 
 				expect(element.innerHTML).toMatchSnapshot();
 				expect(element.innerHTML).not.toContain('checked');
+			});
+
+			it('should navigate to the project type page when sector is energy and sub-sector is generating stations', async () => {
+				await request
+					.post('/applications-service/create-new-case/1/sector')
+					.send({ sectorName: SECTORS.ENERGY });
+
+				nock('http://test/').patch('/applications/1').reply(200, successResponse);
+
+				const response = await request
+					.post('/applications-service/create-new-case/1/sub-sector')
+					.send({ subSectorName: SUB_SECTORS.GENERATING_STATIONS });
+
+				expect(response?.headers?.location).toContain('1/project-type');
 			});
 		});
 
