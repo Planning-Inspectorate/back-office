@@ -28,7 +28,7 @@
     "db:seed:prod": "npm run prisma-generate && cross-env NODE_ENV=production node src/database/seed/seed-production.js",
     "db:create:gs51": "npm run prisma-generate && node src/database/seed/seed-gs51.js",
     "prisma:format": "npx prisma format",
-    "prisma-generate": "npx prisma generate",
+    "prisma-generate": "npx prisma generate && tsc --project src/database/client-tsconfig.json",
     "tscheck": "npx tsc -p jsconfig.json --maxNodeModuleJsDepth 0"
   },
   "dependencies": {
@@ -86,12 +86,13 @@
     "rimraf": "*",
     "supertest": "*",
     "swagger-autogen": "*",
-    "swagger-typescript-api": "*"
+    "swagger-typescript-api": "*",
+		"typescript": "*"
   },
   "imports": {
     "#app-test": "./src/server/app-test.js",
 		"#api-constants": "./src/server/applications/constants.js",
-		"#database-client": "./src/database/client",
+		"#database-client": "./src/database/client/client.js",
 		"#config/*": "./src/server/config/*",
     "#infrastructure/*": "./src/server/infrastructure/*",
     "#middleware/*": "./src/server/middleware/*",
