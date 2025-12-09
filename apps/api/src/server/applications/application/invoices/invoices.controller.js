@@ -17,7 +17,7 @@ export const getAllCaseInvoicesController = async ({ params }, res) => {
 	const invoices = await getInvoicesForCase(caseId);
 
 	if (!invoices || invoices.length === 0) {
-		throw new BackOfficeAppError(`No invoices found for case ${caseId}`, 404);
+		return res.send([]);
 	}
 
 	return res.send(invoices);

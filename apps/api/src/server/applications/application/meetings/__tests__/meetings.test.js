@@ -57,15 +57,13 @@ describe('Test Meetings API Endpoints', () => {
 			expect(res.body).toEqual(allMeetings);
 		});
 
-		it('should return 404 if no meetings found for the application', async () => {
+		it('should return 200 if no meetings found for the application', async () => {
 			databaseConnector.meeting.findMany.mockResolvedValue([]);
 
 			const res = await request.get(`/applications/100000000/meetings`);
 
-			expect(res.status).toBe(404);
-			expect(res.body).toEqual({
-				errors: 'No meetings found for application with id: 100000000'
-			});
+			expect(res.status).toBe(200);
+			expect(res.body).toEqual([]);
 		});
 	});
 

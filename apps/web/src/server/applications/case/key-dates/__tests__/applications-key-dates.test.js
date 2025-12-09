@@ -6,6 +6,7 @@ import { createTestEnvironment } from '../../../../../../testing/index.js';
 import { fixtureCases } from '../../../../../../testing/applications/applications.js';
 import fixtureKeyDates from '../../../../../../testing/applications/fixtures/key-dates.js';
 import { keyDatesProperty } from '../../../../../../src/server/lib/nunjucks-filters/key-dates-property.js';
+import staticFlags from '@pins/feature-flags/src/static-feature-flags.js';
 
 const { app, installMockApi, teardown } = createTestEnvironment();
 const request = supertest(app);
@@ -16,6 +17,10 @@ const nocks = () => {
 	nock('http://test/').get('/applications/123').times(2).reply(200, fixtureCases[3]);
 	nock('http://test/').get('/applications/123/key-dates').times(2).reply(200, fixtureKeyDates);
 };
+
+// Disable fees and forecasting flag so the page link does not display in the nav menu HTML for other pages
+const flags = staticFlags;
+flags['applics-1845-fees-forecasting'] = false;
 
 describe('S51 Advice', () => {
 	beforeEach(installMockApi);

@@ -5,6 +5,7 @@ import { createTestEnvironment } from '../../../../../../testing/index.js';
 import { fixtureCases } from '../../../../../../testing/applications/applications.js';
 import { installMockADToken } from '../../../../../../testing/app/mocks/project-team.js';
 import { fixtureProjectTeamMembers } from '../../../../../../testing/applications/fixtures/project-team.js';
+import staticFlags from '@pins/feature-flags/src/static-feature-flags.js';
 
 const { app, installMockApi, teardown } = createTestEnvironment();
 const request = supertest(app);
@@ -14,6 +15,10 @@ const nocks = () => {
 
 	nock('http://test/').get('/applications/123').times(2).reply(200, fixtureCases[3]);
 };
+
+// Disable fees and forecasting flag so the page link does not display in the nav menu HTML for other pages
+const flags = staticFlags;
+flags['applics-1845-fees-forecasting'] = false;
 
 describe('Project team', () => {
 	beforeEach(installMockApi);

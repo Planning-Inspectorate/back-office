@@ -54,7 +54,320 @@ exports[`Fees and Forecasting GET /case/123/fees-forecasting/ should render the 
                 </nav>
             </aside>
         </div>
-        <div class="govuk-grid-column-full"></div>
+        <div class="govuk-grid-column-full">
+            <h2 class="govuk-heading-m">Fees and forecasting (internal use only)</h2>
+            <p class="govuk-body">Provide details on fees and forecasting in this project.</p>
+            <dl class="govuk-summary-list">
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> New maturity</dt>
+                    <dd class="govuk-summary-list__value">C</dd>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> new maturity</span></a>
+                    </dd>
+                </div>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Examining inspectors</dt>
+                    <dd class="govuk-summary-list__value">2 band 2 inspectors
+                        <br>1 band 3 inspectors</dd>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> examining inspectors</span></a>
+                    </dd>
+                </div>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> MEM last updated</dt>
+                    <dd class="govuk-summary-list__value">09 Mar 2024</dd>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> MEM last updated</span></a>
+                    </dd>
+                </div>
+                <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Additional comments (optional)</dt>
+                    <dd                     class="govuk-summary-list__value">
+                        <p id="additional-comments" class="govuk-body" data-full="Some comments"><span class="comment-text"></span><a href="#" class="comment-toggle govuk-link govuk-link--no-visited-state">See more</a>
+                            <noscript>Some comments</noscript>
+                        </p>
+                        </dd>
+                        <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> additional comments</span></a>
+                        </dd>
+                </div>
+            </dl>
+            <script nonce="EdcOUaJ8lczj9tIPO0lPow==">
+                (function () {
+                    var container = document.getElementById('additional-comments');
+                    if (!container) return;
+                
+                    var span = container.querySelector('.comment-text');
+                    var toggle = container.querySelector('.comment-toggle');
+                    if (!span || !toggle) return;
+                
+                    var full = '';
+                    try {
+                      full = decodeURIComponent(container.dataset.full || '').trim();
+                    } catch (e) {
+                      full = (container.getAttribute('data-full') || '').trim();
+                    }
+                
+                    if (!full) return;
+                
+                    var MAX = 70;
+                    var isOpen = false;
+                
+                    function setState(open) {
+                      isOpen = open;
+                      if (open) {
+                        span.textContent = full;
+                        toggle.textContent = 'Hide more';
+                        toggle.setAttribute('aria-expanded', 'true');
+                      } else {
+                        var excerpt = full.length > MAX ? (full.slice(0, MAX) + '…') : full;
+                        span.textContent = excerpt;
+                        toggle.textContent = 'See more';
+                        toggle.setAttribute('aria-expanded', 'false');
+                      }
+                    }
+                
+                    if (full.length <= MAX) {
+                      span.textContent = full;
+                      toggle.hidden = true;
+                      toggle.setAttribute('aria-expanded', 'false');
+                    } else {
+                      setState(false);
+                      toggle.hidden = false;
+                
+                      toggle.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        setState(!isOpen);
+                      });
+                    }
+                  })();
+            </script>
+            <div class="govuk-accordion" data-module="govuk-accordion" id="accordion-default">
+                <div class="govuk-accordion__section">
+                    <div class="govuk-accordion__section-header">
+                        <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="accordion-default-heading-1"> Pre-application overview</span></h2>
+                    </div>
+                    <div id="accordion-default-content-1" class="govuk-accordion__section-content">
+                        <dl class="govuk-summary-list">
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Tier</dt>
+                                <dd class="govuk-summary-list__value">Basic</dd>
+                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> tier</span></a>
+                                </dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Link to s61 summary</dt>
+                                <dd class="govuk-summary-list__value"><a href="#" class="govuk-link">mock-s61-summary-uri</a>
+                                </dd>
+                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> link to s61 summary</span></a>
+                                </dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Estimated scoping submission date</dt>
+                                <dd                                 class="govuk-summary-list__value">09 Feb 2025</dd>
+                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> estimated scoping submission date</span></a>
+                                    </dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Adequacy of Consultation Milestone (AoCM) date</dt>
+                                <dd                                 class="govuk-summary-list__value">13 Mar 2025</dd>
+                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> adequacy of consultation milestone date</span></a>
+                                    </dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Evidence plan process</dt>
+                                <dd class="govuk-summary-list__value">Required</dd>
+                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> evidence plan process</span></a>
+                                </dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Anticipated submission date internal</dt>
+                                <dd                                 class="govuk-summary-list__value">05 Jan 2025</dd>
+                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> anticipated submission date internal</span></a>
+                                    </dd>
+                            </div>
+                        </dl>
+                    </div>
+                </div>
+                <div class="govuk-accordion__section">
+                    <div class="govuk-accordion__section-header">
+                        <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="accordion-default-heading-2"> Fees</span></h2>
+                    </div>
+                    <div id="accordion-default-content-2" class="govuk-accordion__section-content">
+                        <table class="govuk-table">
+                            <thead class="govuk-table__head">
+                                <tr class="govuk-table__row">
+                                    <th scope="col" class="govuk-table__header">Stage</th>
+                                    <th scope="col" class="govuk-table__header">Amount</th>
+                                    <th scope="col" class="govuk-table__header">Invoice number</th>
+                                    <th scope="col" class="govuk-table__header">Status</th>
+                                    <th scope="col" class="govuk-table__header">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody class="govuk-table__body">
+                                <tr class="govuk-table__row">
+                                    <td class="govuk-table__cell">Pre-acceptance</td>
+                                    <td class="govuk-table__cell">£20500</td>
+                                    <td class="govuk-table__cell">180000000</td>
+                                    <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--purple">Refunded</strong>
+                                    </td>
+                                    <td class="govuk-table__cell"><a href="#" class="govuk-link">Review</a>
+                                    </td>
+                                </tr>
+                                <tr class="govuk-table__row">
+                                    <td class="govuk-table__cell">Acceptance</td>
+                                    <td class="govuk-table__cell">£30000</td>
+                                    <td class="govuk-table__cell">180000001</td>
+                                    <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--purple">Refunded</strong>
+                                    </td>
+                                    <td class="govuk-table__cell"><a href="#" class="govuk-link">Review</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table><a href="#" role="button" draggable="false" class="govuk-button govuk-button--secondary"
+                        data-module="govuk-button"> Add new fee</a>
+                    </div>
+                </div>
+                <div class="govuk-accordion__section">
+                    <div class="govuk-accordion__section-header">
+                        <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="accordion-default-heading-3"> Pre-application project meetings</span></h2>
+                    </div>
+                    <div id="accordion-default-content-3" class="govuk-accordion__section-content">
+                        <table class="govuk-table">
+                            <thead class="govuk-table__head">
+                                <tr class="govuk-table__row">
+                                    <th scope="col" class="govuk-table__header">Meeting agenda</th>
+                                    <th scope="col" class="govuk-table__header">Date</th>
+                                    <th scope="col" class="govuk-table__header">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody class="govuk-table__body">
+                                <tr class="govuk-table__row">
+                                    <td class="govuk-table__cell">Inception meeting</td>
+                                    <td class="govuk-table__cell">09 Jan 2025</td>
+                                    <td class="govuk-table__cell"><a href="#" class="govuk-link">Change</a>
+                                    </td>
+                                </tr>
+                                <tr class="govuk-table__row">
+                                    <td class="govuk-table__cell">Project Update Meeting (PUM)</td>
+                                    <td class="govuk-table__cell">11 Jan 2025</td>
+                                    <td class="govuk-table__cell"><a href="#" class="govuk-link">Change</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table><a href="#" role="button" draggable="false" class="govuk-button govuk-button--secondary"
+                        data-module="govuk-button"> Add project meeting</a>
+                    </div>
+                </div>
+                <div class="govuk-accordion__section">
+                    <div class="govuk-accordion__section-header">
+                        <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="accordion-default-heading-4"> Pre-application evidence plan meetings</span></h2>
+                    </div>
+                    <div id="accordion-default-content-4" class="govuk-accordion__section-content">
+                        <table class="govuk-table">
+                            <thead class="govuk-table__head">
+                                <tr class="govuk-table__row">
+                                    <th scope="col" class="govuk-table__header">Issues discussed</th>
+                                    <th scope="col" class="govuk-table__header">Date</th>
+                                    <th scope="col" class="govuk-table__header">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody class="govuk-table__body">
+                                <tr class="govuk-table__row">
+                                    <td class="govuk-table__cell">Flood Risk Assessment</td>
+                                    <td class="govuk-table__cell">09 Jan 2025</td>
+                                    <td class="govuk-table__cell"><a href="#" class="govuk-link">Change</a>
+                                    </td>
+                                </tr>
+                                <tr class="govuk-table__row">
+                                    <td class="govuk-table__cell">Habitat Regulation Assessment</td>
+                                    <td class="govuk-table__cell">11 Jan 2025</td>
+                                    <td class="govuk-table__cell"><a href="#" class="govuk-link">Change</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table><a href="#" role="button" draggable="false" class="govuk-button govuk-button--secondary"
+                        data-module="govuk-button"> Add evidence plan meeting</a>
+                    </div>
+                </div>
+                <div class="govuk-accordion__section">
+                    <div class="govuk-accordion__section-header">
+                        <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="accordion-default-heading-5"> Pre-application supplementary components</span></h2>
+                    </div>
+                    <div id="accordion-default-content-5" class="govuk-accordion__section-content">
+                        <dl class="govuk-summary-list">
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Link to issues tracker</dt>
+                                <dd class="govuk-summary-list__value"><a href="#" class="govuk-link">mock-issues-tracker-uri</a>
+                                </dd>
+                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> link to issues tracker</span></a>
+                                </dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Essential fast track components</dt>
+                                <dd                                 class="govuk-summary-list__value">Yes</dd>
+                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> essential fast track components</span></a>
+                                    </dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Principal area disagreement summary statement (PADSS)</dt>
+                                <dd                                 class="govuk-summary-list__value">Submitted, 09 Mar 2024</dd>
+                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> principal area disagreement summary statement (PADSS)</span></a>
+                                    </dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Policy compliance document (PCD)</dt>
+                                <dd                                 class="govuk-summary-list__value">Not applicable</dd>
+                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> policy compliance document (PCD)</span></a>
+                                    </dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Design approach document (DAD)</dt>
+                                <dd                                 class="govuk-summary-list__value">Awaiting submission</dd>
+                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> design approach document (DAD)</span></a>
+                                    </dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Mature outline control documents</dt>
+                                <dd                                 class="govuk-summary-list__value">Awaiting submission</dd>
+                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> mature outline control documents</span></a>
+                                    </dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> CA and TP evidence</dt>
+                                <dd class="govuk-summary-list__value">Awaiting submission</dd>
+                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> CA and TP evidence</span></a>
+                                </dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Public sector equality duty (PSED)</dt>
+                                <dd                                 class="govuk-summary-list__value">Not applicable</dd>
+                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> public sector equality duty (PSED)</span></a>
+                                    </dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Fast track admission document</dt>
+                                <dd                                 class="govuk-summary-list__value">Submitted</dd>
+                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> fast track admission document</span></a>
+                                    </dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Multiparty application readiness gate-check (trial)</dt>
+                                <dd                                 class="govuk-summary-list__value">Awaiting submission</dd>
+                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> multiparty application readiness gate-check (trial)</span></a>
+                                    </dd>
+                            </div>
+                        </dl>
+                    </div>
+                </div>
+                <div class="govuk-accordion__section">
+                    <div class="govuk-accordion__section-header">
+                        <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="accordion-default-heading-6"> Pre-application programme document</span></h2>
+                    </div>
+                    <div id="accordion-default-content-6" class="govuk-accordion__section-content">
+                        <dl class="govuk-summary-list">
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Link to programme document</dt>
+                                <dd                                 class="govuk-summary-list__value"><a href="#" class="govuk-link">mock-programme-document-uri</a>
+                                    </dd>
+                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> link to programme document</span></a>
+                                    </dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Date updated programme document is received</dt>
+                                <dd                                 class="govuk-summary-list__value">10 Apr 2025</dd>
+                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> date updated programme document is received</span></a>
+                                    </dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Date programme document reviewed by EST</dt>
+                                <dd                                 class="govuk-summary-list__value">11 May 2025</dd>
+                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> date programme document reviewed by EST</span></a>
+                                    </dd>
+                            </div>
+                            <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Date case team issued comments on programme document</dt>
+                                <dd                                 class="govuk-summary-list__value">07 Jun 2025</dd>
+                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> date case team issued comments on programme document</span></a>
+                                    </dd>
+                            </div>
+                        </dl>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </main>"
 `;

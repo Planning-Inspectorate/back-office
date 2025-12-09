@@ -1,6 +1,92 @@
+{% from "govuk/components/summary-list/macro.njk" import govukSummaryList %}
+{% from "govuk/components/table/macro.njk" import govukTable %}
+{% from "govuk/components/accordion/macro.njk" import govukAccordion %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
 {% extends "../case/layouts/applications-case-layout.njk" %}
 
 {% set pageTitle = 'Fees and forecasting' %}
 
 {% block sectionContent %}
+	<h2 class="govuk-heading-m">Fees and forecasting (internal use only)</h2>
+	<p class="govuk-body">Provide details on fees and forecasting in this project.</p>
+
+	{{ govukSummaryList({ rows: internalUseSection }) }}
+
+
+<script nonce="{{ cspNonce }}">
+  (function () {
+    var container = document.getElementById('additional-comments');
+    if (!container) return;
+
+    var span = container.querySelector('.comment-text');
+    var toggle = container.querySelector('.comment-toggle');
+    if (!span || !toggle) return;
+
+    var full = '';
+    try {
+      full = decodeURIComponent(container.dataset.full || '').trim();
+    } catch (e) {
+      full = (container.getAttribute('data-full') || '').trim();
+    }
+
+    if (!full) return;
+
+    var MAX = 70;
+    var isOpen = false;
+
+    function setState(open) {
+      isOpen = open;
+      if (open) {
+        span.textContent = full;
+        toggle.textContent = 'Hide more';
+        toggle.setAttribute('aria-expanded', 'true');
+      } else {
+        var excerpt = full.length > MAX ? (full.slice(0, MAX) + '…') : full;
+        span.textContent = excerpt;
+        toggle.textContent = 'See more';
+        toggle.setAttribute('aria-expanded', 'false');
+      }
+    }
+
+    if (full.length <= MAX) {
+      span.textContent = full;
+      toggle.hidden = true;
+      toggle.setAttribute('aria-expanded', 'false');
+    } else {
+      setState(false);
+      toggle.hidden = false;
+
+      toggle.addEventListener('click', function (e) {
+        e.preventDefault();
+        setState(!isOpen);
+      });
+    }
+  })();
+</script>
+
+	{% set accordionItems = [] %}
+
+	{% for accordionSection in accordionSections %}
+		{% set heading = accordionSection.heading %}
+
+		{% if accordionSection.component === 'summary-list' %}
+			{% set content = govukSummaryList({ rows: accordionSection.content }) %}
+		{% else %}
+			{% set content = govukTable(accordionSection.content) + govukButton({
+				text: accordionSection.buttonText,
+				href: accordionSection.buttonLink,
+				classes: "govuk-button--secondary"
+			}) %}
+		{% endif %}
+
+		{% set row = {
+			heading: { text: heading },
+			content: { html: content}
+		} %}
+
+		{% set accordionItems = accordionItems.concat([row]) %}
+	{% endfor %}
+
+	{{ govukAccordion({ id: "accordion-default", items: accordionItems }) }}
+
 {% endblock %}
