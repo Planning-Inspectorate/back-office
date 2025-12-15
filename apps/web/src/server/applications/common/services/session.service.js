@@ -5,6 +5,7 @@
  * @typedef {import('express-session').Session & { filesNumberOnList?: number }} SessionWithFilesNumberOnList
  * @typedef {import('express-session').Session & { showSuccessBanner?: boolean }} SessionWithSuccessBanner
  * @typedef {import('express-session').Session & { documentNameOnDeletion?: string }} SessionWithDocumentNameOnDeletion
+ * @typedef {import('express-session').Session & { additionalDetails?: {} }} SessionWithAdditionalDetailsOnDeletion
  */
 
 // Applicant session management
@@ -80,6 +81,16 @@ export const getSessionCaseSectorName = (session) => {
  */
 export const destroySessionCaseSectorName = (session) => {
 	delete session.caseSectorName;
+};
+
+/**
+ * Clear the additional details from the session.
+ *
+ * @param {SessionWithAdditionalDetailsOnDeletion} session
+ * @returns {void}
+ */
+export const destroySessionAdditionalDetails = (session) => {
+	delete session.additionalDetails;
 };
 
 /**

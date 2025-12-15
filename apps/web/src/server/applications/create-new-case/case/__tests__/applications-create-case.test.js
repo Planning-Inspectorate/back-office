@@ -9,6 +9,7 @@ import {
 	fixtureZoomLevels
 } from '../../../../../../testing/applications/fixtures/options-item.js';
 import { createTestEnvironment } from '../../../../../../testing/index.js';
+import { PROJECT_TYPES, SECTORS, SUB_SECTORS } from '../../../common/constants.js';
 
 const { app, installMockApi, teardown } = createTestEnvironment();
 const request = supertest(app);
@@ -291,6 +292,87 @@ describe('applications create', () => {
 
 					const response = await request.post(baseUrl('1')).send({ subSectorName: 'transport' });
 
+					expect(response?.headers?.location).toContain('1/geographical-information');
+				});
+			});
+		});
+	});
+
+	describe('Project Type', () => {
+		const baseUrl = (/** @type {string} */ id) =>
+			`/applications-service/create-new-case/${id}/project-type`;
+
+		beforeEach(async () => {
+			await request.get('/applications-service/');
+			nocks();
+		});
+
+		describe('GET /create-new-case/:caseId/project-type', () => {
+			it('should display a checked option if the API returns a resumed value', async () => {
+				const response = await request.get(baseUrl('1'));
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain(
+					`value="${fixtureCases[0]?.additionalDetails?.subProjectType}" checked`
+				);
+			});
+
+			it('should not display a checked option if the API does NOT return a resumed value', async () => {
+				const response = await request.get(baseUrl('2'));
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).not.toContain('checked');
+			});
+
+			it('should navigate to the project type page when sector is energy and sub-sector is generating stations', async () => {
+				await request
+					.post('/applications-service/create-new-case/1/sector')
+					.send({ sectorName: SECTORS.ENERGY });
+
+				nock('http://test/').patch('/applications/1').reply(200, successResponse);
+
+				const response = await request
+					.post('/applications-service/create-new-case/1/sub-sector')
+					.send({ subSectorName: SUB_SECTORS.GENERATING_STATIONS });
+
+				expect(response?.headers?.location).toContain('1/project-type');
+			});
+		});
+
+		describe('POST /create-new-case/:caseId/project-type', () => {
+			describe('Web-side validation', () => {
+				it('should show validation error if nothing was selected', async () => {
+					const response = await request.post(baseUrl('1')).send({});
+					const element = parseHtml(response.text);
+
+					expect(element.innerHTML).toMatchSnapshot();
+					expect(element.innerHTML).toContain('subProjectType-error');
+				});
+			});
+
+			describe('API validation', () => {
+				it('should show validation errors if API returns error', async () => {
+					const failResponse = { errors: { subProjectType: 'Invalid project type' } };
+
+					nock('http://test/').patch('/applications/1').reply(500, failResponse);
+
+					const response = await request.post(baseUrl('1')).send({
+						subProjectType: PROJECT_TYPES.OFFSHORE_WIND
+					});
+					const element = parseHtml(response.text);
+
+					expect(element.innerHTML).toMatchSnapshot();
+					expect(element.innerHTML).toContain('subProjectType-error');
+				});
+
+				it('should redirect to geographical information page if API returns 200', async () => {
+					nock('http://test/').patch('/applications/1').reply(200, successResponse);
+
+					const response = await request.post(baseUrl('1')).send({
+						subProjectType: PROJECT_TYPES.OFFSHORE_WIND
+					});
 					expect(response?.headers?.location).toContain('1/geographical-information');
 				});
 			});
