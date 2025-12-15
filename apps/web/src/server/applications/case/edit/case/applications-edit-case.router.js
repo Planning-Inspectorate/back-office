@@ -132,4 +132,12 @@ applicationsEditCaseRouter
 	)
 	.post(asyncHandler(controller.updateApplicationsEditIsMaterialChange));
 
+applicationsEditCaseRouter
+	.route('/project-type')
+	.get(
+		registerCaseWithQuery(['sector', 'sub-sector', 'additionalDetails']),
+		asyncHandler(controller.viewApplicationsEditProjectType)
+	)
+	.post(asyncHandler(controller.updateApplicationsEditProjectType));
+
 export default applicationsEditCaseRouter;

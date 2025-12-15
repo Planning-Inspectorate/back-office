@@ -14,7 +14,9 @@ import {
 	caseTeamEmailDataUpdate,
 	caseZoomLevelData,
 	caseZoomLevelDataUpdate,
-	isMaterialChangeDataUpdate
+	isMaterialChangeDataUpdate,
+	caseProjectTypeData,
+	caseProjectTypeDataUpdate
 } from '../../../common/components/form/form-case.component.js';
 import { getUpdatedField } from '../applications-edit.service.js';
 import { getIsMaterialChangeStaticDataViewModel } from '../../../../lib/static-data-view-models.js';
@@ -109,6 +111,12 @@ const isMaterialChangeLayout = {
 	isEdit: true
 };
 
+const projectTypeLayout = {
+	pageTitle: 'Choose a project type',
+	components: ['project-type'],
+	isEdit: true
+};
+
 /** @type {Record<string, string>} */
 const fullFieldNames = {
 	title: 'Project name',
@@ -145,6 +153,8 @@ const fullFieldNames = {
 /** @typedef {import('../../../create-new-case/case/applications-create-case.types.js').ApplicationsCreateCaseIsMaterialChangeBody} ApplicationsCreateCaseIsMaterialChangeBody */
 /** @typedef {import('../../../create-new-case/case/applications-create-case.types.js').ApplicationsCreateCaseIsMaterialChangeProps} ApplicationsCreateCaseIsMaterialChangeProps */
 /** @typedef {import('../../../create-new-case/case/applications-create-case.types.js').ApplicationsCreateCaseIsMaterialChangeRes} ApplicationsCreateCaseIsMaterialChangeRes */
+/** @typedef {import('../../../create-new-case/case/applications-create-case.types.js').ApplicationsCreateCaseProjectTypeProps} ApplicationsCreateCaseProjectTypeProps */
+/** @typedef {import('../../../create-new-case/case/applications-create-case.types.js').ApplicationsCreateCaseProjectTypeBody} ApplicationsCreateCaseProjectTypeBody */
 
 /**
  * View the form step for editing the case description
@@ -578,6 +588,41 @@ export async function updateApplicationsEditIsMaterialChange(request, response) 
 
 	if (properties.errors || !updatedCaseId)
 		return handleErrors(properties, isMaterialChangeLayout, response);
+
+	setSessionBanner(request.session, 'Application updated');
+
+	return response.redirect(
+		featureFlagClient.isFeatureActive('applic-55-welsh-translation')
+			? `/applications-service/case/${updatedCaseId}/overview`
+			: `/applications-service/case/${updatedCaseId}/project-information`
+	);
+}
+
+/**
+ * View the form step for editing project type
+ *
+ * @type {import('@pins/express').RenderHandler<*, *>}
+ */
+export async function viewApplicationsEditProjectType(request, response) {
+	const properties = await caseProjectTypeData(request, response.locals);
+	console.log('#### properties', properties);
+	response.render(resolveTemplate(projectTypeLayout), {
+		...properties,
+		layout: projectTypeLayout
+	});
+}
+
+/**
+ * Edit the project type
+ *
+ * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseProjectTypeProps, {},
+ *  ApplicationsCreateCaseProjectTypeBody, {}, {edit?: string}>}
+ */
+export async function updateApplicationsEditProjectType(request, response) {
+	const { properties, updatedCaseId } = await caseProjectTypeDataUpdate(request, response.locals);
+
+	if (properties.errors || !updatedCaseId)
+		return handleErrors(properties, projectTypeLayout, response);
 
 	setSessionBanner(request.session, 'Application updated');
 

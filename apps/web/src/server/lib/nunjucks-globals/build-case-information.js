@@ -1,6 +1,7 @@
 import { sanitize } from '../nunjucks-filters/sanitize.js';
 import { featureFlagClient } from '../../../common/feature-flags.js';
 import { getIsMaterialChangeStaticDataViewModel } from '../static-data-view-models.js';
+// import { getProjectTypeDisplayName } from '../../applications/common/components/mappers/project-types.mapper.js';
 
 const isMaterialChangeStaticDataViewModel = getIsMaterialChangeStaticDataViewModel();
 
@@ -64,6 +65,12 @@ export const buildCaseInformation = (params, isWelsh) => [
 				}
 		  ]
 		: []),
+	// {
+	// 	title: 'Project type',
+	// 	text: getProjectTypeDisplayName(params.case?.additionalDetails?.subProjectType) ,
+	// 	url: 'project-type',
+	// 	classes: 'project-details__project-type'
+	// },
 	{
 		title: featureFlagClient.isFeatureActive('applic-55-welsh-translation')
 			? 'Regions'
