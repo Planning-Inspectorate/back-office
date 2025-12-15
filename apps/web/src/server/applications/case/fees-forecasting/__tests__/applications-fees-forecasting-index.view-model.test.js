@@ -1,25 +1,20 @@
-import { jest } from '@jest/globals';
 import {
 	getStatusTag,
-	formatUnixTimestamp,
 	getLinkHTML,
+	getSupplementaryComponentItem,
 	getDisplayValue,
 	getFeesForecastingViewModel
 } from '../applications-fees-forecasting-index.view-model.js';
 import { fixtureFeesForecasting } from '../../../../../../testing/applications/fixtures/fees-forecasting.js';
 
-describe('applications fees and forecasting view-model', () => {
+const mockDisplayValues = {
+	submitted_by_applicant: 'Submitted',
+	awaiting_submission: 'Awaiting submission',
+	not_applicable: 'Not applicable'
+};
+
+describe('applications fees forecasting view-model', () => {
 	describe('#getStatusTag', () => {
-		beforeAll(() => {
-			const mockDate = new Date('2025-11-20T00:00:00.000Z');
-			jest.useFakeTimers({ advanceTimers: true }).setSystemTime(mockDate);
-		});
-
-		afterAll(() => {
-			jest.runOnlyPendingTimers();
-			jest.useRealTimers();
-		});
-
 		it('should return the Refunded tag HTML if there is a refund issue date', () => {
 			const invoice = {
 				paymentDueDate: '2025-10-10T00:00:00.000Z',
@@ -42,7 +37,7 @@ describe('applications fees and forecasting view-model', () => {
 			expect(result).toEqual('<strong class="govuk-tag govuk-tag--green">Paid</strong>');
 		});
 
-		it('should return the Due tag HTML if there is a payment due date and it is before the current date and there is no payment date', () => {
+		it('should return the Due tag HTML if there is a payment due date', () => {
 			const invoice = {
 				paymentDueDate: '2025-10-25T00:00:00.000Z',
 				paymentDate: null,
@@ -65,22 +60,6 @@ describe('applications fees and forecasting view-model', () => {
 		});
 	});
 
-	describe('#formatUnixTimestamp', () => {
-		it('should return the date in dd MMM yyyy format when a unix timestamp is passed in', () => {
-			const timestamp = 1710000000;
-			const result = formatUnixTimestamp(timestamp);
-
-			expect(result).toEqual('09 Mar 2024');
-		});
-
-		it('should return an empty string if a falsy value is passed in', () => {
-			const timestamp = null;
-			const result = formatUnixTimestamp(timestamp);
-
-			expect(result).toEqual('');
-		});
-	});
-
 	describe('#getLinkHTML', () => {
 		it('should return the correct HTML string when href and link text are passed in', () => {
 			const mockLinkText = 'mock-link-text';
@@ -100,12 +79,6 @@ describe('applications fees and forecasting view-model', () => {
 	});
 
 	describe('#getDisplayValue', () => {
-		const mockDisplayValues = {
-			submitted_by_applicant: 'Submitted',
-			awaiting_submission: 'Awaiting submission',
-			not_applicable: 'Not applicable'
-		};
-
 		it('should return the corresponding display value when an enum value is passed in', () => {
 			const mockEnumValue = 'submitted_by_applicant';
 			const result = getDisplayValue(mockDisplayValues, mockEnumValue);
@@ -116,6 +89,47 @@ describe('applications fees and forecasting view-model', () => {
 		it('should return an empty string if a falsy value is passed in', () => {
 			const mockEnumValue = null;
 			const result = getDisplayValue(mockDisplayValues, mockEnumValue);
+
+			expect(result).toEqual('');
+		});
+	});
+
+	describe('#getSupplementaryComponentItem', () => {
+		it('should return the submission status and submission date if submitted', () => {
+			const mockSubmissionStatus = 'submitted_by_applicant';
+			const mockSubmissionDate = 1710000000;
+
+			const result = getSupplementaryComponentItem(
+				mockDisplayValues,
+				mockSubmissionStatus,
+				mockSubmissionDate
+			);
+
+			expect(result).toEqual('Submitted, 09 Mar 2024');
+		});
+
+		it('should return the submission status if not submitted', () => {
+			const mockSubmissionStatus = 'awaiting_submission';
+			const mockSubmissionDate = null;
+
+			const result = getSupplementaryComponentItem(
+				mockDisplayValues,
+				mockSubmissionStatus,
+				mockSubmissionDate
+			);
+
+			expect(result).toEqual('Awaiting submission');
+		});
+
+		it('should return an empty string if the submission status has a falsy value', () => {
+			const mockSubmissionStatus = null;
+			const mockSubmissionDate = null;
+
+			const result = getSupplementaryComponentItem(
+				mockDisplayValues,
+				mockSubmissionStatus,
+				mockSubmissionDate
+			);
 
 			expect(result).toEqual('');
 		});
@@ -455,7 +469,7 @@ describe('applications fees and forecasting view-model', () => {
 							},
 							{
 								key: { text: 'Fast track admission document' },
-								value: { text: 'Submitted' },
+								value: { text: 'Submitted, 07 Jun 2025' },
 								actions: {
 									items: [
 										{

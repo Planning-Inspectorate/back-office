@@ -1,38 +1,15 @@
 import {
-	additionalCommentsURL,
-	adequacyDateURL,
-	anticipatedDateURL,
-	examiningInspectorsURL,
 	feesHrefText,
 	genericHrefText,
-	memLastUpdatedURL,
-	newMaturityURL,
-	planProcessURL,
-	s61SummaryURL,
-	scopingDateURL,
-	tierURL,
-	issuesTrackerURL,
-	essentialFastTrackComponentsURL,
-	principalAreaDisagreementSummaryStmtURL,
-	policyComplianceDocumentURL,
-	designApproachDocumentURL,
-	matureOutlineControlDocumentURL,
-	caAndTpEvidenceURL,
-	publicSectorEqualityDutyURL,
-	fastTrackAdmissionDocumentURL,
-	multipartyApplicationCheckDocumentURL,
-	documentLinkURL,
-	updatedDocumentReceivedDateURL,
-	documentReviewedByEstDateURL,
-	caseTeamIssuedCommentsDateURL,
+	editPageURLs,
 	newMaturityDisplayValues,
 	tierDisplayValues,
 	invoiceStageDisplayValues,
 	supplementaryComponentsDisplayValues
 } from './fees-forecasting.config.js';
-import { format } from 'date-fns';
 import { buildSummaryListRows } from '../../../lib/summary-list-mapper.js';
 import { buildTable } from '../../../lib/table-mapper.js';
+import { formatDateForDisplay } from '../../../lib/dates.js';
 
 /**
  * Determines the status tag for an invoice.
@@ -49,21 +26,12 @@ export function getStatusTag(invoice) {
 		return `<strong class="govuk-tag govuk-tag--green">Paid</strong>`;
 	}
 
-	if (invoice.paymentDueDate && new Date(invoice.paymentDueDate) < new Date()) {
+	if (invoice.paymentDueDate) {
 		return `<strong class="govuk-tag govuk-tag--orange">Due</strong>`;
 	}
 
 	return `<strong class="govuk-tag govuk-tag--yellow">Issued</strong>`;
 }
-
-/**
- * Converts unix timestamp into date string.
- *
- * @param {number|null} timestamp
- * @returns {string}
- */
-export const formatUnixTimestamp = (timestamp) =>
-	timestamp ? format(new Date(timestamp * 1000), 'dd MMM yyyy') : '';
 
 /**
  * Creates HTML string for link text.
@@ -86,6 +54,25 @@ export const getDisplayValue = (displayValues, enumValue) =>
 	enumValue ? displayValues[enumValue] : '';
 
 /**
+ * Displays submission date if item has been submitted.
+ *
+ * @param {Record<string,string>} displayValues
+ * @param {string|null} submissionStatus
+ * @param {number|null} submissionDate
+ * @returns {string}
+ */
+export const getSupplementaryComponentItem = (displayValues, submissionStatus, submissionDate) => {
+	if (!submissionStatus) return '';
+
+	const submissionStatusForDisplay = getDisplayValue(displayValues, submissionStatus);
+	const submissionDateForDisplay = formatDateForDisplay(submissionDate);
+
+	return submissionStatusForDisplay === supplementaryComponentsDisplayValues.submitted_by_applicant
+		? `${submissionStatusForDisplay}, ${submissionDateForDisplay}`
+		: `${submissionStatusForDisplay}`;
+};
+
+/**
  * @param {object|*} params
  * @returns {Promise<{ selectedPageType: string, internalUseSection: Array<Object>, accordionSections: Array<Object> }>}
  */
@@ -94,7 +81,13 @@ export const getFeesForecastingViewModel = async ({ caseData, invoices, meetings
 		{
 			key: 'New maturity',
 			value: getDisplayValue(newMaturityDisplayValues, caseData.additionalDetails.newMaturity),
-			actions: [{ href: newMaturityURL, text: genericHrefText, visuallyHiddenText: 'new maturity' }]
+			actions: [
+				{
+					href: editPageURLs.newMaturity,
+					text: genericHrefText,
+					visuallyHiddenText: 'new maturity'
+				}
+			]
 		},
 		{
 			key: 'Examining inspectors',
@@ -110,7 +103,7 @@ export const getFeesForecastingViewModel = async ({ caseData, invoices, meetings
 				.join('<br/>'),
 			actions: [
 				{
-					href: examiningInspectorsURL,
+					href: editPageURLs.examiningInspectors,
 					text: genericHrefText,
 					visuallyHiddenText: 'examining inspectors'
 				}
@@ -118,9 +111,13 @@ export const getFeesForecastingViewModel = async ({ caseData, invoices, meetings
 		},
 		{
 			key: 'MEM last updated',
-			value: formatUnixTimestamp(caseData.keyDates.preApplication.memLastUpdated),
+			value: formatDateForDisplay(caseData.keyDates.preApplication.memLastUpdated),
 			actions: [
-				{ href: memLastUpdatedURL, text: genericHrefText, visuallyHiddenText: 'MEM last updated' }
+				{
+					href: editPageURLs.memLastUpdated,
+					text: genericHrefText,
+					visuallyHiddenText: 'MEM last updated'
+				}
 			]
 		},
 		{
@@ -128,7 +125,7 @@ export const getFeesForecastingViewModel = async ({ caseData, invoices, meetings
 			html: `${caseData.additionalDetails.additionalComments}`,
 			actions: [
 				{
-					href: additionalCommentsURL,
+					href: editPageURLs.additionalComments,
 					text: genericHrefText,
 					visuallyHiddenText: 'additional comments'
 				}
@@ -140,21 +137,25 @@ export const getFeesForecastingViewModel = async ({ caseData, invoices, meetings
 		{
 			key: 'Tier',
 			value: getDisplayValue(tierDisplayValues, caseData.additionalDetails.tier),
-			actions: [{ href: tierURL, text: genericHrefText, visuallyHiddenText: 'tier' }]
+			actions: [{ href: editPageURLs.tier, text: genericHrefText, visuallyHiddenText: 'tier' }]
 		},
 		{
 			key: 'Link to s61 summary',
 			html: getLinkHTML(caseData.additionalDetails.s61SummaryURI, '#'),
 			actions: [
-				{ href: s61SummaryURL, text: genericHrefText, visuallyHiddenText: 'link to s61 summary' }
+				{
+					href: editPageURLs.s61Summary,
+					text: genericHrefText,
+					visuallyHiddenText: 'link to s61 summary'
+				}
 			]
 		},
 		{
 			key: 'Estimated scoping submission date',
-			value: formatUnixTimestamp(caseData.keyDates.preApplication.estimatedScopingSubmissionDate),
+			value: formatDateForDisplay(caseData.keyDates.preApplication.estimatedScopingSubmissionDate),
 			actions: [
 				{
-					href: scopingDateURL,
+					href: editPageURLs.scopingDate,
 					text: genericHrefText,
 					visuallyHiddenText: 'estimated scoping submission date'
 				}
@@ -162,12 +163,12 @@ export const getFeesForecastingViewModel = async ({ caseData, invoices, meetings
 		},
 		{
 			key: 'Adequacy of Consultation Milestone (AoCM) date',
-			value: formatUnixTimestamp(
+			value: formatDateForDisplay(
 				caseData.keyDates.preApplication.consultationMilestoneAdequacyDate
 			),
 			actions: [
 				{
-					href: adequacyDateURL,
+					href: editPageURLs.adequacyDate,
 					text: genericHrefText,
 					visuallyHiddenText: 'adequacy of consultation milestone date'
 				}
@@ -182,15 +183,19 @@ export const getFeesForecastingViewModel = async ({ caseData, invoices, meetings
 					? 'Not required'
 					: '',
 			actions: [
-				{ href: planProcessURL, text: genericHrefText, visuallyHiddenText: 'evidence plan process' }
+				{
+					href: editPageURLs.planProcess,
+					text: genericHrefText,
+					visuallyHiddenText: 'evidence plan process'
+				}
 			]
 		},
 		{
 			key: 'Anticipated submission date internal',
-			value: formatUnixTimestamp(caseData.keyDates.preApplication.submissionAtInternal),
+			value: formatDateForDisplay(caseData.keyDates.preApplication.submissionAtInternal),
 			actions: [
 				{
-					href: anticipatedDateURL,
+					href: editPageURLs.anticipatedDate,
 					text: genericHrefText,
 					visuallyHiddenText: 'anticipated submission date internal'
 				}
@@ -241,7 +246,7 @@ export const getFeesForecastingViewModel = async ({ caseData, invoices, meetings
 							/** @param {object|*} meeting */
 							(meeting) => [
 								{ text: meeting.agenda },
-								{ text: format(new Date(meeting.meetingDate), 'dd MMM yyyy') },
+								{ text: formatDateForDisplay(meeting.meetingDate) },
 								{ html: getLinkHTML(genericHrefText, '#') }
 							]
 						)
@@ -263,7 +268,7 @@ export const getFeesForecastingViewModel = async ({ caseData, invoices, meetings
 				/** @param {object|*} meeting */
 				(meeting) => [
 					{ text: meeting.agenda },
-					{ text: format(new Date(meeting.meetingDate), 'dd MMM yyyy') },
+					{ text: formatDateForDisplay(meeting.meetingDate) },
 					{ html: getLinkHTML(genericHrefText, '#') }
 				]
 			)
@@ -276,7 +281,7 @@ export const getFeesForecastingViewModel = async ({ caseData, invoices, meetings
 			html: getLinkHTML(caseData.additionalDetails.issuesTracker, '#'),
 			actions: [
 				{
-					href: issuesTrackerURL,
+					href: editPageURLs.issuesTracker,
 					text: genericHrefText,
 					visuallyHiddenText: 'link to issues tracker'
 				}
@@ -292,7 +297,7 @@ export const getFeesForecastingViewModel = async ({ caseData, invoices, meetings
 					: '',
 			actions: [
 				{
-					href: essentialFastTrackComponentsURL,
+					href: editPageURLs.essentialFastTrackComponents,
 					text: genericHrefText,
 					visuallyHiddenText: 'essential fast track components'
 				}
@@ -300,21 +305,14 @@ export const getFeesForecastingViewModel = async ({ caseData, invoices, meetings
 		},
 		{
 			key: 'Principal area disagreement summary statement (PADSS)',
-			value:
-				caseData.additionalDetails.principalAreaDisagreementSummaryStmt === 'submitted_by_applicant'
-					? `${getDisplayValue(
-							supplementaryComponentsDisplayValues,
-							caseData.additionalDetails.principalAreaDisagreementSummaryStmt
-					  )}, ${formatUnixTimestamp(
-							caseData.keyDates.preApplication.principalAreaDisagreementSummaryStmtSubmittedDate
-					  )}`
-					: getDisplayValue(
-							supplementaryComponentsDisplayValues,
-							caseData.additionalDetails.principalAreaDisagreementSummaryStmt
-					  ),
+			value: getSupplementaryComponentItem(
+				supplementaryComponentsDisplayValues,
+				caseData.additionalDetails.principalAreaDisagreementSummaryStmt,
+				caseData.keyDates.preApplication.principalAreaDisagreementSummaryStmtSubmittedDate
+			),
 			actions: [
 				{
-					href: principalAreaDisagreementSummaryStmtURL,
+					href: editPageURLs.principalAreaDisagreementSummaryStmt,
 					text: genericHrefText,
 					visuallyHiddenText: 'principal area disagreement summary statement (PADSS)'
 				}
@@ -322,13 +320,14 @@ export const getFeesForecastingViewModel = async ({ caseData, invoices, meetings
 		},
 		{
 			key: 'Policy compliance document (PCD)',
-			value: getDisplayValue(
+			value: getSupplementaryComponentItem(
 				supplementaryComponentsDisplayValues,
-				caseData.additionalDetails.policyComplianceDocument
+				caseData.additionalDetails.policyComplianceDocument,
+				caseData.keyDates.preApplication.policyComplianceDocumentSubmittedDate
 			),
 			actions: [
 				{
-					href: policyComplianceDocumentURL,
+					href: editPageURLs.policyComplianceDocument,
 					text: genericHrefText,
 					visuallyHiddenText: 'policy compliance document (PCD)'
 				}
@@ -336,13 +335,14 @@ export const getFeesForecastingViewModel = async ({ caseData, invoices, meetings
 		},
 		{
 			key: 'Design approach document (DAD)',
-			value: getDisplayValue(
+			value: getSupplementaryComponentItem(
 				supplementaryComponentsDisplayValues,
-				caseData.additionalDetails.designApproachDocument
+				caseData.additionalDetails.designApproachDocument,
+				caseData.keyDates.preApplication.designApproachDocumentSubmittedDate
 			),
 			actions: [
 				{
-					href: designApproachDocumentURL,
+					href: editPageURLs.designApproachDocument,
 					text: genericHrefText,
 					visuallyHiddenText: 'design approach document (DAD)'
 				}
@@ -350,13 +350,14 @@ export const getFeesForecastingViewModel = async ({ caseData, invoices, meetings
 		},
 		{
 			key: 'Mature outline control documents',
-			value: getDisplayValue(
+			value: getSupplementaryComponentItem(
 				supplementaryComponentsDisplayValues,
-				caseData.additionalDetails.matureOutlineControlDocument
+				caseData.additionalDetails.matureOutlineControlDocument,
+				caseData.keyDates.preApplication.matureOutlineControlDocumentSubmittedDate
 			),
 			actions: [
 				{
-					href: matureOutlineControlDocumentURL,
+					href: editPageURLs.matureOutlineControlDocument,
 					text: genericHrefText,
 					visuallyHiddenText: 'mature outline control documents'
 				}
@@ -364,13 +365,14 @@ export const getFeesForecastingViewModel = async ({ caseData, invoices, meetings
 		},
 		{
 			key: 'CA and TP evidence',
-			value: getDisplayValue(
+			value: getSupplementaryComponentItem(
 				supplementaryComponentsDisplayValues,
-				caseData.additionalDetails.caAndTpEvidence
+				caseData.additionalDetails.caAndTpEvidence,
+				caseData.keyDates.preApplication.caAndTpEvidenceSubmittedDate
 			),
 			actions: [
 				{
-					href: caAndTpEvidenceURL,
+					href: editPageURLs.caAndTpEvidence,
 					text: genericHrefText,
 					visuallyHiddenText: 'CA and TP evidence'
 				}
@@ -378,13 +380,14 @@ export const getFeesForecastingViewModel = async ({ caseData, invoices, meetings
 		},
 		{
 			key: 'Public sector equality duty (PSED)',
-			value: getDisplayValue(
+			value: getSupplementaryComponentItem(
 				supplementaryComponentsDisplayValues,
-				caseData.additionalDetails.publicSectorEqualityDuty
+				caseData.additionalDetails.publicSectorEqualityDuty,
+				caseData.keyDates.preApplication.publicSectorEqualityDutySubmittedDate
 			),
 			actions: [
 				{
-					href: publicSectorEqualityDutyURL,
+					href: editPageURLs.publicSectorEqualityDuty,
 					text: genericHrefText,
 					visuallyHiddenText: 'public sector equality duty (PSED)'
 				}
@@ -392,13 +395,14 @@ export const getFeesForecastingViewModel = async ({ caseData, invoices, meetings
 		},
 		{
 			key: 'Fast track admission document',
-			value: getDisplayValue(
+			value: getSupplementaryComponentItem(
 				supplementaryComponentsDisplayValues,
-				caseData.additionalDetails.fastTrackAdmissionDocument
+				caseData.additionalDetails.fastTrackAdmissionDocument,
+				caseData.keyDates.preApplication.fastTrackAdmissionDocumentSubmittedDate
 			),
 			actions: [
 				{
-					href: fastTrackAdmissionDocumentURL,
+					href: editPageURLs.fastTrackAdmissionDocument,
 					text: genericHrefText,
 					visuallyHiddenText: 'fast track admission document'
 				}
@@ -406,13 +410,14 @@ export const getFeesForecastingViewModel = async ({ caseData, invoices, meetings
 		},
 		{
 			key: 'Multiparty application readiness gate-check (trial)',
-			value: getDisplayValue(
+			value: getSupplementaryComponentItem(
 				supplementaryComponentsDisplayValues,
-				caseData.additionalDetails.multipartyApplicationCheckDocument
+				caseData.additionalDetails.multipartyApplicationCheckDocument,
+				caseData.keyDates.preApplication.multipartyApplicationCheckDocumentSubmittedDate
 			),
 			actions: [
 				{
-					href: multipartyApplicationCheckDocumentURL,
+					href: editPageURLs.multipartyApplicationCheckDocument,
 					text: genericHrefText,
 					visuallyHiddenText: 'multiparty application readiness gate-check (trial)'
 				}
@@ -426,7 +431,7 @@ export const getFeesForecastingViewModel = async ({ caseData, invoices, meetings
 			html: getLinkHTML(caseData.additionalDetails.programmeDocumentURI, '#'),
 			actions: [
 				{
-					href: documentLinkURL,
+					href: editPageURLs.documentLink,
 					text: genericHrefText,
 					visuallyHiddenText: 'link to programme document'
 				}
@@ -434,12 +439,12 @@ export const getFeesForecastingViewModel = async ({ caseData, invoices, meetings
 		},
 		{
 			key: 'Date updated programme document is received',
-			value: formatUnixTimestamp(
+			value: formatDateForDisplay(
 				caseData.keyDates.preApplication.updatedProgrammeDocumentReceivedDate
 			),
 			actions: [
 				{
-					href: updatedDocumentReceivedDateURL,
+					href: editPageURLs.updatedDocumentReceivedDate,
 					text: genericHrefText,
 					visuallyHiddenText: 'date updated programme document is received'
 				}
@@ -447,12 +452,12 @@ export const getFeesForecastingViewModel = async ({ caseData, invoices, meetings
 		},
 		{
 			key: 'Date programme document reviewed by EST',
-			value: formatUnixTimestamp(
+			value: formatDateForDisplay(
 				caseData.keyDates.preApplication.programmeDocumentReviewedByEstDate
 			),
 			actions: [
 				{
-					href: documentReviewedByEstDateURL,
+					href: editPageURLs.documentReviewedByEstDate,
 					text: genericHrefText,
 					visuallyHiddenText: 'date programme document reviewed by EST'
 				}
@@ -460,10 +465,10 @@ export const getFeesForecastingViewModel = async ({ caseData, invoices, meetings
 		},
 		{
 			key: 'Date case team issued comments on programme document',
-			value: formatUnixTimestamp(caseData.keyDates.preApplication.caseTeamIssuedCommentsDate),
+			value: formatDateForDisplay(caseData.keyDates.preApplication.caseTeamIssuedCommentsDate),
 			actions: [
 				{
-					href: caseTeamIssuedCommentsDateURL,
+					href: editPageURLs.caseTeamIssuedCommentsDate,
 					text: genericHrefText,
 					visuallyHiddenText: 'date case team issued comments on programme document'
 				}

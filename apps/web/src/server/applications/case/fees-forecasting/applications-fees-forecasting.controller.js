@@ -8,8 +8,7 @@ import { getInvoices, getMeetings } from './applications-fees-forecasting.servic
  */
 export async function getFeesForecastingIndex(request, response) {
 	const { caseId } = response.locals;
-	const invoices = await getInvoices(caseId);
-	const meetings = await getMeetings(caseId);
+	const [invoices, meetings] = await Promise.all([getInvoices(caseId), getMeetings(caseId)]);
 
 	const viewModel = await getFeesForecastingViewModel({
 		caseData: response.locals.case,

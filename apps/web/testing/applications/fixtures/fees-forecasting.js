@@ -44,7 +44,8 @@ export const fixtureFeesForecasting = {
 				programmeDocumentReviewedByEstDate: 1746969600,
 				caseTeamIssuedCommentsDate: 1749273600,
 				memLastUpdated: 1710000000,
-				principalAreaDisagreementSummaryStmtSubmittedDate: 1710000000
+				principalAreaDisagreementSummaryStmtSubmittedDate: 1710000000,
+				fastTrackAdmissionDocumentSubmittedDate: 1749273600
 			}
 		}
 	},
