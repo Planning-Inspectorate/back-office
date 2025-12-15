@@ -170,7 +170,7 @@ describe('applications fees and forecasting view-model', () => {
 					{
 						key: { text: 'Additional comments (optional)' },
 						value: {
-							html: `<p id="additional-comments" class="govuk-body" data-full="Some comments"><span class="comment-text"></span></br><a href="#" class="comment-toggle govuk-link govuk-link--no-visited-state">See more</a><noscript>Some comments</noscript></p>`
+							html: `Some comments`
 						},
 						actions: {
 							items: [
