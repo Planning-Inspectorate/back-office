@@ -2,33 +2,32 @@ export const genericHrefText = 'Change';
 export const meetingsHrefText = 'Change';
 export const feesHrefText = 'Review';
 
-export const newMaturityURL = '#';
-export const examiningInspectorsURL = '#';
-export const memLastUpdatedURL = '#';
-export const additionalCommentsURL = '#';
-
-export const tierURL = '#';
-export const s61SummaryURL = '#';
-export const scopingDateURL = '#';
-export const adequacyDateURL = '#';
-export const planProcessURL = '#';
-export const anticipatedDateURL = '#';
-
-export const issuesTrackerURL = '#';
-export const essentialFastTrackComponentsURL = '#';
-export const principalAreaDisagreementSummaryStmtURL = '#';
-export const policyComplianceDocumentURL = '#';
-export const designApproachDocumentURL = '#';
-export const matureOutlineControlDocumentURL = '#';
-export const caAndTpEvidenceURL = '#';
-export const publicSectorEqualityDutyURL = '#';
-export const fastTrackAdmissionDocumentURL = '#';
-export const multipartyApplicationCheckDocumentURL = '#';
-
-export const documentLinkURL = '#';
-export const updatedDocumentReceivedDateURL = '#';
-export const documentReviewedByEstDateURL = '#';
-export const caseTeamIssuedCommentsDateURL = '#';
+export const editPageURLs = {
+	newMaturity: '#',
+	examiningInspectors: '#',
+	memLastUpdated: '#',
+	additionalComments: '#',
+	tier: '#',
+	s61Summary: '#',
+	scopingDate: '#',
+	adequacyDate: '#',
+	planProcess: '#',
+	anticipatedDate: '#',
+	issuesTracker: '#',
+	essentialFastTrackComponents: '#',
+	principalAreaDisagreementSummaryStmt: '#',
+	policyComplianceDocument: '#',
+	designApproachDocument: '#',
+	matureOutlineControlDocument: '#',
+	caAndTpEvidence: '#',
+	publicSectorEqualityDuty: '#',
+	fastTrackAdmissionDocument: '#',
+	multipartyApplicationCheckDocument: '#',
+	documentLink: '#',
+	updatedDocumentReceivedDate: '#',
+	documentReviewedByEstDate: '#',
+	caseTeamIssuedCommentsDate: '#'
+};
 
 export const newMaturityDisplayValues = {
 	a: 'A',

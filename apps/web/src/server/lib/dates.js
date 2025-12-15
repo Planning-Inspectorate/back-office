@@ -1,6 +1,7 @@
-import { isPast, endOfDay } from 'date-fns';
+import { isPast, endOfDay, format } from 'date-fns';
 import { formatInTimeZone } from 'date-fns-tz';
 import enGB from 'date-fns/locale/en-GB/index.js';
+import logger from './logger.js';
 
 export const timeZone = 'Europe/London';
 
@@ -53,6 +54,28 @@ export function dateToDisplayDate(date, { condensed = false } = {}) {
 	return formatInTimeZone(new Date(date), timeZone, condensed ? 'd MMM yyyy' : 'd MMMM yyyy', {
 		locale: enGB
 	});
+}
+
+/**
+ * @param {Date | number | string | null | undefined} dateToFormat
+ * @param {string} formatString
+ * @returns {string}
+ */
+export function formatDateForDisplay(dateToFormat, formatString = 'dd MMM yyyy') {
+	if (typeof dateToFormat === 'undefined' || dateToFormat === null || dateToFormat === '0000-00-00')
+		return '';
+
+	//if date is a 10 digit number assume it's a timestamp and make it parsable by new Date()
+	if (typeof dateToFormat === 'number' && dateToFormat.toString().length === 10) {
+		dateToFormat = dateToFormat * 1000;
+	}
+
+	try {
+		return format(new Date(dateToFormat), formatString);
+	} catch (error) {
+		logger.error(`Received error from formatDateForDisplay: ${error}`);
+		return '';
+	}
 }
 
 /**
