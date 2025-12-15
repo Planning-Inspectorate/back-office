@@ -125,7 +125,7 @@ export const getFeesForecastingViewModel = async ({ caseData, invoices, meetings
 		},
 		{
 			key: 'Additional comments (optional)',
-			html: `<p id="additional-comments" class="govuk-body" data-full="${caseData.additionalDetails.additionalComments}"><span class="comment-text"></span></br><a href="#" class="comment-toggle govuk-link govuk-link--no-visited-state">See more</a><noscript>${caseData.additionalDetails.additionalComments}</noscript></p>`,
+			html: `${caseData.additionalDetails.additionalComments}`,
 			actions: [
 				{
 					href: additionalCommentsURL,
