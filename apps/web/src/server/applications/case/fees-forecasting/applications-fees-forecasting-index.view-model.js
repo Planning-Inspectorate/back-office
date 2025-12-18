@@ -122,7 +122,9 @@ export const getFeesForecastingViewModel = async ({ caseData, invoices, meetings
 		},
 		{
 			key: 'Additional comments (optional)',
-			html: `${caseData.additionalDetails.additionalComments}`,
+			html: caseData.additionalDetails.additionalComments
+				? `${caseData.additionalDetails.additionalComments}`
+				: '',
 			actions: [
 				{
 					href: editPageURLs.additionalComments,
