@@ -10,6 +10,7 @@ import {
 import { buildSummaryListRows } from '../../../lib/summary-list-mapper.js';
 import { buildTable } from '../../../lib/table-mapper.js';
 import { formatDateForDisplay } from '../../../lib/dates.js';
+import { isPast, isToday, isFuture } from 'date-fns';
 
 /**
  * Determines the status tag for an invoice.
@@ -18,6 +19,10 @@ import { formatDateForDisplay } from '../../../lib/dates.js';
  * @returns {string}
  */
 export function getStatusTag(invoice) {
+	const dueDateIsPast = isPast(new Date(invoice.paymentDueDate));
+	const dueDateIsToday = isToday(new Date(invoice.paymentDueDate));
+	const dueDateIsFuture = isFuture(new Date(invoice.paymentDueDate));
+
 	if (invoice.refundIssueDate) {
 		return `<strong class="govuk-tag govuk-tag--purple">Refunded</strong>`;
 	}
@@ -26,11 +31,15 @@ export function getStatusTag(invoice) {
 		return `<strong class="govuk-tag govuk-tag--green">Paid</strong>`;
 	}
 
-	if (invoice.paymentDueDate) {
+	if (invoice.paymentDueDate && (dueDateIsToday || dueDateIsPast)) {
 		return `<strong class="govuk-tag govuk-tag--orange">Due</strong>`;
 	}
 
-	return `<strong class="govuk-tag govuk-tag--yellow">Issued</strong>`;
+	if (invoice.paymentDueDate && dueDateIsFuture) {
+		return `<strong class="govuk-tag govuk-tag--yellow">Issued</strong>`;
+	}
+
+	return '';
 }
 
 /**
@@ -74,9 +83,9 @@ export const getSupplementaryComponentItem = (displayValues, submissionStatus, s
 
 /**
  * @param {object|*} params
- * @returns {Promise<{ selectedPageType: string, internalUseSection: Array<Object>, accordionSections: Array<Object> }>}
+ * @returns {object}
  */
-export const getFeesForecastingViewModel = async ({ caseData, invoices, meetings }) => {
+export const getFeesForecastingViewModel = ({ caseData, invoices, meetings }) => {
 	const internalUseSectionItems = [
 		{
 			key: 'New maturity',

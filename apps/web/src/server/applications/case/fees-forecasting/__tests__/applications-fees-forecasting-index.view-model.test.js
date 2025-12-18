@@ -1,3 +1,4 @@
+import { jest } from '@jest/globals';
 import {
 	getStatusTag,
 	getLinkHTML,
@@ -15,6 +16,16 @@ const mockDisplayValues = {
 
 describe('applications fees forecasting view-model', () => {
 	describe('#getStatusTag', () => {
+		beforeAll(() => {
+			const mockDate = new Date('2025-11-20T00:00:00.000Z');
+			jest.useFakeTimers({ advanceTimers: true }).setSystemTime(mockDate);
+		});
+
+		afterAll(() => {
+			jest.runOnlyPendingTimers();
+			jest.useRealTimers();
+		});
+
 		it('should return the Refunded tag HTML if there is a refund issue date', () => {
 			const invoice = {
 				paymentDueDate: '2025-10-10T00:00:00.000Z',
@@ -37,9 +48,9 @@ describe('applications fees forecasting view-model', () => {
 			expect(result).toEqual('<strong class="govuk-tag govuk-tag--green">Paid</strong>');
 		});
 
-		it('should return the Due tag HTML if there is a payment due date', () => {
+		it('should return the Due tag HTML if there is a payment due date and it is today', () => {
 			const invoice = {
-				paymentDueDate: '2025-10-25T00:00:00.000Z',
+				paymentDueDate: '2025-11-20T00:00:00.000Z',
 				paymentDate: null,
 				refundIssueDate: null
 			};
@@ -48,7 +59,29 @@ describe('applications fees forecasting view-model', () => {
 			expect(result).toEqual('<strong class="govuk-tag govuk-tag--orange">Due</strong>');
 		});
 
-		it('should return the Issued tag HTML if there is no payment due date, payment date or refund date', () => {
+		it('should return the Due tag HTML if there is a payment due date and it is in the past', () => {
+			const invoice = {
+				paymentDueDate: '2025-11-15T00:00:00.000Z',
+				paymentDate: null,
+				refundIssueDate: null
+			};
+			const result = getStatusTag(invoice);
+
+			expect(result).toEqual('<strong class="govuk-tag govuk-tag--orange">Due</strong>');
+		});
+
+		it('should return the Issued tag HTML if there is a payment due date and it is in the future', () => {
+			const invoice = {
+				paymentDueDate: '2025-12-30T00:00:00.000Z',
+				paymentDate: null,
+				refundIssueDate: null
+			};
+			const result = getStatusTag(invoice);
+
+			expect(result).toEqual('<strong class="govuk-tag govuk-tag--yellow">Issued</strong>');
+		});
+
+		it('should return an empty string if no refund issue date, payment date or payment due date', () => {
 			const invoice = {
 				paymentDueDate: null,
 				paymentDate: null,
@@ -56,7 +89,7 @@ describe('applications fees forecasting view-model', () => {
 			};
 			const result = getStatusTag(invoice);
 
-			expect(result).toEqual('<strong class="govuk-tag govuk-tag--yellow">Issued</strong>');
+			expect(result).toEqual('');
 		});
 	});
 
@@ -136,8 +169,8 @@ describe('applications fees forecasting view-model', () => {
 	});
 
 	describe('#getFeesForecastingViewModel', () => {
-		it('should return fees and forecasting data mapped to the view model', async () => {
-			const result = await getFeesForecastingViewModel(fixtureFeesForecasting);
+		it('should return fees and forecasting data mapped to the view model', () => {
+			const result = getFeesForecastingViewModel(fixtureFeesForecasting);
 
 			expect(result).toEqual({
 				selectedPageType: 'fees-forecasting',

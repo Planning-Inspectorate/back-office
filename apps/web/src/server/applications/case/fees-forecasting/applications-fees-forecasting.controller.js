@@ -10,7 +10,7 @@ export async function getFeesForecastingIndex(request, response) {
 	const { caseId } = response.locals;
 	const [invoices, meetings] = await Promise.all([getInvoices(caseId), getMeetings(caseId)]);
 
-	const viewModel = await getFeesForecastingViewModel({
+	const viewModel = getFeesForecastingViewModel({
 		caseData: response.locals.case,
 		invoices,
 		meetings
