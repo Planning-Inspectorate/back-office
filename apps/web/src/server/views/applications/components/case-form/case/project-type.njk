@@ -1,0 +1,11 @@
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+{% macro subProjectType(values, errors, subProjectTypes, fieldset) %}
+	{{ govukRadios({
+		name: "subProjectType",
+		fieldset: fieldset,
+		idPrefix: "subProjectType",
+		errorMessage: errors.subProjectType | errorMessage,
+		items: subProjectTypes | selectItems({valueKey: 'name', labelKey: 'displayNameEn', selectedValue: values.subProjectType})
+	}) }}
+{% endmacro %}

@@ -31,6 +31,13 @@
     {% set row = row | concat({ text: values['case.subSector'], classes: 'pins-table__cell--s' }) %}
     {% set row = row | concat({ html: '<a id="subSector" class="govuk-link" href="' + baseUrl + 'sub-sector/edit">' + 'Change' + '</a>', classes: 'text-align--right pins-table__cell--s' }) %}
     {% set rows = rows | concat([row]) %}
+	{% if values['case.subProjectType'] %}
+		{% set row = [] %}
+		{% set row = row | concat({ text: 'Project type', classes: 'font-weight--700 pins-table__cell--s' }) %}
+		{% set row = row | concat({ text: values['case.subProjectType'], classes: 'pins-table__cell--s' }) %}
+		{% set row = row | concat({ html: '<a id="subProjectType" class="govuk-link" href="' + baseUrl + 'project-type/edit">' + 'Change' + '</a>', classes: 'text-align--right pins-table__cell--s' }) %}
+		{% set rows = rows | concat([row]) %}
+	{%  endif %}
     {% set row = [] %}
     {% set row = row | concat({ text: 'Project location', classes: 'font-weight--700 pins-table__cell--s' }) %}
     {% set row = row | concat({ text: values['case.location'], classes: 'pins-table__cell--s' }) %}

@@ -574,6 +574,12 @@ resource "azurerm_cdn_frontdoor_firewall_policy" "wfe" {
       operator       = "Equals"
       selector       = "titleWelsh"
     }
+
+    exclusion {
+      match_variable = "RequestBodyPostArgNames"
+      operator       = "Equals"
+      selector       = "redactedRepresentation"
+    }
   }
 
   managed_rule {

@@ -54,7 +54,7 @@
 						{% set subsectionHeading = 'Other dates' %}
 					{% endif %}
 
-					{{ createSummaryList(subsectionData, subsectionKey, subsectionHeading, caseId) }}
+					{{ createSummaryList(subsectionData, subsectionKey, subsectionHeading, caseId, headingMap, isRelevantRepresentationsReOpened, projectFormLink) }}
 				{% endfor %}
 			{% endset %}
 

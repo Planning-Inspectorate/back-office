@@ -326,7 +326,7 @@ exports[`Applications case pages Preview and publish page POST /case/123/preview
                     <p class='govuk-!-font-size-19'>Case: Title CASE/04
                         <br>Reference: CASE/04</p>
                 </div>
-            </div><a href="/applications-service/case/4/" class="govuk-link"> Go back to Overview</a>
+            </div><a href="/applications-service/case/4/overview" class="govuk-link"> Go back to Overview</a>
         </div>
     </div>
 </main>"
@@ -353,7 +353,7 @@ exports[`Applications case pages Project information page GET /case/123/project-
                 <h2 class="govuk-visually-hidden">Case Details Menu</h2>
                 <nav>
                     <ul class="gov-list pins-list-menu">
-                        <li><a class="govuk-link " href="/applications-service/case/4/"> Overview</a>
+                        <li><a class="govuk-link " href="/applications-service/case/4/overview"> Overview</a>
                         </li>
                         <li><a class="govuk-link " href="/applications-service/case/4/key-dates"> Key dates</a>
                         </li>
@@ -554,7 +554,7 @@ exports[`Applications case pages Project information page GET /case/123/project-
                 <h2 class="govuk-visually-hidden">Case Details Menu</h2>
                 <nav>
                     <ul class="gov-list pins-list-menu">
-                        <li><a class="govuk-link " href="/applications-service/case/4/"> Overview</a>
+                        <li><a class="govuk-link " href="/applications-service/case/4/overview"> Overview</a>
                         </li>
                         <li><a class="govuk-link " href="/applications-service/case/4/key-dates"> Key dates</a>
                         </li>
@@ -755,7 +755,7 @@ exports[`Applications case pages Project information page GET /case/123/project-
                 <h2 class="govuk-visually-hidden">Case Details Menu</h2>
                 <nav>
                     <ul class="gov-list pins-list-menu">
-                        <li><a class="govuk-link " href="/applications-service/case/4/"> Overview</a>
+                        <li><a class="govuk-link " href="/applications-service/case/4/overview"> Overview</a>
                         </li>
                         <li><a class="govuk-link " href="/applications-service/case/4/key-dates"> Key dates</a>
                         </li>
@@ -969,7 +969,7 @@ exports[`Applications case pages Unpublish case page POST /case/123/unpublish sh
                     <p class='govuk-!-font-size-19'>Case: Title CASE/04
                         <br>Reference: CASE/04</p>
                 </div>
-            </div><a href="/applications-service/case/4/" class="govuk-link"> Go back to Overview</a>
+            </div><a href="/applications-service/case/4/overview" class="govuk-link"> Go back to Overview</a>
         </div>
     </div>
 </main>"
