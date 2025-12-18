@@ -19,7 +19,8 @@
 				key: item.key,
 				value: {
 					html: excerpt(item.value.html, 70, 'more', false)
-				}
+				},
+				actions: item.actions
 			} %}
 			{% set updatedInternalUseSection = updatedInternalUseSection.concat([newItem]) %}
 		{% else %}
