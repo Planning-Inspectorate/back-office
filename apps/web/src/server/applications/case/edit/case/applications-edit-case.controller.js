@@ -14,7 +14,9 @@ import {
 	caseTeamEmailDataUpdate,
 	caseZoomLevelData,
 	caseZoomLevelDataUpdate,
-	isMaterialChangeDataUpdate
+	isMaterialChangeDataUpdate,
+	caseProjectTypeData,
+	caseProjectTypeDataUpdate
 } from '../../../common/components/form/form-case.component.js';
 import { getUpdatedField } from '../applications-edit.service.js';
 import { getIsMaterialChangeStaticDataViewModel } from '../../../../lib/static-data-view-models.js';
@@ -109,6 +111,12 @@ const isMaterialChangeLayout = {
 	isEdit: true
 };
 
+const projectTypeLayout = {
+	pageTitle: 'Choose a project type',
+	components: ['project-type'],
+	isEdit: true
+};
+
 /** @type {Record<string, string>} */
 const fullFieldNames = {
 	title: 'Project name',
@@ -123,7 +131,9 @@ const fullFieldNames = {
 	'geographicalInformation.gridReference.northing': 'Grid references',
 	'geographicalInformation.regions': 'Regions',
 	'geographicalInformation.mapZoomLevelName': 'Map zoom level',
-	isMaterialChange: 'Material change'
+	isMaterialChange: 'Material change',
+	'additionalDetails.subProjectType': 'Project type'
+
 };
 
 /** @typedef {import('../../../create-new-case/case/applications-create-case.types.js').ApplicationsCreateCaseNameProps} ApplicationsCreateCaseNameProps */
@@ -145,6 +155,8 @@ const fullFieldNames = {
 /** @typedef {import('../../../create-new-case/case/applications-create-case.types.js').ApplicationsCreateCaseIsMaterialChangeBody} ApplicationsCreateCaseIsMaterialChangeBody */
 /** @typedef {import('../../../create-new-case/case/applications-create-case.types.js').ApplicationsCreateCaseIsMaterialChangeProps} ApplicationsCreateCaseIsMaterialChangeProps */
 /** @typedef {import('../../../create-new-case/case/applications-create-case.types.js').ApplicationsCreateCaseIsMaterialChangeRes} ApplicationsCreateCaseIsMaterialChangeRes */
+/** @typedef {import('../../../create-new-case/case/applications-create-case.types.js').ApplicationsCreateCaseProjectTypeProps} ApplicationsCreateCaseProjectTypeProps */
+/** @typedef {import('../../../create-new-case/case/applications-create-case.types.js').ApplicationsCreateCaseProjectTypeBody} ApplicationsCreateCaseProjectTypeBody */
 
 /**
  * View the form step for editing the case description
@@ -586,4 +598,64 @@ export async function updateApplicationsEditIsMaterialChange(request, response) 
 			? `/applications-service/case/${updatedCaseId}/overview`
 			: `/applications-service/case/${updatedCaseId}/project-information`
 	);
+}
+
+/**
+ * View the form step for editing project type
+ *
+ * @type {import('@pins/express').RenderHandler<*, *>}
+ */
+export async function viewApplicationsEditProjectType(request, response) {
+	const properties = await caseProjectTypeData(request, response.locals);
+	console.log('#### properties', properties);
+	response.render(resolveTemplate(projectTypeLayout), {
+		...properties,
+		layout: projectTypeLayout,
+		backLinkUrl: `/applications-service/case/${response.locals.caseId}/overview`
+	});
+}
+
+/**
+ * Edit the project type
+ *
+ * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseProjectTypeProps, {},
+ *  ApplicationsCreateCaseProjectTypeBody, {}, {edit?: string}>}
+ */
+export async function updateApplicationsEditProjectType(request, response) {
+    // If no previous value and nothing selected now, show error on this page
+    const existing = response.locals.currentCase?.additionalDetails?.subProjectType;
+    const submitted =
+        (request.body?.['additionalDetails.subProjectType'] ?? request.body?.subProjectType ?? '').trim();
+
+    if (!existing && !submitted) {
+        const properties = await caseProjectTypeData(request, response.locals);
+        properties.errors = {
+            'additionalDetails.subProjectType': { msg: 'Choose the type of project' }
+        };
+
+        return response.render(resolveTemplate(projectTypeLayout), {
+            ...properties,
+            layout: projectTypeLayout,
+            backLinkUrl: `/applications-service/case/${response.locals.caseId}/overview`
+        });
+    }
+
+    // Proceed with normal update flow
+    const { properties, updatedCaseId } = await caseProjectTypeDataUpdate(request, response.locals);
+
+    if (properties.errors || !updatedCaseId) {
+        return response.render(resolveTemplate(projectTypeLayout), {
+            ...properties,
+            layout: projectTypeLayout,
+            backLinkUrl: `/applications-service/case/${response.locals.caseId}/overview`
+        });
+    }
+
+    setSessionBanner(request.session, `${fullFieldNames['additionalDetails.subProjectType']} updated`);
+
+    return response.redirect(
+        featureFlagClient.isFeatureActive('applic-55-welsh-translation')
+            ? `/applications-service/case/${updatedCaseId}/overview`
+            : `/applications-service/case/${updatedCaseId}/project-information`
+    );
 }

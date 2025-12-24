@@ -11,11 +11,20 @@ const { app, installMockApi, teardown } = createTestEnvironment();
 const request = supertest(app);
 
 const nocks = () => {
-	nock('http://test/').get('/applications').reply(200, {});
-	nock('http://test/').get('/applications/123').reply(200, fixtureCases[3]);
+    nock('http://test/').get('/applications').reply(200, {});
+    // default case nock
+    nock('http://test/').get('/applications/123').reply(200, fixtureCases[3]);
+    // nock for project team
+    nock('http://test/').get('/applications/123/project-team').reply(200, {
+        members: fixtureProjectTeamMembers
+    });
 };
 
 const baseUrl = '/applications-service/case/123';
+const overviewUrl = `${baseUrl}/overview`;
+// Disable fees and forecasting flag so the page link does not display in the nav menu HTML for other pages
+const flags = staticFlags;
+flags['applics-1845-fees-forecasting'] = false;
 
 // Disable fees and forecasting flag so the page link does not display in the nav menu HTML for other pages
 const flags = staticFlags;
@@ -34,6 +43,68 @@ describe('Applications case pages', () => {
 		await request.get('/applications-service/');
 
 		installMockADToken(fixtureProjectTeamMembers);
+	});
+
+	describe('Overview page', () => {
+		describe('GET /case/123/overview', () => {
+			it('should render the page with a publish button if subsector is not generating_stations', async () => {
+				// The default nock in beforeEach is for a non-generating station case.
+				const response = await request.get(overviewUrl);
+				const element = parseHtml(response.text);
+
+				// Look for any element that acts as a publish button or link.
+				const publishActionElement =
+					element.querySelector('a[href*="preview-and-publish"]') ||
+					element.querySelector('button[formaction*="preview-and-publish"]') ||
+					element.querySelector('.govuk-button');
+
+				expect(publishActionElement).not.toBeNull();
+				const text = publishActionElement?.textContent?.trim() || '';
+				expect(text).toMatch(/Publish|Preview and publish/);
+			});
+
+			it('should render the page with project type info if subsector is generating_stations', async () => {
+				const generatingStationCase = {
+					...fixtureCases[3],
+					subSector: { name: 'generating_stations', displayNameEn: 'Generating stations' }
+				};
+				// Override the default case nock for this specific test
+				nock('http://test/').get('/applications/123').reply(200, generatingStationCase);
+
+				const response = await request.get(overviewUrl);
+				const element = parseHtml(response.text);
+
+				// Check if the page contains text related to "Project type"
+				const pageContainsProjectType = /Project type/i.test(response.text);
+
+				expect(pageContainsProjectType).toBe(true);
+			});
+		});
+
+		describe('POST /case/123/overview', () => {
+			it('should show a validation error when generating_stations and project type is blank', async () => {
+				const generatingStationCase = {
+					...fixtureCases[3],
+					subSector: { name: 'generating_stations', displayNameEn: 'Generating stations' }
+				};
+				// Override nocks for this test
+				nock('http://test/').get('/applications/123').reply(200, generatingStationCase);
+				nock('http://test/').get('/applications/123/project-team').reply(200, {
+					members: fixtureProjectTeamMembers
+				});
+
+				const responsePost = await request.post(overviewUrl).type('form').send({
+					organisationName: 'Org',
+					subSectorName: 'Generating stations',
+					subProjectType: '' // blank
+				});
+
+				// Expect a re-render with the top error summary
+				expect(responsePost.status).toBe(200);
+				expect(responsePost.text).toMatch(/govuk-error-summary/);
+				expect(responsePost.text).toMatch(/Enter a project type/i);
+			});
+		});
 	});
 
 	describe('Project information page', () => {
