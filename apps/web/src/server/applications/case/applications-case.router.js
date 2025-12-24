@@ -18,6 +18,12 @@ const applicationsCaseRouter = createRouter();
 const applicationsCaseSummaryRouter = createRouter({ mergeParams: true });
 
 applicationsCaseRouter.use('/:caseId', locals.registerCase);
+
+// Add overview GET/POST
+applicationsCaseRouter
+    .route('/:caseId/overview')
+    .get(asyncHandler(controller.viewApplicationsCaseOverview));
+
 applicationsCaseRouter.use('/:caseId/relevant-representations', relevantRepsRouter);
 applicationsCaseRouter.use('/:caseId/project-updates', projectUpdatesRouter);
 
@@ -55,21 +61,21 @@ applicationsCaseSummaryRouter
 	.get(asyncHandler(controller.viewApplicationsCaseInformation));
 
 applicationsCaseSummaryRouter
-	.route('/overview')
-	.get(
-		asyncHandler(
-			/** @type {import('@pins/express').RenderHandler<{}>} */ (req, res) =>
-				featureFlagClient.isFeatureActive('applic-55-welsh-translation')
-					? controller.viewApplicationsCaseOverview(req, res)
-					: controller.viewApplicationsCaseOverviewLegacy(req, res)
-		)
-	)
-	.post(
-		[validators.validateApplicationsCreateCaseOrganisationName],
-		[validators.validateApplicationsCreateCaseNameWelsh],
-		[validators.validateApplicationsCreateCaseDescriptionWelsh],
-		[validators.validateApplicationsCreateCaseLocationWelsh],
-		asyncHandler(controller.validateApplicationsCaseOverview)
-	);
+    .route('/overview')
+    .get(
+        asyncHandler(
+            /** @type {import('@pins/express').RenderHandler<{}>} */ (req, res) =>
+                featureFlagClient.isFeatureActive('applic-55-welsh-translation')
+                    ? controller.viewApplicationsCaseOverview(req, res)
+                    : controller.viewApplicationsCaseOverviewLegacy(req, res)
+        )
+    )
+    .post(
+        [validators.validateApplicationsCreateCaseOrganisationName],
+        [validators.validateApplicationsCreateCaseNameWelsh],
+        [validators.validateApplicationsCreateCaseDescriptionWelsh],
+        [validators.validateApplicationsCreateCaseLocationWelsh],
+        asyncHandler(controller.validateApplicationsCaseOverview)
+    );
 
 export default applicationsCaseRouter;

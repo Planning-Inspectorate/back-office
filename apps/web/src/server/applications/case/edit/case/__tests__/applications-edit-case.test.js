@@ -337,4 +337,47 @@ describe('applications edit', () => {
 			});
 		});
 	});
+
+	describe('Project type', () => {
+		const baseUrl = (id) => `/applications-service/case/${id}/edit/project-type`;
+
+		beforeEach(async () => {
+			await request.get('/applications-service/');
+			// Extend existing nocks for these tests
+			nock('http://test/')
+				.get(/\/applications\/3(.*)?/g)
+				.times(3)
+				.reply(200, fixtureCases[3]);
+			nock('http://test/')
+				.get(/\/applications\/4(.*)?/g)
+				.times(3)
+				.reply(200, fixtureCases[4]);
+			// sectors/subsectors
+			nock('http://test/').get('/applications/sector').reply(200, fixtureSectors);
+			nock('http://test/')
+				.get('/applications/sector?sectorName=energy')
+				.reply(200, fixtureSubSectors);
+		});
+
+		it('GET should render the Project type page', async () => {
+			const response = await request.get(baseUrl('3'));
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+			expect(element.innerHTML).toContain('Choose a project type');
+		});
+
+		it('POST with no selection and no existing value should show an error (Scenario 4)', async () => {
+			// Case 4 has no resumed value for several fields; use it to simulate "added retrospectively"
+			const responsePost = await request
+				.post(baseUrl('4'))
+				.type('form')
+				.send({}); // no selection
+
+			const element = parseHtml(responsePost.text);
+			const summary = element.querySelector('.govuk-error-summary');
+			expect(summary).not.toBeNull();
+			expect(summary?.innerHTML).toMatch(/Choose the type of project/i);
+		});
+	});
 });

@@ -178,6 +178,62 @@ exports[`applications edit Name Project location GET edit/:caseId/project-locati
 </main>"
 `;
 
+exports[`applications edit Project type GET should render the Project type page 1`] = `
+"<main class="govuk-main-wrapper" id="main-content">
+    <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
+        <div class="govuk-form-group">
+            <fieldset class="govuk-fieldset">
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                    <h1 class="govuk-fieldset__heading"> Choose a project type</h1>
+                </legend>
+                <div class="govuk-radios" data-module="govuk-radios">
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="subProjectType" name="subProjectType"
+                        type="radio" value="energy_from_waste">
+                        <label class="govuk-label govuk-radios__label" for="subProjectType">Energy from waste</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="subProjectType-2" name="subProjectType"
+                        type="radio" value="gas_power_station">
+                        <label class="govuk-label govuk-radios__label" for="subProjectType-2">Gas power station</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="subProjectType-3" name="subProjectType"
+                        type="radio" value="hydrogen_power_station">
+                        <label class="govuk-label govuk-radios__label" for="subProjectType-3">Hydrogen power station</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="subProjectType-4" name="subProjectType"
+                        type="radio" value="nuclear">
+                        <label class="govuk-label govuk-radios__label" for="subProjectType-4">Nuclear</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="subProjectType-5" name="subProjectType"
+                        type="radio" value="offshore_wind">
+                        <label class="govuk-label govuk-radios__label" for="subProjectType-5">Offshore wind</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="subProjectType-6" name="subProjectType"
+                        type="radio" value="onshore_wind">
+                        <label class="govuk-label govuk-radios__label" for="subProjectType-6">Onshore wind</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="subProjectType-7" name="subProjectType"
+                        type="radio" value="solar">
+                        <label class="govuk-label govuk-radios__label" for="subProjectType-7">Solar</label>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <div class="govuk-grid-row">
+            <div class="govuk-button-group govuk-grid-column-one-half">
+                <button type="submit" class="govuk-button" data-module="govuk-button">Save changes</button>
+            </div>
+        </div>
+    </form>
+</main>"
+`;
+
 exports[`applications edit Regions GET /edit/regions should render the page with checked options if the api returns something 1`] = `
 "<main class="govuk-main-wrapper" id="main-content">
     <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
