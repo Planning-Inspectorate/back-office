@@ -58,7 +58,7 @@ applicationsCaseSummaryRouter
 	.route('/overview')
 	.get(
 		asyncHandler(
-			/** @type {import('@pins/express').RenderHandler<{}>} */ (req, res) =>
+			/** @type {import('@pins/express').RenderHandlerNoNext<{}>} */ (req, res) =>
 				featureFlagClient.isFeatureActive('applic-55-welsh-translation')
 					? controller.viewApplicationsCaseOverview(req, res)
 					: controller.viewApplicationsCaseOverviewLegacy(req, res)

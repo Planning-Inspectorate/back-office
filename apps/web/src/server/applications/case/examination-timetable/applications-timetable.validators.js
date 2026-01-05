@@ -12,7 +12,7 @@ import {
 } from '../../common/validators/times.validators.js';
 import { timetableTemplatesSchema } from './applications-timetable.controller.js';
 
-/** @typedef {import('express').RequestHandler} RequestHandler */
+/** @typedef {import('@pins/express/types/express.d.ts').AsyncRequestHandler} AsyncRequestHandler */
 /** @typedef {import("express-validator").ValidationChain} ValidationChain */
 
 /**
@@ -99,7 +99,7 @@ const fieldValidationsCreators = {
 /**
  * Dispatch the POST route to the right validator
  *
- * @type {RequestHandler}
+ * @type {AsyncRequestHandler}
  */
 export const validatorsDispatcher = async (request, response, next) => {
 	const templateValidations = [];
