@@ -46,8 +46,7 @@ export const getExaminationTimetableItems = async ({ params }, response) => {
 	const examinationTimetableItemsForCase = await pMap(
 		examinationTimetableItems,
 		async (item) => {
-			const submissions = await service.validateSubmissions(item, examinationTimetable.caseId);
-
+			const submissions = await folderRepository.getDocumentCount(item.folderId);
 			return {
 				...item,
 				submissions,
@@ -185,11 +184,9 @@ export const createExaminationTimetableItem = async ({ body }, response) => {
 		throw new BackOfficeAppError('Failed to create sub folder for the examination item.', 500);
 	}
 
-	const project = await caseRepository.getById(body.caseId, { sector: true });
-
 	// now send broadcast event for folder creation - ignoring folders on training cases.
 	try {
-		await verifyNotTraining(body.caseId);
+		const project = await verifyNotTraining(body.caseId);
 
 		await eventClient.sendEvents(
 			FOLDER,
