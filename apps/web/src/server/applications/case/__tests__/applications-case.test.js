@@ -58,7 +58,6 @@ it('should render the page with a publish button if subsector is not generating_
      // The default nock in beforeEach is for a non-generating station case.
      const response = await request.get(`${baseUrl}/overview`);
      const element = parseHtml(response.text);
-console.log('###', element.innerHTML)
      // Look for any element that acts as a publish button or link.
      const publishActionElement =
       element.querySelector('a[href*="preview-and-publish"]') ||
@@ -67,7 +66,6 @@ console.log('###', element.innerHTML)
 
      expect(element.innerHTML).toContain('Publish');
      const text = publishActionElement?.textContent?.trim() || '';
-     console.log('###1', text)
      expect(text).toMatch(/Publish|Preview and publish/);
     });
 
