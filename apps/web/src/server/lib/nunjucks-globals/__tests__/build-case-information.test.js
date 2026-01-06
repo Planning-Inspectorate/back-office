@@ -123,4 +123,32 @@ describe('buildCaseInformation Nunjucks global', () => {
 			fullResult.filter((row) => !row.url?.includes('welsh'))
 		);
 	});
+
+	it('Includes Project type only for Energy / Generating stations', () => {
+		const paramsGenerating = {
+			...fullParams,
+			case: {
+				...fullParams.case,
+				sector: { displayNameEn: 'Energy' },
+				subSector: { name: 'generating_stations', displayNameEn: 'Generating stations' },
+				additionalDetails: { subProjectType: 'onshore_wind' }
+			}
+		};
+		const rowsGenerating = buildCaseInformation(paramsGenerating, true);
+		expect(rowsGenerating.some((r) => r.title === 'Project type' && r.url === 'project-type')).toBe(true);
+
+		const paramsNonEnergy = {
+			...paramsGenerating,
+			case: { ...paramsGenerating.case, sector: { displayNameEn: 'Transport' } }
+		};
+		const rowsNonEnergy = buildCaseInformation(paramsNonEnergy, true);
+		expect(rowsNonEnergy.some((r) => r.title === 'Project type')).toBe(false);
+
+		const paramsNonGenerating = {
+			...paramsGenerating,
+			case: { ...paramsGenerating.case, subSector: { name: 'pipelines', displayNameEn: 'Pipelines' } }
+		};
+		const rowsNonGenerating = buildCaseInformation(paramsNonGenerating, true);
+		expect(rowsNonGenerating.some((r) => r.title === 'Project type')).toBe(false);
+	});
 });
