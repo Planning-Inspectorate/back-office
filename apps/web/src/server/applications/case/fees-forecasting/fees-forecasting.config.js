@@ -1,11 +1,9 @@
 export const genericHrefText = 'Change';
-export const meetingsHrefText = 'Change';
 export const feesHrefText = 'Review';
 
 export const editPageURLs = {
 	newMaturity: '#',
 	examiningInspectors: '#',
-	memLastUpdated: '#',
 	additionalComments: '#',
 	tier: '#',
 	s61Summary: '#',
@@ -57,4 +55,17 @@ export const supplementaryComponentsDisplayValues = {
 	submitted_by_applicant: 'Submitted',
 	awaiting_submission: 'Awaiting submission',
 	not_applicable: 'Not applicable'
+};
+
+export const urlSectionNames = {
+	memLastUpdated: 'maturity-evaluation-matrix'
+};
+
+export const sectionData = {
+	memLastUpdated: {
+		pageTitle: 'MEM last updated',
+		pageHeading: 'Maturity Evaluation Matrix (MEM) last updated',
+		fieldName: 'memLastUpdated',
+		componentType: 'date-input'
+	}
 };

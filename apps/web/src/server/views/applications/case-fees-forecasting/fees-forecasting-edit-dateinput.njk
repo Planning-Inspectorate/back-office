@@ -1,0 +1,39 @@
+{% extends "../layouts/applications.layout.njk" %}
+
+{% from "govuk/components/date-input/macro.njk" import govukDateInput %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from '../components/inputs/date-input.component.njk' import dateInput %}
+
+{% block beforeContent %}
+	<aside>
+		{{ govukBackLink({
+			text: "Back",
+			href: 'fees-forecasting'|url({caseId: caseId})
+		}) }}
+	</aside>
+{% endblock %}
+
+{% block pageHeading %}
+	<h1 class="govuk-heading-l">{{ pageHeading }}</h1>
+{% endblock %}
+
+{% block pageContent %}
+	<form method="post" action="" novalidate="novalidate">
+		{{ dateInput({
+			layout: {
+				fieldName: fieldName,
+				label: '',
+				classes: 'govuk-grid-column-one-third',
+				hint: ''
+			},
+			errors: errors,
+			values: values
+		}) }}
+
+		{{ govukButton({
+			text: "Save and return",
+			type: "submit"
+		}) }}
+	</form>
+
+{% endblock %}

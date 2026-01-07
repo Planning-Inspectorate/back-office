@@ -4,7 +4,7 @@ import {
 	getLinkHTML,
 	getSupplementaryComponentItem,
 	getDisplayValue,
-	getFeesForecastingViewModel
+	getFeesForecastingIndexViewModel
 } from '../applications-fees-forecasting-index.view-model.js';
 import { fixtureFeesForecasting } from '../../../../../../testing/applications/fixtures/fees-forecasting.js';
 
@@ -168,9 +168,9 @@ describe('applications fees forecasting view-model', () => {
 		});
 	});
 
-	describe('#getFeesForecastingViewModel', () => {
-		it('should return fees and forecasting data mapped to the view model', () => {
-			const result = getFeesForecastingViewModel(fixtureFeesForecasting);
+	describe('#getFeesForecastingIndexViewModel', () => {
+		it('should return fees and forecasting data mapped to the index view model', () => {
+			const result = getFeesForecastingIndexViewModel(fixtureFeesForecasting);
 
 			expect(result).toEqual({
 				selectedPageType: 'fees-forecasting',
@@ -207,7 +207,7 @@ describe('applications fees forecasting view-model', () => {
 						actions: {
 							items: [
 								{
-									href: '#',
+									href: '/applications-service/case/4/fees-forecasting/maturity-evaluation-matrix',
 									text: 'Change',
 									visuallyHiddenText: 'MEM last updated'
 								}

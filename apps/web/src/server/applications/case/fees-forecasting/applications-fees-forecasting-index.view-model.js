@@ -5,15 +5,17 @@ import {
 	newMaturityDisplayValues,
 	tierDisplayValues,
 	invoiceStageDisplayValues,
-	supplementaryComponentsDisplayValues
+	supplementaryComponentsDisplayValues,
+	urlSectionNames
 } from './fees-forecasting.config.js';
 import { buildSummaryListRows } from '../../../lib/summary-list-mapper.js';
 import { buildTable } from '../../../lib/table-mapper.js';
 import { formatDateForDisplay } from '../../../lib/dates.js';
+import { url } from '../../../lib/nunjucks-filters/url.js';
 import { isPast, isToday, isFuture } from 'date-fns';
 
 /**
- * Determines the status tag for an invoice.
+ * Determines the status tag for an invoice
  *
  * @param {object|*} invoice
  * @returns {string}
@@ -43,7 +45,7 @@ export function getStatusTag(invoice) {
 }
 
 /**
- * Creates HTML string for link text.
+ * Creates HTML string for links
  *
  * @param {string|null} linkText
  * @param {string} href
@@ -53,7 +55,17 @@ export const getLinkHTML = (linkText, href) =>
 	linkText ? `<a href="${href}" class="govuk-link">${linkText}</a>` : '';
 
 /**
- * Converts snake_case enum value into string for display.
+ * Creates edit page URLs
+ *
+ * @param {string} sectionName
+ * @param {number} caseId
+ * @returns {string}
+ */
+export const getEditPageURL = (sectionName, caseId) =>
+	sectionName ? url('fees-forecasting', { caseId, step: sectionName }) : '';
+
+/**
+ * Converts snake_case enum value into string for display
  *
  * @param {Record<string,string>} displayValues
  * @param {string|null} enumValue
@@ -63,7 +75,7 @@ export const getDisplayValue = (displayValues, enumValue) =>
 	enumValue ? displayValues[enumValue] : '';
 
 /**
- * Displays submission date if item has been submitted.
+ * Displays submission date if item has been submitted
  *
  * @param {Record<string,string>} displayValues
  * @param {string|null} submissionStatus
@@ -85,7 +97,7 @@ export const getSupplementaryComponentItem = (displayValues, submissionStatus, s
  * @param {object|*} params
  * @returns {object}
  */
-export const getFeesForecastingViewModel = ({ caseData, invoices, meetings }) => {
+export const getFeesForecastingIndexViewModel = ({ caseData, invoices, meetings }) => {
 	const internalUseSectionItems = [
 		{
 			key: 'New maturity',
@@ -123,7 +135,7 @@ export const getFeesForecastingViewModel = ({ caseData, invoices, meetings }) =>
 			value: formatDateForDisplay(caseData.keyDates.preApplication.memLastUpdated),
 			actions: [
 				{
-					href: editPageURLs.memLastUpdated,
+					href: getEditPageURL(urlSectionNames.memLastUpdated, caseData.id),
 					text: genericHrefText,
 					visuallyHiddenText: 'MEM last updated'
 				}
