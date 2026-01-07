@@ -339,6 +339,7 @@ describe('applications edit', () => {
 	});
 
 	describe('Project type', () => {
+		/** @param {string | number} id */
 		const baseUrl = (id) => `/applications-service/case/${id}/edit/project-type`;
 
 		beforeEach(async () => {
@@ -369,15 +370,12 @@ describe('applications edit', () => {
 
 		it('POST with no selection and no existing value should show an error (Scenario 4)', async () => {
 			// Case 4 has no resumed value for several fields; use it to simulate "added retrospectively"
-			const responsePost = await request
-				.post(baseUrl('4'))
-				.type('form')
-				.send({}); // no selection
+			const responsePost = await request.post(baseUrl('4')).type('form').send({}); // no selection
 
 			const element = parseHtml(responsePost.text);
 			const summary = element.querySelector('.govuk-error-summary');
 			expect(summary).not.toBeNull();
-			expect(summary?.innerHTML).toMatch(/Choose the type of project/i);
+			expect(summary?.innerHTML).toContain('Choose the project type');
 		});
 	});
 });

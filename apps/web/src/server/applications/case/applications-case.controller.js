@@ -117,22 +117,16 @@ export async function viewApplicationsCaseOverview(request, response) {
 }
 
 /**
- * Validate overview before publishing
+ * Validate applications case overview
  *
  * @type {import('@pins/express').RenderHandler<{}>}
  */
 export async function validateApplicationsCaseOverview(request, response) {
-    const isGenerating = response.locals.case?.subSector?.name === 'generating_stations';
-    const subProjectType = (request.body?.subProjectType || '').trim();
-
-    if (isGenerating && !subProjectType) {
-        request.errors = {
-            'additionalDetails.subProjectType': { msg: 'Enter a project type' }
-        };
-        return viewApplicationsCaseOverview(request, response);
-    }
-
-    return response.redirect(`${request.baseUrl}/preview-and-publish`);
+	if (request.errors) {
+		viewApplicationsCaseOverview(request, response);
+	} else {
+		response.redirect(`${request.baseUrl}/preview-and-publish`);
+	}
 }
 
 /**
@@ -162,17 +156,7 @@ export async function viewApplicationsCaseUnpublishPage(_, response) {
  * @type {import('@pins/express').RenderHandler<{}, {}, {}, {}, {}>}
  */
 export async function viewApplicationsCasePublishPage(request, response) {
-    const isGenerating = response.locals.case?.subSector?.name === 'generating_stations';
-    const hasProjectType = !!response.locals.case?.additionalDetails?.subProjectType;
-
-    if (isGenerating && !hasProjectType) {
-        request.errors = { 'additionalDetails.subProjectType': { msg: 'Enter a project type' } };
-    }
-
-    return response.render(`applications/case/preview-and-publish`, {
-        selectedPageType: 'preview-and-publish',
-        errors: request.errors
-    });
+	response.render(`applications/case/preview-and-publish`);
 }
 
 /**
