@@ -19,9 +19,9 @@
 		<form method="post">
       <input type="hidden" value="{{ case.applicant.organisationName }}" name="organisationName" >
       {% if caseIsGeneratingStation %}
-      <input type="hidden" name="subSectorName" value="{{ case.subSector.displayNameEn | default('') }}" />
+      <input type="hidden" name="subSectorName" value="{{ case.subSector.name }}" />
       <input type="hidden" id="additionalDetails.subProjectType" name="subProjectType"
-         value="{{ (case.additionalDetails and (case.additionalDetails.subProjectTypeName or case.additionalDetails.subProjectType)) | default('') }}" />
+         value="{{ case.additionalDetails.subProjectType }}" />
       {% endif %}
       {% if ('applic-55-welsh-translation' | isFeatureActive) %}
         {% set buttonText = 'Publish latest changes' if case.publishedDate and case.hasUnpublishedChanges else 'Publish project' %}

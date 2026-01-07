@@ -10,18 +10,17 @@ const { app, installMockApi, teardown } = createTestEnvironment();
 const request = supertest(app);
 
 const nocks = () => {
-    nock('http://test/').get('/applications').reply(200, {});
-    // default case nock
-    nock('http://test/').get('/applications/123').reply(200, fixtureCases[3]);
-    // nock for project team
-    nock('http://test/').get('/applications/123/project-team').reply(200, {
-        members: fixtureProjectTeamMembers
-    });
+	nock('http://test/').get('/applications').reply(200, {});
+	// default case nock
+	nock('http://test/').get('/applications/123').reply(200, fixtureCases[3]);
+	// // nock for project team
+	// nock('http://test/').get('/applications/123/project-team').reply(200, {
+	//     members: fixtureProjectTeamMembers
+	// });
 };
 
 const baseUrl = '/applications-service/case/123';
 const overviewUrl = `${baseUrl}/overview`;
-
 
 describe('Applications case pages', () => {
 	beforeEach(installMockApi);
@@ -40,74 +39,97 @@ describe('Applications case pages', () => {
 
 	describe('Overview page', () => {
 		describe('GET /case/123/overview', () => {
-it('should render the page with a publish button if subsector is not generating_stations', async () => {
-     nock('http://test/')
-      .get('/applications/123').reply(200, fixtureCases[3]);
+			it('should render the page with a publish button if subsector is not generating_stations', async () => {
+				nock('http://test/').get('/applications/123').reply(200, fixtureCases[3]);
 
-     nock('http://test/')
-      .get('/applications/4/project-team').reply(200,
-      fixtureProjectTeamMembers
-      );
-     // The default nock in beforeEach is for a non-generating station case.
-     const response = await request.get(`${baseUrl}/overview`);
-     const element = parseHtml(response.text);
-     // Look for any element that acts as a publish button or link.
-     const publishActionElement =
-      element.querySelector('a[href*="preview-and-publish"]') ||
-      element.querySelector('button[formaction*="preview-and-publish"]') ||
-      element.querySelector('.govuk-button');
+				nock('http://test/')
+					.get('/applications/4/project-team')
+					.reply(200, fixtureProjectTeamMembers);
+				// The default nock in beforeEach is for a non-generating station case.
+				const response = await request.get(`${baseUrl}/overview`);
+				const element = parseHtml(response.text);
+				// Look for any element that acts as a publish button or link.
+				const publishActionElement =
+					element.querySelector('a[href*="preview-and-publish"]') ||
+					element.querySelector('button[formaction*="preview-and-publish"]') ||
+					element.querySelector('.govuk-button');
 
-     expect(element.innerHTML).toContain('Publish');
-     const text = publishActionElement?.textContent?.trim() || '';
-     expect(text).toMatch(/Publish|Preview and publish/);
-    });
+				expect(element.innerHTML).toContain('Publish');
+				const text = publishActionElement?.textContent?.trim() || '';
+				expect(text).toMatch(/Publish|Preview and publish/);
+			});
 
 			it('should render the page with project type info if subsector is generating_stations', async () => {
-                const generatingStationCase = {
-                    ...fixtureCases[3],
-                    subSector: { name: 'generating_stations', displayNameEn: 'Generating stations' }
-                };
+				// clean previous mock inside this test block
+				nock.removeInterceptor({
+					hostname: 'test',
+					path: '/applications/123',
+					method: 'GET'
+				});
 
-                // Match the working pattern: case from /applications/123, team from /applications/4/project-team
-                nock('http://test/').get('/applications/123').reply(200, generatingStationCase);
-                nock('http://test/').get('/applications/4/project-team').reply(200, fixtureProjectTeamMembers);
+				const generatingStationCase = {
+					...fixtureCases[3], // base fixture used everywhere else in suite
+					id: 123,
+					sector: { name: 'energy', displayNameEn: 'Energy' },
+					subSector: { name: 'generating_stations', displayNameEn: 'Generating stations' },
+					additionalDetails: { subProjectType: 'solar' }
+				};
 
-                const response = await request.get(`${baseUrl}/overview`);
-                const element = parseHtml(response.text);
+				nock('http://test/').get('/applications/123').reply(200, generatingStationCase);
 
-                expect(response.status).toBe(200);
-                expect(element.innerHTML).toContain('Overview');
-            });
+				nock('http://test/')
+					.get('/applications/123/project-team')
+					.reply(200, fixtureProjectTeamMembers);
+
+				const response = await request.get(`${baseUrl}/overview`);
+				const element = parseHtml(response.text);
+				expect(response.status).toBe(200);
+				expect(element.innerHTML).toContain('Overview');
+				expect(element.innerHTML).toContain('Project type');
+				expect(element.innerHTML).toContain('solar');
+			});
 		});
 
 		describe('POST /case/123/overview', () => {
 			it('should show a validation error when generating_stations and project type is blank', async () => {
-                const generatingStationCase = {
-                    ...fixtureCases[3],
-                    subSector: { name: 'generating_stations', displayNameEn: 'Generating stations' }
-                };
-                // Override nocks for this test
-                nock('http://test/').get('/applications/123').reply(200, generatingStationCase);
-                // Match your working method: project-team endpoint on id 4
-                nock('http://test/')
-                    .get('/applications/4/project-team')
-                    .reply(200, fixtureProjectTeamMembers);
-
-                const responsePost = await request
-                    .post(overviewUrl)
-                    .type('form')
-                    .send({
-                        organisationName: 'Org',
-                        subSectorName: 'Generating stations',
-                        subProjectType: '' // blank
-                    })
-                    .redirects(1); // follow the 302 back to the re-rendered page
-
-                // Expect a re-render with the top error summary
-                expect(responsePost.status).toBe(200);
-                expect(responsePost.text).toMatch(/govuk-error-summary/);
-                expect(responsePost.text).toMatch(/Enter a project type/i);
-            });
+				// Remove the default GET /applications/123 mock
+				nock.removeInterceptor({
+					hostname: 'test',
+					path: '/applications/123',
+					method: 'GET'
+				});
+				// Remove the default GET /applications/123/project-team mock
+				nock.removeInterceptor({
+					hostname: 'test',
+					path: '/applications/123/project-team',
+					method: 'GET'
+				});
+				const generatingStationCase = {
+					...fixtureCases[3],
+					subSector: { name: 'generating_stations', displayNameEn: 'Generating stations' },
+					additionalDetails: { subProjectType: '' }
+				};
+				// Required mocks for POST → redirect → GET render
+				nock('http://test/')
+					.get('/applications/123')
+					.twice() // POST redirects back to GET → called twice
+					.reply(200, generatingStationCase);
+				nock('http://test/')
+					.get('/applications/4/project-team')
+					.reply(200, fixtureProjectTeamMembers);
+				const response = await request
+					.post(overviewUrl)
+					.type('form')
+					.send({
+						organisationName: 'Org',
+						subSectorName: 'Generating stations',
+						subProjectType: '' // intentionally blank
+					})
+					.redirects(1); // follow the POST redirect back to the GET page
+				expect(response.status).toBe(200);
+				expect(response.text).toContain('govuk-error-summary');
+				expect(response.text).toContain('Choose the project type');
+			});
 		});
 	});
 
