@@ -5,21 +5,18 @@ import { fixtureCases } from '../../../../../testing/applications/fixtures/cases
 import { createTestEnvironment } from '../../../../../testing/index.js';
 import { installMockADToken } from '../../../../../testing/app/mocks/project-team.js';
 import { fixtureProjectTeamMembers } from '../../../../../testing/applications/fixtures/project-team.js';
-import staticFlags from '@pins/feature-flags/src/static-feature-flags.js';
 
 const { app, installMockApi, teardown } = createTestEnvironment();
 const request = supertest(app);
 
+//nocks
 const nocks = () => {
 	nock('http://test/').get('/applications').reply(200, {});
 	nock('http://test/').get('/applications/123').reply(200, fixtureCases[3]);
 };
 
 const baseUrl = '/applications-service/case/123';
-
-// Disable fees and forecasting flag so the page link does not display in the nav menu HTML for other pages
-const flags = staticFlags;
-flags['applics-1845-fees-forecasting'] = false;
+const overviewUrl = `${baseUrl}/overview`;
 
 describe('Applications case pages', () => {
 	beforeEach(installMockApi);
@@ -34,6 +31,102 @@ describe('Applications case pages', () => {
 		await request.get('/applications-service/');
 
 		installMockADToken(fixtureProjectTeamMembers);
+	});
+
+	describe('Overview page', () => {
+		describe('GET /case/123/overview', () => {
+			it('should render the page with a publish button if subsector is not generating_stations', async () => {
+				nock('http://test/').get('/applications/123').reply(200, fixtureCases[3]);
+
+				nock('http://test/')
+					.get('/applications/4/project-team')
+					.reply(200, fixtureProjectTeamMembers);
+				// The default nock in beforeEach is for a non-generating station case.
+				const response = await request.get(`${baseUrl}/overview`);
+				const element = parseHtml(response.text);
+				// Look for any element that acts as a publish button or link.
+				const publishActionElement =
+					element.querySelector('a[href*="preview-and-publish"]') ||
+					element.querySelector('button[formaction*="preview-and-publish"]') ||
+					element.querySelector('.govuk-button');
+
+				expect(element.innerHTML).toContain('Publish');
+				const text = publishActionElement?.textContent?.trim() || '';
+				expect(text).toMatch(/Publish|Preview and publish/);
+			});
+
+			it('should render the page with project type info if subsector is generating_stations', async () => {
+				// clean previous mock inside this test block
+				nock.removeInterceptor({
+					hostname: 'test',
+					path: '/applications/123',
+					method: 'GET'
+				});
+
+				const generatingStationCase = {
+					...fixtureCases[3], // base fixture used everywhere else in suite
+					id: 123,
+					sector: { name: 'energy', displayNameEn: 'Energy' },
+					subSector: { name: 'generating_stations', displayNameEn: 'Generating stations' },
+					additionalDetails: { subProjectType: 'solar' }
+				};
+
+				nock('http://test/').get('/applications/123').reply(200, generatingStationCase);
+
+				nock('http://test/')
+					.get('/applications/123/project-team')
+					.reply(200, fixtureProjectTeamMembers);
+
+				const response = await request.get(`${baseUrl}/overview`);
+				const element = parseHtml(response.text);
+				expect(response.status).toBe(200);
+				expect(element.innerHTML).toContain('Overview');
+				expect(element.innerHTML).toContain('Project type');
+				expect(element.innerHTML).toContain('solar');
+			});
+		});
+
+		describe('POST /case/123/overview', () => {
+			it('should show a validation error when generating_stations and project type is blank', async () => {
+				// Remove the default GET /applications/123 mock
+				nock.removeInterceptor({
+					hostname: 'test',
+					path: '/applications/123',
+					method: 'GET'
+				});
+				// Remove the default GET /applications/123/project-team mock
+				nock.removeInterceptor({
+					hostname: 'test',
+					path: '/applications/123/project-team',
+					method: 'GET'
+				});
+				const generatingStationCase = {
+					...fixtureCases[3],
+					subSector: { name: 'generating_stations', displayNameEn: 'Generating stations' },
+					additionalDetails: { subProjectType: '' }
+				};
+				// Required mocks for POST → redirect → GET render
+				nock('http://test/')
+					.get('/applications/123')
+					.twice() // POST redirects back to GET → called twice
+					.reply(200, generatingStationCase);
+				nock('http://test/')
+					.get('/applications/4/project-team')
+					.reply(200, fixtureProjectTeamMembers);
+				const response = await request
+					.post(overviewUrl)
+					.type('form')
+					.send({
+						organisationName: 'Org',
+						subSectorName: 'Generating stations',
+						subProjectType: '' // intentionally blank
+					})
+					.redirects(1); // follow the POST redirect back to the GET page
+				expect(response.status).toBe(200);
+				expect(response.text).toContain('govuk-error-summary');
+				expect(response.text).toContain('Choose the project type');
+			});
+		});
 	});
 
 	describe('Project information page', () => {

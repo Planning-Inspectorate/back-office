@@ -1,6 +1,8 @@
 import { sanitize } from '../nunjucks-filters/sanitize.js';
 import { featureFlagClient } from '../../../common/feature-flags.js';
 import { getIsMaterialChangeStaticDataViewModel } from '../static-data-view-models.js';
+import { getProjectTypeDisplayName } from '../../applications/common/components/mappers/project-types.mapper.js';
+import { SECTORS, SUB_SECTORS } from '../../applications/common/constants.js';
 
 const isMaterialChangeStaticDataViewModel = getIsMaterialChangeStaticDataViewModel();
 
@@ -20,8 +22,9 @@ const isMaterialChangeStaticDataViewModel = getIsMaterialChangeStaticDataViewMod
  * @property {number} id
  * @property {string} reference
  * @property {boolean} isMaterialChange
- * @property {{ displayNameEn: string }} sector
- * @property {{ displayNameEn: string }} subSector
+ * @property {{ name?: string, displayNameEn: string }} sector
+ * @property {{ name?: string, displayNameEn: string }} subSector
+ * @property {{ subProjectType?: string}} [additionalDetails]
  * @property {string | null} title
  * @property {string | null} description
  * @property {string | null} titleWelsh
@@ -49,21 +52,25 @@ export const buildCaseInformation = (params, isWelsh) => [
 		url: 'material-change'
 	},
 	...(params.keyMembers?.caseManager
-		? [
-				{
-					title: 'Case manager',
-					text: params.keyMembers.caseManager
-				}
-		  ]
+		? [{ title: 'Case manager', text: params.keyMembers.caseManager }]
 		: []),
 	...((params.keyMembers?.nsipOfficers ?? []).length > 0
+		? [{ title: 'NSIP officers', text: params.keyMembers?.nsipOfficers.join(', ') }]
+		: []),
+
+	// Show only for Energy / Generating stations
+	...(params.case?.subSector?.name === SUB_SECTORS.GENERATING_STATIONS &&
+	(params.case?.sector?.name || '') === SECTORS.ENERGY
 		? [
 				{
-					title: 'NSIP officers',
-					text: params.keyMembers?.nsipOfficers.join(', ')
+					title: 'Project type',
+					text: getProjectTypeDisplayName(params.case?.additionalDetails?.subProjectType ?? ''),
+					url: 'project-type',
+					classes: 'project-details__project-type'
 				}
 		  ]
 		: []),
+
 	{
 		title: featureFlagClient.isFeatureActive('applic-55-welsh-translation')
 			? 'Regions'

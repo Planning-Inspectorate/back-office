@@ -6,6 +6,8 @@ const propertyToName = {
 	datePINSFirstNotifiedOfProject: 'Date first notified of project',
 	datePINSFirstNotifiedOfProject_label:
 		'Applicant notifies the Planning Inspectorate of a project.',
+	inceptionMeetingDate: 'Date of inception meeting',
+	programmeDocumentSubmissionDate: 'Programme document submission date',
 	dateProjectAppearsOnWebsite: 'Project published on website',
 	submissionAtPublished: 'Anticipated submission date published',
 	submissionAtPublished_label: `Date the Planning Inspectorate expects the application to be submitted. For example, ‘between April and June 2024' or 'in September 2025’`,
@@ -23,6 +25,10 @@ const propertyToName = {
 	section46Notification: 'Section 46 notification',
 	section46Notification_label:
 		'Date Applicant notifies the Planning Inspectorate of statutory consultation.',
+	statutoryConsultationPeriodEndDate: 'Statutory consultation period end date',
+	draftDocumentSubmissionDate: 'Date for submission of draft documents',
+
+	examinationAcceptance: 'Examination acceptance',
 
 	acceptance: 'Acceptance',
 	dateOfDCOSubmission: 'Application submitted (Section 55)',

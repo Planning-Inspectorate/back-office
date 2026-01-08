@@ -7,6 +7,7 @@ import {
 	getManyProjectTeamMembersInfo
 } from '../common/services/project-team.service.js';
 import { isCaseRegionWales } from '../common/isCaseWelsh.js';
+import { SUB_SECTORS } from '../common/constants.js';
 
 /** @typedef {import('../applications.types').Case} Case */
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
@@ -80,6 +81,8 @@ export async function viewApplicationsCaseOverview(request, response) {
 	const caseIsWelsh = await isCaseRegionWales(
 		response.locals.case?.geographicalInformation?.regions
 	);
+	const caseIsGeneratingStation =
+		response.locals.case?.subSector?.name === SUB_SECTORS.GENERATING_STATIONS ?? false;
 
 	/** @type {string | null} */
 	const caseManager = (() => {
@@ -109,7 +112,8 @@ export async function viewApplicationsCaseOverview(request, response) {
 		selectedPageType: 'overview',
 		keyMembers,
 		caseIsWelsh,
-		banner
+		banner,
+		caseIsGeneratingStation
 	});
 }
 

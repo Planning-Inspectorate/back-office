@@ -17,10 +17,14 @@ function splitPreApplicationSection(sections) {
 
 	const preApplicationFields = [
 		'datePINSFirstNotifiedOfProject',
+		'inceptionMeetingDate',
+		'programmeDocumentSubmissionDate',
+		'section46Notification',
+		'statutoryConsultationPeriodEndDate',
+		'draftDocumentSubmissionDate',
 		'dateProjectAppearsOnWebsite',
 		'submissionAtPublished',
-		'submissionAtInternal',
-		'section46Notification'
+		'submissionAtInternal'
 	];
 
 	const screeningAndScopingFields = [

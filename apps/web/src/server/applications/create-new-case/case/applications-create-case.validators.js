@@ -55,6 +55,14 @@ export const validateApplicationsCreateCaseProjectType = createValidator(
 	body('subProjectType').trim().isLength({ min: 1 }).withMessage('Choose the project type')
 );
 
+export const validateApplicationsEditCaseProjectType = createValidator(
+	body('subProjectType')
+		.if(body('subProjectType').exists())
+		.trim()
+		.isLength({ min: 1 })
+		.withMessage('Choose the project type')
+);
+
 export const validateApplicationsCreateCaseRegions = createValidator(
 	body('geographicalInformation.regionNames')
 		.isArray({ min: 1 })
