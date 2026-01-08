@@ -6,6 +6,7 @@
  * @typedef {import('express-session').Session & { showSuccessBanner?: boolean }} SessionWithSuccessBanner
  * @typedef {import('express-session').Session & { documentNameOnDeletion?: string }} SessionWithDocumentNameOnDeletion
  * @typedef {import('express-session').Session & { additionalDetails?: {} }} SessionWithAdditionalDetailsOnDeletion
+ *  @typedef {import('express-session').Session & {projectTypeError?: import('@pins/express').ValidationErrors}} SessionWithProjectTypeError
  */
 
 // Applicant session management
@@ -242,4 +243,31 @@ export function getSessionDocumentNameOnDeletion(session) {
  */
 export function deleteSessionDocumentNameOnDeletion(session) {
 	delete session.documentNameOnDeletion;
+}
+
+/**
+ * Store a project type validation error in the session.
+ *
+ * @param {SessionWithProjectTypeError} session
+ * @param {import('@pins/express').ValidationErrors} errors
+ */
+export function setSessionProjectTypeError(session, errors) {
+	session.projectTypeError = errors;
+}
+/**
+ * Retrieve any stored project type validation error from the session.
+ *
+ * @param {SessionWithProjectTypeError} session
+ * @returns {import('@pins/express').ValidationErrors | undefined}
+ */
+export function getSessionProjectTypeError(session) {
+	return session.projectTypeError;
+}
+/**
+ * Remove the stored project type validation error.
+ *
+ * @param {SessionWithProjectTypeError} session
+ */
+export function deleteSessionProjectTypeError(session) {
+	delete session.projectTypeError;
 }
