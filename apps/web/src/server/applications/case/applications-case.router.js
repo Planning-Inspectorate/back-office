@@ -13,16 +13,12 @@ import applicationsKeyDateRouter from './key-dates/applications-key-dates.router
 import applicationsProjectTeamRouter from './project-team/applications-project-team.router.js';
 import * as validators from '../create-new-case/case/applications-create-case.validators.js';
 import applicationsFeesForecastingRouter from './fees-forecasting/applications-fees-forecasting.router.js';
+import { checkProjectTypeBeforePublish } from './applications-case.middleware.js';
 
 const applicationsCaseRouter = createRouter();
 const applicationsCaseSummaryRouter = createRouter({ mergeParams: true });
 
 applicationsCaseRouter.use('/:caseId', locals.registerCase);
-
-// // Add overview GET/POST
-// applicationsCaseRouter
-//     .route('/:caseId/overview')
-//     .get(asyncHandler(controller.viewApplicationsCaseOverview));
 
 applicationsCaseRouter.use('/:caseId/relevant-representations', relevantRepsRouter);
 applicationsCaseRouter.use('/:caseId/project-updates', projectUpdatesRouter);
@@ -46,7 +42,7 @@ applicationsCaseRouter.use('/:caseId/fees-forecasting', (req, res, next) => {
 
 applicationsCaseRouter
 	.route('/:caseId/preview-and-publish')
-	.get(asyncHandler(controller.viewApplicationsCasePublishPage))
+	.get(checkProjectTypeBeforePublish, asyncHandler(controller.viewApplicationsCasePublishPage))
 	.post(asyncHandler(controller.updateApplicationsCasePublishPage));
 
 applicationsCaseRouter

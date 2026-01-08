@@ -2,6 +2,7 @@ import { sanitize } from '../nunjucks-filters/sanitize.js';
 import { featureFlagClient } from '../../../common/feature-flags.js';
 import { getIsMaterialChangeStaticDataViewModel } from '../static-data-view-models.js';
 import { getProjectTypeDisplayName } from '../../applications/common/components/mappers/project-types.mapper.js';
+import { SECTORS, SUB_SECTORS } from '../../applications/common/constants.js';
 
 const isMaterialChangeStaticDataViewModel = getIsMaterialChangeStaticDataViewModel();
 
@@ -21,7 +22,7 @@ const isMaterialChangeStaticDataViewModel = getIsMaterialChangeStaticDataViewMod
  * @property {number} id
  * @property {string} reference
  * @property {boolean} isMaterialChange
- * @property {{ displayNameEn: string }} sector
+ * @property {{ name?: string, displayNameEn: string }} sector
  * @property {{ name?: string, displayNameEn: string }} subSector
  * @property {{ subProjectType?: string}} [additionalDetails]
  * @property {string | null} title
@@ -58,8 +59,8 @@ export const buildCaseInformation = (params, isWelsh) => [
 		: []),
 
 	// Show only for Energy / Generating stations
-	...(params.case?.subSector?.name === 'generating_stations' &&
-	(params.case?.sector?.displayNameEn || '').toLowerCase() === 'energy'
+	...(params.case?.subSector?.name === SUB_SECTORS.GENERATING_STATIONS &&
+	(params.case?.sector?.name || '') === SECTORS.ENERGY
 		? [
 				{
 					title: 'Project type',
