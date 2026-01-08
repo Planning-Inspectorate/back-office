@@ -39,11 +39,19 @@ export function getFeesForecastingEditSection(request, response) {
 
 	/** @type {Record<string, any>} */
 	const editViewModel = getFeesForecastingEditViewModel(projectName, sectionName);
+	const fieldName = editViewModel?.fieldName || '';
+	/** @type {Record<string, any>} */
+	let values = {};
 
 	if (editViewModel.componentType === 'date-input') {
+		values[fieldName] = response.locals.case.keyDates.preApplication?.[fieldName] || '';
+
 		return response.render(
 			`applications/case-fees-forecasting/fees-forecasting-edit-dateinput.njk`,
-			editViewModel
+			{
+				...editViewModel,
+				values
+			}
 		);
 	}
 }
@@ -96,10 +104,10 @@ export async function updateFeesForecastingEditSection(
 	}
 
 	if (validationErrors || apiErrors) {
-		if (editViewModel.componentType === 'date-input') {
-			const fieldName = editViewModel?.fieldName || '';
-			const values = fieldName && validationErrors ? validationErrors[fieldName].value : {};
+		const fieldName = editViewModel?.fieldName || '';
+		const values = fieldName && validationErrors ? validationErrors[fieldName].value : {};
 
+		if (editViewModel.componentType === 'date-input') {
 			return response.render(
 				`applications/case-fees-forecasting/fees-forecasting-edit-dateinput.njk`,
 				{

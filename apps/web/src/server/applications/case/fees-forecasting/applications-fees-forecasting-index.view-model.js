@@ -1,7 +1,7 @@
 import {
 	feesHrefText,
 	genericHrefText,
-	editPageURLs,
+	editPageURL,
 	newMaturityDisplayValues,
 	tierDisplayValues,
 	invoiceStageDisplayValues,
@@ -104,7 +104,7 @@ export const getFeesForecastingIndexViewModel = ({ caseData, invoices, meetings 
 			value: getDisplayValue(newMaturityDisplayValues, caseData.additionalDetails.newMaturity),
 			actions: [
 				{
-					href: editPageURLs.newMaturity,
+					href: editPageURL,
 					text: genericHrefText,
 					visuallyHiddenText: 'new maturity'
 				}
@@ -124,7 +124,7 @@ export const getFeesForecastingIndexViewModel = ({ caseData, invoices, meetings 
 				.join('<br/>'),
 			actions: [
 				{
-					href: editPageURLs.examiningInspectors,
+					href: editPageURL,
 					text: genericHrefText,
 					visuallyHiddenText: 'examining inspectors'
 				}
@@ -148,7 +148,7 @@ export const getFeesForecastingIndexViewModel = ({ caseData, invoices, meetings 
 				: '',
 			actions: [
 				{
-					href: editPageURLs.additionalComments,
+					href: editPageURL,
 					text: genericHrefText,
 					visuallyHiddenText: 'additional comments'
 				}
@@ -160,14 +160,14 @@ export const getFeesForecastingIndexViewModel = ({ caseData, invoices, meetings 
 		{
 			key: 'Tier',
 			value: getDisplayValue(tierDisplayValues, caseData.additionalDetails.tier),
-			actions: [{ href: editPageURLs.tier, text: genericHrefText, visuallyHiddenText: 'tier' }]
+			actions: [{ href: editPageURL, text: genericHrefText, visuallyHiddenText: 'tier' }]
 		},
 		{
 			key: 'Link to s61 summary',
 			html: getLinkHTML(caseData.additionalDetails.s61SummaryURI, '#'),
 			actions: [
 				{
-					href: editPageURLs.s61Summary,
+					href: editPageURL,
 					text: genericHrefText,
 					visuallyHiddenText: 'link to s61 summary'
 				}
@@ -178,7 +178,7 @@ export const getFeesForecastingIndexViewModel = ({ caseData, invoices, meetings 
 			value: formatDateForDisplay(caseData.keyDates.preApplication.estimatedScopingSubmissionDate),
 			actions: [
 				{
-					href: editPageURLs.scopingDate,
+					href: editPageURL,
 					text: genericHrefText,
 					visuallyHiddenText: 'estimated scoping submission date'
 				}
@@ -191,7 +191,7 @@ export const getFeesForecastingIndexViewModel = ({ caseData, invoices, meetings 
 			),
 			actions: [
 				{
-					href: editPageURLs.adequacyDate,
+					href: editPageURL,
 					text: genericHrefText,
 					visuallyHiddenText: 'adequacy of consultation milestone date'
 				}
@@ -207,7 +207,7 @@ export const getFeesForecastingIndexViewModel = ({ caseData, invoices, meetings 
 					: '',
 			actions: [
 				{
-					href: editPageURLs.planProcess,
+					href: editPageURL,
 					text: genericHrefText,
 					visuallyHiddenText: 'evidence plan process'
 				}
@@ -218,7 +218,7 @@ export const getFeesForecastingIndexViewModel = ({ caseData, invoices, meetings 
 			value: formatDateForDisplay(caseData.keyDates.preApplication.submissionAtInternal),
 			actions: [
 				{
-					href: editPageURLs.anticipatedDate,
+					href: editPageURL,
 					text: genericHrefText,
 					visuallyHiddenText: 'anticipated submission date internal'
 				}
@@ -304,7 +304,7 @@ export const getFeesForecastingIndexViewModel = ({ caseData, invoices, meetings 
 			html: getLinkHTML(caseData.additionalDetails.issuesTracker, '#'),
 			actions: [
 				{
-					href: editPageURLs.issuesTracker,
+					href: editPageURL,
 					text: genericHrefText,
 					visuallyHiddenText: 'link to issues tracker'
 				}
@@ -320,7 +320,7 @@ export const getFeesForecastingIndexViewModel = ({ caseData, invoices, meetings 
 					: '',
 			actions: [
 				{
-					href: editPageURLs.essentialFastTrackComponents,
+					href: editPageURL,
 					text: genericHrefText,
 					visuallyHiddenText: 'essential fast track components'
 				}
@@ -335,7 +335,7 @@ export const getFeesForecastingIndexViewModel = ({ caseData, invoices, meetings 
 			),
 			actions: [
 				{
-					href: editPageURLs.principalAreaDisagreementSummaryStmt,
+					href: editPageURL,
 					text: genericHrefText,
 					visuallyHiddenText: 'principal area disagreement summary statement (PADSS)'
 				}
@@ -350,7 +350,7 @@ export const getFeesForecastingIndexViewModel = ({ caseData, invoices, meetings 
 			),
 			actions: [
 				{
-					href: editPageURLs.policyComplianceDocument,
+					href: editPageURL,
 					text: genericHrefText,
 					visuallyHiddenText: 'policy compliance document (PCD)'
 				}
@@ -365,7 +365,7 @@ export const getFeesForecastingIndexViewModel = ({ caseData, invoices, meetings 
 			),
 			actions: [
 				{
-					href: editPageURLs.designApproachDocument,
+					href: editPageURL,
 					text: genericHrefText,
 					visuallyHiddenText: 'design approach document (DAD)'
 				}
@@ -380,7 +380,7 @@ export const getFeesForecastingIndexViewModel = ({ caseData, invoices, meetings 
 			),
 			actions: [
 				{
-					href: editPageURLs.matureOutlineControlDocument,
+					href: editPageURL,
 					text: genericHrefText,
 					visuallyHiddenText: 'mature outline control documents'
 				}
@@ -395,7 +395,7 @@ export const getFeesForecastingIndexViewModel = ({ caseData, invoices, meetings 
 			),
 			actions: [
 				{
-					href: editPageURLs.caAndTpEvidence,
+					href: editPageURL,
 					text: genericHrefText,
 					visuallyHiddenText: 'CA and TP evidence'
 				}
@@ -410,7 +410,7 @@ export const getFeesForecastingIndexViewModel = ({ caseData, invoices, meetings 
 			),
 			actions: [
 				{
-					href: editPageURLs.publicSectorEqualityDuty,
+					href: editPageURL,
 					text: genericHrefText,
 					visuallyHiddenText: 'public sector equality duty (PSED)'
 				}
@@ -425,7 +425,7 @@ export const getFeesForecastingIndexViewModel = ({ caseData, invoices, meetings 
 			),
 			actions: [
 				{
-					href: editPageURLs.fastTrackAdmissionDocument,
+					href: editPageURL,
 					text: genericHrefText,
 					visuallyHiddenText: 'fast track admission document'
 				}
@@ -440,7 +440,7 @@ export const getFeesForecastingIndexViewModel = ({ caseData, invoices, meetings 
 			),
 			actions: [
 				{
-					href: editPageURLs.multipartyApplicationCheckDocument,
+					href: editPageURL,
 					text: genericHrefText,
 					visuallyHiddenText: 'multiparty application readiness gate-check (trial)'
 				}
@@ -454,7 +454,7 @@ export const getFeesForecastingIndexViewModel = ({ caseData, invoices, meetings 
 			html: getLinkHTML(caseData.additionalDetails.programmeDocumentURI, '#'),
 			actions: [
 				{
-					href: editPageURLs.documentLink,
+					href: editPageURL,
 					text: genericHrefText,
 					visuallyHiddenText: 'link to programme document'
 				}
@@ -467,7 +467,7 @@ export const getFeesForecastingIndexViewModel = ({ caseData, invoices, meetings 
 			),
 			actions: [
 				{
-					href: editPageURLs.updatedDocumentReceivedDate,
+					href: editPageURL,
 					text: genericHrefText,
 					visuallyHiddenText: 'date updated programme document is received'
 				}
@@ -480,7 +480,7 @@ export const getFeesForecastingIndexViewModel = ({ caseData, invoices, meetings 
 			),
 			actions: [
 				{
-					href: editPageURLs.documentReviewedByEstDate,
+					href: editPageURL,
 					text: genericHrefText,
 					visuallyHiddenText: 'date programme document reviewed by EST'
 				}
@@ -491,7 +491,7 @@ export const getFeesForecastingIndexViewModel = ({ caseData, invoices, meetings 
 			value: formatDateForDisplay(caseData.keyDates.preApplication.caseTeamIssuedCommentsDate),
 			actions: [
 				{
-					href: editPageURLs.caseTeamIssuedCommentsDate,
+					href: editPageURL,
 					text: genericHrefText,
 					visuallyHiddenText: 'date case team issued comments on programme document'
 				}

@@ -1,31 +1,6 @@
 export const genericHrefText = 'Change';
 export const feesHrefText = 'Review';
-
-export const editPageURLs = {
-	newMaturity: '#',
-	examiningInspectors: '#',
-	additionalComments: '#',
-	tier: '#',
-	s61Summary: '#',
-	scopingDate: '#',
-	adequacyDate: '#',
-	planProcess: '#',
-	anticipatedDate: '#',
-	issuesTracker: '#',
-	essentialFastTrackComponents: '#',
-	principalAreaDisagreementSummaryStmt: '#',
-	policyComplianceDocument: '#',
-	designApproachDocument: '#',
-	matureOutlineControlDocument: '#',
-	caAndTpEvidence: '#',
-	publicSectorEqualityDuty: '#',
-	fastTrackAdmissionDocument: '#',
-	multipartyApplicationCheckDocument: '#',
-	documentLink: '#',
-	updatedDocumentReceivedDate: '#',
-	documentReviewedByEstDate: '#',
-	caseTeamIssuedCommentsDate: '#'
-};
+export const editPageURL = '#';
 
 export const newMaturityDisplayValues = {
 	a: 'A',
