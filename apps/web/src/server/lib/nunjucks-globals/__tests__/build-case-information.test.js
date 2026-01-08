@@ -129,11 +129,12 @@ describe('buildCaseInformation Nunjucks global', () => {
 			...fullParams,
 			case: {
 				...fullParams.case,
-				sector: { displayNameEn: 'Energy' },
+				sector: { name: 'energy', displayNameEn: 'Energy' },
 				subSector: { name: 'generating_stations', displayNameEn: 'Generating stations' },
 				additionalDetails: { subProjectType: 'onshore_wind' }
 			}
 		};
+		
 		const rowsGenerating = buildCaseInformation(paramsGenerating, true);
 		expect(rowsGenerating.some((r) => r.title === 'Project type' && r.url === 'project-type')).toBe(
 			true
