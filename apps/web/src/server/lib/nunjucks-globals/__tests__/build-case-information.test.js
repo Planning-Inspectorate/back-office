@@ -135,7 +135,9 @@ describe('buildCaseInformation Nunjucks global', () => {
 			}
 		};
 		const rowsGenerating = buildCaseInformation(paramsGenerating, true);
-		expect(rowsGenerating.some((r) => r.title === 'Project type' && r.url === 'project-type')).toBe(true);
+		expect(rowsGenerating.some((r) => r.title === 'Project type' && r.url === 'project-type')).toBe(
+			true
+		);
 
 		const paramsNonEnergy = {
 			...paramsGenerating,
@@ -146,7 +148,10 @@ describe('buildCaseInformation Nunjucks global', () => {
 
 		const paramsNonGenerating = {
 			...paramsGenerating,
-			case: { ...paramsGenerating.case, subSector: { name: 'pipelines', displayNameEn: 'Pipelines' } }
+			case: {
+				...paramsGenerating.case,
+				subSector: { name: 'pipelines', displayNameEn: 'Pipelines' }
+			}
 		};
 		const rowsNonGenerating = buildCaseInformation(paramsNonGenerating, true);
 		expect(rowsNonGenerating.some((r) => r.title === 'Project type')).toBe(false);
