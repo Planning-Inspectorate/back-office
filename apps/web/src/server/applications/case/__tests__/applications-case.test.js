@@ -9,14 +9,10 @@ import { fixtureProjectTeamMembers } from '../../../../../testing/applications/f
 const { app, installMockApi, teardown } = createTestEnvironment();
 const request = supertest(app);
 
+//nocks
 const nocks = () => {
 	nock('http://test/').get('/applications').reply(200, {});
-	// default case nock
 	nock('http://test/').get('/applications/123').reply(200, fixtureCases[3]);
-	// // nock for project team
-	// nock('http://test/').get('/applications/123/project-team').reply(200, {
-	//     members: fixtureProjectTeamMembers
-	// });
 };
 
 const baseUrl = '/applications-service/case/123';

@@ -134,7 +134,7 @@ describe('buildCaseInformation Nunjucks global', () => {
 				additionalDetails: { subProjectType: 'onshore_wind' }
 			}
 		};
-		
+
 		const rowsGenerating = buildCaseInformation(paramsGenerating, true);
 		expect(rowsGenerating.some((r) => r.title === 'Project type' && r.url === 'project-type')).toBe(
 			true
