@@ -3242,6 +3242,168 @@ export const spec = {
 					format: 'date-time'
 				}
 			}
+		},
+		FeesForecasting: {
+			type: 'object',
+			properties: {
+				newMaturity: {
+					type: 'string',
+					enum: ['a', 'b', 'c', 'd', 'e', 'f', 'g'],
+					example: 'a'
+				},
+				numberBand2Inspectors: {
+					type: 'integer',
+					example: 4
+				},
+				numberBand3Inspectors: {
+					type: 'integer',
+					example: 1
+				},
+				memLastUpdated: {
+					type: 'string',
+					format: 'date-time',
+					example: '2026-01-09T00:00:00.000Z'
+				},
+				additionalComments: {
+					type: 'string',
+					example: 'Some comments'
+				},
+				tier: {
+					type: 'string',
+					enum: ['basic', 'standard', 'enhanced'],
+					example: 'basic'
+				},
+				s61SummaryURI: {
+					type: 'string',
+					example: 's61-summary.com'
+				},
+				estimatedScopingSubmissionDate: {
+					type: 'string',
+					format: 'date-time',
+					example: '2026-01-09T00:00:00.000Z'
+				},
+				consultationMilestoneAdequacyDate: {
+					type: 'string',
+					format: 'date-time',
+					example: '2026-01-09T00:00:00.000Z'
+				},
+				planProcessEvidence: {
+					type: 'boolean',
+					example: true
+				},
+				submissionAtInternal: {
+					type: 'string',
+					format: 'date-time',
+					example: '2026-01-09T00:00:00.000Z'
+				},
+				issuesTracker: {
+					type: 'string',
+					example: 'issues-tracker.com'
+				},
+				essentialFastTrackComponents: {
+					type: 'boolean',
+					example: false
+				},
+				principalAreaDisagreementSummaryStmt: {
+					type: 'string',
+					enum: ['submitted_by_applicant', 'awaiting_submission', 'not_applicable'],
+					example: 'submitted_by_applicant'
+				},
+				principalAreaDisagreementSummaryStmtSubmittedDate: {
+					type: 'string',
+					format: 'date-time',
+					example: '2026-01-09T00:00:00.000Z'
+				},
+				policyComplianceDocument: {
+					type: 'string',
+					enum: ['submitted_by_applicant', 'awaiting_submission', 'not_applicable'],
+					example: 'submitted_by_applicant'
+				},
+				policyComplianceDocumentSubmittedDate: {
+					type: 'string',
+					format: 'date-time',
+					example: '2026-01-09T00:00:00.000Z'
+				},
+				designApproachDocument: {
+					type: 'string',
+					enum: ['submitted_by_applicant', 'awaiting_submission', 'not_applicable'],
+					example: 'submitted_by_applicant'
+				},
+				designApproachDocumentSubmittedDate: {
+					type: 'string',
+					format: 'date-time',
+					example: '2026-01-09T00:00:00.000Z'
+				},
+				matureOutlineControlDocument: {
+					type: 'string',
+					enum: ['submitted_by_applicant', 'awaiting_submission', 'not_applicable'],
+					example: 'submitted_by_applicant'
+				},
+				matureOutlineControlDocumentSubmittedDate: {
+					type: 'string',
+					format: 'date-time',
+					example: '2026-01-09T00:00:00.000Z'
+				},
+				caAndTpEvidence: {
+					type: 'string',
+					enum: ['submitted_by_applicant', 'awaiting_submission', 'not_applicable'],
+					example: 'submitted_by_applicant'
+				},
+				caAndTpEvidenceSubmittedDate: {
+					type: 'string',
+					format: 'date-time',
+					example: '2026-01-09T00:00:00.000Z'
+				},
+				publicSectorEqualityDuty: {
+					type: 'string',
+					enum: ['submitted_by_applicant', 'awaiting_submission', 'not_applicable'],
+					example: 'submitted_by_applicant'
+				},
+				publicSectorEqualityDutySubmittedDate: {
+					type: 'string',
+					format: 'date-time',
+					example: '2026-01-09T00:00:00.000Z'
+				},
+				fastTrackAdmissionDocument: {
+					type: 'string',
+					enum: ['submitted_by_applicant', 'awaiting_submission', 'not_applicable'],
+					example: 'submitted_by_applicant'
+				},
+				fastTrackAdmissionDocumentSubmittedDate: {
+					type: 'string',
+					format: 'date-time',
+					example: '2026-01-09T00:00:00.000Z'
+				},
+				multipartyApplicationCheckDocument: {
+					type: 'string',
+					enum: ['submitted_by_applicant', 'awaiting_submission', 'not_applicable'],
+					example: 'submitted_by_applicant'
+				},
+				multipartyApplicationCheckDocumentSubmittedDate: {
+					type: 'string',
+					format: 'date-time',
+					example: '2026-01-09T00:00:00.000Z'
+				},
+				programmeDocumentURI: {
+					type: 'string',
+					example: 'programme-document.com'
+				},
+				updatedProgrammeDocumentReceivedDate: {
+					type: 'string',
+					format: 'date-time',
+					example: '2026-01-09T00:00:00.000Z'
+				},
+				programmeDocumentReviewedByEstDate: {
+					type: 'string',
+					format: 'date-time',
+					example: '2026-01-09T00:00:00.000Z'
+				},
+				caseTeamIssuedCommentsDate: {
+					type: 'string',
+					format: 'date-time',
+					example: '2026-01-09T00:00:00.000Z'
+				}
+			}
 		}
 	},
 	components: {}

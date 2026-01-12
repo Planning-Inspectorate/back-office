@@ -5,6 +5,7 @@ import { fixtureCases } from '../../../../../testing/applications/fixtures/cases
 import { createTestEnvironment } from '../../../../../testing/index.js';
 import { installMockADToken } from '../../../../../testing/app/mocks/project-team.js';
 import { fixtureProjectTeamMembers } from '../../../../../testing/applications/fixtures/project-team.js';
+import staticFlags from '@pins/feature-flags/src/static-feature-flags.js';
 
 const { app, installMockApi, teardown } = createTestEnvironment();
 const request = supertest(app);
@@ -17,6 +18,10 @@ const nocks = () => {
 
 const baseUrl = '/applications-service/case/123';
 const overviewUrl = `${baseUrl}/overview`;
+
+// Disable fees and forecasting flag so the page link does not display in the nav menu HTML for other pages
+const flags = staticFlags;
+flags['applics-1845-fees-forecasting'] = false;
 
 describe('Applications case pages', () => {
 	beforeEach(installMockApi);

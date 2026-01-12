@@ -3080,3 +3080,126 @@ export interface InvoiceCreateOrUpdateRequest {
 	/** @format date-time */
 	refundIssueDate?: string;
 }
+
+export interface FeesForecasting {
+	/** @example "a" */
+	newMaturity?: 'a' | 'b' | 'c' | 'd' | 'e' | 'f' | 'g';
+	/** @example 4 */
+	numberBand2Inspectors?: number;
+	/** @example 1 */
+	numberBand3Inspectors?: number;
+	/**
+	 * @format date-time
+	 * @example "2026-01-09T00:00:00.000Z"
+	 */
+	memLastUpdated?: string;
+	/** @example "Some comments" */
+	additionalComments?: string;
+	/** @example "basic" */
+	tier?: 'basic' | 'standard' | 'enhanced';
+	/** @example "s61-summary.com" */
+	s61SummaryURI?: string;
+	/**
+	 * @format date-time
+	 * @example "2026-01-09T00:00:00.000Z"
+	 */
+	estimatedScopingSubmissionDate?: string;
+	/**
+	 * @format date-time
+	 * @example "2026-01-09T00:00:00.000Z"
+	 */
+	consultationMilestoneAdequacyDate?: string;
+	/** @example true */
+	planProcessEvidence?: boolean;
+	/**
+	 * @format date-time
+	 * @example "2026-01-09T00:00:00.000Z"
+	 */
+	submissionAtInternal?: string;
+	/** @example "issues-tracker.com" */
+	issuesTracker?: string;
+	/** @example false */
+	essentialFastTrackComponents?: boolean;
+	/** @example "submitted_by_applicant" */
+	principalAreaDisagreementSummaryStmt?:
+		| 'submitted_by_applicant'
+		| 'awaiting_submission'
+		| 'not_applicable';
+	/**
+	 * @format date-time
+	 * @example "2026-01-09T00:00:00.000Z"
+	 */
+	principalAreaDisagreementSummaryStmtSubmittedDate?: string;
+	/** @example "submitted_by_applicant" */
+	policyComplianceDocument?: 'submitted_by_applicant' | 'awaiting_submission' | 'not_applicable';
+	/**
+	 * @format date-time
+	 * @example "2026-01-09T00:00:00.000Z"
+	 */
+	policyComplianceDocumentSubmittedDate?: string;
+	/** @example "submitted_by_applicant" */
+	designApproachDocument?: 'submitted_by_applicant' | 'awaiting_submission' | 'not_applicable';
+	/**
+	 * @format date-time
+	 * @example "2026-01-09T00:00:00.000Z"
+	 */
+	designApproachDocumentSubmittedDate?: string;
+	/** @example "submitted_by_applicant" */
+	matureOutlineControlDocument?:
+		| 'submitted_by_applicant'
+		| 'awaiting_submission'
+		| 'not_applicable';
+	/**
+	 * @format date-time
+	 * @example "2026-01-09T00:00:00.000Z"
+	 */
+	matureOutlineControlDocumentSubmittedDate?: string;
+	/** @example "submitted_by_applicant" */
+	caAndTpEvidence?: 'submitted_by_applicant' | 'awaiting_submission' | 'not_applicable';
+	/**
+	 * @format date-time
+	 * @example "2026-01-09T00:00:00.000Z"
+	 */
+	caAndTpEvidenceSubmittedDate?: string;
+	/** @example "submitted_by_applicant" */
+	publicSectorEqualityDuty?: 'submitted_by_applicant' | 'awaiting_submission' | 'not_applicable';
+	/**
+	 * @format date-time
+	 * @example "2026-01-09T00:00:00.000Z"
+	 */
+	publicSectorEqualityDutySubmittedDate?: string;
+	/** @example "submitted_by_applicant" */
+	fastTrackAdmissionDocument?: 'submitted_by_applicant' | 'awaiting_submission' | 'not_applicable';
+	/**
+	 * @format date-time
+	 * @example "2026-01-09T00:00:00.000Z"
+	 */
+	fastTrackAdmissionDocumentSubmittedDate?: string;
+	/** @example "submitted_by_applicant" */
+	multipartyApplicationCheckDocument?:
+		| 'submitted_by_applicant'
+		| 'awaiting_submission'
+		| 'not_applicable';
+	/**
+	 * @format date-time
+	 * @example "2026-01-09T00:00:00.000Z"
+	 */
+	multipartyApplicationCheckDocumentSubmittedDate?: string;
+	/** @example "programme-document.com" */
+	programmeDocumentURI?: string;
+	/**
+	 * @format date-time
+	 * @example "2026-01-09T00:00:00.000Z"
+	 */
+	updatedProgrammeDocumentReceivedDate?: string;
+	/**
+	 * @format date-time
+	 * @example "2026-01-09T00:00:00.000Z"
+	 */
+	programmeDocumentReviewedByEstDate?: string;
+	/**
+	 * @format date-time
+	 * @example "2026-01-09T00:00:00.000Z"
+	 */
+	caseTeamIssuedCommentsDate?: string;
+}

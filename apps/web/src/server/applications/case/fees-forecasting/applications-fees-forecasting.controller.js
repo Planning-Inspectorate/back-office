@@ -91,9 +91,10 @@ export async function updateFeesForecastingEditSection(
 			} else {
 				const date = new Date(`${year}-${month}-${day}`);
 
-				if (isValid(date)) {
-					feesForecastingData[dateField] = date;
-				}
+				// To align with key dates, users can submit three empty date fields to clear the date from the index page, which requires a null value to be set to replace the existing date in the database.
+				isValid(date)
+					? (feesForecastingData[dateField] = date)
+					: (feesForecastingData[dateField] = null);
 			}
 		});
 	}
@@ -104,10 +105,10 @@ export async function updateFeesForecastingEditSection(
 	}
 
 	if (validationErrors || apiErrors) {
-		const fieldName = editViewModel?.fieldName || '';
-		const values = fieldName && validationErrors ? validationErrors[fieldName].value : {};
-
 		if (editViewModel.componentType === 'date-input') {
+			const fieldName = editViewModel?.fieldName || '';
+			const values = fieldName && validationErrors ? validationErrors[fieldName].value : {};
+
 			return response.render(
 				`applications/case-fees-forecasting/fees-forecasting-edit-dateinput.njk`,
 				{
