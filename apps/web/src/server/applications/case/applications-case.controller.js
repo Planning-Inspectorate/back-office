@@ -1,6 +1,11 @@
 import { BO_GENERAL_S51_CASE_REF } from '@pins/applications';
 import { publishCase, unpublishCase } from '../common/services/case.service.js';
-import { deleteSessionBanner, getSessionBanner } from '../common/services/session.service.js';
+import {
+	deleteSessionBanner,
+	getSessionBanner,
+	getSessionProjectTypeError,
+	deleteSessionProjectTypeError
+} from '../common/services/session.service.js';
 import { allRoles } from './project-team/applications-project-team.controller.js';
 import {
 	getProjectTeam,
@@ -8,6 +13,7 @@ import {
 } from '../common/services/project-team.service.js';
 import { isCaseRegionWales } from '../common/isCaseWelsh.js';
 import { SUB_SECTORS } from '../common/constants.js';
+import { hasRealErrors } from '../../lib/has-real-errors.js';
 
 /** @typedef {import('../applications.types').Case} Case */
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
@@ -84,6 +90,14 @@ export async function viewApplicationsCaseOverview(request, response) {
 	const caseIsGeneratingStation =
 		response.locals.case?.subSector?.name === SUB_SECTORS.GENERATING_STATIONS ?? false;
 
+	const rawErrors = {
+		...(request.errors || {}),
+		...(getSessionProjectTypeError(request.session) || {})
+	};
+	deleteSessionProjectTypeError(request.session);
+
+	const mergedErrors = hasRealErrors(rawErrors) ? rawErrors : null;
+
 	/** @type {string | null} */
 	const caseManager = (() => {
 		const userInfo = teamMembers.find((m) => m.role === 'case_manager');
@@ -108,7 +122,7 @@ export async function viewApplicationsCaseOverview(request, response) {
 	deleteSessionBanner(request.session);
 
 	response.render(`applications/case/overview`, {
-		errors: request.errors,
+		errors: mergedErrors,
 		selectedPageType: 'overview',
 		keyMembers,
 		caseIsWelsh,
