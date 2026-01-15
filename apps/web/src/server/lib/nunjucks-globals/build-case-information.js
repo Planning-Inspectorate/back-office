@@ -3,6 +3,7 @@ import { featureFlagClient } from '../../../common/feature-flags.js';
 import { getIsMaterialChangeStaticDataViewModel } from '../static-data-view-models.js';
 import { getProjectTypeDisplayName } from '../../applications/common/components/mappers/project-types.mapper.js';
 import { SECTORS, SUB_SECTORS } from '../../applications/common/constants.js';
+import { getRecommendationDisplayName } from '../../applications/common/components/mappers/recommendation.mapper.js';
 
 const isMaterialChangeStaticDataViewModel = getIsMaterialChangeStaticDataViewModel();
 
@@ -24,7 +25,7 @@ const isMaterialChangeStaticDataViewModel = getIsMaterialChangeStaticDataViewMod
  * @property {boolean} isMaterialChange
  * @property {{ name?: string, displayNameEn: string }} sector
  * @property {{ name?: string, displayNameEn: string }} subSector
- * @property {{ subProjectType?: string}} [additionalDetails]
+ * @property {{ subProjectType?: string, recommendation?: string}} [additionalDetails]
  * @property {string | null} title
  * @property {string | null} description
  * @property {string | null} titleWelsh
@@ -44,6 +45,15 @@ const isMaterialChangeStaticDataViewModel = getIsMaterialChangeStaticDataViewMod
  * @returns {Row[]}
  * */
 export const buildCaseInformation = (params, isWelsh) => [
+	...(params.case.status === 'Post-Decision'
+		? [
+				{
+					title: 'Recommendation',
+					text: getRecommendationDisplayName(params.case?.additionalDetails?.recommendation ?? ''),
+					url: 'recommendation'
+				}
+		  ]
+		: []),
 	{
 		title: 'Material change',
 		text: params.case.isMaterialChange

@@ -15,3 +15,9 @@ export const PROJECT_TYPES = {
 	ONSHORE_WIND: 'onshore_wind',
 	SOLAR: 'solar'
 };
+
+export const RECOMMENDATIONS = {
+	RECOMMEND_CONSENT: 'recommend_consent',
+	RECOMMEND_PARTIAL_CONSENT: 'recommend_partial_consent',
+	RECOMMEND_REFUSAL: 'recommend_refusal'
+};

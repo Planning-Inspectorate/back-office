@@ -1,0 +1,11 @@
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+{% macro recommendation(values, errors, recommendations, fieldset) %}
+	{{ govukRadios({
+		name: "recommendation",
+		fieldset: fieldset,
+		idPrefix: "recommendation",
+		errorMessage: errors.recommendation | errorMessage,
+		items: recommendations | selectItems({valueKey: 'name', labelKey: 'displayNameEn', selectedValue: values.recommendation})
+	}) }}
+{% endmacro %}

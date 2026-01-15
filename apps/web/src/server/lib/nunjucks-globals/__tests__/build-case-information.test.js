@@ -1,5 +1,6 @@
 import { buildCaseInformation } from '../build-case-information.js';
 import { featureFlagClient } from '../../../../common/feature-flags.js';
+import { getRecommendationDisplayName } from '../../../applications/common/components/mappers/recommendation.mapper.js';
 
 const fullParams = {
 	case: {
@@ -156,5 +157,68 @@ describe('buildCaseInformation Nunjucks global', () => {
 		};
 		const rowsNonGenerating = buildCaseInformation(paramsNonGenerating, true);
 		expect(rowsNonGenerating.some((r) => r.title === 'Project type')).toBe(false);
+	});
+
+	describe('buildCaseInformation – Recommendation field', () => {
+		it('Includes Recommendation only when case is in Post-Decision', () => {
+			const paramsPostDecision = {
+				...fullParams,
+				case: {
+					...fullParams.case,
+					status: 'Post-Decision',
+					additionalDetails: {
+						recommendation: 'recommend_refusal'
+					}
+				}
+			};
+			const rows = buildCaseInformation(paramsPostDecision, true);
+			expect(
+				rows.some(
+					(row) =>
+						row.title === 'Recommendation' &&
+						row.text === getRecommendationDisplayName('recommend_refusal') &&
+						row.url === 'recommendation'
+				)
+			).toBe(true);
+		});
+
+		it('Does NOT include Recommendation for non-Post-Decision statuses', () => {
+			const nonStatuses = ['Draft', 'Pre-application', 'Acceptance', 'Examination'];
+
+			nonStatuses.forEach((status) => {
+				const params = {
+					...fullParams,
+					case: {
+						...fullParams.case,
+						status,
+						additionalDetails: {
+							recommendation: 'recommend_consent'
+						}
+					}
+				};
+
+				const rows = buildCaseInformation(params, true);
+
+				expect(rows.some((row) => row.title === 'Recommendation')).toBe(false);
+			});
+		});
+		it('Displays empty Recommendation text when field exists but has no value', () => {
+			const paramsEmpty = {
+				...fullParams,
+				case: {
+					...fullParams.case,
+					status: 'Post-Decision',
+					additionalDetails: {
+						recommendation: ''
+					}
+				}
+			};
+
+			const rows = buildCaseInformation(paramsEmpty, true);
+			const row = rows.find((r) => r.title === 'Recommendation');
+
+			expect(row).toBeDefined();
+			expect(row?.text).toBe('');
+		});
 	});
 });
