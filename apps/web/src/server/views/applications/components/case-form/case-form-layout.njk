@@ -14,6 +14,7 @@
 {% from "./case/zoom-level.njk" import zoomLevel %}
 {% from "./case/team-email.njk" import teamEmail %}
 {% from "./case/material-change.njk" import materialChange %}
+{% from "./case/recommendation.njk" import recommendation %}
 {% from "./applicant/info-types.njk" import infoTypes %}
 {% from "./applicant/organisation-name.njk" import organisationName %}
 {% from "./applicant/full-name.njk" import fullName %}
@@ -43,7 +44,8 @@
 			or componentName == 'info-types'
 			or componentName == 'zoom-level'
 			or componentName == 'material-change'
-			or componentName == 'project-type' %}
+			or componentName == 'project-type'
+			or componentName == 'recommendation' %}
 			{% set componentHasPageHeading = true %}
 		{% endif %}
 	{% endif %}
@@ -133,6 +135,8 @@
 		{{ teamEmail(values, errors) }}
 	{% elif componentName == 'material-change' %}
 		{{ materialChange(values, errors, selectedValue, fieldset) }}
+	{% elif componentName == 'recommendation' %}
+		{{ recommendation(values, errors, recommendations, fieldset) }}
 	{% elif componentName == 'organisation-name' %}
 		{{ organisationName(values, errors) }}
 	{% elif componentName == 'info-types' %}

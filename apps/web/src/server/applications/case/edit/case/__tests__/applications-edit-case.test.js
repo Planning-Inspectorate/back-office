@@ -378,4 +378,55 @@ describe('applications edit', () => {
 			expect(summary?.innerHTML).toContain('Choose the project type');
 		});
 	});
+
+	describe('Recommendation', () => {
+		/** @param {string|number} id */
+		const baseUrl = (id) => `/applications-service/case/${id}/edit/recommendation`;
+
+		beforeEach(async () => {
+			await request.get('/applications-service/');
+
+			const recommendationFixtureCase = {
+				...fixtureCases[3],
+				additionalDetails: {
+					...fixtureCases[3].additionalDetails,
+					recommendation: 'recommend_consent'
+				},
+				status: 'Post-Decision'
+			};
+
+			nock('http://test/')
+				.get(/\/applications\/3(.*)?/g)
+				.times(3)
+				.reply(200, recommendationFixtureCase);
+		});
+		describe('GET edit/recommendation', () => {
+			it('should render the Recommendation page', async () => {
+				const response = await request.get(baseUrl('3'));
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('Planning Inspectorate recommendation');
+			});
+
+			it('should preselect the resumed value when API returns one', async () => {
+				const response = await request.get(baseUrl('3'));
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML.replace(/\s/g, '')).toContain('value="recommend_consent"checked');
+			});
+		});
+
+		describe('POST edit/recommendation', () => {
+			it('should show an error when no option is selected', async () => {
+				const response = await request.post(baseUrl('3')).type('form').send({});
+
+				const element = parseHtml(response.text);
+				const summary = element.querySelector('.govuk-error-summary');
+
+				expect(summary).not.toBeNull();
+				expect(summary?.innerHTML).toContain('Choose the Planning Inspectorate recommendation');
+			});
+		});
+	});
 });

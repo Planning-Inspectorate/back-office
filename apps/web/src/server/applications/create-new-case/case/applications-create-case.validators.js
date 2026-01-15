@@ -137,3 +137,10 @@ export const validateApplicationsCreateCaseOrganisationName = createValidator(
 		.isLength({ min: 1 })
 		.withMessage('You must enter the Applicant’s organisation to publish the project')
 );
+
+export const validateApplicationsCreateCaseRecommendation = createValidator(
+	body('recommendation')
+		.trim()
+		.isLength({ min: 1 })
+		.withMessage('Choose the Planning Inspectorate recommendation')
+);

@@ -143,4 +143,15 @@ applicationsEditCaseRouter
 		asyncHandler(controller.updateApplicationsEditProjectType)
 	);
 
+applicationsEditCaseRouter
+	.route('/recommendation')
+	.get(
+		registerCaseWithQuery(['sector', 'additionalDetails']),
+		asyncHandler(controller.viewApplicationsEditRecommendation)
+	)
+	.post(
+		validators.validateApplicationsCreateCaseRecommendation,
+		asyncHandler(controller.updateApplicationsEditRecommendation)
+	);
+
 export default applicationsEditCaseRouter;

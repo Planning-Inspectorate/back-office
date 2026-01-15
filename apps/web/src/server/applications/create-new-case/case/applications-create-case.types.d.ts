@@ -55,6 +55,19 @@ export interface ApplicationsCreateCaseProjectTypeProps
 	subProjectTypes: ProjectTypeItem[];
 }
 
+// recommendation
+export interface ApplicationsCreateCaseRecommendationBody {
+	recommendation?: string;
+}
+export interface RecommendationItem {
+	name: string;
+	displayNameEn: string;
+}
+export interface ApplicationsCreateCaseRecommendationProps
+	extends CaseCreateProps<ApplicationsCreateCaseRecommendationBody> {
+	recommendations: RecommendationItem[];
+}
+
 //Geo Info
 export interface ApplicationsCreateCaseGeographicalInformationBody
 	extends Record<string, string | undefined> {
