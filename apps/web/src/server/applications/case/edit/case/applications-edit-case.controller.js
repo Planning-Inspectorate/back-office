@@ -16,7 +16,9 @@ import {
 	caseZoomLevelDataUpdate,
 	isMaterialChangeDataUpdate,
 	caseProjectTypeData,
-	caseProjectTypeDataUpdate
+	caseProjectTypeDataUpdate,
+	caseRecommendationData,
+	caseRecommendationDataUpdate
 } from '../../../common/components/form/form-case.component.js';
 import { getUpdatedField } from '../applications-edit.service.js';
 import { getIsMaterialChangeStaticDataViewModel } from '../../../../lib/static-data-view-models.js';
@@ -117,6 +119,12 @@ const projectTypeLayout = {
 	isEdit: true
 };
 
+const recommendationLayout = {
+	pageTitle: 'Planning Inspectorate recommendation',
+	components: ['recommendation'],
+	isEdit: true
+};
+
 /** @type {Record<string, string>} */
 const fullFieldNames = {
 	title: 'Project name',
@@ -132,7 +140,8 @@ const fullFieldNames = {
 	'geographicalInformation.regions': 'Regions',
 	'geographicalInformation.mapZoomLevelName': 'Map zoom level',
 	isMaterialChange: 'Material change',
-	'additionalDetails.subProjectType': 'Project type'
+	'additionalDetails.subProjectType': 'Project type',
+	'additionalDetails.recommendation': 'Recommendation'
 };
 
 /** @typedef {import('../../../create-new-case/case/applications-create-case.types.js').ApplicationsCreateCaseNameProps} ApplicationsCreateCaseNameProps */
@@ -625,6 +634,47 @@ export async function updateApplicationsEditProjectType(request, response) {
 		return handleErrors(properties, projectTypeLayout, response);
 
 	setSessionBanner(request.session, 'Application updated');
+
+	return response.redirect(
+		featureFlagClient.isFeatureActive('applic-55-welsh-translation')
+			? `/applications-service/case/${updatedCaseId}/overview`
+			: `/applications-service/case/${updatedCaseId}/project-information`
+	);
+}
+
+/**
+ * View the form step for editing Recommendation
+ *
+ * @type {import('@pins/express').RenderHandler<*, *>}
+ */
+export async function viewApplicationsEditRecommendation(request, response) {
+	const properties = await caseRecommendationData(request, response.locals);
+	console.log('###', properties);
+	response.render(resolveTemplate(recommendationLayout), {
+		...properties,
+		layout: recommendationLayout
+	});
+}
+
+/**
+ * Edit the Recommendation
+ *
+ * @type {import('@pins/express').RenderHandler<ApplicationsCreateCaseProjectTypeProps, {},
+ *  ApplicationsCreateCaseProjectTypeBody, {}, {edit?: string}>}
+ */
+export async function updateApplicationsEditRecommendation(request, response) {
+	const { properties, updatedCaseId } = await caseRecommendationDataUpdate(
+		request,
+		response.locals
+	);
+
+	if (properties.errors || !updatedCaseId)
+		return handleErrors(properties, recommendationLayout, response);
+
+	setSessionBanner(
+		request.session,
+		`${fullFieldNames['additionalDetails.recommendation']} updated`
+	);
 
 	return response.redirect(
 		featureFlagClient.isFeatureActive('applic-55-welsh-translation')
