@@ -6,7 +6,7 @@ import {
 	getDisplayValue,
 	getFeesForecastingIndexViewModel
 } from '../applications-fees-forecasting-index.view-model.js';
-import { fixtureFeesForecasting } from '../../../../../../testing/applications/fixtures/fees-forecasting.js';
+import { fixtureFeesForecastingIndex } from '../../../../../../testing/applications/fixtures/fees-forecasting.js';
 
 const mockDisplayValues = {
 	submitted_by_applicant: 'Submitted',
@@ -14,7 +14,7 @@ const mockDisplayValues = {
 	not_applicable: 'Not applicable'
 };
 
-describe('applications fees forecasting view-model', () => {
+describe('applications fees forecasting index view-model', () => {
 	describe('#getStatusTag', () => {
 		beforeAll(() => {
 			const mockDate = new Date('2025-11-20T00:00:00.000Z');
@@ -170,7 +170,7 @@ describe('applications fees forecasting view-model', () => {
 
 	describe('#getFeesForecastingIndexViewModel', () => {
 		it('should return fees and forecasting data mapped to the index view model', () => {
-			const result = getFeesForecastingIndexViewModel(fixtureFeesForecasting);
+			const result = getFeesForecastingIndexViewModel(fixtureFeesForecastingIndex);
 
 			expect(result).toEqual({
 				selectedPageType: 'fees-forecasting',

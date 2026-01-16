@@ -1,6 +1,7 @@
 import { createValidator } from '@pins/express';
 import { validationDateValid } from '../../common/validators/dates.validators.js';
 import { getSectionData } from './applications-fees-forecasting.utils.js';
+import { sectionData, urlSectionNames } from './fees-forecasting.config.js';
 
 /** @typedef {import('express').RequestHandler} RequestHandler */
 
@@ -14,7 +15,7 @@ export const feesForecastingValidator = async (request, response, next) => {
 
 	/** @type {Record<string, RequestHandler>} */
 	const validators = {
-		'maturity-evaluation-matrix': validateFeesForecastingDates
+		'maturity-evaluation-matrix': validateFeesForecastingDate
 	};
 
 	if (Object.keys(validators).includes(sectionName)) {
@@ -32,19 +33,15 @@ export const feesForecastingValidator = async (request, response, next) => {
  *
  * @type {RequestHandler}
  */
-export const validateFeesForecastingDates = async (request, response, next) => {
+export const validateFeesForecastingDate = async (request, response, next) => {
 	const { body, params } = request;
 	const { sectionName } = params;
 
-	const allValidations = Object.keys(body)
-		.filter((key) => key.indexOf('year') > 1)
-		.map((key) => {
-			const fieldName = key.replace('.year', '');
-			const section = getSectionData(sectionName);
-			const extendedFieldName = section.pageTitle;
+	const section = getSectionData(sectionName, urlSectionNames, sectionData);
+	const fieldName = section?.fieldName || '';
+	const extendedFieldName = section?.sectionTitle || '';
 
-			return validationDateValid({ fieldName, extendedFieldName }, request.body);
-		});
+	const validation = validationDateValid({ fieldName, extendedFieldName }, body);
 
-	return createValidator(allValidations)(request, response, next);
+	return createValidator([validation])(request, response, next);
 };

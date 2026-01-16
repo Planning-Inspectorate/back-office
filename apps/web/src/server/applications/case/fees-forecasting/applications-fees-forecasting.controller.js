@@ -74,41 +74,39 @@ export async function updateFeesForecastingEditSection(
 
 	/** @type {Record<string, any>} */
 	let feesForecastingData = {};
+	/** @type {Record<string, any>} */
+	let values = {};
 	let apiErrors;
 
-	if (Object.keys(body).find((key) => key.includes('year'))) {
-		const allDateFields = Object.keys(body)
-			.filter((key) => key.indexOf('year') > 1)
-			.map((key) => key.replace('.year', ''));
+	if (editViewModel.componentType === 'date-input') {
+		const fieldName = editViewModel?.fieldName || '';
+		const day = body[`${fieldName}.day`];
+		const month = body[`${fieldName}.month`];
+		const year = body[`${fieldName}.year`];
 
-		allDateFields.forEach((dateField) => {
-			const day = body[`${dateField}.day`];
-			const month = body[`${dateField}.month`];
-			const year = body[`${dateField}.year`];
+		if (validationErrors && validationErrors[fieldName]) {
+			validationErrors[fieldName].value = { day, month, year };
+		} else {
+			const date = new Date(`${year}-${month}-${day}`);
 
-			if (validationErrors && validationErrors[dateField]) {
-				validationErrors[dateField].value = { day, month, year };
-			} else {
-				const date = new Date(`${year}-${month}-${day}`);
+			values[fieldName] = Math.floor(date.getTime() / 1000);
 
-				// To align with key dates, users can submit three empty date fields to clear the date from the index page, which requires a null value to be set to replace the existing date in the database.
-				isValid(date)
-					? (feesForecastingData[dateField] = date)
-					: (feesForecastingData[dateField] = null);
-			}
-		});
+			// To align with key dates, users can submit three empty date fields to clear the date from the index page, which requires a null value to be set to replace the existing date in the database.
+			isValid(date)
+				? (feesForecastingData[fieldName] = date)
+				: (feesForecastingData[fieldName] = null);
+		}
 	}
 
 	if (!validationErrors) {
-		const { errors } = await updateFeesForecasting(caseId, sectionName, feesForecastingData);
-		apiErrors = errors;
+		if (editViewModel.componentType === 'date-input') {
+			const { errors } = await updateFeesForecasting(caseId, sectionName, feesForecastingData);
+			apiErrors = errors;
+		}
 	}
 
 	if (validationErrors || apiErrors) {
 		if (editViewModel.componentType === 'date-input') {
-			const fieldName = editViewModel?.fieldName || '';
-			const values = fieldName && validationErrors ? validationErrors[fieldName].value : {};
-
 			return response.render(
 				`applications/case-fees-forecasting/fees-forecasting-edit-dateinput.njk`,
 				{

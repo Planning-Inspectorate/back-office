@@ -1,25 +1,25 @@
-import { sectionData, urlSectionNames } from './fees-forecasting.config.js';
-
 /**
  * Returns section data based on the section name
  *
  * @param {string} sectionName
+ * @param {Record<string, any>} urlSectionNames
+ * @param {Record<string, any>} sectionData
  * @returns {Record<string, any>}
  */
-export const getSectionData = (sectionName) => {
-	/** @type {Record<string, string>} */
-	const sectionNames = urlSectionNames;
+export const getSectionData = (sectionName, urlSectionNames = {}, sectionData = {}) => {
+	if (!sectionName) {
+		return {};
+	}
 
-	/** @type {Record<string, any>} */
-	const section = sectionData;
-
-	const formattedSectionName = Object.keys(sectionNames).find(
-		(key) => sectionNames[key] === sectionName
+	const formattedSectionName = Object.keys(urlSectionNames).find(
+		(key) => urlSectionNames[key] === sectionName
 	);
 
 	if (!formattedSectionName) {
 		return {};
 	}
 
-	return Object.keys(section).includes(formattedSectionName) ? section[formattedSectionName] : {};
+	return Object.keys(sectionData).includes(formattedSectionName)
+		? sectionData[formattedSectionName]
+		: {};
 };

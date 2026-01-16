@@ -38,7 +38,7 @@ export const urlSectionNames = {
 
 export const sectionData = {
 	memLastUpdated: {
-		pageTitle: 'MEM last updated',
+		sectionTitle: 'MEM last updated',
 		pageHeading: 'Maturity Evaluation Matrix (MEM) last updated',
 		fieldName: 'memLastUpdated',
 		componentType: 'date-input'

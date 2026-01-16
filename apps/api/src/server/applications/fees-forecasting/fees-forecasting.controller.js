@@ -8,16 +8,16 @@ import BackOfficeAppError from '#utils/app-error.js';
  */
 export const updateFeesForecasting = async ({ body, params }, response) => {
 	const { id } = params;
-	const convertedCaseId = Number(id);
+	const convertedId = Number(id);
 
 	try {
-		const updatedCase = await update(convertedCaseId, body);
-		return response.status(200).send(updatedCase);
+		const updatedFeesForecastingData = await update(convertedId, body);
+		return response.status(200).send(updatedFeesForecastingData);
 	} catch (error) {
 		if (error?.code === 'P2025') {
-			throw new BackOfficeAppError(`Case ${convertedCaseId} not found`, 404);
+			throw new BackOfficeAppError(`Case ${convertedId} not found`, 404);
 		} else {
-			throw new BackOfficeAppError(`Error updating case ${convertedCaseId}`, 500);
+			throw new BackOfficeAppError(`Error updating case ${convertedId}`, 500);
 		}
 	}
 };
