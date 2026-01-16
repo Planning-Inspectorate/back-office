@@ -920,13 +920,15 @@ export async function postDocumentationFolderExplorer(request, response) {
 	const folderListViewData = moveDocumentsUtils.getFolderViewData(folderList);
 	const parentFolderName = moveDocumentsUtils.getFolderNameById(folderList, openFolderId);
 	const breadcrumbItems = documentationSessionHandlers.getSessionMoveDocumentsBreadcrumbs(session);
-
 	if (body.action === 'moveDocuments') {
 		const destinationFolder =
 			documentationSessionHandlers.getSessionMoveDocumentsParentFolder(session);
 		const payload = moveDocumentsUtils.getMoveDocumentsPayload(session);
-
-		const { errors: updateErrors } = await updateDocumentsFolderId(caseId, payload);
+		const { errors: updateErrors } = await updateDocumentsFolderId(
+			caseId,
+			payload,
+			Number(params.folderId)
+		);
 
 		if (updateErrors) {
 			validationErrors = updateErrors;
