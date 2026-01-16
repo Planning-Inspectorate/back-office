@@ -78,3 +78,6 @@ build
 **/.terraform/*
 **/.terraform
 **/.terragrunt-cache
+
+# Prisma
+apps/api/src/database/client

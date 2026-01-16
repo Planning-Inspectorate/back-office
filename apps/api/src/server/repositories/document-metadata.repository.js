@@ -3,11 +3,11 @@ import config from '#config/config.js';
 import { isTrainingCase } from '#utils/is-training-case.js';
 
 /**
- * @typedef {import('@prisma/client').Document} Document
- * @typedef {import('@prisma/client').DocumentVersion} DocumentVersion
+ * @typedef {import('#database-client').Document} Document
+ * @typedef {import('#database-client').DocumentVersion} DocumentVersion
  * @typedef {import('@pins/applications.api').Schema.DocumentVersionWithDocument} DocumentVersionWithDocument
  * @typedef {import('@pins/applications.api').Schema.DocumentUpdateInput} DocumentUpdateInput
- * @typedef {import('@prisma/client').Prisma.DocumentVersionGetPayload<{include: {Document: {include: {folder: {include: {case: {include: {CaseStatus: true}}}}}}}}> } DocumentVersionWithDocumentAndFolder
+ * @typedef {import('#database-client').Prisma.DocumentVersionGetPayload<{include: {Document: {include: {folder: {include: {case: {include: {CaseStatus: true}}}}}}}}> } DocumentVersionWithDocumentAndFolder
  *
  */
 
@@ -61,7 +61,7 @@ const includeClauseDocVersionFullWithSector = {
 
 /**
  * @param {DocumentVersion} metadata
- * @returns {import('@prisma/client').PrismaPromise<DocumentVersionWithDocumentAndFolder>}
+ * @returns {import('#database-client').PrismaPromise<DocumentVersionWithDocumentAndFolder>}
  */
 export const upsert = ({ documentGuid, version = 1, transcriptGuid, ...metadata }) => {
 	return databaseConnector.documentVersion.upsert({
@@ -88,7 +88,7 @@ export const upsert = ({ documentGuid, version = 1, transcriptGuid, ...metadata 
  * @param {string} documentGuid
  * @param {int} version
  * @param {DocumentVersion} metadata
- * @returns {import('@prisma/client').PrismaPromise<DocumentVersionWithDocumentAndFolder>} */
+ * @returns {import('#database-client').PrismaPromise<DocumentVersionWithDocumentAndFolder>} */
 export const updateDocumentVersion = async (documentGuid, version, metadata) => {
 	return databaseConnector.documentVersion.update({
 		where: { documentGuid_version: { documentGuid, version } },
@@ -99,7 +99,7 @@ export const updateDocumentVersion = async (documentGuid, version, metadata) => 
 /**
  *
  * @param {{guid: string, status: string, version?: number }} documentStatusUpdate
- * @returns {import('@prisma/client').PrismaPromise<DocumentVersionWithDocumentAndFolder>}
+ * @returns {import('#database-client').PrismaPromise<DocumentVersionWithDocumentAndFolder>}
  */
 export const updateDocumentStatus = ({ guid, status, version = 1 }) => {
 	return databaseConnector.documentVersion.update({
@@ -112,7 +112,7 @@ export const updateDocumentStatus = ({ guid, status, version = 1 }) => {
 /**
 
  * @param {{guid: string, status: string, version?: number, datePublished?: Date }} documentStatusUpdate
- * @returns {import('@prisma/client').PrismaPromise<DocumentVersionWithDocumentAndFolder>}
+ * @returns {import('#database-client').PrismaPromise<DocumentVersionWithDocumentAndFolder>}
  */
 export const updateDocumentPublishedStatus = ({ guid, status, version = 1, datePublished }) => {
 	return databaseConnector.documentVersion.update({
@@ -128,7 +128,7 @@ export const updateDocumentPublishedStatus = ({ guid, status, version = 1, dateP
  *
  * @param {string} documentGuid
  * @param {number} version
- * @returns {import('@prisma/client').PrismaPromise<DocumentVersion |null>}
+ * @returns {import('#database-client').PrismaPromise<DocumentVersion |null>}
  */
 export const getById = (documentGuid, version = 1) => {
 	return databaseConnector.documentVersion.findUnique({
@@ -156,7 +156,7 @@ export const getById = (documentGuid, version = 1) => {
  *
  * @param {string[]} documentGuids
  * @param {string} [publishedStatus]
- * @returns {import('@prisma/client').PrismaPromise<Array<DocumentVersion |null>>}
+ * @returns {import('#database-client').PrismaPromise<Array<DocumentVersion |null>>}
  */
 export const getManyByIdAndStatus = (documentGuids, publishedStatus) => {
 	return databaseConnector.documentVersion.findMany({
@@ -173,7 +173,7 @@ export const getManyByIdAndStatus = (documentGuids, publishedStatus) => {
 /**
  * Get all document metadata
  *
- * @returns {import('@prisma/client').PrismaPromise<DocumentVersion[] |null>}
+ * @returns {import('#database-client').PrismaPromise<DocumentVersion[] |null>}
  */
 export const getAll = () => {
 	return databaseConnector.documentVersion.findMany();
@@ -183,7 +183,7 @@ export const getAll = () => {
  * Get 'all' published versions of a document (there should only be one)
  *
  * @param {string} documentGuid
- * @returns {import('@prisma/client').PrismaPromise<import('@pins/applications.api').Schema.DocumentVersion[] |null>}
+ * @returns {import('#database-client').PrismaPromise<import('@pins/applications.api').Schema.DocumentVersion[] |null>}
  * */
 export const getPublished = (documentGuid) => {
 	return databaseConnector.documentVersion.findMany({
@@ -195,7 +195,7 @@ export const getPublished = (documentGuid) => {
  * Get all document metadata
  *
  * @param {string} guid
- * @returns {import('@prisma/client').PrismaPromise<DocumentVersion[] |null>}
+ * @returns {import('#database-client').PrismaPromise<DocumentVersion[] |null>}
  */
 export const getAllByDocumentGuid = (guid) => {
 	return databaseConnector.documentVersion.findMany({
@@ -210,7 +210,7 @@ export const getAllByDocumentGuid = (guid) => {
  *
  * @param {string} documentGuid
  * @param {import('@pins/applications.api').Schema.DocumentVersionUpdateInput} documentDetails
- * @returns {import('@prisma/client').PrismaPromise<DocumentVersionWithDocumentAndFolder>}
+ * @returns {import('#database-client').PrismaPromise<DocumentVersionWithDocumentAndFolder>}
  */
 export const update = (documentGuid, { version = 1, ...documentDetails }) => {
 	return databaseConnector.documentVersion.update({
