@@ -12,7 +12,7 @@ const baseCase = createCase({
 	caseEmail: 'some@ema.il'
 });
 
-export const fixtureFeesForecasting = {
+export const fixtureFeesForecastingIndex = {
 	caseData: {
 		...baseCase,
 		additionalDetails: {
@@ -105,4 +105,25 @@ export const fixtureFeesForecasting = {
 			meetingDate: '2025-01-11T00:00:00.000Z'
 		}
 	]
+};
+
+export const fixtureFeesForecastingEdit = {
+	urlSectionNames: {
+		testSection: 'test-section',
+		anotherTestSection: 'another-test-section'
+	},
+	sectionData: {
+		testSection: {
+			sectionTitle: 'Test section',
+			pageHeading: 'Test page heading',
+			fieldName: 'testSection',
+			componentType: 'date-input'
+		},
+		anotherTestSection: {
+			sectionTitle: 'Another test section',
+			pageHeading: 'Another test page heading',
+			fieldName: 'anotherTestSection',
+			componentType: 'date-input'
+		}
+	}
 };

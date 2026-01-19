@@ -1,33 +1,6 @@
 export const genericHrefText = 'Change';
-export const meetingsHrefText = 'Change';
 export const feesHrefText = 'Review';
-
-export const editPageURLs = {
-	newMaturity: '#',
-	examiningInspectors: '#',
-	memLastUpdated: '#',
-	additionalComments: '#',
-	tier: '#',
-	s61Summary: '#',
-	scopingDate: '#',
-	adequacyDate: '#',
-	planProcess: '#',
-	anticipatedDate: '#',
-	issuesTracker: '#',
-	essentialFastTrackComponents: '#',
-	principalAreaDisagreementSummaryStmt: '#',
-	policyComplianceDocument: '#',
-	designApproachDocument: '#',
-	matureOutlineControlDocument: '#',
-	caAndTpEvidence: '#',
-	publicSectorEqualityDuty: '#',
-	fastTrackAdmissionDocument: '#',
-	multipartyApplicationCheckDocument: '#',
-	documentLink: '#',
-	updatedDocumentReceivedDate: '#',
-	documentReviewedByEstDate: '#',
-	caseTeamIssuedCommentsDate: '#'
-};
+export const editPageURL = '#';
 
 export const newMaturityDisplayValues = {
 	a: 'A',
@@ -57,4 +30,17 @@ export const supplementaryComponentsDisplayValues = {
 	submitted_by_applicant: 'Submitted',
 	awaiting_submission: 'Awaiting submission',
 	not_applicable: 'Not applicable'
+};
+
+export const urlSectionNames = {
+	memLastUpdated: 'maturity-evaluation-matrix'
+};
+
+export const sectionData = {
+	memLastUpdated: {
+		sectionTitle: 'MEM last updated',
+		pageHeading: 'Maturity Evaluation Matrix (MEM) last updated',
+		fieldName: 'memLastUpdated',
+		componentType: 'date-input'
+	}
 };

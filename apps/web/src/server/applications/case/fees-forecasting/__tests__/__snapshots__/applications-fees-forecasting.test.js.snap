@@ -71,7 +71,7 @@ exports[`Fees and Forecasting GET /case/123/fees-forecasting/ should render the 
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> MEM last updated</dt>
                     <dd class="govuk-summary-list__value">09 Mar 2024</dd>
-                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> MEM last updated</span></a>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/fees-forecasting/maturity-evaluation-matrix">Change<span class="govuk-visually-hidden"> MEM last updated</span></a>
                     </dd>
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Additional comments (optional)</dt>
@@ -315,5 +315,103 @@ exports[`Fees and Forecasting GET /case/123/fees-forecasting/ should render the 
             </div>
         </div>
     </div>
+</main>"
+`;
+
+exports[`Fees and Forecasting GET /case/123/fees-forecasting/:sectionName should NOT render the page when feature flag is OFF 1`] = `
+"<main class="govuk-main-wrapper" id="main-content">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <h1 class="govuk-heading-xl">Page not found</h1>
+            <p class="govuk-body">If you typed the web address, check it is correct.</p>
+            <p class="govuk-body">If you pasted the web address, check you copied the entire address.</p>
+            <p             class="govuk-body"><a href="https://intranet.planninginspectorate.gov.uk/task/report-it-problem/"
+                class="govuk-link">Contact the Planning Inspectorate Customer Support</a> if
+                the problem persists</p>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`Fees and Forecasting GET /case/123/fees-forecasting/:sectionName should render the page when feature flag is ON 1`] = `
+"<main class="govuk-main-wrapper" id="main-content">
+    <h1 class="govuk-heading-l">Maturity Evaluation Matrix (MEM) last updated</h1>
+    <form method="post" action="" novalidate="novalidate" class="govuk-grid-row">
+        <div class="govuk-form-group govuk-grid-column-full ">
+            <fieldset class="govuk-fieldset">
+                <div class="govuk-grid-column-one-third">
+                    <div class="govuk-grid-row pins-date-form-group">
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="memLastUpdated.day">Day</label>
+                            <input class="govuk-input" id="memLastUpdated.day" name="memLastUpdated.day"
+                            type="text" value="09">
+                        </div>
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="memLastUpdated.month">Month</label>
+                            <input class="govuk-input" id="memLastUpdated.month" name="memLastUpdated.month"
+                            type="text" value="03">
+                        </div>
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="memLastUpdated.year">Year</label>
+                            <input class="govuk-input" id="memLastUpdated.year" name="memLastUpdated.year"
+                            type="text" value="2024">
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <div class='govuk-grid-column-one-third'>
+            <button type="submit" class="govuk-button" data-module="govuk-button">Save and return</button>
+        </div>
+    </form>
+</main>"
+`;
+
+exports[`Fees and Forecasting POST /case/123/fees-forecasting/:sectionName should show an API error if updating was NOT successful 1`] = `
+"<main class="govuk-main-wrapper" id="main-content">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#msg">An error occurred, please try again later</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h1 class="govuk-heading-l">Maturity Evaluation Matrix (MEM) last updated</h1>
+    <form method="post" action="" novalidate="novalidate" class="govuk-grid-row">
+        <div class="govuk-form-group govuk-grid-column-full ">
+            <fieldset class="govuk-fieldset">
+                <div class="govuk-grid-column-one-third">
+                    <div class="govuk-grid-row pins-date-form-group">
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="memLastUpdated.day">Day</label>
+                            <input class="govuk-input" id="memLastUpdated.day" name="memLastUpdated.day"
+                            type="text" value="01">
+                        </div>
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="memLastUpdated.month">Month</label>
+                            <input class="govuk-input" id="memLastUpdated.month" name="memLastUpdated.month"
+                            type="text" value="02">
+                        </div>
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="memLastUpdated.year">Year</label>
+                            <input class="govuk-input" id="memLastUpdated.year" name="memLastUpdated.year"
+                            type="text" value="2000">
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <div class='govuk-grid-column-one-third'>
+            <button type="submit" class="govuk-button" data-module="govuk-button">Save and return</button>
+        </div>
+    </form>
 </main>"
 `;
