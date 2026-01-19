@@ -1,19 +1,21 @@
 import {
 	feesHrefText,
 	genericHrefText,
-	editPageURLs,
+	editPageURL,
 	newMaturityDisplayValues,
 	tierDisplayValues,
 	invoiceStageDisplayValues,
-	supplementaryComponentsDisplayValues
+	supplementaryComponentsDisplayValues,
+	urlSectionNames
 } from './fees-forecasting.config.js';
 import { buildSummaryListRows } from '../../../lib/summary-list-mapper.js';
 import { buildTable } from '../../../lib/table-mapper.js';
 import { formatDateForDisplay } from '../../../lib/dates.js';
+import { url } from '../../../lib/nunjucks-filters/url.js';
 import { isPast, isToday, isFuture } from 'date-fns';
 
 /**
- * Determines the status tag for an invoice.
+ * Determines the status tag for an invoice
  *
  * @param {object|*} invoice
  * @returns {string}
@@ -43,7 +45,7 @@ export function getStatusTag(invoice) {
 }
 
 /**
- * Creates HTML string for link text.
+ * Creates HTML string for links
  *
  * @param {string|null} linkText
  * @param {string} href
@@ -53,7 +55,17 @@ export const getLinkHTML = (linkText, href) =>
 	linkText ? `<a href="${href}" class="govuk-link">${linkText}</a>` : '';
 
 /**
- * Converts snake_case enum value into string for display.
+ * Creates edit page URLs
+ *
+ * @param {string} sectionName
+ * @param {number} caseId
+ * @returns {string}
+ */
+export const getEditPageURL = (sectionName, caseId) =>
+	sectionName ? url('fees-forecasting', { caseId, step: sectionName }) : '';
+
+/**
+ * Converts snake_case enum value into string for display
  *
  * @param {Record<string,string>} displayValues
  * @param {string|null} enumValue
@@ -63,7 +75,7 @@ export const getDisplayValue = (displayValues, enumValue) =>
 	enumValue ? displayValues[enumValue] : '';
 
 /**
- * Displays submission date if item has been submitted.
+ * Displays submission date if item has been submitted
  *
  * @param {Record<string,string>} displayValues
  * @param {string|null} submissionStatus
@@ -85,14 +97,14 @@ export const getSupplementaryComponentItem = (displayValues, submissionStatus, s
  * @param {object|*} params
  * @returns {object}
  */
-export const getFeesForecastingViewModel = ({ caseData, invoices, meetings }) => {
+export const getFeesForecastingIndexViewModel = ({ caseData, invoices, meetings }) => {
 	const internalUseSectionItems = [
 		{
 			key: 'New maturity',
 			value: getDisplayValue(newMaturityDisplayValues, caseData.additionalDetails.newMaturity),
 			actions: [
 				{
-					href: editPageURLs.newMaturity,
+					href: editPageURL,
 					text: genericHrefText,
 					visuallyHiddenText: 'new maturity'
 				}
@@ -112,7 +124,7 @@ export const getFeesForecastingViewModel = ({ caseData, invoices, meetings }) =>
 				.join('<br/>'),
 			actions: [
 				{
-					href: editPageURLs.examiningInspectors,
+					href: editPageURL,
 					text: genericHrefText,
 					visuallyHiddenText: 'examining inspectors'
 				}
@@ -123,7 +135,7 @@ export const getFeesForecastingViewModel = ({ caseData, invoices, meetings }) =>
 			value: formatDateForDisplay(caseData.keyDates.preApplication.memLastUpdated),
 			actions: [
 				{
-					href: editPageURLs.memLastUpdated,
+					href: getEditPageURL(urlSectionNames.memLastUpdated, caseData.id),
 					text: genericHrefText,
 					visuallyHiddenText: 'MEM last updated'
 				}
@@ -136,7 +148,7 @@ export const getFeesForecastingViewModel = ({ caseData, invoices, meetings }) =>
 				: '',
 			actions: [
 				{
-					href: editPageURLs.additionalComments,
+					href: editPageURL,
 					text: genericHrefText,
 					visuallyHiddenText: 'additional comments'
 				}
@@ -148,14 +160,14 @@ export const getFeesForecastingViewModel = ({ caseData, invoices, meetings }) =>
 		{
 			key: 'Tier',
 			value: getDisplayValue(tierDisplayValues, caseData.additionalDetails.tier),
-			actions: [{ href: editPageURLs.tier, text: genericHrefText, visuallyHiddenText: 'tier' }]
+			actions: [{ href: editPageURL, text: genericHrefText, visuallyHiddenText: 'tier' }]
 		},
 		{
 			key: 'Link to s61 summary',
 			html: getLinkHTML(caseData.additionalDetails.s61SummaryURI, '#'),
 			actions: [
 				{
-					href: editPageURLs.s61Summary,
+					href: editPageURL,
 					text: genericHrefText,
 					visuallyHiddenText: 'link to s61 summary'
 				}
@@ -166,7 +178,7 @@ export const getFeesForecastingViewModel = ({ caseData, invoices, meetings }) =>
 			value: formatDateForDisplay(caseData.keyDates.preApplication.estimatedScopingSubmissionDate),
 			actions: [
 				{
-					href: editPageURLs.scopingDate,
+					href: editPageURL,
 					text: genericHrefText,
 					visuallyHiddenText: 'estimated scoping submission date'
 				}
@@ -179,7 +191,7 @@ export const getFeesForecastingViewModel = ({ caseData, invoices, meetings }) =>
 			),
 			actions: [
 				{
-					href: editPageURLs.adequacyDate,
+					href: editPageURL,
 					text: genericHrefText,
 					visuallyHiddenText: 'adequacy of consultation milestone date'
 				}
@@ -195,7 +207,7 @@ export const getFeesForecastingViewModel = ({ caseData, invoices, meetings }) =>
 					: '',
 			actions: [
 				{
-					href: editPageURLs.planProcess,
+					href: editPageURL,
 					text: genericHrefText,
 					visuallyHiddenText: 'evidence plan process'
 				}
@@ -206,7 +218,7 @@ export const getFeesForecastingViewModel = ({ caseData, invoices, meetings }) =>
 			value: formatDateForDisplay(caseData.keyDates.preApplication.submissionAtInternal),
 			actions: [
 				{
-					href: editPageURLs.anticipatedDate,
+					href: editPageURL,
 					text: genericHrefText,
 					visuallyHiddenText: 'anticipated submission date internal'
 				}
@@ -292,7 +304,7 @@ export const getFeesForecastingViewModel = ({ caseData, invoices, meetings }) =>
 			html: getLinkHTML(caseData.additionalDetails.issuesTracker, '#'),
 			actions: [
 				{
-					href: editPageURLs.issuesTracker,
+					href: editPageURL,
 					text: genericHrefText,
 					visuallyHiddenText: 'link to issues tracker'
 				}
@@ -308,7 +320,7 @@ export const getFeesForecastingViewModel = ({ caseData, invoices, meetings }) =>
 					: '',
 			actions: [
 				{
-					href: editPageURLs.essentialFastTrackComponents,
+					href: editPageURL,
 					text: genericHrefText,
 					visuallyHiddenText: 'essential fast track components'
 				}
@@ -323,7 +335,7 @@ export const getFeesForecastingViewModel = ({ caseData, invoices, meetings }) =>
 			),
 			actions: [
 				{
-					href: editPageURLs.principalAreaDisagreementSummaryStmt,
+					href: editPageURL,
 					text: genericHrefText,
 					visuallyHiddenText: 'principal area disagreement summary statement (PADSS)'
 				}
@@ -338,7 +350,7 @@ export const getFeesForecastingViewModel = ({ caseData, invoices, meetings }) =>
 			),
 			actions: [
 				{
-					href: editPageURLs.policyComplianceDocument,
+					href: editPageURL,
 					text: genericHrefText,
 					visuallyHiddenText: 'policy compliance document (PCD)'
 				}
@@ -353,7 +365,7 @@ export const getFeesForecastingViewModel = ({ caseData, invoices, meetings }) =>
 			),
 			actions: [
 				{
-					href: editPageURLs.designApproachDocument,
+					href: editPageURL,
 					text: genericHrefText,
 					visuallyHiddenText: 'design approach document (DAD)'
 				}
@@ -368,7 +380,7 @@ export const getFeesForecastingViewModel = ({ caseData, invoices, meetings }) =>
 			),
 			actions: [
 				{
-					href: editPageURLs.matureOutlineControlDocument,
+					href: editPageURL,
 					text: genericHrefText,
 					visuallyHiddenText: 'mature outline control documents'
 				}
@@ -383,7 +395,7 @@ export const getFeesForecastingViewModel = ({ caseData, invoices, meetings }) =>
 			),
 			actions: [
 				{
-					href: editPageURLs.caAndTpEvidence,
+					href: editPageURL,
 					text: genericHrefText,
 					visuallyHiddenText: 'CA and TP evidence'
 				}
@@ -398,7 +410,7 @@ export const getFeesForecastingViewModel = ({ caseData, invoices, meetings }) =>
 			),
 			actions: [
 				{
-					href: editPageURLs.publicSectorEqualityDuty,
+					href: editPageURL,
 					text: genericHrefText,
 					visuallyHiddenText: 'public sector equality duty (PSED)'
 				}
@@ -413,7 +425,7 @@ export const getFeesForecastingViewModel = ({ caseData, invoices, meetings }) =>
 			),
 			actions: [
 				{
-					href: editPageURLs.fastTrackAdmissionDocument,
+					href: editPageURL,
 					text: genericHrefText,
 					visuallyHiddenText: 'fast track admission document'
 				}
@@ -428,7 +440,7 @@ export const getFeesForecastingViewModel = ({ caseData, invoices, meetings }) =>
 			),
 			actions: [
 				{
-					href: editPageURLs.multipartyApplicationCheckDocument,
+					href: editPageURL,
 					text: genericHrefText,
 					visuallyHiddenText: 'multiparty application readiness gate-check (trial)'
 				}
@@ -442,7 +454,7 @@ export const getFeesForecastingViewModel = ({ caseData, invoices, meetings }) =>
 			html: getLinkHTML(caseData.additionalDetails.programmeDocumentURI, '#'),
 			actions: [
 				{
-					href: editPageURLs.documentLink,
+					href: editPageURL,
 					text: genericHrefText,
 					visuallyHiddenText: 'link to programme document'
 				}
@@ -455,7 +467,7 @@ export const getFeesForecastingViewModel = ({ caseData, invoices, meetings }) =>
 			),
 			actions: [
 				{
-					href: editPageURLs.updatedDocumentReceivedDate,
+					href: editPageURL,
 					text: genericHrefText,
 					visuallyHiddenText: 'date updated programme document is received'
 				}
@@ -468,7 +480,7 @@ export const getFeesForecastingViewModel = ({ caseData, invoices, meetings }) =>
 			),
 			actions: [
 				{
-					href: editPageURLs.documentReviewedByEstDate,
+					href: editPageURL,
 					text: genericHrefText,
 					visuallyHiddenText: 'date programme document reviewed by EST'
 				}
@@ -479,7 +491,7 @@ export const getFeesForecastingViewModel = ({ caseData, invoices, meetings }) =>
 			value: formatDateForDisplay(caseData.keyDates.preApplication.caseTeamIssuedCommentsDate),
 			actions: [
 				{
-					href: editPageURLs.caseTeamIssuedCommentsDate,
+					href: editPageURL,
 					text: genericHrefText,
 					visuallyHiddenText: 'date case team issued comments on programme document'
 				}

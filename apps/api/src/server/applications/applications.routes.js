@@ -20,6 +20,7 @@ import { projectUpdateNotificationLogsRoutes } from './application/project-updat
 import { keyDatesRoutes } from './key-dates/key-dates.routes.js';
 import { caseStageRoutes } from './case-stage/case-stage.routes.js';
 import { projectTeamRoutes } from './project-team/project-team.routes.js';
+import { feesForecastingRoutes } from './fees-forecasting/fees-forecasting.routes.js';
 
 const router = createRouter();
 
@@ -53,6 +54,8 @@ router.use('/', keyDatesRoutes);
 router.use('/', projectTeamRoutes);
 
 router.use('/', applicationRoutes);
+
+router.use('/', feesForecastingRoutes);
 
 router.patch(
 	'/documents/:documentGUID/status',

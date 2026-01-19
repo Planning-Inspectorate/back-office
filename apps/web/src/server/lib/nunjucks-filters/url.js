@@ -145,6 +145,8 @@ export const url = (key, filterArguments = {}) => {
 			return `${domainUrl}/case/${caseId}/relevant-representations/${representationId}/representation-details/status-result`;
 		case 'key-dates':
 			return `${domainUrl}/case/${caseId}/key-dates/${step}`;
+		case 'fees-forecasting':
+			return `${domainUrl}/case/${caseId}/fees-forecasting/${step}`;
 		default:
 			return 'app/404';
 	}
