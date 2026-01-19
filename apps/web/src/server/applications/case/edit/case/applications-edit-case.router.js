@@ -146,7 +146,7 @@ applicationsEditCaseRouter
 applicationsEditCaseRouter
 	.route('/recommendation')
 	.get(
-		registerCaseWithQuery(['sector', 'additionalDetails']),
+		registerCaseWithQuery(['additionalDetails']),
 		asyncHandler(controller.viewApplicationsEditRecommendation)
 	)
 	.post(
