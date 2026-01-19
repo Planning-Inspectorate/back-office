@@ -151,7 +151,7 @@ const defaultInclusions = {
 
 /**
  *
- * @param {{subSector?: boolean | object, sector?: boolean | object, caseEmail?: boolean | object, keyDates?: boolean | object, geographicalInformation?: boolean | object, locationDescription?: boolean | object, regions?: boolean | object, status?: boolean | object, applicant?: boolean | object, hasUnpublishedChanges?: boolean, isMaterialChange: boolean }} query
+ * @param {{subSector?: boolean | object, sector?: boolean | object, caseEmail?: boolean | object, keyDates?: boolean | object, geographicalInformation?: boolean | object, additionalDetails?: boolean | object, locationDescription?: boolean | object, regions?: boolean | object, status?: boolean | object, applicant?: boolean | object, hasUnpublishedChanges?: boolean, isMaterialChange: boolean }} query
  * @returns {object}
  */
 const inclusionsUsingQuery = (query) => {
@@ -161,7 +161,8 @@ const inclusionsUsingQuery = (query) => {
 		applicationDetails:
 			notFalseOrUndefined(query?.keyDates) ||
 			notFalseOrUndefined(query?.geographicalInformation) ||
-			notFalseOrUndefined(query?.caseEmail),
+			notFalseOrUndefined(query?.caseEmail) ||
+			notFalseOrUndefined(query?.additionalDetails),
 		zoomLevel: notFalseOrUndefined(query?.geographicalInformation),
 		regions:
 			notFalseOrUndefined(query?.regions) || notFalseOrUndefined(query?.geographicalInformation),
