@@ -533,7 +533,6 @@ export async function caseRecommendationData(request, locals) {
 	const { currentCase } = locals;
 
 	const selected = currentCase?.additionalDetails?.recommendation || '';
-	console.log('###1:', selected, currentCase);
 	return {
 		values: { recommendation: selected },
 		recommendations: getRecommendationsViewModel()

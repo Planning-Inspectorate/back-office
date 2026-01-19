@@ -649,7 +649,6 @@ export async function updateApplicationsEditProjectType(request, response) {
  */
 export async function viewApplicationsEditRecommendation(request, response) {
 	const properties = await caseRecommendationData(request, response.locals);
-	console.log('###', properties);
 	response.render(resolveTemplate(recommendationLayout), {
 		...properties,
 		layout: recommendationLayout
