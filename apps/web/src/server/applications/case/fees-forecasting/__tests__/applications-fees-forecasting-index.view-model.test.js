@@ -273,7 +273,7 @@ describe('applications fees forecasting index view-model', () => {
 								actions: {
 									items: [
 										{
-											href: '#',
+											href: '/applications-service/case/4/fees-forecasting/consultation-milestone',
 											text: 'Change',
 											visuallyHiddenText: 'adequacy of consultation milestone date'
 										}

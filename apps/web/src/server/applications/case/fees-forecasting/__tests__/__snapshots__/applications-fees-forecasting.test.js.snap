@@ -105,7 +105,7 @@ exports[`Fees and Forecasting GET /case/123/fees-forecasting/ should render the 
                             </div>
                             <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Adequacy of Consultation Milestone (AoCM) date</dt>
                                 <dd                                 class="govuk-summary-list__value">13 Mar 2025</dd>
-                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> adequacy of consultation milestone date</span></a>
+                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/fees-forecasting/consultation-milestone">Change<span class="govuk-visually-hidden"> adequacy of consultation milestone date</span></a>
                                     </dd>
                             </div>
                             <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Evidence plan process</dt>
