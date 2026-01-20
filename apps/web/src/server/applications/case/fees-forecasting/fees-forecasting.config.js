@@ -33,14 +33,21 @@ export const supplementaryComponentsDisplayValues = {
 };
 
 export const urlSectionNames = {
-	memLastUpdated: 'maturity-evaluation-matrix'
+	maturityEvaluationMatrix: 'maturity-evaluation-matrix',
+	scopingSubmission: 'scoping-submission'
 };
 
 export const sectionData = {
-	memLastUpdated: {
+	maturityEvaluationMatrix: {
 		sectionTitle: 'MEM last updated',
 		pageHeading: 'Maturity Evaluation Matrix (MEM) last updated',
 		fieldName: 'memLastUpdated',
+		componentType: 'date-input'
+	},
+	scopingSubmission: {
+		sectionTitle: 'Estimated scoping submission date',
+		pageHeading: 'Estimated scoping submission date',
+		fieldName: 'estimatedScopingSubmissionDate',
 		componentType: 'date-input'
 	}
 };
