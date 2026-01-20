@@ -17,7 +17,8 @@ export const feesForecastingValidator = async (request, response, next) => {
 	const validators = {
 		'maturity-evaluation-matrix': validateFeesForecastingDate,
 		'scoping-submission': validateFeesForecastingDate,
-		'consultation-milestone': validateFeesForecastingDate
+		'consultation-milestone': validateFeesForecastingDate,
+		'programme-document-received': validateFeesForecastingDate
 	};
 
 	if (Object.keys(validators).includes(sectionName)) {

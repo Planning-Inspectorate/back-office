@@ -20,7 +20,8 @@
 		{{ dateInput({
 			layout: {
 				fieldName: fieldName,
-				classes: 'govuk-grid-column-one-third'
+				classes: 'govuk-grid-column-one-third',
+				hint: { text: hintText } if hintText
 			},
 			errors: errors,
 			values: values

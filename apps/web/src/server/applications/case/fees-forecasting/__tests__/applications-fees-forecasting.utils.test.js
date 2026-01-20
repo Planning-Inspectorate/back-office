@@ -14,6 +14,7 @@ describe('applications fees forecasting utils', () => {
 				sectionTitle: 'Test section',
 				pageHeading: 'Test page heading',
 				fieldName: 'testSection',
+				hintText: 'Test section hint text',
 				componentType: 'date-input'
 			});
 		});
