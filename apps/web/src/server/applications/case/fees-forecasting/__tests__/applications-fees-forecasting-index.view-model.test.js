@@ -553,7 +553,7 @@ describe('applications fees forecasting index view-model', () => {
 								actions: {
 									items: [
 										{
-											href: '#',
+											href: '/applications-service/case/4/fees-forecasting/programme-document-received',
 											text: 'Change',
 											visuallyHiddenText: 'date updated programme document is received'
 										}

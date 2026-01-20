@@ -24,6 +24,7 @@ describe('applications fees forecasting edit view model', () => {
 				sectionTitle: 'Test section',
 				pageHeading: 'Test page heading',
 				fieldName: 'testSection',
+				hintText: 'Test section hint text',
 				componentType: 'date-input'
 			});
 
@@ -40,6 +41,7 @@ describe('applications fees forecasting edit view model', () => {
 				pageTitle: 'Test section - Test case',
 				pageHeading: 'Test page heading',
 				fieldName: 'testSection',
+				hintText: 'Test section hint text',
 				componentType: 'date-input'
 			});
 		});
@@ -66,6 +68,7 @@ describe('applications fees forecasting edit view model', () => {
 				pageTitle: '',
 				pageHeading: '',
 				fieldName: '',
+				hintText: '',
 				componentType: 'date-input'
 			});
 		});

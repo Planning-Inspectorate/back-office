@@ -117,12 +117,14 @@ export const fixtureFeesForecastingEdit = {
 			sectionTitle: 'Test section',
 			pageHeading: 'Test page heading',
 			fieldName: 'testSection',
+			hintText: 'Test section hint text',
 			componentType: 'date-input'
 		},
 		anotherTestSection: {
 			sectionTitle: 'Another test section',
 			pageHeading: 'Another test page heading',
 			fieldName: 'anotherTestSection',
+			hintText: 'Another test section hint text',
 			componentType: 'date-input'
 		}
 	}

@@ -35,7 +35,8 @@ export const supplementaryComponentsDisplayValues = {
 export const urlSectionNames = {
 	maturityEvaluationMatrix: 'maturity-evaluation-matrix',
 	scopingSubmission: 'scoping-submission',
-	consultationMilestone: 'consultation-milestone'
+	consultationMilestone: 'consultation-milestone',
+	programmeDocumentReceived: 'programme-document-received'
 };
 
 export const sectionData = {
@@ -55,6 +56,14 @@ export const sectionData = {
 		sectionTitle: 'Adequacy of Consultation Milestone (AoCM) date',
 		pageHeading: 'Adequacy of Consultation Milestone (AoCM) date',
 		fieldName: 'consultationMilestoneAdequacyDate',
+		componentType: 'date-input'
+	},
+	programmeDocumentReceived: {
+		sectionTitle: 'Date updated programme document received',
+		pageHeading: 'Date updated programme document received',
+		fieldName: 'updatedProgrammeDocumentReceivedDate',
+		hintText:
+			'Date the Planning Inspectorate received the most recently updated programme document from applicant',
 		componentType: 'date-input'
 	}
 };
