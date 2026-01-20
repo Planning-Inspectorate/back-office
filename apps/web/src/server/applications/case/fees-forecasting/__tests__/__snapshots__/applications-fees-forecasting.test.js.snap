@@ -100,7 +100,7 @@ exports[`Fees and Forecasting GET /case/123/fees-forecasting/ should render the 
                             </div>
                             <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Estimated scoping submission date</dt>
                                 <dd                                 class="govuk-summary-list__value">09 Feb 2025</dd>
-                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> estimated scoping submission date</span></a>
+                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/fees-forecasting/scoping-submission">Change<span class="govuk-visually-hidden"> estimated scoping submission date</span></a>
                                     </dd>
                             </div>
                             <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Adequacy of Consultation Milestone (AoCM) date</dt>

@@ -135,7 +135,7 @@ export const getFeesForecastingIndexViewModel = ({ caseData, invoices, meetings 
 			value: formatDateForDisplay(caseData.keyDates.preApplication.memLastUpdated),
 			actions: [
 				{
-					href: getEditPageURL(urlSectionNames.memLastUpdated, caseData.id),
+					href: getEditPageURL(urlSectionNames.maturityEvaluationMatrix, caseData.id),
 					text: genericHrefText,
 					visuallyHiddenText: 'MEM last updated'
 				}
@@ -178,7 +178,7 @@ export const getFeesForecastingIndexViewModel = ({ caseData, invoices, meetings 
 			value: formatDateForDisplay(caseData.keyDates.preApplication.estimatedScopingSubmissionDate),
 			actions: [
 				{
-					href: editPageURL,
+					href: getEditPageURL(urlSectionNames.scopingSubmission, caseData.id),
 					text: genericHrefText,
 					visuallyHiddenText: 'estimated scoping submission date'
 				}
