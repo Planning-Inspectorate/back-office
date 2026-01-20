@@ -191,7 +191,7 @@ export const getFeesForecastingIndexViewModel = ({ caseData, invoices, meetings 
 			),
 			actions: [
 				{
-					href: editPageURL,
+					href: getEditPageURL(urlSectionNames.consultationMilestone, caseData.id),
 					text: genericHrefText,
 					visuallyHiddenText: 'adequacy of consultation milestone date'
 				}

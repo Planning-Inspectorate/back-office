@@ -34,7 +34,8 @@ export const supplementaryComponentsDisplayValues = {
 
 export const urlSectionNames = {
 	maturityEvaluationMatrix: 'maturity-evaluation-matrix',
-	scopingSubmission: 'scoping-submission'
+	scopingSubmission: 'scoping-submission',
+	consultationMilestone: 'consultation-milestone'
 };
 
 export const sectionData = {
@@ -48,6 +49,12 @@ export const sectionData = {
 		sectionTitle: 'Estimated scoping submission date',
 		pageHeading: 'Estimated scoping submission date',
 		fieldName: 'estimatedScopingSubmissionDate',
+		componentType: 'date-input'
+	},
+	consultationMilestone: {
+		sectionTitle: 'Adequacy of Consultation Milestone (AoCM) date',
+		pageHeading: 'Adequacy of Consultation Milestone (AoCM) date',
+		fieldName: 'consultationMilestoneAdequacyDate',
 		componentType: 'date-input'
 	}
 };
