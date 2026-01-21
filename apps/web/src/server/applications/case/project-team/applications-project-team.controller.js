@@ -18,8 +18,8 @@ import {
 /** @typedef {import("../../../app/auth/auth-session.service.js").SessionWithAuth} SessionWithAuth */
 
 export const allRoles = [
-	{ value: 'case_manager', text: 'Case Manager', unique: true },
-	{ value: 'environmental_services', text: 'Environmental Services', unique: true },
+	{ value: 'case_manager', text: 'Case Manager', unique: false },
+	{ value: 'environmental_services', text: 'Environmental Services', unique: false },
 	{ value: 'inspector', text: 'Inspector', unique: false },
 	{ value: 'lead_inspector', text: 'Lead Inspector', unique: true },
 	{ value: 'legal_officer', text: 'Legal Officer', unique: true },

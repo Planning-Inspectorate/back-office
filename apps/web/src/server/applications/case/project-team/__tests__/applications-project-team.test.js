@@ -172,7 +172,7 @@ describe('Project team', () => {
 				expect(element.innerHTML).toContain('another');
 			});
 
-			it('should render the page with the name of the NEW user, no default option and no Case Manager option', async () => {
+			it('should render the page with the name of the NEW user, no default option and Case Manager still available', async () => {
 				nock('http://test/').get('/applications/123/project-team/1').reply(500, {});
 				nock('http://test/')
 					.get('/applications/123/project-team')
@@ -187,7 +187,7 @@ describe('Project team', () => {
 
 				expect(element.innerHTML).toMatchSnapshot();
 				expect(element.innerHTML).not.toContain('checked');
-				expect(element.innerHTML).not.toContain('case_manager');
+				expect(element.innerHTML).toContain('case_manager');
 				expect(element.innerHTML).toContain('inspector');
 				expect(element.innerHTML).toContain('Choose role');
 				expect(element.innerHTML).toContain(fixtureProjectTeamMembers[0].givenName);
