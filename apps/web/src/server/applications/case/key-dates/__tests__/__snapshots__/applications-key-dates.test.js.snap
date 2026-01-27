@@ -458,7 +458,9 @@ exports[`S51 Advice Key dates page Sections GET /case/123/key-dates/:sectionName
         </div>
         </fieldset>
         </div>
-        <button type="submit" class="govuk-button" data-module="govuk-button">Save and return</button>
+        <div class='govuk-grid-column-one-third'>
+            <button type="submit" class="govuk-button" data-module="govuk-button">Save and return</button>
+        </div>
     </form>
 </main>"
 `;
@@ -572,7 +574,9 @@ exports[`S51 Advice Key dates page Sections GET /case/123/key-dates/:sectionName
                 </div>
             </fieldset>
         </div>
-        <button type="submit" class="govuk-button" data-module="govuk-button">Save and return</button>
+        <div class='govuk-grid-column-one-third'>
+            <button type="submit" class="govuk-button" data-module="govuk-button">Save and return</button>
+        </div>
     </form>
 </main>"
 `;
@@ -873,7 +877,9 @@ exports[`S51 Advice Key dates page Sections GET /case/123/key-dates/:sectionName
                     </div>
                 </fieldset>
             </div>
-            <button type="submit" class="govuk-button" data-module="govuk-button">Save and return</button>
+            <div class='govuk-grid-column-one-third'>
+                <button type="submit" class="govuk-button" data-module="govuk-button">Save and return</button>
+            </div>
     </form>
 </main>"
 `;
@@ -1040,7 +1046,9 @@ exports[`S51 Advice Key dates page Sections GET /case/123/key-dates/:sectionName
                 </div>
             </fieldset>
         </div>
-        <button type="submit" class="govuk-button" data-module="govuk-button">Save and return</button>
+        <div class='govuk-grid-column-one-third'>
+            <button type="submit" class="govuk-button" data-module="govuk-button">Save and return</button>
+        </div>
     </form>
 </main>"
 `;
@@ -1129,7 +1137,9 @@ exports[`S51 Advice Key dates page Sections GET /case/123/key-dates/:sectionName
         </div>
         </fieldset>
         </div>
-        <button type="submit" class="govuk-button" data-module="govuk-button">Save and return</button>
+        <div class='govuk-grid-column-one-third'>
+            <button type="submit" class="govuk-button" data-module="govuk-button">Save and return</button>
+        </div>
     </form>
 </main>"
 `;
@@ -1215,7 +1225,9 @@ exports[`S51 Advice Key dates page Sections GET /case/123/key-dates/:sectionName
         </div>
         </fieldset>
         </div>
-        <button type="submit" class="govuk-button" data-module="govuk-button">Save and return</button>
+        <div class='govuk-grid-column-one-third'>
+            <button type="submit" class="govuk-button" data-module="govuk-button">Save and return</button>
+        </div>
     </form>
 </main>"
 `;
@@ -1250,7 +1262,9 @@ exports[`S51 Advice Key dates page Sections GET /case/123/key-dates/:sectionName
                 </div>
             </fieldset>
         </div>
-        <button type="submit" class="govuk-button" data-module="govuk-button">Save and return</button>
+        <div class='govuk-grid-column-one-third'>
+            <button type="submit" class="govuk-button" data-module="govuk-button">Save and return</button>
+        </div>
     </form>
 </main>"
 `;
@@ -1385,7 +1399,9 @@ exports[`S51 Advice Key dates page Sections POST /case/123/key-dates/:sectionNam
         </div>
         </fieldset>
         </div>
-        <button type="submit" class="govuk-button" data-module="govuk-button">Save and return</button>
+        <div class='govuk-grid-column-one-third'>
+            <button type="submit" class="govuk-button" data-module="govuk-button">Save and return</button>
+        </div>
     </form>
 </main>"
 `;
@@ -1514,7 +1530,9 @@ exports[`S51 Advice Key dates page Sections POST /case/123/key-dates/:sectionNam
                 </div>
             </fieldset>
         </div>
-        <button type="submit" class="govuk-button" data-module="govuk-button">Save and return</button>
+        <div class='govuk-grid-column-one-third'>
+            <button type="submit" class="govuk-button" data-module="govuk-button">Save and return</button>
+        </div>
     </form>
 </main>"
 `;
@@ -1830,7 +1848,9 @@ exports[`S51 Advice Key dates page Sections POST /case/123/key-dates/:sectionNam
                     </div>
                 </fieldset>
             </div>
-            <button type="submit" class="govuk-button" data-module="govuk-button">Save and return</button>
+            <div class='govuk-grid-column-one-third'>
+                <button type="submit" class="govuk-button" data-module="govuk-button">Save and return</button>
+            </div>
     </form>
 </main>"
 `;
@@ -2012,7 +2032,9 @@ exports[`S51 Advice Key dates page Sections POST /case/123/key-dates/:sectionNam
                 </div>
             </fieldset>
         </div>
-        <button type="submit" class="govuk-button" data-module="govuk-button">Save and return</button>
+        <div class='govuk-grid-column-one-third'>
+            <button type="submit" class="govuk-button" data-module="govuk-button">Save and return</button>
+        </div>
     </form>
 </main>"
 `;
@@ -2116,7 +2138,9 @@ exports[`S51 Advice Key dates page Sections POST /case/123/key-dates/:sectionNam
         </div>
         </fieldset>
         </div>
-        <button type="submit" class="govuk-button" data-module="govuk-button">Save and return</button>
+        <div class='govuk-grid-column-one-third'>
+            <button type="submit" class="govuk-button" data-module="govuk-button">Save and return</button>
+        </div>
     </form>
 </main>"
 `;
@@ -2217,7 +2241,9 @@ exports[`S51 Advice Key dates page Sections POST /case/123/key-dates/:sectionNam
         </div>
         </fieldset>
         </div>
-        <button type="submit" class="govuk-button" data-module="govuk-button">Save and return</button>
+        <div class='govuk-grid-column-one-third'>
+            <button type="submit" class="govuk-button" data-module="govuk-button">Save and return</button>
+        </div>
     </form>
 </main>"
 `;
@@ -2267,7 +2293,9 @@ exports[`S51 Advice Key dates page Sections POST /case/123/key-dates/:sectionNam
                 </div>
             </fieldset>
         </div>
-        <button type="submit" class="govuk-button" data-module="govuk-button">Save and return</button>
+        <div class='govuk-grid-column-one-third'>
+            <button type="submit" class="govuk-button" data-module="govuk-button">Save and return</button>
+        </div>
     </form>
 </main>"
 `;

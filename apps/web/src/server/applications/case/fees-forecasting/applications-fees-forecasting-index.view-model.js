@@ -218,7 +218,12 @@ export const getFeesForecastingIndexViewModel = ({ caseData, invoices, meetings 
 			value: formatDateForDisplay(caseData.keyDates.preApplication.submissionAtInternal),
 			actions: [
 				{
-					href: editPageURL,
+					// User should be redirected to the existing key dates page
+					href: url('key-dates', {
+						caseId: caseData.id,
+						step: urlSectionNames.preApplicationSection,
+						query: urlSectionNames.submissionAtInternal
+					}),
 					text: genericHrefText,
 					visuallyHiddenText: 'anticipated submission date internal'
 				}
