@@ -12,36 +12,14 @@ updates:
     cooldown:
       default-days: 7
     groups:
-      azure:
+      deps: # all app dependencies to test and merge together
         patterns:
-          - '@azure/*'
-      commitlint:
+          - '*'
+        dependency-type: 'production'
+      devDeps: # all dev dependencies to test and merge together
         patterns:
-          - '@commitlint/*'
-      jest:
-        patterns:
-          - 'jest'
-          - 'jest-each'
-          - 'jest-environment-jsdom'
-          - '@types/jest'
-      opentelemetry:
-        patterns:
-          - '@opentelemetry/*'
-      prettier:
-        patterns:
-          - 'prettier'
-          - 'prettier-*'
-      prisma: # group prisma library and client updates together
-        patterns:
-          - 'prisma'
-          - '@prisma/*'
-      rollup:
-        patterns:
-          - '@rollup/*'
-      types:
-        patterns:
-          - '@microsoft/microsoft-graph-types'
-          - '@types/*'
+          - '*'
+        dependency-type: 'development'
   - package-ecosystem: 'terraform'
     directory: '/infrastructure' # Location of package manifests
     schedule:
