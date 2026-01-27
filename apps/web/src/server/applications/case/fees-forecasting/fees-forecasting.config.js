@@ -39,7 +39,9 @@ export const urlSectionNames = {
 	maturityEvaluationMatrix: 'maturity-evaluation-matrix',
 	scopingSubmission: 'scoping-submission',
 	consultationMilestone: 'consultation-milestone',
-	programmeDocumentReceived: 'programme-document-received'
+	programmeDocumentReceived: 'programme-document-received',
+	programmeDocumentReviewed: 'programme-document-reviewed',
+	programmeDocumentComments: 'programme-document-comments'
 };
 
 export const sectionData = {
@@ -67,6 +69,20 @@ export const sectionData = {
 		fieldName: 'updatedProgrammeDocumentReceivedDate',
 		hintText:
 			'Date the Planning Inspectorate received the most recently updated programme document from applicant',
+		componentType: 'date-input'
+	},
+	programmeDocumentReviewed: {
+		sectionTitle: 'Date programme document reviewed by EST',
+		pageHeading: 'Date programme document reviewed by EST',
+		fieldName: 'programmeDocumentReviewedByEstDate',
+		hintText: 'Date of the most recent review by Environmental Services Team (EST)',
+		componentType: 'date-input'
+	},
+	programmeDocumentComments: {
+		sectionTitle: 'Date case team issued comments on programme document',
+		pageHeading: 'Date case team issued comments on programme document',
+		fieldName: 'caseTeamIssuedCommentsDate',
+		hintText: 'Issue date of the most recent initial comments on programme document to applicant',
 		componentType: 'date-input'
 	}
 };

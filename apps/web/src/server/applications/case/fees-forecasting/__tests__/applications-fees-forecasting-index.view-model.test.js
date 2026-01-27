@@ -566,7 +566,7 @@ describe('applications fees forecasting index view-model', () => {
 								actions: {
 									items: [
 										{
-											href: '#',
+											href: '/applications-service/case/4/fees-forecasting/programme-document-reviewed',
 											text: 'Change',
 											visuallyHiddenText: 'date programme document reviewed by EST'
 										}
@@ -581,7 +581,7 @@ describe('applications fees forecasting index view-model', () => {
 								actions: {
 									items: [
 										{
-											href: '#',
+											href: '/applications-service/case/4/fees-forecasting/programme-document-comments',
 											text: 'Change',
 											visuallyHiddenText: 'date case team issued comments on programme document'
 										}

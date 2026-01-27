@@ -485,7 +485,7 @@ export const getFeesForecastingIndexViewModel = ({ caseData, invoices, meetings 
 			),
 			actions: [
 				{
-					href: editPageURL,
+					href: getEditPageURL(urlSectionNames.programmeDocumentReviewed, caseData.id),
 					text: genericHrefText,
 					visuallyHiddenText: 'date programme document reviewed by EST'
 				}
@@ -496,7 +496,7 @@ export const getFeesForecastingIndexViewModel = ({ caseData, invoices, meetings 
 			value: formatDateForDisplay(caseData.keyDates.preApplication.caseTeamIssuedCommentsDate),
 			actions: [
 				{
-					href: editPageURL,
+					href: getEditPageURL(urlSectionNames.programmeDocumentComments, caseData.id),
 					text: genericHrefText,
 					visuallyHiddenText: 'date case team issued comments on programme document'
 				}
