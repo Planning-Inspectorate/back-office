@@ -299,7 +299,7 @@ describe('applications fees forecasting index view-model', () => {
 								actions: {
 									items: [
 										{
-											href: '#',
+											href: '/applications-service/case/4/key-dates/preApplicationSection?showOnly=submissionAtInternal',
 											text: 'Change',
 											visuallyHiddenText: 'anticipated submission date internal'
 										}

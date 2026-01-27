@@ -144,7 +144,7 @@ export const url = (key, filterArguments = {}) => {
 		case 'status-result':
 			return `${domainUrl}/case/${caseId}/relevant-representations/${representationId}/representation-details/status-result`;
 		case 'key-dates':
-			return `${domainUrl}/case/${caseId}/key-dates/${step}`;
+			return `${domainUrl}/case/${caseId}/key-dates/${step}${query ? `?showOnly=${query}` : ''}`;
 		case 'fees-forecasting':
 			return `${domainUrl}/case/${caseId}/fees-forecasting/${step}`;
 		default:

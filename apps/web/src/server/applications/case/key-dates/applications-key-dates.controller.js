@@ -1,7 +1,9 @@
 import { getAllCaseKeyDates, updateKeyDates } from './applications-key-dates.service.js';
 import {
 	isRelevantRepresentationsReOpened,
-	getProjectFormLink
+	getProjectFormLink,
+	getSectionValuesForDisplay,
+	getBackLink
 } from './applications-key-dates.utils.js';
 
 /**
@@ -190,10 +192,11 @@ export async function viewKeyDatesIndex(request, response) {
 /**
  * View page to edit key dates for a specific section
  *
- * @type {import('@pins/express').RenderHandler<{}, {}, {}, {}, {sectionName: string}>}
+ * @type {import('@pins/express').RenderHandler<{}, {}, {}, {showOnly: string}, {sectionName: string}>}
  */
-export async function viewKeyDatesEditSection({ params }, response) {
+export async function viewKeyDatesEditSection({ params, query }, response) {
 	const { sectionName } = params;
+	const { showOnly: showOnlySection } = query;
 	const { caseId } = response.locals;
 
 	const sections = await getAllCaseKeyDates(+caseId);
@@ -223,21 +226,33 @@ export async function viewKeyDatesEditSection({ params }, response) {
 		sectionValues = modifiedSections[sectionName] || {};
 	}
 
+	// Some key dates pages can be accessed via the fees and forecasting index page so users must be returned to correct page
+	const backLink = getBackLink(showOnlySection, caseId);
+
+	// Allows values to be displayed for the specified section only if navigating from the fees and forecasting index page
+	const sectionValuesForDisplay = getSectionValuesForDisplay(sectionValues, showOnlySection);
+
 	return response.render(`applications/case-key-dates/key-dates-section.njk`, {
 		sectionName: targetSectionName,
-		sectionValues: sectionValues,
+		sectionValues: sectionValuesForDisplay,
 		mainHeading: mainHeading,
-		subHeading: subHeading
+		subHeading: subHeading,
+		backLink: backLink,
+		showOnlySection: showOnlySection
 	});
 }
 
 /**
  * Update key dates for a specific section
  *
- * @type {import('@pins/express').RenderHandler<{}, {}, Record<string, string>, {}, {sectionName: string}>}
+ * @type {import('@pins/express').RenderHandler<{}, {}, Record<string, string>, {showOnly: string}, {sectionName: string}>}
  */
-export async function updateKeyDatesSection({ params, body, errors: validationErrors }, response) {
+export async function updateKeyDatesSection(
+	{ params, query, body, errors: validationErrors },
+	response
+) {
 	const { sectionName } = params;
+	const { showOnly: showOnlySection } = query;
 	const { caseId } = response.locals;
 
 	/** @type {Record<string, string|number>} */
@@ -312,12 +327,24 @@ export async function updateKeyDatesSection({ params, body, errors: validationEr
 			sectionValues = modifiedSections[sectionName] || {};
 		}
 
+		// Some key dates pages can be accessed via the fees and forecasting index page so users must be returned to correct page
+		const backLink = getBackLink(showOnlySection, caseId);
+
+		// Allows values to be displayed for the specified section only if navigating from the fees and forecasting index page
+		const sectionValuesForDisplay = getSectionValuesForDisplay(sectionValues, showOnlySection);
+
 		return response.render(`applications/case-key-dates/key-dates-section.njk`, {
 			sectionName: targetSectionName,
-			sectionValues: { ...sectionValues, ...validDates },
-			errors: validationErrors || apiErrors
+			sectionValues: { ...sectionValuesForDisplay, ...validDates },
+			errors: validationErrors || apiErrors,
+			backLink: backLink,
+			showOnlySection: showOnlySection
 		});
 	}
 
-	return response.redirect(`../key-dates`);
+	if (showOnlySection) {
+		return response.redirect(`../fees-forecasting`);
+	} else {
+		return response.redirect(`../key-dates`);
+	}
 }

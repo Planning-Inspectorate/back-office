@@ -32,7 +32,10 @@ export const supplementaryComponentsDisplayValues = {
 	not_applicable: 'Not applicable'
 };
 
+// Different formats used for key dates and fees and forecasting
 export const urlSectionNames = {
+	preApplicationSection: 'preApplicationSection',
+	submissionAtInternal: 'submissionAtInternal',
 	maturityEvaluationMatrix: 'maturity-evaluation-matrix',
 	scopingSubmission: 'scoping-submission',
 	consultationMilestone: 'consultation-milestone',

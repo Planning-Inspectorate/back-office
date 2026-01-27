@@ -20,7 +20,7 @@
 	<aside>
 		{{ govukBackLink({
 			text: "Back",
-			href: 'key-dates'|url({caseId: caseId})
+			href: backLink
 		}) }}
 	</aside>
 {% endblock %}
@@ -29,7 +29,9 @@
 
 {% block pageContent %}
 	<h1 class="govuk-heading-l govuk-!-margin-bottom-4">
-		<span class="govuk-caption-l">Manage key dates</span>
+		{% if not showOnlySection %}
+			<span class="govuk-caption-l">Manage key dates</span>
+		{% endif %}
 		{% if pageSubHeading %}
 			{{ pageTitle }}
 			<span class="govuk-heading-m govuk-!-margin-top-6 govuk-!-margin-bottom-6">{{ pageSubHeading }}</span>
@@ -38,7 +40,8 @@
 		{% endif %}
 	</h1>
 
-	<form method="post" action="" novalidate="novalidate" class="pins-applications-create govuk-grid-row govuk-!-margin-top-8">
+	{% set marginClass = 'govuk-!-margin-top-2' if showOnlySection else 'govuk-!-margin-top-8'%}
+	<form method="post" action="" novalidate="novalidate" class="pins-applications-create govuk-grid-row {{ marginClass }}">
 		{% if sectionName == "preExamination" %}
 			{% include "./includes/pre-examination/pre-examination-manage-dates.include.njk" %}
 		{% else %}
@@ -46,25 +49,25 @@
 				{% if key === 'submissionAtPublished' %}
 					<div class="govuk-form-group govuk-grid-column-full">
 						{{ govukInput({
-						label: {
-							text: key|keyDatesProperty,
-							classes: 'font-weight--700'
-						},
-						hint: {
-							text: (key+'_label')|keyDatesProperty
-						},
-						id: key,
-						name: key,
-						value: values,
-						classes: "govuk-!-width-one-third"
-					}) }}
+							label: {
+								text: key|keyDatesProperty,
+								classes: 'font-weight--700'
+							},
+							hint: {
+								text: (key+'_label')|keyDatesProperty
+							},
+							id: key,
+							name: key,
+							value: values,
+							classes: "govuk-!-width-one-third"
+						}) }}
 					</div>
 				{% else %}
 					{{ dateInput({
 						layout: {
-						fieldName: key,
-						label: key | keyDatesProperty,
-						classes: 'govuk-grid-column-one-third',
+							fieldName: key,
+							label: key | keyDatesProperty,
+							classes: 'govuk-grid-column-one-third',
 							hint: {	html: getDatesHint(key)	} if (getDatesHint(key) | length > 3)
 						},
 						errors: errors,
@@ -74,7 +77,9 @@
 			{% endfor %}
 		{% endif %}
 
-		{{ govukButton({ text: 'Save and return'}) }}
+		<div class='govuk-grid-column-one-third'>
+			{{ govukButton({ text: 'Save and return' }) }}
+		</div>
 	</form>
 {% endblock %}
 
