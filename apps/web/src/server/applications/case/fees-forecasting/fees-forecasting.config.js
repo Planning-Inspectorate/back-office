@@ -36,6 +36,7 @@ export const supplementaryComponentsDisplayValues = {
 export const urlSectionNames = {
 	preApplicationSection: 'preApplicationSection',
 	submissionAtInternal: 'submissionAtInternal',
+	inceptionMeetingDate: 'inceptionMeetingDate',
 	maturityEvaluationMatrix: 'maturity-evaluation-matrix',
 	scopingSubmission: 'scoping-submission',
 	consultationMilestone: 'consultation-milestone',
