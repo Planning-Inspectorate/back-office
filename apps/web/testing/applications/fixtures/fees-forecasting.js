@@ -45,7 +45,8 @@ export const fixtureFeesForecastingIndex = {
 				caseTeamIssuedCommentsDate: 1749273600,
 				memLastUpdated: 1710000000,
 				principalAreaDisagreementSummaryStmtSubmittedDate: 1710000000,
-				fastTrackAdmissionDocumentSubmittedDate: 1749273600
+				fastTrackAdmissionDocumentSubmittedDate: 1749273600,
+				inceptionMeetingDate: 1749273600
 			}
 		}
 	},
@@ -76,20 +77,12 @@ export const fixtureFeesForecastingIndex = {
 			id: 1,
 			caseId: 4,
 			meetingType: 'pre_application',
-			agenda: 'Inception meeting',
-			pinsRole: null,
-			meetingDate: '2025-01-09T00:00:00.000Z'
-		},
-		{
-			id: 2,
-			caseId: 4,
-			meetingType: 'pre_application',
 			agenda: 'Project Update Meeting (PUM)',
 			pinsRole: null,
 			meetingDate: '2025-01-11T00:00:00.000Z'
 		},
 		{
-			id: 3,
+			id: 2,
 			caseId: 4,
 			meetingType: 'pre_application',
 			agenda: 'Flood Risk Assessment',
@@ -97,7 +90,7 @@ export const fixtureFeesForecastingIndex = {
 			meetingDate: '2025-01-09T00:00:00.000Z'
 		},
 		{
-			id: 4,
+			id: 3,
 			caseId: 4,
 			meetingType: 'pre_application',
 			agenda: 'Habitat Regulation Assessment',

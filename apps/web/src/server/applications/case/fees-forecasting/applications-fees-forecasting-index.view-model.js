@@ -251,36 +251,43 @@ export const getFeesForecastingIndexViewModel = ({ caseData, invoices, meetings 
 		});
 	};
 
-	const projectMeetingsSection = buildTable({
-		headers: ['Meeting agenda', 'Date', 'Action'],
-		rows:
-			meetings.filter(
+	const getProjectMeetingsSection = () => {
+		// User should be redirected to the existing key dates page to edit this value
+		const inceptionMeetingHref = url('key-dates', {
+			caseId: caseData.id,
+			step: urlSectionNames.preApplicationSection,
+			query: urlSectionNames.inceptionMeetingDate
+		});
+
+		const inceptionMeeting = [
+			{ text: 'Inception meeting' },
+			{ text: formatDateForDisplay(caseData.keyDates.preApplication.inceptionMeetingDate) },
+			{ html: getLinkHTML(genericHrefText, inceptionMeetingHref) }
+		];
+
+		const projectMeetings = meetings
+			.filter(
 				/** @param {object|*} meeting */
 				(meeting) => meeting.meetingType === 'pre_application' && meeting.pinsRole === null
-			).length === 0
-				? [
-						[
-							{ text: 'Inception meeting' },
-							{ text: '' },
-							{ html: getLinkHTML(genericHrefText, '#') }
-						]
-				  ]
-				: meetings
-						.filter(
-							/** @param {object|*} meeting */
-							(meeting) => meeting.meetingType === 'pre_application' && meeting.pinsRole === null
-						)
-						.map(
-							/** @param {object|*} meeting */
-							(meeting) => [
-								{ text: meeting.agenda },
-								{ text: formatDateForDisplay(meeting.meetingDate) },
-								{ html: getLinkHTML(genericHrefText, '#') }
-							]
-						)
-	});
+			)
+			.map(
+				/** @param {object|*} meeting */
+				(meeting) => [
+					{ text: meeting.agenda },
+					{ text: formatDateForDisplay(meeting.meetingDate) },
+					{ html: getLinkHTML(genericHrefText, '#') }
+				]
+			);
 
-	const getEvidencePlanMeetingSection = () => {
+		const meetingsToDisplay = [inceptionMeeting, ...projectMeetings];
+
+		return buildTable({
+			headers: ['Meeting agenda', 'Date', 'Action'],
+			rows: meetingsToDisplay
+		});
+	};
+
+	const getEvidencePlanMeetingsSection = () => {
 		const evidencePlanMeetings = meetings.filter(
 			/** @param {object|*} meeting */
 			(meeting) => meeting.meetingType === 'pre_application' && meeting.pinsRole !== null
@@ -519,14 +526,14 @@ export const getFeesForecastingIndexViewModel = ({ caseData, invoices, meetings 
 		},
 		{
 			heading: 'Pre-application project meetings',
-			content: projectMeetingsSection,
+			content: getProjectMeetingsSection(),
 			component: 'table',
 			buttonText: 'Add project meeting',
 			buttonLink: '#'
 		},
 		{
 			heading: 'Pre-application evidence plan meetings',
-			content: getEvidencePlanMeetingSection(),
+			content: getEvidencePlanMeetingsSection(),
 			component: 'table',
 			buttonText: 'Add evidence plan meeting',
 			buttonLink: '#'

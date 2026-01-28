@@ -176,8 +176,9 @@ exports[`Fees and Forecasting GET /case/123/fees-forecasting/ should render the 
                             <tbody class="govuk-table__body">
                                 <tr class="govuk-table__row">
                                     <td class="govuk-table__cell">Inception meeting</td>
-                                    <td class="govuk-table__cell">09 Jan 2025</td>
-                                    <td class="govuk-table__cell"><a href="#" class="govuk-link">Change</a>
+                                    <td class="govuk-table__cell">07 Jun 2025</td>
+                                    <td class="govuk-table__cell"><a href="/applications-service/case/4/key-dates/preApplicationSection?showOnly=inceptionMeetingDate"
+                                        class="govuk-link">Change</a>
                                     </td>
                                 </tr>
                                 <tr class="govuk-table__row">
