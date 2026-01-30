@@ -96,18 +96,21 @@ export const updateCaseDocumentationFiles = async (caseId, { status, redacted, d
  * Update folderId for a documents to 'move it' to another folder
  * @param {number} caseId
  * @param {{destinationFolderId: number|undefined, destinationFolderStage: string|undefined|null, documents: {documentGuid: string, fileName: string, version: number}[]}} _
+ * @param {number} currentFolderId
  * @returns
  * */
 export const updateDocumentsFolderId = async (
 	caseId,
-	{ documents, destinationFolderId, destinationFolderStage }
+	{ documents, destinationFolderId, destinationFolderStage },
+	currentFolderId
 ) => {
 	try {
 		return await patch(`applications/${caseId}/move-documents`, {
 			json: {
 				documents,
 				destinationFolderId,
-				destinationFolderStage
+				destinationFolderStage,
+				currentFolderId
 			}
 		});
 	} catch (/** @type {*} */ error) {
@@ -351,7 +354,7 @@ export const deleteFolder = async (caseId, folderId) => {
 	try {
 		return await deleteRequest(`applications/${caseId}/folders/${folderId}`);
 	} catch (/** @type {*} */ error) {
-		logger.error(`[API] ${JSON.stringify(error?.response?.body?.errors) || 'Unkown error'}`);
+		logger.error(`[API] ${JSON.stringify(error?.response?.body?.errors) || 'Unknown error'}`);
 		if (error?.response?.statusCode === 403) {
 			return { errors: { msg: 'Cannot delete a non-custom folder' } };
 		}
