@@ -2,7 +2,7 @@ import {
 	addAttachmentRepresentation,
 	deleteAttachmentRepresentation
 } from './attachment.service.js';
-import { Prisma } from '@prisma/client';
+import { Prisma } from '#database-client';
 
 const prismaUniqueConstraintFailedCode = 'P2002';
 /**
