@@ -57,7 +57,7 @@
 						transcriptRow,
 						{label: 'Date received', value: (documentationFile.dateCreated|datestamp({format: 'dd/MM/yyyy'})), link: 'receipt-date'},
 						{label: 'Published date', value: publishedDate, link: 'published-date' if publishedDate else null},
-						{label: 'Redaction', value: ('Redacted' if documentationFile.redactedStatus === 'redacted' else 'Unredacted') , link: 'redaction'},
+						{label: 'Redaction', value: documentationFile.redactionStatusForDisplay , link: 'redaction'},
 						{label: 'Status', value: documentationFile.publishedStatus|statusName, link: 'published-status' if statusCanBeChanged else null }
 	] %}
 
@@ -76,18 +76,30 @@
 			} %}
 		{% endif %}
 
-		{% set row = {
-			key: {
-            text: property.label,
-            classes: property.classes
-        	},
-			value: {
-				text: property.value
-			},
-			actions: {
-				items: [rowActions]
-			}
-		} %}
+		{% if property.value === 'Awaiting AI redaction' or property.value === 'AI redaction review needed' %}
+			{% set row = {
+				key: {
+					text: property.label,
+					classes: property.classes
+				},
+				value: {
+					text: property.value
+				}
+			} %}
+		{% else %}
+			{% set row = {
+				key: {
+					text: property.label,
+					classes: property.classes
+				},
+				value: {
+					text: property.value
+				},
+				actions: {
+					items: [rowActions]
+				}
+			} %}
+		{% endif %}
 
 		{% if property != null %}
 			{% set propertiesRow = propertiesRow.concat([row]) %}

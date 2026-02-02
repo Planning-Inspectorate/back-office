@@ -44,6 +44,8 @@ import { getRelevantRepFolder } from '../representations/representation-details/
 import { tableSortLinks } from './utils/table.js';
 import { generateDocumentNameOnDeletion } from './utils/generate-document-name-on-deletion.js';
 import { updateDocumentMetaData } from '../documentation-metadata/documentation-metadata.service.js';
+import { getDisplayValue } from '../fees-forecasting/applications-fees-forecasting-index.view-model.js';
+import { redactionStatusDisplayValues } from './applications-documentation.config.js';
 
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
 /** @typedef {import('../applications-case.locals.js').ApplicationCaseLocals} ApplicationCaseLocals */
@@ -90,6 +92,18 @@ export async function viewApplicationsCaseDocumentationFolder(request, response)
 		request.query,
 		request.session
 	);
+
+	/** @type {DocumentationFile[]} */
+	const documents = properties.items?.items ?? [];
+
+	properties.items.items = documents.map((document) => ({
+		...document,
+		redactionStatusForDisplay: getDisplayValue(
+			redactionStatusDisplayValues,
+			document.redactedStatus
+		)
+	}));
+
 	const { session } = request;
 
 	documentationSessionHandlers.deleteMoveDocumentsSession(session);
@@ -144,6 +158,10 @@ export async function updateApplicationsCaseDocumentationFolder(request, respons
 		const failedItems = allItems.map((file) => {
 			return {
 				...file,
+				redactionStatusForDisplay: getDisplayValue(
+					redactionStatusDisplayValues,
+					file.redactedStatus
+				),
 				error: (itemErrors || []).find((item) => item.guid === file.documentGuid)?.msg ?? null
 			};
 		});
@@ -268,8 +286,24 @@ export async function viewApplicationsCaseDocumentationUnpublishSinglePage(reque
 export async function viewApplicationsCaseDocumentationProperties({ session }, response) {
 	const { caseId, caseIsWelsh, documentGuid } = response.locals;
 
-	const documentationFile = await getCaseDocumentationFileInfo(caseId, documentGuid);
-	const documentVersions = await getCaseDocumentationFileVersions(documentGuid);
+	let documentationFile = await getCaseDocumentationFileInfo(caseId, documentGuid);
+	let documentVersions = await getCaseDocumentationFileVersions(documentGuid);
+
+	documentationFile = {
+		...documentationFile,
+		redactionStatusForDisplay: getDisplayValue(
+			redactionStatusDisplayValues,
+			documentationFile.redactedStatus
+		)
+	};
+
+	documentVersions = documentVersions.map((documentVersion) => ({
+		...documentVersion,
+		redactionStatusForDisplay: getDisplayValue(
+			redactionStatusDisplayValues,
+			documentVersion.redactedStatus
+		)
+	}));
 
 	const updateBannerText = getSessionBanner(session);
 	const showSuccessBanner = !!updateBannerText || getSuccessBanner(session);

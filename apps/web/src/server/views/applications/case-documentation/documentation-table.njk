@@ -105,7 +105,7 @@
 						</p>
 					</td>
 					<td class="govuk-table__cell">{{ item.dateCreated|datestamp({format: 'dd/MM/yyyy'}) }}</td>
-					<td class="govuk-table__cell">{{ 'Redacted' if  item.redactedStatus === 'redacted' else 'Unredacted' }}</td>
+					<td class="govuk-table__cell">{{ item.redactionStatusForDisplay }}</td>
 					<td class="govuk-table__cell">
 						{% set avWaiting = item.publishedStatus === 'awaiting_virus_check' or item.publishedStatus === 'awaiting_upload'%}
 						{% set avFailed = item.publishedStatus === 'failed_virus_check' %}
@@ -123,7 +123,7 @@
 									</strong>
 								{% endif %}
 							</td>
-							<td class="govuk-table__cell">
+							<td class="govuk-table__cell white-space--nowrap">
 								{{ createOptionalLink(
 												{
 													classes: 'govuk-body-s',
