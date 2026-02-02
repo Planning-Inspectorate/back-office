@@ -1439,6 +1439,11 @@ exports[`Edit applications documentation metadata Edit redaction status GET /cas
                                 type="radio" value="not_redacted" checked>
                                 <label class="govuk-label govuk-radios__label" for="redactedStatus-2">Unredacted</label>
                             </div>
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="redactedStatus-3" name="redactedStatus"
+                                type="radio" value="no_redaction_required">
+                                <label class="govuk-label govuk-radios__label" for="redactedStatus-3">Redaction not required</label>
+                            </div>
                         </div>
                     </fieldset>
                 </div>
@@ -1490,6 +1495,11 @@ exports[`Edit applications documentation metadata Edit redaction status POST /ca
                                 <input class="govuk-radios__input" id="redactedStatus-2" name="redactedStatus"
                                 type="radio" value="not_redacted" checked>
                                 <label class="govuk-label govuk-radios__label" for="redactedStatus-2">Unredacted</label>
+                            </div>
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="redactedStatus-3" name="redactedStatus"
+                                type="radio" value="no_redaction_required">
+                                <label class="govuk-label govuk-radios__label" for="redactedStatus-3">Redaction not required</label>
                             </div>
                         </div>
                     </fieldset>

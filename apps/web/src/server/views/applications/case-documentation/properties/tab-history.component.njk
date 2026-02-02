@@ -49,7 +49,7 @@
 		{% endif %}
 		{% endset %}
 
-		{% set redacted = 'Redacted' if documentVersion.redactedStatus else 'Unredacted'%}
+		{% set redacted = documentVersion.redactionStatusForDisplay %}
 
 		{% set download %}
 		{% if isNotDisabled %}

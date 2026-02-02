@@ -133,6 +133,7 @@ export interface DocumentationFile {
 	stage: string;
 	documentType: string;
 	folderId?: number;
+	redactionStatusForDisplay?: string;
 }
 
 export interface DocumentVersion {
@@ -159,6 +160,8 @@ export interface DocumentVersion {
 			date: number;
 		} | null;
 	};
+	redactedStatus: string;
+	redactionStatusForDisplay?: string;
 }
 
 export interface S51Attachment {

@@ -77,6 +77,7 @@ export const fixtureDocumentFileVersions = [
 			}
 		},
 		redacted: false,
+		redactedStatus: 'not_redacted',
 		fileName: 'test-file-1.pdf',
 		size: 3000,
 		mime: 'application/pdf'
@@ -94,6 +95,7 @@ export const fixtureDocumentFileVersions = [
 			unpublished: null
 		},
 		redacted: false,
+		redactedStatus: 'not_redacted',
 		fileName: 'test-file-1.pdf',
 		size: 5000,
 		mime: 'video/mp4'
