@@ -352,8 +352,10 @@ describe('applications fees forecasting index view-model', () => {
 							rows: [
 								[
 									{ text: 'Inception meeting' },
-									{ text: '09 Jan 2025' },
-									{ html: '<a href="#" class="govuk-link">Change</a>' }
+									{ text: '07 Jun 2025' },
+									{
+										html: '<a href="/applications-service/case/4/key-dates/preApplicationSection?showOnly=inceptionMeetingDate" class="govuk-link">Change</a>'
+									}
 								],
 								[
 									{ text: 'Project Update Meeting (PUM)' },
