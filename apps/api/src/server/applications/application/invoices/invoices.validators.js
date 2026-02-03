@@ -29,8 +29,7 @@ export const validateCreateOrUpdateInvoice = composeMiddleware(
 			'The invoice stage must be one of:  pre_acceptance, acceptance, pre_examination,  initial_examination or final_examination.'
 		),
 	body('amountDue')
-		.exists({ checkNull: true, checkFalsy: true })
-		.withMessage('Enter a valid amount for the amount due in the decimal format, e.g.  100.00.')
+		.optional({ nullable: true, checkFalsy: true })
 		.isString()
 		.matches(AMOUNT_REGEX)
 		.withMessage('Enter a valid amount for the amount due in the decimal format, e.g.  100.00.'),

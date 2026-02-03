@@ -242,7 +242,7 @@ export const getFeesForecastingIndexViewModel = ({ caseData, invoices, meetings 
 				/** @param {object|*} invoice */
 				(invoice) => [
 					{ text: getDisplayValue(invoiceStageDisplayValues, invoice.invoiceStage) },
-					{ text: `£${invoice.amountDue}` },
+					{ text: invoice.amountDue ? `£${invoice.amountDue}` : '' },
 					{ text: invoice.invoiceNumber },
 					{ html: getStatusTag(invoice) },
 					{ html: getLinkHTML(feesHrefText, '#') }
@@ -522,7 +522,7 @@ export const getFeesForecastingIndexViewModel = ({ caseData, invoices, meetings 
 			content: getFeesSection(),
 			component: 'table',
 			buttonText: 'Add new fee',
-			buttonLink: '#'
+			buttonLink: getEditPageURL('add-new-fee', caseData.id)
 		},
 		{
 			heading: 'Pre-application project meetings',

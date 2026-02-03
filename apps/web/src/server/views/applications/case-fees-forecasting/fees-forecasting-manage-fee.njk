@@ -1,0 +1,186 @@
+{% extends "../layouts/applications.layout.njk" %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from '../components/inputs/date-input.component.njk' import dateInput %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% block beforeContent %}
+	<aside>
+		{{ govukBackLink({
+			text: "Back",
+			href: 'fees-forecasting'|url({caseId: caseId})
+		}) }}
+	</aside>
+{% endblock %}
+
+{% block pageHeading %}
+	<h1 class="govuk-heading-l">{{ pageHeading }}</h1>
+{% endblock %}
+
+{% block pageContent %}
+	<form method="post" novalidate="novalidate" class="pins-applications-create govuk-grid-row">
+		<div class="govuk-grid-column-two-thirds">
+			{{ govukRadios({
+				name: "invoiceStage",
+				fieldset: {
+					legend: {
+						html: "<strong>Case stage for fee</strong>"
+					}
+				},
+				hint: {
+					text: "The relevant case stage attributed to this fee."
+				},
+				errorMessage: errors['invoiceStage'] and {
+					text: errors['invoiceStage'].msg
+				},
+				value: values['invoiceStage'],
+				items: [
+					{
+						value: "pre_acceptance",
+						text: "Pre-acceptance"
+					},
+					{
+						value: "acceptance",
+						text: "Acceptance"
+					},
+					{
+						value: "pre_examination",
+						text: "Pre-examination"
+					},
+					{
+						value: "initial_examination",
+						text: "Initial examination"
+					},
+					{
+						value: "final_examination",
+						text: "Final examination"
+					}
+				]
+			}) }}
+
+			{{ govukInput({
+				label: {
+					html: "<strong>Invoice number</strong>"
+				},
+				hint: {
+					text: "For example, 1800004419"
+				},
+				errorMessage: errors['invoiceNumber'] and {
+					text: errors['invoiceNumber'].msg
+				},
+				value: values['invoiceNumber'],
+				name: "invoiceNumber",
+				classes: "govuk-!-width-one-quarter"
+			}) }}
+
+			{{ govukInput({
+				label: {
+					html: "<strong>Amount due (optional)</strong>"
+				},
+				hint: {
+					text: "Total amount due, in pounds"
+				},
+				errorMessage: errors['amountDue'] and {
+					text: errors['amountDue'].msg
+				},
+				value: values['amountDue'],
+				prefix: {
+					text: "£"
+				},
+				name: "amountDue",
+				classes: "govuk-!-width-one-quarter"
+			}) }}
+		</div>
+
+		{{ dateInput({
+			layout: {
+				fieldName: 'invoicedDate',
+				label: "Date of invoice (optional)",
+				classes: 'govuk-grid-column-one-third',
+				hint: {
+					text: "Date the invoice is submitted"
+				}
+			},
+			errors: errors,
+			values: values
+		}) }}
+
+		{{ dateInput({
+			layout: {
+				fieldName: 'paymentDueDate',
+				label: "Payment due date (optional)",
+				classes: 'govuk-grid-column-one-third',
+				hint: {
+					text: "Date the initial payment is due"
+				}
+			},
+			errors: errors,
+			values: values
+		}) }}
+
+		{{ dateInput({
+			layout: {
+				fieldName: 'paymentDate',
+				label: "Date of payment (optional)",
+				classes: 'govuk-grid-column-one-third',
+				hint: {
+					text: "Date the initial payment is received"
+				}
+			},
+			errors: errors,
+			values: values
+		}) }}
+
+		<div class="govuk-grid-column-two-thirds">
+			{{ govukInput({
+				label: {
+					html: "<strong>Refund credit note number (optional)</strong>"
+				},
+				hint: {
+					text: "For example, 1800004419"
+				},
+				errorMessage: errors['refundCreditNoteNumber'] and {
+					text: errors['refundCreditNoteNumber'].msg
+				},
+				value: values['refundCreditNoteNumber'],
+				name: "refundCreditNoteNumber",
+				classes: "govuk-!-width-one-quarter"
+			}) }}
+
+			{{ govukInput({
+				label: {
+					html: "<strong>Amount refunded (optional)</strong>"
+				},
+				hint: {
+					text: "Total amount refunded, in pounds"
+				},
+				prefix: {
+					text: "£"
+				},
+				errorMessage: errors['refundAmount'] and {
+					text: errors['refundAmount'].msg
+				},
+				value: values['refundAmount'],
+				name: "refundAmount",
+				classes: "govuk-!-width-one-quarter"
+			}) }}
+		</div>
+
+		{{ dateInput({
+			layout: {
+				fieldName: 'refundIssueDate',
+				label: "Refund issue date (optional)",
+				classes: 'govuk-grid-column-one-third',
+				hint: {
+					text: "Date the refund is issued"
+				}
+			},
+			errors: errors,
+			values: values
+		}) }}
+
+		<div class='govuk-grid-column-one-third'>
+			{{ govukButton({ text: 'Save and return' }) }}
+		</div>
+	</form>
+{% endblock %}

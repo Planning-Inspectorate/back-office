@@ -28,6 +28,18 @@ export const getInvoiceById = (invoiceId) => {
 };
 
 /**
+ * @param refundCreditNoteNumber
+ * @returns {Promise<import('@pins/applications.api').Schema.Invoice | null>}
+ */
+export const getInvoiceByCreditNoteNumber = (refundCreditNoteNumber) => {
+	return databaseConnector.invoice.findFirst({
+		where: {
+			refundCreditNoteNumber
+		}
+	});
+};
+
+/**
  *@param {number} caseId
  * @param {createOrUpdateInvoiceData} createOrUpdateInvoiceData
  * @returns{Promise<import('@pins/applications.api').Schema.Invoice>}

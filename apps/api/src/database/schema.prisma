@@ -625,7 +625,7 @@ model Invoice {
   invoiceNumber          String    @unique
   caseId                 Int
   invoiceStage           String?
-  amountDue              Decimal
+  amountDue              Decimal?
   paymentDueDate         DateTime?
   invoicedDate           DateTime?
   paymentDate            DateTime?
