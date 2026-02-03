@@ -144,5 +144,55 @@ describe('Fees and Forecasting', () => {
 
 			expect(response?.headers?.location).toEqual('../fees-forecasting');
 		});
+
+		it('should create a new fee and redirect when add-new-fee is posted successfully', async () => {
+			const flags = staticFlags;
+			flags['applics-1845-fees-forecasting'] = true;
+
+			const sectionName = 'add-new-fee';
+
+			nock('http://test/').post('/applications/123/invoices').reply(200, {});
+
+			const response = await request.post(`${baseUrl}/${sectionName}`).send({
+				invoiceNumber: '180002932',
+				invoiceStage: 'acceptance'
+			});
+
+			expect(response?.headers?.location).toEqual('../fees-forecasting');
+		});
+
+		it('should show a validation error when add-new-fee is missing required fields', async () => {
+			const flags = staticFlags;
+			flags['applics-1845-fees-forecasting'] = true;
+
+			const sectionName = 'add-new-fee';
+
+			const response = await request.post(`${baseUrl}/${sectionName}`).send({
+				invoiceNumber: '180002932',
+				invoiceStage: ''
+			});
+
+			const element = parseHtml(response.text);
+			expect(element.innerHTML).toContain('You must select a case stage');
+		});
+
+		it('should show an API error if creating a new fee was NOT successful', async () => {
+			const flags = staticFlags;
+			flags['applics-1845-fees-forecasting'] = true;
+
+			const sectionName = 'add-new-fee';
+
+			nock('http://test/')
+				.post('/applications/123/fees-forecasting/add-new-fee')
+				.reply(500, { errors: 'API error message' });
+
+			const response = await request.post(`${baseUrl}/${sectionName}`).send({
+				invoiceNumber: '180002932',
+				invoiceStage: 'acceptance'
+			});
+
+			const element = parseHtml(response.text);
+			expect(element.innerHTML).toContain('An error occurred, please try again later');
+		});
 	});
 });
