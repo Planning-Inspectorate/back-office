@@ -3,6 +3,7 @@ import { getFeesForecastingEditViewModel } from './applications-fees-forecasting
 import {
 	getInvoices,
 	getMeetings,
+	postNewFee,
 	updateFeesForecasting
 } from './applications-fees-forecasting.service.js';
 import { isValid } from 'date-fns';
@@ -43,16 +44,24 @@ export function getFeesForecastingEditSection(request, response) {
 	/** @type {Record<string, any>} */
 	let values = {};
 
-	if (editViewModel.componentType === 'date-input') {
-		values[fieldName] = response.locals.case.keyDates.preApplication?.[fieldName] || '';
+	/**
+	 * @param {string} template
+	 */
+	const renderTemplate = (template) => {
+		return response.render(template, {
+			...editViewModel,
+			values
+		});
+	};
 
-		return response.render(
-			`applications/case-fees-forecasting/fees-forecasting-edit-dateinput.njk`,
-			{
-				...editViewModel,
-				values
-			}
-		);
+	switch (editViewModel.componentType) {
+		case 'date-input':
+			values[fieldName] = response.locals.case.keyDates.preApplication?.[fieldName] || '';
+			return renderTemplate(
+				`applications/case-fees-forecasting/fees-forecasting-edit-dateinput.njk`
+			);
+		case 'add-new-fee':
+			return renderTemplate(`applications/case-fees-forecasting/fees-forecasting-manage-fee.njk`);
 	}
 }
 
@@ -76,45 +85,99 @@ export async function updateFeesForecastingEditSection(
 	let feesForecastingData = {};
 	/** @type {Record<string, any>} */
 	let values = {};
+	/** @type {any} */
 	let apiErrors;
 
-	if (editViewModel.componentType === 'date-input') {
-		const fieldName = editViewModel?.fieldName || '';
-		const day = body[`${fieldName}.day`];
-		const month = body[`${fieldName}.month`];
-		const year = body[`${fieldName}.year`];
+	switch (editViewModel.componentType) {
+		case 'date-input': {
+			const fieldName = editViewModel?.fieldName || '';
+			const day = body[`${fieldName}.day`];
+			const month = body[`${fieldName}.month`];
+			const year = body[`${fieldName}.year`];
 
-		if (validationErrors && validationErrors[fieldName]) {
-			validationErrors[fieldName].value = { day, month, year };
-		} else {
-			const date = new Date(`${year}-${month}-${day}`);
+			if (validationErrors && validationErrors[fieldName]) {
+				validationErrors[fieldName].value = { day, month, year };
+			} else {
+				const date = new Date(`${year}-${month}-${day}`);
 
-			values[fieldName] = Math.floor(date.getTime() / 1000);
+				values[fieldName] = Math.floor(date.getTime() / 1000);
 
-			// To align with key dates, users can submit three empty date fields to clear the date from the index page, which requires a null value to be set to replace the existing date in the database.
-			isValid(date)
-				? (feesForecastingData[fieldName] = date)
-				: (feesForecastingData[fieldName] = null);
+				// To align with key dates, users can submit three empty date fields to clear the date from the index page, which requires a null value to be set to replace the existing date in the database.
+				isValid(date)
+					? (feesForecastingData[fieldName] = date)
+					: (feesForecastingData[fieldName] = null);
+			}
+
+			break;
+		}
+		case 'add-new-fee': {
+			Object.keys(body).forEach((key) => {
+				const dateFieldMatch = key.match(
+					/^(invoicedDate|paymentDueDate|paymentDate|refundIssueDate)\.(day|month|year)$/
+				);
+				if (dateFieldMatch) {
+					const fieldName = dateFieldMatch[1];
+					const day = body[`${fieldName}.day`];
+					const month = body[`${fieldName}.month`];
+					const year = body[`${fieldName}.year`];
+
+					if (validationErrors && validationErrors[fieldName]) {
+						validationErrors[fieldName].value = { day, month, year };
+					} else {
+						const date = new Date(`${year}-${month}-${day}`);
+						if (isValid(date)) {
+							values[fieldName] = Math.floor(date.getTime() / 1000);
+							feesForecastingData[fieldName] = date;
+						}
+					}
+				} else {
+					if (body[key] !== '') {
+						values[key] = body[key];
+						feesForecastingData[key] = body[key];
+					}
+				}
+			});
+
+			break;
 		}
 	}
 
 	if (!validationErrors) {
-		if (editViewModel.componentType === 'date-input') {
-			const { errors } = await updateFeesForecasting(caseId, sectionName, feesForecastingData);
-			apiErrors = errors;
+		switch (editViewModel.componentType) {
+			case 'date-input': {
+				const { errors } = await updateFeesForecasting(caseId, sectionName, feesForecastingData);
+				apiErrors = errors;
+				break;
+			}
+			case 'add-new-fee': {
+				const { errors } = await postNewFee(caseId, feesForecastingData);
+				apiErrors = errors;
+				break;
+			}
 		}
 	}
 
 	if (validationErrors || apiErrors) {
-		if (editViewModel.componentType === 'date-input') {
-			return response.render(
-				`applications/case-fees-forecasting/fees-forecasting-edit-dateinput.njk`,
-				{
-					...editViewModel,
-					errors: validationErrors || apiErrors,
-					values
-				}
-			);
+		/**
+		 * @param {string} template
+		 */
+		const renderError = (template) => {
+			return response.render(template, {
+				...editViewModel,
+				errors: validationErrors || apiErrors,
+				values
+			});
+		};
+
+		switch (editViewModel.componentType) {
+			case 'date-input': {
+				return renderError(
+					`applications/case-fees-forecasting/fees-forecasting-edit-dateinput.njk`
+				);
+			}
+			case 'add-new-fee': {
+				return renderError(`applications/case-fees-forecasting/fees-forecasting-manage-fee.njk`);
+			}
 		}
 	}
 

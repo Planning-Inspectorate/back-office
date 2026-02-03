@@ -1,4 +1,4 @@
-import { get, patch } from '../../../lib/request.js';
+import { get, patch, post } from '../../../lib/request.js';
 import logger from '../../../lib/logger.js';
 
 /**
@@ -41,6 +41,34 @@ export async function updateFeesForecasting(caseId, sectionName, feesForecasting
 
 		response = new Promise((resolve) => {
 			resolve({ errors: { msg: 'An error occurred, please try again later' } });
+		});
+	}
+	return response;
+}
+
+/**
+ * Post a fee to the invoices endpoint
+ *
+ * @param {string} caseId
+ * @param {object} feeData
+ * @returns {Promise<any>}
+ */
+export async function postNewFee(caseId, feeData) {
+	let response;
+
+	try {
+		response = await post(`applications/${caseId}/invoices`, {
+			json: feeData
+		});
+	} catch (/** @type {*} */ error) {
+		logger.error(`[API] ${JSON.stringify(error?.response?.body?.errors) || 'Unknown error'}`);
+		let errorMsg = 'An error occurred, please try again later';
+		if (error?.response?.body?.errors) {
+			errorMsg = error?.response?.body?.errors;
+		}
+
+		response = new Promise((resolve) => {
+			resolve({ errors: { msg: errorMsg } });
 		});
 	}
 	return response;
