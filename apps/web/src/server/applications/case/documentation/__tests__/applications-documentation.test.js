@@ -332,12 +332,12 @@ describe('applications documentation', () => {
 
 		it('should NOT show AI redaction button for non PDF', async () => {
 			const response = await request.get(
-				`${baseUrl}/project-documentation/21/document/90/properties`
+				`${baseUrl}/project-documentation/21/document/100/properties`
 			);
 
 			const element = parseHtml(response.text);
 
-			expect(element.innerHTML).not.toContain('Request AI redaction');
+			expect(element.innerHTML).not.toContain('AI Redaction');
 		});
 	});
 
