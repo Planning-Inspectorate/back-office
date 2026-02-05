@@ -20,7 +20,7 @@ export class FolderDocumentsPage extends Page {
 		this.elements.statusRadio(status).click({ force: true });
 	}
 
-	markAllReadyToPublish(redacted = false) {
+	markAllReadyToPublish(redacted = true) {
 		this.setRedactionStatus(redacted);
 		this.setOverallStatus('Ready to publish');
 		this.selectAllDocuments();
