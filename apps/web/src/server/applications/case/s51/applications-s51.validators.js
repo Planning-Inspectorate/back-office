@@ -8,11 +8,12 @@ import {
 import { getS51Advice } from './applications-s51.service.js';
 
 /** @typedef {import('express').RequestHandler} RequestHandler */
+/** @typedef {import('@pins/express/types/express.d.ts').AsyncRequestHandler} AsyncRequestHandler */
 
 /**
  * Dispatch the POST route to the right validator
  *
- * @type {RequestHandler}
+ * @type {AsyncRequestHandler}
  */
 export const s51ValidatorsDispatcher = async (request, response, next) => {
 	const { step } = request.params;

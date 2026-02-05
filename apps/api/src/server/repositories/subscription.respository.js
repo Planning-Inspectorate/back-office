@@ -17,10 +17,10 @@ const include = { serviceUser: true };
  * List subscriptions
  *
  * @param {ListSubscriptionOptions} options
- * @returns {Promise<{count: number, items: import('@prisma/client').Subscription[]}>}
+ * @returns {Promise<{count: number, items: import('#database-client').Subscription[]}>}
  */
 export async function list({ page, pageSize, caseReference, type, endAfter }) {
-	/** @type {import('@prisma/client').Prisma.SubscriptionWhereInput} */
+	/** @type {import('#database-client').Prisma.SubscriptionWhereInput} */
 	const where = {};
 	if (caseReference) {
 		where.caseReference = caseReference;
@@ -60,7 +60,7 @@ export async function list({ page, pageSize, caseReference, type, endAfter }) {
  * Any given type should include allUpdates.
  *
  * @param {string} type
- * @param {import('@prisma/client').Prisma.SubscriptionWhereInput} where
+ * @param {import('#database-client').Prisma.SubscriptionWhereInput} where
  */
 export function subscriptionTypeToWhere(type, where) {
 	switch (type) {
@@ -83,7 +83,7 @@ export function subscriptionTypeToWhere(type, where) {
  * Get an existing subscription entry
  *
  * @param {number} id
- * @returns {Promise<import('@prisma/client').Subscription|null>}
+ * @returns {Promise<import('#database-client').Subscription|null>}
  */
 export function get(id) {
 	return databaseConnector.subscription.findUnique({
@@ -99,7 +99,7 @@ export function get(id) {
  *
  * @param {string} caseReference
  * @param {string} email
- * @returns {Promise<import('@prisma/client').Subscription|null>}
+ * @returns {Promise<import('#database-client').Subscription|null>}
  */
 export function findUnique(caseReference, email) {
 	return databaseConnector.subscription.findFirst({
@@ -122,7 +122,7 @@ export function findUnique(caseReference, email) {
 /**
  * Create a new subscription entry
  *
- * @param {import('@prisma/client').Prisma.SubscriptionUncheckedCreateInput} payload
+ * @param {import('#database-client').Prisma.SubscriptionUncheckedCreateInput} payload
  * @returns {Promise<import('@pins/applications.api').Schema.SubscriptionWithServiceUser>}
  */
 export function create(payload) {
@@ -136,7 +136,7 @@ export function create(payload) {
  * Update an existing subscription entry
  *
  * @param {number} id
- * @param {import('@prisma/client').Prisma.SubscriptionUncheckedUpdateInput} payload
+ * @param {import('#database-client').Prisma.SubscriptionUncheckedUpdateInput} payload
  * @returns {Promise<import('@pins/applications.api').Schema.SubscriptionWithServiceUser>}
  */
 export function update(id, payload) {
