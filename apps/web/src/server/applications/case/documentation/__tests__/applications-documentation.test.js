@@ -319,6 +319,26 @@ describe('applications documentation', () => {
 			expect(element.innerHTML).toContain('/edit/published-status');
 			expect(element.innerHTML).toContain('/project-documentation/publishing-queue');
 		});
+
+		it('should show AI redaction button for eligible PDF', async () => {
+			const response = await request.get(
+				`${baseUrl}/project-documentation/21/document/95/properties`
+			);
+
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toContain('AI Redaction');
+		});
+
+		it('should NOT show AI redaction button for non PDF', async () => {
+			const response = await request.get(
+				`${baseUrl}/project-documentation/21/document/90/properties`
+			);
+
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).not.toContain('Request AI redaction');
+		});
 	});
 
 	describe('Document upload new version', () => {
@@ -573,6 +593,32 @@ describe('applications documentation', () => {
 				expect(element.innerHTML).toContain('Move documents');
 				expect(element.innerHTML).toContain(fixtureReadyToPublishDocumentationFile.fileName);
 				expect(element.innerHTML).toContain(fixtureReadyToPublishDocumentationFile.author);
+			});
+		});
+	});
+
+	describe('AI Redaction request', () => {
+		describe('POST AI redaction', () => {
+			beforeEach(async () => {
+				nocks();
+			});
+			it('sets awaiting_ai_redaction and redirects back to properties', async () => {
+				const aiRedactionDoc = {
+					...fixtureReadyToPublishDocumentationPdfFile,
+					privateBlobPath: '/application/CASE1/guid-123/1',
+					privateBlobContainer: 'blob-container'
+				};
+
+				nock('http://test/')
+					.get('/applications/123/documents/3/properties')
+					.reply(200, aiRedactionDoc);
+
+				const response = await request.post(
+					`${baseUrl}/project-documentation/21/document/3/ai-redaction`
+				);
+
+				expect(response.status).toBe(302);
+				expect(response.headers.location).toContain('/properties');
 			});
 		});
 	});

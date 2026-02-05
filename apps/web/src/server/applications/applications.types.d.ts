@@ -134,6 +134,13 @@ export interface DocumentationFile {
 	documentType: string;
 	folderId?: number;
 	redactionStatusForDisplay?: string;
+	version?: number;
+	documentRef?: string;
+	descriptionWelsh?: string;
+	authorWelsh?: string;
+	owner?: string;
+	interestedPartyNumber?: string;
+	examinationRefNo?: string;
 }
 
 export interface DocumentVersion {
