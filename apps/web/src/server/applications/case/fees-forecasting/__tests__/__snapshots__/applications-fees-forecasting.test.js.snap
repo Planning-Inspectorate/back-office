@@ -156,8 +156,8 @@ exports[`Fees and Forecasting GET /case/123/fees-forecasting/ should render the 
                                     </td>
                                 </tr>
                             </tbody>
-                        </table><a href="#" role="button" draggable="false" class="govuk-button govuk-button--secondary"
-                        data-module="govuk-button"> Add new fee</a>
+                        </table><a href="/applications-service/case/4/fees-forecasting/add-new-fee" role="button"
+                        draggable="false" class="govuk-button govuk-button--secondary" data-module="govuk-button"> Add new fee</a>
                     </div>
                 </div>
                 <div class="govuk-accordion__section">

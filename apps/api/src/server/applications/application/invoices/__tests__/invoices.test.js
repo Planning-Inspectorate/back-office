@@ -115,7 +115,7 @@ describe('Invoices API', () => {
 			});
 		});
 
-		it('400 on global duplicate (Prisma P2002)', async () => {
+		it('400 on invoice number duplicate (Prisma P2002)', async () => {
 			databaseConnector.invoice.findFirst.mockResolvedValueOnce(null);
 			databaseConnector.invoice.create.mockRejectedValueOnce(
 				Object.assign(new Error('Unique constraint'), { code: 'P2002' })
