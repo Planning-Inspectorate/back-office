@@ -295,6 +295,134 @@ describe('Publish documents', () => {
 		});
 	});
 
+	test('throws error if document is unredacted', async () => {
+		// GIVEN
+		databaseConnector.case.findUnique.mockResolvedValue(application1);
+		let docBeforeUpdate = documentWithDocumentVersionWithLatest;
+		docBeforeUpdate.documentVersion[0].publishedStatus = 'not_checked';
+		docBeforeUpdate.documentVersion[0].redactedStatusStatus = 'not_redacted';
+
+		let docVersionWithDocumentBeforeUpdate = {
+			...documentVersionWithDocument,
+			publishedStatus: 'not_checked',
+			redactedStatus: 'not_redacted'
+		};
+
+		databaseConnector.document.findUnique.mockResolvedValue(docBeforeUpdate);
+		databaseConnector.folder.findUnique.mockResolvedValue({ caseId: 1 });
+		databaseConnector.documentVersion.findUnique.mockResolvedValue(
+			docVersionWithDocumentBeforeUpdate
+		);
+		databaseConnector.document.findMany.mockResolvedValue([]); // no matching publishable docs returned
+
+		// WHEN
+		const response = await request.patch('/applications/1/documents/publish').send({
+			documents: [{ guid: docGuid }]
+		});
+
+		// THEN
+		expect(response.status).toEqual(400);
+		expect(response.body).toEqual({
+			errors: [{ guid: docGuid }]
+		});
+	});
+
+	test('throws error if document is awaiting AI redaction', async () => {
+		// GIVEN
+		databaseConnector.case.findUnique.mockResolvedValue(application1);
+		let docBeforeUpdate = documentWithDocumentVersionWithLatest;
+		docBeforeUpdate.documentVersion[0].publishedStatus = 'not_checked';
+		docBeforeUpdate.documentVersion[0].redactedStatusStatus = 'awaiting_ai_redaction';
+
+		let docVersionWithDocumentBeforeUpdate = {
+			...documentVersionWithDocument,
+			publishedStatus: 'not_checked',
+			redactedStatus: 'awaiting_ai_redaction'
+		};
+
+		databaseConnector.document.findUnique.mockResolvedValue(docBeforeUpdate);
+		databaseConnector.folder.findUnique.mockResolvedValue({ caseId: 1 });
+		databaseConnector.documentVersion.findUnique.mockResolvedValue(
+			docVersionWithDocumentBeforeUpdate
+		);
+		databaseConnector.document.findMany.mockResolvedValue([]); // no matching publishable docs returned
+
+		// WHEN
+		const response = await request.patch('/applications/1/documents/publish').send({
+			documents: [{ guid: docGuid }]
+		});
+
+		// THEN
+		expect(response.status).toEqual(400);
+		expect(response.body).toEqual({
+			errors: [{ guid: docGuid }]
+		});
+	});
+
+	test('throws error if document is awaiting AI redaction review', async () => {
+		// GIVEN
+		databaseConnector.case.findUnique.mockResolvedValue(application1);
+		let docBeforeUpdate = documentWithDocumentVersionWithLatest;
+		docBeforeUpdate.documentVersion[0].publishedStatus = 'not_checked';
+		docBeforeUpdate.documentVersion[0].redactedStatusStatus = 'ai_redaction_review_required';
+
+		let docVersionWithDocumentBeforeUpdate = {
+			...documentVersionWithDocument,
+			publishedStatus: 'not_checked',
+			redactedStatus: 'ai_redaction_review_required'
+		};
+
+		databaseConnector.document.findUnique.mockResolvedValue(docBeforeUpdate);
+		databaseConnector.folder.findUnique.mockResolvedValue({ caseId: 1 });
+		databaseConnector.documentVersion.findUnique.mockResolvedValue(
+			docVersionWithDocumentBeforeUpdate
+		);
+		databaseConnector.document.findMany.mockResolvedValue([]); // no matching publishable docs returned
+
+		// WHEN
+		const response = await request.patch('/applications/1/documents/publish').send({
+			documents: [{ guid: docGuid }]
+		});
+
+		// THEN
+		expect(response.status).toEqual(400);
+		expect(response.body).toEqual({
+			errors: [{ guid: docGuid }]
+		});
+	});
+
+	test('throws error if document has no redaction status', async () => {
+		// GIVEN
+		databaseConnector.case.findUnique.mockResolvedValue(application1);
+		let docBeforeUpdate = documentWithDocumentVersionWithLatest;
+		docBeforeUpdate.documentVersion[0].publishedStatus = 'not_checked';
+		docBeforeUpdate.documentVersion[0].redactedStatusStatus = null;
+
+		let docVersionWithDocumentBeforeUpdate = {
+			...documentVersionWithDocument,
+			publishedStatus: 'not_checked',
+			redactedStatus: null
+		};
+
+		databaseConnector.document.findUnique.mockResolvedValue(docBeforeUpdate);
+		databaseConnector.folder.findUnique.mockResolvedValue({ caseId: 1 });
+		databaseConnector.documentVersion.findUnique.mockResolvedValue(
+			docVersionWithDocumentBeforeUpdate
+		);
+		databaseConnector.document.findMany.mockResolvedValue([]); // no matching publishable docs returned
+
+		// WHEN
+		const response = await request.patch('/applications/1/documents/publish').send({
+			documents: [{ guid: docGuid }]
+		});
+
+		// THEN
+		expect(response.status).toEqual(400);
+		expect(response.body).toEqual({
+			errors: [{ guid: docGuid }]
+		});
+	});
+
 	test('returns partial success if some documents missing properties required for publishing', async () => {
 		// GIVEN
 		databaseConnector.case.findUnique.mockResolvedValue(application1);

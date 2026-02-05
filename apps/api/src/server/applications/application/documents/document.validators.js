@@ -251,26 +251,66 @@ export const verifyAllDocumentsHaveRequiredPropertiesForPublishing = async (
 
 	const completeDocumentsIds = new Set(completeDocuments.map((pDoc) => pDoc.guid));
 
-	// remove email documents - never published
+	// remove email documents and documents where redaction is required and not completed
 	const publishableDocuments = completeDocuments.filter(
+		(doc) =>
+			doc.latestDocumentVersion?.mime !== 'application/vnd.ms-outlook' &&
+			(doc.latestDocumentVersion?.redactedStatus === 'redacted' ||
+				doc.latestDocumentVersion?.redactedStatus === 'no_redaction_required' ||
+				doc.latestDocumentVersion?.redactedStatus === 'ai_redaction_failed')
+	);
+
+	// complete documents that are MSG files
+	const msgDocuments = completeDocuments.filter(
+		(doc) => doc.latestDocumentVersion?.mime === 'application/vnd.ms-outlook'
+	);
+
+	// complete documents that are not MSG files
+	const nonMsgDocuments = completeDocuments.filter(
 		(doc) => doc.latestDocumentVersion?.mime !== 'application/vnd.ms-outlook'
 	);
-	const publishableDocumentsIds = new Set(publishableDocuments.map((pDoc) => pDoc.guid));
 
-	// complete MSG files
-	const msgDocuments = documentIds.filter(
-		(id) => completeDocumentsIds.has(id) && !publishableDocumentsIds.has(id)
+	// complete documents that are not MSG files and are awaiting AI redaction
+	const documentsAwaitingAIRedaction = nonMsgDocuments.filter(
+		(doc) => doc.latestDocumentVersion?.redactedStatus === 'awaiting_ai_redaction'
 	);
 
-	// incomplete files
+	// complete documents that are not MSG files and are awaiting AI redaction review
+	const documentsAwaitingAIRedactionReview = nonMsgDocuments.filter(
+		(doc) => doc.latestDocumentVersion?.redactedStatus === 'ai_redaction_review_required'
+	);
+
+	// complete documents that are not MSG files and not redacted
+	const unredactedDocuments = nonMsgDocuments.filter(
+		(doc) =>
+			doc.latestDocumentVersion?.redactedStatus === 'not_redacted' ||
+			doc.latestDocumentVersion?.redactedStatus === null
+	);
+
+	// incomplete documents
 	const incompleteDocuments = documentIds.filter((id) => !completeDocumentsIds.has(id));
 
 	// Final array of invalid files
 	const invalid = [
-		...msgDocuments.map((id) => ({
-			guid: id,
+		...msgDocuments.map((doc) => ({
+			guid: doc.guid,
 			msg: "The file type .msg cannot be set to 'Ready for publish'",
 			type: 'invalid-filetype'
+		})),
+		...documentsAwaitingAIRedaction.map((doc) => ({
+			guid: doc.guid,
+			msg: 'The document is awaiting AI redaction, so cannot be set to ready to publish',
+			type: 'awaiting-ai-redaction'
+		})),
+		...documentsAwaitingAIRedactionReview.map((doc) => ({
+			guid: doc.guid,
+			msg: 'The document is awaiting AI redaction review, so cannot be set to ready to publish',
+			type: 'awaiting-ai-redaction-review'
+		})),
+		...unredactedDocuments.map((doc) => ({
+			guid: doc.guid,
+			msg: 'Select redacted or redaction not needed in the document properties to change the status to ready to publish',
+			type: 'unredacted'
 		})),
 		...incompleteDocuments.map((id) => ({
 			guid: id,

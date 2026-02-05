@@ -226,6 +226,7 @@ export const getPublishableDocuments = (documentIds) => {
 					filter1Welsh: true,
 					authorWelsh: true,
 					descriptionWelsh: true,
+					redactedStatus: true,
 					Document: {
 						select: {
 							case: {
