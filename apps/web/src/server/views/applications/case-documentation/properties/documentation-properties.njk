@@ -6,6 +6,7 @@
 {% from "./tab-details.component.njk" import documentationDetailsTab %}
 {% from "./tab-history.component.njk" import documentationHistoryTab %}
 {% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
 
 {% set serviceName = case.title %}
 {% set pageTitle = 'Document properties' %}
@@ -30,17 +31,44 @@
 					items: breadcrumbItems
 				}) }}
 
-				{% set html %}
-					<h3 class="govuk-notification-banner__heading">
-						{{ bannerText }}
-					</h3>
-				{% endset %}
-
 				{% if showSuccessBanner %}
+					{% set html %}
+						<h3 class="govuk-notification-banner__heading">
+							{{ bannerText }}
+						</h3>
+					{% endset %}
+
 					{{ govukNotificationBanner({
 						html: html,
 						type: 'success'
 					}) }}
+				{% endif %}
+
+				{%  if aiRedactionBanner %}
+					{% set html %}
+						<h3 class="govuk-notification-banner__heading">
+							{{ aiRedactionBanner.header }}
+						</h3>
+						<p class="govuk-body">
+							{{ aiRedactionBanner.message }}
+						</p>
+					{% endset %}
+					{% if aiRedactionBanner.type == 'error' %}
+						{{ govukErrorSummary({
+							titleText: "There is a problem",
+							errorList: [
+								{
+									text: aiRedactionBanner.message,
+									href: '#'
+								}
+							]
+						}) }}
+					{% else %}
+						{{ govukNotificationBanner({
+							html: html,
+							type: aiRedactionBanner.type
+						}) }}
+					{%  endif %}
 				{% endif %}
 
                 <h1 class="govuk-heading-xl govuk-!-margin-top-4">
@@ -75,6 +103,10 @@
 						<input type='hidden' value='{{documentationFile.documentGuid}}' name='selectedFilesIds[]'/>
 					{% endif %}
 
+					<form method="post"
+						  action="{{ 'document-ai-redaction'|url({caseId: caseId, folderId: folderId, documentGuid: documentationFile.documentGuid}) }}">
+						{% include 'app/includes/csrf.njk' %}
+
 					<div class="govuk-button-group">
 						{% if isPreviewActive %}
 							{{ govukButton({
@@ -93,6 +125,13 @@
 								classes: "govuk-button--secondary"
 							}) }}
 						{% endif %}
+
+						{% if showAiRedactionButton %}
+							{{ govukButton({
+								text: "AI Redaction",
+								classes: "govuk-button--secondary"
+							}) }}
+						{%  endif %}
 
 						{% if documentationFile.publishedStatus === 'published' %}
 							{{ govukButton({
@@ -126,6 +165,7 @@
 						{% endif %}
 
 					</div>
+					</form>
 					{% if documentationFile.publishedStatus == 'ready_to_publish' %}
 						<a class="govuk-link govuk-body-m govuk-!-text-align-right pins-nav-right-aligned-link" href= "{{'documents-queue'|url({caseId:caseId})}}">View publishing queue</a>
 					{% endif %}

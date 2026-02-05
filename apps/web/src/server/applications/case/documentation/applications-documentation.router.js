@@ -106,6 +106,13 @@ applicationsDocumentationRouter
 	);
 
 applicationsDocumentationRouter
+	.route('/:folderId/document/:documentGuid/ai-redaction')
+	.post(
+		[locals.registerCase, locals.registerFolder, locals.registerDocumentGuid],
+		asyncHandler(controller.postRequestAiRedaction)
+	);
+
+applicationsDocumentationRouter
 	.route('/:folderId/:folderName/unpublish')
 	.post([locals.registerFolder], asyncHandler(controller.postUnpublishDocuments));
 
