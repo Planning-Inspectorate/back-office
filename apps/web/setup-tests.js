@@ -16,3 +16,12 @@ jest.unstable_mockModule('./src/server/lib/azure-ai-language.js', () => ({
 		return undefined;
 	}
 }));
+
+jest.unstable_mockModule('./src/server/lib/ai-redaction-client', () => ({
+	aiRedactionClientPost: {
+		post: jest.fn().mockResolvedValue({
+			// @ts-ignore
+			body: { pollEndpoint: 'abc', id: '123' }
+		})
+	}
+}));

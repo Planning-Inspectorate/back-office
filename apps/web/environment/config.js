@@ -45,6 +45,8 @@ export function loadConfig() {
 		AUTH_TENANT_ID = '*',
 		AZURE_AI_LANGUAGE_CATEGORIES,
 		AZURE_AI_LANGUAGE_ENDPOINT,
+		AZURE_AI_DOC_REDACTION_ENDPOINT,
+		AZURE_AI_DOC_REDACTION_STORAGE_NAME,
 		AZURE_BLOB_STORE_HOST,
 		CACHE_CONTROL_MAX_AGE,
 		STATIC_FEATURE_FLAGS_ENABLED,
@@ -79,6 +81,8 @@ export function loadConfig() {
 			categories: AZURE_AI_LANGUAGE_CATEGORIES,
 			endpoint: AZURE_AI_LANGUAGE_ENDPOINT
 		},
+		azureAiDocRedactionEndpoint: AZURE_AI_DOC_REDACTION_ENDPOINT,
+		azureAiDocRedactionBlobStorageName: AZURE_AI_DOC_REDACTION_STORAGE_NAME,
 		azureKeyVaultEnabled: environment.KEY_VAULT_ENABLED && environment.KEY_VAULT_ENABLED === 'true',
 		blobStorageUrl: AZURE_BLOB_STORE_HOST,
 		cacheControl: {

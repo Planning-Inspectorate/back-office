@@ -11,7 +11,10 @@ import {
 	setSessionBanner,
 	setSessionDocumentNameOnDeletion,
 	getSessionDocumentNameOnDeletion,
-	deleteSessionDocumentNameOnDeletion
+	deleteSessionDocumentNameOnDeletion,
+	setAiRedactionBanner,
+	getAiRedactionBanner,
+	deleteAiRedactionBanner
 } from '../../common/services/session.service.js';
 import { buildBreadcrumbItems } from '../applications-case.locals.js';
 import {
@@ -31,7 +34,8 @@ import {
 	searchDocuments,
 	renameFolder,
 	deleteFolder,
-	updateDocumentsFolderId
+	updateDocumentsFolderId,
+	postDocumentForAiRedaction
 } from './applications-documentation.service.js';
 import documentationSessionHandlers from './applications-documentation.session.js';
 import { paginationParams } from '../../../lib/pagination-params.js';
@@ -46,6 +50,8 @@ import { generateDocumentNameOnDeletion } from './utils/generate-document-name-o
 import { updateDocumentMetaData } from '../documentation-metadata/documentation-metadata.service.js';
 import { getDisplayValue } from '../fees-forecasting/applications-fees-forecasting-index.view-model.js';
 import { redactionStatusDisplayValues } from './applications-documentation.config.js';
+import { canRequestAiRedaction } from './utils/can-request-ai-redaction.js';
+import { buildAiRedactionPayload } from './utils/build-ai-redaction-payload.js';
 
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
 /** @typedef {import('../applications-case.locals.js').ApplicationCaseLocals} ApplicationCaseLocals */
@@ -281,7 +287,7 @@ export async function viewApplicationsCaseDocumentationUnpublishSinglePage(reque
 /**
  * View the documentation properties page
  *
- * @type {import('@pins/express').RenderHandler<{documentationFile: DocumentationFile, documentVersions: DocumentVersion[], updateBannerText: string|undefined, showSuccessBanner: boolean|undefined, caseIsWelsh: boolean}, {}>}
+ * @type {import('@pins/express').RenderHandler<{documentationFile: DocumentationFile, documentVersions: DocumentVersion[], updateBannerText: string|undefined, showSuccessBanner: boolean|undefined, caseIsWelsh: boolean, showAiRedactionButton: boolean, aiRedactionBanner: {}|undefined}, {}>}
  */
 export async function viewApplicationsCaseDocumentationProperties({ session }, response) {
 	const { caseId, caseIsWelsh, documentGuid } = response.locals;
@@ -308,15 +314,21 @@ export async function viewApplicationsCaseDocumentationProperties({ session }, r
 	const updateBannerText = getSessionBanner(session);
 	const showSuccessBanner = !!updateBannerText || getSuccessBanner(session);
 
+	const showAiRedactionButton = canRequestAiRedaction(documentationFile);
+	const aiRedactionBanner = getAiRedactionBanner(session);
+
 	deleteSessionBanner(session);
 	destroySuccessBanner(session);
+	deleteAiRedactionBanner(session);
 
 	response.render(`applications/case-documentation/properties/documentation-properties`, {
 		documentationFile,
 		documentVersions,
 		updateBannerText,
 		showSuccessBanner,
-		caseIsWelsh
+		caseIsWelsh,
+		showAiRedactionButton,
+		aiRedactionBanner
 	});
 }
 
@@ -998,5 +1010,52 @@ export async function postDocumentationFolderExplorer(request, response) {
 
 	return response.redirect(
 		`./folder-explorer?parentFolderId=${openFolderId}&parentFolderName=${parentFolderName}`
+	);
+}
+
+/**
+ * Post document for AI redaction
+ * @type {import('@pins/express').RenderHandler<{}, {}, {}, {}>}
+ */
+export async function postRequestAiRedaction(request, response) {
+	const { caseId, folderId, documentGuid } = response.locals;
+	const { session } = request;
+
+	const document = await getCaseDocumentationFileInfo(caseId, documentGuid);
+
+	const payload = buildAiRedactionPayload(document);
+
+	const result = await postDocumentForAiRedaction(payload);
+
+	const { errors } = result;
+
+	if (errors) {
+		await updateDocumentMetaData(caseId, documentGuid, {
+			redactedStatus: 'ai_redaction_failed'
+		});
+
+		setAiRedactionBanner(session, '', errors.msg, 'error');
+	} else if (result?.body?.pollEndpoint) {
+		await updateDocumentMetaData(caseId, documentGuid, {
+			redactedStatus: 'awaiting_ai_redaction'
+		});
+
+		setAiRedactionBanner(
+			session,
+			'AI redaction in progress',
+			`This process can take some time. Check back later for a new
+			version of the document with redactions suggested from the
+			AI redaction tool.`,
+			'info'
+		);
+	}
+
+	return response.redirect(
+		url('document', {
+			caseId,
+			folderId,
+			documentGuid,
+			step: 'properties'
+		})
 	);
 }

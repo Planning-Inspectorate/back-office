@@ -8,7 +8,8 @@ import {
 	fixturePaginatedDocumentationFiles,
 	fixturePublishedDocumentationFile,
 	fixtureReadyToPublishDocumentationFile,
-	fixtureReadyToPublishDocumentationPdfFile
+	fixtureReadyToPublishDocumentationPdfFile,
+	fixtureEligibleForAiRedactionDocumentationPdfFile
 } from '../../../../../../testing/applications/fixtures/documentation-files.js';
 import {
 	fixtureDocumentationFolderPath,
@@ -54,6 +55,15 @@ const nocks = () => {
 		.get('/applications/123/documents/95/properties')
 		.times(2)
 		.reply(200, fixtureReadyToPublishDocumentationPdfFile);
+
+	nock('http://test/')
+		.get('/applications/document/96/versions')
+		.times(2)
+		.reply(200, fixtureDocumentFileVersions);
+	nock('http://test/')
+		.get('/applications/123/documents/96/properties')
+		.times(2)
+		.reply(200, fixtureEligibleForAiRedactionDocumentationPdfFile);
 
 	nock('http://test/')
 		.get('/applications/document/95/versions')
@@ -319,6 +329,26 @@ describe('applications documentation', () => {
 			expect(element.innerHTML).toContain('/edit/published-status');
 			expect(element.innerHTML).toContain('/project-documentation/publishing-queue');
 		});
+
+		it('should show AI redaction button for eligible PDF', async () => {
+			const response = await request.get(
+				`${baseUrl}/project-documentation/21/document/96/properties`
+			);
+			console.log('###', fixtureEligibleForAiRedactionDocumentationPdfFile);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toContain('AI Redaction');
+		});
+
+		it('should NOT show AI redaction button for non PDF', async () => {
+			const response = await request.get(
+				`${baseUrl}/project-documentation/21/document/100/properties`
+			);
+
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).not.toContain('AI Redaction');
+		});
 	});
 
 	describe('Document upload new version', () => {
@@ -573,6 +603,32 @@ describe('applications documentation', () => {
 				expect(element.innerHTML).toContain('Move documents');
 				expect(element.innerHTML).toContain(fixtureReadyToPublishDocumentationFile.fileName);
 				expect(element.innerHTML).toContain(fixtureReadyToPublishDocumentationFile.author);
+			});
+		});
+	});
+
+	describe('AI Redaction request', () => {
+		describe('POST AI redaction', () => {
+			beforeEach(async () => {
+				nocks();
+			});
+			it('sets awaiting_ai_redaction and redirects back to properties', async () => {
+				const aiRedactionDoc = {
+					...fixtureReadyToPublishDocumentationPdfFile,
+					privateBlobPath: '/application/CASE1/guid-123/1',
+					privateBlobContainer: 'blob-container'
+				};
+
+				nock('http://test/')
+					.get('/applications/123/documents/3/properties')
+					.reply(200, aiRedactionDoc);
+
+				const response = await request.post(
+					`${baseUrl}/project-documentation/21/document/3/ai-redaction`
+				);
+
+				expect(response.status).toBe(302);
+				expect(response.headers.location).toContain('/properties');
 			});
 		});
 	});
