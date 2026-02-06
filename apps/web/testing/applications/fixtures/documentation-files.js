@@ -29,6 +29,27 @@ export const fixtureReadyToPublishDocumentationPdfFile =
 	) || fixtureDocumentationFiles[0];
 
 /** @type {DocumentationFile} */
+export const fixtureEligibleForAiRedactionDocumentationPdfFile = {
+	folderId: 21,
+	documentGuid: '96',
+	fileName: 'test.pdf',
+	originalFilename: 'test.pdf',
+	description: 'test',
+	size: 1234,
+	mime: 'application/pdf',
+	publishedStatus: 'not_checked',
+	redactedStatus: 'not_redacted',
+	redactionStatusForDisplay: 'Unredacted',
+	stage: 'pre-application',
+	documentType: 'Rule 8 letter',
+	dateCreated: 1669916924,
+	caseRef: '',
+	filter1: '',
+	author: '',
+	representative: ''
+};
+
+/** @type {DocumentationFile} */
 export const fixtureNotCheckedDocumentationFile =
 	fixtureDocumentationFiles.find((document) => document.publishedStatus === 'not_checked') ||
 	fixtureDocumentationFiles[0];

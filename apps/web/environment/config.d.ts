@@ -33,6 +33,8 @@ export interface EnvironmentConfig extends BaseEnvironmentConfig {
 		categories?: string; // CSV string of categories
 		endpoint: string;
 	};
+	azureAiDocRedactionEndpoint: string;
+	azureAiDocRedactionBlobStorageName: string;
 	azureKeyVaultEnabled: boolean;
 	blobStorageUrl: string;
 	cacheControl: {
