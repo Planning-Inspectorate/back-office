@@ -7220,9 +7220,7 @@ exports[`applications documentation Document properties page page should render 
                     <div class="govuk-button-group"><a href="/documents/123/download/3/version//preview" role="button" draggable="false"
                         class="govuk-button govuk-button--secondary" data-module="govuk-button"> Open</a>
                         <a                         href="/documents/123/download/3/version//" role="button" draggable="false"
-                        class="govuk-button govuk-button--secondary" data-module="govuk-button">Download</a>
-                            <button type="submit" class="govuk-button govuk-button--secondary"
-                            data-module="govuk-button">AI Redaction</button><a href="/applications-service/case/123/project-documentation/21/document/3/delete"
+                        class="govuk-button govuk-button--secondary" data-module="govuk-button">Download</a><a href="/applications-service/case/123/project-documentation/21/document/3/delete"
                             role="button" draggable="false" class="govuk-button govuk-button--secondary"
                             data-module="govuk-button"> Delete</a>
                     </div>
@@ -7556,9 +7554,7 @@ exports[`applications documentation Document properties page should not show pub
                     <div class="govuk-button-group"><a href="/documents/123/download/3/version//preview" role="button" draggable="false"
                         class="govuk-button govuk-button--secondary" data-module="govuk-button"> Open</a>
                         <a                         href="/documents/123/download/3/version//" role="button" draggable="false"
-                        class="govuk-button govuk-button--secondary" data-module="govuk-button">Download</a>
-                            <button type="submit" class="govuk-button govuk-button--secondary"
-                            data-module="govuk-button">AI Redaction</button><a href="/applications-service/case/123/project-documentation/21/document/3/delete"
+                        class="govuk-button govuk-button--secondary" data-module="govuk-button">Download</a><a href="/applications-service/case/123/project-documentation/21/document/3/delete"
                             role="button" draggable="false" class="govuk-button govuk-button--secondary"
                             data-module="govuk-button"> Delete</a>
                     </div>
@@ -7892,9 +7888,7 @@ exports[`applications documentation Document properties page should show publish
                     <div class="govuk-button-group"><a href="/documents/123/download/3/version//preview" role="button" draggable="false"
                         class="govuk-button govuk-button--secondary" data-module="govuk-button"> Open</a>
                         <a                         href="/documents/123/download/3/version//" role="button" draggable="false"
-                        class="govuk-button govuk-button--secondary" data-module="govuk-button">Download</a>
-                            <button type="submit" class="govuk-button govuk-button--secondary"
-                            data-module="govuk-button">AI Redaction</button><a href="/applications-service/case/123/project-documentation/21/document/3/delete"
+                        class="govuk-button govuk-button--secondary" data-module="govuk-button">Download</a><a href="/applications-service/case/123/project-documentation/21/document/3/delete"
                             role="button" draggable="false" class="govuk-button govuk-button--secondary"
                             data-module="govuk-button"> Delete</a>
                     </div>

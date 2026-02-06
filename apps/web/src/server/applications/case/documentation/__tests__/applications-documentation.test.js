@@ -8,7 +8,8 @@ import {
 	fixturePaginatedDocumentationFiles,
 	fixturePublishedDocumentationFile,
 	fixtureReadyToPublishDocumentationFile,
-	fixtureReadyToPublishDocumentationPdfFile
+	fixtureReadyToPublishDocumentationPdfFile,
+	fixtureEligibleForAiRedactionDocumentationPdfFile
 } from '../../../../../../testing/applications/fixtures/documentation-files.js';
 import {
 	fixtureDocumentationFolderPath,
@@ -54,6 +55,15 @@ const nocks = () => {
 		.get('/applications/123/documents/95/properties')
 		.times(2)
 		.reply(200, fixtureReadyToPublishDocumentationPdfFile);
+
+	nock('http://test/')
+		.get('/applications/document/96/versions')
+		.times(2)
+		.reply(200, fixtureDocumentFileVersions);
+	nock('http://test/')
+		.get('/applications/123/documents/96/properties')
+		.times(2)
+		.reply(200, fixtureEligibleForAiRedactionDocumentationPdfFile);
 
 	nock('http://test/')
 		.get('/applications/document/95/versions')
@@ -322,9 +332,9 @@ describe('applications documentation', () => {
 
 		it('should show AI redaction button for eligible PDF', async () => {
 			const response = await request.get(
-				`${baseUrl}/project-documentation/21/document/95/properties`
+				`${baseUrl}/project-documentation/21/document/96/properties`
 			);
-
+			console.log('###', fixtureEligibleForAiRedactionDocumentationPdfFile);
 			const element = parseHtml(response.text);
 
 			expect(element.innerHTML).toContain('AI Redaction');

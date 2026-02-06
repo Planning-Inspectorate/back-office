@@ -7,7 +7,7 @@ export const canRequestAiRedaction = (document) => {
 		return false;
 	}
 
-	const ineligibleStatuses = ['awaiting_ai_redaction', 'ai_redaction_review_required'];
+	const eligibleStatuses = [null, 'not_redacted', 'ai_redaction_failed'];
 
-	return !ineligibleStatuses.includes(document.redactedStatus);
+	return eligibleStatuses.includes(document.redactedStatus);
 };
