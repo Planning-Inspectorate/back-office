@@ -5,6 +5,7 @@ import { validationErrorHandler } from '#middleware/error-handler.js';
 export const validateCreateMeeting = composeMiddleware(
 	body('agenda').exists({ checkFalsy: true }).withMessage('Agenda is required.'),
 	body('pinsRole')
+		.if(body('meetingType').equals('evidence_plan'))
 		.isIn(['Facilitator', 'Advisor', 'Observer'])
 		.withMessage('pinsRole must be Facilitator, Advisor, or Observer.'),
 	body('meetingDate')

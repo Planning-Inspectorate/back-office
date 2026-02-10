@@ -11,7 +11,7 @@ import { sectionData, urlSectionNames } from './fees-forecasting.config.js';
  *
  * @type {RequestHandler}
  */
-export const feesForecastingValidator = async (request, response, next) => {
+export const feesForecastingValidator = (request, response, next) => {
 	const { sectionName } = request.params;
 
 	/** @type {Record<string, RequestHandler>} */
@@ -22,7 +22,8 @@ export const feesForecastingValidator = async (request, response, next) => {
 		'programme-document-received': validateFeesForecastingDate,
 		'programme-document-reviewed': validateFeesForecastingDate,
 		'programme-document-comments': validateFeesForecastingDate,
-		'add-new-fee': validateFeesForecastingAddFee
+		'add-new-fee': validateFeesForecastingAddFee,
+		'add-project-meeting': validateFeesForecastingProjectMeeting
 	};
 
 	if (Object.keys(validators).includes(sectionName)) {
@@ -40,7 +41,7 @@ export const feesForecastingValidator = async (request, response, next) => {
  *
  * @type {RequestHandler}
  */
-export const validateFeesForecastingDate = async (request, response, next) => {
+export const validateFeesForecastingDate = (request, response, next) => {
 	const { body, params } = request;
 	const { sectionName } = params;
 
@@ -58,9 +59,9 @@ export const validateFeesForecastingDate = async (request, response, next) => {
  *
  * @type {RequestHandler}
  */
-export const validateFeesForecastingAddFee = async (request, response, next) => {
+export const validateFeesForecastingAddFee = (request, response, next) => {
 	const invoiceDateValidation = validationDateValid(
-		{ fieldName: 'invoiceDate', extendedFieldName: 'date of invoice' },
+		{ fieldName: 'invoicedDate', extendedFieldName: 'date of invoice' },
 		request.body
 	);
 	const paymentDueDateValidation = validationDateValid(
@@ -72,7 +73,7 @@ export const validateFeesForecastingAddFee = async (request, response, next) => 
 		request.body
 	);
 	const refundDateValidation = validationDateValid(
-		{ fieldName: 'refundDate', extendedFieldName: 'refund date' },
+		{ fieldName: 'refundIssueDate', extendedFieldName: 'refund date' },
 		request.body
 	);
 
@@ -100,6 +101,30 @@ export const validateFeesForecastingAddFee = async (request, response, next) => 
 			.matches(/^\d+\.\d{2}$/)
 			.withMessage('The amount refunded must be a decimal number'),
 		refundDateValidation
+	];
+
+	return createValidator(validator)(request, response, next);
+};
+
+/**
+ * Checks project meeting data is formatted correctly
+ *
+ * @type {RequestHandler}
+ */
+export const validateFeesForecastingProjectMeeting = (request, response, next) => {
+	const projectMeetingDateValidation = validationDateValid(
+		{ fieldName: 'meetingDate', extendedFieldName: 'Date of project meeting' },
+		request.body
+	);
+
+	const validator = [
+		body('agenda').trim().notEmpty().withMessage('Select Meeting agenda'),
+		body('otherAgenda')
+			.if(body('agenda').equals('Other'))
+			.trim()
+			.notEmpty()
+			.withMessage('Enter meeting agenda'),
+		projectMeetingDateValidation
 	];
 
 	return createValidator(validator)(request, response, next);

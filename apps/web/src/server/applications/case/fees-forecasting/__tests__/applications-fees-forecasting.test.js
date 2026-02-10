@@ -87,6 +87,26 @@ describe('Fees and Forecasting', () => {
 	});
 
 	describe('POST /case/123/fees-forecasting/:sectionName', () => {
+		it('should redirect to the index page if updating was successful', async () => {
+			const flags = staticFlags;
+			flags['applics-1845-fees-forecasting'] = true;
+
+			const sectionName = 'maturity-evaluation-matrix';
+			const fieldName = 'memLastUpdated';
+
+			nock('http://test/')
+				.patch(`/applications/123/fees-forecasting/${sectionName}`)
+				.reply(200, {});
+
+			const response = await request.post(`${baseUrl}/${sectionName}`).send({
+				[fieldName + '.day']: '01',
+				[fieldName + '.month']: '02',
+				[fieldName + '.year']: '2000'
+			});
+
+			expect(response?.headers?.location).toEqual('../fees-forecasting');
+		});
+
 		it('should show a validation error when date is NOT entered in correct format', async () => {
 			const flags = staticFlags;
 			flags['applics-1845-fees-forecasting'] = true;
@@ -123,26 +143,6 @@ describe('Fees and Forecasting', () => {
 
 			expect(element.innerHTML).toMatchSnapshot();
 			expect(element.innerHTML).toContain('An error occurred, please try again later');
-		});
-
-		it('should redirect to the index page if updating was successful', async () => {
-			const flags = staticFlags;
-			flags['applics-1845-fees-forecasting'] = true;
-
-			const sectionName = 'maturity-evaluation-matrix';
-			const fieldName = 'memLastUpdated';
-
-			nock('http://test/')
-				.patch(`/applications/123/fees-forecasting/${sectionName}`)
-				.reply(200, {});
-
-			const response = await request.post(`${baseUrl}/${sectionName}`).send({
-				[fieldName + '.day']: '01',
-				[fieldName + '.month']: '02',
-				[fieldName + '.year']: '2000'
-			});
-
-			expect(response?.headers?.location).toEqual('../fees-forecasting');
 		});
 
 		it('should create a new fee and redirect when add-new-fee is posted successfully', async () => {
@@ -183,7 +183,7 @@ describe('Fees and Forecasting', () => {
 			const sectionName = 'add-new-fee';
 
 			nock('http://test/')
-				.post('/applications/123/fees-forecasting/add-new-fee')
+				.post('/applications/123/invoices')
 				.reply(500, { errors: 'API error message' });
 
 			const response = await request.post(`${baseUrl}/${sectionName}`).send({
@@ -192,7 +192,59 @@ describe('Fees and Forecasting', () => {
 			});
 
 			const element = parseHtml(response.text);
-			expect(element.innerHTML).toContain('An error occurred, please try again later');
+			expect(element.innerHTML).toContain('API error message');
+		});
+
+		it('should redirect to the index page if creating a project meeting was successful', async () => {
+			const flags = staticFlags;
+			flags['applics-1845-fees-forecasting'] = true;
+
+			const sectionName = 'add-project-meeting';
+
+			nock('http://test/').post('/applications/123/meetings').reply(200, {});
+
+			const response = await request.post(`${baseUrl}/${sectionName}`).send({
+				meetingType: 'project',
+				agenda: 'Project Update Meeting (PUM)'
+			});
+
+			expect(response?.headers?.location).toEqual('../fees-forecasting');
+		});
+
+		it('should show a validation error when project meeting is missing required fields', async () => {
+			const flags = staticFlags;
+			flags['applics-1845-fees-forecasting'] = true;
+
+			const sectionName = 'add-project-meeting';
+
+			const response = await request.post(`${baseUrl}/${sectionName}`).send({
+				meetingType: 'project',
+				agenda: ''
+			});
+
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toContain('Select Meeting agenda');
+		});
+
+		it('should show an API error if creating a project meeting was NOT successful', async () => {
+			const flags = staticFlags;
+			flags['applics-1845-fees-forecasting'] = true;
+
+			const sectionName = 'add-project-meeting';
+
+			nock('http://test/')
+				.post('/applications/123/meetings')
+				.reply(500, { errors: 'API error message' });
+
+			const response = await request.post(`${baseUrl}/${sectionName}`).send({
+				meetingType: 'project',
+				agenda: 'Project Update Meeting (PUM)'
+			});
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+			expect(element.innerHTML).toContain('API error message');
 		});
 	});
 });

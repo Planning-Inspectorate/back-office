@@ -268,7 +268,7 @@ export const getFeesForecastingIndexViewModel = ({ caseData, invoices, meetings 
 		const projectMeetings = meetings
 			.filter(
 				/** @param {object|*} meeting */
-				(meeting) => meeting.meetingType === 'pre_application' && meeting.pinsRole === null
+				(meeting) => meeting.meetingType === 'project'
 			)
 			.map(
 				/** @param {object|*} meeting */
@@ -290,7 +290,7 @@ export const getFeesForecastingIndexViewModel = ({ caseData, invoices, meetings 
 	const getEvidencePlanMeetingsSection = () => {
 		const evidencePlanMeetings = meetings.filter(
 			/** @param {object|*} meeting */
-			(meeting) => meeting.meetingType === 'pre_application' && meeting.pinsRole !== null
+			(meeting) => meeting.meetingType === 'evidence_plan'
 		);
 
 		if (!evidencePlanMeetings.length) {
@@ -522,14 +522,14 @@ export const getFeesForecastingIndexViewModel = ({ caseData, invoices, meetings 
 			content: getFeesSection(),
 			component: 'table',
 			buttonText: 'Add new fee',
-			buttonLink: getEditPageURL('add-new-fee', caseData.id)
+			buttonLink: getEditPageURL(urlSectionNames.addNewFee, caseData.id)
 		},
 		{
 			heading: 'Pre-application project meetings',
 			content: getProjectMeetingsSection(),
 			component: 'table',
 			buttonText: 'Add project meeting',
-			buttonLink: '#'
+			buttonLink: getEditPageURL(urlSectionNames.addProjectMeeting, caseData.id)
 		},
 		{
 			heading: 'Pre-application evidence plan meetings',
