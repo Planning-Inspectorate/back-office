@@ -6,27 +6,32 @@ const allMeetings = [
 		id: 1,
 		caseId: 100000000,
 		agenda: 'This is a test agenda',
-		pinsRole: 'Observer',
 		meetingDate: '2024-01-15T10:00:00Z',
-		meetingType: 'Pre-application',
+		meetingType: 'evidence_plan',
+		pinsRole: 'Observer',
 		createdAt: '2024-01-01T09:00:00Z'
 	},
 	{
 		id: 2,
 		caseId: 100000000,
 		agenda: 'This is another test agenda',
-		pinsRole: 'Facilitator',
 		meetingDate: '2024-02-20T14:00:00Z',
-		meetingType: 'Examination',
+		meetingType: 'project',
 		createdAt: '2024-01-05T11:30:00Z'
 	}
 ];
 
-const meetingPayload = {
+const evidencePlanMeetingPayload = {
 	agenda: 'This is a payload agenda',
-	pinsRole: 'Advisor',
 	meetingDate: '2024-03-10T09:30:00Z',
-	meetingType: 'Pre-application'
+	meetingType: 'evidence_plan',
+	pinsRole: 'Observer'
+};
+
+const projectMeetingPayload = {
+	agenda: 'This is a payload agenda',
+	meetingDate: '2024-03-10T09:30:00Z',
+	meetingType: 'project'
 };
 
 const malformedMeetingPayload = {
@@ -68,22 +73,44 @@ describe('Test Meetings API Endpoints', () => {
 	});
 
 	describe('POST /applications/:id/meetings', () => {
-		it('should create a new meeting for an application', async () => {
-			const createdMeeting = {
+		it('should create a new evidence plan meeting for an application', async () => {
+			const createdEvidencePlanMeeting = {
 				id: 1,
 				caseId: 100000000,
-				...meetingPayload,
+				...evidencePlanMeetingPayload,
 				createdAt: '2025-01-01T01:00:00.000Z'
 			};
-			databaseConnector.meeting.create.mockResolvedValueOnce(createdMeeting);
+			databaseConnector.meeting.create.mockResolvedValueOnce(createdEvidencePlanMeeting);
 
-			const res = await request.post(`/applications/100000000/meetings`).send(meetingPayload);
+			const res = await request
+				.post(`/applications/100000000/meetings`)
+				.send(evidencePlanMeetingPayload);
 
 			expect(res.status).toBe(201);
 			expect(databaseConnector.meeting.create).toHaveBeenCalledWith({
-				data: { caseId: 100000000, ...meetingPayload }
+				data: { caseId: 100000000, ...evidencePlanMeetingPayload }
 			});
-			expect(res.body).toEqual(createdMeeting);
+			expect(res.body).toEqual(createdEvidencePlanMeeting);
+		});
+
+		it('should create a new project meeting for an application', async () => {
+			const createdProjectMeeting = {
+				id: 2,
+				caseId: 100000000,
+				...projectMeetingPayload,
+				createdAt: '2025-01-01T01:00:00.000Z'
+			};
+			databaseConnector.meeting.create.mockResolvedValueOnce(createdProjectMeeting);
+
+			const res = await request
+				.post(`/applications/100000000/meetings`)
+				.send(projectMeetingPayload);
+
+			expect(res.status).toBe(201);
+			expect(databaseConnector.meeting.create).toHaveBeenCalledWith({
+				data: { caseId: 100000000, ...projectMeetingPayload }
+			});
+			expect(res.body).toEqual(createdProjectMeeting);
 		});
 
 		it('should return 400 for malformed meeting payload', async () => {
@@ -93,7 +120,7 @@ describe('Test Meetings API Endpoints', () => {
 
 			expect(res.status).toBe(400);
 			expect(res.body).toEqual({
-				errors: expect.any(Object)
+				errors: 'Meeting could not be created for application with id: 100000000'
 			});
 		});
 	});
