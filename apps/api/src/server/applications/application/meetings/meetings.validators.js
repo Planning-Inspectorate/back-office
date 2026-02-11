@@ -8,6 +8,10 @@ export const validateCreateMeeting = composeMiddleware(
 		.if(body('meetingType').equals('evidence_plan'))
 		.isIn(['Facilitator', 'Advisor', 'Observer'])
 		.withMessage('pinsRole must be Facilitator, Advisor, or Observer.'),
+	body('pinsRole')
+		.if(body('meetingType').equals('project'))
+		.isEmpty()
+		.withMessage('pinsRole cannot be set for project meetings'),
 	body('meetingDate')
 		.optional()
 		.isISO8601()
