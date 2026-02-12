@@ -32,7 +32,7 @@ import {
 	updateDocumentsFolderId,
 	getDocumentMetadataByFolderName
 } from './document.service.js';
-import { getRedactionStatus, validateDocumentVersionMetadataBody } from './document.validators.js';
+import { validateDocumentVersionMetadataBody } from './document.validators.js';
 
 /**
  * @typedef {import('@prisma/client').Document} Document
@@ -172,9 +172,7 @@ export const createDocumentVersionOnCase = async ({ params, body }, response) =>
  * @type {import('express').RequestHandler<{id: number}, any, any, any>}
  */
 export const updateDocuments = async ({ body }, response) => {
-	const { status: publishedStatus, redacted: isRedacted, documents } = body[''];
-
-	const redactedStatus = isRedacted !== undefined ? getRedactionStatus(isRedacted) : undefined;
+	const { status: publishedStatus, redactedStatus, documents } = body[''];
 
 	const { publishableIds, errors: validationErrors } = await (async () => {
 		const documentIds = /** @type {{guid: string}[]} */ (documents).map((doc) => doc.guid);

@@ -75,15 +75,18 @@ export const getCaseDocumentationFilesInFolder = async (
  * Update the status and the redaction of one or many documents
  *
  * @param {number} caseId
- * @param {{status: string, redacted?: boolean, documents: Array<{guid: string}>}} payload
+ * @param {{status: string, redactedStatus?: string, documents: Array<{guid: string}>}} payload
  * @returns {Promise<{documents?: Array<{guid: string}>, errors?: {guid: string, msg: string}[]}>}
  */
-export const updateCaseDocumentationFiles = async (caseId, { status, redacted, documents }) => {
+export const updateCaseDocumentationFiles = async (
+	caseId,
+	{ status, redactedStatus, documents }
+) => {
 	try {
 		return await patch(`applications/${caseId}/documents`, {
 			json: {
 				status,
-				redacted,
+				redactedStatus,
 				documents
 			}
 		});

@@ -58,7 +58,7 @@ export default class Enum {
 
 export const documentStatusEnum = new Enum(['submitted', 'internal', 'draft']);
 
-export const redactedStatusEnum = new Enum(['not_redacted', 'redacted']);
+export const redactedStatusEnum = new Enum(['not_redacted', 'redacted', 'no_redaction_required']);
 
 export const publishedStatusEnum = new Enum([
 	'not_checked',

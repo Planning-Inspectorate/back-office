@@ -231,7 +231,7 @@ describe('store Document metadata', () => {
 
 		expect(body).toEqual({
 			errors:
-				'"origin" must be one of [pins, citizen, lpa, ogd]. "redactedStatus" must be one of [not_redacted, redacted]. "published" is not allowed. "badFieldThatDoesNotExistOnSchema" is not allowed'
+				'"origin" must be one of [pins, citizen, lpa, ogd]. "redactedStatus" must be one of [not_redacted, redacted, no_redaction_required]. "published" is not allowed. "badFieldThatDoesNotExistOnSchema" is not allowed'
 		});
 
 		expect(databaseConnector.documentVersion.upsert).not.toHaveBeenCalled();
