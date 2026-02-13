@@ -3,13 +3,14 @@ import { Page } from './basePage';
 
 export class FolderDocumentsPage extends Page {
 	elements = {
-		redactionRadio: (redacted = false) => cy.get(redacted ? '#isRedacted-2' : '#isRedacted'),
+		redactionRadio: (redactedStatus) =>
+			this.basePageElements.radioButton().contains(redactedStatus),
 		statusRadio: (status) => this.basePageElements.radioButton().contains(status)
 	};
 
 	// U S E R  A C T I O N S
-	setRedactionStatus(redacted = false) {
-		this.elements.redactionRadio(redacted).click({ force: true });
+	setRedactionStatus(redactedStatus = 'Unredacted') {
+		this.elements.redactionRadio(redactedStatus).click({ force: true });
 	}
 
 	/**
@@ -20,8 +21,8 @@ export class FolderDocumentsPage extends Page {
 		this.elements.statusRadio(status).click({ force: true });
 	}
 
-	markAllReadyToPublish(redacted = true) {
-		this.setRedactionStatus(redacted);
+	markAllReadyToPublish(redactedStatus = 'Redacted') {
+		this.setRedactionStatus(redactedStatus);
 		this.setOverallStatus('Ready to publish');
 		this.selectAllDocuments();
 		this.clickButtonByText('Apply changes');
@@ -58,7 +59,7 @@ export class FolderDocumentsPage extends Page {
 		this.setOverallStatus('Ready to publish');
 		this.clickButtonByText('Apply changes');
 	}
-	applyChanges(redacted = false) {
+	applyChanges() {
 		this.setOverallStatus('Ready to publish');
 		this.selectAllDocuments();
 		this.clickButtonByText('Apply changes');
