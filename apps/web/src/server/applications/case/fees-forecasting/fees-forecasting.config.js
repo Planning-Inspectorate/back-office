@@ -43,7 +43,8 @@ export const urlSectionNames = {
 	programmeDocumentReceived: 'programme-document-received',
 	programmeDocumentReviewed: 'programme-document-reviewed',
 	programmeDocumentComments: 'programme-document-comments',
-	addNewFee: 'add-new-fee'
+	addNewFee: 'add-new-fee',
+	addProjectMeeting: 'add-project-meeting'
 };
 
 export const sectionData = {
@@ -91,5 +92,10 @@ export const sectionData = {
 		sectionTitle: 'Add a new fee',
 		pageHeading: 'Add a new fee',
 		componentType: 'add-new-fee'
+	},
+	addProjectMeeting: {
+		sectionTitle: 'Add a project meeting',
+		pageHeading: 'Add a project meeting',
+		componentType: 'add-project-meeting'
 	}
 };

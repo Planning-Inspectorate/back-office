@@ -4,6 +4,7 @@ import {
 	getInvoices,
 	getMeetings,
 	postNewFee,
+	postProjectMeeting,
 	updateFeesForecasting
 } from './applications-fees-forecasting.service.js';
 import { isValid } from 'date-fns';
@@ -62,6 +63,10 @@ export function getFeesForecastingEditSection(request, response) {
 			);
 		case 'add-new-fee':
 			return renderTemplate(`applications/case-fees-forecasting/fees-forecasting-manage-fee.njk`);
+		case 'add-project-meeting':
+			return renderTemplate(
+				`applications/case-fees-forecasting/fees-forecasting-manage-project-meeting.njk`
+			);
 	}
 }
 
@@ -88,6 +93,26 @@ export async function updateFeesForecastingEditSection(
 	/** @type {any} */
 	let apiErrors;
 
+	/**
+	 * @param {Array<string>} dateFieldMatch
+	 */
+	const handleMeetingsAndFeesDateFields = (dateFieldMatch) => {
+		const fieldName = dateFieldMatch[1];
+		const day = body[`${fieldName}.day`];
+		const month = body[`${fieldName}.month`];
+		const year = body[`${fieldName}.year`];
+
+		if (validationErrors && validationErrors[fieldName]) {
+			validationErrors[fieldName].value = { day, month, year };
+		} else {
+			const date = new Date(`${year}-${month}-${day}`);
+			if (isValid(date)) {
+				values[fieldName] = Math.floor(date.getTime() / 1000);
+				feesForecastingData[fieldName] = date;
+			}
+		}
+	};
+
 	switch (editViewModel.componentType) {
 		case 'date-input': {
 			const fieldName = editViewModel?.fieldName || '';
@@ -99,10 +124,9 @@ export async function updateFeesForecastingEditSection(
 				validationErrors[fieldName].value = { day, month, year };
 			} else {
 				const date = new Date(`${year}-${month}-${day}`);
-
 				values[fieldName] = Math.floor(date.getTime() / 1000);
 
-				// To align with key dates, users can submit three empty date fields to clear the date from the index page, which requires a null value to be set to replace the existing date in the database.
+				// Allows date to be cleared from index page if all fields are empty to align with key dates
 				isValid(date)
 					? (feesForecastingData[fieldName] = date)
 					: (feesForecastingData[fieldName] = null);
@@ -115,21 +139,9 @@ export async function updateFeesForecastingEditSection(
 				const dateFieldMatch = key.match(
 					/^(invoicedDate|paymentDueDate|paymentDate|refundIssueDate)\.(day|month|year)$/
 				);
-				if (dateFieldMatch) {
-					const fieldName = dateFieldMatch[1];
-					const day = body[`${fieldName}.day`];
-					const month = body[`${fieldName}.month`];
-					const year = body[`${fieldName}.year`];
 
-					if (validationErrors && validationErrors[fieldName]) {
-						validationErrors[fieldName].value = { day, month, year };
-					} else {
-						const date = new Date(`${year}-${month}-${day}`);
-						if (isValid(date)) {
-							values[fieldName] = Math.floor(date.getTime() / 1000);
-							feesForecastingData[fieldName] = date;
-						}
-					}
+				if (dateFieldMatch) {
+					handleMeetingsAndFeesDateFields(dateFieldMatch);
 				} else {
 					if (body[key] !== '') {
 						values[key] = body[key];
@@ -137,6 +149,27 @@ export async function updateFeesForecastingEditSection(
 					}
 				}
 			});
+
+			break;
+		}
+		case 'add-project-meeting': {
+			Object.keys(body).forEach((key) => {
+				const dateFieldMatch = key.match(/^(meetingDate)\.(day|month|year)$/);
+
+				if (dateFieldMatch) {
+					handleMeetingsAndFeesDateFields(dateFieldMatch);
+				}
+			});
+
+			if (body.agenda === 'Other') {
+				feesForecastingData.agenda = body?.otherAgenda || '';
+				values.otherAgenda = body?.otherAgenda || '';
+			} else {
+				feesForecastingData.agenda = body.agenda;
+			}
+
+			values.agenda = body.agenda;
+			feesForecastingData.meetingType = 'project';
 
 			break;
 		}
@@ -151,6 +184,11 @@ export async function updateFeesForecastingEditSection(
 			}
 			case 'add-new-fee': {
 				const { errors } = await postNewFee(caseId, feesForecastingData);
+				apiErrors = errors;
+				break;
+			}
+			case 'add-project-meeting': {
+				const { errors } = await postProjectMeeting(caseId, feesForecastingData);
 				apiErrors = errors;
 				break;
 			}
@@ -177,6 +215,11 @@ export async function updateFeesForecastingEditSection(
 			}
 			case 'add-new-fee': {
 				return renderError(`applications/case-fees-forecasting/fees-forecasting-manage-fee.njk`);
+			}
+			case 'add-project-meeting': {
+				return renderError(
+					`applications/case-fees-forecasting/fees-forecasting-manage-project-meeting.njk`
+				);
 			}
 		}
 	}
