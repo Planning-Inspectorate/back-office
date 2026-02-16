@@ -42,7 +42,9 @@ export const urlSectionNames = {
 	consultationMilestone: 'consultation-milestone',
 	programmeDocumentReceived: 'programme-document-received',
 	programmeDocumentReviewed: 'programme-document-reviewed',
-	programmeDocumentComments: 'programme-document-comments'
+	programmeDocumentComments: 'programme-document-comments',
+	addNewFee: 'add-new-fee',
+	addProjectMeeting: 'add-project-meeting'
 };
 
 export const sectionData = {
@@ -85,5 +87,15 @@ export const sectionData = {
 		fieldName: 'caseTeamIssuedCommentsDate',
 		hintText: 'Issue date of the most recent initial comments on programme document to applicant',
 		componentType: 'date-input'
+	},
+	addNewFee: {
+		sectionTitle: 'Add a new fee',
+		pageHeading: 'Add a new fee',
+		componentType: 'add-new-fee'
+	},
+	addProjectMeeting: {
+		sectionTitle: 'Add a project meeting',
+		pageHeading: 'Add a project meeting',
+		componentType: 'add-project-meeting'
 	}
 };

@@ -1,0 +1,22 @@
+BEGIN TRY
+
+BEGIN TRAN;
+
+-- DropIndex
+ALTER TABLE [dbo].[Invoice] DROP CONSTRAINT [Invoice_refundCreditNoteNumber_key];
+
+-- AlterTable
+ALTER TABLE [dbo].[Invoice] ALTER COLUMN [amountDue] DECIMAL(32,16) NULL;
+
+COMMIT TRAN;
+
+END TRY
+BEGIN CATCH
+
+IF @@TRANCOUNT > 0
+BEGIN
+    ROLLBACK TRAN;
+END;
+THROW
+
+END CATCH

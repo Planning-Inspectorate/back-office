@@ -2,7 +2,8 @@ import {
 	getInvoicesForCase,
 	getInvoiceForCaseById,
 	createOrUpdateInvoiceForCase,
-	deleteInvoiceForCase
+	deleteInvoiceForCase,
+	getInvoicesWithCreditNoteNumber
 } from './invoices.service.js';
 import BackOfficeAppError from '../../../utils/app-error.js';
 
@@ -48,11 +49,22 @@ export const createOrUpdateInvoiceController = async ({ params, body }, res) => 
 	const { id: caseId, invoiceId } = params;
 	const isCreateRequest = invoiceId === null || invoiceId === undefined;
 
+	if (body.refundCreditNoteNumber) {
+		const creditNoteExists = await getInvoicesWithCreditNoteNumber(body.refundCreditNoteNumber);
+		if (creditNoteExists && creditNoteExists.invoiceNumber != body.invoiceNumber) {
+			throw new BackOfficeAppError(
+				'An invoice with this refund credit note number already exists',
+				400
+			);
+		}
+	}
+
 	try {
 		const invoice = await createOrUpdateInvoiceForCase(caseId, invoiceId, body);
 
 		return res.status(isCreateRequest ? 201 : 200).send(invoice);
 	} catch (error) {
+		// Unique constraint violation error (duplicate invoice number or refund credit note number)
 		if (error?.code === 'P2002') {
 			throw new BackOfficeAppError('An invoice with this invoice number already exists', 400);
 		}

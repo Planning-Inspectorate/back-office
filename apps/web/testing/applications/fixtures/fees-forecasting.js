@@ -76,7 +76,7 @@ export const fixtureFeesForecastingIndex = {
 		{
 			id: 1,
 			caseId: 4,
-			meetingType: 'pre_application',
+			meetingType: 'project',
 			agenda: 'Project Update Meeting (PUM)',
 			pinsRole: null,
 			meetingDate: '2025-01-11T00:00:00.000Z'
@@ -84,7 +84,7 @@ export const fixtureFeesForecastingIndex = {
 		{
 			id: 2,
 			caseId: 4,
-			meetingType: 'pre_application',
+			meetingType: 'evidence_plan',
 			agenda: 'Flood Risk Assessment',
 			pinsRole: 'facilitator',
 			meetingDate: '2025-01-09T00:00:00.000Z'
@@ -92,7 +92,7 @@ export const fixtureFeesForecastingIndex = {
 		{
 			id: 3,
 			caseId: 4,
-			meetingType: 'pre_application',
+			meetingType: 'evidence_plan',
 			agenda: 'Habitat Regulation Assessment',
 			pinsRole: 'advisor',
 			meetingDate: '2025-01-11T00:00:00.000Z'

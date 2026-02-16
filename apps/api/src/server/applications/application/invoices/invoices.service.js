@@ -19,6 +19,14 @@ export const getInvoiceForCaseById = async (invoiceId) => {
 };
 
 /**
+ * @param {string} refundCreditNoteNumber
+ * @returns {Promise<import('@pins/applications.api').Schema.Invoice|null>}
+ */
+export const getInvoicesWithCreditNoteNumber = async (refundCreditNoteNumber) => {
+	return invoicesRepository.getInvoiceByCreditNoteNumber(refundCreditNoteNumber);
+};
+
+/**
  * Create or update an invoice for a case
  * @param {number} caseId
  * @param {number} invoiceId

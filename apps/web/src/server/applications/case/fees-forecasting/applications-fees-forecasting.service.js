@@ -1,4 +1,4 @@
-import { get, patch } from '../../../lib/request.js';
+import { get, patch, post } from '../../../lib/request.js';
 import logger from '../../../lib/logger.js';
 
 /**
@@ -12,6 +12,34 @@ export async function getInvoices(caseId) {
 }
 
 /**
+ * Post a fee to the invoices endpoint
+ *
+ * @param {string} caseId
+ * @param {object} feeData
+ * @returns {Promise<any>}
+ */
+export async function postNewFee(caseId, feeData) {
+	let response;
+
+	try {
+		response = await post(`applications/${caseId}/invoices`, {
+			json: feeData
+		});
+	} catch (/** @type {*} */ error) {
+		logger.error(`[API] ${JSON.stringify(error?.response?.body?.errors) || 'Unknown error'}`);
+		let errorMsg = 'An error occurred, please try again later';
+		if (error?.response?.body?.errors) {
+			errorMsg = error?.response?.body?.errors;
+		}
+
+		response = new Promise((resolve) => {
+			resolve({ errors: { msg: errorMsg } });
+		});
+	}
+	return response;
+}
+
+/**
  * Get the meeting data for the given case
  *
  * @param {string} caseId
@@ -19,6 +47,34 @@ export async function getInvoices(caseId) {
  */
 export async function getMeetings(caseId) {
 	return get(`applications/${caseId}/meetings`);
+}
+
+/**
+ * Post a project meeting to the meetings endpoint
+ *
+ * @param {string} caseId
+ * @param {object} projectMeetingData
+ * @returns {Promise<any>}
+ */
+export async function postProjectMeeting(caseId, projectMeetingData) {
+	let response;
+
+	try {
+		response = await post(`applications/${caseId}/meetings`, {
+			json: projectMeetingData
+		});
+	} catch (/** @type {*} */ error) {
+		logger.error(`[API] ${JSON.stringify(error?.response?.body?.errors) || 'Unknown error'}`);
+		let errorMsg = 'An error occurred, please try again later';
+		if (error?.response?.body?.errors) {
+			errorMsg = error?.response?.body?.errors;
+		}
+
+		response = new Promise((resolve) => {
+			resolve({ errors: { msg: errorMsg } });
+		});
+	}
+	return response;
 }
 
 /**

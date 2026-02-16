@@ -1,0 +1,84 @@
+{% extends "../layouts/applications.layout.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from '../components/inputs/date-input.component.njk' import dateInput %}
+
+{% block beforeContent %}
+	<aside>
+		{{ govukBackLink({
+			text: "Back",
+			href: 'fees-forecasting'|url({caseId: caseId})
+		}) }}
+	</aside>
+{% endblock %}
+
+{% block pageHeading %}
+	<h1 class="govuk-heading-l">{{ pageHeading }}</h1>
+{% endblock %}
+
+{% block pageContent %}
+	<form method="post" novalidate="novalidate" class="govuk-grid-row">
+		{% set otherAgendaHtml %}
+			{{ govukInput({
+				name: "otherAgenda",
+				classes: "govuk-!-width-one-third",
+				errorMessage: errors['otherAgenda'] and {
+					text: errors['otherAgenda'].msg
+				},
+				value: values['otherAgenda']
+			}) }}
+		{% endset %}
+
+		<div class='govuk-grid-column-two-thirds'>
+			{{ govukRadios({
+				name: "agenda",
+				fieldset: {
+					legend: {
+						html: "<strong>Meeting agenda</strong>"
+					}
+				},
+				items: [
+					{
+						value: "Project Update Meeting (PUM)",
+						text: "Project Update Meeting (PUM)"
+					},
+					{
+						value: "Multi-Party Meeting (MPM)",
+						text: "Multi-Party Meeting (MPM)"
+					},
+					{
+						value: "Draft document review",
+						text: "Draft document review"
+					},
+					{
+						value: "Other",
+						text: "Other",
+						conditional: {
+						html: otherAgendaHtml
+					}
+					}
+				],
+				errorMessage: errors['agenda'] and {
+					text: errors['agenda'].msg
+				},
+				value: values['agenda']
+			}) }}
+		</div>
+
+		{{ dateInput({
+			layout: {
+				fieldName: 'meetingDate',
+				label: "Date of project meeting",
+				classes: 'govuk-grid-column-one-third'
+			},
+			errors: errors,
+			values: values
+		}) }}
+
+		<div class='govuk-grid-column-one-third'>
+			{{ govukButton({ text: 'Save and return' }) }}
+		</div>
+	</form>
+
+{% endblock %}

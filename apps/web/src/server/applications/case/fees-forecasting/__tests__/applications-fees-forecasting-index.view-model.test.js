@@ -343,7 +343,7 @@ describe('applications fees forecasting index view-model', () => {
 						},
 						component: 'table',
 						buttonText: 'Add new fee',
-						buttonLink: '#'
+						buttonLink: '/applications-service/case/4/fees-forecasting/add-new-fee'
 					},
 					{
 						heading: 'Pre-application project meetings',
@@ -367,7 +367,7 @@ describe('applications fees forecasting index view-model', () => {
 						},
 						component: 'table',
 						buttonText: 'Add project meeting',
-						buttonLink: '#'
+						buttonLink: '/applications-service/case/4/fees-forecasting/add-project-meeting'
 					},
 					{
 						heading: 'Pre-application evidence plan meetings',
