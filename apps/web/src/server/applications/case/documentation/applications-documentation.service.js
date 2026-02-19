@@ -1,6 +1,8 @@
 import logger from '../../../lib/logger.js';
 import { deleteRequest, get, patch, post } from '../../../lib/request.js';
+import { aiRedactionClientPost } from '../../../lib/ai-redaction-client.js';
 import { buildQueryString } from '../../common/components/build-query-string.js';
+import config from '@pins/applications.web/environment/config.js';
 
 /**
  * @typedef {import('@pins/express').ValidationErrors} ValidationErrors
@@ -8,6 +10,12 @@ import { buildQueryString } from '../../common/components/build-query-string.js'
  * @typedef {import('../../applications.types').DocumentationFile} DocumentationFile
  * @typedef {import('../../applications.types').DocumentVersion} DocumentVersion
  * @typedef {import('../../applications.types').PaginatedResponse<DocumentationFile>} PaginatedDocumentationFiles
+ */
+
+/**
+ * @typedef {Object} AiRedactionResponse
+ * @property {string} [pollEndpoint]
+ * @property {string} [id]
  */
 
 /**
@@ -362,5 +370,35 @@ export const deleteFolder = async (caseId, folderId) => {
 			return { errors: { msg: 'Folder or child folders are not empty' } };
 		}
 		return { errors: { msg: 'Failed to rename folder.' } };
+	}
+};
+
+/**
+ * Send document to AI redaction tool
+ * @param {object} payload
+ * @returns {Promise<{ body?: AiRedactionResponse, errors?: { msg: string } }>}
+ */
+export const postDocumentForAiRedaction = async (payload) => {
+	try {
+		const body = await aiRedactionClientPost(config.azureAiDocRedactionEndpoint, {
+			json: payload
+		});
+
+		return { body };
+	} catch (/** @type {*} */ error) {
+		logger.error(
+			{
+				statusCode: error?.response?.statusCode,
+				statusMessage: error?.response?.statusMessage,
+				headers: error?.response?.headers,
+				body:
+					typeof error?.response?.body === 'string'
+						? error.response.body.slice(0, 500)
+						: error?.response?.body
+			},
+			'[AI redaction] request failed'
+		);
+
+		return { errors: { msg: 'AI redaction failed - try again' } };
 	}
 };

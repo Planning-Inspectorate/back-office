@@ -57,7 +57,7 @@
 						transcriptRow,
 						{label: 'Date received', value: (documentationFile.dateCreated|datestamp({format: 'dd/MM/yyyy'})), link: 'receipt-date'},
 						{label: 'Published date', value: publishedDate, link: 'published-date' if publishedDate else null},
-						{label: 'Redaction', value: documentationFile.redactionStatusForDisplay , link: 'redaction'},
+						{label: 'Redaction', value: ('Unredacted' if not documentationFile.redactedStatus else documentationFile.redactionStatusForDisplay) , link: 'redaction'},
 						{label: 'Status', value: documentationFile.publishedStatus|statusName, link: 'published-status' if statusCanBeChanged else null }
 	] %}
 

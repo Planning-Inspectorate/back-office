@@ -79,6 +79,8 @@ export const url = (key, filterArguments = {}) => {
 			return `${domainUrl}/`;
 		case 'document':
 			return `${domainUrl}/case/${caseId}/project-documentation/${folderId}/document/${documentGuid}/${step}`;
+		case 'document-ai-redaction':
+			return `${domainUrl}/case/${caseId}/project-documentation/${folderId}/document/${documentGuid}/ai-redaction`;
 		case 'document-edit':
 			return `${domainUrl}/case/${caseId}/project-documentation/${folderId}/document/${documentGuid}/edit/${step}`;
 		case 'document-category':
