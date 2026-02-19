@@ -8,50 +8,75 @@
 			<div class="pins-files-list__statuses">
 				<h3 class="govuk-heading-s">Statuses</h3>
 				<div class="govuk-grid-row">
+					{% if isS51folder %}
+						<div>{{ govukRadios({
+							name: "isRedacted",
+							fieldset: {
+								legend: {
+									text: "Redaction"
+								}
+							},
+							items: [
+								{
+									value: '0',
+									text: "Unredacted"
+								},
+								{
+									value: '1',
+									text: "Redacted"
+								}
+							]
+						}) }}</div>
+					{% else %}
+						<div>{{ govukRadios({
+							name: "redactedStatus",
+							fieldset: {
+								legend: {
+									text: "Redaction"
+								}
+							},
+							items: [
+								{
+									value: 'not_redacted',
+									text: "Unredacted"
+								},
+								{
+									value: 'redacted',
+									text: "Redacted"
+								},
+								{
+									value: 'no_redaction_required',
+									text: "Redaction not needed"
+								}
+							]
+						}) }}</div>
+					{% endif %}
 					<div>{{ govukRadios({
-													name: "isRedacted",
-													fieldset: {
-														legend: {
-															text: "Redaction"
-														}
-													},
-													items: [
-														{
-															value: '0',
-															text: "Unredacted"
-														},
-														{
-															value: '1',
-															text: "Redacted"
-														}
-													]
-												}) }}</div>
-					<div>{{ govukRadios({
-													name: "status",
-													fieldset: {
-														legend: {
-															text: "Status"
-														}
-													},
-													items: [
-														{
-															value: 'not_checked',
-															text: "Not checked"
-														},
-														{
-															value: 'checked',
-															text: "Checked"
-														},
-														{
-															value: 'ready_to_publish',
-															text: "Ready to publish"
-														},
-														{
-															value: 'do_not_publish',
-															text: "Do not publish"
-														}
-													]
-												}) }}</div>
+						name: "status",
+						fieldset: {
+							legend: {
+								text: "Status"
+							}
+						},
+						items: [
+							{
+								value: 'not_checked',
+								text: "Not checked"
+							},
+							{
+								value: 'checked',
+								text: "Checked"
+							},
+							{
+								value: 'ready_to_publish',
+								text: "Ready to publish"
+							},
+							{
+								value: 'do_not_publish',
+								text: "Do not publish"
+							}
+						]
+					}) }}</div>
 					<div>
 						{{ govukButton({ text: 'Apply changes' }) }}
 						<a href="." class="govuk-link govuk-link--no-visited-state govuk-!-margin-top-0">

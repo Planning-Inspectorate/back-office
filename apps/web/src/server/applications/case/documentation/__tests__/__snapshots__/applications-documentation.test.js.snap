@@ -110,14 +110,19 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                                             <legend class="govuk-fieldset__legend">Redaction</legend>
                                             <div class="govuk-radios" data-module="govuk-radios">
                                                 <div class="govuk-radios__item">
-                                                    <input class="govuk-radios__input" id="isRedacted" name="isRedacted" type="radio"
-                                                    value="0">
-                                                    <label class="govuk-label govuk-radios__label" for="isRedacted">Unredacted</label>
+                                                    <input class="govuk-radios__input" id="redactedStatus" name="redactedStatus"
+                                                    type="radio" value="not_redacted">
+                                                    <label class="govuk-label govuk-radios__label" for="redactedStatus">Unredacted</label>
                                                 </div>
                                                 <div class="govuk-radios__item">
-                                                    <input class="govuk-radios__input" id="isRedacted-2" name="isRedacted"
-                                                    type="radio" value="1">
-                                                    <label class="govuk-label govuk-radios__label" for="isRedacted-2">Redacted</label>
+                                                    <input class="govuk-radios__input" id="redactedStatus-2" name="redactedStatus"
+                                                    type="radio" value="redacted">
+                                                    <label class="govuk-label govuk-radios__label" for="redactedStatus-2">Redacted</label>
+                                                </div>
+                                                <div class="govuk-radios__item">
+                                                    <input class="govuk-radios__input" id="redactedStatus-3" name="redactedStatus"
+                                                    type="radio" value="no_redaction_required">
+                                                    <label class="govuk-label govuk-radios__label" for="redactedStatus-3">Redaction not needed</label>
                                                 </div>
                                             </div>
                                         </fieldset>
@@ -993,14 +998,19 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                                             <legend class="govuk-fieldset__legend">Redaction</legend>
                                             <div class="govuk-radios" data-module="govuk-radios">
                                                 <div class="govuk-radios__item">
-                                                    <input class="govuk-radios__input" id="isRedacted" name="isRedacted" type="radio"
-                                                    value="0">
-                                                    <label class="govuk-label govuk-radios__label" for="isRedacted">Unredacted</label>
+                                                    <input class="govuk-radios__input" id="redactedStatus" name="redactedStatus"
+                                                    type="radio" value="not_redacted">
+                                                    <label class="govuk-label govuk-radios__label" for="redactedStatus">Unredacted</label>
                                                 </div>
                                                 <div class="govuk-radios__item">
-                                                    <input class="govuk-radios__input" id="isRedacted-2" name="isRedacted"
-                                                    type="radio" value="1">
-                                                    <label class="govuk-label govuk-radios__label" for="isRedacted-2">Redacted</label>
+                                                    <input class="govuk-radios__input" id="redactedStatus-2" name="redactedStatus"
+                                                    type="radio" value="redacted">
+                                                    <label class="govuk-label govuk-radios__label" for="redactedStatus-2">Redacted</label>
+                                                </div>
+                                                <div class="govuk-radios__item">
+                                                    <input class="govuk-radios__input" id="redactedStatus-3" name="redactedStatus"
+                                                    type="radio" value="no_redaction_required">
+                                                    <label class="govuk-label govuk-radios__label" for="redactedStatus-3">Redaction not needed</label>
                                                 </div>
                                             </div>
                                         </fieldset>
@@ -2394,14 +2404,19 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                                             <legend class="govuk-fieldset__legend">Redaction</legend>
                                             <div class="govuk-radios" data-module="govuk-radios">
                                                 <div class="govuk-radios__item">
-                                                    <input class="govuk-radios__input" id="isRedacted" name="isRedacted" type="radio"
-                                                    value="0">
-                                                    <label class="govuk-label govuk-radios__label" for="isRedacted">Unredacted</label>
+                                                    <input class="govuk-radios__input" id="redactedStatus" name="redactedStatus"
+                                                    type="radio" value="not_redacted">
+                                                    <label class="govuk-label govuk-radios__label" for="redactedStatus">Unredacted</label>
                                                 </div>
                                                 <div class="govuk-radios__item">
-                                                    <input class="govuk-radios__input" id="isRedacted-2" name="isRedacted"
-                                                    type="radio" value="1">
-                                                    <label class="govuk-label govuk-radios__label" for="isRedacted-2">Redacted</label>
+                                                    <input class="govuk-radios__input" id="redactedStatus-2" name="redactedStatus"
+                                                    type="radio" value="redacted">
+                                                    <label class="govuk-label govuk-radios__label" for="redactedStatus-2">Redacted</label>
+                                                </div>
+                                                <div class="govuk-radios__item">
+                                                    <input class="govuk-radios__input" id="redactedStatus-3" name="redactedStatus"
+                                                    type="radio" value="no_redaction_required">
+                                                    <label class="govuk-label govuk-radios__label" for="redactedStatus-3">Redaction not needed</label>
                                                 </div>
                                             </div>
                                         </fieldset>
@@ -3187,7 +3202,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                     <h2 class="govuk-error-summary__title"> There is a problem</h2>
                     <div class="govuk-error-summary__body">
                         <ul class="govuk-list govuk-error-summary__list">
-                            <li><a href="#isRedacted">Select a status to apply a change</a>
+                            <li><a href="#redactedStatus">Select a status to apply a change</a>
                             </li>
                         </ul>
                     </div>
@@ -3303,14 +3318,19 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                                             <legend class="govuk-fieldset__legend">Redaction</legend>
                                             <div class="govuk-radios" data-module="govuk-radios">
                                                 <div class="govuk-radios__item">
-                                                    <input class="govuk-radios__input" id="isRedacted" name="isRedacted" type="radio"
-                                                    value="0">
-                                                    <label class="govuk-label govuk-radios__label" for="isRedacted">Unredacted</label>
+                                                    <input class="govuk-radios__input" id="redactedStatus" name="redactedStatus"
+                                                    type="radio" value="not_redacted">
+                                                    <label class="govuk-label govuk-radios__label" for="redactedStatus">Unredacted</label>
                                                 </div>
                                                 <div class="govuk-radios__item">
-                                                    <input class="govuk-radios__input" id="isRedacted-2" name="isRedacted"
-                                                    type="radio" value="1">
-                                                    <label class="govuk-label govuk-radios__label" for="isRedacted-2">Redacted</label>
+                                                    <input class="govuk-radios__input" id="redactedStatus-2" name="redactedStatus"
+                                                    type="radio" value="redacted">
+                                                    <label class="govuk-label govuk-radios__label" for="redactedStatus-2">Redacted</label>
+                                                </div>
+                                                <div class="govuk-radios__item">
+                                                    <input class="govuk-radios__input" id="redactedStatus-3" name="redactedStatus"
+                                                    type="radio" value="no_redaction_required">
+                                                    <label class="govuk-label govuk-radios__label" for="redactedStatus-3">Redaction not needed</label>
                                                 </div>
                                             </div>
                                         </fieldset>
@@ -4595,14 +4615,19 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                                             <legend class="govuk-fieldset__legend">Redaction</legend>
                                             <div class="govuk-radios" data-module="govuk-radios">
                                                 <div class="govuk-radios__item">
-                                                    <input class="govuk-radios__input" id="isRedacted" name="isRedacted" type="radio"
-                                                    value="0">
-                                                    <label class="govuk-label govuk-radios__label" for="isRedacted">Unredacted</label>
+                                                    <input class="govuk-radios__input" id="redactedStatus" name="redactedStatus"
+                                                    type="radio" value="not_redacted">
+                                                    <label class="govuk-label govuk-radios__label" for="redactedStatus">Unredacted</label>
                                                 </div>
                                                 <div class="govuk-radios__item">
-                                                    <input class="govuk-radios__input" id="isRedacted-2" name="isRedacted"
-                                                    type="radio" value="1">
-                                                    <label class="govuk-label govuk-radios__label" for="isRedacted-2">Redacted</label>
+                                                    <input class="govuk-radios__input" id="redactedStatus-2" name="redactedStatus"
+                                                    type="radio" value="redacted">
+                                                    <label class="govuk-label govuk-radios__label" for="redactedStatus-2">Redacted</label>
+                                                </div>
+                                                <div class="govuk-radios__item">
+                                                    <input class="govuk-radios__input" id="redactedStatus-3" name="redactedStatus"
+                                                    type="radio" value="no_redaction_required">
+                                                    <label class="govuk-label govuk-radios__label" for="redactedStatus-3">Redaction not needed</label>
                                                 </div>
                                             </div>
                                         </fieldset>
@@ -5795,7 +5820,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                     <h2 class="govuk-error-summary__title"> There is a problem</h2>
                     <div class="govuk-error-summary__body">
                         <ul class="govuk-list govuk-error-summary__list">
-                            <li><a href="#isRedacted">Select a status to apply a change</a>
+                            <li><a href="#redactedStatus">Select a status to apply a change</a>
                             </li>
                         </ul>
                     </div>
@@ -5911,14 +5936,19 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                                             <legend class="govuk-fieldset__legend">Redaction</legend>
                                             <div class="govuk-radios" data-module="govuk-radios">
                                                 <div class="govuk-radios__item">
-                                                    <input class="govuk-radios__input" id="isRedacted" name="isRedacted" type="radio"
-                                                    value="0">
-                                                    <label class="govuk-label govuk-radios__label" for="isRedacted">Unredacted</label>
+                                                    <input class="govuk-radios__input" id="redactedStatus" name="redactedStatus"
+                                                    type="radio" value="not_redacted">
+                                                    <label class="govuk-label govuk-radios__label" for="redactedStatus">Unredacted</label>
                                                 </div>
                                                 <div class="govuk-radios__item">
-                                                    <input class="govuk-radios__input" id="isRedacted-2" name="isRedacted"
-                                                    type="radio" value="1">
-                                                    <label class="govuk-label govuk-radios__label" for="isRedacted-2">Redacted</label>
+                                                    <input class="govuk-radios__input" id="redactedStatus-2" name="redactedStatus"
+                                                    type="radio" value="redacted">
+                                                    <label class="govuk-label govuk-radios__label" for="redactedStatus-2">Redacted</label>
+                                                </div>
+                                                <div class="govuk-radios__item">
+                                                    <input class="govuk-radios__input" id="redactedStatus-3" name="redactedStatus"
+                                                    type="radio" value="no_redaction_required">
+                                                    <label class="govuk-label govuk-radios__label" for="redactedStatus-3">Redaction not needed</label>
                                                 </div>
                                             </div>
                                         </fieldset>
