@@ -16,7 +16,9 @@ import {
 	caseZoomLevelDataUpdate,
 	isMaterialChangeDataUpdate,
 	caseProjectTypeData,
-	caseProjectTypeDataUpdate
+	caseProjectTypeDataUpdate,
+	caseDcoStatusData,
+	caseDcoStatusDataUpdate
 } from '../../../common/components/form/form-case.component.js';
 import { getUpdatedField } from '../applications-edit.service.js';
 import { getIsMaterialChangeStaticDataViewModel } from '../../../../lib/static-data-view-models.js';
@@ -117,6 +119,12 @@ const projectTypeLayout = {
 	isEdit: true
 };
 
+const dcoStatusLayout = {
+	pageTitle: 'Choose DCO status',
+	components: ['dco-status'],
+	isEdit: true
+};
+
 /** @type {Record<string, string>} */
 const fullFieldNames = {
 	title: 'Project name',
@@ -132,7 +140,8 @@ const fullFieldNames = {
 	'geographicalInformation.regions': 'Regions',
 	'geographicalInformation.mapZoomLevelName': 'Map zoom level',
 	isMaterialChange: 'Material change',
-	'additionalDetails.subProjectType': 'Project type'
+	'additionalDetails.subProjectType': 'Project type',
+	dcoStatus: 'DCO status'
 };
 
 /** @typedef {import('../../../create-new-case/case/applications-create-case.types.js').ApplicationsCreateCaseNameProps} ApplicationsCreateCaseNameProps */
@@ -631,4 +640,37 @@ export async function updateApplicationsEditProjectType(request, response) {
 			? `/applications-service/case/${updatedCaseId}/overview`
 			: `/applications-service/case/${updatedCaseId}/project-information`
 	);
+}
+
+/**
+ * View the form step for editing DCO status
+ *
+ * @type {import('@pins/express').RenderHandler<*, *>}
+ */
+export async function viewApplicationsEditDcoStatus(request, response) {
+    const properties = await caseDcoStatusData(request, response.locals);
+    response.render(resolveTemplate(dcoStatusLayout), {
+        ...properties,
+        layout: dcoStatusLayout
+    });
+}
+
+/**
+ * Edit the DCO status
+ *
+ * @type {import('@pins/express').RenderHandler<*, *, *, {}, {edit?: string}>}
+ */
+export async function updateApplicationsEditDcoStatus(request, response) {
+    const { properties, updatedCaseId } = await caseDcoStatusDataUpdate(request, response.locals);
+
+    if (properties.errors || !updatedCaseId)
+        return handleErrors(properties, dcoStatusLayout, response);
+
+    setSessionBanner(request.session, `${fullFieldNames.dcoStatus} updated.`);
+
+    return response.redirect(
+        featureFlagClient.isFeatureActive('applic-55-welsh-translation')
+            ? `/applications-service/case/${updatedCaseId}/overview`
+            : `/applications-service/case/${updatedCaseId}/project-information`
+    );
 }

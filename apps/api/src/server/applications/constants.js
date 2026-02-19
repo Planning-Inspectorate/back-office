@@ -107,5 +107,6 @@ export const VALIDATE_APPLICATION_ENUMS = {
 	NEW_MATURITY: ['A', 'B', 'C', 'D', 'E', 'F', 'G'],
 	RECOMMENDATION: ['recommend_consent', 'recommend_partial_consent', 'recommend_refusal'],
 	COURT_DECISION_OUTCOME: ['upheld', 'partially_upheld', 'quashed', 'other'],
+	DCO_STATUS: ['granted', 'refused', 'partially_consented', 'quashed', 'redetermination', 'withdrawn'],
 	DOCUMENT_STATUS: ['submitted_by_applicant', 'awaiting_submission', 'not_applicable']
 };

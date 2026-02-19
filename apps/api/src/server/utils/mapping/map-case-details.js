@@ -129,6 +129,9 @@ export const mapApplicationDetails = (caseDetails) => {
 			gridReference: gridReferenceFormatted,
 			regions: regionsFormatted
 		},
+		...(caseDetails?.ApplicationDetails?.dcoStatus && {
+			dcoStatus: { name: caseDetails.ApplicationDetails.dcoStatus }
+		}),
 		keyDates,
 		isMaterialChange: caseDetails.isMaterialChange
 	};

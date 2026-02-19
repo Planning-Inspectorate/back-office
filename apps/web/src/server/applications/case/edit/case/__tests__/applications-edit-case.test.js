@@ -378,4 +378,22 @@ describe('applications edit', () => {
 			expect(summary?.innerHTML).toContain('Choose the project type');
 		});
 	});
+
+	describe('DCO status', () => {
+		/** @param {string | number} id */
+		const baseUrl = (id) => `/applications-service/case/${id}/edit/dco-status`;
+
+		beforeEach(async () => {
+			await request.get('/applications-service/');
+			nocks();
+		});
+
+		it('GET should render the DCO status page', async () => {
+			const response = await request.get(baseUrl('3'));
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+			expect(element.innerHTML).toContain('DCO status');
+		});
+	});
 });

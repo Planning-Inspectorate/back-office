@@ -9,6 +9,7 @@ import {
 } from '../../services/entities.service.js';
 import { getSessionCaseSectorName } from '../../services/session.service.js';
 import { getProjectTypesViewModel } from '../mappers/project-types.mapper.js';
+import { getDcoStatusViewModel } from '../mappers/dco-status.mapper.js';
 import { camelToSnake } from '../../../../lib/camel-to-snake.js';
 import { featureFlagClient } from '../../../../../common/feature-flags.js';
 import { SECTORS, SUB_SECTORS } from '../../constants.js';
@@ -24,6 +25,7 @@ import { SECTORS, SUB_SECTORS } from '../../constants.js';
 /** @typedef {import('../../../create-new-case/case/applications-create-case.types').ApplicationsCreateCaseTeamEmailProps} ApplicationsCreateCaseTeamEmailProps */
 /** @typedef {import('../../../create-new-case/case/applications-create-case.types').ApplicationsCreateCaseGeographicalInformationProps} ApplicationsCreateCaseGeographicalInformationProps */
 /** @typedef {import('../../../create-new-case/case/applications-create-case.types').ApplicationsCreateCaseIsMaterialChangeProps} ApplicationsCreateCaseIsMaterialChangeProps */
+/** @typedef {import('../../../create-new-case/case/applications-create-case.types').ApplicationsCreateCaseDcoStatusProps} ApplicationsCreateCaseDcoStatusProps */
 
 /**
  * Format properties for name and description page
@@ -517,4 +519,48 @@ export async function caseTeamEmailDataUpdate({ body, errors: validationErrors }
 		propertiesWithId.properties = { values, errors: validationErrors || apiErrors };
 	}
 	return propertiesWithId;
+}
+
+/**
+ * Format properties for DCO status page
+ *
+ * @param {import('express').Request} request
+ * @param {Record<string, any>} locals
+ * @returns {Promise<ApplicationsCreateCaseDcoStatusProps>}
+ */
+export async function caseDcoStatusData(request, locals) {
+    const details = locals.currentCase?.applicationDetails;
+    const selected =
+        details?.dcoStatus?.name ??
+        (typeof details?.dcoStatus === 'string' ? details.dcoStatus : '') ??
+        '';
+
+    return {
+        values: { dcoStatus: selected },
+        dcoStatuses: getDcoStatusViewModel()
+    };
+}
+
+/**
+ * Format properties for DCO status update page
+ *
+ * @param {{ body: any, errors?: any }} request
+ * @param {Record<string, any>} locals
+ * @returns {Promise<{properties: ApplicationsCreateCaseDcoStatusProps, updatedCaseId: number|null}>}
+ */
+export async function caseDcoStatusDataUpdate({ body, errors: validationErrors }, locals) {
+    const { caseId } = locals;
+    const payload = bodyToPayload(body);
+
+    const { errors: apiErrors, id: updatedCaseId = null } = validationErrors
+        ? { errors: validationErrors }
+        : await updateCase(caseId, payload);
+
+    const properties = {
+        values: { dcoStatus: body.dcoStatus },
+        errors: validationErrors || apiErrors,
+        dcoStatuses: getDcoStatusViewModel()
+    };
+
+    return { properties, updatedCaseId };
 }

@@ -104,3 +104,16 @@ export interface ApplicationsCreateCaseIsMaterialChangeRes
 	extends CaseCreateProps<ApplicationsCreateCaseIsMaterialChangeBody> {
 	values?: Array<isMaterialChangeOption>;
 }
+
+// DCO status
+export interface ApplicationsCreateCaseDcoStatusBody {
+    dcoStatus?: string;
+}
+export interface DcoStatusItem {
+    name: string;
+    displayNameEn: string;
+}
+export interface ApplicationsCreateCaseDcoStatusProps
+    extends CaseCreateProps<ApplicationsCreateCaseDcoStatusBody> {
+    dcoStatuses: DcoStatusItem[];
+}

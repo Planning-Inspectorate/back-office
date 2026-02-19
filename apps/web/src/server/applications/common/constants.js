@@ -15,3 +15,14 @@ export const PROJECT_TYPES = {
 	ONSHORE_WIND: 'onshore_wind',
 	SOLAR: 'solar'
 };
+
+export const DCO_STATUS = {
+	GRANTED: 'granted',
+	REFUSED: 'refused',
+	PARTIALLY_CONSENTED: 'partially_consented',
+	QUASHED: 'quashed',
+	REDETERMINATION: 'redetermination',
+	WITHDRAWN: 'withdrawn'
+};
+
+

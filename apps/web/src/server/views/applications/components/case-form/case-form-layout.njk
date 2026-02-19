@@ -10,6 +10,7 @@
 {% from "./case/stage.njk" import stage %}
 {% from "./case/sub-sector.njk" import subSector %}
 {% from "./case/project-type.njk" import subProjectType %}
+{% from "./case/dco-status.njk" import dcoStatus %}
 {% from "./case/regions.njk" import regions %}
 {% from "./case/zoom-level.njk" import zoomLevel %}
 {% from "./case/team-email.njk" import teamEmail %}
@@ -43,7 +44,8 @@
 			or componentName == 'info-types'
 			or componentName == 'zoom-level'
 			or componentName == 'material-change'
-			or componentName == 'project-type' %}
+			or componentName == 'project-type'
+			or componentName == 'dco-status' %}
 			{% set componentHasPageHeading = true %}
 		{% endif %}
 	{% endif %}
@@ -123,6 +125,8 @@
 		{{ subSector(values, errors, subSectors, fieldset) }}
 	{% elif componentName == 'project-type' %}
 		{{ subProjectType(values, errors, subProjectTypes, fieldset) }}
+	{% elif componentName == 'dco-status' %}
+		{{ dcoStatus(values, errors, dcoStatuses, fieldset) }}
 	{% elif componentName == 'regions' %}
 		{{ regions(allRegions, errors, fieldset) }}
 	{% elif componentName == 'stage' %}
