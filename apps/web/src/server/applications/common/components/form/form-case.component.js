@@ -529,11 +529,9 @@ export async function caseTeamEmailDataUpdate({ body, errors: validationErrors }
  * @returns {Promise<ApplicationsCreateCaseDcoStatusProps>}
  */
 export async function caseDcoStatusData(request, locals) {
-    const details = locals.currentCase?.applicationDetails;
+    const details = locals.currentCase?.additionalDetails;
     const selected =
-        details?.dcoStatus?.name ??
-        (typeof details?.dcoStatus === 'string' ? details.dcoStatus : '') ??
-        '';
+        (typeof details?.dcoStatus === 'string' ? details.dcoStatus : '') ?? '';
 
     return {
         values: { dcoStatus: selected },

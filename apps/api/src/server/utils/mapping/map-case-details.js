@@ -96,6 +96,7 @@ export const mapApplicationDetails = (caseDetails) => {
 		'programmeDocumentURI',
 		'additionalComments',
 		'issuesTracker',
+		'dcoStatus',
 		// document enums
 		'principalAreaDisagreementSummaryStmt',
 		'policyComplianceDocument',
