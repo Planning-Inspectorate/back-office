@@ -741,7 +741,7 @@ export async function viewFolderDeletionPage(request, response) {
 }
 
 /**
- * @type {import('@pins/express').RenderHandler<*, *, {folderName: string}>}
+ * @type {import('@pins/express').AsyncRequestHandler<*, *, {folderName: string}>}
  */
 export async function updateFolderCreate(request, response) {
 	if (!featureFlagClient.isFeatureActive('applic-625-custom-folders')) {
@@ -773,6 +773,7 @@ export async function updateFolderCreate(request, response) {
 			url('document-category', { caseId });
 		return response.render('applications/components/folder/folder-create', {
 			backLink,
+			// @ts-expect-error - TODO remove unnecessary OR case
 			errors: [errors] || [{ msg: 'Something went wrong. Please, try again later.' }]
 		});
 	}
@@ -849,6 +850,7 @@ export async function updateFolderDelete(request, response) {
 			url('document-category', { caseId });
 		return response.render('applications/components/folder/folder-delete', {
 			backLink,
+			// @ts-expect-error - TODO remove unnecessary OR case
 			errors: [errors] || [{ msg: 'Something went wrong. Please, try again later.' }]
 		});
 	}
