@@ -300,7 +300,7 @@ describe('Publish documents', () => {
 		databaseConnector.case.findUnique.mockResolvedValue(application1);
 		let docBeforeUpdate = documentWithDocumentVersionWithLatest;
 		docBeforeUpdate.documentVersion[0].publishedStatus = 'not_checked';
-		docBeforeUpdate.documentVersion[0].redactedStatusStatus = 'not_redacted';
+		docBeforeUpdate.documentVersion[0].redactedStatus = 'not_redacted';
 
 		let docVersionWithDocumentBeforeUpdate = {
 			...documentVersionWithDocument,
@@ -332,7 +332,7 @@ describe('Publish documents', () => {
 		databaseConnector.case.findUnique.mockResolvedValue(application1);
 		let docBeforeUpdate = documentWithDocumentVersionWithLatest;
 		docBeforeUpdate.documentVersion[0].publishedStatus = 'not_checked';
-		docBeforeUpdate.documentVersion[0].redactedStatusStatus = 'awaiting_ai_redaction';
+		docBeforeUpdate.documentVersion[0].redactedStatus = 'awaiting_ai_redaction';
 
 		let docVersionWithDocumentBeforeUpdate = {
 			...documentVersionWithDocument,
@@ -364,7 +364,7 @@ describe('Publish documents', () => {
 		databaseConnector.case.findUnique.mockResolvedValue(application1);
 		let docBeforeUpdate = documentWithDocumentVersionWithLatest;
 		docBeforeUpdate.documentVersion[0].publishedStatus = 'not_checked';
-		docBeforeUpdate.documentVersion[0].redactedStatusStatus = 'ai_redaction_review_required';
+		docBeforeUpdate.documentVersion[0].redactedStatus = 'ai_redaction_review_required';
 
 		let docVersionWithDocumentBeforeUpdate = {
 			...documentVersionWithDocument,
@@ -396,7 +396,7 @@ describe('Publish documents', () => {
 		databaseConnector.case.findUnique.mockResolvedValue(application1);
 		let docBeforeUpdate = documentWithDocumentVersionWithLatest;
 		docBeforeUpdate.documentVersion[0].publishedStatus = 'not_checked';
-		docBeforeUpdate.documentVersion[0].redactedStatusStatus = null;
+		docBeforeUpdate.documentVersion[0].redactedStatus = null;
 
 		let docVersionWithDocumentBeforeUpdate = {
 			...documentVersionWithDocument,
@@ -442,7 +442,10 @@ describe('Publish documents', () => {
 			{
 				guid: docGuid,
 				latestVersionId: 1,
-				latestDocumentVersion: documentVersion1
+				latestDocumentVersion: {
+					...documentVersion1,
+					redactedStatus: 'redacted'
+				}
 			}
 		];
 

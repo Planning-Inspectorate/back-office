@@ -76,7 +76,15 @@
 			} %}
 		{% endif %}
 
-		{% if property.value === 'Awaiting AI redaction' or property.value === 'AI redaction review needed' %}
+		{% set noChangeLinkRequired =
+			property.value === 'Redacted'
+			or property.value === 'Redaction in progress'
+			or property.value === 'Suggestions in progress'
+			or property.value === 'Redactions suggested'
+			or property.value === 'Suggestions reviewed'
+		%}
+
+		{% if noChangeLinkRequired %}
 			{% set row = {
 				key: {
 					text: property.label,

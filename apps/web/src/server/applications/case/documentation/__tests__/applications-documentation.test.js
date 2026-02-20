@@ -9,7 +9,12 @@ import {
 	fixturePublishedDocumentationFile,
 	fixtureReadyToPublishDocumentationFile,
 	fixtureReadyToPublishDocumentationPdfFile,
-	fixtureEligibleForAiRedactionDocumentationPdfFile
+	fixtureEligibleForAiRedactionDocumentationPdfFile,
+	fixtureRedactedDocumentationFile,
+	fixtureAwaitingAiSuggestionsDocumentationFile,
+	fixtureAiSuggestionsReviewRequiredDocumentationFile,
+	fixtureAiSuggestionsReviewedDocumentationFile,
+	fixtureAwaitingAiRedactionDocumentationFile
 } from '../../../../../../testing/applications/fixtures/documentation-files.js';
 import {
 	fixtureDocumentationFolderPath,
@@ -55,6 +60,47 @@ const nocks = () => {
 		.get('/applications/123/documents/95/properties')
 		.times(2)
 		.reply(200, fixtureReadyToPublishDocumentationPdfFile);
+
+	nock('http://test/')
+		.get('/applications/123/documents/95/properties')
+		.times(1)
+		.reply(200, fixtureRedactedDocumentationFile);
+
+	nock('http://test/')
+		.get('/applications/document/150/versions')
+		.times(1)
+		.reply(200, fixtureDocumentFileVersions);
+	nock('http://test/')
+		.get('/applications/123/documents/150/properties')
+		.times(1)
+		.reply(200, fixtureAwaitingAiSuggestionsDocumentationFile);
+
+	nock('http://test/')
+		.get('/applications/document/151/versions')
+		.times(1)
+		.reply(200, fixtureDocumentFileVersions);
+	nock('http://test/')
+		.get('/applications/123/documents/151/properties')
+		.times(1)
+		.reply(200, fixtureAiSuggestionsReviewRequiredDocumentationFile);
+
+	nock('http://test/')
+		.get('/applications/document/152/versions')
+		.times(1)
+		.reply(200, fixtureDocumentFileVersions);
+	nock('http://test/')
+		.get('/applications/123/documents/152/properties')
+		.times(1)
+		.reply(200, fixtureAiSuggestionsReviewedDocumentationFile);
+
+	nock('http://test/')
+		.get('/applications/document/153/versions')
+		.times(1)
+		.reply(200, fixtureDocumentFileVersions);
+	nock('http://test/')
+		.get('/applications/123/documents/153/properties')
+		.times(1)
+		.reply(200, fixtureAwaitingAiRedactionDocumentationFile);
 
 	nock('http://test/')
 		.get('/applications/document/96/versions')
@@ -330,11 +376,60 @@ describe('applications documentation', () => {
 			expect(element.innerHTML).toContain('/project-documentation/publishing-queue');
 		});
 
+		it('should NOT show redaction status edit link if document is redacted', async () => {
+			const response = await request.get(
+				`${baseUrl}/project-documentation/21/document/95/properties`
+			);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+			expect(element.innerHTML).not.toContain('/edit/redaction');
+		});
+
+		it('should NOT show redaction status edit link if document is awaiting AI redaction suggestions', async () => {
+			const response = await request.get(
+				`${baseUrl}/project-documentation/21/document/150/properties`
+			);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+			expect(element.innerHTML).not.toContain('/edit/redaction');
+		});
+
+		it('should NOT show redaction status edit link if document is awaiting AI redaction suggestion review', async () => {
+			const response = await request.get(
+				`${baseUrl}/project-documentation/21/document/151/properties`
+			);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+			expect(element.innerHTML).not.toContain('/edit/redaction');
+		});
+
+		it('should NOT show redaction status edit link if AI redaction suggestions for document have been reviewed', async () => {
+			const response = await request.get(
+				`${baseUrl}/project-documentation/21/document/152/properties`
+			);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+			expect(element.innerHTML).not.toContain('/edit/redaction');
+		});
+
+		it('should NOT show redaction status edit link if AI redaction of document is in progress', async () => {
+			const response = await request.get(
+				`${baseUrl}/project-documentation/21/document/153/properties`
+			);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+			expect(element.innerHTML).not.toContain('/edit/redaction');
+		});
+
 		it('should show AI redaction button for eligible PDF', async () => {
 			const response = await request.get(
 				`${baseUrl}/project-documentation/21/document/96/properties`
 			);
-			console.log('###', fixtureEligibleForAiRedactionDocumentationPdfFile);
 			const element = parseHtml(response.text);
 
 			expect(element.innerHTML).toContain('AI Redaction');
