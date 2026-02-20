@@ -29,6 +29,43 @@ export const fixtureReadyToPublishDocumentationPdfFile =
 	) || fixtureDocumentationFiles[0];
 
 /** @type {DocumentationFile} */
+export const fixtureRedactedDocumentationFile =
+	fixtureDocumentationFiles.find((document) => document.redactedStatus === 'redacted') ||
+	fixtureDocumentationFiles[0];
+
+/** @type {DocumentationFile} */
+export const fixtureAwaitingAiSuggestionsDocumentationFile = {
+	...fixtureDocumentationFiles[0],
+	documentGuid: '150',
+	redactedStatus: 'awaiting_ai_suggestions',
+	redactionStatusForDisplay: 'Suggestions in progress'
+};
+
+/** @type {DocumentationFile} */
+export const fixtureAiSuggestionsReviewRequiredDocumentationFile = {
+	...fixtureDocumentationFiles[0],
+	documentGuid: '151',
+	redactedStatus: 'ai_suggestions_review_required',
+	redactionStatusForDisplay: 'Redactions suggested'
+};
+
+/** @type {DocumentationFile} */
+export const fixtureAiSuggestionsReviewedDocumentationFile = {
+	...fixtureDocumentationFiles[0],
+	documentGuid: '152',
+	redactedStatus: 'ai_suggestions_reviewed',
+	redactionStatusForDisplay: 'Suggestions reviewed'
+};
+
+/** @type {DocumentationFile} */
+export const fixtureAwaitingAiRedactionDocumentationFile = {
+	...fixtureDocumentationFiles[0],
+	documentGuid: '153',
+	redactedStatus: 'awaiting_ai_redaction',
+	redactionStatusForDisplay: 'Redaction in progress'
+};
+
+/** @type {DocumentationFile} */
 export const fixtureEligibleForAiRedactionDocumentationPdfFile = {
 	folderId: 21,
 	documentGuid: '96',
