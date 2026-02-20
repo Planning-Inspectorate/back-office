@@ -13,7 +13,12 @@ import { mapDocumentVersionDetails } from '#utils/mapping/map-document-details.j
 import * as documentRepository from '#repositories/document.repository.js';
 import * as documentVersionRepository from '#repositories/document-metadata.repository.js';
 import * as documentActivityLogRepository from '#repositories/document-activity-log.repository.js';
-import { getFolderWithParents, getS51AdviceFolder } from '#repositories/folder.repository.js';
+import {
+	getFolderWithParents,
+	getS51AdviceFolder,
+	decreaseDocumentCount,
+	increaseDocumentCount
+} from '#repositories/folder.repository.js';
 import { getStorageLocation } from '#utils/document-storage.js';
 import BackOfficeAppError from '#utils/app-error.js';
 import logger from '#utils/logger.js';
@@ -144,6 +149,7 @@ const attemptInsertDocuments = async (caseId, documents, isS51) => {
 					fromFrontOffice: documentToDB.fromFrontOffice,
 					documentType: isS51 ? DOCUMENT_TYPES.S51Attachment : DOCUMENT_TYPES.Document
 				});
+				await increaseDocumentCount(document.folderId);
 			} catch (err) {
 				logger.error(err);
 				failed.add(documentToDB.documentName);
@@ -1067,7 +1073,10 @@ export const deleteDocument = async (guid, caseId) => {
 	// step 3: mark the document as deleted
 	const deletedDocument = await documentRepository.deleteDocument(guid);
 
-	// Step 4: broadcast event message - ignoring training cases
+	// step 4: decrement documentCount of folder and ancestor folders
+	await decreaseDocumentCount(deletedDocument.folderId);
+
+	// Step 5: broadcast event message - ignoring training cases
 	await broadcastNsipDocumentEvent(documentToDelete, EventType.Delete);
 
 	return deletedDocument;
