@@ -1,13 +1,18 @@
 import { getFeesForecastingIndexViewModel } from './applications-fees-forecasting-index.view-model.js';
 import { getFeesForecastingEditViewModel } from './applications-fees-forecasting-edit.view-model.js';
 import {
+	deleteFee,
+	getInvoice,
 	getInvoices,
 	getMeetings,
 	postNewFee,
 	postProjectMeeting,
+	updateFee,
 	updateFeesForecasting
 } from './applications-fees-forecasting.service.js';
 import { isValid } from 'date-fns';
+import { url } from '../../../lib/nunjucks-filters/url.js';
+import { getFeesForecastingDeleteViewModel } from './applications-fees-forecasting-delete.view-model.js';
 
 /**
  * View the index of all the data on the fees and forecasting page
@@ -33,11 +38,16 @@ export async function getFeesForecastingIndex(request, response) {
 /**
  * View the fees and forecasting edit page
  *
- * @type {import('@pins/express').RenderHandler<{}, {}, {}, {}, { sectionName: string }>}
+ * @type {import('@pins/express').RenderHandler<{}, {}, {}, {}, { sectionName?: string, caseId?: string, feeId?: string }>}
  */
-export function getFeesForecastingEditSection(request, response) {
+export async function getFeesForecastingEditSection(request, response) {
 	const projectName = response.locals.case.title;
-	const sectionName = request.params.sectionName;
+	let sectionName = request.params.sectionName || '';
+	/** @type {boolean|undefined} */
+	const isFeeEdit = /** @type {*} */ (request).isFeeEdit;
+	if (isFeeEdit) {
+		sectionName = 'manage-fee';
+	}
 
 	/** @type {Record<string, any>} */
 	const editViewModel = getFeesForecastingEditViewModel(projectName, sectionName);
@@ -63,6 +73,17 @@ export function getFeesForecastingEditSection(request, response) {
 			);
 		case 'add-new-fee':
 			return renderTemplate(`applications/case-fees-forecasting/fees-forecasting-manage-fee.njk`);
+		case 'manage-fee': {
+			const invoice = await getInvoice(response.locals.caseId, request.params.feeId || '');
+			if (invoice == null) {
+				return response.status(404).render(`app/404`);
+			}
+
+			Object.entries(invoice).forEach(([key, value]) => {
+				values[key] = value;
+			});
+			return renderTemplate(`applications/case-fees-forecasting/fees-forecasting-manage-fee.njk`);
+		}
 		case 'add-project-meeting':
 			return renderTemplate(
 				`applications/case-fees-forecasting/fees-forecasting-manage-project-meeting.njk`
@@ -73,15 +94,18 @@ export function getFeesForecastingEditSection(request, response) {
 /**
  * Update fees and forecasting data
  *
- * @type {import('@pins/express').RenderHandler<{}, {}, Record<string, string>, {}, { sectionName: string }>}
+ * @type {import('@pins/express').RenderHandler<{}, {}, Record<string, string>, {}, { sectionName?: string, feeId?: string }>}
  */
-export async function updateFeesForecastingEditSection(
-	{ body, errors: validationErrors, params },
-	response
-) {
+export async function updateFeesForecastingEditSection(request, response) {
+	const { body, errors: validationErrors, params } = request;
+	/** @type {boolean|undefined} */
+	const isFeeEdit = /** @type {*} */ (request).isFeeEdit;
 	const { caseId } = response.locals;
 	const projectName = response.locals.case.title;
-	const { sectionName } = params;
+	let sectionName = params.sectionName || '';
+	if (isFeeEdit) {
+		sectionName = 'manage-fee';
+	}
 
 	/** @type {Record<string, any>} */
 	const editViewModel = getFeesForecastingEditViewModel(projectName, sectionName);
@@ -94,10 +118,9 @@ export async function updateFeesForecastingEditSection(
 	let apiErrors;
 
 	/**
-	 * @param {Array<string>} dateFieldMatch
+	 * @param {string} fieldName
 	 */
-	const handleMeetingsAndFeesDateFields = (dateFieldMatch) => {
-		const fieldName = dateFieldMatch[1];
+	const mapDateValues = (fieldName) => {
 		const day = body[`${fieldName}.day`];
 		const month = body[`${fieldName}.month`];
 		const year = body[`${fieldName}.year`];
@@ -106,47 +129,32 @@ export async function updateFeesForecastingEditSection(
 			validationErrors[fieldName].value = { day, month, year };
 		} else {
 			const date = new Date(`${year}-${month}-${day}`);
-			if (isValid(date)) {
-				values[fieldName] = Math.floor(date.getTime() / 1000);
-				feesForecastingData[fieldName] = date;
-			}
+			values[fieldName] = Math.floor(date.getTime() / 1000);
+
+			// To align with key dates, users can submit three empty date fields to clear the date from the index page, which requires a null value to be set to replace the existing date in the database.
+			isValid(date)
+				? (feesForecastingData[fieldName] = date)
+				: (feesForecastingData[fieldName] = null);
 		}
 	};
 
 	switch (editViewModel.componentType) {
 		case 'date-input': {
 			const fieldName = editViewModel?.fieldName || '';
-			const day = body[`${fieldName}.day`];
-			const month = body[`${fieldName}.month`];
-			const year = body[`${fieldName}.year`];
-
-			if (validationErrors && validationErrors[fieldName]) {
-				validationErrors[fieldName].value = { day, month, year };
-			} else {
-				const date = new Date(`${year}-${month}-${day}`);
-				values[fieldName] = Math.floor(date.getTime() / 1000);
-
-				// Allows date to be cleared from index page if all fields are empty to align with key dates
-				isValid(date)
-					? (feesForecastingData[fieldName] = date)
-					: (feesForecastingData[fieldName] = null);
-			}
-
+			mapDateValues(fieldName);
 			break;
 		}
-		case 'add-new-fee': {
+		case 'add-new-fee':
+		case 'manage-fee': {
 			Object.keys(body).forEach((key) => {
 				const dateFieldMatch = key.match(
 					/^(invoicedDate|paymentDueDate|paymentDate|refundIssueDate)\.(day|month|year)$/
 				);
-
 				if (dateFieldMatch) {
-					handleMeetingsAndFeesDateFields(dateFieldMatch);
+					mapDateValues(dateFieldMatch[1]);
 				} else {
-					if (body[key] !== '') {
-						values[key] = body[key];
-						feesForecastingData[key] = body[key];
-					}
+					values[key] = body[key] || null;
+					feesForecastingData[key] = body[key] || null;
 				}
 			});
 
@@ -157,7 +165,7 @@ export async function updateFeesForecastingEditSection(
 				const dateFieldMatch = key.match(/^(meetingDate)\.(day|month|year)$/);
 
 				if (dateFieldMatch) {
-					handleMeetingsAndFeesDateFields(dateFieldMatch);
+					mapDateValues(dateFieldMatch[1]);
 				}
 			});
 
@@ -187,6 +195,11 @@ export async function updateFeesForecastingEditSection(
 				apiErrors = errors;
 				break;
 			}
+			case 'manage-fee': {
+				const { errors } = await updateFee(caseId, feesForecastingData, params.feeId || '');
+				apiErrors = errors;
+				break;
+			}
 			case 'add-project-meeting': {
 				const { errors } = await postProjectMeeting(caseId, feesForecastingData);
 				apiErrors = errors;
@@ -213,7 +226,8 @@ export async function updateFeesForecastingEditSection(
 					`applications/case-fees-forecasting/fees-forecasting-edit-dateinput.njk`
 				);
 			}
-			case 'add-new-fee': {
+			case 'add-new-fee':
+			case 'manage-fee': {
 				return renderError(`applications/case-fees-forecasting/fees-forecasting-manage-fee.njk`);
 			}
 			case 'add-project-meeting': {
@@ -224,5 +238,56 @@ export async function updateFeesForecastingEditSection(
 		}
 	}
 
-	return response.redirect(`../fees-forecasting`);
+	return response.redirect(url('fees-forecasting', { caseId }));
+}
+
+/**
+ * View the fees and forecasting delete confirmation page
+ *
+ * @param {import('express').Request<{ feeId: string, caseId?: string }> & { isFeeDeletion?: boolean }} request
+ * @param {import('express').Response} response
+ * @returns {Promise<void>}
+ */
+export async function getFeesForecastingDeleteSection(request, response) {
+	let deleteSectionViewModel;
+	if (request.isFeeDeletion) {
+		const { feeId } = request.params;
+		const invoice = await getInvoice(response.locals.caseId, feeId);
+		deleteSectionViewModel = getFeesForecastingDeleteViewModel(
+			response.locals.case.title,
+			'manage-fee',
+			invoice
+		);
+	}
+
+	return response.render(
+		`applications/case-fees-forecasting/fees-forecasting-delete-confirmation.njk`,
+		deleteSectionViewModel
+	);
+}
+
+/**
+ * Handle the deletion of fees and forecasting data
+ *
+ * @param {import('express').Request<{ feeId: string }> & { isFeeDeletion?: boolean }} request
+ * @param {import('express').Response} response
+ * @returns {Promise<void>}
+ */
+export async function deleteFeesForecastingField(request, response) {
+	const { feeId } = request.params;
+	const { caseId } = response.locals;
+
+	if (request.isFeeDeletion) {
+		const { errors } = await deleteFee(caseId, feeId);
+
+		if (errors) {
+			const invoice = await getInvoice(caseId, feeId);
+			return response.render(
+				`applications/case-fees-forecasting/fees-forecasting-delete-confirmation.njk`,
+				getFeesForecastingDeleteViewModel(response.locals.case.title, 'manage-fee', invoice)
+			);
+		}
+	}
+
+	return response.redirect(url('fees-forecasting', { caseId }));
 }

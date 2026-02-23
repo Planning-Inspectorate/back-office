@@ -6,6 +6,7 @@ import {
 	getInvoicesWithCreditNoteNumber
 } from './invoices.service.js';
 import BackOfficeAppError from '../../../utils/app-error.js';
+import { mapDateToUnixTimestamp } from '#utils/mapping/map-date-to-unix-timestamp.js';
 
 /**
  * Gets all invoices for a case by case Id
@@ -21,7 +22,14 @@ export const getAllCaseInvoicesController = async ({ params }, res) => {
 		return res.send([]);
 	}
 
-	return res.send(invoices);
+	const mappedInvoices = invoices.map((invoice) => ({
+		...invoice,
+		paymentDueDate: mapDateToUnixTimestamp(invoice.paymentDueDate),
+		invoicedDate: mapDateToUnixTimestamp(invoice.invoicedDate),
+		paymentDate: mapDateToUnixTimestamp(invoice.paymentDate)
+	}));
+
+	return res.send(mappedInvoices);
 };
 
 /**
@@ -37,7 +45,19 @@ export const getCaseInvoiceController = async ({ params }, res) => {
 	if (!invoice) {
 		throw new BackOfficeAppError(`Invoice ${invoiceId} not found`, 404);
 	}
-	return res.send(invoice);
+
+	const mappedInvoice = {
+		...invoice,
+		paymentDueDate: mapDateToUnixTimestamp(invoice.paymentDueDate),
+		invoicedDate: mapDateToUnixTimestamp(invoice.invoicedDate),
+		paymentDate: mapDateToUnixTimestamp(invoice.paymentDate),
+		amountDue: invoice.amountDue ? Number(invoice.amountDue).toFixed(2) : invoice.amountDue,
+		refundAmount: invoice.refundAmount
+			? Number(invoice.refundAmount).toFixed(2)
+			: invoice.refundAmount
+	};
+
+	return res.send(mappedInvoice);
 };
 
 /**
@@ -51,7 +71,7 @@ export const createOrUpdateInvoiceController = async ({ params, body }, res) => 
 
 	if (body.refundCreditNoteNumber) {
 		const creditNoteExists = await getInvoicesWithCreditNoteNumber(body.refundCreditNoteNumber);
-		if (creditNoteExists && creditNoteExists.invoiceNumber != body.invoiceNumber) {
+		if (creditNoteExists && creditNoteExists.id !== invoiceId) {
 			throw new BackOfficeAppError(
 				'An invoice with this refund credit note number already exists',
 				400
