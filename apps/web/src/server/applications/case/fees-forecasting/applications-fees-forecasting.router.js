@@ -5,10 +5,36 @@ import { feesForecastingValidator } from './applications-fees-forecasting.valida
 
 const applicationsFeesForecastingRouter = createRouter({ mergeParams: true });
 
+/** @param {*} req @param {*} res @param {*} next */
+const setFeeEditFlag = (req, res, next) => {
+	req.isFeeEdit = true;
+	next();
+};
+
+/** @param {*} req @param {*} res @param {*} next */
+const setFeeDeletionFlag = (req, res, next) => {
+	req.isFeeDeletion = true;
+	next();
+};
+
 applicationsFeesForecastingRouter.route('/').get(asyncHandler(controller.getFeesForecastingIndex));
 
 applicationsFeesForecastingRouter
-	.route('/:sectionName')
+	.route('/section/manage-fee/id/:feeId')
+	.get(setFeeEditFlag, asyncHandler(controller.getFeesForecastingEditSection))
+	.post(
+		setFeeEditFlag,
+		feesForecastingValidator,
+		asyncHandler(controller.updateFeesForecastingEditSection)
+	);
+
+applicationsFeesForecastingRouter
+	.route('/section/manage-fee/id/:feeId/delete')
+	.get(setFeeDeletionFlag, asyncHandler(controller.getFeesForecastingDeleteSection))
+	.post(setFeeDeletionFlag, asyncHandler(controller.deleteFeesForecastingField));
+
+applicationsFeesForecastingRouter
+	.route('/section/:sectionName')
 	.get(asyncHandler(controller.getFeesForecastingEditSection))
 	.post(feesForecastingValidator, asyncHandler(controller.updateFeesForecastingEditSection));
 

@@ -207,7 +207,7 @@ describe('applications fees forecasting index view-model', () => {
 						actions: {
 							items: [
 								{
-									href: '/applications-service/case/4/fees-forecasting/maturity-evaluation-matrix',
+									href: '/applications-service/case/4/fees-forecasting/section/maturity-evaluation-matrix',
 									text: 'Change',
 									visuallyHiddenText: 'MEM last updated'
 								}
@@ -260,7 +260,7 @@ describe('applications fees forecasting index view-model', () => {
 								actions: {
 									items: [
 										{
-											href: '/applications-service/case/4/fees-forecasting/scoping-submission',
+											href: '/applications-service/case/4/fees-forecasting/section/scoping-submission',
 											text: 'Change',
 											visuallyHiddenText: 'estimated scoping submission date'
 										}
@@ -273,7 +273,7 @@ describe('applications fees forecasting index view-model', () => {
 								actions: {
 									items: [
 										{
-											href: '/applications-service/case/4/fees-forecasting/consultation-milestone',
+											href: '/applications-service/case/4/fees-forecasting/section/consultation-milestone',
 											text: 'Change',
 											visuallyHiddenText: 'adequacy of consultation milestone date'
 										}
@@ -321,7 +321,9 @@ describe('applications fees forecasting index view-model', () => {
 									{
 										html: '<strong class="govuk-tag govuk-tag--purple">Refunded</strong>'
 									},
-									{ html: '<a href="#" class="govuk-link">Review</a>' }
+									{
+										html: '<a href="/applications-service/case/4/fees-forecasting/section/manage-fee/id/1" class="govuk-link">Review</a>'
+									}
 								],
 								[
 									{ text: 'Acceptance' },
@@ -330,7 +332,9 @@ describe('applications fees forecasting index view-model', () => {
 									{
 										html: '<strong class="govuk-tag govuk-tag--purple">Refunded</strong>'
 									},
-									{ html: '<a href="#" class="govuk-link">Review</a>' }
+									{
+										html: '<a href="/applications-service/case/4/fees-forecasting/section/manage-fee/id/2" class="govuk-link">Review</a>'
+									}
 								]
 							],
 							head: [
@@ -343,7 +347,7 @@ describe('applications fees forecasting index view-model', () => {
 						},
 						component: 'table',
 						buttonText: 'Add new fee',
-						buttonLink: '/applications-service/case/4/fees-forecasting/add-new-fee'
+						buttonLink: '/applications-service/case/4/fees-forecasting/section/add-new-fee'
 					},
 					{
 						heading: 'Pre-application project meetings',
@@ -367,7 +371,7 @@ describe('applications fees forecasting index view-model', () => {
 						},
 						component: 'table',
 						buttonText: 'Add project meeting',
-						buttonLink: '/applications-service/case/4/fees-forecasting/add-project-meeting'
+						buttonLink: '/applications-service/case/4/fees-forecasting/section/add-project-meeting'
 					},
 					{
 						heading: 'Pre-application evidence plan meetings',
@@ -555,7 +559,7 @@ describe('applications fees forecasting index view-model', () => {
 								actions: {
 									items: [
 										{
-											href: '/applications-service/case/4/fees-forecasting/programme-document-received',
+											href: '/applications-service/case/4/fees-forecasting/section/programme-document-received',
 											text: 'Change',
 											visuallyHiddenText: 'date updated programme document is received'
 										}
@@ -568,7 +572,7 @@ describe('applications fees forecasting index view-model', () => {
 								actions: {
 									items: [
 										{
-											href: '/applications-service/case/4/fees-forecasting/programme-document-reviewed',
+											href: '/applications-service/case/4/fees-forecasting/section/programme-document-reviewed',
 											text: 'Change',
 											visuallyHiddenText: 'date programme document reviewed by EST'
 										}
@@ -583,7 +587,7 @@ describe('applications fees forecasting index view-model', () => {
 								actions: {
 									items: [
 										{
-											href: '/applications-service/case/4/fees-forecasting/programme-document-comments',
+											href: '/applications-service/case/4/fees-forecasting/section/programme-document-comments',
 											text: 'Change',
 											visuallyHiddenText: 'date case team issued comments on programme document'
 										}
