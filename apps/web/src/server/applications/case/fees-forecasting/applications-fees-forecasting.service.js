@@ -1,5 +1,63 @@
-import { get, patch, post } from '../../../lib/request.js';
+import { get, patch, post, deleteRequest } from '../../../lib/request.js';
 import logger from '../../../lib/logger.js';
+
+/**
+ * Handle API errors consistently
+ *
+ * @param {*} error
+ * @returns {Promise<{ errors: { msg: string } }>}
+ */
+function handleApiError(error) {
+	logger.error(`[API] ${JSON.stringify(error?.response?.body?.errors) || 'Unknown error'}`);
+
+	let errorMsg = 'An error occurred, please try again later';
+	if (error?.response?.body?.errors) {
+		errorMsg = error?.response?.body?.errors;
+	}
+
+	return new Promise((resolve) => {
+		resolve({ errors: { msg: errorMsg } });
+	});
+}
+
+/**
+ * Update an existing case record
+ *
+ * @param {string} caseId
+ * @param {string} sectionName
+ * @param {object} feesForecastingData
+ * @returns {Promise<any>}
+ */
+export async function updateFeesForecasting(caseId, sectionName, feesForecastingData) {
+	let response;
+
+	try {
+		response = await patch(`applications/${caseId}/fees-forecasting/${sectionName}`, {
+			json: feesForecastingData
+		});
+	} catch (/** @type {*} */ error) {
+		response = handleApiError(error);
+	}
+	return response;
+}
+
+/**
+ * Get the invoice data for the given invoice
+ *
+ * @param {string} caseId
+ * @param {string} invoiceId
+ * @returns {Promise<any>}
+ */
+export async function getInvoice(caseId, invoiceId) {
+	try {
+		return await get(`applications/${caseId}/invoices/${invoiceId}`);
+	} catch (/** @type {*} */ error) {
+		if (error?.response?.statusCode === 404) {
+			return null;
+		}
+		throw error;
+	}
+}
 
 /**
  * Get the invoice data for the given case
@@ -26,15 +84,46 @@ export async function postNewFee(caseId, feeData) {
 			json: feeData
 		});
 	} catch (/** @type {*} */ error) {
-		logger.error(`[API] ${JSON.stringify(error?.response?.body?.errors) || 'Unknown error'}`);
-		let errorMsg = 'An error occurred, please try again later';
-		if (error?.response?.body?.errors) {
-			errorMsg = error?.response?.body?.errors;
-		}
+		response = handleApiError(error);
+	}
+	return response;
+}
 
-		response = new Promise((resolve) => {
-			resolve({ errors: { msg: errorMsg } });
+/**
+ * Update an existing fee via the invoices endpoint
+ *
+ * @param {string} caseId
+ * @param {object} feeData
+ * @param {string} feeId
+ * @returns {Promise<any>}
+ */
+export async function updateFee(caseId, feeData, feeId) {
+	let response;
+
+	try {
+		response = await patch(`applications/${caseId}/invoices/${feeId}`, {
+			json: feeData
 		});
+	} catch (/** @type {*} */ error) {
+		response = handleApiError(error);
+	}
+	return response;
+}
+
+/**
+ * Delete a fee via the invoices endpoint
+ *
+ * @param {string} caseId
+ * @param {string} feeId
+ * @returns {Promise<any>}
+ */
+export async function deleteFee(caseId, feeId) {
+	let response;
+
+	try {
+		response = await deleteRequest(`applications/${caseId}/invoices/${feeId}`);
+	} catch (/** @type {*} */ error) {
+		response = handleApiError(error);
 	}
 	return response;
 }
@@ -64,40 +153,7 @@ export async function postProjectMeeting(caseId, projectMeetingData) {
 			json: projectMeetingData
 		});
 	} catch (/** @type {*} */ error) {
-		logger.error(`[API] ${JSON.stringify(error?.response?.body?.errors) || 'Unknown error'}`);
-		let errorMsg = 'An error occurred, please try again later';
-		if (error?.response?.body?.errors) {
-			errorMsg = error?.response?.body?.errors;
-		}
-
-		response = new Promise((resolve) => {
-			resolve({ errors: { msg: errorMsg } });
-		});
-	}
-	return response;
-}
-
-/**
- * Update an existing case record
- *
- * @param {string} caseId
- * @param {string} sectionName
- * @param {object} feesForecastingData
- * @returns {Promise<any>}
- */
-export async function updateFeesForecasting(caseId, sectionName, feesForecastingData) {
-	let response;
-
-	try {
-		response = await patch(`applications/${caseId}/fees-forecasting/${sectionName}`, {
-			json: feesForecastingData
-		});
-	} catch (/** @type {*} */ error) {
-		logger.error(`[API] ${JSON.stringify(error?.response?.body?.errors) || 'Unknown error'}`);
-
-		response = new Promise((resolve) => {
-			resolve({ errors: { msg: 'An error occurred, please try again later' } });
-		});
+		response = handleApiError(error);
 	}
 	return response;
 }
