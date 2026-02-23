@@ -327,6 +327,102 @@ describe('Publish documents', () => {
 		});
 	});
 
+	test('throws error if document is awaiting AI redaction suggestions', async () => {
+		// GIVEN
+		databaseConnector.case.findUnique.mockResolvedValue(application1);
+		let docBeforeUpdate = documentWithDocumentVersionWithLatest;
+		docBeforeUpdate.documentVersion[0].publishedStatus = 'not_checked';
+		docBeforeUpdate.documentVersion[0].redactedStatus = 'awaiting_ai_suggestions';
+
+		let docVersionWithDocumentBeforeUpdate = {
+			...documentVersionWithDocument,
+			publishedStatus: 'not_checked',
+			redactedStatus: 'awaiting_ai_suggestions'
+		};
+
+		databaseConnector.document.findUnique.mockResolvedValue(docBeforeUpdate);
+		databaseConnector.folder.findUnique.mockResolvedValue({ caseId: 1 });
+		databaseConnector.documentVersion.findUnique.mockResolvedValue(
+			docVersionWithDocumentBeforeUpdate
+		);
+		databaseConnector.document.findMany.mockResolvedValue([]); // no matching publishable docs returned
+
+		// WHEN
+		const response = await request.patch('/applications/1/documents/publish').send({
+			documents: [{ guid: docGuid }]
+		});
+
+		// THEN
+		expect(response.status).toEqual(400);
+		expect(response.body).toEqual({
+			errors: [{ guid: docGuid }]
+		});
+	});
+
+	test('throws error if document has AI redaction suggestions awaiting review', async () => {
+		// GIVEN
+		databaseConnector.case.findUnique.mockResolvedValue(application1);
+		let docBeforeUpdate = documentWithDocumentVersionWithLatest;
+		docBeforeUpdate.documentVersion[0].publishedStatus = 'not_checked';
+		docBeforeUpdate.documentVersion[0].redactedStatus = 'ai_suggestions_review_required';
+
+		let docVersionWithDocumentBeforeUpdate = {
+			...documentVersionWithDocument,
+			publishedStatus: 'not_checked',
+			redactedStatus: 'ai_suggestions_review_required'
+		};
+
+		databaseConnector.document.findUnique.mockResolvedValue(docBeforeUpdate);
+		databaseConnector.folder.findUnique.mockResolvedValue({ caseId: 1 });
+		databaseConnector.documentVersion.findUnique.mockResolvedValue(
+			docVersionWithDocumentBeforeUpdate
+		);
+		databaseConnector.document.findMany.mockResolvedValue([]); // no matching publishable docs returned
+
+		// WHEN
+		const response = await request.patch('/applications/1/documents/publish').send({
+			documents: [{ guid: docGuid }]
+		});
+
+		// THEN
+		expect(response.status).toEqual(400);
+		expect(response.body).toEqual({
+			errors: [{ guid: docGuid }]
+		});
+	});
+
+	test('throws error if document has reviewed AI redaction suggestions', async () => {
+		// GIVEN
+		databaseConnector.case.findUnique.mockResolvedValue(application1);
+		let docBeforeUpdate = documentWithDocumentVersionWithLatest;
+		docBeforeUpdate.documentVersion[0].publishedStatus = 'not_checked';
+		docBeforeUpdate.documentVersion[0].redactedStatus = 'ai_suggestions_reviewed';
+
+		let docVersionWithDocumentBeforeUpdate = {
+			...documentVersionWithDocument,
+			publishedStatus: 'not_checked',
+			redactedStatus: 'ai_suggestions_reviewed'
+		};
+
+		databaseConnector.document.findUnique.mockResolvedValue(docBeforeUpdate);
+		databaseConnector.folder.findUnique.mockResolvedValue({ caseId: 1 });
+		databaseConnector.documentVersion.findUnique.mockResolvedValue(
+			docVersionWithDocumentBeforeUpdate
+		);
+		databaseConnector.document.findMany.mockResolvedValue([]); // no matching publishable docs returned
+
+		// WHEN
+		const response = await request.patch('/applications/1/documents/publish').send({
+			documents: [{ guid: docGuid }]
+		});
+
+		// THEN
+		expect(response.status).toEqual(400);
+		expect(response.body).toEqual({
+			errors: [{ guid: docGuid }]
+		});
+	});
+
 	test('throws error if document is awaiting AI redaction', async () => {
 		// GIVEN
 		databaseConnector.case.findUnique.mockResolvedValue(application1);
@@ -359,17 +455,17 @@ describe('Publish documents', () => {
 		});
 	});
 
-	test('throws error if document is awaiting AI redaction review', async () => {
+	test('throws error if AI redaction of document has failed', async () => {
 		// GIVEN
 		databaseConnector.case.findUnique.mockResolvedValue(application1);
 		let docBeforeUpdate = documentWithDocumentVersionWithLatest;
 		docBeforeUpdate.documentVersion[0].publishedStatus = 'not_checked';
-		docBeforeUpdate.documentVersion[0].redactedStatus = 'ai_redaction_review_required';
+		docBeforeUpdate.documentVersion[0].redactedStatus = 'ai_redaction_failed';
 
 		let docVersionWithDocumentBeforeUpdate = {
 			...documentVersionWithDocument,
 			publishedStatus: 'not_checked',
-			redactedStatus: 'ai_redaction_review_required'
+			redactedStatus: 'ai_redaction_failed'
 		};
 
 		databaseConnector.document.findUnique.mockResolvedValue(docBeforeUpdate);
