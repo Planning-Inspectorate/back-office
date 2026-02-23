@@ -1,5 +1,6 @@
 import { buildCaseInformation } from '../build-case-information.js';
 import { featureFlagClient } from '../../../../common/feature-flags.js';
+import { DCO_STATUS } from '../../../applications/common/constants.js';
 
 const fullParams = {
 	case: {
@@ -156,5 +157,37 @@ describe('buildCaseInformation Nunjucks global', () => {
 		};
 		const rowsNonGenerating = buildCaseInformation(paramsNonGenerating, true);
 		expect(rowsNonGenerating.some((r) => r.title === 'Project type')).toBe(false);
+	});
+});
+
+describe('buildCaseInformation – DCO status field', () => {
+	const DCO_STATUS_KEY = DCO_STATUS.GRANTED;
+
+	it('includes DCO status row when case is Post-Decision', () => {
+		const paramsPostDecision = {
+			...fullParams,
+			case: {
+				...fullParams.case,
+				status: 'Post-Decision',
+				additionalDetails: {
+					dcoStatus: DCO_STATUS_KEY
+				}
+			}
+		};
+
+		const rows = buildCaseInformation(paramsPostDecision, true);
+		const row = rows.find((r) => r.title === 'DCO status');
+
+		expect(row).toBeDefined();
+		expect(row?.html).toContain('Granted'); // from DCO_STATUS_VIEW
+		expect(row?.html).toContain('govuk-tag--green'); // tagClasses for GRANTED
+		expect(row?.url).toBe('dco-status');
+		expect(row?.classes).toBe('project-details__dco-status');
+	});
+
+	it('does not include DCO status row when case is not Post-Decision', () => {
+		// fullParams.case.status is 'Pre-acceptance'
+		const rows = buildCaseInformation(fullParams, true);
+		expect(rows.some((r) => r.title === 'DCO status')).toBe(false);
 	});
 });

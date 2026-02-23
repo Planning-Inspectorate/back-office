@@ -146,7 +146,7 @@ applicationsEditCaseRouter
 applicationsEditCaseRouter
 	.route('/dco-status')
 	.get(
-		registerCaseWithQuery(['applicationDetails']),
+		registerCaseWithQuery(['additionalDetails']),
 		asyncHandler(controller.viewApplicationsEditDcoStatus)
 	)
 	.post(asyncHandler(controller.updateApplicationsEditDcoStatus));

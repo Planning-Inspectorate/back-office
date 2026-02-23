@@ -529,14 +529,22 @@ export async function caseTeamEmailDataUpdate({ body, errors: validationErrors }
  * @returns {Promise<ApplicationsCreateCaseDcoStatusProps>}
  */
 export async function caseDcoStatusData(request, locals) {
-    const details = locals.currentCase?.additionalDetails;
-    const selected =
-        (typeof details?.dcoStatus === 'string' ? details.dcoStatus : '') ?? '';
+	const { currentCase } = locals;
+	const selected =
+		currentCase?.additionalDetails?.dcoStatus ?? currentCase?.applicationDetails?.dcoStatus ?? '';
+	console.log(
+		'[caseDcoStatusData] case:',
+		currentCase?.additionalDetails,
+		'locals:',
+		currentCase,
+		'selected:',
+		selected
+	);
 
-    return {
-        values: { dcoStatus: selected },
-        dcoStatuses: getDcoStatusViewModel()
-    };
+	return {
+		values: { dcoStatus: selected },
+		dcoStatuses: getDcoStatusViewModel()
+	};
 }
 
 /**
@@ -547,18 +555,18 @@ export async function caseDcoStatusData(request, locals) {
  * @returns {Promise<{properties: ApplicationsCreateCaseDcoStatusProps, updatedCaseId: number|null}>}
  */
 export async function caseDcoStatusDataUpdate({ body, errors: validationErrors }, locals) {
-    const { caseId } = locals;
-    const payload = bodyToPayload(body);
+	const { caseId } = locals;
+	const payload = bodyToPayload(body);
 
-    const { errors: apiErrors, id: updatedCaseId = null } = validationErrors
-        ? { errors: validationErrors }
-        : await updateCase(caseId, payload);
+	const { errors: apiErrors, id: updatedCaseId = null } = validationErrors
+		? { errors: validationErrors }
+		: await updateCase(caseId, payload);
 
-    const properties = {
-        values: { dcoStatus: body.dcoStatus },
-        errors: validationErrors || apiErrors,
-        dcoStatuses: getDcoStatusViewModel()
-    };
+	const properties = {
+		values: { dcoStatus: body.dcoStatus },
+		errors: validationErrors || apiErrors,
+		dcoStatuses: getDcoStatusViewModel()
+	};
 
-    return { properties, updatedCaseId };
+	return { properties, updatedCaseId };
 }

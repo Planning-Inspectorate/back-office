@@ -141,7 +141,7 @@ const fullFieldNames = {
 	'geographicalInformation.mapZoomLevelName': 'Map zoom level',
 	isMaterialChange: 'Material change',
 	'additionalDetails.subProjectType': 'Project type',
-	dcoStatus: 'DCO status'
+	'additionalDetails.dcoStatus': 'DCO status'
 };
 
 /** @typedef {import('../../../create-new-case/case/applications-create-case.types.js').ApplicationsCreateCaseNameProps} ApplicationsCreateCaseNameProps */
@@ -648,11 +648,11 @@ export async function updateApplicationsEditProjectType(request, response) {
  * @type {import('@pins/express').RenderHandler<*, *>}
  */
 export async function viewApplicationsEditDcoStatus(request, response) {
-    const properties = await caseDcoStatusData(request, response.locals);
-    response.render(resolveTemplate(dcoStatusLayout), {
-        ...properties,
-        layout: dcoStatusLayout
-    });
+	const properties = await caseDcoStatusData(request, response.locals);
+	response.render(resolveTemplate(dcoStatusLayout), {
+		...properties,
+		layout: dcoStatusLayout
+	});
 }
 
 /**
@@ -661,16 +661,16 @@ export async function viewApplicationsEditDcoStatus(request, response) {
  * @type {import('@pins/express').RenderHandler<*, *, *, {}, {edit?: string}>}
  */
 export async function updateApplicationsEditDcoStatus(request, response) {
-    const { properties, updatedCaseId } = await caseDcoStatusDataUpdate(request, response.locals);
+	const { properties, updatedCaseId } = await caseDcoStatusDataUpdate(request, response.locals);
 
-    if (properties.errors || !updatedCaseId)
-        return handleErrors(properties, dcoStatusLayout, response);
+	if (properties.errors || !updatedCaseId)
+		return handleErrors(properties, dcoStatusLayout, response);
 
-    setSessionBanner(request.session, `${fullFieldNames.dcoStatus} updated.`);
+	setSessionBanner(request.session, `${fullFieldNames['additionalDetails.dcoStatus']} updated.`);
 
-    return response.redirect(
-        featureFlagClient.isFeatureActive('applic-55-welsh-translation')
-            ? `/applications-service/case/${updatedCaseId}/overview`
-            : `/applications-service/case/${updatedCaseId}/project-information`
-    );
+	return response.redirect(
+		featureFlagClient.isFeatureActive('applic-55-welsh-translation')
+			? `/applications-service/case/${updatedCaseId}/overview`
+			: `/applications-service/case/${updatedCaseId}/project-information`
+	);
 }
