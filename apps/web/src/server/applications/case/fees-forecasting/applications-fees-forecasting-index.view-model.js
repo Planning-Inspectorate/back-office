@@ -536,7 +536,7 @@ export const getFeesForecastingIndexViewModel = ({ caseData, invoices, meetings 
 			content: getEvidencePlanMeetingsSection(),
 			component: 'table',
 			buttonText: 'Add evidence plan meeting',
-			buttonLink: '#'
+			buttonLink: getEditPageURL(urlSectionNames.addEvidencePlanMeeting, caseData.id)
 		},
 		{
 			heading: 'Pre-application supplementary components',

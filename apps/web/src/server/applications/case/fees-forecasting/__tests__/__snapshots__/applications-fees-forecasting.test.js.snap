@@ -220,7 +220,8 @@ exports[`Fees and Forecasting GET /case/123/fees-forecasting/ should render the 
                                     </td>
                                 </tr>
                             </tbody>
-                        </table><a href="#" role="button" draggable="false" class="govuk-button govuk-button--secondary"
+                        </table><a href="/applications-service/case/4/fees-forecasting/add-evidence-plan-meeting"
+                        role="button" draggable="false" class="govuk-button govuk-button--secondary"
                         data-module="govuk-button"> Add evidence plan meeting</a>
                     </div>
                 </div>
@@ -493,6 +494,88 @@ exports[`Fees and Forecasting POST /case/123/fees-forecasting/:sectionName shoul
                             <label class="govuk-label govuk-hint" for="memLastUpdated.year">Year</label>
                             <input class="govuk-input" id="memLastUpdated.year" name="memLastUpdated.year"
                             type="text" value="2000">
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <div class='govuk-grid-column-one-third'>
+            <button type="submit" class="govuk-button" data-module="govuk-button">Save and return</button>
+        </div>
+    </form>
+</main>"
+`;
+
+exports[`Fees and Forecasting should show an API error if creating an evidence plan meeting was NOT successful 1`] = `
+"<main class="govuk-main-wrapper" id="main-content">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#msg">API error message</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h1 class="govuk-heading-l">Add an evidence plan meeting</h1>
+    <form method="post" novalidate="novalidate" class="govuk-grid-row">
+        <div class='govuk-grid-column-two-thirds'>
+            <div class="govuk-form-group">
+                <label class="govuk-label" for="agenda"><strong>Meeting agenda</strong>
+                </label>
+                <div id="agenda-hint" class="govuk-hint">for example, Flood Risk Assessment (FRA)</div>
+                <input class="govuk-input"
+                id="agenda" name="agenda" type="text" value="Test Meeting" aria-describedby="agenda-hint">
+            </div>
+            <div class="govuk-form-group">
+                <fieldset class="govuk-fieldset">
+                    <legend class="govuk-fieldset__legend"><strong>Planning Inspectorate role</strong>
+                    </legend>
+                    <div class="govuk-radios" data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="pinsRole" name="pinsRole" type="radio"
+                            value="facilitator" checked>
+                            <label class="govuk-label govuk-radios__label" for="pinsRole">Facilitator</label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="pinsRole-2" name="pinsRole" type="radio"
+                            value="advisor">
+                            <label class="govuk-label govuk-radios__label" for="pinsRole-2">Advisor</label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="pinsRole-3" name="pinsRole" type="radio"
+                            value="observer">
+                            <label class="govuk-label govuk-radios__label" for="pinsRole-3">Observer</label>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+        <div class="govuk-form-group govuk-grid-column-full ">
+            <fieldset class="govuk-fieldset">
+                <legend class="govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4">Date of evidence planning meeting</legend>
+                <div class="govuk-grid-column-one-third">
+                    <div class="govuk-grid-row pins-date-form-group">
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="meetingDate.day">Day</label>
+                            <input class="govuk-input" id="meetingDate.day" name="meetingDate.day"
+                            type="text">
+                        </div>
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="meetingDate.month">Month</label>
+                            <input class="govuk-input" id="meetingDate.month" name="meetingDate.month"
+                            type="text">
+                        </div>
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="meetingDate.year">Year</label>
+                            <input class="govuk-input" id="meetingDate.year" name="meetingDate.year"
+                            type="text">
                         </div>
                     </div>
                 </div>

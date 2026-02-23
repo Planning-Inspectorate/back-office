@@ -4,7 +4,7 @@ import {
 	getInvoices,
 	getMeetings,
 	postNewFee,
-	postProjectMeeting,
+	postMeeting,
 	updateFeesForecasting
 } from './applications-fees-forecasting.service.js';
 import { isValid } from 'date-fns';
@@ -66,6 +66,10 @@ export function getFeesForecastingEditSection(request, response) {
 		case 'add-project-meeting':
 			return renderTemplate(
 				`applications/case-fees-forecasting/fees-forecasting-manage-project-meeting.njk`
+			);
+		case 'add-evidence-plan-meeting':
+			return renderTemplate(
+				`applications/case-fees-forecasting/fees-forecasting-manage-evidence-plan-meeting.njk`
 			);
 	}
 }
@@ -173,6 +177,24 @@ export async function updateFeesForecastingEditSection(
 
 			break;
 		}
+		case 'add-evidence-plan-meeting': {
+			Object.keys(body).forEach((key) => {
+				const dateFieldMatch = key.match(/^(meetingDate)\.(day|month|year)$/);
+
+				if (dateFieldMatch) {
+					handleMeetingsAndFeesDateFields(dateFieldMatch);
+				} else {
+					if (body[key] !== '') {
+						values[key] = body[key];
+						feesForecastingData[key] = body[key];
+					}
+				}
+			});
+
+			feesForecastingData.meetingType = 'evidence_plan';
+
+			break;
+		}
 	}
 
 	if (!validationErrors) {
@@ -188,7 +210,12 @@ export async function updateFeesForecastingEditSection(
 				break;
 			}
 			case 'add-project-meeting': {
-				const { errors } = await postProjectMeeting(caseId, feesForecastingData);
+				const { errors } = await postMeeting(caseId, feesForecastingData);
+				apiErrors = errors;
+				break;
+			}
+			case 'add-evidence-plan-meeting': {
+				const { errors } = await postMeeting(caseId, feesForecastingData);
 				apiErrors = errors;
 				break;
 			}
@@ -219,6 +246,11 @@ export async function updateFeesForecastingEditSection(
 			case 'add-project-meeting': {
 				return renderError(
 					`applications/case-fees-forecasting/fees-forecasting-manage-project-meeting.njk`
+				);
+			}
+			case 'add-evidence-plan-meeting': {
+				return renderError(
+					`applications/case-fees-forecasting/fees-forecasting-manage-evidence-plan-meeting.njk`
 				);
 			}
 		}
