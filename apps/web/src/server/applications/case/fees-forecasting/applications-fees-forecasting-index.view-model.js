@@ -62,7 +62,7 @@ export const getLinkHTML = (linkText, href) =>
  * @returns {string}
  */
 export const getEditPageURL = (sectionName, caseId) =>
-	sectionName ? url('fees-forecasting', { caseId, step: sectionName }) : '';
+	sectionName ? url('fees-forecasting-edit', { caseId, step: sectionName }) : '';
 
 /**
  * Converts snake_case enum value into string for display
@@ -245,7 +245,12 @@ export const getFeesForecastingIndexViewModel = ({ caseData, invoices, meetings 
 					{ text: invoice.amountDue ? `£${invoice.amountDue}` : '' },
 					{ text: invoice.invoiceNumber },
 					{ html: getStatusTag(invoice) },
-					{ html: getLinkHTML(feesHrefText, '#') }
+					{
+						html: getLinkHTML(
+							feesHrefText,
+							url('fees-forecasting-fee', { caseId: caseData.id, feeId: invoice.id })
+						)
+					}
 				]
 			)
 		});

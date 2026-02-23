@@ -4,15 +4,23 @@ import { validationDateValid } from '../../common/validators/dates.validators.js
 import { getSectionData } from './applications-fees-forecasting.utils.js';
 import { sectionData, urlSectionNames } from './fees-forecasting.config.js';
 
-/** @typedef {import('express').RequestHandler} RequestHandler */
+/**
+ * @typedef {import('express').RequestHandler} RequestHandler
+ */
 
 /**
  * Calls specified validator function based on section name in request
  *
- * @type {RequestHandler}
+ * @param {*} request
+ * @param {*} response
+ * @param {*} next
+ * @returns {Promise<*>}
  */
-export const feesForecastingValidator = (request, response, next) => {
-	const { sectionName } = request.params;
+export const feesForecastingValidator = async (request, response, next) => {
+	let sectionName = request.params.sectionName;
+	if (request.isFeeEdit) {
+		sectionName = 'manage-fee';
+	}
 
 	/** @type {Record<string, RequestHandler>} */
 	const validators = {
@@ -23,6 +31,7 @@ export const feesForecastingValidator = (request, response, next) => {
 		'programme-document-reviewed': validateFeesForecastingDate,
 		'programme-document-comments': validateFeesForecastingDate,
 		'add-new-fee': validateFeesForecastingAddFee,
+		'manage-fee': validateFeesForecastingAddFee,
 		'add-project-meeting': validateFeesForecastingProjectMeeting
 	};
 
@@ -41,7 +50,7 @@ export const feesForecastingValidator = (request, response, next) => {
  *
  * @type {RequestHandler}
  */
-export const validateFeesForecastingDate = (request, response, next) => {
+export const validateFeesForecastingDate = async (request, response, next) => {
 	const { body, params } = request;
 	const { sectionName } = params;
 
@@ -59,9 +68,9 @@ export const validateFeesForecastingDate = (request, response, next) => {
  *
  * @type {RequestHandler}
  */
-export const validateFeesForecastingAddFee = (request, response, next) => {
+export const validateFeesForecastingAddFee = async (request, response, next) => {
 	const invoiceDateValidation = validationDateValid(
-		{ fieldName: 'invoicedDate', extendedFieldName: 'date of invoice' },
+		{ fieldName: 'invoiceDate', extendedFieldName: 'date of invoice' },
 		request.body
 	);
 	const paymentDueDateValidation = validationDateValid(
@@ -73,7 +82,7 @@ export const validateFeesForecastingAddFee = (request, response, next) => {
 		request.body
 	);
 	const refundDateValidation = validationDateValid(
-		{ fieldName: 'refundIssueDate', extendedFieldName: 'refund date' },
+		{ fieldName: 'refundDate', extendedFieldName: 'refund date' },
 		request.body
 	);
 
