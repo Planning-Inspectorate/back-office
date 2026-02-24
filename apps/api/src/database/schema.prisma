@@ -157,6 +157,7 @@ model ApplicationDetails {
   courtDecisionOutcomeText                          String?
   decisionChallengeSubmissionDate                   DateTime?
   recommendation                                    String?
+  dcoStatus                                         String?
   subProjectType                                    String?
   newMaturity                                       String?
   statutoryConsultationPeriodEndDate                DateTime?
