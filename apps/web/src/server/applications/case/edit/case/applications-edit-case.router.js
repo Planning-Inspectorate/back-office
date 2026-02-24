@@ -154,4 +154,12 @@ applicationsEditCaseRouter
 		asyncHandler(controller.updateApplicationsEditRecommendation)
 	);
 
+applicationsEditCaseRouter
+	.route('/dco-status')
+	.get(
+		registerCaseWithQuery(['additionalDetails']),
+		asyncHandler(controller.viewApplicationsEditDcoStatus)
+	)
+	.post(asyncHandler(controller.updateApplicationsEditDcoStatus));
+
 export default applicationsEditCaseRouter;

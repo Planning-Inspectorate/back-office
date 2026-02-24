@@ -21,3 +21,12 @@ export const RECOMMENDATIONS = {
 	RECOMMEND_PARTIAL_CONSENT: 'recommend_partial_consent',
 	RECOMMEND_REFUSAL: 'recommend_refusal'
 };
+
+export const DCO_STATUS = {
+	GRANTED: 'granted',
+	REFUSED: 'refused',
+	PARTIALLY_CONSENTED: 'partially_consented',
+	QUASHED: 'quashed',
+	REDETERMINATION: 'redetermination',
+	WITHDRAWN: 'withdrawn'
+};

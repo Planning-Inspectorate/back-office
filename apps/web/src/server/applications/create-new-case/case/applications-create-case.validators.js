@@ -144,3 +144,7 @@ export const validateApplicationsCreateCaseRecommendation = createValidator(
 		.isLength({ min: 1 })
 		.withMessage('Choose the Planning Inspectorate recommendation')
 );
+
+export const validateApplicationsCreateCaseDcoStatus = createValidator(
+	body('dcoStatus').trim().isLength({ min: 1 }).withMessage('Choose the DCO status')
+);

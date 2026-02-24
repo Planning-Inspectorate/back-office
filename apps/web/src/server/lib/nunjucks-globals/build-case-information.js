@@ -4,6 +4,10 @@ import { getIsMaterialChangeStaticDataViewModel } from '../static-data-view-mode
 import { getProjectTypeDisplayName } from '../../applications/common/components/mappers/project-types.mapper.js';
 import { SECTORS, SUB_SECTORS } from '../../applications/common/constants.js';
 import { getRecommendationDisplayName } from '../../applications/common/components/mappers/recommendation.mapper.js';
+import {
+	getDcoStatusDisplayName,
+	getDcoStatusTagClasses
+} from '../../applications/common/components/mappers/dco-status.mapper.js';
 
 const isMaterialChangeStaticDataViewModel = getIsMaterialChangeStaticDataViewModel();
 
@@ -26,6 +30,7 @@ const isMaterialChangeStaticDataViewModel = getIsMaterialChangeStaticDataViewMod
  * @property {{ name?: string, displayNameEn: string }} sector
  * @property {{ name?: string, displayNameEn: string }} subSector
  * @property {{ subProjectType?: string, recommendation?: string}} [additionalDetails]
+ *  * @property {{ subProjectType?: string, dcoStatus?: string }} [additionalDetails]
  * @property {string | null} title
  * @property {string | null} description
  * @property {string | null} titleWelsh
@@ -44,126 +49,150 @@ const isMaterialChangeStaticDataViewModel = getIsMaterialChangeStaticDataViewMod
  * @param {boolean} isWelsh
  * @returns {Row[]}
  * */
-export const buildCaseInformation = (params, isWelsh) => [
-	...(params.case.status === 'Post-Decision'
-		? [
-				{
-					title: 'Recommendation',
-					text: getRecommendationDisplayName(params.case?.additionalDetails?.recommendation ?? ''),
-					url: 'recommendation'
-				}
-		  ]
-		: []),
-	{
-		title: 'Material change',
-		text: params.case.isMaterialChange
-			? isMaterialChangeStaticDataViewModel[0].text
-			: isMaterialChangeStaticDataViewModel[1].text,
-		url: 'material-change'
-	},
-	...(params.keyMembers?.caseManager
-		? [{ title: 'Case manager', text: params.keyMembers.caseManager }]
-		: []),
-	...((params.keyMembers?.nsipOfficers ?? []).length > 0
-		? [{ title: 'NSIP officers', text: params.keyMembers?.nsipOfficers.join(', ') }]
-		: []),
+export const buildCaseInformation = (params, isWelsh) => {
+	// Build DCO status HTML with tag, using key from additionalDetails
+	const dcoStatusKey = params.case?.additionalDetails?.dcoStatus ?? '';
+	let dcoStatusHtml = '';
 
-	// Show only for Energy / Generating stations
-	...(params.case?.subSector?.name === SUB_SECTORS.GENERATING_STATIONS &&
-	(params.case?.sector?.name || '') === SECTORS.ENERGY
-		? [
-				{
-					title: 'Project type',
-					text: getProjectTypeDisplayName(params.case?.additionalDetails?.subProjectType ?? ''),
-					url: 'project-type',
-					classes: 'project-details__project-type'
-				}
-		  ]
-		: []),
-
-	{
-		title: featureFlagClient.isFeatureActive('applic-55-welsh-translation')
-			? 'Regions'
-			: 'Region(s)',
-		html: params.regionNames.join(', '),
-		url: 'regions',
-		classes: 'project-details__regions'
-	},
-	{
-		title: 'Case stage',
-		text: params.case.status,
-		url: 'stage'
-	},
-	{
-		title: 'Project page',
-		html: params.publishedTag,
-		classes: 'project-details__project-page'
-	},
-	{
-		title: 'Project name',
-		text: params.case.title,
-		url: 'name',
-		classes: 'project-details__name'
-	},
-	...(isWelsh
-		? [
-				{
-					title: 'Project name in Welsh',
-					url: 'name-welsh',
-					id: 'titleWelsh',
-					classes: 'project-details__name',
-					html: params.case.titleWelsh
-				}
-		  ]
-		: []),
-	{
-		title: 'Project description',
-		html: sanitize(params.case.description ?? ''),
-		url: 'description',
-		classes: 'project-details__project-description'
-	},
-	...(isWelsh
-		? [
-				{
-					title: 'Project description in Welsh',
-					url: 'description-welsh',
-					id: 'descriptionWelsh',
-					html: params.case.descriptionWelsh
-				}
-		  ]
-		: []),
-	{
-		title: 'Project location',
-		html: sanitize(params.case.geographicalInformation?.locationDescription ?? ''),
-		url: 'project-location',
-		classes: 'project-details__project-location'
-	},
-	...(isWelsh
-		? [
-				{
-					title: 'Project location in Welsh',
-					url: 'project-location-welsh',
-					id: 'geographicalInformation.locationDescriptionWelsh',
-					html: params.case.geographicalInformation?.locationDescriptionWelsh
-				}
-		  ]
-		: []),
-	{
-		title: 'Project email address',
-		text: params.case.caseEmail,
-		url: 'team-email',
-		classes: 'project-details__team-email'
-	},
-	{
-		title: 'Grid references',
-		html: params.gridReferences,
-		url: 'grid-references',
-		classes: 'project-details__grid-references'
-	},
-	{
-		title: 'Map zoom level',
-		text: params.case.geographicalInformation?.mapZoomLevel.displayNameEn,
-		url: 'zoom-level',
-		classes: 'project-details__zoom-level'
+	if (dcoStatusKey) {
+		const displayName = getDcoStatusDisplayName(dcoStatusKey);
+		const tagClasses = getDcoStatusTagClasses(dcoStatusKey);
+		dcoStatusHtml = `<strong class="govuk-tag ${tagClasses}">${displayName}</strong>`;
 	}
-];
+
+	return [
+		...(params.case.status === 'Post-Decision' && dcoStatusKey
+			? [
+					{
+						title: 'DCO status',
+						url: 'dco-status',
+						html: dcoStatusHtml,
+						classes: 'project-details__dco-status'
+					}
+			  ]
+			: []),
+		...(params.case.status === 'Post-Decision'
+			? [
+					{
+						title: 'Recommendation',
+						text: getRecommendationDisplayName(
+							params.case?.additionalDetails?.recommendation ?? ''
+						),
+						url: 'recommendation'
+					}
+			  ]
+			: []),
+		{
+			title: 'Material change',
+			text: params.case.isMaterialChange
+				? isMaterialChangeStaticDataViewModel[0].text
+				: isMaterialChangeStaticDataViewModel[1].text,
+			url: 'material-change'
+		},
+		...(params.keyMembers?.caseManager
+			? [{ title: 'Case manager', text: params.keyMembers.caseManager }]
+			: []),
+		...((params.keyMembers?.nsipOfficers ?? []).length > 0
+			? [{ title: 'NSIP officers', text: params.keyMembers?.nsipOfficers.join(', ') }]
+			: []),
+
+		// Show only for Energy / Generating stations
+		...(params.case?.subSector?.name === SUB_SECTORS.GENERATING_STATIONS &&
+		(params.case?.sector?.name || '') === SECTORS.ENERGY
+			? [
+					{
+						title: 'Project type',
+						text: getProjectTypeDisplayName(params.case?.additionalDetails?.subProjectType ?? ''),
+						url: 'project-type',
+						classes: 'project-details__project-type'
+					}
+			  ]
+			: []),
+
+		{
+			title: featureFlagClient.isFeatureActive('applic-55-welsh-translation')
+				? 'Regions'
+				: 'Region(s)',
+			html: params.regionNames.join(', '),
+			url: 'regions',
+			classes: 'project-details__regions'
+		},
+		{
+			title: 'Case stage',
+			text: params.case.status,
+			url: 'stage'
+		},
+		{
+			title: 'Project page',
+			html: params.publishedTag,
+			classes: 'project-details__project-page'
+		},
+		{
+			title: 'Project name',
+			text: params.case.title,
+			url: 'name',
+			classes: 'project-details__name'
+		},
+		...(isWelsh
+			? [
+					{
+						title: 'Project name in Welsh',
+						url: 'name-welsh',
+						id: 'titleWelsh',
+						classes: 'project-details__name',
+						html: params.case.titleWelsh
+					}
+			  ]
+			: []),
+		{
+			title: 'Project description',
+			html: sanitize(params.case.description ?? ''),
+			url: 'description',
+			classes: 'project-details__project-description'
+		},
+		...(isWelsh
+			? [
+					{
+						title: 'Project description in Welsh',
+						url: 'description-welsh',
+						id: 'descriptionWelsh',
+						html: params.case.descriptionWelsh
+					}
+			  ]
+			: []),
+		{
+			title: 'Project location',
+			html: sanitize(params.case.geographicalInformation?.locationDescription ?? ''),
+			url: 'project-location',
+			classes: 'project-details__project-location'
+		},
+		...(isWelsh
+			? [
+					{
+						title: 'Project location in Welsh',
+						url: 'project-location-welsh',
+						id: 'geographicalInformation.locationDescriptionWelsh',
+						html: params.case.geographicalInformation?.locationDescriptionWelsh
+					}
+			  ]
+			: []),
+		{
+			title: 'Project email address',
+			text: params.case.caseEmail,
+			url: 'team-email',
+			classes: 'project-details__team-email'
+		},
+		{
+			title: 'Grid references',
+			html: params.gridReferences,
+			url: 'grid-references',
+			classes: 'project-details__grid-references'
+		},
+		{
+			title: 'Map zoom level',
+			text: params.case.geographicalInformation?.mapZoomLevel.displayNameEn,
+			url: 'zoom-level',
+			classes: 'project-details__zoom-level'
+		}
+	];
+};
