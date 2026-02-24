@@ -96,6 +96,7 @@ export const mapApplicationDetails = (caseDetails) => {
 		'programmeDocumentURI',
 		'additionalComments',
 		'issuesTracker',
+		'dcoStatus',
 		// document enums
 		'principalAreaDisagreementSummaryStmt',
 		'policyComplianceDocument',
@@ -121,6 +122,9 @@ export const mapApplicationDetails = (caseDetails) => {
 		sector: sectorFormatted,
 		subSector: subSectorFormatted,
 		applicant: applicantFormatted,
+		...(caseDetails?.ApplicationDetails?.dcoStatus && {
+			dcoStatus: { name: caseDetails.ApplicationDetails.dcoStatus }
+		}),
 		...(!isEmpty(additionalDetailsFormatted) && { additionalDetails: additionalDetailsFormatted }),
 		geographicalInformation: {
 			mapZoomLevel: zoomLevelFormatted,

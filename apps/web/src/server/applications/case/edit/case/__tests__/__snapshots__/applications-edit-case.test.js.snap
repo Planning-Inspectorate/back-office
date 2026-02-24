@@ -1,5 +1,56 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`applications edit DCO status GET should render the DCO status page 1`] = `
+"<main class="govuk-main-wrapper" id="main-content">
+    <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
+        <div class="govuk-form-group">
+            <fieldset class="govuk-fieldset">
+                <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                    <h1 class="govuk-fieldset__heading"> Choose DCO status</h1>
+                </legend>
+                <div class="govuk-radios" data-module="govuk-radios">
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="dcoStatus" name="dcoStatus" type="radio"
+                        value="granted">
+                        <label class="govuk-label govuk-radios__label" for="dcoStatus">Granted</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="dcoStatus-2" name="dcoStatus" type="radio"
+                        value="refused">
+                        <label class="govuk-label govuk-radios__label" for="dcoStatus-2">Refused</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="dcoStatus-3" name="dcoStatus" type="radio"
+                        value="partially_consented">
+                        <label class="govuk-label govuk-radios__label" for="dcoStatus-3">Partially consented</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="dcoStatus-4" name="dcoStatus" type="radio"
+                        value="quashed">
+                        <label class="govuk-label govuk-radios__label" for="dcoStatus-4">Quashed</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="dcoStatus-5" name="dcoStatus" type="radio"
+                        value="redetermination">
+                        <label class="govuk-label govuk-radios__label" for="dcoStatus-5">Redetermination</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="dcoStatus-6" name="dcoStatus" type="radio"
+                        value="withdrawn">
+                        <label class="govuk-label govuk-radios__label" for="dcoStatus-6">Withdrawn</label>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <div class="govuk-grid-row">
+            <div class="govuk-button-group govuk-grid-column-one-half">
+                <button type="submit" class="govuk-button" data-module="govuk-button">Save changes</button>
+            </div>
+        </div>
+    </form>
+</main>"
+`;
+
 exports[`applications edit Grid references GET /edit/:caseId/project-location should display resumed data if the API returns something 1`] = `
 "<main class="govuk-main-wrapper" id="main-content">
     <h1 class="govuk-heading-l govuk-!-margin-bottom-3"> Enter grid references</h1>
