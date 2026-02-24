@@ -7319,10 +7319,8 @@ exports[`applications documentation Document properties page page should render 
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href=""></a>
                             </dd>
                         </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Redaction</dt>
+                        <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Redaction</dt>
                             <dd class="govuk-summary-list__value">Redacted</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/redaction">Change<span class="govuk-visually-hidden"> Redaction</span></a>
-                            </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Status</dt>
                             <dd class="govuk-summary-list__value">Ready to publish</dd>
@@ -7549,6 +7547,802 @@ exports[`applications documentation Document properties page page should render 
 </main>"
 `;
 
+exports[`applications documentation Document properties page should NOT show redaction status edit link if AI redaction of document is in progress 1`] = `
+"<main class="govuk-main-wrapper" id="main-content">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full govuk-!-margin-top-0">
+            <nav class="govuk-breadcrumbs govuk-!-margin-top-0" aria-label="Breadcrumb">
+                <ol class="govuk-breadcrumbs__list">
+                    <li class="govuk-breadcrumbs__list-item"><a class="govuk-breadcrumbs__link" href="/applications-service/case/123/overview">Project overview</a>
+                    </li>
+                    <li class="govuk-breadcrumbs__list-item"><a class="govuk-breadcrumbs__link" href="/applications-service/case/123/project-documentation">Project documentation</a>
+                    </li>
+                    <li class="govuk-breadcrumbs__list-item"><a class="govuk-breadcrumbs__link" href="/applications-service/case/123/project-documentation/1/project-management/">Project management</a>
+                    </li>
+                    <li class="govuk-breadcrumbs__list-item"><a class="govuk-breadcrumbs__link" href="/applications-service/case/123/project-documentation/21/sub-folder-level-2/">Sub folder level 2</a>
+                    </li>
+                </ol>
+            </nav>
+            <h1 class="govuk-heading-xl govuk-!-margin-top-4"><span class="govuk-caption-xl">Document properties</span> 1 Ut enim ad</h1>
+            <ul class="govuk-list">
+                <li class="govuk-!-margin-top-4"><strong>Description:</strong> Ut enim ad minim veniam quis nostrud exercitation
+                    ullamco laboris nisi ut aliquip ex ea commodo consequat</li>
+                <li class="govuk-!-margin-top-4"><strong>Case reference:</strong> CASE/04</li>
+                <li class="govuk-!-margin-top-4"><strong>Document reference number:</strong>
+                </li>
+                <li class="govuk-!-margin-top-4"><strong>File type and size:</strong> JPG, 6.5 MB</li>
+                <li class="govuk-!-margin-top-4"><strong>Version:</strong>
+                </li>
+            </ul>
+            <nav class="pins-nav-button-group">
+                <h3 class="govuk-heading-m govuk-!-margin-bottom-4">Document actions</h3>
+                <form method="post" action="/applications-service/case/123/project-documentation/21/document/153/ai-redaction">
+                    <div class="govuk-button-group"><a href="/applications-service/case/123/project-documentation/21/document/153/delete"
+                        role="button" draggable="false" class="govuk-button govuk-button--secondary"
+                        data-module="govuk-button"> Delete</a>
+                    </div>
+                </form>
+            </nav>
+            <div class="govuk-tabs" data-module="govuk-tabs">
+                <h2 class="govuk-tabs__title"> Contents</h2>
+                <ul class="govuk-tabs__list">
+                    <li class="govuk-tabs__list-item govuk-tabs__list-item--selected"><a class="govuk-tabs__tab" href="#document-properties"> Document properties</a>
+                    </li>
+                    <li class="govuk-tabs__list-item"><a class="govuk-tabs__tab" href="#document-history"> Document history</a>
+                    </li>
+                </ul>
+                <div class="govuk-tabs__panel" id="document-properties">
+                    <h4 class="govuk-heading-m govuk-!-margin-bottom-4">Document properties</h4>
+                    <dl class="govuk-summary-list">
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> File name</dt>
+                            <dd class="govuk-summary-list__value">1 Ut enim ad</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/153/edit/name">Change<span class="govuk-visually-hidden"> File name</span></a>
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Description</dt>
+                            <dd class="govuk-summary-list__value">Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi
+                                ut aliquip ex ea commodo consequat</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/153/edit/description">Change<span class="govuk-visually-hidden"> Description</span></a>
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> IP number (optional)</dt>
+                            <dd class="govuk-summary-list__value"></dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/153/edit/interestedPartyNumber">Change<span class="govuk-visually-hidden"> IP number (optional)</span></a>
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Who the document is from</dt>
+                            <dd                             class="govuk-summary-list__value">Sed do</dd>
+                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/153/edit/author">Change<span class="govuk-visually-hidden"> Who the document is from</span></a>
+                                </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Agent (optional)</dt>
+                            <dd class="govuk-summary-list__value">Ut Labore</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/153/edit/agent">Change<span class="govuk-visually-hidden"> Agent (optional)</span></a>
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Document case stage</dt>
+                            <dd class="govuk-summary-list__value">decision</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href=""></a>
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Webfilter</dt>
+                            <dd class="govuk-summary-list__value">Eiusmod</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/153/edit/webfilter">Change<span class="govuk-visually-hidden"> Webfilter</span></a>
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Document type (optional)</dt>
+                            <dd                             class="govuk-summary-list__value">Exam library</dd>
+                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/153/edit/type">Change<span class="govuk-visually-hidden"> Document type (optional)</span></a>
+                                </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Date received</dt>
+                            <dd class="govuk-summary-list__value">01/12/2022</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/153/edit/receipt-date">Change<span class="govuk-visually-hidden"> Date received</span></a>
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Published date</dt>
+                            <dd class="govuk-summary-list__value"></dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href=""></a>
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Redaction</dt>
+                            <dd class="govuk-summary-list__value">Redaction in progress</dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Status</dt>
+                            <dd class="govuk-summary-list__value">Awaiting virus check</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href=""></a>
+                            </dd>
+                        </div>
+                    </dl>
+                </div>
+                <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="document-history">
+                    <h4 class="govuk-heading-m govuk-!-margin-bottom-4">Document history</h4>
+                    <table class="govuk-table pins-file-versions-table">
+                        <thead class="govuk-table__head">
+                            <tr class="govuk-table__row">
+                                <th scope="col" class="govuk-table__header">Version</th>
+                                <th scope="col" class="govuk-table__header">File name</th>
+                                <th scope="col" class="govuk-table__header">Activity</th>
+                                <th scope="col" class="govuk-table__header">Redaction</th>
+                                <th scope="col" class="govuk-table__header">Download</th>
+                            </tr>
+                        </thead>
+                        <tbody class="govuk-table__body">
+                            <tr class="govuk-table__row">
+                                <td class="govuk-table__cell">1</td>
+                                <td class="govuk-table__cell"><a class="font-weight--700 govuk-link" href="/documents/123/download/123/version/1/preview"></a>
+                                    <p                                     class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>PDF,3 KB</p>
+                                </td>
+                                <td class="govuk-table__cell">
+                                    <p class="pins-document-activity-uploaded"><strong>Uploaded:</strong> ,</p>
+                                    <p class='govuk-!-margin-top-2 pins-document-activity-published'><strong>Published:</strong> 14:09, 03 Jul 2023, John Doe</p>
+                                    <p class='govuk-!-margin-top-2 pins-document-activity-unpublished'><strong>Unpublished:</strong> 14:09, 03 Jul 2023, John Doe</p>
+                                </td>
+                                <td class="govuk-table__cell">Unredacted</td>
+                                <td class="govuk-table__cell"><a class="govuk-link" href='/documents/123/download/123/version/1/'> Download<span class="govuk-visually-hidden"></span></a>
+                                </td>
+                            </tr>
+                            <tr class="govuk-table__row">
+                                <td class="govuk-table__cell">2</td>
+                                <td class="govuk-table__cell">
+                                    <p class="font-weight--700"></p>
+                                    <p class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>MP4,5 KB</p>
+                                </td>
+                                <td class="govuk-table__cell">
+                                    <p class="pins-document-activity-uploaded"><strong>Uploaded:</strong> ,</p>
+                                    <p class='govuk-!-margin-top-2 pins-document-activity-published'><strong>Published:</strong> Not published</p>
+                                </td>
+                                <td class="govuk-table__cell">Unredacted</td>
+                                <td class="govuk-table__cell"><a class="govuk-link" href='/documents/123/download/456/version/2/'> Download<span class="govuk-visually-hidden"></span></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`applications documentation Document properties page should NOT show redaction status edit link if AI redaction suggestions for document have been reviewed 1`] = `
+"<main class="govuk-main-wrapper" id="main-content">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full govuk-!-margin-top-0">
+            <nav class="govuk-breadcrumbs govuk-!-margin-top-0" aria-label="Breadcrumb">
+                <ol class="govuk-breadcrumbs__list">
+                    <li class="govuk-breadcrumbs__list-item"><a class="govuk-breadcrumbs__link" href="/applications-service/case/123/overview">Project overview</a>
+                    </li>
+                    <li class="govuk-breadcrumbs__list-item"><a class="govuk-breadcrumbs__link" href="/applications-service/case/123/project-documentation">Project documentation</a>
+                    </li>
+                    <li class="govuk-breadcrumbs__list-item"><a class="govuk-breadcrumbs__link" href="/applications-service/case/123/project-documentation/1/project-management/">Project management</a>
+                    </li>
+                    <li class="govuk-breadcrumbs__list-item"><a class="govuk-breadcrumbs__link" href="/applications-service/case/123/project-documentation/21/sub-folder-level-2/">Sub folder level 2</a>
+                    </li>
+                </ol>
+            </nav>
+            <h1 class="govuk-heading-xl govuk-!-margin-top-4"><span class="govuk-caption-xl">Document properties</span> 1 Ut enim ad</h1>
+            <ul class="govuk-list">
+                <li class="govuk-!-margin-top-4"><strong>Description:</strong> Ut enim ad minim veniam quis nostrud exercitation
+                    ullamco laboris nisi ut aliquip ex ea commodo consequat</li>
+                <li class="govuk-!-margin-top-4"><strong>Case reference:</strong> CASE/04</li>
+                <li class="govuk-!-margin-top-4"><strong>Document reference number:</strong>
+                </li>
+                <li class="govuk-!-margin-top-4"><strong>File type and size:</strong> JPG, 6.5 MB</li>
+                <li class="govuk-!-margin-top-4"><strong>Version:</strong>
+                </li>
+            </ul>
+            <nav class="pins-nav-button-group">
+                <h3 class="govuk-heading-m govuk-!-margin-bottom-4">Document actions</h3>
+                <form method="post" action="/applications-service/case/123/project-documentation/21/document/152/ai-redaction">
+                    <div class="govuk-button-group"><a href="/applications-service/case/123/project-documentation/21/document/152/delete"
+                        role="button" draggable="false" class="govuk-button govuk-button--secondary"
+                        data-module="govuk-button"> Delete</a>
+                    </div>
+                </form>
+            </nav>
+            <div class="govuk-tabs" data-module="govuk-tabs">
+                <h2 class="govuk-tabs__title"> Contents</h2>
+                <ul class="govuk-tabs__list">
+                    <li class="govuk-tabs__list-item govuk-tabs__list-item--selected"><a class="govuk-tabs__tab" href="#document-properties"> Document properties</a>
+                    </li>
+                    <li class="govuk-tabs__list-item"><a class="govuk-tabs__tab" href="#document-history"> Document history</a>
+                    </li>
+                </ul>
+                <div class="govuk-tabs__panel" id="document-properties">
+                    <h4 class="govuk-heading-m govuk-!-margin-bottom-4">Document properties</h4>
+                    <dl class="govuk-summary-list">
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> File name</dt>
+                            <dd class="govuk-summary-list__value">1 Ut enim ad</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/152/edit/name">Change<span class="govuk-visually-hidden"> File name</span></a>
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Description</dt>
+                            <dd class="govuk-summary-list__value">Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi
+                                ut aliquip ex ea commodo consequat</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/152/edit/description">Change<span class="govuk-visually-hidden"> Description</span></a>
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> IP number (optional)</dt>
+                            <dd class="govuk-summary-list__value"></dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/152/edit/interestedPartyNumber">Change<span class="govuk-visually-hidden"> IP number (optional)</span></a>
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Who the document is from</dt>
+                            <dd                             class="govuk-summary-list__value">Sed do</dd>
+                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/152/edit/author">Change<span class="govuk-visually-hidden"> Who the document is from</span></a>
+                                </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Agent (optional)</dt>
+                            <dd class="govuk-summary-list__value">Ut Labore</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/152/edit/agent">Change<span class="govuk-visually-hidden"> Agent (optional)</span></a>
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Document case stage</dt>
+                            <dd class="govuk-summary-list__value">decision</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href=""></a>
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Webfilter</dt>
+                            <dd class="govuk-summary-list__value">Eiusmod</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/152/edit/webfilter">Change<span class="govuk-visually-hidden"> Webfilter</span></a>
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Document type (optional)</dt>
+                            <dd                             class="govuk-summary-list__value">Exam library</dd>
+                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/152/edit/type">Change<span class="govuk-visually-hidden"> Document type (optional)</span></a>
+                                </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Date received</dt>
+                            <dd class="govuk-summary-list__value">01/12/2022</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/152/edit/receipt-date">Change<span class="govuk-visually-hidden"> Date received</span></a>
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Published date</dt>
+                            <dd class="govuk-summary-list__value"></dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href=""></a>
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Redaction</dt>
+                            <dd class="govuk-summary-list__value">Suggestions reviewed</dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Status</dt>
+                            <dd class="govuk-summary-list__value">Awaiting virus check</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href=""></a>
+                            </dd>
+                        </div>
+                    </dl>
+                </div>
+                <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="document-history">
+                    <h4 class="govuk-heading-m govuk-!-margin-bottom-4">Document history</h4>
+                    <table class="govuk-table pins-file-versions-table">
+                        <thead class="govuk-table__head">
+                            <tr class="govuk-table__row">
+                                <th scope="col" class="govuk-table__header">Version</th>
+                                <th scope="col" class="govuk-table__header">File name</th>
+                                <th scope="col" class="govuk-table__header">Activity</th>
+                                <th scope="col" class="govuk-table__header">Redaction</th>
+                                <th scope="col" class="govuk-table__header">Download</th>
+                            </tr>
+                        </thead>
+                        <tbody class="govuk-table__body">
+                            <tr class="govuk-table__row">
+                                <td class="govuk-table__cell">1</td>
+                                <td class="govuk-table__cell"><a class="font-weight--700 govuk-link" href="/documents/123/download/123/version/1/preview"></a>
+                                    <p                                     class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>PDF,3 KB</p>
+                                </td>
+                                <td class="govuk-table__cell">
+                                    <p class="pins-document-activity-uploaded"><strong>Uploaded:</strong> ,</p>
+                                    <p class='govuk-!-margin-top-2 pins-document-activity-published'><strong>Published:</strong> 14:09, 03 Jul 2023, John Doe</p>
+                                    <p class='govuk-!-margin-top-2 pins-document-activity-unpublished'><strong>Unpublished:</strong> 14:09, 03 Jul 2023, John Doe</p>
+                                </td>
+                                <td class="govuk-table__cell">Unredacted</td>
+                                <td class="govuk-table__cell"><a class="govuk-link" href='/documents/123/download/123/version/1/'> Download<span class="govuk-visually-hidden"></span></a>
+                                </td>
+                            </tr>
+                            <tr class="govuk-table__row">
+                                <td class="govuk-table__cell">2</td>
+                                <td class="govuk-table__cell">
+                                    <p class="font-weight--700"></p>
+                                    <p class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>MP4,5 KB</p>
+                                </td>
+                                <td class="govuk-table__cell">
+                                    <p class="pins-document-activity-uploaded"><strong>Uploaded:</strong> ,</p>
+                                    <p class='govuk-!-margin-top-2 pins-document-activity-published'><strong>Published:</strong> Not published</p>
+                                </td>
+                                <td class="govuk-table__cell">Unredacted</td>
+                                <td class="govuk-table__cell"><a class="govuk-link" href='/documents/123/download/456/version/2/'> Download<span class="govuk-visually-hidden"></span></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`applications documentation Document properties page should NOT show redaction status edit link if document is awaiting AI redaction suggestion review 1`] = `
+"<main class="govuk-main-wrapper" id="main-content">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full govuk-!-margin-top-0">
+            <nav class="govuk-breadcrumbs govuk-!-margin-top-0" aria-label="Breadcrumb">
+                <ol class="govuk-breadcrumbs__list">
+                    <li class="govuk-breadcrumbs__list-item"><a class="govuk-breadcrumbs__link" href="/applications-service/case/123/overview">Project overview</a>
+                    </li>
+                    <li class="govuk-breadcrumbs__list-item"><a class="govuk-breadcrumbs__link" href="/applications-service/case/123/project-documentation">Project documentation</a>
+                    </li>
+                    <li class="govuk-breadcrumbs__list-item"><a class="govuk-breadcrumbs__link" href="/applications-service/case/123/project-documentation/1/project-management/">Project management</a>
+                    </li>
+                    <li class="govuk-breadcrumbs__list-item"><a class="govuk-breadcrumbs__link" href="/applications-service/case/123/project-documentation/21/sub-folder-level-2/">Sub folder level 2</a>
+                    </li>
+                </ol>
+            </nav>
+            <h1 class="govuk-heading-xl govuk-!-margin-top-4"><span class="govuk-caption-xl">Document properties</span> 1 Ut enim ad</h1>
+            <ul class="govuk-list">
+                <li class="govuk-!-margin-top-4"><strong>Description:</strong> Ut enim ad minim veniam quis nostrud exercitation
+                    ullamco laboris nisi ut aliquip ex ea commodo consequat</li>
+                <li class="govuk-!-margin-top-4"><strong>Case reference:</strong> CASE/04</li>
+                <li class="govuk-!-margin-top-4"><strong>Document reference number:</strong>
+                </li>
+                <li class="govuk-!-margin-top-4"><strong>File type and size:</strong> JPG, 6.5 MB</li>
+                <li class="govuk-!-margin-top-4"><strong>Version:</strong>
+                </li>
+            </ul>
+            <nav class="pins-nav-button-group">
+                <h3 class="govuk-heading-m govuk-!-margin-bottom-4">Document actions</h3>
+                <form method="post" action="/applications-service/case/123/project-documentation/21/document/151/ai-redaction">
+                    <div class="govuk-button-group"><a href="/applications-service/case/123/project-documentation/21/document/151/delete"
+                        role="button" draggable="false" class="govuk-button govuk-button--secondary"
+                        data-module="govuk-button"> Delete</a>
+                    </div>
+                </form>
+            </nav>
+            <div class="govuk-tabs" data-module="govuk-tabs">
+                <h2 class="govuk-tabs__title"> Contents</h2>
+                <ul class="govuk-tabs__list">
+                    <li class="govuk-tabs__list-item govuk-tabs__list-item--selected"><a class="govuk-tabs__tab" href="#document-properties"> Document properties</a>
+                    </li>
+                    <li class="govuk-tabs__list-item"><a class="govuk-tabs__tab" href="#document-history"> Document history</a>
+                    </li>
+                </ul>
+                <div class="govuk-tabs__panel" id="document-properties">
+                    <h4 class="govuk-heading-m govuk-!-margin-bottom-4">Document properties</h4>
+                    <dl class="govuk-summary-list">
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> File name</dt>
+                            <dd class="govuk-summary-list__value">1 Ut enim ad</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/151/edit/name">Change<span class="govuk-visually-hidden"> File name</span></a>
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Description</dt>
+                            <dd class="govuk-summary-list__value">Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi
+                                ut aliquip ex ea commodo consequat</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/151/edit/description">Change<span class="govuk-visually-hidden"> Description</span></a>
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> IP number (optional)</dt>
+                            <dd class="govuk-summary-list__value"></dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/151/edit/interestedPartyNumber">Change<span class="govuk-visually-hidden"> IP number (optional)</span></a>
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Who the document is from</dt>
+                            <dd                             class="govuk-summary-list__value">Sed do</dd>
+                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/151/edit/author">Change<span class="govuk-visually-hidden"> Who the document is from</span></a>
+                                </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Agent (optional)</dt>
+                            <dd class="govuk-summary-list__value">Ut Labore</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/151/edit/agent">Change<span class="govuk-visually-hidden"> Agent (optional)</span></a>
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Document case stage</dt>
+                            <dd class="govuk-summary-list__value">decision</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href=""></a>
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Webfilter</dt>
+                            <dd class="govuk-summary-list__value">Eiusmod</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/151/edit/webfilter">Change<span class="govuk-visually-hidden"> Webfilter</span></a>
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Document type (optional)</dt>
+                            <dd                             class="govuk-summary-list__value">Exam library</dd>
+                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/151/edit/type">Change<span class="govuk-visually-hidden"> Document type (optional)</span></a>
+                                </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Date received</dt>
+                            <dd class="govuk-summary-list__value">01/12/2022</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/151/edit/receipt-date">Change<span class="govuk-visually-hidden"> Date received</span></a>
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Published date</dt>
+                            <dd class="govuk-summary-list__value"></dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href=""></a>
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Redaction</dt>
+                            <dd class="govuk-summary-list__value">Redactions suggested</dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Status</dt>
+                            <dd class="govuk-summary-list__value">Awaiting virus check</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href=""></a>
+                            </dd>
+                        </div>
+                    </dl>
+                </div>
+                <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="document-history">
+                    <h4 class="govuk-heading-m govuk-!-margin-bottom-4">Document history</h4>
+                    <table class="govuk-table pins-file-versions-table">
+                        <thead class="govuk-table__head">
+                            <tr class="govuk-table__row">
+                                <th scope="col" class="govuk-table__header">Version</th>
+                                <th scope="col" class="govuk-table__header">File name</th>
+                                <th scope="col" class="govuk-table__header">Activity</th>
+                                <th scope="col" class="govuk-table__header">Redaction</th>
+                                <th scope="col" class="govuk-table__header">Download</th>
+                            </tr>
+                        </thead>
+                        <tbody class="govuk-table__body">
+                            <tr class="govuk-table__row">
+                                <td class="govuk-table__cell">1</td>
+                                <td class="govuk-table__cell"><a class="font-weight--700 govuk-link" href="/documents/123/download/123/version/1/preview"></a>
+                                    <p                                     class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>PDF,3 KB</p>
+                                </td>
+                                <td class="govuk-table__cell">
+                                    <p class="pins-document-activity-uploaded"><strong>Uploaded:</strong> ,</p>
+                                    <p class='govuk-!-margin-top-2 pins-document-activity-published'><strong>Published:</strong> 14:09, 03 Jul 2023, John Doe</p>
+                                    <p class='govuk-!-margin-top-2 pins-document-activity-unpublished'><strong>Unpublished:</strong> 14:09, 03 Jul 2023, John Doe</p>
+                                </td>
+                                <td class="govuk-table__cell">Unredacted</td>
+                                <td class="govuk-table__cell"><a class="govuk-link" href='/documents/123/download/123/version/1/'> Download<span class="govuk-visually-hidden"></span></a>
+                                </td>
+                            </tr>
+                            <tr class="govuk-table__row">
+                                <td class="govuk-table__cell">2</td>
+                                <td class="govuk-table__cell">
+                                    <p class="font-weight--700"></p>
+                                    <p class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>MP4,5 KB</p>
+                                </td>
+                                <td class="govuk-table__cell">
+                                    <p class="pins-document-activity-uploaded"><strong>Uploaded:</strong> ,</p>
+                                    <p class='govuk-!-margin-top-2 pins-document-activity-published'><strong>Published:</strong> Not published</p>
+                                </td>
+                                <td class="govuk-table__cell">Unredacted</td>
+                                <td class="govuk-table__cell"><a class="govuk-link" href='/documents/123/download/456/version/2/'> Download<span class="govuk-visually-hidden"></span></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`applications documentation Document properties page should NOT show redaction status edit link if document is awaiting AI redaction suggestions 1`] = `
+"<main class="govuk-main-wrapper" id="main-content">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full govuk-!-margin-top-0">
+            <nav class="govuk-breadcrumbs govuk-!-margin-top-0" aria-label="Breadcrumb">
+                <ol class="govuk-breadcrumbs__list">
+                    <li class="govuk-breadcrumbs__list-item"><a class="govuk-breadcrumbs__link" href="/applications-service/case/123/overview">Project overview</a>
+                    </li>
+                    <li class="govuk-breadcrumbs__list-item"><a class="govuk-breadcrumbs__link" href="/applications-service/case/123/project-documentation">Project documentation</a>
+                    </li>
+                    <li class="govuk-breadcrumbs__list-item"><a class="govuk-breadcrumbs__link" href="/applications-service/case/123/project-documentation/1/project-management/">Project management</a>
+                    </li>
+                    <li class="govuk-breadcrumbs__list-item"><a class="govuk-breadcrumbs__link" href="/applications-service/case/123/project-documentation/21/sub-folder-level-2/">Sub folder level 2</a>
+                    </li>
+                </ol>
+            </nav>
+            <h1 class="govuk-heading-xl govuk-!-margin-top-4"><span class="govuk-caption-xl">Document properties</span> 1 Ut enim ad</h1>
+            <ul class="govuk-list">
+                <li class="govuk-!-margin-top-4"><strong>Description:</strong> Ut enim ad minim veniam quis nostrud exercitation
+                    ullamco laboris nisi ut aliquip ex ea commodo consequat</li>
+                <li class="govuk-!-margin-top-4"><strong>Case reference:</strong> CASE/04</li>
+                <li class="govuk-!-margin-top-4"><strong>Document reference number:</strong>
+                </li>
+                <li class="govuk-!-margin-top-4"><strong>File type and size:</strong> JPG, 6.5 MB</li>
+                <li class="govuk-!-margin-top-4"><strong>Version:</strong>
+                </li>
+            </ul>
+            <nav class="pins-nav-button-group">
+                <h3 class="govuk-heading-m govuk-!-margin-bottom-4">Document actions</h3>
+                <form method="post" action="/applications-service/case/123/project-documentation/21/document/150/ai-redaction">
+                    <div class="govuk-button-group"><a href="/applications-service/case/123/project-documentation/21/document/150/delete"
+                        role="button" draggable="false" class="govuk-button govuk-button--secondary"
+                        data-module="govuk-button"> Delete</a>
+                    </div>
+                </form>
+            </nav>
+            <div class="govuk-tabs" data-module="govuk-tabs">
+                <h2 class="govuk-tabs__title"> Contents</h2>
+                <ul class="govuk-tabs__list">
+                    <li class="govuk-tabs__list-item govuk-tabs__list-item--selected"><a class="govuk-tabs__tab" href="#document-properties"> Document properties</a>
+                    </li>
+                    <li class="govuk-tabs__list-item"><a class="govuk-tabs__tab" href="#document-history"> Document history</a>
+                    </li>
+                </ul>
+                <div class="govuk-tabs__panel" id="document-properties">
+                    <h4 class="govuk-heading-m govuk-!-margin-bottom-4">Document properties</h4>
+                    <dl class="govuk-summary-list">
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> File name</dt>
+                            <dd class="govuk-summary-list__value">1 Ut enim ad</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/150/edit/name">Change<span class="govuk-visually-hidden"> File name</span></a>
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Description</dt>
+                            <dd class="govuk-summary-list__value">Ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi
+                                ut aliquip ex ea commodo consequat</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/150/edit/description">Change<span class="govuk-visually-hidden"> Description</span></a>
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> IP number (optional)</dt>
+                            <dd class="govuk-summary-list__value"></dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/150/edit/interestedPartyNumber">Change<span class="govuk-visually-hidden"> IP number (optional)</span></a>
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Who the document is from</dt>
+                            <dd                             class="govuk-summary-list__value">Sed do</dd>
+                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/150/edit/author">Change<span class="govuk-visually-hidden"> Who the document is from</span></a>
+                                </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Agent (optional)</dt>
+                            <dd class="govuk-summary-list__value">Ut Labore</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/150/edit/agent">Change<span class="govuk-visually-hidden"> Agent (optional)</span></a>
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Document case stage</dt>
+                            <dd class="govuk-summary-list__value">decision</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href=""></a>
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Webfilter</dt>
+                            <dd class="govuk-summary-list__value">Eiusmod</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/150/edit/webfilter">Change<span class="govuk-visually-hidden"> Webfilter</span></a>
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Document type (optional)</dt>
+                            <dd                             class="govuk-summary-list__value">Exam library</dd>
+                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/150/edit/type">Change<span class="govuk-visually-hidden"> Document type (optional)</span></a>
+                                </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Date received</dt>
+                            <dd class="govuk-summary-list__value">01/12/2022</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/150/edit/receipt-date">Change<span class="govuk-visually-hidden"> Date received</span></a>
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Published date</dt>
+                            <dd class="govuk-summary-list__value"></dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href=""></a>
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Redaction</dt>
+                            <dd class="govuk-summary-list__value">Suggestions in progress</dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Status</dt>
+                            <dd class="govuk-summary-list__value">Awaiting virus check</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href=""></a>
+                            </dd>
+                        </div>
+                    </dl>
+                </div>
+                <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="document-history">
+                    <h4 class="govuk-heading-m govuk-!-margin-bottom-4">Document history</h4>
+                    <table class="govuk-table pins-file-versions-table">
+                        <thead class="govuk-table__head">
+                            <tr class="govuk-table__row">
+                                <th scope="col" class="govuk-table__header">Version</th>
+                                <th scope="col" class="govuk-table__header">File name</th>
+                                <th scope="col" class="govuk-table__header">Activity</th>
+                                <th scope="col" class="govuk-table__header">Redaction</th>
+                                <th scope="col" class="govuk-table__header">Download</th>
+                            </tr>
+                        </thead>
+                        <tbody class="govuk-table__body">
+                            <tr class="govuk-table__row">
+                                <td class="govuk-table__cell">1</td>
+                                <td class="govuk-table__cell"><a class="font-weight--700 govuk-link" href="/documents/123/download/123/version/1/preview"></a>
+                                    <p                                     class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>PDF,3 KB</p>
+                                </td>
+                                <td class="govuk-table__cell">
+                                    <p class="pins-document-activity-uploaded"><strong>Uploaded:</strong> ,</p>
+                                    <p class='govuk-!-margin-top-2 pins-document-activity-published'><strong>Published:</strong> 14:09, 03 Jul 2023, John Doe</p>
+                                    <p class='govuk-!-margin-top-2 pins-document-activity-unpublished'><strong>Unpublished:</strong> 14:09, 03 Jul 2023, John Doe</p>
+                                </td>
+                                <td class="govuk-table__cell">Unredacted</td>
+                                <td class="govuk-table__cell"><a class="govuk-link" href='/documents/123/download/123/version/1/'> Download<span class="govuk-visually-hidden"></span></a>
+                                </td>
+                            </tr>
+                            <tr class="govuk-table__row">
+                                <td class="govuk-table__cell">2</td>
+                                <td class="govuk-table__cell">
+                                    <p class="font-weight--700"></p>
+                                    <p class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>MP4,5 KB</p>
+                                </td>
+                                <td class="govuk-table__cell">
+                                    <p class="pins-document-activity-uploaded"><strong>Uploaded:</strong> ,</p>
+                                    <p class='govuk-!-margin-top-2 pins-document-activity-published'><strong>Published:</strong> Not published</p>
+                                </td>
+                                <td class="govuk-table__cell">Unredacted</td>
+                                <td class="govuk-table__cell"><a class="govuk-link" href='/documents/123/download/456/version/2/'> Download<span class="govuk-visually-hidden"></span></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`applications documentation Document properties page should NOT show redaction status edit link if document is redacted 1`] = `
+"<main class="govuk-main-wrapper" id="main-content">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full govuk-!-margin-top-0">
+            <nav class="govuk-breadcrumbs govuk-!-margin-top-0" aria-label="Breadcrumb">
+                <ol class="govuk-breadcrumbs__list">
+                    <li class="govuk-breadcrumbs__list-item"><a class="govuk-breadcrumbs__link" href="/applications-service/case/123/overview">Project overview</a>
+                    </li>
+                    <li class="govuk-breadcrumbs__list-item"><a class="govuk-breadcrumbs__link" href="/applications-service/case/123/project-documentation">Project documentation</a>
+                    </li>
+                    <li class="govuk-breadcrumbs__list-item"><a class="govuk-breadcrumbs__link" href="/applications-service/case/123/project-documentation/1/project-management/">Project management</a>
+                    </li>
+                    <li class="govuk-breadcrumbs__list-item"><a class="govuk-breadcrumbs__link" href="/applications-service/case/123/project-documentation/21/sub-folder-level-2/">Sub folder level 2</a>
+                    </li>
+                </ol>
+            </nav>
+            <h1 class="govuk-heading-xl govuk-!-margin-top-4"><span class="govuk-caption-xl">Document properties</span> 4 Elit sed</h1>
+            <ul class="govuk-list">
+                <li class="govuk-!-margin-top-4"><strong>Description:</strong> Elit sed do eiusmod tempor incididunt ut
+                    labore et dolore magna aliqua Ut enim ad</li>
+                <li class="govuk-!-margin-top-4"><strong>Case reference:</strong> CASE/04</li>
+                <li class="govuk-!-margin-top-4"><strong>Document reference number:</strong>
+                </li>
+                <li class="govuk-!-margin-top-4"><strong>File type and size:</strong> PDF, 2.6 MB</li>
+                <li class="govuk-!-margin-top-4"><strong>Version:</strong>
+                </li>
+            </ul>
+            <div class="display--flex govuk-!-margin-top-7 govuk-!-margin-bottom-7"><a class="govuk-button govuk-!-margin-0" href="/applications-service/case/123/project-documentation/21/document/3/new-version"> Upload new version</a>
+            </div>
+            <nav class="pins-nav-button-group">
+                <h3 class="govuk-heading-m govuk-!-margin-bottom-4">Document actions</h3>
+                <form method="post" action="/applications-service/case/123/project-documentation/21/document/3/ai-redaction">
+                    <div class="govuk-button-group"><a href="/documents/123/download/3/version//preview" role="button" draggable="false"
+                        class="govuk-button govuk-button--secondary" data-module="govuk-button"> Open</a>
+                        <a                         href="/documents/123/download/3/version//" role="button" draggable="false"
+                        class="govuk-button govuk-button--secondary" data-module="govuk-button">Download</a><a href="/applications-service/case/123/project-documentation/21/document/3/delete"
+                            role="button" draggable="false" class="govuk-button govuk-button--secondary"
+                            data-module="govuk-button"> Delete</a>
+                    </div>
+                </form><a class="govuk-link govuk-body-m govuk-!-text-align-right pins-nav-right-aligned-link"
+                href="/applications-service/case/123/project-documentation/publishing-queue">View publishing queue</a>
+            </nav>
+            <div class="govuk-tabs" data-module="govuk-tabs">
+                <h2 class="govuk-tabs__title"> Contents</h2>
+                <ul class="govuk-tabs__list">
+                    <li class="govuk-tabs__list-item govuk-tabs__list-item--selected"><a class="govuk-tabs__tab" href="#document-properties"> Document properties</a>
+                    </li>
+                    <li class="govuk-tabs__list-item"><a class="govuk-tabs__tab" href="#document-history"> Document history</a>
+                    </li>
+                </ul>
+                <div class="govuk-tabs__panel" id="document-properties">
+                    <h4 class="govuk-heading-m govuk-!-margin-bottom-4">Document properties</h4>
+                    <dl class="govuk-summary-list">
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> File name</dt>
+                            <dd class="govuk-summary-list__value">4 Elit sed</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/name">Change<span class="govuk-visually-hidden"> File name</span></a>
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Description</dt>
+                            <dd class="govuk-summary-list__value">Elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua
+                                Ut enim ad</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/description">Change<span class="govuk-visually-hidden"> Description</span></a>
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> IP number (optional)</dt>
+                            <dd class="govuk-summary-list__value"></dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/interestedPartyNumber">Change<span class="govuk-visually-hidden"> IP number (optional)</span></a>
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Who the document is from</dt>
+                            <dd                             class="govuk-summary-list__value">Consectetur adipiscing</dd>
+                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/author">Change<span class="govuk-visually-hidden"> Who the document is from</span></a>
+                                </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Agent (optional)</dt>
+                            <dd class="govuk-summary-list__value">Elit Sed</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/agent">Change<span class="govuk-visually-hidden"> Agent (optional)</span></a>
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Document case stage</dt>
+                            <dd class="govuk-summary-list__value">pre-examination</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href=""></a>
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Webfilter</dt>
+                            <dd class="govuk-summary-list__value">Consectetur</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/webfilter">Change<span class="govuk-visually-hidden"> Webfilter</span></a>
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Document type (optional)</dt>
+                            <dd                             class="govuk-summary-list__value">Rule 8 letter</dd>
+                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/type">Change<span class="govuk-visually-hidden"> Document type (optional)</span></a>
+                                </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Date received</dt>
+                            <dd class="govuk-summary-list__value">01/12/2022</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/receipt-date">Change<span class="govuk-visually-hidden"> Date received</span></a>
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Published date</dt>
+                            <dd class="govuk-summary-list__value"></dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href=""></a>
+                            </dd>
+                        </div>
+                        <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Redaction</dt>
+                            <dd class="govuk-summary-list__value">Redacted</dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Status</dt>
+                            <dd class="govuk-summary-list__value">Ready to publish</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/published-status">Change<span class="govuk-visually-hidden"> Status</span></a>
+                            </dd>
+                        </div>
+                    </dl>
+                </div>
+                <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="document-history">
+                    <h4 class="govuk-heading-m govuk-!-margin-bottom-4">Document history</h4>
+                    <table class="govuk-table pins-file-versions-table">
+                        <thead class="govuk-table__head">
+                            <tr class="govuk-table__row">
+                                <th scope="col" class="govuk-table__header">Version</th>
+                                <th scope="col" class="govuk-table__header">File name</th>
+                                <th scope="col" class="govuk-table__header">Activity</th>
+                                <th scope="col" class="govuk-table__header">Redaction</th>
+                                <th scope="col" class="govuk-table__header">Download</th>
+                            </tr>
+                        </thead>
+                        <tbody class="govuk-table__body">
+                            <tr class="govuk-table__row">
+                                <td class="govuk-table__cell">1</td>
+                                <td class="govuk-table__cell"><a class="font-weight--700 govuk-link" href="/documents/123/download/123/version/1/preview"></a>
+                                    <p                                     class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>PDF,3 KB</p>
+                                </td>
+                                <td class="govuk-table__cell">
+                                    <p class="pins-document-activity-uploaded"><strong>Uploaded:</strong> ,</p>
+                                    <p class='govuk-!-margin-top-2 pins-document-activity-published'><strong>Published:</strong> 14:09, 03 Jul 2023, John Doe</p>
+                                    <p class='govuk-!-margin-top-2 pins-document-activity-unpublished'><strong>Unpublished:</strong> 14:09, 03 Jul 2023, John Doe</p>
+                                </td>
+                                <td class="govuk-table__cell">Unredacted</td>
+                                <td class="govuk-table__cell"><a class="govuk-link" href='/documents/123/download/123/version/1/'> Download<span class="govuk-visually-hidden"></span></a>
+                                </td>
+                            </tr>
+                            <tr class="govuk-table__row">
+                                <td class="govuk-table__cell">2</td>
+                                <td class="govuk-table__cell">
+                                    <p class="font-weight--700"></p>
+                                    <p class='govuk-!-margin-top-2 govuk-body-xs colour--secondary'>MP4,5 KB</p>
+                                </td>
+                                <td class="govuk-table__cell">
+                                    <p class="pins-document-activity-uploaded"><strong>Uploaded:</strong> ,</p>
+                                    <p class='govuk-!-margin-top-2 pins-document-activity-published'><strong>Published:</strong> Not published</p>
+                                </td>
+                                <td class="govuk-table__cell">Unredacted</td>
+                                <td class="govuk-table__cell"><a class="govuk-link" href='/documents/123/download/456/version/2/'> Download<span class="govuk-visually-hidden"></span></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>"
+`;
+
 exports[`applications documentation Document properties page should not show publishedDate edit link if document is not published 1`] = `
 "<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
@@ -7653,10 +8447,8 @@ exports[`applications documentation Document properties page should not show pub
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href=""></a>
                             </dd>
                         </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Redaction</dt>
+                        <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Redaction</dt>
                             <dd class="govuk-summary-list__value">Redacted</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/redaction">Change<span class="govuk-visually-hidden"> Redaction</span></a>
-                            </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Status</dt>
                             <dd class="govuk-summary-list__value">Ready to publish</dd>
@@ -7987,10 +8779,8 @@ exports[`applications documentation Document properties page should show publish
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href=""></a>
                             </dd>
                         </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Redaction</dt>
+                        <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Redaction</dt>
                             <dd class="govuk-summary-list__value">Redacted</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/redaction">Change<span class="govuk-visually-hidden"> Redaction</span></a>
-                            </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Status</dt>
                             <dd class="govuk-summary-list__value">Ready to publish</dd>

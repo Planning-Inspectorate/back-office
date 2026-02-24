@@ -252,8 +252,7 @@ export const verifyAllDocumentsHaveRequiredPropertiesForPublishing = async (
 		(doc) =>
 			doc.latestDocumentVersion?.mime !== 'application/vnd.ms-outlook' &&
 			(doc.latestDocumentVersion?.redactedStatus === 'redacted' ||
-				doc.latestDocumentVersion?.redactedStatus === 'no_redaction_required' ||
-				doc.latestDocumentVersion?.redactedStatus === 'ai_redaction_failed')
+				doc.latestDocumentVersion?.redactedStatus === 'no_redaction_required')
 	);
 
 	// complete documents that are MSG files
@@ -266,21 +265,36 @@ export const verifyAllDocumentsHaveRequiredPropertiesForPublishing = async (
 		(doc) => doc.latestDocumentVersion?.mime !== 'application/vnd.ms-outlook'
 	);
 
-	// complete documents that are not MSG files and are awaiting AI redaction
-	const documentsAwaitingAIRedaction = nonMsgDocuments.filter(
-		(doc) => doc.latestDocumentVersion?.redactedStatus === 'awaiting_ai_redaction'
-	);
-
-	// complete documents that are not MSG files and are awaiting AI redaction review
-	const documentsAwaitingAIRedactionReview = nonMsgDocuments.filter(
-		(doc) => doc.latestDocumentVersion?.redactedStatus === 'ai_redaction_review_required'
-	);
-
 	// complete documents that are not MSG files and not redacted
 	const unredactedDocuments = nonMsgDocuments.filter(
 		(doc) =>
 			doc.latestDocumentVersion?.redactedStatus === 'not_redacted' ||
 			doc.latestDocumentVersion?.redactedStatus === null
+	);
+
+	// complete documents that are not MSG files and are awaiting AI redaction suggestions
+	const documentsAwaitingAiSuggestions = nonMsgDocuments.filter(
+		(doc) => doc.latestDocumentVersion?.redactedStatus === 'awaiting_ai_suggestions'
+	);
+
+	// complete documents that are not MSG files and are awaiting AI redaction suggestions review
+	const documentsAwaitingAiSuggestionsReview = nonMsgDocuments.filter(
+		(doc) => doc.latestDocumentVersion?.redactedStatus === 'ai_suggestions_review_required'
+	);
+
+	// complete documents that are not MSG files and have reviewed AI redaction suggestions
+	const documentsWithReviewedAiSuggestions = nonMsgDocuments.filter(
+		(doc) => doc.latestDocumentVersion?.redactedStatus === 'ai_suggestions_reviewed'
+	);
+
+	// complete documents that are not MSG files and are awaiting AI redaction
+	const documentsAwaitingAiRedaction = nonMsgDocuments.filter(
+		(doc) => doc.latestDocumentVersion?.redactedStatus === 'awaiting_ai_redaction'
+	);
+
+	// complete documents that are not MSG files and have failed AI redaction
+	const documentsWithFailedAiRedaction = nonMsgDocuments.filter(
+		(doc) => doc.latestDocumentVersion?.redactedStatus === 'ai_redaction_failed'
 	);
 
 	// incomplete documents
@@ -293,20 +307,35 @@ export const verifyAllDocumentsHaveRequiredPropertiesForPublishing = async (
 			msg: "The file type .msg cannot be set to 'Ready for publish'",
 			type: 'invalid-filetype'
 		})),
-		...documentsAwaitingAIRedaction.map((doc) => ({
-			guid: doc.guid,
-			msg: 'The document is awaiting AI redaction, so cannot be set to ready to publish',
-			type: 'awaiting-ai-redaction'
-		})),
-		...documentsAwaitingAIRedactionReview.map((doc) => ({
-			guid: doc.guid,
-			msg: 'The document is awaiting AI redaction review, so cannot be set to ready to publish',
-			type: 'awaiting-ai-redaction-review'
-		})),
 		...unredactedDocuments.map((doc) => ({
 			guid: doc.guid,
-			msg: 'Select redacted or redaction not needed in the document properties to change the status to ready to publish',
+			msg: 'Select redacted or redaction not needed in the document properties to be able to change the document status to ready to publish',
 			type: 'unredacted'
+		})),
+		...documentsAwaitingAiSuggestions.map((doc) => ({
+			guid: doc.guid,
+			msg: 'Redaction suggestions are being created and will then need to be reviewed, so the document status cannot be changed to ready to publish',
+			type: 'awaiting-ai-suggestions'
+		})),
+		...documentsAwaitingAiSuggestionsReview.map((doc) => ({
+			guid: doc.guid,
+			msg: 'The document contains redaction suggestions for review, so cannot be set to ready to publish',
+			type: 'awaiting-ai-suggestions-review'
+		})),
+		...documentsWithReviewedAiSuggestions.map((doc) => ({
+			guid: doc.guid,
+			msg: 'Finalise document redactions to be able to change the status to ready to publish',
+			type: 'ai-suggestions-reviewed'
+		})),
+		...documentsAwaitingAiRedaction.map((doc) => ({
+			guid: doc.guid,
+			msg: 'Finalising redactions is still in progress, so the document cannot be set to ready to publish',
+			type: 'awaiting-ai-redaction'
+		})),
+		...documentsWithFailedAiRedaction.map((doc) => ({
+			guid: doc.guid,
+			msg: 'Redaction failed - only redacted documents can be set to ready to publish',
+			type: 'ai-redaction-failed'
 		})),
 		...incompleteDocuments.map((id) => ({
 			guid: id,
