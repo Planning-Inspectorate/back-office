@@ -47,6 +47,8 @@ export interface Case {
 	subSector?: Sector;
 	additionalDetails?: {
 		subProjectType?: string | null;
+		recommendation?: string | null;
+		dcoStatus?: string | null;
 	};
 	caseEmail?: string;
 	applicant?: Applicant;

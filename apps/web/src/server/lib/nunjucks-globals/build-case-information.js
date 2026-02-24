@@ -8,7 +8,6 @@ import {
 	getDcoStatusDisplayName,
 	getDcoStatusTagClasses
 } from '../../applications/common/components/mappers/dco-status.mapper.js';
-
 const isMaterialChangeStaticDataViewModel = getIsMaterialChangeStaticDataViewModel();
 
 /**
@@ -29,8 +28,7 @@ const isMaterialChangeStaticDataViewModel = getIsMaterialChangeStaticDataViewMod
  * @property {boolean} isMaterialChange
  * @property {{ name?: string, displayNameEn: string }} sector
  * @property {{ name?: string, displayNameEn: string }} subSector
- * @property {{ subProjectType?: string, recommendation?: string}} [additionalDetails]
- *  * @property {{ subProjectType?: string, dcoStatus?: string }} [additionalDetails]
+ * @property {{ subProjectType?: string, recommendation?: string, dcoStatus?: string }} [additionalDetails]
  * @property {string | null} title
  * @property {string | null} description
  * @property {string | null} titleWelsh
@@ -53,7 +51,6 @@ export const buildCaseInformation = (params, isWelsh) => {
 	// Build DCO status HTML with tag, using key from additionalDetails
 	const dcoStatusKey = params.case?.additionalDetails?.dcoStatus ?? '';
 	let dcoStatusHtml = '';
-
 	if (dcoStatusKey) {
 		const displayName = getDcoStatusDisplayName(dcoStatusKey);
 		const tagClasses = getDcoStatusTagClasses(dcoStatusKey);
@@ -89,6 +86,7 @@ export const buildCaseInformation = (params, isWelsh) => {
 				: isMaterialChangeStaticDataViewModel[1].text,
 			url: 'material-change'
 		},
+
 		...(params.keyMembers?.caseManager
 			? [{ title: 'Case manager', text: params.keyMembers.caseManager }]
 			: []),
