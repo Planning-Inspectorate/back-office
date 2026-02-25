@@ -376,8 +376,9 @@ export const deleteFolder = async (caseId, folderId) => {
  * @returns {Promise<{ body?: AiRedactionResponse, errors?: { msg: string } }>}
  */
 export const postDocumentForAiRedaction = async (payload) => {
+	const redactionSuggestionsEndpoint = `${config.azureAiDocRedactionBaseUrl}/api/redact?code=${config.azureAiDocRedactionRedactKey}`;
 	try {
-		const body = await aiRedactionClientPost(config.azureAiDocRedactionEndpoint, {
+		const body = await aiRedactionClientPost(redactionSuggestionsEndpoint, {
 			json: payload
 		});
 

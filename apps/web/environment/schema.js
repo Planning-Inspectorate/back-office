@@ -28,8 +28,10 @@ export default baseSchema
 			categories: joi.string().optional(),
 			endpoint: joi.string().optional()
 		}),
-		azureAiDocRedactionEndpoint: joi.string().optional(),
+		azureAiDocRedactionBaseUrl: joi.string().optional(),
 		azureAiDocRedactionBlobStorageName: joi.string().optional(),
+		azureAiDocRedactionRedactKey: joi.string().optional(),
+		azureAiDocRedactionApplyKey: joi.string().optional(),
 		azureKeyVaultEnabled: joi.boolean().optional(),
 		blobStorageUrl: joi.string(),
 		cacheControl: joi.object({ maxAge: joi.string() }).options({ presence: 'required' }),
