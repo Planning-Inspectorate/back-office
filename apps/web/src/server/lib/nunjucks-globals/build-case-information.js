@@ -4,10 +4,7 @@ import { getIsMaterialChangeStaticDataViewModel } from '../static-data-view-mode
 import { getProjectTypeDisplayName } from '../../applications/common/components/mappers/project-types.mapper.js';
 import { SECTORS, SUB_SECTORS } from '../../applications/common/constants.js';
 import { getRecommendationDisplayName } from '../../applications/common/components/mappers/recommendation.mapper.js';
-import {
-	getDcoStatusDisplayName,
-	getDcoStatusTagClasses
-} from '../../applications/common/components/mappers/dco-status.mapper.js';
+import { buildDcoStatusRow } from '../utils/build-dco-status-row.js';
 const isMaterialChangeStaticDataViewModel = getIsMaterialChangeStaticDataViewModel();
 
 /**
@@ -48,26 +45,9 @@ const isMaterialChangeStaticDataViewModel = getIsMaterialChangeStaticDataViewMod
  * @returns {Row[]}
  * */
 export const buildCaseInformation = (params, isWelsh) => {
-	// Build DCO status HTML with tag, using key from additionalDetails
-	const dcoStatusKey = params.case?.additionalDetails?.dcoStatus ?? '';
-	let dcoStatusHtml = '';
-	if (dcoStatusKey) {
-		const displayName = getDcoStatusDisplayName(dcoStatusKey);
-		const tagClasses = getDcoStatusTagClasses(dcoStatusKey);
-		dcoStatusHtml = `<strong class="govuk-tag ${tagClasses}">${displayName}</strong>`;
-	}
-
 	return [
-		...(params.case.status === 'Post-Decision' && dcoStatusKey
-			? [
-					{
-						title: 'DCO status',
-						url: 'dco-status',
-						html: dcoStatusHtml,
-						classes: 'project-details__dco-status'
-					}
-			  ]
-			: []),
+		...(params.case.status === 'Post-Decision' ? [buildDcoStatusRow(params.case)] : []),
+
 		...(params.case.status === 'Post-Decision'
 			? [
 					{
@@ -79,6 +59,7 @@ export const buildCaseInformation = (params, isWelsh) => {
 					}
 			  ]
 			: []),
+
 		{
 			title: 'Material change',
 			text: params.case.isMaterialChange
