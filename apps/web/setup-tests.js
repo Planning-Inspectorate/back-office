@@ -25,3 +25,9 @@ jest.unstable_mockModule('./src/server/lib/ai-redaction-client', () => ({
 		})
 	}
 }));
+
+jest.unstable_mockModule('./src/common/feature-flags.js', () => ({
+	featureFlagClient: {
+		isFeatureActiveForCase: jest.fn()
+	}
+}));

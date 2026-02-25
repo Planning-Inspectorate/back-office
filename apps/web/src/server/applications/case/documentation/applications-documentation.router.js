@@ -16,6 +16,7 @@ import {
 import applicationsS51Router from '../s51/applications-s51.router.js';
 import { assertFolderIsNotReps } from './applications-documentation.guard.js';
 import { moveDocumentsMiddleware } from './middleware/move-documents/session.middleware.js';
+import { isRedactionActiveMiddleware } from './middleware/is-redaction-active.middleware.js';
 
 const applicationsDocumentationRouter = createRouter({ mergeParams: true });
 
@@ -108,7 +109,12 @@ applicationsDocumentationRouter
 applicationsDocumentationRouter
 	.route('/:folderId/document/:documentGuid/ai-redaction')
 	.post(
-		[locals.registerCase, locals.registerFolder, locals.registerDocumentGuid],
+		[
+			locals.registerCase,
+			locals.registerFolder,
+			locals.registerDocumentGuid,
+			isRedactionActiveMiddleware
+		],
 		asyncHandler(controller.postRequestAiRedaction)
 	);
 
