@@ -1,4 +1,4 @@
 {
 	"extends": "../../jsconfig.json",
-	"include": ["**/*.js"]
+	"include": ["src/regenerate-api-keys.js"]
 }

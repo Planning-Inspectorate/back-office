@@ -3,7 +3,7 @@ import { truncateTable } from '../prisma.truncate.js';
 /**
  * Seeding function to clear down a database, deletes all cases, documents, records, reference tables, etc
  *
- * @param {import('@prisma/client').PrismaClient} databaseConnector
+ * @param {import('#database-client').PrismaClient} databaseConnector
  */
 export async function deleteAllRecords(databaseConnector) {
 	const deleteCases = databaseConnector.case.deleteMany();

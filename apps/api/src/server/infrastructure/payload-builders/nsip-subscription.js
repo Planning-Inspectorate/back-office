@@ -10,7 +10,7 @@ import { EventType } from '@pins/event-client';
 /**
  * Convert from the subscription database type to the subscription response type
  *
- * @param {import('@prisma/client').Subscription} subscription
+ * @param {import('#database-client').Subscription} subscription
  * @returns {import('@pins/applications').Subscription}
  */
 export function subscriptionToResponse(subscription) {
@@ -27,7 +27,7 @@ export function subscriptionToResponse(subscription) {
  * Create a payload (event) for each subscription type for this subscription.
  * Each subscription type is it's own message/event.
  *
- * @param {import('@prisma/client').Subscription} subscription
+ * @param {import('#database-client').Subscription} subscription
  * @returns {NSIPSubscription[]}
  */
 export function buildSubscriptionPayloads(subscription) {
@@ -71,7 +71,7 @@ export function buildSubscriptionBasePayload(subscription) {
 }
 
 /**
- * @param {import('@prisma/client').Subscription} subscription
+ * @param {import('#database-client').Subscription} subscription
  * @returns {SubscriptionType[]}
  */
 export function subscriptionToTypes(subscription) {
@@ -100,7 +100,7 @@ export function subscriptionToTypes(subscription) {
  * @param {SubscriptionType[]} types
  * @param {T} subscription
  * @returns {T}
- * @template {import('@prisma/client').Prisma.SubscriptionCreateInput|import('@prisma/client').Prisma.SubscriptionUncheckedCreateInput} T
+ * @template {import('#database-client').Prisma.SubscriptionCreateInput|import('#database-client').Prisma.SubscriptionUncheckedCreateInput} T
  */
 export function typesToSubscription(types, subscription) {
 	const _subscription = {
@@ -144,8 +144,8 @@ export function typesToSubscription(types, subscription) {
  * For example, if a subscription is updated to add an "applicationDecided" subscription,
  * a Create event will be sent for that, and an Update event for any existing subscriptions.
  *
- * @param {import('@prisma/client').Subscription} existingSub
- * @param {import('@prisma/client').Subscription} newSub
+ * @param {import('#database-client').Subscription} existingSub
+ * @param {import('#database-client').Subscription} newSub
  * @returns {EventsByType}
  */
 export function subscriptionTypeChanges(existingSub, newSub) {

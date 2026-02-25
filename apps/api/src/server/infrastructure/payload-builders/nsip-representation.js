@@ -2,7 +2,7 @@
  * @typedef {import('@planning-inspectorate/data-model').Schemas.Representation} NSIPRepresentationSchema
  * @typedef {import('@planning-inspectorate/data-model').Schemas.ServiceUser} ServiceUserSchema
  *
- * @typedef {import('@prisma/client').Prisma.RepresentationGetPayload<{include: {case: true, user: true, represented: true, representative: true, attachments: true, representationActions: true} }>} RepresentationWithFullDetails
+ * @typedef {import('#database-client').Prisma.RepresentationGetPayload<{include: {case: true, user: true, represented: true, representative: true, attachments: true, representationActions: true} }>} RepresentationWithFullDetails
  * @typedef {import('@pins/applications.api').Schema.ServiceUser} ServiceUser
  */
 

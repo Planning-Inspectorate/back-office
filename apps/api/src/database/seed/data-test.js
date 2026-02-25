@@ -85,7 +85,7 @@ export function createRepresentation(caseReference, index, isValidStatus = false
 /**
  *
  * @param {number} caseId
- * @returns {import('@prisma/client').Prisma.ProjectUpdateCreateManyInput}
+ * @returns {import('#database-client').Prisma.ProjectUpdateCreateManyInput}
  */
 function generateProjectUpdate(caseId) {
 	const statuses = ['draft', 'published', 'unpublished', 'archived'];
@@ -98,7 +98,7 @@ function generateProjectUpdate(caseId) {
 	];
 	const dates = oneDatePerMonth();
 	/**
-	 * @type {import('@prisma/client').Prisma.ProjectUpdateCreateManyInput}
+	 * @type {import('#database-client').Prisma.ProjectUpdateCreateManyInput}
 	 */
 	const projectUpdate = {
 		caseId,
@@ -114,9 +114,9 @@ function generateProjectUpdate(caseId) {
 }
 
 /**
- * @param {import('@prisma/client').PrismaClient} databaseConnector
+ * @param {import('#database-client').PrismaClient} databaseConnector
  * @param {number} caseId
- * @returns {Promise<import('@prisma/client').Prisma.BatchPayload>}
+ * @returns {Promise<import('#database-client').Prisma.BatchPayload>}
  */
 function createProjectUpdates(databaseConnector, caseId) {
 	const numUpdates = pseudoRandomInt(0, 28);
@@ -131,7 +131,7 @@ function createProjectUpdates(databaseConnector, caseId) {
 
 /**
  *
- * @param {import('@prisma/client').PrismaClient} databaseConnector
+ * @param {import('#database-client').PrismaClient} databaseConnector
  * @param {{name: string, abbreviation: string, displayNameEn: string}} subSector
  * @param {number} index
  */
@@ -214,7 +214,7 @@ const createApplication = async (databaseConnector, subSector, index) => {
 };
 
 /**
- * @param {import('@prisma/client').PrismaClient} databaseConnector
+ * @param {import('#database-client').PrismaClient} databaseConnector
  */
 export async function seedTestData(databaseConnector) {
 	// now create some sample applications

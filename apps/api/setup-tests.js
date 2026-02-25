@@ -397,6 +397,10 @@ class MockPrismaClient {
 			return Array.isArray(results) ? results : [];
 		}
 	});
+
+	// see https://www.prisma.io/docs/orm/reference/prisma-client-reference#extends
+	// return the prisma client instance
+	$extends = jest.fn().mockImplementation(() => this);
 }
 
 const mockPrismaUse = jest.fn().mockResolvedValue();
@@ -404,15 +408,20 @@ const mockPrismaUse = jest.fn().mockResolvedValue();
 MockPrismaClient.prototype.$executeRawUnsafe = mockExecuteRawUnsafe;
 MockPrismaClient.prototype.$use = mockPrismaUse;
 
-class MockPrisma {}
-
-jest.unstable_mockModule('@prisma/client', () => ({
-	PrismaClient: MockPrismaClient,
-	Prisma: MockPrisma,
-	default: {
-		// PrismaClient: MockPrismaClient,
-		// Prisma: MockPrisma
+class MockPrisma {
+	// see https://www.prisma.io/docs/orm/prisma-client/client-extensions
+	static defineExtension(func) {
+		func(new MockPrismaClient());
 	}
+}
+
+jest.unstable_mockModule('#database-client', () => ({
+	PrismaClient: MockPrismaClient,
+	Prisma: MockPrisma
+}));
+
+jest.unstable_mockModule('@prisma/adapter-mssql', () => ({
+	PrismaMssql: jest.fn()
 }));
 
 const mockSendEvents = jest.fn().mockImplementation(sendEvents);

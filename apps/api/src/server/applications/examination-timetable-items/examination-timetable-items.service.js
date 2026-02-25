@@ -16,14 +16,14 @@ import { verifyNotTraining } from '../application/application.validators.js';
  * @typedef {import('@planning-inspectorate/data-model').Schemas.Event} NSIPExamTimetableItem
  * @typedef {import('@planning-inspectorate/data-model').Schemas.ExaminationTimetable} NSIPExamTimetable
  * @typedef {import('@pins/applications.api').Schema.Folder} Folder
- * @typedef {import('@prisma/client').Prisma.ExaminationTimetableItemGetPayload<{include: {ExaminationTimetableType: true} }>} ExaminationTimetableItemWithType
+ * @typedef {import('#database-client').Prisma.ExaminationTimetableItemGetPayload<{include: {ExaminationTimetableType: true} }>} ExaminationTimetableItemWithType
  */
 
 /**
  * Grabs the description and event line items from the examinationTimetableItem and parses them into a description string and
  * NSIPExamTimetableItemDescriptionLineItem array when the categoryType is Deadline
  *
- * @param {import('@prisma/client').ExaminationTimetableItem} examinationTimetableItem
+ * @param {import('#database-client').ExaminationTimetableItem} examinationTimetableItem
  * @returns { { description: string, descriptionWelsh: string, eventLineItems: { description: string, descriptionWelsh: string }[] | string } }
  */
 function extractDescriptionAndLineItems(examinationTimetableItem) {
@@ -315,7 +315,7 @@ export const deleteDeadlineSubFolders = async (caseId, parentFolderId) => {
 
 /**
  *
- * @param {import('@prisma/client').ExaminationTimetableItem} timetableItem
+ * @param {import('#database-client').ExaminationTimetableItem} timetableItem
  * @param {number} caseId
  * @returns {Promise<boolean>}
  */

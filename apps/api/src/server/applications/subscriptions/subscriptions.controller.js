@@ -113,7 +113,7 @@ export async function updateSubscription(request, response) {
 
 	const endDate = new Date(body.endDate);
 
-	/** @type {import('@prisma/client').Prisma.SubscriptionUpdateInput} */
+	/** @type {import('#database-client').Prisma.SubscriptionUpdateInput} */
 	const subscription = {
 		endDate
 	};

@@ -2,7 +2,7 @@ import { databaseConnector } from '../utils/database-connector.js';
 import { getFileNameWithoutSuffix } from '../applications/application/documents/document.service.js';
 
 /**
- * @typedef {import('@prisma/client').Prisma.S51AdviceDocumentGetPayload<{include: {Document: {include: {latestDocumentVersion: true }} }}>} S51AdviceDocumentWithLatestVersion
+ * @typedef {import('#database-client').Prisma.S51AdviceDocumentGetPayload<{include: {Document: {include: {latestDocumentVersion: true }} }}>} S51AdviceDocumentWithLatestVersion
  */
 
 /**
@@ -18,7 +18,7 @@ export const create = (s51AdviceDocument) => {
  * get the advice documents attached to an S51 Advice
  *
  * @param {number} adviceId
- * @returns {import('@prisma/client').PrismaPromise<S51AdviceDocumentWithLatestVersion [] >}
+ * @returns {import('#database-client').PrismaPromise<S51AdviceDocumentWithLatestVersion [] >}
  * */
 export const getForAdvice = (adviceId) =>
 	databaseConnector.s51AdviceDocument.findMany({
@@ -41,7 +41,7 @@ export const getForAdvice = (adviceId) =>
  *
  * @param {number} adviceId
  * @param {string} documentName
- * @returns {import('@prisma/client').PrismaPromise<import('@pins/applications.api').Schema.S51AdviceDocument | null>}
+ * @returns {import('#database-client').PrismaPromise<import('@pins/applications.api').Schema.S51AdviceDocument | null>}
  * */
 export const getDocumentInAdviceByName = (adviceId, documentName) => {
 	const fileNameWithoutSuffix = getFileNameWithoutSuffix(documentName);

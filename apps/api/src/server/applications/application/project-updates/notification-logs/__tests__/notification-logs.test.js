@@ -9,7 +9,7 @@ describe('notification-logs', () => {
 	describe('get', () => {
 		/**
 		 * @param {number} projectUpdateId
-		 * @returns {import('@prisma/client').ProjectUpdateNotificationLog}
+		 * @returns {import('#database-client').ProjectUpdateNotificationLog}
 		 */
 		const dummyLog = (projectUpdateId) => {
 			return {
