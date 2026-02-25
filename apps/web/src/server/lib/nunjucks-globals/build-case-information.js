@@ -4,7 +4,7 @@ import { getIsMaterialChangeStaticDataViewModel } from '../static-data-view-mode
 import { getProjectTypeDisplayName } from '../../applications/common/components/mappers/project-types.mapper.js';
 import { SECTORS, SUB_SECTORS } from '../../applications/common/constants.js';
 import { getRecommendationDisplayName } from '../../applications/common/components/mappers/recommendation.mapper.js';
-import { buildDcoStatusRow } from '../utils/build-dco-status-row.js';
+import { buildDcoStatusHtml } from '../utils/build-dco-status-row.js';
 const isMaterialChangeStaticDataViewModel = getIsMaterialChangeStaticDataViewModel();
 
 /**
@@ -46,7 +46,16 @@ const isMaterialChangeStaticDataViewModel = getIsMaterialChangeStaticDataViewMod
  * */
 export const buildCaseInformation = (params, isWelsh) => {
 	return [
-		...(params.case.status === 'Post-Decision' ? [buildDcoStatusRow(params.case)] : []),
+		...(params.case.status === 'Post-Decision'
+			? [
+					{
+						title: 'DCO status',
+						url: 'dco-status',
+						html: buildDcoStatusHtml(params.case),
+						classes: 'project-details__dco-status'
+					}
+			  ]
+			: []),
 
 		...(params.case.status === 'Post-Decision'
 			? [
