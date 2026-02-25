@@ -576,14 +576,6 @@ export async function caseDcoStatusData(request, locals) {
 	const { currentCase } = locals;
 	const selected =
 		currentCase?.additionalDetails?.dcoStatus ?? currentCase?.applicationDetails?.dcoStatus ?? '';
-	console.log(
-		'[caseDcoStatusData] case:',
-		currentCase?.additionalDetails,
-		'locals:',
-		currentCase,
-		'selected:',
-		selected
-	);
 
 	return {
 		values: { dcoStatus: selected },
