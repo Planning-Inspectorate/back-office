@@ -14,6 +14,7 @@ import {
 	checkFoldersHaveNoDocuments,
 	checkIfFolderIsCustom
 } from './folders.service.js';
+import { setPath } from '#repositories/folder.repository.js';
 
 /**
  * Handles a GET request for multiple folders and sends the corresponding details in the request
@@ -77,6 +78,7 @@ export const createFolder = async ({ params, body }, response) => {
 	}
 
 	const folder = await svcCreateFolder(params.id, body.name, body.parentFolderId);
+	await setPath(folder.id, folder.parentFolderId);
 	response.send(folder);
 };
 

@@ -3362,8 +3362,6 @@ exports[`Examination timetable page GET /case/123/examination-timetable should s
                             <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="accordion-pre-examination-heading-1"> 10 Oct 2023 - Test</span></h2>
                         </div>
                         <div id="accordion-pre-examination-content-1" class="govuk-accordion__section-content">
-                            <div class="top-right-link"><a class="govuk-link" href="/applications-service/case/123/examination-timetable/item/delete/2">Delete timetable item</a>
-                            </div>
                             <dl class="govuk-summary-list">
                                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Item type</dt>
                                     <dd class="govuk-summary-list__value">Procedural Deadline (Pre-Examination)</dd>
@@ -3418,8 +3416,6 @@ exports[`Examination timetable page GET /case/123/examination-timetable should s
                                 <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="accordion-examination-heading-1"> 10 Oct 2023 - Test</span></h2>
                             </div>
                             <div id="accordion-examination-content-1" class="govuk-accordion__section-content">
-                                <div class="top-right-link"><a class="govuk-link" href="/applications-service/case/123/examination-timetable/item/delete/1">Delete timetable item</a>
-                                </div>
                                 <dl class="govuk-summary-list">
                                     <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Item type</dt>
                                         <dd class="govuk-summary-list__value">Deadline</dd>
@@ -3719,8 +3715,6 @@ exports[`Publish examination timetable preview page GET /case/123/examination-ti
                     <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="accordion-pre-examination-heading-1"> 10 Oct 2023 - Test</span></h2>
                 </div>
                 <div id="accordion-pre-examination-content-1" class="govuk-accordion__section-content">
-                    <div class="top-right-link"><a class="govuk-link" href="/applications-service/case/123/examination-timetable/item/delete/2">Delete timetable item</a>
-                    </div>
                     <dl class="govuk-summary-list">
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Item type</dt>
                             <dd class="govuk-summary-list__value">Procedural Deadline (Pre-Examination)</dd>
@@ -3775,8 +3769,6 @@ exports[`Publish examination timetable preview page GET /case/123/examination-ti
                         <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="accordion-examination-heading-1"> 10 Oct 2023 - Test</span></h2>
                     </div>
                     <div id="accordion-examination-content-1" class="govuk-accordion__section-content">
-                        <div class="top-right-link"><a class="govuk-link" href="/applications-service/case/123/examination-timetable/item/delete/1">Delete timetable item</a>
-                        </div>
                         <dl class="govuk-summary-list">
                             <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Item type</dt>
                                 <dd class="govuk-summary-list__value">Deadline</dd>
@@ -3892,8 +3884,6 @@ exports[`Unpublish examination timetable preview page GET /case/123/examination-
                     <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="accordion-pre-examination-heading-1"> 10 Oct 2023 - Test</span></h2>
                 </div>
                 <div id="accordion-pre-examination-content-1" class="govuk-accordion__section-content">
-                    <div class="top-right-link"><a class="govuk-link" href="/applications-service/case/123/examination-timetable/item/delete/2">Delete timetable item</a>
-                    </div>
                     <dl class="govuk-summary-list">
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Item type</dt>
                             <dd class="govuk-summary-list__value">Procedural Deadline (Pre-Examination)</dd>
@@ -3948,8 +3938,6 @@ exports[`Unpublish examination timetable preview page GET /case/123/examination-
                         <h2 class="govuk-accordion__section-heading"><span class="govuk-accordion__section-button" id="accordion-examination-heading-1"> 10 Oct 2023 - Test</span></h2>
                     </div>
                     <div id="accordion-examination-content-1" class="govuk-accordion__section-content">
-                        <div class="top-right-link"><a class="govuk-link" href="/applications-service/case/123/examination-timetable/item/delete/1">Delete timetable item</a>
-                        </div>
                         <dl class="govuk-summary-list">
                             <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Item type</dt>
                                 <dd class="govuk-summary-list__value">Deadline</dd>
