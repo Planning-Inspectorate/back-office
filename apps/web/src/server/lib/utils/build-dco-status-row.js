@@ -6,17 +6,23 @@ import {
 /**
  * @param {{ additionalDetails?: { dcoStatus?: string } }} caseItem
  */
-export const buildDcoStatusRow = (caseItem) => {
+export const buildDcoStatusHtml = (caseItem) => {
 	const dcoStatusKey = caseItem?.additionalDetails?.dcoStatus ?? '';
-	const html = dcoStatusKey
+	return dcoStatusKey
 		? `<strong class="govuk-tag ${getDcoStatusTagClasses(dcoStatusKey)}">${getDcoStatusDisplayName(
 				dcoStatusKey
 		  )}</strong>`
 		: '';
+};
+
+/**
+ * @param {{ additionalDetails?: { dcoStatus?: string } }} caseItem
+ */
+export const buildDcoStatusRow = (caseItem) => {
 	return {
 		title: 'DCO status',
 		url: 'dco-status',
-		html,
+		html: buildDcoStatusHtml(caseItem),
 		classes: 'project-details__dco-status'
 	};
 };
