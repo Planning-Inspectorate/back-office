@@ -17,6 +17,7 @@
 	},
 	"dependencies": {
 		"@azure/identity": "*",
-		"@azure/keyvault-secrets": "*"
+		"@azure/keyvault-secrets": "*",
+		"pdf.js-extract": "*"
 	}
 }
