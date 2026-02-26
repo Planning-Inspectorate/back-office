@@ -1,8 +1,14 @@
 //@ts-nocheck
 import { jest } from '@jest/globals';
-``;
-import { isRedactionActiveMiddleware } from './is-redaction-active.middleware.js';
-import { featureFlagClient } from '../../../../../common/feature-flags.js';
+
+jest.unstable_mockModule('./src/common/feature-flags.js', () => ({
+	featureFlagClient: {
+		isFeatureActiveForCase: jest.fn()
+	}
+}));
+
+const { isRedactionActiveMiddleware } = await import('./is-redaction-active.middleware.js');
+const { featureFlagClient } = await import('../../../../../common/feature-flags.js');
 
 describe('isRedactionActiveMiddleware', () => {
 	let req, res, next;

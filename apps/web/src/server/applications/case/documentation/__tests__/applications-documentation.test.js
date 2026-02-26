@@ -23,6 +23,7 @@ import {
 	fixtureDocumentationTopLevelFolders
 } from '../../../../../../testing/applications/fixtures/options-item.js';
 import { createTestEnvironment } from '../../../../../../testing/index.js';
+import { featureFlagClient } from '../../../../../common/feature-flags.js';
 
 const { app, installMockApi, teardown } = createTestEnvironment();
 const request = supertest(app);
@@ -425,25 +426,6 @@ describe('applications documentation', () => {
 			expect(element.innerHTML).toMatchSnapshot();
 			expect(element.innerHTML).not.toContain('/edit/redaction');
 		});
-
-		it('should show AI redaction button for eligible PDF', async () => {
-			const response = await request.get(
-				`${baseUrl}/project-documentation/21/document/96/properties`
-			);
-			const element = parseHtml(response.text);
-
-			expect(element.innerHTML).toContain('AI Redaction');
-		});
-
-		it('should NOT show AI redaction button for non PDF', async () => {
-			const response = await request.get(
-				`${baseUrl}/project-documentation/21/document/100/properties`
-			);
-
-			const element = parseHtml(response.text);
-
-			expect(element.innerHTML).not.toContain('AI Redaction');
-		});
 	});
 
 	describe('Document upload new version', () => {
@@ -702,11 +684,37 @@ describe('applications documentation', () => {
 		});
 	});
 
-	describe('AI Redaction request', () => {
+	describe('AI Redaction feature enabled', () => {
+		beforeEach(async () => {
+			nocks();
+			await request.get('/applications-service/');
+
+			jest.spyOn(featureFlagClient, 'isFeatureActiveForCase').mockReturnValue(true);
+		});
+
+		afterEach(() => {
+			jest.restoreAllMocks();
+		});
+		it('should show AI redaction button for eligible PDF', async () => {
+			const response = await request.get(
+				`${baseUrl}/project-documentation/21/document/96/properties`
+			);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toContain('AI Redaction');
+		});
+
+		it('should NOT show AI redaction button for non PDF', async () => {
+			const response = await request.get(
+				`${baseUrl}/project-documentation/21/document/100/properties`
+			);
+
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).not.toContain('AI Redaction');
+		});
+
 		describe('POST AI redaction', () => {
-			beforeEach(async () => {
-				nocks();
-			});
 			it('sets awaiting_ai_redaction and redirects back to properties', async () => {
 				const aiRedactionDoc = {
 					...fixtureReadyToPublishDocumentationPdfFile,
