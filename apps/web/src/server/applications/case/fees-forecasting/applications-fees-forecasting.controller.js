@@ -209,11 +209,7 @@ export async function updateFeesForecastingEditSection(
 				apiErrors = errors;
 				break;
 			}
-			case 'add-project-meeting': {
-				const { errors } = await postMeeting(caseId, feesForecastingData);
-				apiErrors = errors;
-				break;
-			}
+			case 'add-project-meeting':
 			case 'add-evidence-plan-meeting': {
 				const { errors } = await postMeeting(caseId, feesForecastingData);
 				apiErrors = errors;
