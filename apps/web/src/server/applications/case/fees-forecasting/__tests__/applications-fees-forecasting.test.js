@@ -241,6 +241,63 @@ describe('Fees and Forecasting', () => {
 				meetingType: 'project',
 				agenda: 'Project Update Meeting (PUM)'
 			});
+
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+			expect(element.innerHTML).toContain('API error message');
+		});
+
+		it('should redirect to the index page if creating an evidence plan meeting was successful', async () => {
+			const flags = staticFlags;
+			flags['applics-1845-fees-forecasting'] = true;
+
+			const sectionName = 'add-evidence-plan-meeting';
+
+			nock('http://test/').post('/applications/123/meetings').reply(200, {});
+
+			const response = await request.post(`${baseUrl}/${sectionName}`).send({
+				meetingType: 'evidence_plan',
+				agenda: 'Test Meeting',
+				pinsRole: 'facilitator'
+			});
+
+			expect(response?.headers?.location).toEqual('../fees-forecasting');
+		});
+
+		it('should show a validation error when evidence plan meeting is missing required fields', async () => {
+			const flags = staticFlags;
+			flags['applics-1845-fees-forecasting'] = true;
+
+			const sectionName = 'add-evidence-plan-meeting';
+
+			const response = await request.post(`${baseUrl}/${sectionName}`).send({
+				meetingType: 'evidence_plan',
+				agenda: 'Test meeting',
+				pinsRole: ''
+			});
+
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toContain('Select Planning Inspectorate role');
+		});
+
+		it('should show an API error if creating an evidence plan meeting was NOT successful', async () => {
+			const flags = staticFlags;
+			flags['applics-1845-fees-forecasting'] = true;
+
+			const sectionName = 'add-evidence-plan-meeting';
+
+			nock('http://test/')
+				.post('/applications/123/meetings')
+				.reply(500, { errors: 'API error message' });
+
+			const response = await request.post(`${baseUrl}/${sectionName}`).send({
+				meetingType: 'evidence_plan',
+				agenda: 'Test Meeting',
+				pinsRole: 'facilitator'
+			});
+
 			const element = parseHtml(response.text);
 
 			expect(element.innerHTML).toMatchSnapshot();

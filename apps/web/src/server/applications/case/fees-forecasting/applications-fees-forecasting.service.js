@@ -50,18 +50,18 @@ export async function getMeetings(caseId) {
 }
 
 /**
- * Post a project meeting to the meetings endpoint
+ * Post a meeting to the meetings endpoint
  *
  * @param {string} caseId
- * @param {object} projectMeetingData
+ * @param {object} meetingData
  * @returns {Promise<any>}
  */
-export async function postProjectMeeting(caseId, projectMeetingData) {
+export async function postMeeting(caseId, meetingData) {
 	let response;
 
 	try {
 		response = await post(`applications/${caseId}/meetings`, {
-			json: projectMeetingData
+			json: meetingData
 		});
 	} catch (/** @type {*} */ error) {
 		logger.error(`[API] ${JSON.stringify(error?.response?.body?.errors) || 'Unknown error'}`);
