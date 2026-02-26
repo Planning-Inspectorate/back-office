@@ -71,7 +71,7 @@ exports[`Fees and Forecasting GET /case/123/fees-forecasting/ should render the 
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> MEM last updated</dt>
                     <dd class="govuk-summary-list__value">09 Mar 2024</dd>
-                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/fees-forecasting/maturity-evaluation-matrix">Change<span class="govuk-visually-hidden"> MEM last updated</span></a>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/fees-forecasting/section/maturity-evaluation-matrix">Change<span class="govuk-visually-hidden"> MEM last updated</span></a>
                     </dd>
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Additional comments (optional)</dt>
@@ -100,12 +100,12 @@ exports[`Fees and Forecasting GET /case/123/fees-forecasting/ should render the 
                             </div>
                             <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Estimated scoping submission date</dt>
                                 <dd                                 class="govuk-summary-list__value">09 Feb 2025</dd>
-                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/fees-forecasting/scoping-submission">Change<span class="govuk-visually-hidden"> estimated scoping submission date</span></a>
+                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/fees-forecasting/section/scoping-submission">Change<span class="govuk-visually-hidden"> estimated scoping submission date</span></a>
                                     </dd>
                             </div>
                             <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Adequacy of Consultation Milestone (AoCM) date</dt>
                                 <dd                                 class="govuk-summary-list__value">13 Mar 2025</dd>
-                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/fees-forecasting/consultation-milestone">Change<span class="govuk-visually-hidden"> adequacy of consultation milestone date</span></a>
+                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/fees-forecasting/section/consultation-milestone">Change<span class="govuk-visually-hidden"> adequacy of consultation milestone date</span></a>
                                     </dd>
                             </div>
                             <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Evidence plan process</dt>
@@ -143,7 +143,8 @@ exports[`Fees and Forecasting GET /case/123/fees-forecasting/ should render the 
                                     <td class="govuk-table__cell">180000000</td>
                                     <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--purple">Refunded</strong>
                                     </td>
-                                    <td class="govuk-table__cell"><a href="#" class="govuk-link">Review</a>
+                                    <td class="govuk-table__cell"><a href="/applications-service/case/4/fees-forecasting/section/manage-fee/id/1"
+                                        class="govuk-link">Review</a>
                                     </td>
                                 </tr>
                                 <tr class="govuk-table__row">
@@ -152,12 +153,14 @@ exports[`Fees and Forecasting GET /case/123/fees-forecasting/ should render the 
                                     <td class="govuk-table__cell">180000001</td>
                                     <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--purple">Refunded</strong>
                                     </td>
-                                    <td class="govuk-table__cell"><a href="#" class="govuk-link">Review</a>
+                                    <td class="govuk-table__cell"><a href="/applications-service/case/4/fees-forecasting/section/manage-fee/id/2"
+                                        class="govuk-link">Review</a>
                                     </td>
                                 </tr>
                             </tbody>
-                        </table><a href="/applications-service/case/4/fees-forecasting/add-new-fee" role="button"
-                        draggable="false" class="govuk-button govuk-button--secondary" data-module="govuk-button"> Add new fee</a>
+                        </table><a href="/applications-service/case/4/fees-forecasting/section/add-new-fee"
+                        role="button" draggable="false" class="govuk-button govuk-button--secondary"
+                        data-module="govuk-button"> Add new fee</a>
                     </div>
                 </div>
                 <div class="govuk-accordion__section">
@@ -188,7 +191,7 @@ exports[`Fees and Forecasting GET /case/123/fees-forecasting/ should render the 
                                     </td>
                                 </tr>
                             </tbody>
-                        </table><a href="/applications-service/case/4/fees-forecasting/add-project-meeting"
+                        </table><a href="/applications-service/case/4/fees-forecasting/section/add-project-meeting"
                         role="button" draggable="false" class="govuk-button govuk-button--secondary"
                         data-module="govuk-button"> Add project meeting</a>
                     </div>
@@ -298,17 +301,17 @@ exports[`Fees and Forecasting GET /case/123/fees-forecasting/ should render the 
                             </div>
                             <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Date updated programme document is received</dt>
                                 <dd                                 class="govuk-summary-list__value">10 Apr 2025</dd>
-                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/fees-forecasting/programme-document-received">Change<span class="govuk-visually-hidden"> date updated programme document is received</span></a>
+                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/fees-forecasting/section/programme-document-received">Change<span class="govuk-visually-hidden"> date updated programme document is received</span></a>
                                     </dd>
                             </div>
                             <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Date programme document reviewed by EST</dt>
                                 <dd                                 class="govuk-summary-list__value">11 May 2025</dd>
-                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/fees-forecasting/programme-document-reviewed">Change<span class="govuk-visually-hidden"> date programme document reviewed by EST</span></a>
+                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/fees-forecasting/section/programme-document-reviewed">Change<span class="govuk-visually-hidden"> date programme document reviewed by EST</span></a>
                                     </dd>
                             </div>
                             <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Date case team issued comments on programme document</dt>
                                 <dd                                 class="govuk-summary-list__value">07 Jun 2025</dd>
-                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/fees-forecasting/programme-document-comments">Change<span class="govuk-visually-hidden"> date case team issued comments on programme document</span></a>
+                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/fees-forecasting/section/programme-document-comments">Change<span class="govuk-visually-hidden"> date case team issued comments on programme document</span></a>
                                     </dd>
                             </div>
                         </dl>
@@ -320,7 +323,7 @@ exports[`Fees and Forecasting GET /case/123/fees-forecasting/ should render the 
 </main>"
 `;
 
-exports[`Fees and Forecasting GET /case/123/fees-forecasting/:sectionName should NOT render the page when feature flag is OFF 1`] = `
+exports[`Fees and Forecasting GET /case/123/fees-forecasting/section/:sectionName should NOT render the page when feature flag is OFF 1`] = `
 "<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
@@ -335,7 +338,7 @@ exports[`Fees and Forecasting GET /case/123/fees-forecasting/:sectionName should
 </main>"
 `;
 
-exports[`Fees and Forecasting GET /case/123/fees-forecasting/:sectionName should render the page when feature flag is ON 1`] = `
+exports[`Fees and Forecasting GET /case/123/fees-forecasting/section/:sectionName should render the page when feature flag is ON 1`] = `
 "<main class="govuk-main-wrapper" id="main-content">
     <h1 class="govuk-heading-l">Maturity Evaluation Matrix (MEM) last updated</h1>
     <form method="post" novalidate="novalidate" class="govuk-grid-row">
@@ -369,7 +372,274 @@ exports[`Fees and Forecasting GET /case/123/fees-forecasting/:sectionName should
 </main>"
 `;
 
-exports[`Fees and Forecasting POST /case/123/fees-forecasting/:sectionName should show an API error if creating a project meeting was NOT successful 1`] = `
+exports[`Fees and Forecasting GET /case/123/fees-forecasting/section/manage-fee/id/:feeId should render the manage fee page when feature flag is ON: manage-fee-edit 1`] = `
+"<main class="govuk-main-wrapper" id="main-content">
+    <h1 class="govuk-heading-l">Manage fee</h1>
+    <form method="post" novalidate="novalidate" class="pins-applications-create govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-form-group">
+                <fieldset class="govuk-fieldset" aria-describedby="invoiceStage-hint">
+                    <legend class="govuk-fieldset__legend"><strong>Case stage for fee</strong>
+                    </legend>
+                    <div id="invoiceStage-hint" class="govuk-hint">The relevant case stage attributed to this fee.</div>
+                    <div class="govuk-radios"
+                    data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="invoiceStage" name="invoiceStage"
+                            type="radio" value="pre_acceptance" checked>
+                            <label class="govuk-label govuk-radios__label" for="invoiceStage">Pre-acceptance</label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="invoiceStage-2" name="invoiceStage"
+                            type="radio" value="acceptance">
+                            <label class="govuk-label govuk-radios__label" for="invoiceStage-2">Acceptance</label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="invoiceStage-3" name="invoiceStage"
+                            type="radio" value="pre_examination">
+                            <label class="govuk-label govuk-radios__label" for="invoiceStage-3">Pre-examination</label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="invoiceStage-4" name="invoiceStage"
+                            type="radio" value="initial_examination">
+                            <label class="govuk-label govuk-radios__label" for="invoiceStage-4">Initial examination</label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="invoiceStage-5" name="invoiceStage"
+                            type="radio" value="final_examination">
+                            <label class="govuk-label govuk-radios__label" for="invoiceStage-5">Final examination</label>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="govuk-form-group">
+                <label class="govuk-label" for="invoiceNumber"><strong>Invoice number</strong>
+                </label>
+                <div id="invoiceNumber-hint" class="govuk-hint">For example, 1800004419</div>
+                <input class="govuk-input govuk-!-width-one-quarter"
+                id="invoiceNumber" name="invoiceNumber" type="text" value="180000000" aria-describedby="invoiceNumber-hint">
+            </div>
+            <div class="govuk-form-group">
+                <label class="govuk-label" for="amountDue"><strong>Amount due (optional)</strong>
+                </label>
+                <div id="amountDue-hint" class="govuk-hint">Total amount due, in pounds</div>
+                <div class="govuk-input__wrapper">
+                    <div class="govuk-input__prefix" aria-hidden="true">£</div>
+                    <input class="govuk-input govuk-!-width-one-quarter" id="amountDue"
+                    name="amountDue" type="text" value="20500.00" aria-describedby="amountDue-hint">
+                </div>
+            </div>
+        </div>
+        <div class="govuk-form-group govuk-grid-column-full ">
+            <fieldset class="govuk-fieldset">
+                <legend class="govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4">Date of invoice (optional)</legend>
+                <div id="invoicedDate-hint" class="govuk-hint">Date the invoice is submitted</div>
+                <div class="govuk-grid-column-one-third">
+                    <div class="govuk-grid-row pins-date-form-group">
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="invoicedDate.day">Day</label>
+                            <input class="govuk-input" id="invoicedDate.day" name="invoicedDate.day"
+                            type="text">
+                        </div>
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="invoicedDate.month">Month</label>
+                            <input class="govuk-input" id="invoicedDate.month" name="invoicedDate.month"
+                            type="text">
+                        </div>
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="invoicedDate.year">Year</label>
+                            <input class="govuk-input" id="invoicedDate.year" name="invoicedDate.year"
+                            type="text">
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <div class="govuk-form-group govuk-grid-column-full ">
+            <fieldset class="govuk-fieldset">
+                <legend class="govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4">Payment due date (optional)</legend>
+                <div id="paymentDueDate-hint" class="govuk-hint">Date the initial payment is due</div>
+                <div class="govuk-grid-column-one-third">
+                    <div class="govuk-grid-row pins-date-form-group">
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="paymentDueDate.day">Day</label>
+                            <input class="govuk-input" id="paymentDueDate.day" name="paymentDueDate.day"
+                            type="text" value="01">
+                        </div>
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="paymentDueDate.month">Month</label>
+                            <input class="govuk-input" id="paymentDueDate.month" name="paymentDueDate.month"
+                            type="text" value="01">
+                        </div>
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="paymentDueDate.year">Year</label>
+                            <input class="govuk-input" id="paymentDueDate.year" name="paymentDueDate.year"
+                            type="text" value="1970">
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <div class="govuk-form-group govuk-grid-column-full ">
+            <fieldset class="govuk-fieldset">
+                <legend class="govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4">Date of payment (optional)</legend>
+                <div id="paymentDate-hint" class="govuk-hint">Date the initial payment is received</div>
+                <div class="govuk-grid-column-one-third">
+                    <div class="govuk-grid-row pins-date-form-group">
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="paymentDate.day">Day</label>
+                            <input class="govuk-input" id="paymentDate.day" name="paymentDate.day"
+                            type="text" value="01">
+                        </div>
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="paymentDate.month">Month</label>
+                            <input class="govuk-input" id="paymentDate.month" name="paymentDate.month"
+                            type="text" value="01">
+                        </div>
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="paymentDate.year">Year</label>
+                            <input class="govuk-input" id="paymentDate.year" name="paymentDate.year"
+                            type="text" value="1970">
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-form-group">
+                <label class="govuk-label" for="refundCreditNoteNumber"><strong>Refund credit note number (optional)</strong>
+                </label>
+                <div id="refundCreditNoteNumber-hint" class="govuk-hint">For example, 1800004419</div>
+                <input class="govuk-input govuk-!-width-one-quarter"
+                id="refundCreditNoteNumber" name="refundCreditNoteNumber" type="text" aria-describedby="refundCreditNoteNumber-hint">
+            </div>
+            <div class="govuk-form-group">
+                <label class="govuk-label" for="refundAmount"><strong>Amount refunded (optional)</strong>
+                </label>
+                <div id="refundAmount-hint" class="govuk-hint">Total amount refunded, in pounds</div>
+                <div class="govuk-input__wrapper">
+                    <div class="govuk-input__prefix" aria-hidden="true">£</div>
+                    <input class="govuk-input govuk-!-width-one-quarter" id="refundAmount"
+                    name="refundAmount" type="text" aria-describedby="refundAmount-hint">
+                </div>
+            </div>
+        </div>
+        <div class="govuk-form-group govuk-grid-column-full ">
+            <fieldset class="govuk-fieldset">
+                <legend class="govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4">Refund issue date (optional)</legend>
+                <div id="refundIssueDate-hint" class="govuk-hint">Date the refund is issued</div>
+                <div class="govuk-grid-column-one-third">
+                    <div class="govuk-grid-row pins-date-form-group">
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="refundIssueDate.day">Day</label>
+                            <input class="govuk-input" id="refundIssueDate.day" name="refundIssueDate.day"
+                            type="text" value="01">
+                        </div>
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="refundIssueDate.month">Month</label>
+                            <input class="govuk-input" id="refundIssueDate.month" name="refundIssueDate.month"
+                            type="text" value="01">
+                        </div>
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="refundIssueDate.year">Year</label>
+                            <input class="govuk-input" id="refundIssueDate.year" name="refundIssueDate.year"
+                            type="text" value="1970">
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <div class='govuk-grid-column-one-third govuk-button-group'>
+            <button type="submit" class="govuk-button" data-module="govuk-button">Save and return</button><a href="/applications-service/case/123/fees-forecasting/section/manage-fee/id/1/delete"
+            role="button" draggable="false" class="govuk-button govuk-button--secondary"
+            data-module="govuk-button"> Remove</a>
+        </div>
+    </form>
+</main>"
+`;
+
+exports[`Fees and Forecasting GET /case/123/fees-forecasting/section/manage-fee/id/:feeId/delete should render the delete confirmation page: delete-fee-confirmation 1`] = `
+"<main class="govuk-main-wrapper" id="main-content">
+    <h1 class="govuk-heading-l">Delete fee</h1>
+    <form method="post" novalidate="novalidate" class="pins-applications-create govuk-grid-row">
+        <table class="govuk-table">
+            <thead class="govuk-table__head">
+                <tr class="govuk-table__row">
+                    <th scope="col" class="govuk-table__header">Stage</th>
+                    <th scope="col" class="govuk-table__header">Amount</th>
+                    <th scope="col" class="govuk-table__header">Invoice number</th>
+                    <th scope="col" class="govuk-table__header">Status</th>
+                </tr>
+            </thead>
+            <tbody class="govuk-table__body">
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell">Pre-acceptance</td>
+                    <td class="govuk-table__cell">£20500.00</td>
+                    <td class="govuk-table__cell">180000000</td>
+                    <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--purple">Refunded</strong>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="govuk-warning-text"><span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+            <strong             class="govuk-warning-text__text"><span class="govuk-visually-hidden">Warning</span> Deleting this fee will
+                remove it from future forecasting reporting.</strong>
+        </div>
+        <button type="submit" class="govuk-button govuk-button--warning" data-module="govuk-button">Delete</button>
+    </form>
+</main>"
+`;
+
+exports[`Fees and Forecasting POST /case/123/fees-forecasting/section/:sectionName should show an API error if updating was NOT successful 1`] = `
+"<main class="govuk-main-wrapper" id="main-content">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#msg">An error occurred, please try again later</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h1 class="govuk-heading-l">Maturity Evaluation Matrix (MEM) last updated</h1>
+    <form method="post" novalidate="novalidate" class="govuk-grid-row">
+        <div class="govuk-form-group govuk-grid-column-full ">
+            <fieldset class="govuk-fieldset">
+                <div class="govuk-grid-column-one-third">
+                    <div class="govuk-grid-row pins-date-form-group">
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="memLastUpdated.day">Day</label>
+                            <input class="govuk-input" id="memLastUpdated.day" name="memLastUpdated.day"
+                            type="text" value="01">
+                        </div>
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="memLastUpdated.month">Month</label>
+                            <input class="govuk-input" id="memLastUpdated.month" name="memLastUpdated.month"
+                            type="text" value="02">
+                        </div>
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="memLastUpdated.year">Year</label>
+                            <input class="govuk-input" id="memLastUpdated.year" name="memLastUpdated.year"
+                            type="text" value="2000">
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <div class='govuk-grid-column-one-third'>
+            <button type="submit" class="govuk-button" data-module="govuk-button">Save and return</button>
+        </div>
+    </form>
+</main>"
+`;
+
+exports[`Fees and Forecasting POST /case/123/fees-forecasting/section/manage-fee/id/:feeId/delete should show an API error if creating a project meeting was NOT successful 1`] = `
 "<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
@@ -444,55 +714,6 @@ exports[`Fees and Forecasting POST /case/123/fees-forecasting/:sectionName shoul
                             <label class="govuk-label govuk-hint" for="meetingDate.year">Year</label>
                             <input class="govuk-input" id="meetingDate.year" name="meetingDate.year"
                             type="text">
-                        </div>
-                    </div>
-                </div>
-            </fieldset>
-        </div>
-        <div class='govuk-grid-column-one-third'>
-            <button type="submit" class="govuk-button" data-module="govuk-button">Save and return</button>
-        </div>
-    </form>
-</main>"
-`;
-
-exports[`Fees and Forecasting POST /case/123/fees-forecasting/:sectionName should show an API error if updating was NOT successful 1`] = `
-"<main class="govuk-main-wrapper" id="main-content">
-    <div class="govuk-grid-row">
-        <div class="govuk-grid-column-full">
-            <div class="govuk-error-summary" data-module="govuk-error-summary">
-                <div role="alert">
-                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
-                    <div class="govuk-error-summary__body">
-                        <ul class="govuk-list govuk-error-summary__list">
-                            <li><a href="#msg">An error occurred, please try again later</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <h1 class="govuk-heading-l">Maturity Evaluation Matrix (MEM) last updated</h1>
-    <form method="post" novalidate="novalidate" class="govuk-grid-row">
-        <div class="govuk-form-group govuk-grid-column-full ">
-            <fieldset class="govuk-fieldset">
-                <div class="govuk-grid-column-one-third">
-                    <div class="govuk-grid-row pins-date-form-group">
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-hint" for="memLastUpdated.day">Day</label>
-                            <input class="govuk-input" id="memLastUpdated.day" name="memLastUpdated.day"
-                            type="text" value="01">
-                        </div>
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-hint" for="memLastUpdated.month">Month</label>
-                            <input class="govuk-input" id="memLastUpdated.month" name="memLastUpdated.month"
-                            type="text" value="02">
-                        </div>
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-hint" for="memLastUpdated.year">Year</label>
-                            <input class="govuk-input" id="memLastUpdated.year" name="memLastUpdated.year"
-                            type="text" value="2000">
                         </div>
                     </div>
                 </div>

@@ -179,8 +179,11 @@
 			values: values
 		}) }}
 
-		<div class='govuk-grid-column-one-third'>
+		<div class='govuk-grid-column-one-third govuk-button-group'>
 			{{ govukButton({ text: 'Save and return' }) }}
+			{% if componentType == 'manage-fee' %}
+				{{ govukButton({ text: 'Remove', classes: 'govuk-button--secondary', href: 'fees-forecasting-fee'|url({ caseId: caseId, feeId: values.id }) + '/delete' }) }}
+			{% endif %}
 		</div>
 	</form>
 {% endblock %}

@@ -43,6 +43,7 @@ export const urlSectionNames = {
 	programmeDocumentReceived: 'programme-document-received',
 	programmeDocumentReviewed: 'programme-document-reviewed',
 	programmeDocumentComments: 'programme-document-comments',
+	manageFee: 'manage-fee',
 	addNewFee: 'add-new-fee',
 	addProjectMeeting: 'add-project-meeting'
 };
@@ -88,6 +89,11 @@ export const sectionData = {
 		hintText: 'Issue date of the most recent initial comments on programme document to applicant',
 		componentType: 'date-input'
 	},
+	manageFee: {
+		sectionTitle: 'Manage fee',
+		pageHeading: 'Manage fee',
+		componentType: 'manage-fee'
+	},
 	addNewFee: {
 		sectionTitle: 'Add a new fee',
 		pageHeading: 'Add a new fee',
@@ -97,5 +103,13 @@ export const sectionData = {
 		sectionTitle: 'Add a project meeting',
 		pageHeading: 'Add a project meeting',
 		componentType: 'add-project-meeting'
+	}
+};
+
+export const sectionDeleteData = {
+	manageFee: {
+		sectionTitle: 'Delete fee',
+		pageHeading: 'Delete fee',
+		warningText: 'Deleting this fee will remove it from future forecasting reporting.'
 	}
 };
