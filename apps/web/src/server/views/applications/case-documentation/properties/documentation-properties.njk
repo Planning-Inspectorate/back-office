@@ -126,12 +126,14 @@
 							}) }}
 						{% endif %}
 
-						{% if showAiRedactionButton %}
-							{{ govukButton({
-								text: "AI Redaction",
-								classes: "govuk-button--secondary"
-							}) }}
-						{%  endif %}
+						{% if 'idas-340-redaction-service' | isFeatureActiveForCase(case.reference) %}
+							{% if showAiRedactionButton %}
+								{{ govukButton({
+									text: "AI Redaction",
+									classes: "govuk-button--secondary"
+								}) }}
+							{%  endif %}
+						{% endif %}
 
 						{% if documentationFile.publishedStatus === 'published' %}
 							{{ govukButton({
