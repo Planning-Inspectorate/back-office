@@ -11,6 +11,7 @@
 {% from "./case/sub-sector.njk" import subSector %}
 {% from "./case/project-type.njk" import subProjectType %}
 {% from "./case/regions.njk" import regions %}
+{% from "./case/dco-status.njk" import dcoStatus %}
 {% from "./case/zoom-level.njk" import zoomLevel %}
 {% from "./case/team-email.njk" import teamEmail %}
 {% from "./case/material-change.njk" import materialChange %}
@@ -45,7 +46,8 @@
 			or componentName == 'zoom-level'
 			or componentName == 'material-change'
 			or componentName == 'project-type'
-			or componentName == 'recommendation' %}
+			or componentName == 'recommendation'
+			or componentName == 'dco-status' %}
 			{% set componentHasPageHeading = true %}
 		{% endif %}
 	{% endif %}
@@ -137,6 +139,8 @@
 		{{ materialChange(values, errors, selectedValue, fieldset) }}
 	{% elif componentName == 'recommendation' %}
 		{{ recommendation(values, errors, recommendations, fieldset) }}
+	{% elif componentName == 'dco-status' %}
+		{{ dcoStatus(values, errors, dcoStatuses, fieldset) }}
 	{% elif componentName == 'organisation-name' %}
 		{{ organisationName(values, errors) }}
 	{% elif componentName == 'info-types' %}
