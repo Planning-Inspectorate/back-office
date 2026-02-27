@@ -4,7 +4,7 @@ import { getIsMaterialChangeStaticDataViewModel } from '../static-data-view-mode
 import { getProjectTypeDisplayName } from '../../applications/common/components/mappers/project-types.mapper.js';
 import { SECTORS, SUB_SECTORS } from '../../applications/common/constants.js';
 import { getRecommendationDisplayName } from '../../applications/common/components/mappers/recommendation.mapper.js';
-import { buildDcoStatusHtml } from '../utils/build-dco-status-row.js';
+import { buildDcoStatusHtml } from '../utils/build-dco-status-html.js';
 const isMaterialChangeStaticDataViewModel = getIsMaterialChangeStaticDataViewModel();
 
 /**
