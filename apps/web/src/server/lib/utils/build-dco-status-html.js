@@ -4,6 +4,8 @@ import {
 } from '../../applications/common/components/mappers/dco-status.mapper.js';
 
 /**
+ * Builds the DCO status tag HTML.
+ *
  * @param {{ additionalDetails?: { dcoStatus?: string } }} caseItem
  */
 export const buildDcoStatusHtml = (caseItem) => {
@@ -13,16 +15,4 @@ export const buildDcoStatusHtml = (caseItem) => {
 				dcoStatusKey
 		  )}</strong>`
 		: '';
-};
-
-/**
- * @param {{ additionalDetails?: { dcoStatus?: string } }} caseItem
- */
-export const buildDcoStatusRow = (caseItem) => {
-	return {
-		title: 'DCO status',
-		url: 'dco-status',
-		html: buildDcoStatusHtml(caseItem),
-		classes: 'project-details__dco-status'
-	};
 };
