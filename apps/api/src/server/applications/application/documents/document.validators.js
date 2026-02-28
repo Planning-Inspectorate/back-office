@@ -24,10 +24,6 @@ import { featureFlagClient } from '#utils/feature-flags.js';
  * @typedef {import('@pins/applications.api').Schema.DocumentVersionUpsertInput} DocumentVersionUpsertInput
  */
 
-export const getRedactionStatus = (/** @type {boolean} */ redactedStatus) => {
-	return redactedStatus ? 'redacted' : 'not_redacted';
-};
-
 /**
  * Fetch the document by its `guid` and related to a `caseId`.
  *

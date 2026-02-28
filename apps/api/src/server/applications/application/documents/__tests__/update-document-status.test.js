@@ -177,7 +177,7 @@ describe('Update document statuses and redacted statuses', () => {
 		// WHEN
 		const response = await request.patch('/applications/1/documents').send({
 			status: 'not_checked',
-			redacted: true,
+			redactedStatus: 'redacted',
 			documents: [{ guid: docGuid }]
 		});
 
@@ -428,7 +428,7 @@ describe('Update document statuses and redacted statuses', () => {
 
 		// WHEN
 		const response = await request.patch('/applications/1/documents').send({
-			redacted: true,
+			redactedStatus: 'redacted',
 			documents: [{ guid: docGuid }]
 		});
 
