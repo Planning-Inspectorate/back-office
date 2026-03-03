@@ -59,6 +59,7 @@ export class GenericEventClient {
 	 */
 	validateMessageToSchema = async (schemaName, events) => {
 		const { schemas, commands } = await loadAllSchemas();
+		/** @type {Record<string, any>} */
 		const allSchemas = { ...schemas, ...commands };
 
 		const ajv = new Ajv({
