@@ -393,7 +393,8 @@ describe('applications fees forecasting index view-model', () => {
 						},
 						component: 'table',
 						buttonText: 'Add evidence plan meeting',
-						buttonLink: '#'
+						buttonLink:
+							'/applications-service/case/4/fees-forecasting/section/add-evidence-plan-meeting'
 					},
 					{
 						heading: 'Pre-application supplementary components',

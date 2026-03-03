@@ -8,7 +8,7 @@ const allMeetings = [
 		agenda: 'This is a test agenda',
 		meetingDate: '2024-01-15T10:00:00Z',
 		meetingType: 'evidence_plan',
-		pinsRole: 'Observer',
+		pinsRole: 'observer',
 		createdAt: '2024-01-01T09:00:00Z'
 	},
 	{
@@ -25,7 +25,7 @@ const evidencePlanMeetingPayload = {
 	agenda: 'This is a payload agenda',
 	meetingDate: '2024-03-10T09:30:00Z',
 	meetingType: 'evidence_plan',
-	pinsRole: 'Observer'
+	pinsRole: 'observer'
 };
 
 const projectMeetingPayload = {

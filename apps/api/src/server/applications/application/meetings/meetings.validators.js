@@ -6,7 +6,7 @@ export const validateCreateMeeting = composeMiddleware(
 	body('agenda').exists({ checkFalsy: true }).withMessage('Agenda is required.'),
 	body('pinsRole')
 		.if(body('meetingType').equals('evidence_plan'))
-		.isIn(['Facilitator', 'Advisor', 'Observer'])
+		.isIn(['facilitator', 'advisor', 'observer'])
 		.withMessage('pinsRole must be Facilitator, Advisor, or Observer.'),
 	body('pinsRole')
 		.if(body('meetingType').equals('project'))
@@ -23,7 +23,7 @@ export const validatePatchMeeting = composeMiddleware(
 	body('agenda').optional().notEmpty().withMessage('Agenda cannot be empty.'),
 	body('pinsRole')
 		.optional()
-		.isIn(['Facilitator', 'Advisor', 'Observer'])
+		.isIn(['facilitator', 'advisor', 'observer'])
 		.withMessage('pinsRole must be Facilitator, Advisor, or Observer.'),
 	body('meetingDate')
 		.optional()
