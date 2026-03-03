@@ -19,57 +19,53 @@
 
 {% block pageContent %}
 	<form method="post" novalidate="novalidate" class="govuk-grid-row">
-		{% set otherAgendaHtml %}
-			{{ govukInput({
-				name: "otherAgenda",
-				classes: "govuk-!-width-one-third",
-				errorMessage: errors['otherAgenda'] and {
-					text: errors['otherAgenda'].msg
-				},
-				value: values['otherAgenda']
-			}) }}
-		{% endset %}
-
 		<div class='govuk-grid-column-two-thirds'>
-			{{ govukRadios({
+			{{ govukInput({
 				name: "agenda",
-				fieldset: {
-					legend: {
-						html: "<strong>Meeting agenda</strong>"
-					}
+				label: {
+					html: "<strong>Meeting agenda</strong>"
 				},
-				items: [
-					{
-						value: "Project Update Meeting (PUM)",
-						text: "Project Update Meeting (PUM)"
-					},
-					{
-						value: "Multi-Party Meeting (MPM)",
-						text: "Multi-Party Meeting (MPM)"
-					},
-					{
-						value: "Draft document review",
-						text: "Draft document review"
-					},
-					{
-						value: "Other",
-						text: "Other",
-						conditional: {
-						html: otherAgendaHtml
-						}
-					}
-				],
+				hint: {
+					text: "for example, Flood Risk Assessment (FRA)"
+				},
 				errorMessage: errors['agenda'] and {
 					text: errors['agenda'].msg
 				},
 				value: values['agenda']
+			}) }}
+
+			{{ govukRadios({
+				name: 'pinsRole',
+				fieldset: {
+					legend: {
+						html: "<strong>Planning Inspectorate role</strong>"
+					}
+				},
+				items: [
+					{
+						value: "facilitator",
+						text: "Facilitator"
+					},
+					{
+						value: "advisor",
+						text: "Advisor"
+					},
+					{
+						value: "observer",
+						text: "Observer"
+					}
+				],
+				errorMessage: errors['pinsRole'] and {
+					text: errors['pinsRole'].msg
+				},
+				value: values['pinsRole']
 			}) }}
 		</div>
 
 		{{ dateInput({
 			layout: {
 				fieldName: 'meetingDate',
-				label: "Date of project meeting",
+				label: "Date of evidence planning meeting",
 				classes: 'govuk-grid-column-one-third'
 			},
 			errors: errors,
@@ -80,5 +76,4 @@
 			{{ govukButton({ text: 'Save and return' }) }}
 		</div>
 	</form>
-
 {% endblock %}
