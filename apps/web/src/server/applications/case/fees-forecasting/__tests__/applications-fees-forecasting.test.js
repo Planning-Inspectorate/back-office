@@ -209,6 +209,119 @@ describe('Fees and Forecasting', () => {
 			const element = parseHtml(response.text);
 			expect(element.innerHTML).toContain('There is a problem');
 		});
+
+		it('should redirect to the index page if creating a project meeting was successful', async () => {
+			const flags = staticFlags;
+			flags['applics-1845-fees-forecasting'] = true;
+
+			const sectionName = 'add-project-meeting';
+
+			nock('http://test/').post('/applications/123/meetings').reply(200, {});
+
+			const response = await request.post(`${baseUrl}/section/${sectionName}`).send({
+				meetingType: 'project',
+				agenda: 'Project Update Meeting (PUM)'
+			});
+
+			expect(response?.headers?.location).toEqual(
+				'/applications-service/case/123/fees-forecasting/'
+			);
+		});
+
+		it('should show a validation error when project meeting is missing required fields', async () => {
+			const flags = staticFlags;
+			flags['applics-1845-fees-forecasting'] = true;
+
+			const sectionName = 'add-project-meeting';
+
+			const response = await request.post(`${baseUrl}/section/${sectionName}`).send({
+				meetingType: 'project',
+				agenda: ''
+			});
+
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toContain('Select Meeting agenda');
+		});
+
+		it('should show an API error if creating a project meeting was NOT successful', async () => {
+			const flags = staticFlags;
+			flags['applics-1845-fees-forecasting'] = true;
+
+			const sectionName = 'add-project-meeting';
+
+			nock('http://test/')
+				.post('/applications/123/meetings')
+				.reply(500, { errors: 'API error message' });
+
+			const response = await request.post(`${baseUrl}/section/${sectionName}`).send({
+				meetingType: 'project',
+				agenda: 'Project Update Meeting (PUM)'
+			});
+
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+			expect(element.innerHTML).toContain('API error message');
+		});
+
+		it('should redirect to the index page if creating an evidence plan meeting was successful', async () => {
+			const flags = staticFlags;
+			flags['applics-1845-fees-forecasting'] = true;
+
+			const sectionName = 'add-evidence-plan-meeting';
+
+			nock('http://test/').post('/applications/123/meetings').reply(200, {});
+
+			const response = await request.post(`${baseUrl}/section/${sectionName}`).send({
+				meetingType: 'evidence_plan',
+				agenda: 'Test Meeting',
+				pinsRole: 'facilitator'
+			});
+
+			expect(response?.headers?.location).toEqual(
+				'/applications-service/case/123/fees-forecasting/'
+			);
+		});
+
+		it('should show a validation error when evidence plan meeting is missing required fields', async () => {
+			const flags = staticFlags;
+			flags['applics-1845-fees-forecasting'] = true;
+
+			const sectionName = 'add-evidence-plan-meeting';
+
+			const response = await request.post(`${baseUrl}/section/${sectionName}`).send({
+				meetingType: 'evidence_plan',
+				agenda: 'Test meeting',
+				pinsRole: ''
+			});
+
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toContain('Select Planning Inspectorate role');
+		});
+
+		it('should show an API error if creating an evidence plan meeting was NOT successful', async () => {
+			const flags = staticFlags;
+			flags['applics-1845-fees-forecasting'] = true;
+
+			const sectionName = 'add-evidence-plan-meeting';
+
+			nock('http://test/')
+				.post('/applications/123/meetings')
+				.reply(500, { errors: 'API error message' });
+
+			const response = await request.post(`${baseUrl}/section/${sectionName}`).send({
+				meetingType: 'evidence_plan',
+				agenda: 'Test Meeting',
+				pinsRole: 'facilitator'
+			});
+
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+			expect(element.innerHTML).toContain('API error message');
+		});
 	});
 
 	describe('GET /case/123/fees-forecasting/section/manage-fee/id/:feeId', () => {
@@ -311,60 +424,6 @@ describe('Fees and Forecasting', () => {
 			expect(response?.headers?.location).toEqual(
 				'/applications-service/case/123/fees-forecasting/'
 			);
-		});
-
-		it('should redirect to the index page if creating a project meeting was successful', async () => {
-			const flags = staticFlags;
-			flags['applics-1845-fees-forecasting'] = true;
-
-			const sectionName = 'add-project-meeting';
-
-			nock('http://test/').post('/applications/123/meetings').reply(200, {});
-
-			const response = await request.post(`${baseUrl}/section/${sectionName}`).send({
-				meetingType: 'project',
-				agenda: 'Project Update Meeting (PUM)'
-			});
-
-			expect(response?.headers?.location).toEqual(
-				'/applications-service/case/123/fees-forecasting/'
-			);
-		});
-
-		it('should show a validation error when project meeting is missing required fields', async () => {
-			const flags = staticFlags;
-			flags['applics-1845-fees-forecasting'] = true;
-
-			const sectionName = 'add-project-meeting';
-
-			const response = await request.post(`${baseUrl}/section/${sectionName}`).send({
-				meetingType: 'project',
-				agenda: ''
-			});
-
-			const element = parseHtml(response.text);
-
-			expect(element.innerHTML).toContain('Select Meeting agenda');
-		});
-
-		it('should show an API error if creating a project meeting was NOT successful', async () => {
-			const flags = staticFlags;
-			flags['applics-1845-fees-forecasting'] = true;
-
-			const sectionName = 'add-project-meeting';
-
-			nock('http://test/')
-				.post('/applications/123/meetings')
-				.reply(500, { errors: 'API error message' });
-
-			const response = await request.post(`${baseUrl}/section/${sectionName}`).send({
-				meetingType: 'project',
-				agenda: 'Project Update Meeting (PUM)'
-			});
-			const element = parseHtml(response.text);
-
-			expect(element.innerHTML).toMatchSnapshot();
-			expect(element.innerHTML).toContain('API error message');
 		});
 	});
 });

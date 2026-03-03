@@ -32,7 +32,8 @@ export const feesForecastingValidator = async (request, response, next) => {
 		'programme-document-comments': validateFeesForecastingDate,
 		'add-new-fee': validateFeesForecastingAddFee,
 		'manage-fee': validateFeesForecastingAddFee,
-		'add-project-meeting': validateFeesForecastingProjectMeeting
+		'add-project-meeting': validateFeesForecastingProjectMeeting,
+		'add-evidence-plan-meeting': validateFeesForecastingEvidencePlanMeeting
 	};
 
 	if (Object.keys(validators).includes(sectionName)) {
@@ -134,6 +135,26 @@ export const validateFeesForecastingProjectMeeting = (request, response, next) =
 			.notEmpty()
 			.withMessage('Enter meeting agenda'),
 		projectMeetingDateValidation
+	];
+
+	return createValidator(validator)(request, response, next);
+};
+
+/**
+ * Checks evidence plan meeting data is formatted correctly
+ *
+ * @type {RequestHandler}
+ */
+export const validateFeesForecastingEvidencePlanMeeting = (request, response, next) => {
+	const evidencePlanMeetingDateValidation = validationDateValid(
+		{ fieldName: 'meetingDate', extendedFieldName: 'Date of evidence plan meeting' },
+		request.body
+	);
+
+	const validator = [
+		body('agenda').trim().notEmpty().withMessage('Enter Meeting agenda'),
+		body('pinsRole').trim().notEmpty().withMessage('Select Planning Inspectorate role'),
+		evidencePlanMeetingDateValidation
 	];
 
 	return createValidator(validator)(request, response, next);

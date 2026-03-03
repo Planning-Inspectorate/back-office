@@ -45,7 +45,8 @@ export const urlSectionNames = {
 	programmeDocumentComments: 'programme-document-comments',
 	manageFee: 'manage-fee',
 	addNewFee: 'add-new-fee',
-	addProjectMeeting: 'add-project-meeting'
+	addProjectMeeting: 'add-project-meeting',
+	addEvidencePlanMeeting: 'add-evidence-plan-meeting'
 };
 
 export const sectionData = {
@@ -103,6 +104,11 @@ export const sectionData = {
 		sectionTitle: 'Add a project meeting',
 		pageHeading: 'Add a project meeting',
 		componentType: 'add-project-meeting'
+	},
+	addEvidencePlanMeeting: {
+		sectionTitle: 'Add an evidence plan meeting',
+		pageHeading: 'Add an evidence plan meeting',
+		componentType: 'add-evidence-plan-meeting'
 	}
 };
 

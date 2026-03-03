@@ -6,7 +6,7 @@ import {
 	getInvoices,
 	getMeetings,
 	postNewFee,
-	postProjectMeeting,
+	postMeeting,
 	updateFee,
 	updateFeesForecasting
 } from './applications-fees-forecasting.service.js';
@@ -90,6 +90,10 @@ export async function getFeesForecastingEditSection(request, response) {
 			return renderTemplate(
 				`applications/case-fees-forecasting/fees-forecasting-manage-project-meeting.njk`
 			);
+		case 'add-evidence-plan-meeting':
+			return renderTemplate(
+				`applications/case-fees-forecasting/fees-forecasting-manage-evidence-plan-meeting.njk`
+			);
 	}
 }
 
@@ -135,7 +139,7 @@ export async function updateFeesForecastingEditSection(request, response) {
 			const date = new Date(`${year}-${month}-${day}`);
 			values[fieldName] = Math.floor(date.getTime() / 1000);
 
-			// To align with key dates, users can submit three empty date fields to clear the date from the index page, which requires a null value to be set to replace the existing date in the database.
+			// Allows date to be cleared from index page if all fields are empty to align with key dates
 			isValid(date)
 				? (feesForecastingData[fieldName] = date)
 				: (feesForecastingData[fieldName] = null);
@@ -185,6 +189,24 @@ export async function updateFeesForecastingEditSection(request, response) {
 
 			break;
 		}
+		case 'add-evidence-plan-meeting': {
+			Object.keys(body).forEach((key) => {
+				const dateFieldMatch = key.match(/^(meetingDate)\.(day|month|year)$/);
+
+				if (dateFieldMatch) {
+					mapDateValues(dateFieldMatch[1]);
+				} else {
+					if (body[key] !== '') {
+						values[key] = body[key];
+						feesForecastingData[key] = body[key];
+					}
+				}
+			});
+
+			feesForecastingData.meetingType = 'evidence_plan';
+
+			break;
+		}
 	}
 
 	if (!validationErrors) {
@@ -204,8 +226,9 @@ export async function updateFeesForecastingEditSection(request, response) {
 				apiErrors = errors;
 				break;
 			}
-			case 'add-project-meeting': {
-				const { errors } = await postProjectMeeting(caseId, feesForecastingData);
+			case 'add-project-meeting':
+			case 'add-evidence-plan-meeting': {
+				const { errors } = await postMeeting(caseId, feesForecastingData);
 				apiErrors = errors;
 				break;
 			}
@@ -237,6 +260,11 @@ export async function updateFeesForecastingEditSection(request, response) {
 			case 'add-project-meeting': {
 				return renderError(
 					`applications/case-fees-forecasting/fees-forecasting-manage-project-meeting.njk`
+				);
+			}
+			case 'add-evidence-plan-meeting': {
+				return renderError(
+					`applications/case-fees-forecasting/fees-forecasting-manage-evidence-plan-meeting.njk`
 				);
 			}
 		}
