@@ -80,7 +80,7 @@ const layouts = {
 		items: [
 			{ value: 'redacted', text: 'Redacted' },
 			{ value: 'not_redacted', text: 'Unredacted', checked: true },
-			{ value: 'no_redaction_required', text: 'Redaction not required' }
+			{ value: 'no_redaction_required', text: 'Redaction not needed' }
 		],
 		pageTitle: 'Select the redaction status',
 		label: 'Redaction',
