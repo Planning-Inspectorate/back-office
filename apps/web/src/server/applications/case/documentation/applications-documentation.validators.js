@@ -18,7 +18,7 @@ export const validateApplicationsDocumentsToUnpublish = createValidator(
 );
 
 export const validateApplicationsDocumentationsActions = createValidator(
-	body('isRedacted')
+	body('redactedStatus')
 		.custom((value, { req }) => !!value || !!req?.body?.status)
 		.withMessage('Select a status to apply a change')
 );

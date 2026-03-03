@@ -140,8 +140,7 @@ export async function viewApplicationsCaseDocumentationFolder(request, response)
 export async function updateApplicationsCaseDocumentationFolder(request, response) {
 	const { errors: validationErrors, body } = request;
 	const { caseId } = response.locals;
-	const { status, isRedacted, selectedFilesIds } = body;
-	const redacted = typeof isRedacted === 'string' ? { redacted: isRedacted === '1' } : {};
+	const { status, redactedStatus, selectedFilesIds } = body;
 
 	const properties = await documentationFolderData(
 		response.locals.caseId,
@@ -152,7 +151,7 @@ export async function updateApplicationsCaseDocumentationFolder(request, respons
 
 	const payload = {
 		status,
-		...redacted,
+		redactedStatus,
 		documents: (selectedFilesIds || []).map((guid) => ({ guid }))
 	};
 
