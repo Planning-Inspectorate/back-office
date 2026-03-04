@@ -62,9 +62,11 @@ export const redactedStatusEnum = new Enum([
 	'not_redacted',
 	'redacted',
 	'ai_redaction_failed',
+	'awaiting_ai_suggestions',
 	'awaiting_ai_redaction',
 	'no_redaction_required',
-	'ai_redaction_review_required'
+	'ai_suggestions_review_required',
+	'ai_suggestions_reviewed'
 ]);
 
 export const publishedStatusEnum = new Enum([
