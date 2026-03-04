@@ -1036,17 +1036,10 @@ export async function postRequestAiRedaction(request, response) {
 		setAiRedactionBanner(session, '', errors.msg, 'error');
 	} else if (result?.body?.pollEndpoint) {
 		await updateDocumentMetaData(caseId, documentGuid, {
-			redactedStatus: 'awaiting_ai_redaction'
+			redactedStatus: 'awaiting_ai_suggestions'
 		});
 
-		setAiRedactionBanner(
-			session,
-			'AI redaction in progress',
-			`This process can take some time. Check back later for a new
-			version of the document with redactions suggested from the
-			AI redaction tool.`,
-			'info'
-		);
+		setAiRedactionBanner(session, 'Making redaction suggestions, check back later', ``, 'info');
 	}
 
 	return response.redirect(
