@@ -701,7 +701,7 @@ describe('applications documentation', () => {
 			);
 			const element = parseHtml(response.text);
 
-			expect(element.innerHTML).toContain('AI Redaction');
+			expect(element.innerHTML).toContain('Suggest redactions');
 		});
 
 		it('should NOT show AI redaction button for non PDF', async () => {
@@ -711,7 +711,7 @@ describe('applications documentation', () => {
 
 			const element = parseHtml(response.text);
 
-			expect(element.innerHTML).not.toContain('AI Redaction');
+			expect(element.innerHTML).not.toContain('Suggest redactions');
 		});
 
 		describe('POST AI redaction', () => {
