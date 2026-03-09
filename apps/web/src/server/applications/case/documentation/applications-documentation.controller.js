@@ -1022,10 +1022,10 @@ export async function postRequestAiRedaction(request, response) {
 
 	const document = await getCaseDocumentationFileInfo(caseId, documentGuid);
 
-	const payload = buildAiRedactionPayload(document);
-
+	const payload = buildAiRedactionPayload(document, caseId);
+	console.log('### AI redaction payload', payload);
 	const result = await postDocumentForAiRedaction(payload);
-
+	console.log('### AI redaction result', result);
 	const { errors } = result;
 
 	if (errors) {
