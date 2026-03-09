@@ -385,6 +385,8 @@ export const postDocumentForAiRedaction = async (payload) => {
 			json: payload
 		});
 
+		logger.info({ body }, '[AI redaction] response received');
+
 		return { body };
 	} catch (/** @type {*} */ error) {
 		logger.error(

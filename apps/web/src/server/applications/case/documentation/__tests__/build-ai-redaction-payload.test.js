@@ -13,28 +13,29 @@ describe('buildAiRedactionPayload', () => {
 	const baseDoc = {
 		...fixtureReadyToPublishDocumentationPdfFile,
 		privateBlobPath: '/application/CASE1/guid-123/1',
-		privateBlobContainer: 'blob-container'
+		privateBlobContainer: 'blob-container',
+		version: 1
 	};
 
 	it('sets storageName from config', () => {
-		const payload = buildAiRedactionPayload(baseDoc);
+		const payload = buildAiRedactionPayload(baseDoc, 'CASE1');
 
 		expect(payload.readDetails.properties.storageName).toBe('test-storage');
 		expect(payload.writeDetails.properties.storageName).toBe('test-storage');
 	});
 
 	it('throws if required blob info is missing', () => {
-		expect(() => buildAiRedactionPayload({ ...baseDoc, privateBlobPath: undefined })).toThrow(
-			'Document is missing required blob information for AI redaction.'
-		);
+		expect(() =>
+			buildAiRedactionPayload({ ...baseDoc, privateBlobPath: undefined }, 'CASE1')
+		).toThrow('Document is missing required blob information for AI redaction.');
 	});
 
 	it('includes expected metadata fields', () => {
-		const payload = buildAiRedactionPayload(baseDoc);
+		const payload = buildAiRedactionPayload(baseDoc, 'CASE1');
 
 		expect(payload.metadata).toMatchObject({
 			documentGuid: '3',
-			version: undefined,
+			version: 1,
 			caseRef: '',
 			documentRef: undefined,
 			folderId: 11,
@@ -43,15 +44,9 @@ describe('buildAiRedactionPayload', () => {
 		});
 	});
 
-	it('replaces the last path segment with a timestamp for destination blob path', () => {
-		jest.useFakeTimers().setSystemTime(new Date('2026-01-01T00:00:00.000Z'));
+	it('replaces the last path segment with expected new version number for destination blob path', () => {
+		const payload = buildAiRedactionPayload(baseDoc, 'CASE1');
 
-		const payload = buildAiRedactionPayload(baseDoc);
-
-		expect(payload.writeDetails.properties.blobPath).toBe(
-			'/application/CASE1/guid-123/1767225600000'
-		);
-
-		jest.useRealTimers();
+		expect(payload.writeDetails.properties.blobPath).toBe('application/CASE1/guid-123/2');
 	});
 });
