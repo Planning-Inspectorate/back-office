@@ -364,7 +364,9 @@ describe('applications fees forecasting index view-model', () => {
 								[
 									{ text: 'Project Update Meeting (PUM)' },
 									{ text: '11 Jan 2025' },
-									{ html: '<a href="#" class="govuk-link">Change</a>' }
+									{
+										html: '<a href="/applications-service/case/4/fees-forecasting/section/manage-project-meeting/id/1" class="govuk-link">Change</a>'
+									}
 								]
 							],
 							head: [{ text: 'Meeting agenda' }, { text: 'Date' }, { text: 'Action' }]
