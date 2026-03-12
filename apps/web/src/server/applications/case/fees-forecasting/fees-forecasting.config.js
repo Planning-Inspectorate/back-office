@@ -177,5 +177,28 @@ export const sectionDeleteData = {
 				[{ text: tableData.agenda }, { text: helpers.formatDateForDisplay(tableData.meetingDate) }]
 			]
 		}
+	},
+	manageEvidencePlanMeeting: {
+		sectionTitle: 'Delete evidence plan meeting',
+		pageHeading: 'Delete evidence plan meeting',
+		warningText: 'Deleting this meeting will remove it from future forecasting reporting.',
+		backLinkSectionName: 'fees-forecasting-evidence-plan-meeting',
+		/**
+		 *
+		 * @param {{ caseId: string, id: string }} tableData
+		 * @returns {Object}
+		 */
+		getBackLinkParams: (tableData) => ({ caseId: tableData.caseId, meetingId: tableData.id }),
+		tableConfig: {
+			headers: ['Meeting agenda', 'Date'],
+			/**
+			 * @param {{ agenda: string, meetingDate: string}} tableData
+			 * @param {{ formatDateForDisplay: Function }} helpers
+			 * @returns {Array<Array<{ text?: string }>>}
+			 */
+			getRows: (tableData, helpers) => [
+				[{ text: tableData.agenda }, { text: helpers.formatDateForDisplay(tableData.meetingDate) }]
+			]
+		}
 	}
 };

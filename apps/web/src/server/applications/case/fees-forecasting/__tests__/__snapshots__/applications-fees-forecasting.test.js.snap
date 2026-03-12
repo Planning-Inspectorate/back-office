@@ -861,7 +861,7 @@ exports[`Fees and Forecasting POST /case/123/fees-forecasting/section/:sectionNa
                 </div>
             </fieldset>
         </div>
-        <div class='govuk-grid-column-one-third'>
+        <div class='govuk-grid-column-one-third govuk-button-group'>
             <button type="submit" class="govuk-button" data-module="govuk-button">Save and return</button>
         </div>
     </form>

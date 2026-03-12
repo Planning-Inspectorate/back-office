@@ -357,7 +357,7 @@ export async function updateFeesForecastingEditSection(request, response) {
 /**
  * View the fees and forecasting delete confirmation page
  *
- * @param {import('express').Request<{ feeId: string, meetingId: string, caseId?: string }> & { isFeeDeletion?: boolean, isProjectMeetingDeletion?: boolean }} request
+ * @param {import('express').Request<{ feeId: string, meetingId: string, caseId?: string }> & { isFeeDeletion?: boolean, isProjectMeetingDeletion?: boolean, isEvidencePlanMeetingDeletion?: boolean }} request
  * @param {import('express').Response} response
  * @returns {Promise<void>}
  */
@@ -378,6 +378,14 @@ export async function getFeesForecastingDeleteSection(request, response) {
 			'manage-project-meeting',
 			meeting
 		);
+	} else if (request.isEvidencePlanMeetingDeletion) {
+		const { meetingId } = request.params;
+		const meeting = await getMeeting(caseId, meetingId);
+		deleteSectionViewModel = getFeesForecastingDeleteViewModel(
+			projectName,
+			'manage-evidence-plan-meeting',
+			meeting
+		);
 	}
 
 	return response.render(
@@ -389,7 +397,7 @@ export async function getFeesForecastingDeleteSection(request, response) {
 /**
  * Handle the deletion of fees and forecasting data
  *
- * @param {import('express').Request<{ feeId: string, meetingId: string }> & { isFeeDeletion?: boolean, isProjectMeetingDeletion?: boolean }} request
+ * @param {import('express').Request<{ feeId: string, meetingId: string }> & { isFeeDeletion?: boolean, isProjectMeetingDeletion?: boolean, isEvidencePlanMeetingDeletion?: boolean }} request
  * @param {import('express').Response} response
  * @returns {Promise<void>}
  */
@@ -426,6 +434,26 @@ export async function deleteFeesForecastingField(request, response) {
 			const deleteSectionViewModel = getFeesForecastingDeleteViewModel(
 				projectName,
 				'manage-project-meeting',
+				meeting
+			);
+			return response.render(
+				`applications/case-fees-forecasting/fees-forecasting-delete-confirmation.njk`,
+				{
+					...deleteSectionViewModel,
+					errors
+				}
+			);
+		}
+	} else if (request.isEvidencePlanMeetingDeletion) {
+		const { meetingId } = request.params;
+		const meeting = await getMeeting(caseId, meetingId);
+		const meetingAgenda = meeting?.agenda || 'Meeting';
+		const { errors } = await deleteMeeting(caseId, meetingId, meetingAgenda);
+
+		if (errors) {
+			const deleteSectionViewModel = getFeesForecastingDeleteViewModel(
+				projectName,
+				'manage-evidence-plan-meeting',
 				meeting
 			);
 			return response.render(
