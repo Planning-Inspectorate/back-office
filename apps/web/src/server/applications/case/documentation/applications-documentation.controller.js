@@ -11,10 +11,7 @@ import {
 	setSessionBanner,
 	setSessionDocumentNameOnDeletion,
 	getSessionDocumentNameOnDeletion,
-	deleteSessionDocumentNameOnDeletion,
-	setAiRedactionBanner,
-	getAiRedactionBanner,
-	deleteAiRedactionBanner
+	deleteSessionDocumentNameOnDeletion
 } from '../../common/services/session.service.js';
 import { buildBreadcrumbItems } from '../applications-case.locals.js';
 import {
@@ -52,6 +49,7 @@ import { getDisplayValue } from '../fees-forecasting/applications-fees-forecasti
 import { redactionStatusDisplayValues } from './applications-documentation.config.js';
 import { canRequestAiRedaction } from './utils/can-request-ai-redaction.js';
 import { buildAiRedactionPayload } from './utils/build-ai-redaction-payload.js';
+import { getAiRedactionBannerFromStatus } from './utils/get-ai-redaction-banner-from-status.js';
 
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
 /** @typedef {import('../applications-case.locals.js').ApplicationCaseLocals} ApplicationCaseLocals */
@@ -289,7 +287,7 @@ export async function viewApplicationsCaseDocumentationUnpublishSinglePage(reque
  * @type {import('@pins/express').RenderHandler<{documentationFile: DocumentationFile, documentVersions: DocumentVersion[], updateBannerText: string|undefined, showSuccessBanner: boolean|undefined, caseIsWelsh: boolean, showAiRedactionButton: boolean, aiRedactionBanner: {}|undefined}, {}>}
  */
 export async function viewApplicationsCaseDocumentationProperties({ session }, response) {
-	const { caseId, caseIsWelsh, documentGuid } = response.locals;
+	const { caseId, folderId, caseIsWelsh, documentGuid } = response.locals;
 
 	let documentationFile = await getCaseDocumentationFileInfo(caseId, documentGuid);
 	let documentVersions = await getCaseDocumentationFileVersions(documentGuid);
@@ -314,11 +312,10 @@ export async function viewApplicationsCaseDocumentationProperties({ session }, r
 	const showSuccessBanner = !!updateBannerText || getSuccessBanner(session);
 
 	const showAiRedactionButton = canRequestAiRedaction(documentationFile);
-	const aiRedactionBanner = getAiRedactionBanner(session);
+	const aiRedactionBanner = getAiRedactionBannerFromStatus(documentationFile, caseId, folderId);
 
 	deleteSessionBanner(session);
 	destroySuccessBanner(session);
-	deleteAiRedactionBanner(session);
 
 	response.render(`applications/case-documentation/properties/documentation-properties`, {
 		documentationFile,
@@ -1018,7 +1015,6 @@ export async function postDocumentationFolderExplorer(request, response) {
  */
 export async function postRequestAiRedaction(request, response) {
 	const { caseId, folderId, documentGuid } = response.locals;
-	const { session } = request;
 
 	const document = await getCaseDocumentationFileInfo(caseId, documentGuid);
 
@@ -1032,14 +1028,10 @@ export async function postRequestAiRedaction(request, response) {
 		await updateDocumentMetaData(caseId, documentGuid, {
 			redactedStatus: 'ai_redaction_failed'
 		});
-
-		setAiRedactionBanner(session, '', errors.msg, 'error');
 	} else if (result?.body?.pollEndpoint) {
 		await updateDocumentMetaData(caseId, documentGuid, {
 			redactedStatus: 'awaiting_ai_suggestions'
 		});
-
-		setAiRedactionBanner(session, 'Making redaction suggestions, check back later', ``, 'info');
 	}
 
 	return response.redirect(
