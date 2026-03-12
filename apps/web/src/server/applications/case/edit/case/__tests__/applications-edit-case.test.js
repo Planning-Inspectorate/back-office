@@ -393,7 +393,7 @@ describe('applications edit', () => {
 			const element = parseHtml(response.text);
 
 			expect(element.innerHTML).toMatchSnapshot();
-			expect(element.innerHTML).toContain('DCO status');
+			expect(element.innerHTML).toContain('Development Consent Order');
 		});
 	});
 
