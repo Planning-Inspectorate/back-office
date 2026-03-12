@@ -15,7 +15,6 @@ export const buildAiRedactionPayload = (document, caseId) => {
 
 	return {
 		tryApplyProvisionalRedactions: true,
-		skipRedaction: true, // TODO: Remove this flag when ready to apply redactions
 		ruleName: 'default',
 		fileKind: 'pdf',
 		pinsService: 'CBOS',
@@ -25,7 +24,7 @@ export const buildAiRedactionPayload = (document, caseId) => {
 			teamEmail: '',
 			properties: {
 				blobPath: blobPath,
-				containerName: 'document-service-uploads',
+				containerName: document.privateBlobContainer,
 				storageName: config.azureAiDocRedactionBlobStorageName
 			}
 		},
@@ -34,7 +33,7 @@ export const buildAiRedactionPayload = (document, caseId) => {
 			teamEmail: '',
 			properties: {
 				blobPath: destinationPath,
-				containerName: 'document-service-uploads',
+				containerName: document.privateBlobContainer,
 				storageName: config.azureAiDocRedactionBlobStorageName
 			}
 		},
