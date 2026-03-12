@@ -19,6 +19,15 @@ const mockInvoice = {
 	refundIssueDate: '2025-11-15T00:00:00.000Z'
 };
 
+const mockProjectMeeting = {
+	id: 1,
+	caseId: 123,
+	meetingType: 'project',
+	pinsRole: null,
+	agenda: 'Project Update Meeting (PUM)',
+	meetingDate: '2026-03-04T00:00:00.000Z'
+};
+
 const nocks = () => {
 	nock('http://test/').get('/applications').reply(200, []);
 	nock('http://test/').get('/applications/123').reply(200, fixtureFeesForecastingIndex.caseData);
@@ -133,7 +142,7 @@ describe('Fees and Forecasting', () => {
 			const element = parseHtml(response.text);
 
 			expect(element.innerHTML).toMatchSnapshot();
-			expect(element.innerHTML).toContain('An error occurred, please try again later');
+			expect(element.innerHTML).toContain('There is a problem');
 		});
 
 		it('should redirect to the index page if updating was successful', async () => {
@@ -262,7 +271,7 @@ describe('Fees and Forecasting', () => {
 			const element = parseHtml(response.text);
 
 			expect(element.innerHTML).toMatchSnapshot();
-			expect(element.innerHTML).toContain('API error message');
+			expect(element.innerHTML).toContain('There is a problem');
 		});
 
 		it('should redirect to the index page if creating an evidence plan meeting was successful', async () => {
@@ -320,7 +329,7 @@ describe('Fees and Forecasting', () => {
 			const element = parseHtml(response.text);
 
 			expect(element.innerHTML).toMatchSnapshot();
-			expect(element.innerHTML).toContain('API error message');
+			expect(element.innerHTML).toContain('There is a problem');
 		});
 	});
 
@@ -424,6 +433,148 @@ describe('Fees and Forecasting', () => {
 			expect(response?.headers?.location).toEqual(
 				'/applications-service/case/123/fees-forecasting/'
 			);
+		});
+
+		it('should show an API error if deleting fee was NOT successful', async () => {
+			const flags = staticFlags;
+			flags['applics-1845-fees-forecasting'] = true;
+
+			nock('http://test/')
+				.delete('/applications/123/invoices/1')
+				.reply(500, { errors: 'API error message' });
+			nock('http://test/').get('/applications/123/invoices/1').reply(200, mockInvoice);
+
+			const response = await request.post(`${baseUrl}/section/manage-fee/id/1/delete`);
+
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+			expect(element.innerHTML).toContain('There is a problem');
+		});
+	});
+
+	describe('GET /case/123/fees-forecasting/section/manage-project-meeting/id/:meetingId', () => {
+		it('should render the manage project meeting page when the feature flag is ON', async () => {
+			const flags = staticFlags;
+			flags['applics-1845-fees-forecasting'] = true;
+
+			nock('http://test/').get('/applications/123/meetings/1').reply(200, mockProjectMeeting);
+
+			const response = await request.get(`${baseUrl}/section/manage-project-meeting/id/1`);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+			expect(element.innerHTML).toContain('Manage project meeting');
+		});
+
+		it('should return 404 if the project meeting does not exist', async () => {
+			const flags = staticFlags;
+			flags['applics-1845-fees-forecasting'] = true;
+
+			nock('http://test/').get('/applications/123/meetings/2').reply(404, {});
+
+			const response = await request.get(`${baseUrl}/section/manage-project-meeting/id/2`);
+
+			expect(response.status).toBe(404);
+		});
+	});
+
+	describe('POST /case/123/fees-forecasting/section/manage-project-meeting/id/:meetingId', () => {
+		it('should redirect to the index page if updating the project meeting was successful', async () => {
+			const flags = staticFlags;
+			flags['applics-1845-fees-forecasting'] = true;
+
+			nock('http://test/').patch('/applications/123/meetings/1').reply(200, {});
+
+			const response = await request.post(`${baseUrl}/section/manage-project-meeting/id/1`).send({
+				meetingType: 'project',
+				agenda: 'Multi-Party Meeting (MPM)'
+			});
+
+			expect(response?.headers?.location).toEqual(
+				'/applications-service/case/123/fees-forecasting/'
+			);
+		});
+
+		it('should show a validation error when the project meeting update is missing required fields', async () => {
+			const flags = staticFlags;
+			flags['applics-1845-fees-forecasting'] = true;
+
+			const response = await request.post(`${baseUrl}/section/manage-project-meeting/id/1}`).send({
+				meetingType: 'project',
+				agenda: ''
+			});
+
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toContain('Select Meeting agenda');
+		});
+
+		it('should show an API error if updating the project meeting was NOT successful', async () => {
+			const flags = staticFlags;
+			flags['applics-1845-fees-forecasting'] = true;
+
+			nock('http://test/')
+				.patch('/applications/123/meetings/1')
+				.reply(500, { errors: 'API error message' });
+
+			const response = await request.post(`${baseUrl}/section/manage-project-meeting/id/1`).send({
+				meetingType: 'project',
+				agenda: 'Multi-Party Meeting (MPM)'
+			});
+
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+			expect(element.innerHTML).toContain('There is a problem');
+		});
+	});
+
+	describe('GET /case/123/fees-forecasting/section/manage-project-meeting/id/:meetingId/delete', () => {
+		it('should render the delete confirmation page', async () => {
+			const flags = staticFlags;
+			flags['applics-1845-fees-forecasting'] = true;
+
+			nock('http://test/').get('/applications/123/meetings/1').reply(200, mockProjectMeeting);
+
+			const response = await request.get(`${baseUrl}/section/manage-project-meeting/id/1/delete`);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+			expect(element.innerHTML).toContain('Delete project meeting');
+		});
+	});
+
+	describe('POST /case/123/fees-forecasting/section/manage-project-meeting/id/:meetingId/delete', () => {
+		it('should redirect to the index page if deleting the project meeting was successful', async () => {
+			const flags = staticFlags;
+			flags['applics-1845-fees-forecasting'] = true;
+
+			nock('http://test/').get('/applications/123/meetings/1').reply(200, mockProjectMeeting);
+			nock('http://test/').delete('/applications/123/meetings/1').reply(204, {});
+
+			const response = await request.post(`${baseUrl}/section/manage-project-meeting/id/1/delete`);
+
+			expect(response?.headers?.location).toEqual(
+				'/applications-service/case/123/fees-forecasting/'
+			);
+		});
+
+		it('should show an API error if deleting the project meeting was NOT successful', async () => {
+			const flags = staticFlags;
+			flags['applics-1845-fees-forecasting'] = true;
+
+			nock('http://test/')
+				.delete('/applications/123/meetings/1')
+				.reply(500, { errors: 'API error message' });
+			nock('http://test/').get('/applications/123/meetings/1').reply(200, mockProjectMeeting);
+
+			const response = await request.post(`${baseUrl}/section/manage-project-meeting/id/1/delete`);
+
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+			expect(element.innerHTML).toContain('There is a problem');
 		});
 	});
 });

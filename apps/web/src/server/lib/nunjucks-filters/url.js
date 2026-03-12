@@ -13,6 +13,7 @@ import slugify from 'slugify';
  * @property {string=} step
  * @property {string=} query
  * @property {number=} feeId
+ * @property {number=} meetingId
  * @property {Partial<DocumentationCategory>=} documentationCategory
  */
 
@@ -67,6 +68,7 @@ export const url = (key, filterArguments = {}) => {
 	const version = getArgument('version', filterArguments);
 	const projectUpdateId = getArgument('projectUpdateId', filterArguments);
 	const feeId = getArgument('feeId', filterArguments);
+	const meetingId = getArgument('meetingId', filterArguments);
 
 	switch (key) {
 		case 'base-url':
@@ -155,6 +157,8 @@ export const url = (key, filterArguments = {}) => {
 			return `${domainUrl}/case/${caseId}/fees-forecasting/section/${step}`;
 		case 'fees-forecasting-fee':
 			return `${domainUrl}/case/${caseId}/fees-forecasting/section/manage-fee/id/${feeId}`;
+		case 'fees-forecasting-project-meeting':
+			return `${domainUrl}/case/${caseId}/fees-forecasting/section/manage-project-meeting/id/${meetingId}`;
 		default:
 			return 'app/404';
 	}

@@ -17,9 +17,12 @@ import { sectionData, urlSectionNames } from './fees-forecasting.config.js';
  * @returns {Promise<*>}
  */
 export const feesForecastingValidator = async (request, response, next) => {
-	let sectionName = request.params.sectionName;
+	let sectionName = request.params.sectionName || '';
+
 	if (request.isFeeEdit) {
 		sectionName = 'manage-fee';
+	} else if (request.isProjectMeetingEdit) {
+		sectionName = 'manage-project-meeting';
 	}
 
 	/** @type {Record<string, RequestHandler>} */
@@ -33,6 +36,7 @@ export const feesForecastingValidator = async (request, response, next) => {
 		'add-new-fee': validateFeesForecastingAddFee,
 		'manage-fee': validateFeesForecastingAddFee,
 		'add-project-meeting': validateFeesForecastingProjectMeeting,
+		'manage-project-meeting': validateFeesForecastingProjectMeeting,
 		'add-evidence-plan-meeting': validateFeesForecastingEvidencePlanMeeting
 	};
 

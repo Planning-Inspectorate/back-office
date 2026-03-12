@@ -43,9 +43,10 @@ export const urlSectionNames = {
 	programmeDocumentReceived: 'programme-document-received',
 	programmeDocumentReviewed: 'programme-document-reviewed',
 	programmeDocumentComments: 'programme-document-comments',
-	manageFee: 'manage-fee',
 	addNewFee: 'add-new-fee',
+	manageFee: 'manage-fee',
 	addProjectMeeting: 'add-project-meeting',
+	manageProjectMeeting: 'manage-project-meeting',
 	addEvidencePlanMeeting: 'add-evidence-plan-meeting'
 };
 
@@ -90,20 +91,25 @@ export const sectionData = {
 		hintText: 'Issue date of the most recent initial comments on programme document to applicant',
 		componentType: 'date-input'
 	},
-	manageFee: {
-		sectionTitle: 'Manage fee',
-		pageHeading: 'Manage fee',
-		componentType: 'manage-fee'
-	},
 	addNewFee: {
 		sectionTitle: 'Add a new fee',
 		pageHeading: 'Add a new fee',
 		componentType: 'add-new-fee'
 	},
+	manageFee: {
+		sectionTitle: 'Manage fee',
+		pageHeading: 'Manage fee',
+		componentType: 'manage-fee'
+	},
 	addProjectMeeting: {
 		sectionTitle: 'Add a project meeting',
 		pageHeading: 'Add a project meeting',
 		componentType: 'add-project-meeting'
+	},
+	manageProjectMeeting: {
+		sectionTitle: 'Manage project meeting',
+		pageHeading: 'Manage project meeting',
+		componentType: 'manage-project-meeting'
 	},
 	addEvidencePlanMeeting: {
 		sectionTitle: 'Add an evidence plan meeting',
@@ -117,6 +123,13 @@ export const sectionDeleteData = {
 		sectionTitle: 'Delete fee',
 		pageHeading: 'Delete fee',
 		warningText: 'Deleting this fee will remove it from future forecasting reporting.',
+		backLinkSectionName: 'fees-forecasting-fee',
+		/**
+		 *
+		 * @param {{ caseId: string, id: string }} tableData
+		 * @returns {Object}
+		 */
+		getBackLinkParams: (tableData) => ({ caseId: tableData.caseId, feeId: tableData.id }),
 		tableConfig: {
 			headers: ['Stage', 'Amount', 'Invoice number', 'Status'],
 			/**
@@ -133,6 +146,29 @@ export const sectionDeleteData = {
 					{ text: tableData.invoiceNumber },
 					{ html: helpers.getStatusTag(tableData) }
 				]
+			]
+		}
+	},
+	manageProjectMeeting: {
+		sectionTitle: 'Delete project meeting',
+		pageHeading: 'Delete project meeting',
+		warningText: 'Deleting this meeting will remove it from future forecasting reporting.',
+		backLinkSectionName: 'fees-forecasting-project-meeting',
+		/**
+		 *
+		 * @param {{ caseId: string, id: string }} tableData
+		 * @returns {Object}
+		 */
+		getBackLinkParams: (tableData) => ({ caseId: tableData.caseId, meetingId: tableData.id }),
+		tableConfig: {
+			headers: ['Meeting agenda', 'Date'],
+			/**
+			 * @param {{ agenda: string, meetingDate: string}} tableData
+			 * @param {{ formatDateForDisplay: Function }} helpers
+			 * @returns {Array<Array<{ text?: string }>>}
+			 */
+			getRows: (tableData, helpers) => [
+				[{ text: tableData.agenda }, { text: helpers.formatDateForDisplay(tableData.meetingDate) }]
 			]
 		}
 	}
