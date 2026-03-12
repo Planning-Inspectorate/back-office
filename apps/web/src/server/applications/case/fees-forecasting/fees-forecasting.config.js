@@ -47,7 +47,8 @@ export const urlSectionNames = {
 	manageFee: 'manage-fee',
 	addProjectMeeting: 'add-project-meeting',
 	manageProjectMeeting: 'manage-project-meeting',
-	addEvidencePlanMeeting: 'add-evidence-plan-meeting'
+	addEvidencePlanMeeting: 'add-evidence-plan-meeting',
+	manageEvidencePlanMeeting: 'manage-evidence-plan-meeting'
 };
 
 export const sectionData = {
@@ -115,6 +116,11 @@ export const sectionData = {
 		sectionTitle: 'Add an evidence plan meeting',
 		pageHeading: 'Add an evidence plan meeting',
 		componentType: 'add-evidence-plan-meeting'
+	},
+	manageEvidencePlanMeeting: {
+		sectionTitle: 'Manage evidence plan meeting',
+		pageHeading: 'Manage evidence plan meeting',
+		componentType: 'manage-evidence-plan-meeting'
 	}
 };
 

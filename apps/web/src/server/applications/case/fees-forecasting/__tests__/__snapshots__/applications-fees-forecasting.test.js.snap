@@ -214,13 +214,15 @@ exports[`Fees and Forecasting GET /case/123/fees-forecasting/ should render the 
                                 <tr class="govuk-table__row">
                                     <td class="govuk-table__cell">Flood Risk Assessment</td>
                                     <td class="govuk-table__cell">09 Jan 2025</td>
-                                    <td class="govuk-table__cell"><a href="#" class="govuk-link">Change</a>
+                                    <td class="govuk-table__cell"><a href="/applications-service/case/4/fees-forecasting/section/manage-evidence-plan-meeting/id/2"
+                                        class="govuk-link">Change</a>
                                     </td>
                                 </tr>
                                 <tr class="govuk-table__row">
                                     <td class="govuk-table__cell">Habitat Regulation Assessment</td>
                                     <td class="govuk-table__cell">11 Jan 2025</td>
-                                    <td class="govuk-table__cell"><a href="#" class="govuk-link">Change</a>
+                                    <td class="govuk-table__cell"><a href="/applications-service/case/4/fees-forecasting/section/manage-evidence-plan-meeting/id/3"
+                                        class="govuk-link">Change</a>
                                     </td>
                                 </tr>
                             </tbody>

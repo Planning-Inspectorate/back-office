@@ -1,5 +1,6 @@
 import { getFeesForecastingIndexViewModel } from './applications-fees-forecasting-index.view-model.js';
 import { getFeesForecastingEditViewModel } from './applications-fees-forecasting-edit.view-model.js';
+import { getFeesForecastingDeleteViewModel } from './applications-fees-forecasting-delete.view-model.js';
 import {
 	deleteFee,
 	deleteMeeting,
@@ -15,7 +16,6 @@ import {
 } from './applications-fees-forecasting.service.js';
 import { isValid } from 'date-fns';
 import { url } from '../../../lib/nunjucks-filters/url.js';
-import { getFeesForecastingDeleteViewModel } from './applications-fees-forecasting-delete.view-model.js';
 
 /**
  * View the index of all the data on the fees and forecasting page
@@ -48,13 +48,20 @@ export async function getFeesForecastingEditSection(request, response) {
 	const isFeeEdit = /** @type {*} */ (request).isFeeEdit;
 	/** @type {boolean|undefined} */
 	const isProjectMeetingEdit = /** @type {*} */ (request).isProjectMeetingEdit;
-	let sectionName = request.params.sectionName || '';
+	/** @type {boolean|undefined} */
+	const isEvidencePlanMeetingEdit = /** @type {*} */ (request).isEvidencePlanMeetingEdit;
+	const { caseId } = response.locals;
 	const projectName = response.locals.case.title;
+	let sectionName;
 
 	if (isFeeEdit) {
 		sectionName = 'manage-fee';
 	} else if (isProjectMeetingEdit) {
 		sectionName = 'manage-project-meeting';
+	} else if (isEvidencePlanMeetingEdit) {
+		sectionName = 'manage-evidence-plan-meeting';
+	} else {
+		sectionName = request.params.sectionName || '';
 	}
 
 	/** @type {Record<string, any>} */
@@ -82,7 +89,7 @@ export async function getFeesForecastingEditSection(request, response) {
 		case 'add-new-fee':
 			return renderTemplate(`applications/case-fees-forecasting/fees-forecasting-manage-fee.njk`);
 		case 'manage-fee': {
-			const invoice = await getInvoice(response.locals.caseId, request.params.feeId || '');
+			const invoice = await getInvoice(caseId, request.params.feeId || '');
 			if (invoice == null) {
 				return response.status(404).render(`app/404`);
 			}
@@ -97,8 +104,7 @@ export async function getFeesForecastingEditSection(request, response) {
 				`applications/case-fees-forecasting/fees-forecasting-manage-project-meeting.njk`
 			);
 		case 'manage-project-meeting': {
-			const caseId = response.locals.caseId;
-			const meetingId = request.params?.meetingId || '';
+			const meetingId = request.params.meetingId || '';
 			const meeting = await getMeeting(caseId, meetingId);
 
 			if (meeting == null) {
@@ -130,6 +136,24 @@ export async function getFeesForecastingEditSection(request, response) {
 			return renderTemplate(
 				`applications/case-fees-forecasting/fees-forecasting-manage-evidence-plan-meeting.njk`
 			);
+		case 'manage-evidence-plan-meeting': {
+			const meetingId = request.params.meetingId || '';
+			const meeting = await getMeeting(caseId, meetingId);
+
+			if (meeting == null) {
+				return response.status(404).render(`app/404`);
+			}
+
+			Object.entries(meeting).forEach(([key, value]) => {
+				values[key] = value;
+			});
+
+			values.meetingDate = Math.floor(new Date(meeting.meetingDate).getTime() / 1000);
+
+			return renderTemplate(
+				`applications/case-fees-forecasting/fees-forecasting-manage-evidence-plan-meeting.njk`
+			);
+		}
 	}
 }
 
@@ -144,14 +168,20 @@ export async function updateFeesForecastingEditSection(request, response) {
 	const isFeeEdit = /** @type {*} */ (request).isFeeEdit;
 	/** @type {boolean|undefined} */
 	const isProjectMeetingEdit = /** @type {*} */ (request).isProjectMeetingEdit;
-	let sectionName = request.params.sectionName || '';
+	/** @type {boolean|undefined} */
+	const isEvidencePlanMeetingEdit = /** @type {*} */ (request).isEvidencePlanMeetingEdit;
 	const { caseId } = response.locals;
 	const projectName = response.locals.case.title;
+	let sectionName;
 
 	if (isFeeEdit) {
 		sectionName = 'manage-fee';
 	} else if (isProjectMeetingEdit) {
 		sectionName = 'manage-project-meeting';
+	} else if (isEvidencePlanMeetingEdit) {
+		sectionName = 'manage-evidence-plan-meeting';
+	} else {
+		sectionName = params.sectionName || '';
 	}
 
 	/** @type {Record<string, any>} */
@@ -172,8 +202,7 @@ export async function updateFeesForecastingEditSection(request, response) {
 		const month = body[`${fieldName}.month`];
 		const year = body[`${fieldName}.year`];
 
-		// Allows date to be cleared from index page if all fields on date input page are empty to align with key dates page
-		// Allows meeting data to pass API side validation if no meeting date is set
+		// Allows date to be cleared if all three date fields are empty to align with key dates
 		if (validationErrors && validationErrors[fieldName]) {
 			validationErrors[fieldName].value = { day, month, year };
 		} else {
@@ -181,7 +210,7 @@ export async function updateFeesForecastingEditSection(request, response) {
 			if (isValid(date)) {
 				values[fieldName] = Math.floor(date.getTime() / 1000);
 				feesForecastingData[fieldName] = date;
-			} else if (!isValid(date) && editViewModel.componentType === 'date-input') {
+			} else {
 				feesForecastingData[fieldName] = null;
 			}
 		}
@@ -231,7 +260,8 @@ export async function updateFeesForecastingEditSection(request, response) {
 
 			break;
 		}
-		case 'add-evidence-plan-meeting': {
+		case 'add-evidence-plan-meeting':
+		case 'manage-evidence-plan-meeting': {
 			Object.keys(body).forEach((key) => {
 				const dateFieldMatch = key.match(/^(meetingDate)\.(day|month|year)$/);
 
@@ -274,7 +304,8 @@ export async function updateFeesForecastingEditSection(request, response) {
 				apiErrors = errors;
 				break;
 			}
-			case 'manage-project-meeting': {
+			case 'manage-project-meeting':
+			case 'manage-evidence-plan-meeting': {
 				const meetingId = params?.meetingId || '';
 				const { errors } = await updateMeeting(caseId, meetingId, feesForecastingData);
 				apiErrors = errors;
@@ -311,7 +342,8 @@ export async function updateFeesForecastingEditSection(request, response) {
 					`applications/case-fees-forecasting/fees-forecasting-manage-project-meeting.njk`
 				);
 			}
-			case 'add-evidence-plan-meeting': {
+			case 'add-evidence-plan-meeting':
+			case 'manage-evidence-plan-meeting': {
 				return renderError(
 					`applications/case-fees-forecasting/fees-forecasting-manage-evidence-plan-meeting.njk`
 				);
