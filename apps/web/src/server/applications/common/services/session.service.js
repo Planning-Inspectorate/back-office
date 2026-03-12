@@ -215,39 +215,6 @@ export function deleteSessionBanner(session) {
 	delete session.banner;
 }
 
-/**
- * Set the AI redaction banner for the user in the session.
- *
- * @param {BannerSession} session
- * @param {string} header
- * @param {string} message
- * @param {string} type
- * @returns {void}
- */
-export function setAiRedactionBanner(session, header, message, type) {
-	session.aiRedactionBanner = { header, message, type };
-}
-
-/**
- * Get the AI redaction banner for the user from the session.
- *
- * @param {BannerSession} session
- * @returns
- */
-export function getAiRedactionBanner(session) {
-	return session.aiRedactionBanner;
-}
-
-/**
- * Delete the AI redaction banner for the user from the session.
- *
- * @param {BannerSession} session
- * @returns
- */
-export function deleteAiRedactionBanner(session) {
-	delete session.aiRedactionBanner;
-}
-
 // Renaming documents on deletion
 
 /**
