@@ -80,6 +80,8 @@ const mapDocumentsToSendToDatabase = (caseId, documents) =>
 		fromFrontOffice: document.fromFrontOffice ?? false,
 		fileRowId: document.fileRowId,
 		username: document.username,
+		sourceSystem: document.sourceSystem,
+		blobStoreUrl: document.blobStoreUrl ?? null,
 		author: document.author,
 		authorWelsh: document.authorWelsh
 	}));
@@ -166,6 +168,7 @@ const attemptInsertDocuments = async (caseId, documents, isS51) => {
 				filter1Welsh: documentToDB.filter1Welsh,
 				mime: documentToDB.documentType,
 				size: documentToDB.documentSize,
+				sourceSystem: documentToDB.sourceSystem,
 				owner: documentToDB.username,
 				author: documentToDB.author,
 				authorWelsh: documentToDB.authorWelsh,
@@ -182,10 +185,20 @@ const attemptInsertDocuments = async (caseId, documents, isS51) => {
 
 			logger.info(`Upserted metadata for document with guid: ${document.guid}`);
 
-			return {
+			let result = {
 				...document,
 				documentName: documentToDB.documentName
 			};
+
+			if (documentToDB.sourceSystem === 'dco-portal') {
+				result = {
+					...result,
+					sourceSystem: documentToDB.sourceSystem,
+					blobStoreUrl: documentToDB.blobStoreUrl
+				};
+			}
+
+			return result;
 		});
 
 	logger.info(`Upserted ${results.length} documents to database`);
@@ -200,9 +213,9 @@ const attemptInsertDocuments = async (caseId, documents, isS51) => {
  * @param {string} caseReference
  * @returns {DocumentBlobStoragePayload[]}
  */
-const mapDocumentsToGetBlobStorageProperties = (documents, caseReference) => {
+const mapDocumentsToGetBlobStorageProperties = (documents, caseReference, isFromDcoPortal) => {
 	return documents.map((document) => {
-		return {
+		let result = {
 			caseType: 'application',
 			caseReference,
 			GUID: document.guid,
@@ -210,6 +223,15 @@ const mapDocumentsToGetBlobStorageProperties = (documents, caseReference) => {
 			documentReference: document?.documentReference,
 			version: 1
 		};
+
+		if (isFromDcoPortal) {
+			result = {
+				...result,
+				blobStoreUrl: document.blobStoreUrl
+			};
+		}
+
+		return result;
 	});
 };
 
@@ -293,15 +315,18 @@ export const createDocuments = async (documentsToUpload, caseId, isS51) => {
 
 	// Step 5: Map documents to the format expected to get blob storage properties
 	logger.info(`Mapping documents to blob storage format...`);
+
+	const fromDcoPortal = successful.every((doc) => doc?.sourceSystem === 'dco-portal');
 	const requestToGetDocumentStorageProperties = mapDocumentsToGetBlobStorageProperties(
 		successful,
-		caseForDocuments.reference
+		caseForDocuments.reference,
+		fromDcoPortal
 	);
 	logger.info(`Documents mapped: ${JSON.stringify(requestToGetDocumentStorageProperties)}`);
 
-	// Step 6: generate the blob storage service properties
 	const documentsWithBlobStorageInfo = await getStorageLocation(
-		requestToGetDocumentStorageProperties
+		requestToGetDocumentStorageProperties,
+		fromDcoPortal
 	);
 	logger.info(
 		`Documents with Blob storage service properties: ${JSON.stringify(
