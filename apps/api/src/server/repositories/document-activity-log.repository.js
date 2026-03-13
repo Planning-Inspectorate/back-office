@@ -4,10 +4,12 @@ import { databaseConnector } from '#utils/database-connector.js';
 /**
  *
  * @param {import('@prisma/client').Prisma.DocumentActivityLogUncheckedCreateInput} documentLog
+ * @param {import('@prisma/client').Prisma.TransactionClient} [tx] - Optional transaction client
  * @returns {Promise<import('@prisma/client').DocumentActivityLog>}
  */
-export const create = (documentLog) => {
-	return databaseConnector.documentActivityLog.create({
+export const create = (documentLog, tx = null) => {
+	const databaseConnectorOrTx = tx || databaseConnector;
+	return databaseConnectorOrTx.documentActivityLog.create({
 		data: {
 			...pick(documentLog, ['user', 'status']),
 			DocumentVersion: {

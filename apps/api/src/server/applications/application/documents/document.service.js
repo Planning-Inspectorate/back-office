@@ -114,9 +114,10 @@ const getCaseStageMapping = async (folderId) => {
  * @param {number} caseId
  * @param {DocumentToSaveExtended[]} documents
  * @param {boolean} isS51
+ * @param {import('@prisma/client').Prisma.TransactionClient} [tx] - Optional transaction client
  * @returns {Promise<{successful: DocumentWithDocumentName[], failed: string[]}>}
  */
-const attemptInsertDocuments = async (caseId, documents, isS51) => {
+const attemptInsertDocuments = async (caseId, documents, isS51, tx = null) => {
 	// Use PromisePool to concurrently process the documents with a concurrency of 5.
 
 	/**
@@ -137,13 +138,16 @@ const attemptInsertDocuments = async (caseId, documents, isS51) => {
 
 			let document;
 			try {
-				document = await documentRepository.create({
-					caseId,
-					folderId: documentToDB.folderId,
-					documentReference: documentToDB.documentReference,
-					fromFrontOffice: documentToDB.fromFrontOffice,
-					documentType: isS51 ? DOCUMENT_TYPES.S51Attachment : DOCUMENT_TYPES.Document
-				});
+				document = await documentRepository.create(
+					{
+						caseId,
+						folderId: documentToDB.folderId,
+						documentReference: documentToDB.documentReference,
+						fromFrontOffice: documentToDB.fromFrontOffice,
+						documentType: isS51 ? DOCUMENT_TYPES.S51Attachment : DOCUMENT_TYPES.Document
+					},
+					tx
+				);
 			} catch (err) {
 				logger.error(err);
 				failed.add(documentToDB.documentName);
@@ -156,29 +160,36 @@ const attemptInsertDocuments = async (caseId, documents, isS51) => {
 			let stage = await getCaseStageMapping(documentToDB.folderId);
 
 			logger.info(`Upserting metadata for document with guid: ${document.guid}`);
-			await documentVersionRepository.upsert({
-				documentGuid: document.guid,
-				fileName,
-				originalFilename: documentToDB.documentName,
-				description: documentToDB.description,
-				descriptionWelsh: documentToDB.descriptionWelsh,
-				filter1: documentToDB.filter1,
-				filter1Welsh: documentToDB.filter1Welsh,
-				mime: documentToDB.documentType,
-				size: documentToDB.documentSize,
-				owner: documentToDB.username,
-				author: documentToDB.author,
-				authorWelsh: documentToDB.authorWelsh,
-				stage: stage,
-				version: 1,
-				...(config.virusScanningDisabled && {
-					publishedStatus: 'not_checked'
-				})
-			});
+			await documentVersionRepository.upsert(
+				{
+					documentGuid: document.guid,
+					fileName,
+					originalFilename: documentToDB.documentName,
+					description: documentToDB.description,
+					descriptionWelsh: documentToDB.descriptionWelsh,
+					filter1: documentToDB.filter1,
+					filter1Welsh: documentToDB.filter1Welsh,
+					mime: documentToDB.documentType,
+					size: documentToDB.documentSize,
+					owner: documentToDB.username,
+					author: documentToDB.author,
+					authorWelsh: documentToDB.authorWelsh,
+					stage: stage,
+					version: 1,
+					...(config.virusScanningDisabled && {
+						publishedStatus: 'not_checked'
+					})
+				},
+				tx
+			);
 
-			await documentRepository.update(document.guid, {
-				latestVersionId: 1
-			});
+			await documentRepository.update(
+				document.guid,
+				{
+					latestVersionId: 1
+				},
+				tx
+			);
 
 			logger.info(`Upserted metadata for document with guid: ${document.guid}`);
 
@@ -218,11 +229,13 @@ const mapDocumentsToGetBlobStorageProperties = (documents, caseReference) => {
  *
  * @param {DocumentAndBlobStorageDetail[]} blobStorageDocuments - Array of documents containing metadata to upsert.
  * @param {string} privateBlobContainer - Name of the blob storage container where documents are stored.
+ * @param {import('@prisma/client').Prisma.TransactionClient} [tx] - Optional transaction client
  * @returns {Promise<DocumentVersionWithDocumentAndFolder[]>}
  */
 const upsertDocumentVersionsMetadataToDatabase = async (
 	blobStorageDocuments,
-	privateBlobContainer
+	privateBlobContainer,
+	tx = null
 ) => {
 	// Generate an array of documents to upsert, with metadata pulled from the blob storage documents
 	const documentsMetadataToSendToDatabase = blobStorageDocuments.map((documentToUpload) => {
@@ -247,7 +260,7 @@ const upsertDocumentVersionsMetadataToDatabase = async (
 			logger.info(`Upserting document metadata: ${JSON.stringify(metadata)}`);
 
 			// Upsert the metadata using the documentVersionRepository
-			return documentVersionRepository.upsert(metadata);
+			return documentVersionRepository.upsert(metadata, tx);
 		});
 	return upsertedDocumentsResponse.results;
 };
@@ -258,9 +271,10 @@ const upsertDocumentVersionsMetadataToDatabase = async (
  * @param {DocumentToSaveExtended[]} documentsToUpload
  * @param {number} caseId
  * @param {boolean} [isS51]
+ * @param {import('@prisma/client').Prisma.TransactionClient} [tx] - Optional transaction client
  * @returns {Promise<{response: DocumentAndBlobInfoManyResponse | null, failedDocuments: string[]}>}}
  */
-export const createDocuments = async (documentsToUpload, caseId, isS51) => {
+export const createDocuments = async (documentsToUpload, caseId, isS51, tx = null) => {
 	// Step 1: Retrieve the case object associated with the provided caseId
 	logger.info(`Retrieving case for caseId ${caseId}...`);
 	const caseForDocuments = await caseRepository.getById(Number(caseId), { sector: true });
@@ -283,7 +297,8 @@ export const createDocuments = async (documentsToUpload, caseId, isS51) => {
 	const { successful, failed } = await attemptInsertDocuments(
 		caseId,
 		documentsToSendToDatabase,
-		isS51 ?? false
+		isS51 ?? false,
+		tx
 	);
 	if (successful.length === 0) {
 		logger.info(`Return early because all files failed to upload.`);
@@ -313,18 +328,22 @@ export const createDocuments = async (documentsToUpload, caseId, isS51) => {
 	logger.info(`Upserting document versions metadata to database...`);
 	const upsertedDocuments = await upsertDocumentVersionsMetadataToDatabase(
 		documentsWithBlobStorageInfo.documents,
-		documentsWithBlobStorageInfo.privateBlobContainer
+		documentsWithBlobStorageInfo.privateBlobContainer,
+		tx
 	);
 
 	/** @type {Promise<import('@prisma/client').DocumentActivityLog>[]} */
 	// TODO: refactor to use createMany instead?
 	const documentActivityLogs = requestToGetDocumentStorageProperties.map((document) =>
-		documentActivityLogRepository.create({
-			documentGuid: document.GUID,
-			version: document.version,
-			user: documentsToUpload[0].username,
-			status: 'uploaded'
-		})
+		documentActivityLogRepository.create(
+			{
+				documentGuid: document.GUID,
+				version: document.version,
+				user: documentsToUpload[0].username,
+				status: 'uploaded'
+			},
+			tx
+		)
 	);
 
 	await Promise.all(documentActivityLogs);
