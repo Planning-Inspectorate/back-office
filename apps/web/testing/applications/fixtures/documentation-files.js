@@ -68,6 +68,7 @@ export const fixtureAwaitingAiRedactionDocumentationFile = {
 /** @type {DocumentationFile} */
 export const fixtureEligibleForAiRedactionDocumentationPdfFile = {
 	folderId: 21,
+	version: 1,
 	documentGuid: '96',
 	fileName: 'test.pdf',
 	originalFilename: 'test.pdf',
@@ -83,7 +84,9 @@ export const fixtureEligibleForAiRedactionDocumentationPdfFile = {
 	caseRef: '',
 	filter1: '',
 	author: '',
-	representative: ''
+	representative: '',
+	privateBlobPath: '/application/CASE1/guid-123/1',
+	privateBlobContainer: 'blob-container'
 };
 
 /** @type {DocumentationFile} */

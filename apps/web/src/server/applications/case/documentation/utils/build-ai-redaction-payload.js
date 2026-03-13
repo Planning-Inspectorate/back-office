@@ -2,25 +2,28 @@ import config from '@pins/applications.web/environment/config.js';
 
 /**
  * @param {import('../../../applications.types').DocumentationFile} document
+ * @param {string} caseId
  */
-export const buildAiRedactionPayload = (document) => {
+export const buildAiRedactionPayload = (document, caseId) => {
 	if (!document.privateBlobPath || !document.privateBlobContainer) {
 		throw new Error('Document is missing required blob information for AI redaction.');
 	}
 
-	const destinationPath = buildDestinationBlobPath(document.privateBlobPath);
+	const blobPath = removeLeadingSlash(document.privateBlobPath);
+
+	const destinationPath = buildDestinationBlobPath(blobPath, document);
 
 	return {
 		tryApplyProvisionalRedactions: true,
-		skipRedaction: true, // TODO: Remove this flag when ready to apply redactions
 		ruleName: 'default',
 		fileKind: 'pdf',
-		pinsService: 'cbos',
+		pinsService: 'CBOS',
+		overrideId: `${document.documentGuid}:${document.version}`,
 		readDetails: {
 			storageKind: 'AzureBlob',
 			teamEmail: '',
 			properties: {
-				blobPath: document.privateBlobPath,
+				blobPath: blobPath,
 				containerName: document.privateBlobContainer,
 				storageName: config.azureAiDocRedactionBlobStorageName
 			}
@@ -35,6 +38,7 @@ export const buildAiRedactionPayload = (document) => {
 			}
 		},
 		metadata: {
+			caseId,
 			documentGuid: document.documentGuid,
 			version: document.version,
 			caseRef: document.caseRef,
@@ -61,13 +65,33 @@ export const buildAiRedactionPayload = (document) => {
 };
 
 /**
- * Replaces document version number with timestamp of ai redaction
+ * Replaces document version number with the next document version
+ * @param {string} privateBlobPath
+ * @param {import('../../../applications.types').DocumentationFile} document
+ * @returns {string}
+ */
+const buildDestinationBlobPath = (privateBlobPath, document) => {
+	if (!document.version) {
+		throw new Error(
+			'Document is missing version number required to build destination blob path for AI redaction.'
+		);
+	}
+	const pathParts = privateBlobPath.split('/');
+	const nextVersion = document?.version + 1;
+	pathParts[pathParts.length - 1] = nextVersion.toString();
+
+	return pathParts.join('/');
+};
+
+/**
+ * Removes leading slash from blob path if it exists
  * @param {string} privateBlobPath
  * @returns {string}
  */
-const buildDestinationBlobPath = (privateBlobPath) => {
-	const pathParts = privateBlobPath.split('/');
-	pathParts[pathParts.length - 1] = new Date().getTime().toString();
+const removeLeadingSlash = (privateBlobPath) => {
+	if (!privateBlobPath) {
+		return privateBlobPath;
+	}
 
-	return pathParts.join('/');
+	return privateBlobPath.startsWith('/') ? privateBlobPath.slice(1) : privateBlobPath;
 };

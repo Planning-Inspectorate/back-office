@@ -44,31 +44,40 @@
 					}) }}
 				{% endif %}
 
-				{%  if aiRedactionBanner %}
+				{% if aiRedactionBanner %}
 					{% set html %}
-						<h3 class="govuk-notification-banner__heading">
-							{{ aiRedactionBanner.header }}
-						</h3>
+					<h3 class="govuk-notification-banner__heading">
+						{{ aiRedactionBanner.header }}.
+							{% if aiRedactionBanner.link %}
+								<a class="govuk-link" href="{{ aiRedactionBanner.link.href }}">
+									{{ aiRedactionBanner.link.text }}
+								</a>.
+							{% endif %}
+					</h3>
+
+					{% if aiRedactionBanner.message %}
 						<p class="govuk-body">
 							{{ aiRedactionBanner.message }}
 						</p>
+						{% endif %}
 					{% endset %}
+
 					{% if aiRedactionBanner.type == 'error' %}
-						{{ govukErrorSummary({
-							titleText: "There is a problem",
-							errorList: [
-								{
-									text: aiRedactionBanner.message,
-									href: '#'
-								}
-							]
-						}) }}
+					{{ govukErrorSummary({
+						titleText: "There is a problem",
+						errorList: [
+							{
+								text: aiRedactionBanner.message,
+								href: '#'
+							}
+						]
+					}) }}
 					{% else %}
 						{{ govukNotificationBanner({
 							html: html,
 							type: aiRedactionBanner.type
 						}) }}
-					{%  endif %}
+					{% endif %}
 				{% endif %}
 
                 <h1 class="govuk-heading-xl govuk-!-margin-top-4">
