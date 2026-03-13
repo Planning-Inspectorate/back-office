@@ -14,9 +14,8 @@ import { sectionData, urlSectionNames } from './fees-forecasting.config.js';
  * @param {*} request
  * @param {*} response
  * @param {*} next
- * @returns {Promise<*>}
  */
-export const feesForecastingValidator = async (request, response, next) => {
+export const feesForecastingValidator = (request, response, next) => {
 	let sectionName;
 
 	if (request.isFeeEdit) {
@@ -60,7 +59,7 @@ export const feesForecastingValidator = async (request, response, next) => {
  *
  * @type {RequestHandler}
  */
-export const validateFeesForecastingDate = async (request, response, next) => {
+export const validateFeesForecastingDate = (request, response, next) => {
 	const { body, params } = request;
 	const { sectionName } = params;
 
@@ -78,7 +77,7 @@ export const validateFeesForecastingDate = async (request, response, next) => {
  *
  * @type {RequestHandler}
  */
-export const validateFeesForecastingAddFee = async (request, response, next) => {
+export const validateFeesForecastingAddFee = (request, response, next) => {
 	const invoiceDateValidation = validationDateValid(
 		{ fieldName: 'invoicedDate', extendedFieldName: 'date of invoice' },
 		request.body
