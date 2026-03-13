@@ -41,6 +41,24 @@ const setProjectMeetingDeletionFlag = (req, res, next) => {
 	next();
 };
 
+/** @param {*} req
+ * @param {*} res
+ * @param {*} next
+ * */
+const setEvidencePlanMeetingEditFlag = (req, res, next) => {
+	req.isEvidencePlanMeetingEdit = true;
+	next();
+};
+
+/** @param {*} req
+ * @param {*} res
+ * @param {*} next
+ * */
+const setEvidencePlanMeetingDeletionFlag = (req, res, next) => {
+	req.isEvidencePlanMeetingDeletion = true;
+	next();
+};
+
 applicationsFeesForecastingRouter.route('/').get(asyncHandler(controller.getFeesForecastingIndex));
 
 applicationsFeesForecastingRouter
@@ -70,6 +88,20 @@ applicationsFeesForecastingRouter
 	.route('/section/manage-project-meeting/id/:meetingId/delete')
 	.get(setProjectMeetingDeletionFlag, asyncHandler(controller.getFeesForecastingDeleteSection))
 	.post(setProjectMeetingDeletionFlag, asyncHandler(controller.deleteFeesForecastingField));
+
+applicationsFeesForecastingRouter
+	.route('/section/manage-evidence-plan-meeting/id/:meetingId')
+	.get(setEvidencePlanMeetingEditFlag, asyncHandler(controller.getFeesForecastingEditSection))
+	.post(
+		setEvidencePlanMeetingEditFlag,
+		feesForecastingValidator,
+		asyncHandler(controller.updateFeesForecastingEditSection)
+	);
+
+applicationsFeesForecastingRouter
+	.route('/section/manage-evidence-plan-meeting/id/:meetingId/delete')
+	.get(setEvidencePlanMeetingDeletionFlag, asyncHandler(controller.getFeesForecastingDeleteSection))
+	.post(setEvidencePlanMeetingDeletionFlag, asyncHandler(controller.deleteFeesForecastingField));
 
 applicationsFeesForecastingRouter
 	.route('/section/:sectionName')

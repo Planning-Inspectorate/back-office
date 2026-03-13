@@ -23,3 +23,57 @@ export const getSectionData = (sectionName, urlSectionNames = {}, sectionData = 
 		? sectionData[formattedSectionName]
 		: {};
 };
+
+/**
+ * Sets data to be displayed in table on the delete confirmation page
+ *
+ * @param {{invoiceNumber?: string, invoiceStage?: string, amountDue?: string, agenda?: string, meetingDate?: string}} tableData
+ * @param {{ getDisplayValue: Function, getStatusTag: Function, formatDateForDisplay: Function, invoiceStageDisplayValues: object}} helpers
+ * @returns {Array<Array<{ text?: string, html?: string }>>}
+ */
+export const getRows = (tableData, helpers) => {
+	/** @type {Array<any>} */
+	let rows = [];
+
+	if (tableData.invoiceNumber) {
+		rows = [
+			[
+				{
+					text: helpers.getDisplayValue(helpers.invoiceStageDisplayValues, tableData.invoiceStage)
+				},
+				{ text: tableData.amountDue ? `£${tableData.amountDue}` : '' },
+				{ text: tableData.invoiceNumber },
+				{ html: helpers.getStatusTag(tableData) }
+			]
+		];
+	}
+
+	if (tableData.agenda) {
+		rows = [
+			[{ text: tableData.agenda }, { text: helpers.formatDateForDisplay(tableData.meetingDate) }]
+		];
+	}
+
+	return rows;
+};
+
+/**
+ * Sets parameters needed to generate backlink URL for delete confirmation page
+ *
+ * @param {{invoiceNumber?: string, agenda?: string, caseId: string, id: string}} tableData
+ * @returns {Object}
+ */
+export const getBackLinkParams = (tableData) => {
+	/** @type {Record<string, any>} */
+	let urlParams = {};
+
+	if (tableData.invoiceNumber) {
+		urlParams = { caseId: tableData.caseId, feeId: tableData.id };
+	}
+
+	if (tableData.agenda) {
+		urlParams = { caseId: tableData.caseId, meetingId: tableData.id };
+	}
+
+	return urlParams;
+};
