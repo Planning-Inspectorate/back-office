@@ -13,5 +13,5 @@ export default {
 
 export const flagsByReference = {
 	[AZURE_AI_LANGUAGE_REDACTION]: ['BC0110003'],
-	'idas-340-redaction-service': ['BC0110005']
+	'idas-340-redaction-service': ['BC0110005', 'TR0210001', 'TR0210002']
 };

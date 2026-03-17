@@ -141,7 +141,15 @@
 									text: "Suggest redactions",
 									classes: "govuk-button--secondary"
 								}) }}
-							{%  endif %}
+							{% endif %}
+							{% if showReviewRedactionsButton %}
+								{{ govukButton({
+									element: 'a',
+									text: "Review redactions",
+									href: 'review-document-redaction'|url({caseId: caseId, folderId: folderId, documentGuid: documentationFile.documentGuid, step: 'review-redactions'}),
+									classes: "govuk-button--secondary"
+								}) }}
+							{% endif %}
 						{% endif %}
 
 						{% if documentationFile.publishedStatus === 'published' %}
