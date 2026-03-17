@@ -5,6 +5,7 @@ import { EventType } from '@pins/event-client';
 import { NSIP_DOCUMENT } from '#infrastructure/topics.js';
 import { buildDocumentFolderPath } from '../document.service.js';
 import { buildNsipDocumentPayload } from '#infrastructure/payload-builders/nsip-document.js';
+import { jest } from '@jest/globals';
 const { eventClient } = await import('#infrastructure/event-client.js');
 
 const application = {
@@ -122,8 +123,22 @@ describe('Create documents', () => {
 		databaseConnector.case.findUnique.mockResolvedValue(application);
 
 		databaseConnector.folder.findMany.mockResolvedValue([{ id: 1, displayNameEn: 'folder 1' }]);
-		databaseConnector.folder.findUnique.mockResolvedValue({ id: 1, caseId: 1 });
+		databaseConnector.folder.findUnique.mockResolvedValue({
+			id: 1,
+			caseId: 1,
+			documentCount: 0,
+			path: '/1'
+		});
 		databaseConnector.document.create.mockResolvedValue({ id: 1, guid, name: 'test doc' });
+		databaseConnector.folder.findUnique.mockResolvedValue({
+			id: 1,
+			caseId: 1,
+			documentCount: 0,
+			path: '/1'
+		});
+		databaseConnector.$executeRaw = jest
+			.fn()
+			.mockResolvedValue({ id: 1, caseId: 1, documentCount: 1, path: '/1' });
 		databaseConnector.document.findFirst.mockResolvedValueOnce(null);
 		databaseConnector.documentVersion.upsert.mockResolvedValue(upsertedDocVersionResponse);
 		databaseConnector.document.update.mockResolvedValue(updatedDocResponse);
