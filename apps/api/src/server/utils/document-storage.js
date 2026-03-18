@@ -7,13 +7,16 @@ import config from '../config/config.js';
 
 /**
  * @param {DocumentBlobStoragePayload[]} documentsToSave
+ * @param {boolean} isFromDcoPortal
  * @returns {Promise<import('@pins/applications.api').Api.DocumentAndBlobInfoManyResponse>}
  */
-export const getStorageLocation = async (documentsToSave) => {
+export const getStorageLocation = async (documentsToSave, isFromDcoPortal) => {
 	return {
 		blobStorageHost: config.blobStorageUrl,
 		privateBlobContainer: config.blobStorageContainer,
-		documents: documentsToSave.map(populateBlobStoreUrl)
+		documents: isFromDcoPortal
+			? documentsToSave.map(populateDcoBlobStoreUrl)
+			: documentsToSave.map(populateDefaultBlobStoreUrl)
 	};
 };
 
@@ -21,10 +24,19 @@ export const getStorageLocation = async (documentsToSave) => {
  * @param {DocumentBlobStoragePayload} doc
  * @returns {DocumentAndBlobStorageDetail}
  */
-function populateBlobStoreUrl(doc) {
+function populateDefaultBlobStoreUrl(doc) {
 	const { caseReference, GUID, version = 1 } = doc;
 	return {
 		...doc,
 		blobStoreUrl: `/application/${caseReference}/${GUID}/${version}`
+	};
+}
+
+function populateDcoBlobStoreUrl(doc) {
+	const { blobStoreUrl } = doc;
+	return {
+		...doc,
+		//For DCO portal submissions, the URL is already provided and does not need to be created, so we just pass it through
+		blobStoreUrl
 	};
 }
