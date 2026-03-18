@@ -14,15 +14,18 @@ import { sectionData, urlSectionNames } from './fees-forecasting.config.js';
  * @param {*} request
  * @param {*} response
  * @param {*} next
- * @returns {Promise<*>}
  */
-export const feesForecastingValidator = async (request, response, next) => {
-	let sectionName = request.params.sectionName || '';
+export const feesForecastingValidator = (request, response, next) => {
+	let sectionName;
 
 	if (request.isFeeEdit) {
 		sectionName = 'manage-fee';
 	} else if (request.isProjectMeetingEdit) {
 		sectionName = 'manage-project-meeting';
+	} else if (request.isEvidencePlanMeetingEdit) {
+		sectionName = 'manage-evidence-plan-meeting';
+	} else {
+		sectionName = request.params.sectionName || '';
 	}
 
 	/** @type {Record<string, RequestHandler>} */
@@ -37,7 +40,8 @@ export const feesForecastingValidator = async (request, response, next) => {
 		'manage-fee': validateFeesForecastingAddFee,
 		'add-project-meeting': validateFeesForecastingProjectMeeting,
 		'manage-project-meeting': validateFeesForecastingProjectMeeting,
-		'add-evidence-plan-meeting': validateFeesForecastingEvidencePlanMeeting
+		'add-evidence-plan-meeting': validateFeesForecastingEvidencePlanMeeting,
+		'manage-evidence-plan-meeting': validateFeesForecastingEvidencePlanMeeting
 	};
 
 	if (Object.keys(validators).includes(sectionName)) {
@@ -55,7 +59,7 @@ export const feesForecastingValidator = async (request, response, next) => {
  *
  * @type {RequestHandler}
  */
-export const validateFeesForecastingDate = async (request, response, next) => {
+export const validateFeesForecastingDate = (request, response, next) => {
 	const { body, params } = request;
 	const { sectionName } = params;
 
@@ -73,7 +77,7 @@ export const validateFeesForecastingDate = async (request, response, next) => {
  *
  * @type {RequestHandler}
  */
-export const validateFeesForecastingAddFee = async (request, response, next) => {
+export const validateFeesForecastingAddFee = (request, response, next) => {
 	const invoiceDateValidation = validationDateValid(
 		{ fieldName: 'invoicedDate', extendedFieldName: 'date of invoice' },
 		request.body

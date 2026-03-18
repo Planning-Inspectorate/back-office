@@ -312,11 +312,17 @@ export const getFeesForecastingIndexViewModel = ({ caseData, invoices, meetings 
 			headers: ['Issues discussed', 'Date', 'Action'],
 			rows: evidencePlanMeetings.map(
 				/** @param {object|*} meeting */
-				(meeting) => [
-					{ text: meeting.agenda },
-					{ text: formatDateForDisplay(meeting.meetingDate) },
-					{ html: getLinkHTML(genericHrefText, '#') }
-				]
+				(meeting) => {
+					const evidencePlanMeetingHref = url('fees-forecasting-evidence-plan-meeting', {
+						caseId: caseData.id,
+						meetingId: meeting.id
+					});
+					return [
+						{ text: meeting.agenda },
+						{ text: formatDateForDisplay(meeting.meetingDate) },
+						{ html: getLinkHTML(genericHrefText, evidencePlanMeetingHref) }
+					];
+				}
 			)
 		});
 	};
