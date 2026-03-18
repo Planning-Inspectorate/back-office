@@ -2,7 +2,7 @@ import { requestWithApiKey } from '../../common/backend-api-request.js';
 import config from '../../common/config.js';
 import { buildFilenameSuffix } from './build-filename-suffix.js';
 
-export const handleSuggestions = async (context, message) => {
+export const handleFinalRedaction = async (context, message) => {
 	const { status, parameters } = message;
 	const metadata = parameters?.metadata;
 
@@ -19,7 +19,7 @@ export const handleSuggestions = async (context, message) => {
 	const metadataUri = `https://${config.API_HOST}/applications/${caseId}/documents/${documentGuid}/metadata`;
 
 	if (status !== 'SUCCESS') {
-		context.log(`Redaction failed for ${documentGuid}`);
+		context.log(`Final redaction failed for ${documentGuid}`);
 
 		await requestWithApiKey.post(metadataUri, {
 			json: {
@@ -38,21 +38,21 @@ export const handleSuggestions = async (context, message) => {
 	}
 
 	const privateBlobPath = `/${writeDetails.blobPath}`;
-	const newFilename = buildFilenameSuffix(originalFilename, 'suggest');
+	const newFilename = buildFilenameSuffix(originalFilename, 'redact');
 
-	// Step 1: reset version 1 status before creating new version
-	context.log(`Resetting previous version status for ${originalFilename}`);
+	// Step 1:  Mark previous version as reviewed
+	context.log(`Marking previous version as ai_suggestions_reviewed`);
 
 	await requestWithApiKey.post(metadataUri, {
 		json: {
-			redactedStatus: 'not_redacted'
+			redactedStatus: 'ai_suggestions_reviewed'
 		}
 	});
 
-	// Step 2: create new version for redaction suggestion
+	// Step 2: Create new version (final redacted document)
 	const createVersionUri = `https://${config.API_HOST}/applications/${caseId}/document/${documentGuid}/add-version`;
 
-	context.log(`Creating redaction suggestion version for ${newFilename}`);
+	context.log(`Creating final redacted version: ${newFilename}`);
 
 	await requestWithApiKey.post(createVersionUri, {
 		json: {
@@ -66,14 +66,16 @@ export const handleSuggestions = async (context, message) => {
 		}
 	});
 
-	context.log(`Redaction suggestion version successfully created for ${newFilename}`);
+	context.log(`Final redacted version created for ${newFilename}`);
 
-	// Step 3: update new version status to 'ai_suggestions_review_required'
-	context.log(`Updating suggestion version status for ${newFilename}`);
+	// Step 3: Update latest version status to 'redacted'
+	context.log(`Updating new version status to redacted`);
 
 	await requestWithApiKey.post(metadataUri, {
 		json: {
-			redactedStatus: 'ai_suggestions_review_required'
+			redactedStatus: 'redacted'
 		}
 	});
+
+	context.log(`Document ${documentGuid} marked as redacted`);
 };
