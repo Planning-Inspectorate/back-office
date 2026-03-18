@@ -92,7 +92,9 @@ describe('Application', () => {
 					caseId: 1
 				}
 			],
-			gridReference: { id: 3, easting: 123456, northing: 654321, caseId: 100000078 }
+			gridReference: { id: 3, easting: 123456, northing: 654321, caseId: 100000078 },
+			meetings: [],
+			invoices: []
 		};
 
 		// 2. Act
@@ -118,7 +120,9 @@ describe('Application', () => {
 			projectType: 'BC01 - Office Use',
 			nsipOfficerIds: [],
 			nsipAdministrationOfficerIds: [],
-			inspectorIds: []
+			inspectorIds: [],
+			meetings: [],
+			invoices: []
 		})[0];
 
 		// Expect payload:
@@ -150,7 +154,9 @@ describe('Application', () => {
 				gridReference: true,
 				mapZoomLevel: true,
 				subSector: true
-			}
+			},
+			meetings: [],
+			invoices: []
 		});
 
 		if (projectEntity.ApplicationDetails) {
@@ -188,7 +194,9 @@ describe('Application', () => {
 			applicantId: '1',
 			nsipOfficerIds: [],
 			nsipAdministrationOfficerIds: [],
-			inspectorIds: []
+			inspectorIds: [],
+			meetings: [],
+			invoices: []
 		})[0];
 
 		// expect payload
