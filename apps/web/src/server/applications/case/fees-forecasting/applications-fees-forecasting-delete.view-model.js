@@ -44,8 +44,8 @@ export const getFeesForecastingDeleteViewModel = (projectName, sectionName, tabl
 	const itemToDeleteTable = buildTable({
 		headers: tableConfig?.headers || [],
 		rows:
-			tableData && tableConfig?.getRows
-				? tableConfig.getRows(tableData, {
+			tableData && tableConfig?.rows
+				? tableConfig.rows(tableData, {
 						getDisplayValue,
 						getStatusTag,
 						formatDateForDisplay,
@@ -60,7 +60,7 @@ export const getFeesForecastingDeleteViewModel = (projectName, sectionName, tabl
 		pageHeading: section?.pageHeading || '',
 		warningText: section?.warningText || '',
 		backLink: tableData
-			? url(section?.backLinkSectionName, section?.getBackLinkParams(tableData))
+			? url(section?.backLinkSectionName, section?.backLinkParams(tableData))
 			: '',
 		tableData: itemToDeleteTable
 	};

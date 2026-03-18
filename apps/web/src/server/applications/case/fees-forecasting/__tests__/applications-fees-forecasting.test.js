@@ -28,6 +28,15 @@ const mockProjectMeeting = {
 	meetingDate: '2026-03-04T00:00:00.000Z'
 };
 
+const mockEvidencePlanMeeting = {
+	id: 2,
+	caseId: 123,
+	meetingType: 'evidence_plan',
+	pinsRole: 'observer',
+	agenda: 'Test Meeting',
+	meetingDate: '2026-03-12T00:00:00.000Z'
+};
+
 const nocks = () => {
 	nock('http://test/').get('/applications').reply(200, []);
 	nock('http://test/').get('/applications/123').reply(200, fixtureFeesForecastingIndex.caseData);
@@ -471,9 +480,9 @@ describe('Fees and Forecasting', () => {
 			const flags = staticFlags;
 			flags['applics-1845-fees-forecasting'] = true;
 
-			nock('http://test/').get('/applications/123/meetings/2').reply(404, {});
+			nock('http://test/').get('/applications/123/meetings/3').reply(404, {});
 
-			const response = await request.get(`${baseUrl}/section/manage-project-meeting/id/2`);
+			const response = await request.get(`${baseUrl}/section/manage-project-meeting/id/3`);
 
 			expect(response.status).toBe(404);
 		});
@@ -570,6 +579,146 @@ describe('Fees and Forecasting', () => {
 			nock('http://test/').get('/applications/123/meetings/1').reply(200, mockProjectMeeting);
 
 			const response = await request.post(`${baseUrl}/section/manage-project-meeting/id/1/delete`);
+
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+			expect(element.innerHTML).toContain('There is a problem');
+		});
+	});
+
+	describe('GET /case/123/fees-forecasting/section/manage-evidence-plan-meeting/id/:meetingId', () => {
+		it('should render the manage evidence plan meeting page when the feature flag is ON', async () => {
+			const flags = staticFlags;
+			flags['applics-1845-fees-forecasting'] = true;
+
+			nock('http://test/').get('/applications/123/meetings/2').reply(200, mockEvidencePlanMeeting);
+
+			const response = await request.get(`${baseUrl}/section/manage-evidence-plan-meeting/id/2`);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+			expect(element.innerHTML).toContain('Manage evidence plan meeting');
+		});
+
+		it('should return 404 if the evidence plan meeting does not exist', async () => {
+			const flags = staticFlags;
+			flags['applics-1845-fees-forecasting'] = true;
+
+			nock('http://test/').get('/applications/123/meetings/3').reply(404, {});
+
+			const response = await request.get(`${baseUrl}/section/manage-evidence-plan-meeting/id/3`);
+
+			expect(response.status).toBe(404);
+		});
+	});
+
+	describe('POST /case/123/fees-forecasting/section/manage-evidence-plan-meeting/id/:meetingId', () => {
+		it('should redirect to the index page if updating the evidence plan meeting was successful', async () => {
+			const flags = staticFlags;
+			flags['applics-1845-fees-forecasting'] = true;
+
+			nock('http://test/').patch('/applications/123/meetings/2').reply(200, {});
+
+			const response = await request
+				.post(`${baseUrl}/section/manage-evidence-plan-meeting/id/2`)
+				.send({
+					meetingType: 'evidence_plan',
+					pinsRole: 'facilitator',
+					agenda: 'New Test Meeting'
+				});
+
+			expect(response?.headers?.location).toEqual(
+				'/applications-service/case/123/fees-forecasting/'
+			);
+		});
+
+		it('should show a validation error when the evidence plan meeting update is missing required fields', async () => {
+			const flags = staticFlags;
+			flags['applics-1845-fees-forecasting'] = true;
+
+			const response = await request
+				.post(`${baseUrl}/section/manage-evidence-plan-meeting/id/2}`)
+				.send({
+					meetingType: 'evidence_plan',
+					pinsRole: '',
+					agenda: 'Another Test Meeting'
+				});
+
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toContain('Select Planning Inspectorate role');
+		});
+
+		it('should show an API error if updating the evidence plan meeting was NOT successful', async () => {
+			const flags = staticFlags;
+			flags['applics-1845-fees-forecasting'] = true;
+
+			nock('http://test/')
+				.patch('/applications/123/meetings/2')
+				.reply(500, { errors: 'API error message' });
+
+			const response = await request
+				.post(`${baseUrl}/section/manage-evidence-plan-meeting/id/2`)
+				.send({
+					meetingType: 'evidence_plan',
+					pinsRole: 'facilitator',
+					agenda: 'New Test Meeting'
+				});
+
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+			expect(element.innerHTML).toContain('There is a problem');
+		});
+	});
+
+	describe('GET /case/123/fees-forecasting/section/manage-evidence-plan-meeting/id/:meetingId/delete', () => {
+		it('should render the delete confirmation page', async () => {
+			const flags = staticFlags;
+			flags['applics-1845-fees-forecasting'] = true;
+
+			nock('http://test/').get('/applications/123/meetings/2').reply(200, mockEvidencePlanMeeting);
+
+			const response = await request.get(
+				`${baseUrl}/section/manage-evidence-plan-meeting/id/2/delete`
+			);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+			expect(element.innerHTML).toContain('Delete evidence plan meeting');
+		});
+	});
+
+	describe('POST /case/123/fees-forecasting/section/manage-evidence-plan-meeting/id/:meetingId/delete', () => {
+		it('should redirect to the index page if deleting the evidence plan meeting was successful', async () => {
+			const flags = staticFlags;
+			flags['applics-1845-fees-forecasting'] = true;
+
+			nock('http://test/').get('/applications/123/meetings/2').reply(200, mockEvidencePlanMeeting);
+			nock('http://test/').delete('/applications/123/meetings/2').reply(204, {});
+
+			const response = await request.post(
+				`${baseUrl}/section/manage-evidence-plan-meeting/id/2/delete`
+			);
+
+			expect(response?.headers?.location).toEqual(
+				'/applications-service/case/123/fees-forecasting/'
+			);
+		});
+
+		it('should show an API error if deleting the evidence plan meeting was NOT successful', async () => {
+			const flags = staticFlags;
+			flags['applics-1845-fees-forecasting'] = true;
+
+			nock('http://test/')
+				.delete('/applications/123/meetings/2')
+				.reply(500, { errors: 'API error message' });
+			nock('http://test/').get('/applications/123/meetings/2').reply(200, mockEvidencePlanMeeting);
+
+			const response = await request.post(
+				`${baseUrl}/section/manage-evidence-plan-meeting/id/2/delete`
+			);
 
 			const element = parseHtml(response.text);
 
