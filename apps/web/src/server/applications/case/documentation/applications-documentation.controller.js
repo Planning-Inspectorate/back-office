@@ -312,7 +312,12 @@ export async function viewApplicationsCaseDocumentationProperties({ session }, r
 	const showSuccessBanner = !!updateBannerText || getSuccessBanner(session);
 
 	const showAiRedactionButton = canRequestAiRedaction(documentationFile);
-	const aiRedactionBanner = getAiRedactionBannerFromStatus(documentationFile, caseId, folderId);
+	const aiRedactionBanner = getAiRedactionBannerFromStatus(
+		documentationFile,
+		caseId,
+		folderId,
+		documentVersions
+	);
 
 	deleteSessionBanner(session);
 	destroySuccessBanner(session);

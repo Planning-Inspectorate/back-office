@@ -4,6 +4,7 @@ import { url } from '../../../../lib/nunjucks-filters/index.js';
  * @param {import('../../../applications.types').DocumentationFile} documentationFile
  * @param {number} caseId
  * @param {number} folderId
+ * @param {Array<import('../../../applications.types').DocumentVersion>} documentVersions
  * @returns {{
  * 	type: string,
  * 	header: string,
@@ -11,7 +12,26 @@ import { url } from '../../../../lib/nunjucks-filters/index.js';
  * 	link?: { text: string, href: string }
  * 	} | undefined}
  */
-export const getAiRedactionBannerFromStatus = (documentationFile, caseId, folderId) => {
+export const getAiRedactionBannerFromStatus = (
+	documentationFile,
+	caseId,
+	folderId,
+	documentVersions = []
+) => {
+	const latestVersion = documentVersions?.[0];
+
+	const isAiRedacted =
+		documentationFile.redactedStatus === 'redacted' &&
+		latestVersion?.history?.uploaded?.name === 'Redaction tool';
+
+	if (isAiRedacted) {
+		return {
+			type: 'success',
+			header: 'Document redactions finalised',
+			message: ''
+		};
+	}
+
 	switch (documentationFile.redactedStatus) {
 		case 'ai_suggestions_review_required':
 			return {

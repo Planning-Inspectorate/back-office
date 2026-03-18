@@ -1,4 +1,5 @@
 import { handleSuggestions } from './src/handle-suggestions.js';
+import { handleFinalRedaction } from './src/handle-final-redaction.js';
 
 /**
  * Azure Service Bus subscriber for AI doc redaction process
@@ -13,6 +14,10 @@ export const index = async (context, message) => {
 		switch (stage) {
 			case 'ANALYSE':
 				await handleSuggestions(context, message);
+				break;
+
+			case 'REDACT':
+				await handleFinalRedaction(context, message);
 				break;
 
 			default:
