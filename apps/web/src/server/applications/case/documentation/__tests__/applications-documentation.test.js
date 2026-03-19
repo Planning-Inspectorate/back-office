@@ -716,6 +716,7 @@ describe('applications documentation', () => {
 
 		describe('POST AI redaction', () => {
 			it('sets awaiting_ai_redaction and redirects back to properties', async () => {
+				nock('http://test/').post('/applications/123/documents/96/metadata').reply(200, {});
 				const response = await request.post(
 					`${baseUrl}/project-documentation/21/document/96/ai-redaction`
 				);

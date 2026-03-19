@@ -12,9 +12,9 @@ const { buildAiRedactionPayload } = await import('../utils/build-ai-redaction-pa
 describe('buildAiRedactionPayload', () => {
 	const baseDoc = {
 		...fixtureReadyToPublishDocumentationPdfFile,
+		version: 1,
 		privateBlobPath: '/application/CASE1/guid-123/1',
-		privateBlobContainer: 'blob-container',
-		version: 1
+		privateBlobContainer: 'blob-container'
 	};
 
 	it('sets storageName from config', () => {
