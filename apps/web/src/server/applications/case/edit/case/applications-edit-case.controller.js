@@ -128,7 +128,7 @@ const recommendationLayout = {
 };
 
 const dcoStatusLayout = {
-	pageTitle: 'Choose DCO status',
+	pageTitle: 'Development Consent Order (DCO) status',
 	components: ['dco-status'],
 	isEdit: true
 };
