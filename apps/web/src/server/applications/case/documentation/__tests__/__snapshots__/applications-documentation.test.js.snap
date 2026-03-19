@@ -7563,6 +7563,15 @@ exports[`applications documentation Document properties page should NOT show red
                     </li>
                 </ol>
             </nav>
+            <div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title"
+            data-module="govuk-notification-banner">
+                <div class="govuk-notification-banner__header">
+                    <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title"> Important</h2>
+                </div>
+                <div class="govuk-notification-banner__content">
+                    <h3 class="govuk-notification-banner__heading"> Finalising redactions, check back later.</h3>
+                </div>
+            </div>
             <h1 class="govuk-heading-xl govuk-!-margin-top-4"><span class="govuk-caption-xl">Document properties</span> 1 Ut enim ad</h1>
             <ul class="govuk-list">
                 <li class="govuk-!-margin-top-4"><strong>Description:</strong> Ut enim ad minim veniam quis nostrud exercitation
@@ -7885,7 +7894,7 @@ exports[`applications documentation Document properties page should NOT show red
                     <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title"> Success</h2>
                 </div>
                 <div class="govuk-notification-banner__content">
-                    <h3 class="govuk-notification-banner__heading"> Redaction suggestions created.<a class="govuk-link" href="app/404"> Review redactions</a>.</h3>
+                    <h3 class="govuk-notification-banner__heading"> Redaction suggestions created.<a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/151/review-redactions"> Review redactions</a>.</h3>
                 </div>
             </div>
             <h1 class="govuk-heading-xl govuk-!-margin-top-4"><span class="govuk-caption-xl">Document properties</span> 1 Ut enim ad</h1>

@@ -374,6 +374,39 @@ export const deleteFolder = async (caseId, folderId) => {
 };
 
 /**
+ * Send document to AI redaction tool for final redaction
+ * @param {object} payload
+ * @returns {Promise<{ body?: AiRedactionResponse, errors?: { msg: string } }>}
+ */
+export const postDocumentForAiRedactionApply = async (payload) => {
+	const applyEndpoint = `${config.azureAiDocRedactionBaseUrl}/api/apply?code=${config.azureAiDocRedactionApplyKey}`;
+	try {
+		const body = await aiRedactionClientPost(applyEndpoint, {
+			json: payload
+		});
+
+		logger.info({ body }, '[AI redaction apply] response received');
+
+		return { body };
+	} catch (/** @type {*} */ error) {
+		logger.error(
+			{
+				statusCode: error?.response?.statusCode,
+				statusMessage: error?.response?.statusMessage,
+				headers: error?.response?.headers,
+				body:
+					typeof error?.response?.body === 'string'
+						? error.response.body.slice(0, 500)
+						: error?.response?.body
+			},
+			'[AI redaction apply] request failed'
+		);
+
+		return { errors: { msg: 'AI redaction apply failed - try again' } };
+	}
+};
+
+/**
  * Send document to AI redaction tool
  * @param {object} payload
  * @returns {Promise<{ body?: AiRedactionResponse, errors?: { msg: string } }>}

@@ -1,6 +1,17 @@
 import config from '@pins/applications.web/environment/config.js';
 
 /**
+ * Get the container name based on environment
+ * Local uses hardcoded 'document-service-uploads', deployed envs use the document's container
+ * @param {string | undefined} privateBlobContainer
+ * @returns {string}
+ */
+const getContainerName = (privateBlobContainer) => {
+	const isLocal = process.env.NODE_ENV === 'development' || !process.env.NODE_ENV;
+	return isLocal ? 'document-service-uploads' : privateBlobContainer || 'document-service-uploads';
+};
+
+/**
  * @param {import('../../../applications.types').DocumentationFile} document
  * @param {string} caseId
  */
@@ -10,8 +21,8 @@ export const buildAiRedactionPayload = (document, caseId) => {
 	}
 
 	const blobPath = removeLeadingSlash(document.privateBlobPath);
-
 	const destinationPath = buildDestinationBlobPath(blobPath, document);
+	const containerName = getContainerName(document.privateBlobContainer);
 
 	return {
 		tryApplyProvisionalRedactions: true,
@@ -24,7 +35,7 @@ export const buildAiRedactionPayload = (document, caseId) => {
 			teamEmail: '',
 			properties: {
 				blobPath: blobPath,
-				containerName: document.privateBlobContainer,
+				containerName,
 				storageName: config.azureAiDocRedactionBlobStorageName
 			}
 		},
@@ -33,7 +44,7 @@ export const buildAiRedactionPayload = (document, caseId) => {
 			teamEmail: '',
 			properties: {
 				blobPath: destinationPath,
-				containerName: document.privateBlobContainer,
+				containerName,
 				storageName: config.azureAiDocRedactionBlobStorageName
 			}
 		},

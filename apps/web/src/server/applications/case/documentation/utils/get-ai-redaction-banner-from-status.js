@@ -64,6 +64,13 @@ export const getAiRedactionBannerFromStatus = (
 				message: ''
 			};
 
+		case 'awaiting_ai_redaction':
+			return {
+				type: 'info',
+				header: 'Finalising redactions, check back later',
+				message: ''
+			};
+
 		default:
 			return undefined;
 	}
