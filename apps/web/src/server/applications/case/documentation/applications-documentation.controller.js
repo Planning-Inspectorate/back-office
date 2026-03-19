@@ -1039,7 +1039,6 @@ export async function viewReviewRedactions(_, response) {
 export async function postReviewRedactions(request, response) {
 	const { caseId, folderId, documentGuid } = response.locals;
 	const { reviewDecision } = request.body;
-	console.log({ body: request.body });
 	if (reviewDecision === 'ready') {
 		const document = await getCaseDocumentationFileInfo(caseId, documentGuid);
 		const payload = buildAiRedactionPayload(document, caseId);
