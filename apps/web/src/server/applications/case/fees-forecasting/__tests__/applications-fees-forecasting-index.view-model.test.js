@@ -441,7 +441,7 @@ describe('applications fees forecasting index view-model', () => {
 								actions: {
 									items: [
 										{
-											href: '#',
+											href: '/applications-service/case/4/fees-forecasting/section/disagreement-summary-statement',
 											text: 'Change',
 											visuallyHiddenText: 'principal area disagreement summary statement (PADSS)'
 										}

@@ -50,7 +50,8 @@ export const urlSectionNames = {
 	addProjectMeeting: 'add-project-meeting',
 	manageProjectMeeting: 'manage-project-meeting',
 	addEvidencePlanMeeting: 'add-evidence-plan-meeting',
-	manageEvidencePlanMeeting: 'manage-evidence-plan-meeting'
+	manageEvidencePlanMeeting: 'manage-evidence-plan-meeting',
+	principalAreaDisagreementSummaryStmt: 'disagreement-summary-statement'
 };
 
 export const sectionData = {
@@ -123,6 +124,15 @@ export const sectionData = {
 		sectionTitle: 'Manage evidence plan meeting',
 		pageHeading: 'Manage evidence plan meeting',
 		componentType: 'manage-evidence-plan-meeting'
+	},
+	principalAreaDisagreementSummaryStmt: {
+		sectionTitle: 'Principal area disagreement summary statement (PADSS)',
+		pageHeading: 'Principal area disagreement summary statement (PADSS)',
+		fieldName: 'principalAreaDisagreementSummaryStmt',
+		dateFieldName: 'principalAreaDisagreementSummaryStmtSubmittedDate',
+		componentType: 'radio-date-input',
+		radioFieldPath: 'additionalDetails.principalAreaDisagreementSummaryStmt',
+		dateFieldPath: 'keyDates.preApplication.principalAreaDisagreementSummaryStmtSubmittedDate'
 	}
 };
 
