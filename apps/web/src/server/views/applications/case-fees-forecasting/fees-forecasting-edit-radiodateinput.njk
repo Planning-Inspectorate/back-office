@@ -1,0 +1,97 @@
+{% extends "../layouts/applications.layout.njk" %}
+{% from "govuk/components/date-input/macro.njk" import govukDateInput %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% block beforeContent %}
+	<aside>
+		{{ govukBackLink({
+			text: "Back",
+			href: 'fees-forecasting'|url({caseId: caseId})
+		}) }}
+	</aside>
+{% endblock %}
+
+{% block pageHeading %}
+{% endblock %}
+
+{% block pageContent %}
+	<form method="post" novalidate="novalidate" class="govuk-grid-row">
+		{% set submissionDateHtml %}
+			{{ govukDateInput({
+				id: dateFieldName,
+				errorMessage: errors[dateFieldName] and {
+					text: errors[dateFieldName].msg
+				},
+				items: [
+					{
+						name: dateFieldName + ".day",
+						id: dateFieldName + "-day",
+						label: "Day",
+						classes: "govuk-input--width-2",
+						value: values[dateFieldName + '.day'] if values
+					},
+					{
+						name: dateFieldName + ".month",
+						id: dateFieldName + "-month",
+						label: "Month",
+						classes: "govuk-input--width-2",
+						value: values[dateFieldName + '.month'] if values
+					},
+					{
+						name: dateFieldName + ".year",
+						id: dateFieldName + "-year",
+						label: "Year",
+						classes: "govuk-input--width-4",
+						value: values[dateFieldName + '.year'] if values
+					}
+				]
+			}) }}
+		{% endset -%}
+
+		<div class="govuk-grid-column-two-thirds">
+			{{ govukRadios({
+				name: fieldName,
+				errorMessage: errors[fieldName] and {
+					text: errors[fieldName].msg
+				},
+				value: values[fieldName] if values,
+				fieldset: {
+					legend: {
+						text: pageHeading,
+						isPageHeading: true,
+						classes: "govuk-fieldset__legend--l"
+					}
+				},
+				hint: {
+					text: "Select one option"
+				},
+				items: [
+					{
+						value: "submitted_by_applicant",
+						text: "Submitted",
+						checked: values[fieldName] == "submitted_by_applicant" if values,
+						conditional: {
+							html: submissionDateHtml
+						}
+					},
+					{
+						value: "awaiting_submission",
+						text: "Awaiting submission",
+						checked: values[fieldName] == "awaiting_submission" if values
+					},
+					{
+						value: "not_applicable",
+						text: "Not applicable",
+						checked: values[fieldName] == "not_applicable" if values
+					}
+				]
+			}) }}
+		</div>
+
+		<div class="govuk-grid-column-full">
+			{{ govukButton({ text: 'Save and return', classes: "govuk-grid-column-one-third" }) }}
+		</div>
+	</form>
+
+{% endblock %}

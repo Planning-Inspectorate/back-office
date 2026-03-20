@@ -1,6 +1,9 @@
 import { createValidator } from '@pins/express';
 import { body } from 'express-validator';
-import { validationDateValid } from '../../common/validators/dates.validators.js';
+import {
+	validationDateValid,
+	validationDateMandatory
+} from '../../common/validators/dates.validators.js';
 import { getSectionData } from './applications-fees-forecasting.utils.js';
 import { sectionData, urlSectionNames } from './fees-forecasting.config.js';
 
@@ -41,7 +44,8 @@ export const feesForecastingValidator = (request, response, next) => {
 		'add-project-meeting': validateFeesForecastingProjectMeeting,
 		'manage-project-meeting': validateFeesForecastingProjectMeeting,
 		'add-evidence-plan-meeting': validateFeesForecastingEvidencePlanMeeting,
-		'manage-evidence-plan-meeting': validateFeesForecastingEvidencePlanMeeting
+		'manage-evidence-plan-meeting': validateFeesForecastingEvidencePlanMeeting,
+		'disagreement-summary-statement': validateFeesForecastingRadioDateInput
 	};
 
 	if (Object.keys(validators).includes(sectionName)) {
@@ -166,4 +170,39 @@ export const validateFeesForecastingEvidencePlanMeeting = (request, response, ne
 	];
 
 	return createValidator(validator)(request, response, next);
+};
+
+/**
+ * Checks radio-date-input data is formatted correctly
+ *
+ * @type {RequestHandler}
+ */
+export const validateFeesForecastingRadioDateInput = (request, response, next) => {
+	const { sectionName } = request.params;
+
+	const section = getSectionData(sectionName, urlSectionNames, sectionData);
+	const fieldName = section?.fieldName || '';
+	const dateFieldName = section?.dateFieldName || 'submissionDate';
+	const extendedFieldName = section?.sectionTitle || '';
+
+	const validators = [
+		body(fieldName)
+			.trim()
+			.notEmpty()
+			.withMessage(`You must select an option for ${extendedFieldName}`)
+	];
+
+	if (request.body[fieldName] === 'submitted_by_applicant') {
+		const dateMandatoryValidation = validationDateMandatory(
+			{ fieldName: dateFieldName, extendedFieldName: `${extendedFieldName} submission date` },
+			request.body
+		);
+		const dateValidation = validationDateValid(
+			{ fieldName: dateFieldName, extendedFieldName: `${extendedFieldName} submission date` },
+			request.body
+		);
+		validators.push(dateMandatoryValidation, dateValidation);
+	}
+
+	return createValidator(validators)(request, response, next);
 };
