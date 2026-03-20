@@ -168,6 +168,10 @@ export interface DocumentVersion {
 			username: string;
 			date: number;
 		} | null;
+		uploaded: {
+			name: string;
+			date: number;
+		} | null;
 	};
 	redactedStatus: string;
 	redactionStatusForDisplay?: string;

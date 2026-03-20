@@ -114,128 +114,176 @@ describe('Create documents', () => {
 	afterAll(() => {
 		restoreEnvVars();
 	});
+	describe('and the documents originate from the back office applications (CBOS)', () => {
+		test('it saves documents information and returns create documents with Blob Storage URLs', async () => {
+			const guid = 'some-guid';
 
-	test('saves documents information and returns create documents with Blob Storage URLs', async () => {
-		const guid = 'some-guid';
+			// GIVEN
+			databaseConnector.case.findUnique.mockResolvedValue(application);
 
-		// GIVEN
-		databaseConnector.case.findUnique.mockResolvedValue(application);
+			databaseConnector.folder.findMany.mockResolvedValue([{ id: 1, displayNameEn: 'folder 1' }]);
+			databaseConnector.folder.findUnique.mockResolvedValue({ id: 1, caseId: 1 });
+			databaseConnector.document.create.mockResolvedValue({ id: 1, guid, name: 'test doc' });
+			databaseConnector.document.findFirst.mockResolvedValueOnce(null);
+			databaseConnector.documentVersion.upsert.mockResolvedValue(upsertedDocVersionResponse);
+			databaseConnector.document.update.mockResolvedValue(updatedDocResponse);
 
-		databaseConnector.folder.findMany.mockResolvedValue([{ id: 1, displayNameEn: 'folder 1' }]);
-		databaseConnector.folder.findUnique.mockResolvedValue({ id: 1, caseId: 1 });
-		databaseConnector.document.create.mockResolvedValue({ id: 1, guid, name: 'test doc' });
-		databaseConnector.document.findFirst.mockResolvedValueOnce(null);
-		databaseConnector.documentVersion.upsert.mockResolvedValue(upsertedDocVersionResponse);
-		databaseConnector.document.update.mockResolvedValue(updatedDocResponse);
-
-		// WHEN
-		const response = await request.post('/applications/1/documents').send([
-			{
-				folderId: 1,
-				documentName: 'test doc',
-				documentType: 'application/pdf',
-				documentSize: 1024
-			}
-		]);
-
-		const blobPath = `/application/${application.reference}/${guid}/1`;
-
-		// get the folder path and file name, needed for payload
-		const filePath = await buildDocumentFolderPath(
-			upsertedDocVersionResponse.Document.folderId,
-			upsertedDocVersionResponse.Document.folder.case.reference,
-			upsertedDocVersionResponse.fileName
-		);
-
-		// @ts-ignore
-		const eventPayload = buildNsipDocumentPayload(upsertedDocVersionResponse, filePath);
-
-		// THEN
-		expect(response.status).toEqual(200);
-
-		expect(response.body).toEqual({
-			blobStorageHost: 'blob-store-host',
-			privateBlobContainer: 'blob-store-container',
-			documents: [
+			// WHEN
+			const response = await request.post('/applications/1/documents').send([
 				{
-					blobStoreUrl: blobPath,
+					folderId: 1,
 					documentName: 'test doc',
-					GUID: 'some-guid'
+					documentType: 'application/pdf',
+					documentSize: 1024
 				}
-			],
-			failedDocuments: [],
-			duplicates: [],
-			deleted: []
-		});
+			]);
 
-		const metadata = {
-			documentGuid: guid,
-			originalFilename: 'test doc',
-			privateBlobPath: '/some/path/test doc'
-		};
+			const blobPath = `/application/${application.reference}/${guid}/1`;
 
-		expect(databaseConnector.documentVersion.upsert).toHaveBeenCalledTimes(2);
+			// get the folder path and file name, needed for payload
+			const filePath = await buildDocumentFolderPath(
+				upsertedDocVersionResponse.Document.folderId,
+				upsertedDocVersionResponse.Document.folder.case.reference,
+				upsertedDocVersionResponse.fileName
+			);
 
-		expect(databaseConnector.documentVersion.upsert).toHaveBeenCalledWith({
-			create: {
-				Document: { connect: { guid: 'some-guid' } },
-				originalFilename: 'test doc',
-				fileName: 'test doc',
-				mime: 'application/pdf',
-				size: 1024,
-				version: 1
-			},
-			include: {
-				Document: { include: { folder: { include: { case: { include: { CaseStatus: true } } } } } }
-			},
-			update: {
-				fileName: 'test doc',
-				originalFilename: 'test doc',
-				mime: 'application/pdf',
-				size: 1024,
-				version: 1
-			},
-			where: { documentGuid_version: { documentGuid: 'some-guid', version: 1 } }
-		});
+			// @ts-ignore
+			const eventPayload = buildNsipDocumentPayload(upsertedDocVersionResponse, filePath);
 
-		expect(databaseConnector.documentVersion.upsert).toHaveBeenLastCalledWith({
-			create: {
+			// THEN
+			expect(response.status).toEqual(200);
+
+			expect(response.body).toEqual({
+				blobStorageHost: 'blob-store-host',
 				privateBlobContainer: 'blob-store-container',
-				privateBlobPath: blobPath,
-				Document: { connect: { guid: metadata?.documentGuid } },
-				version: 1
-			},
-			where: { documentGuid_version: { documentGuid: metadata?.documentGuid, version: 1 } },
+				documents: [
+					{
+						blobStoreUrl: blobPath,
+						documentName: 'test doc',
+						GUID: 'some-guid'
+					}
+				],
+				failedDocuments: [],
+				duplicates: [],
+				deleted: []
+			});
 
-			update: {
-				privateBlobContainer: 'blob-store-container',
-				privateBlobPath: blobPath,
-				version: 1
-			},
-			include: {
-				Document: {
-					include: {
-						folder: {
-							include: {
-								case: {
-									include: {
-										CaseStatus: true
+			const metadata = {
+				documentGuid: guid,
+				originalFilename: 'test doc',
+				privateBlobPath: '/some/path/test doc'
+			};
+
+			expect(databaseConnector.documentVersion.upsert).toHaveBeenCalledTimes(2);
+
+			expect(databaseConnector.documentVersion.upsert).toHaveBeenCalledWith({
+				create: {
+					Document: { connect: { guid: 'some-guid' } },
+					originalFilename: 'test doc',
+					fileName: 'test doc',
+					mime: 'application/pdf',
+					size: 1024,
+					version: 1
+				},
+				include: {
+					Document: {
+						include: { folder: { include: { case: { include: { CaseStatus: true } } } } }
+					}
+				},
+				update: {
+					fileName: 'test doc',
+					originalFilename: 'test doc',
+					mime: 'application/pdf',
+					size: 1024,
+					version: 1
+				},
+				where: { documentGuid_version: { documentGuid: 'some-guid', version: 1 } }
+			});
+
+			expect(databaseConnector.documentVersion.upsert).toHaveBeenLastCalledWith({
+				create: {
+					privateBlobContainer: 'blob-store-container',
+					privateBlobPath: blobPath,
+					Document: { connect: { guid: metadata?.documentGuid } },
+					version: 1
+				},
+				where: { documentGuid_version: { documentGuid: metadata?.documentGuid, version: 1 } },
+
+				update: {
+					privateBlobContainer: 'blob-store-container',
+					privateBlobPath: blobPath,
+					version: 1
+				},
+				include: {
+					Document: {
+						include: {
+							folder: {
+								include: {
+									case: {
+										include: {
+											CaseStatus: true
+										}
 									}
 								}
 							}
 						}
 					}
 				}
-			}
-		});
+			});
 
-		// EXPECT event broadcast
-		expect(eventClient.sendEvents).toHaveBeenCalledWith(
-			NSIP_DOCUMENT,
-			[eventPayload],
-			EventType.Create,
-			{}
-		);
+			// EXPECT event broadcast
+			expect(eventClient.sendEvents).toHaveBeenCalledWith(
+				NSIP_DOCUMENT,
+				[eventPayload],
+				EventType.Create,
+				{}
+			);
+		});
+	});
+
+	describe('and the documents originate from a DCO portal submission', () => {
+		test('it saves documents submitted via DCO Portal with DCO supplied Blob Storage URLs', async () => {
+			const guid = 'some-guid';
+
+			//GIVEN
+			databaseConnector.case.findUnique.mockResolvedValue(application);
+
+			databaseConnector.folder.findMany.mockResolvedValue([{ id: 1, displayNameEn: 'folder 1' }]);
+			databaseConnector.folder.findUnique.mockResolvedValue({ id: 1, caseId: 1 });
+			databaseConnector.document.create.mockResolvedValue({ id: 1, guid, name: 'test doc' });
+			databaseConnector.document.findFirst.mockResolvedValueOnce(null);
+
+			const DCOPayload = [
+				{
+					folderId: 1,
+					documentName: 'test doc',
+					documentType: 'application/pdf',
+					documentSize: 1024,
+					sourceSystem: 'dco-portal',
+					blobStoreUrl: '/application/case-reference/dco-folder-category/file-type/file-name'
+				}
+			];
+
+			// WHEN
+			const response = await request.post('/applications/1/documents').send(DCOPayload);
+
+			expect(response.status).toEqual(200);
+
+			expect(response.body).toEqual({
+				blobStorageHost: 'blob-store-host',
+				privateBlobContainer: 'blob-store-container',
+				documents: [
+					{
+						blobStoreUrl: DCOPayload[0].blobStoreUrl,
+						documentName: 'test doc',
+						GUID: 'some-guid'
+					}
+				],
+				failedDocuments: [],
+				duplicates: [],
+				deleted: []
+			});
+		});
 	});
 
 	test('returns file names which failed to upload', async () => {

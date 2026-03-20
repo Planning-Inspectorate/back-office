@@ -9,10 +9,14 @@ describe('applications fees forecasting edit view model', () => {
 			'./src/server/applications/case/fees-forecasting/applications-fees-forecasting.utils.js',
 			() => {
 				const mockGetSectionData = jest.fn();
+				const mockGetRows = jest.fn();
+				const mockGetBackLinkParams = jest.fn();
 
 				return {
 					__esModule: true,
-					getSectionData: mockGetSectionData
+					getSectionData: mockGetSectionData,
+					getRows: mockGetRows,
+					getBackLinkParams: mockGetBackLinkParams
 				};
 			}
 		);

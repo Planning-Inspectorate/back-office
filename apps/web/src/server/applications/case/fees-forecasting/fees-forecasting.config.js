@@ -1,3 +1,5 @@
+import { getRows, getBackLinkParams } from './applications-fees-forecasting.utils.js';
+
 export const genericHrefText = 'Change';
 export const feesHrefText = 'Review';
 export const editPageURL = '#';
@@ -47,7 +49,8 @@ export const urlSectionNames = {
 	manageFee: 'manage-fee',
 	addProjectMeeting: 'add-project-meeting',
 	manageProjectMeeting: 'manage-project-meeting',
-	addEvidencePlanMeeting: 'add-evidence-plan-meeting'
+	addEvidencePlanMeeting: 'add-evidence-plan-meeting',
+	manageEvidencePlanMeeting: 'manage-evidence-plan-meeting'
 };
 
 export const sectionData = {
@@ -115,6 +118,11 @@ export const sectionData = {
 		sectionTitle: 'Add an evidence plan meeting',
 		pageHeading: 'Add an evidence plan meeting',
 		componentType: 'add-evidence-plan-meeting'
+	},
+	manageEvidencePlanMeeting: {
+		sectionTitle: 'Manage evidence plan meeting',
+		pageHeading: 'Manage evidence plan meeting',
+		componentType: 'manage-evidence-plan-meeting'
 	}
 };
 
@@ -124,29 +132,14 @@ export const sectionDeleteData = {
 		pageHeading: 'Delete fee',
 		warningText: 'Deleting this fee will remove it from future forecasting reporting.',
 		backLinkSectionName: 'fees-forecasting-fee',
-		/**
-		 *
-		 * @param {{ caseId: string, id: string }} tableData
-		 * @returns {Object}
-		 */
-		getBackLinkParams: (tableData) => ({ caseId: tableData.caseId, feeId: tableData.id }),
+		/** @param {Record<string, any>} tableData */
+		backLinkParams: (tableData) => getBackLinkParams(tableData),
 		tableConfig: {
 			headers: ['Stage', 'Amount', 'Invoice number', 'Status'],
-			/**
-			 * @param {{ invoiceStage: string, amountDue?: string, invoiceNumber: string }} tableData
-			 * @param {{ getDisplayValue: Function, getStatusTag: Function, invoiceStageDisplayValues: Object }} helpers
-			 * @returns {Array<Array<{ text?: string, html?: string }>>}
+			/** @param {Record<string, any>} tableData
+			 * @param {{ getDisplayValue: Function, getStatusTag: Function, formatDateForDisplay: Function, invoiceStageDisplayValues: object}} helpers
 			 */
-			getRows: (tableData, helpers) => [
-				[
-					{
-						text: helpers.getDisplayValue(helpers.invoiceStageDisplayValues, tableData.invoiceStage)
-					},
-					{ text: tableData.amountDue ? `£${tableData.amountDue}` : '' },
-					{ text: tableData.invoiceNumber },
-					{ html: helpers.getStatusTag(tableData) }
-				]
-			]
+			rows: (tableData, helpers) => getRows(tableData, helpers)
 		}
 	},
 	manageProjectMeeting: {
@@ -154,22 +147,29 @@ export const sectionDeleteData = {
 		pageHeading: 'Delete project meeting',
 		warningText: 'Deleting this meeting will remove it from future forecasting reporting.',
 		backLinkSectionName: 'fees-forecasting-project-meeting',
-		/**
-		 *
-		 * @param {{ caseId: string, id: string }} tableData
-		 * @returns {Object}
-		 */
-		getBackLinkParams: (tableData) => ({ caseId: tableData.caseId, meetingId: tableData.id }),
+		/** @param {Record<string, any>} tableData */
+		backLinkParams: (tableData) => getBackLinkParams(tableData),
 		tableConfig: {
 			headers: ['Meeting agenda', 'Date'],
-			/**
-			 * @param {{ agenda: string, meetingDate: string}} tableData
-			 * @param {{ formatDateForDisplay: Function }} helpers
-			 * @returns {Array<Array<{ text?: string }>>}
+			/** @param {Record<string, any>} tableData
+			 * @param {{ getDisplayValue: Function, getStatusTag: Function, formatDateForDisplay: Function, invoiceStageDisplayValues: object}} helpers
 			 */
-			getRows: (tableData, helpers) => [
-				[{ text: tableData.agenda }, { text: helpers.formatDateForDisplay(tableData.meetingDate) }]
-			]
+			rows: (tableData, helpers) => getRows(tableData, helpers)
+		}
+	},
+	manageEvidencePlanMeeting: {
+		sectionTitle: 'Delete evidence plan meeting',
+		pageHeading: 'Delete evidence plan meeting',
+		warningText: 'Deleting this meeting will remove it from future forecasting reporting.',
+		backLinkSectionName: 'fees-forecasting-evidence-plan-meeting',
+		/** @param {Record<string, any>} tableData */
+		backLinkParams: (tableData) => getBackLinkParams(tableData),
+		tableConfig: {
+			headers: ['Meeting agenda', 'Date'],
+			/** @param {Record<string, any>} tableData
+			 * @param {{ getDisplayValue: Function, getStatusTag: Function, formatDateForDisplay: Function, invoiceStageDisplayValues: object}} helpers
+			 */
+			rows: (tableData, helpers) => getRows(tableData, helpers)
 		}
 	}
 };

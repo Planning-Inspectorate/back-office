@@ -1,0 +1,12 @@
+{
+	"bindings": [
+		{
+			"name": "dcoSubmission",
+			"type": "serviceBusTrigger",
+			"direction": "in",
+			"topicName": "dco-portal-data-submissions",
+			"subscriptionName": "cbos-dco-portal-data-submissions-sub",
+			"connection": "ServiceBusConnection"
+		}
+	]
+}
