@@ -30,7 +30,7 @@ import {
 	deleteDocument,
 	revertDocumentStatusToPrevious,
 	updateDocumentsFolderId,
-	getDocumentMetadataByFolderName
+	attachMetadataToDocuments
 } from './document.service.js';
 import { validateDocumentVersionMetadataBody } from './document.validators.js';
 
@@ -61,11 +61,6 @@ export const createDocumentsOnCase = async ({ params, body }, response) => {
 		regions: true
 	});
 
-	const caseRegions = theCase?.ApplicationDetails?.regions || [];
-	const isCaseWelsh = Boolean(
-		caseRegions.find((caseRegion) => caseRegion?.region.name?.toLowerCase() === 'wales')
-	);
-
 	if (!theCase?.reference) {
 		throw new BackOfficeAppError(`Received null when retrieving case with ID ${params.id}`, 404);
 	}
@@ -74,6 +69,8 @@ export const createDocumentsOnCase = async ({ params, body }, response) => {
 	const filteredToUpload = /** @type {DocumentToSaveExtended[]} */ (documentsToUpload).filter(
 		(doc) => remainder.includes(doc.documentName)
 	);
+
+	const filteredToUploadWithMetadata = await attachMetadataToDocuments(theCase, filteredToUpload);
 
 	const { response: dbResponse, failedDocuments } = await documentRepository.executeInTransaction(
 		async (tx) => {
@@ -88,32 +85,15 @@ export const createDocumentsOnCase = async ({ params, body }, response) => {
 				: 1;
 			let nextReferenceIndex = lastReferenceIndex ? lastReferenceIndex + 1 : 1;
 
-			// loop thru the docs to:
-			// - add full document references eg BC0110001-000001, BC0110001-000002
-			// - add webfilter and author
-			let previousFolderId = null;
-			let documentMetadata = null;
-			for (const doc of filteredToUpload) {
-				//since createDocumentsOnCase can create documents in multiple folders in one go,
-				//we need to get the metadata for each document, but to avoid repeated api calls, we only call the api when the folderId changes
-				if (doc.folderId !== previousFolderId) {
-					documentMetadata = await getDocumentMetadataByFolderName(theCase, doc.folderId);
-					previousFolderId = doc.folderId;
-				}
-
+			for (const doc of filteredToUploadWithMetadata) {
+				//documentReference metadata is part of the transaction as we have to ensure it is unique and sequential
 				doc.documentReference = makeDocumentReference(theCase.reference, nextReferenceIndex);
-				if (documentMetadata?.webfilter?.en) doc.filter1 = documentMetadata?.webfilter?.en;
-				if (documentMetadata?.author?.en) doc.author = documentMetadata?.author?.en;
-				if (isCaseWelsh && documentMetadata?.webfilter?.cy)
-					doc.filter1Welsh = documentMetadata?.webfilter?.cy;
-				if (isCaseWelsh && documentMetadata?.author?.cy)
-					doc.authorWelsh = documentMetadata?.author?.cy;
 
 				nextReferenceIndex++;
 			}
 
 			// create document, documentVersion etc records for the array of docs within the transaction
-			return await createDocuments(filteredToUpload, params.id, false, tx);
+			return await createDocuments(filteredToUploadWithMetadata, params.id, false, tx);
 		}
 	);
 

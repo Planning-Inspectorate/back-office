@@ -1,5 +1,6 @@
 import { databaseConnector } from '#utils/database-connector.js';
 import { getFileNameWithoutSuffix } from '../applications/application/documents/document.service.js';
+import { withRetry } from '#utils/query-with-retry.js';
 
 /**
  * @typedef {import('@prisma/client').Document} Document
@@ -18,13 +19,11 @@ import { getFileNameWithoutSuffix } from '../applications/application/documents/
 * Create a new Document record
  *
  * @param {import('@prisma/client').Prisma.DocumentUncheckedCreateInput} document
- * @param {import('@prisma/client').Prisma.TransactionClient} [tx]
+ * @param {import('@prisma/client').Prisma.TransactionClient} [tx] - Optional transaction client or default to databaseConnector
  * @returns {import('@prisma/client').PrismaPromise<Document>}
  */
-export const create = (document, tx = null) => {
-	const databaseConnectorOrTx = tx || databaseConnector;
-
-	return databaseConnectorOrTx.document.create({
+export const create = (document, tx = databaseConnector) => {
+	return tx.document.create({
 		data: document
 	});
 };
@@ -98,12 +97,14 @@ export const getDocumentVersionsByCaseId = async (caseId) => {
  * Includes deleted docs, and orders by documentReference descending
  *
  * @param {{ caseId: number, skipValue?: number, pageSize?: number }} params
- * @param {import('@prisma/client').Prisma.TransactionClient} [tx] - Optional transaction client
+ * @param {import('@prisma/client').Prisma.TransactionClient} [tx] - Optional transaction client or default to databaseConnector
  * @returns {Promise<string | null>}
  */
-export const getLatestDocReferenceByCaseIdExcludingMigrated = async ({ caseId }, tx = null) => {
-	const databaseConnectorOrTx = tx || databaseConnector;
-	const latestDoc = await databaseConnectorOrTx.document.findMany({
+export const getLatestDocReferenceByCaseIdExcludingMigrated = async (
+	{ caseId },
+	tx = databaseConnector
+) => {
+	const latestDoc = await tx.document.findMany({
 		where: {
 			caseId,
 			NOT: { documentReference: { contains: '-M-' } } // Migration created doc references are `${document.caseRef}-M-${documentId}`, so we want to exclude that when finding latest one
@@ -120,17 +121,20 @@ export const getLatestDocReferenceByCaseIdExcludingMigrated = async ({ caseId },
 
 /**
  * Transaction wrapper to execute multiple database operations atomically with isolation
+ * The transaction itself is wrapped with a retry logic handling transient Prisma errors
  *
  * @template T
  * @param {(tx: import('@prisma/client').Prisma.TransactionClient) => Promise<T>} cb
  * @returns {Promise<T>}
  */
 export const executeInTransaction = async (cb) => {
-	return databaseConnector.$transaction(cb, {
-		isolationLevel: 'RepeatableRead',
-		maxWait: 30000,
-		timeout: 60000
-	});
+	return withRetry(() =>
+		databaseConnector.$transaction(cb, {
+			isolationLevel: 'RepeatableRead',
+			maxWait: 60000,
+			timeout: 30000
+		})
+	);
 };
 
 /**
@@ -320,12 +324,11 @@ export const getPublishableDocumentsWithoutRequiredPropertiesCheck = (documentId
  *
  * @param {string} documentId
  * @param {import('@pins/applications.api').Schema.DocumentUpdateInput} documentDetails
- * @param {import('@prisma/client').Prisma.TransactionClient} [tx] - Optional transaction client
+ * @param {import('@prisma/client').Prisma.TransactionClient} [tx] - Optional transaction client or default to databaseConnector
  * @returns {Promise<Document>}
  */
-export const update = (documentId, documentDetails, tx = null) => {
-	const databaseConnectorOrTx = tx || databaseConnector;
-	return databaseConnectorOrTx.document.update({
+export const update = (documentId, documentDetails, tx = databaseConnector) => {
+	return tx.document.update({
 		where: {
 			guid: documentId
 		},

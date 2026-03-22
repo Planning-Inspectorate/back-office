@@ -64,9 +64,11 @@ const includeClauseDocVersionFullWithSector = {
  * @param {import('@prisma/client').Prisma.TransactionClient} [tx] - Optional transaction client
  * @returns {import('@prisma/client').PrismaPromise<DocumentVersionWithDocumentAndFolder>}
  */
-export const upsert = ({ documentGuid, version = 1, transcriptGuid, ...metadata }, tx = null) => {
-	const databaseConnectorOrTx = tx || databaseConnector;
-	return databaseConnectorOrTx.documentVersion.upsert({
+export const upsert = (
+	{ documentGuid, version = 1, transcriptGuid, ...metadata },
+	tx = databaseConnector
+) => {
+	return tx.documentVersion.upsert({
 		create: {
 			...metadata,
 			version,

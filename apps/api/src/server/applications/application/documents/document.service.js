@@ -736,6 +736,38 @@ export const getDocumentMetadataByFolderName = async (caseData, folderId) => {
 	return documentMetadata;
 };
 
+export const attachMetadataToDocuments = async (caseData, documents) => {
+	const caseRegions = caseData?.ApplicationDetails?.regions || [];
+	const isCaseWelsh = Boolean(
+		caseRegions.find((caseRegion) => caseRegion?.region.name?.toLowerCase() === 'wales')
+	);
+
+	let previousFolderId = null;
+	let documentMetadata = null;
+
+	return Promise.all(
+		documents.map(async (doc) => {
+			//since createDocumentsOnCase can create documents in multiple folders in one go,
+			//we need to get the metadata for each document, but to avoid repeated api calls, we only call the api when the folderId changes
+			if (doc.folderId !== previousFolderId) {
+				documentMetadata = await getDocumentMetadataByFolderName(caseData, doc.folderId);
+				previousFolderId = doc.folderId;
+			}
+
+			//add metadata to the original document values only if the metadata exists
+			return {
+				...doc,
+				...(documentMetadata?.webfilter?.en && { filter1: documentMetadata.webfilter.en }),
+				...(documentMetadata?.author?.en && { author: documentMetadata.author.en }),
+				...(isCaseWelsh &&
+					documentMetadata?.webfilter?.cy && { filter1Welsh: documentMetadata.webfilter.cy }),
+				...(isCaseWelsh &&
+					documentMetadata?.author?.cy && { authorWelsh: documentMetadata.author.cy })
+			};
+		})
+	);
+};
+
 /**
  *
  * @param {{guid: string, version: number, publishedBlobPath: string, publishedBlobContainer: string, publishedDate: Date}} documents
