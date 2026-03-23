@@ -480,7 +480,7 @@ describe('applications fees forecasting index view-model', () => {
 								actions: {
 									items: [
 										{
-											href: '#',
+											href: '/applications-service/case/4/fees-forecasting/section/control-documents',
 											text: 'Change',
 											visuallyHiddenText: 'mature outline control documents'
 										}

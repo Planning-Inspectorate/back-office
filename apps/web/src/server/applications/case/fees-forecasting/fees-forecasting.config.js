@@ -53,7 +53,8 @@ export const urlSectionNames = {
 	manageEvidencePlanMeeting: 'manage-evidence-plan-meeting',
 	principalAreaDisagreementSummaryStmt: 'disagreement-summary-statement',
 	policyComplianceDocument: 'policy-compliance-document',
-	designApproachDocument: 'design-approach-document'
+	designApproachDocument: 'design-approach-document',
+	matureOutlineControlDocument: 'control-documents'
 };
 
 export const sectionData = {
@@ -153,6 +154,15 @@ export const sectionData = {
 		componentType: 'radio-date-input',
 		radioFieldPath: 'additionalDetails.designApproachDocument',
 		dateFieldPath: 'keyDates.preApplication.designApproachDocumentSubmittedDate'
+	},
+	matureOutlineControlDocument: {
+		sectionTitle: 'Mature outline control documents',
+		pageHeading: 'Mature outline control documents',
+		fieldName: 'matureOutlineControlDocument',
+		dateFieldName: 'matureOutlineControlDocumentSubmittedDate',
+		componentType: 'radio-date-input',
+		radioFieldPath: 'additionalDetails.matureOutlineControlDocument',
+		dateFieldPath: 'keyDates.preApplication.matureOutlineControlDocumentSubmittedDate'
 	}
 };
 
