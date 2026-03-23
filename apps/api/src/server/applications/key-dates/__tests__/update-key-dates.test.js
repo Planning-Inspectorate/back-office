@@ -124,10 +124,10 @@ describe('Test Updating Key Dates', () => {
 								displayNameEn: 'Business and Commercial',
 								displayNameCy: 'Business and Commercial'
 							}
-						},
-						meetings: [],
-						invoices: []
-					}
+						}
+					},
+					meeting: [],
+					invoice: []
 				}
 			)
 		);

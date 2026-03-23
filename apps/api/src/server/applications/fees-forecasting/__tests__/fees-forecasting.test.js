@@ -1,6 +1,14 @@
+import { jest } from '@jest/globals';
 import { request } from '#app-test';
 const { databaseConnector } = await import('#utils/database-connector.js');
-import { jest } from '@jest/globals';
+const { eventClient } = await import('../../../infrastructure/event-client.js');
+import { NSIP_PROJECT } from '#infrastructure/topics.js';
+import { buildPayloadEventsForSchema } from '#utils/schema-test-utils.js';
+import { mockApplicationGet } from '#utils/application-factory-for-tests.js';
+import {
+	mockProjectData,
+	mockProjectPayloadData
+} from '../__fixtures__/fees-forecasting-project.js';
 
 const updatedData = {
 	memLastUpdated: '2025-09-20T00:00:00.000Z',
@@ -24,6 +32,19 @@ describe('Fees and Forecasting API Endpoints', () => {
 
 			databaseConnector.case.update.mockResolvedValueOnce({ ApplicationDetails: updatedData });
 
+			databaseConnector.case.findUnique.mockImplementation(
+				mockApplicationGet(
+					{
+						id: 1,
+						reference: 'TEST',
+						title: 'Test Update Fees and Forecasting',
+						applicantId: 4,
+						description: 'Fees and forecasting description'
+					},
+					mockProjectData
+				)
+			);
+
 			const res = await request
 				.patch('/applications/100000000/fees-forecasting/maturity-evaluation-matrix')
 				.send(updatePayload);
@@ -44,6 +65,13 @@ describe('Fees and Forecasting API Endpoints', () => {
 				}
 			});
 			expect(res.body).toEqual(updatedData);
+
+			expect(eventClient.sendEvents).toHaveBeenNthCalledWith(
+				1,
+				NSIP_PROJECT,
+				buildPayloadEventsForSchema(NSIP_PROJECT, mockProjectPayloadData),
+				'Update'
+			);
 
 			jest.runAllTimers();
 			jest.useRealTimers();

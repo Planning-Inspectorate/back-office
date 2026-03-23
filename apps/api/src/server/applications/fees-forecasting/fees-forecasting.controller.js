@@ -7,7 +7,7 @@ import { broadcastNsipProjectEvent } from '#infrastructure/event-broadcasters.js
 /**
  * Updates the existing record for a given case
  *
- * @type {import('express').RequestHandler<{id: string}, any, any, any>}
+ * @type {import('express').RequestHandler<{id: number}, any, any, any>}
  */
 export const updateFeesForecasting = async ({ body, params }, res) => {
 	const { id } = params;

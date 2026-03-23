@@ -47,9 +47,7 @@ const projectInDatabase = {
 	CaseStatus: caseStatusInDatabase,
 	ApplicationDetails: applicationDetailsInDatabase,
 	anticipatedDateOfSubmission: null,
-	anticipatedSubmissionDateNonSpecific: null,
-	meetings: [],
-	invoices: []
+	anticipatedSubmissionDateNonSpecific: null
 };
 
 const teamMembers = {
@@ -64,6 +62,9 @@ const teamMembers = {
 	legalOfficerId: null,
 	migrationStatus: null
 };
+
+const meetings = [];
+const invoices = [];
 
 const expectedNSIPProjectEvent = buildPayloadEventsForSchema(NSIP_PROJECT, {
 	caseId: 1,
@@ -87,8 +88,8 @@ const expectedNSIPProjectEvent = buildPayloadEventsForSchema(NSIP_PROJECT, {
 	anticipatedSubmissionDateNonSpecific: 'Q1 2023',
 	sector: 'BC - Business and Commercial',
 	sourceSystem: 'back-office-applications',
-	meetings: [],
-	invoices: []
+	meetings: meetings,
+	invoices: invoices
 });
 
 describe('Test Project team members', () => {
