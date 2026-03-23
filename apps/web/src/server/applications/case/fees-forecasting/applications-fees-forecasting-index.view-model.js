@@ -409,7 +409,7 @@ export const getFeesForecastingIndexViewModel = ({ caseData, invoices, meetings 
 			),
 			actions: [
 				{
-					href: editPageURL,
+					href: getEditPageURL(urlSectionNames.matureOutlineControlDocument, caseData.id),
 					text: genericHrefText,
 					visuallyHiddenText: 'mature outline control documents'
 				}
