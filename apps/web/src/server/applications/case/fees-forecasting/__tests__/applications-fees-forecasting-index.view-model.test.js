@@ -493,7 +493,7 @@ describe('applications fees forecasting index view-model', () => {
 								actions: {
 									items: [
 										{
-											href: '#',
+											href: '/applications-service/case/4/fees-forecasting/section/compulsory-acquisition',
 											text: 'Change',
 											visuallyHiddenText: 'CA and TP evidence'
 										}

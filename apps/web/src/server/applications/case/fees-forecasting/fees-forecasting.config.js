@@ -54,7 +54,8 @@ export const urlSectionNames = {
 	principalAreaDisagreementSummaryStmt: 'disagreement-summary-statement',
 	policyComplianceDocument: 'policy-compliance-document',
 	designApproachDocument: 'design-approach-document',
-	matureOutlineControlDocument: 'control-documents'
+	matureOutlineControlDocument: 'control-documents',
+	caAndTpEvidence: 'compulsory-acquisition'
 };
 
 export const sectionData = {
@@ -163,6 +164,15 @@ export const sectionData = {
 		componentType: 'radio-date-input',
 		radioFieldPath: 'additionalDetails.matureOutlineControlDocument',
 		dateFieldPath: 'keyDates.preApplication.matureOutlineControlDocumentSubmittedDate'
+	},
+	caAndTpEvidence: {
+		sectionTitle: 'Compulsory Acquisition (CA) and Temporary Possession (TP) evidence',
+		pageHeading: 'Compulsory Acquisition (CA) and Temporary Possession (TP) evidence',
+		fieldName: 'caAndTpEvidence',
+		dateFieldName: 'caAndTpEvidenceSubmittedDate',
+		componentType: 'radio-date-input',
+		radioFieldPath: 'additionalDetails.caAndTpEvidence',
+		dateFieldPath: 'keyDates.preApplication.caAndTpEvidenceSubmittedDate'
 	}
 };
 
