@@ -379,7 +379,7 @@ export const getFeesForecastingIndexViewModel = ({ caseData, invoices, meetings 
 			),
 			actions: [
 				{
-					href: editPageURL,
+					href: getEditPageURL(urlSectionNames.policyComplianceDocument, caseData.id),
 					text: genericHrefText,
 					visuallyHiddenText: 'policy compliance document (PCD)'
 				}

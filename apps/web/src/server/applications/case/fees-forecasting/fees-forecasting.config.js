@@ -51,7 +51,8 @@ export const urlSectionNames = {
 	manageProjectMeeting: 'manage-project-meeting',
 	addEvidencePlanMeeting: 'add-evidence-plan-meeting',
 	manageEvidencePlanMeeting: 'manage-evidence-plan-meeting',
-	principalAreaDisagreementSummaryStmt: 'disagreement-summary-statement'
+	principalAreaDisagreementSummaryStmt: 'disagreement-summary-statement',
+	policyComplianceDocument: 'policy-compliance-document'
 };
 
 export const sectionData = {
@@ -133,6 +134,15 @@ export const sectionData = {
 		componentType: 'radio-date-input',
 		radioFieldPath: 'additionalDetails.principalAreaDisagreementSummaryStmt',
 		dateFieldPath: 'keyDates.preApplication.principalAreaDisagreementSummaryStmtSubmittedDate'
+	},
+	policyComplianceDocument: {
+		sectionTitle: 'Policy compliance document (PCD)',
+		pageHeading: 'Policy compliance document (PCD)',
+		fieldName: 'policyComplianceDocument',
+		dateFieldName: 'policyComplianceDocumentSubmittedDate',
+		componentType: 'radio-date-input',
+		radioFieldPath: 'additionalDetails.policyComplianceDocument',
+		dateFieldPath: 'keyDates.preApplication.policyComplianceDocumentSubmittedDate'
 	}
 };
 
