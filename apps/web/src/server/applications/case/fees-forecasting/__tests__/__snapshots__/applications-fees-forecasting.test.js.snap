@@ -255,7 +255,7 @@ exports[`Fees and Forecasting GET /case/123/fees-forecasting/ should render the 
                             </div>
                             <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Policy compliance document (PCD)</dt>
                                 <dd                                 class="govuk-summary-list__value">Not applicable</dd>
-                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> policy compliance document (PCD)</span></a>
+                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/fees-forecasting/section/policy-compliance-document">Change<span class="govuk-visually-hidden"> policy compliance document (PCD)</span></a>
                                     </dd>
                             </div>
                             <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Design approach document (DAD)</dt>
