@@ -52,7 +52,8 @@ export const urlSectionNames = {
 	addEvidencePlanMeeting: 'add-evidence-plan-meeting',
 	manageEvidencePlanMeeting: 'manage-evidence-plan-meeting',
 	principalAreaDisagreementSummaryStmt: 'disagreement-summary-statement',
-	policyComplianceDocument: 'policy-compliance-document'
+	policyComplianceDocument: 'policy-compliance-document',
+	designApproachDocument: 'design-approach-document'
 };
 
 export const sectionData = {
@@ -143,6 +144,15 @@ export const sectionData = {
 		componentType: 'radio-date-input',
 		radioFieldPath: 'additionalDetails.policyComplianceDocument',
 		dateFieldPath: 'keyDates.preApplication.policyComplianceDocumentSubmittedDate'
+	},
+	designApproachDocument: {
+		sectionTitle: 'Design approach document (DAD)',
+		pageHeading: 'Design approach document (DAD)',
+		fieldName: 'designApproachDocument',
+		dateFieldName: 'designApproachDocumentSubmittedDate',
+		componentType: 'radio-date-input',
+		radioFieldPath: 'additionalDetails.designApproachDocument',
+		dateFieldPath: 'keyDates.preApplication.designApproachDocumentSubmittedDate'
 	}
 };
 

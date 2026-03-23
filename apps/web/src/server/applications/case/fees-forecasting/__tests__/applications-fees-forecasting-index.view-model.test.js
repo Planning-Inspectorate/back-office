@@ -467,7 +467,7 @@ describe('applications fees forecasting index view-model', () => {
 								actions: {
 									items: [
 										{
-											href: '#',
+											href: '/applications-service/case/4/fees-forecasting/section/design-approach-document',
 											text: 'Change',
 											visuallyHiddenText: 'design approach document (DAD)'
 										}
