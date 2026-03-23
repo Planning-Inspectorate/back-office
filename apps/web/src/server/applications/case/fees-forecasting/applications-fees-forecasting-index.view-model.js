@@ -394,7 +394,7 @@ export const getFeesForecastingIndexViewModel = ({ caseData, invoices, meetings 
 			),
 			actions: [
 				{
-					href: editPageURL,
+					href: getEditPageURL(urlSectionNames.designApproachDocument, caseData.id),
 					text: genericHrefText,
 					visuallyHiddenText: 'design approach document (DAD)'
 				}
