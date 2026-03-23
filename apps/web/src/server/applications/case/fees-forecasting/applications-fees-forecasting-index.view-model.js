@@ -424,7 +424,7 @@ export const getFeesForecastingIndexViewModel = ({ caseData, invoices, meetings 
 			),
 			actions: [
 				{
-					href: editPageURL,
+					href: getEditPageURL(urlSectionNames.caAndTpEvidence, caseData.id),
 					text: genericHrefText,
 					visuallyHiddenText: 'CA and TP evidence'
 				}
