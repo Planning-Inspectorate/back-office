@@ -162,27 +162,29 @@ const attemptInsertDocuments = async (caseId, documents, isS51, tx = null) => {
 			let stage = await getCaseStageMapping(documentToDB.folderId);
 
 			logger.info(`Upserting metadata for document with guid: ${document.guid}`);
-			await documentVersionRepository.upsert({
-				documentGuid: document.guid,
-				fileName,
-				originalFilename: documentToDB.documentName,
-				description: documentToDB.description,
-				descriptionWelsh: documentToDB.descriptionWelsh,
-				filter1: documentToDB.filter1,
-				filter1Welsh: documentToDB.filter1Welsh,
-				mime: documentToDB.documentType,
-				size: documentToDB.documentSize,
-				sourceSystem: documentToDB.sourceSystem,
-				owner: documentToDB.username,
-				author: documentToDB.author,
-				authorWelsh: documentToDB.authorWelsh,
-				stage: stage,
-				version: 1,
-				...(config.virusScanningDisabled ||
-					(documentToDB.sourceSystem === 'dco-portal' && {
+			await documentVersionRepository.upsert(
+				{
+					documentGuid: document.guid,
+					fileName,
+					originalFilename: documentToDB.documentName,
+					description: documentToDB.description,
+					descriptionWelsh: documentToDB.descriptionWelsh,
+					filter1: documentToDB.filter1,
+					filter1Welsh: documentToDB.filter1Welsh,
+					mime: documentToDB.documentType,
+					size: documentToDB.documentSize,
+					sourceSystem: documentToDB.sourceSystem,
+					owner: documentToDB.username,
+					author: documentToDB.author,
+					authorWelsh: documentToDB.authorWelsh,
+					stage: stage,
+					version: 1,
+					...((config.virusScanningDisabled || documentToDB.sourceSystem === 'dco-portal') && {
 						publishedStatus: 'not_checked'
-					}))
-			});
+					})
+				},
+				tx
+			);
 
 			await documentRepository.update(
 				document.guid,
@@ -250,6 +252,7 @@ const mapDocumentsToGetBlobStorageProperties = (documents, caseReference, isFrom
  *
  * @param {DocumentAndBlobStorageDetail[]} blobStorageDocuments - Array of documents containing metadata to upsert.
  * @param {string} privateBlobContainer - Name of the blob storage container where documents are stored.
+ * @param {import('@prisma/client').Prisma.TransactionClient} [tx] - Optional transaction client for database operations.
  * @returns {Promise<DocumentVersionWithDocumentAndFolder[]>}
  */
 const upsertDocumentVersionsMetadataToDatabase = async (
