@@ -277,11 +277,17 @@ export const getFeesForecastingIndexViewModel = ({ caseData, invoices, meetings 
 			)
 			.map(
 				/** @param {object|*} meeting */
-				(meeting) => [
-					{ text: meeting.agenda },
-					{ text: formatDateForDisplay(meeting.meetingDate) },
-					{ html: getLinkHTML(genericHrefText, '#') }
-				]
+				(meeting) => {
+					const projectMeetingHref = url('fees-forecasting-project-meeting', {
+						caseId: caseData.id,
+						meetingId: meeting.id
+					});
+					return [
+						{ text: meeting.agenda },
+						{ text: formatDateForDisplay(meeting.meetingDate) },
+						{ html: getLinkHTML(genericHrefText, projectMeetingHref) }
+					];
+				}
 			);
 
 		const meetingsToDisplay = [inceptionMeeting, ...projectMeetings];
@@ -306,11 +312,17 @@ export const getFeesForecastingIndexViewModel = ({ caseData, invoices, meetings 
 			headers: ['Issues discussed', 'Date', 'Action'],
 			rows: evidencePlanMeetings.map(
 				/** @param {object|*} meeting */
-				(meeting) => [
-					{ text: meeting.agenda },
-					{ text: formatDateForDisplay(meeting.meetingDate) },
-					{ html: getLinkHTML(genericHrefText, '#') }
-				]
+				(meeting) => {
+					const evidencePlanMeetingHref = url('fees-forecasting-evidence-plan-meeting', {
+						caseId: caseData.id,
+						meetingId: meeting.id
+					});
+					return [
+						{ text: meeting.agenda },
+						{ text: formatDateForDisplay(meeting.meetingDate) },
+						{ html: getLinkHTML(genericHrefText, evidencePlanMeetingHref) }
+					];
+				}
 			)
 		});
 	};
@@ -352,7 +364,7 @@ export const getFeesForecastingIndexViewModel = ({ caseData, invoices, meetings 
 			),
 			actions: [
 				{
-					href: editPageURL,
+					href: getEditPageURL(urlSectionNames.principalAreaDisagreementSummaryStmt, caseData.id),
 					text: genericHrefText,
 					visuallyHiddenText: 'principal area disagreement summary statement (PADSS)'
 				}

@@ -11,10 +11,7 @@ import {
 	setSessionBanner,
 	setSessionDocumentNameOnDeletion,
 	getSessionDocumentNameOnDeletion,
-	deleteSessionDocumentNameOnDeletion,
-	setAiRedactionBanner,
-	getAiRedactionBanner,
-	deleteAiRedactionBanner
+	deleteSessionDocumentNameOnDeletion
 } from '../../common/services/session.service.js';
 import { buildBreadcrumbItems } from '../applications-case.locals.js';
 import {
@@ -35,7 +32,8 @@ import {
 	renameFolder,
 	deleteFolder,
 	updateDocumentsFolderId,
-	postDocumentForAiRedaction
+	postDocumentForAiRedaction,
+	postDocumentForAiRedactionApply
 } from './applications-documentation.service.js';
 import documentationSessionHandlers from './applications-documentation.session.js';
 import { paginationParams } from '../../../lib/pagination-params.js';
@@ -52,6 +50,7 @@ import { getDisplayValue } from '../fees-forecasting/applications-fees-forecasti
 import { redactionStatusDisplayValues } from './applications-documentation.config.js';
 import { canRequestAiRedaction } from './utils/can-request-ai-redaction.js';
 import { buildAiRedactionPayload } from './utils/build-ai-redaction-payload.js';
+import { getAiRedactionBannerFromStatus } from './utils/get-ai-redaction-banner-from-status.js';
 
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
 /** @typedef {import('../applications-case.locals.js').ApplicationCaseLocals} ApplicationCaseLocals */
@@ -286,10 +285,10 @@ export async function viewApplicationsCaseDocumentationUnpublishSinglePage(reque
 /**
  * View the documentation properties page
  *
- * @type {import('@pins/express').RenderHandler<{documentationFile: DocumentationFile, documentVersions: DocumentVersion[], updateBannerText: string|undefined, showSuccessBanner: boolean|undefined, caseIsWelsh: boolean, showAiRedactionButton: boolean, aiRedactionBanner: {}|undefined}, {}>}
+ * @type {import('@pins/express').RenderHandler<{documentationFile: DocumentationFile, documentVersions: DocumentVersion[], updateBannerText: string|undefined, showSuccessBanner: boolean|undefined, caseIsWelsh: boolean, showAiRedactionButton: boolean, showReviewRedactionsButton: boolean, aiRedactionBanner: {}|undefined}, {}>}
  */
 export async function viewApplicationsCaseDocumentationProperties({ session }, response) {
-	const { caseId, caseIsWelsh, documentGuid } = response.locals;
+	const { caseId, folderId, caseIsWelsh, documentGuid } = response.locals;
 
 	let documentationFile = await getCaseDocumentationFileInfo(caseId, documentGuid);
 	let documentVersions = await getCaseDocumentationFileVersions(documentGuid);
@@ -314,11 +313,17 @@ export async function viewApplicationsCaseDocumentationProperties({ session }, r
 	const showSuccessBanner = !!updateBannerText || getSuccessBanner(session);
 
 	const showAiRedactionButton = canRequestAiRedaction(documentationFile);
-	const aiRedactionBanner = getAiRedactionBanner(session);
+	const showReviewRedactionsButton =
+		documentationFile.redactedStatus === 'ai_suggestions_review_required';
+	const aiRedactionBanner = getAiRedactionBannerFromStatus(
+		documentationFile,
+		caseId,
+		folderId,
+		documentVersions
+	);
 
 	deleteSessionBanner(session);
 	destroySuccessBanner(session);
-	deleteAiRedactionBanner(session);
 
 	response.render(`applications/case-documentation/properties/documentation-properties`, {
 		documentationFile,
@@ -327,6 +332,7 @@ export async function viewApplicationsCaseDocumentationProperties({ session }, r
 		showSuccessBanner,
 		caseIsWelsh,
 		showAiRedactionButton,
+		showReviewRedactionsButton,
 		aiRedactionBanner
 	});
 }
@@ -1013,16 +1019,118 @@ export async function postDocumentationFolderExplorer(request, response) {
 }
 
 /**
+ * View the review redactions page
+ * @type {import('@pins/express').RenderHandler<{documentationFile: DocumentationFile}, {}>}
+ */
+export async function viewReviewRedactions(_, response) {
+	const { caseId, documentGuid } = response.locals;
+
+	const documentationFile = await getCaseDocumentationFileInfo(caseId, documentGuid);
+
+	response.render('applications/case-documentation/review-redactions/review-redactions', {
+		documentationFile
+	});
+}
+
+/**
+ * Handle review redactions form submission
+ * @type {import('@pins/express').RenderHandler<{}, {}, {reviewDecision: string}, {}>}
+ */
+export async function postReviewRedactions(request, response) {
+	const { caseId, folderId, documentGuid } = response.locals;
+	const { reviewDecision } = request.body;
+	if (reviewDecision === 'ready') {
+		const document = await getCaseDocumentationFileInfo(caseId, documentGuid);
+		const payload = buildAiRedactionPayload(document, caseId);
+
+		const result = await postDocumentForAiRedactionApply(payload);
+
+		if (result.errors) {
+			await updateDocumentMetaData(caseId, documentGuid, {
+				redactedStatus: 'ai_redaction_failed'
+			});
+		} else {
+			await updateDocumentMetaData(caseId, documentGuid, {
+				redactedStatus: 'awaiting_ai_redaction'
+			});
+		}
+
+		return response.redirect(
+			url('document', {
+				caseId,
+				folderId,
+				documentGuid,
+				step: 'properties'
+			})
+		);
+	}
+
+	// Handle 'upload-new' case - redirect to upload amends page
+	return response.redirect(
+		url('upload-redaction-amends', {
+			caseId,
+			folderId,
+			documentGuid
+		})
+	);
+}
+
+/**
+ * View the upload redaction amends page
+ * @type {import('@pins/express').RenderHandler<{documentationFile: DocumentationFile}, {}>}
+ */
+export async function viewUploadRedactionAmends(_, response) {
+	const { caseId, documentGuid } = response.locals;
+
+	const documentationFile = await getCaseDocumentationFileInfo(caseId, documentGuid);
+
+	response.render('applications/case-documentation/review-redactions/upload-amends', {
+		documentationFile
+	});
+}
+
+/**
+ * Finalise redactions after amended upload - sends to apply API and redirects to properties
+ * @type {import('@pins/express').RenderHandler<{}, {}, {}, {}>}
+ */
+export async function getFinaliseRedactions(_, response) {
+	const { caseId, folderId, documentGuid } = response.locals;
+
+	const document = await getCaseDocumentationFileInfo(caseId, documentGuid);
+	const payload = buildAiRedactionPayload(document, caseId);
+
+	const result = await postDocumentForAiRedactionApply(payload);
+
+	if (result.errors) {
+		await updateDocumentMetaData(caseId, documentGuid, {
+			redactedStatus: 'ai_redaction_failed'
+		});
+	} else {
+		await updateDocumentMetaData(caseId, documentGuid, {
+			redactedStatus: 'awaiting_ai_redaction'
+		});
+	}
+
+	return response.redirect(
+		url('document', {
+			caseId,
+			folderId,
+			documentGuid,
+			step: 'properties'
+		})
+	);
+}
+
+/**
  * Post document for AI redaction
  * @type {import('@pins/express').RenderHandler<{}, {}, {}, {}>}
  */
 export async function postRequestAiRedaction(request, response) {
 	const { caseId, folderId, documentGuid } = response.locals;
-	const { session } = request;
 
 	const document = await getCaseDocumentationFileInfo(caseId, documentGuid);
 
-	const payload = buildAiRedactionPayload(document);
+	const payload = buildAiRedactionPayload(document, caseId);
 
 	const result = await postDocumentForAiRedaction(payload);
 
@@ -1032,14 +1140,10 @@ export async function postRequestAiRedaction(request, response) {
 		await updateDocumentMetaData(caseId, documentGuid, {
 			redactedStatus: 'ai_redaction_failed'
 		});
-
-		setAiRedactionBanner(session, '', errors.msg, 'error');
 	} else if (result?.body?.pollEndpoint) {
 		await updateDocumentMetaData(caseId, documentGuid, {
 			redactedStatus: 'awaiting_ai_suggestions'
 		});
-
-		setAiRedactionBanner(session, 'Making redaction suggestions, check back later', ``, 'info');
 	}
 
 	return response.redirect(

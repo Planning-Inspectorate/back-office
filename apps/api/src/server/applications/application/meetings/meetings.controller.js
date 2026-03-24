@@ -69,17 +69,26 @@ export const createMeeting = async ({ params, body }, res) => {
  * @type {import('express').RequestHandler<{id: number, meetingId: number}, ?, import('@pins/applications.api').Schema.Meeting>}
  */
 export const patchMeeting = async ({ params, body }, res) => {
+	const { meetingId, id: caseId } = params;
 	const mappedMeeting = {
-		id: Number(params.meetingId),
-		caseId: params.id,
+		id: Number(meetingId),
+		caseId: caseId,
 		...body
 	};
 
-	const meeting = await patchCaseMeeting(mappedMeeting);
+	let meeting;
+
+	try {
+		meeting = await patchCaseMeeting(mappedMeeting);
+	} catch (error) {
+		if (error?.code === 'P2025') {
+			throw new BackOfficeAppError(`Meeting with id: ${meetingId} not found`, 404);
+		}
+	}
 
 	if (!meeting) {
 		throw new BackOfficeAppError(
-			`Meeting could not be updated for application with id: ${params.id}`,
+			`Meeting could not be updated for application with id: ${caseId}`,
 			400
 		);
 	}
@@ -93,14 +102,24 @@ export const patchMeeting = async ({ params, body }, res) => {
  * @type {import('express').RequestHandler<{id: number, meetingId: number}>}
  */
 export const deleteMeeting = async ({ params }, res) => {
-	const { meetingId: meetingId } = params;
+	const { meetingId: meetingId, id: caseId } = params;
+
+	let meeting;
 
 	try {
-		await deleteCaseMeeting(meetingId);
-		return res.status(204).send();
+		meeting = await deleteCaseMeeting(meetingId);
 	} catch (error) {
 		if (error?.code === 'P2025') {
 			throw new BackOfficeAppError(`Meeting with id: ${meetingId} not found`, 404);
 		}
 	}
+
+	if (!meeting) {
+		throw new BackOfficeAppError(
+			`Meeting could not be deleted for application with id: ${caseId}`,
+			400
+		);
+	}
+
+	return res.status(204).send();
 };

@@ -1,3 +1,5 @@
+import { getRows, getBackLinkParams } from './applications-fees-forecasting.utils.js';
+
 export const genericHrefText = 'Change';
 export const feesHrefText = 'Review';
 export const editPageURL = '#';
@@ -43,10 +45,13 @@ export const urlSectionNames = {
 	programmeDocumentReceived: 'programme-document-received',
 	programmeDocumentReviewed: 'programme-document-reviewed',
 	programmeDocumentComments: 'programme-document-comments',
-	manageFee: 'manage-fee',
 	addNewFee: 'add-new-fee',
+	manageFee: 'manage-fee',
 	addProjectMeeting: 'add-project-meeting',
-	addEvidencePlanMeeting: 'add-evidence-plan-meeting'
+	manageProjectMeeting: 'manage-project-meeting',
+	addEvidencePlanMeeting: 'add-evidence-plan-meeting',
+	manageEvidencePlanMeeting: 'manage-evidence-plan-meeting',
+	principalAreaDisagreementSummaryStmt: 'disagreement-summary-statement'
 };
 
 export const sectionData = {
@@ -90,25 +95,44 @@ export const sectionData = {
 		hintText: 'Issue date of the most recent initial comments on programme document to applicant',
 		componentType: 'date-input'
 	},
-	manageFee: {
-		sectionTitle: 'Manage fee',
-		pageHeading: 'Manage fee',
-		componentType: 'manage-fee'
-	},
 	addNewFee: {
 		sectionTitle: 'Add a new fee',
 		pageHeading: 'Add a new fee',
 		componentType: 'add-new-fee'
+	},
+	manageFee: {
+		sectionTitle: 'Manage fee',
+		pageHeading: 'Manage fee',
+		componentType: 'manage-fee'
 	},
 	addProjectMeeting: {
 		sectionTitle: 'Add a project meeting',
 		pageHeading: 'Add a project meeting',
 		componentType: 'add-project-meeting'
 	},
+	manageProjectMeeting: {
+		sectionTitle: 'Manage project meeting',
+		pageHeading: 'Manage project meeting',
+		componentType: 'manage-project-meeting'
+	},
 	addEvidencePlanMeeting: {
 		sectionTitle: 'Add an evidence plan meeting',
 		pageHeading: 'Add an evidence plan meeting',
 		componentType: 'add-evidence-plan-meeting'
+	},
+	manageEvidencePlanMeeting: {
+		sectionTitle: 'Manage evidence plan meeting',
+		pageHeading: 'Manage evidence plan meeting',
+		componentType: 'manage-evidence-plan-meeting'
+	},
+	principalAreaDisagreementSummaryStmt: {
+		sectionTitle: 'Principal area disagreement summary statement (PADSS)',
+		pageHeading: 'Principal area disagreement summary statement (PADSS)',
+		fieldName: 'principalAreaDisagreementSummaryStmt',
+		dateFieldName: 'principalAreaDisagreementSummaryStmtSubmittedDate',
+		componentType: 'radio-date-input',
+		radioFieldPath: 'additionalDetails.principalAreaDisagreementSummaryStmt',
+		dateFieldPath: 'keyDates.preApplication.principalAreaDisagreementSummaryStmtSubmittedDate'
 	}
 };
 
@@ -117,23 +141,45 @@ export const sectionDeleteData = {
 		sectionTitle: 'Delete fee',
 		pageHeading: 'Delete fee',
 		warningText: 'Deleting this fee will remove it from future forecasting reporting.',
+		backLinkSectionName: 'fees-forecasting-fee',
+		/** @param {Record<string, any>} tableData */
+		backLinkParams: (tableData) => getBackLinkParams(tableData),
 		tableConfig: {
 			headers: ['Stage', 'Amount', 'Invoice number', 'Status'],
-			/**
-			 * @param {{ invoiceStage: string, amountDue?: string, invoiceNumber: string }} tableData
-			 * @param {{ getDisplayValue: Function, getStatusTag: Function, invoiceStageDisplayValues: Object }} helpers
-			 * @returns {Array<Array<{ text?: string, html?: string }>>}
+			/** @param {Record<string, any>} tableData
+			 * @param {{ getDisplayValue: Function, getStatusTag: Function, formatDateForDisplay: Function, invoiceStageDisplayValues: object}} helpers
 			 */
-			getRows: (tableData, helpers) => [
-				[
-					{
-						text: helpers.getDisplayValue(helpers.invoiceStageDisplayValues, tableData.invoiceStage)
-					},
-					{ text: tableData.amountDue ? `£${tableData.amountDue}` : '' },
-					{ text: tableData.invoiceNumber },
-					{ html: helpers.getStatusTag(tableData) }
-				]
-			]
+			rows: (tableData, helpers) => getRows(tableData, helpers)
+		}
+	},
+	manageProjectMeeting: {
+		sectionTitle: 'Delete project meeting',
+		pageHeading: 'Delete project meeting',
+		warningText: 'Deleting this meeting will remove it from future forecasting reporting.',
+		backLinkSectionName: 'fees-forecasting-project-meeting',
+		/** @param {Record<string, any>} tableData */
+		backLinkParams: (tableData) => getBackLinkParams(tableData),
+		tableConfig: {
+			headers: ['Meeting agenda', 'Date'],
+			/** @param {Record<string, any>} tableData
+			 * @param {{ getDisplayValue: Function, getStatusTag: Function, formatDateForDisplay: Function, invoiceStageDisplayValues: object}} helpers
+			 */
+			rows: (tableData, helpers) => getRows(tableData, helpers)
+		}
+	},
+	manageEvidencePlanMeeting: {
+		sectionTitle: 'Delete evidence plan meeting',
+		pageHeading: 'Delete evidence plan meeting',
+		warningText: 'Deleting this meeting will remove it from future forecasting reporting.',
+		backLinkSectionName: 'fees-forecasting-evidence-plan-meeting',
+		/** @param {Record<string, any>} tableData */
+		backLinkParams: (tableData) => getBackLinkParams(tableData),
+		tableConfig: {
+			headers: ['Meeting agenda', 'Date'],
+			/** @param {Record<string, any>} tableData
+			 * @param {{ getDisplayValue: Function, getStatusTag: Function, formatDateForDisplay: Function, invoiceStageDisplayValues: object}} helpers
+			 */
+			rows: (tableData, helpers) => getRows(tableData, helpers)
 		}
 	}
 };

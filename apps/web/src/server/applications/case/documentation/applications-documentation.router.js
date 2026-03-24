@@ -123,6 +123,51 @@ applicationsDocumentationRouter
 	.post([locals.registerFolder], asyncHandler(controller.postUnpublishDocuments));
 
 applicationsDocumentationRouter
+	.route('/:folderId/document/:documentGuid/review-redactions')
+	.get(
+		[
+			locals.registerCase,
+			locals.registerFolder,
+			locals.registerDocumentGuid,
+			isRedactionActiveMiddleware
+		],
+		asyncHandler(controller.viewReviewRedactions)
+	)
+	.post(
+		[
+			locals.registerCase,
+			locals.registerFolder,
+			locals.registerDocumentGuid,
+			isRedactionActiveMiddleware
+		],
+		asyncHandler(controller.postReviewRedactions)
+	);
+
+applicationsDocumentationRouter
+	.route('/:folderId/document/:documentGuid/upload-amends')
+	.get(
+		[
+			locals.registerCase,
+			locals.registerFolder,
+			locals.registerDocumentGuid,
+			isRedactionActiveMiddleware
+		],
+		asyncHandler(controller.viewUploadRedactionAmends)
+	);
+
+applicationsDocumentationRouter
+	.route('/:folderId/document/:documentGuid/finalise-redactions')
+	.get(
+		[
+			locals.registerCase,
+			locals.registerFolder,
+			locals.registerDocumentGuid,
+			isRedactionActiveMiddleware
+		],
+		asyncHandler(controller.getFinaliseRedactions)
+	);
+
+applicationsDocumentationRouter
 	.route('/:folderId/document/:documentGuid/:action')
 	.get(
 		[locals.registerFolder, locals.registerDocumentGuid],

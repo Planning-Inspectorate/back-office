@@ -102,12 +102,19 @@ export const createOrUpdateInvoiceController = async ({ params, body }, res) => 
 export const deleteInvoiceController = async ({ params }, res) => {
 	const { invoiceId } = params;
 
+	let invoice;
+
 	try {
-		await deleteInvoiceForCase(invoiceId);
-		return res.status(204).send();
+		invoice = await deleteInvoiceForCase(invoiceId);
 	} catch (error) {
 		if (error?.code === 'P2025') {
 			throw new BackOfficeAppError(`Invoice ${invoiceId} not found`, 404);
 		}
 	}
+
+	if (!invoice) {
+		throw new BackOfficeAppError(`Invoice ${invoiceId} could not be deleted`, 400);
+	}
+
+	return res.status(204).send();
 };

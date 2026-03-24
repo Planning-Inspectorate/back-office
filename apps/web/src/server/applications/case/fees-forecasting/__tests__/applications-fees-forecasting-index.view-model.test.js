@@ -364,7 +364,9 @@ describe('applications fees forecasting index view-model', () => {
 								[
 									{ text: 'Project Update Meeting (PUM)' },
 									{ text: '11 Jan 2025' },
-									{ html: '<a href="#" class="govuk-link">Change</a>' }
+									{
+										html: '<a href="/applications-service/case/4/fees-forecasting/section/manage-project-meeting/id/1" class="govuk-link">Change</a>'
+									}
 								]
 							],
 							head: [{ text: 'Meeting agenda' }, { text: 'Date' }, { text: 'Action' }]
@@ -381,12 +383,16 @@ describe('applications fees forecasting index view-model', () => {
 								[
 									{ text: 'Flood Risk Assessment' },
 									{ text: '09 Jan 2025' },
-									{ html: '<a href="#" class="govuk-link">Change</a>' }
+									{
+										html: '<a href="/applications-service/case/4/fees-forecasting/section/manage-evidence-plan-meeting/id/2" class="govuk-link">Change</a>'
+									}
 								],
 								[
 									{ text: 'Habitat Regulation Assessment' },
 									{ text: '11 Jan 2025' },
-									{ html: '<a href="#" class="govuk-link">Change</a>' }
+									{
+										html: '<a href="/applications-service/case/4/fees-forecasting/section/manage-evidence-plan-meeting/id/3" class="govuk-link">Change</a>'
+									}
 								]
 							],
 							head: [{ text: 'Issues discussed' }, { text: 'Date' }, { text: 'Action' }]
@@ -435,7 +441,7 @@ describe('applications fees forecasting index view-model', () => {
 								actions: {
 									items: [
 										{
-											href: '#',
+											href: '/applications-service/case/4/fees-forecasting/section/disagreement-summary-statement',
 											text: 'Change',
 											visuallyHiddenText: 'principal area disagreement summary statement (PADSS)'
 										}

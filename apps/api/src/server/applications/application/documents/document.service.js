@@ -80,6 +80,8 @@ const mapDocumentsToSendToDatabase = (caseId, documents) =>
 		fromFrontOffice: document.fromFrontOffice ?? false,
 		fileRowId: document.fileRowId,
 		username: document.username,
+		sourceSystem: document.sourceSystem,
+		blobStoreUrl: document.blobStoreUrl ?? null,
 		author: document.author,
 		authorWelsh: document.authorWelsh
 	}));
@@ -160,28 +162,27 @@ const attemptInsertDocuments = async (caseId, documents, isS51, tx = null) => {
 			let stage = await getCaseStageMapping(documentToDB.folderId);
 
 			logger.info(`Upserting metadata for document with guid: ${document.guid}`);
-			await documentVersionRepository.upsert(
-				{
-					documentGuid: document.guid,
-					fileName,
-					originalFilename: documentToDB.documentName,
-					description: documentToDB.description,
-					descriptionWelsh: documentToDB.descriptionWelsh,
-					filter1: documentToDB.filter1,
-					filter1Welsh: documentToDB.filter1Welsh,
-					mime: documentToDB.documentType,
-					size: documentToDB.documentSize,
-					owner: documentToDB.username,
-					author: documentToDB.author,
-					authorWelsh: documentToDB.authorWelsh,
-					stage: stage,
-					version: 1,
-					...(config.virusScanningDisabled && {
+			await documentVersionRepository.upsert({
+				documentGuid: document.guid,
+				fileName,
+				originalFilename: documentToDB.documentName,
+				description: documentToDB.description,
+				descriptionWelsh: documentToDB.descriptionWelsh,
+				filter1: documentToDB.filter1,
+				filter1Welsh: documentToDB.filter1Welsh,
+				mime: documentToDB.documentType,
+				size: documentToDB.documentSize,
+				sourceSystem: documentToDB.sourceSystem,
+				owner: documentToDB.username,
+				author: documentToDB.author,
+				authorWelsh: documentToDB.authorWelsh,
+				stage: stage,
+				version: 1,
+				...(config.virusScanningDisabled ||
+					(documentToDB.sourceSystem === 'dco-portal' && {
 						publishedStatus: 'not_checked'
-					})
-				},
-				tx
-			);
+					}))
+			});
 
 			await documentRepository.update(
 				document.guid,
@@ -193,10 +194,20 @@ const attemptInsertDocuments = async (caseId, documents, isS51, tx = null) => {
 
 			logger.info(`Upserted metadata for document with guid: ${document.guid}`);
 
-			return {
+			let result = {
 				...document,
 				documentName: documentToDB.documentName
 			};
+			//if document comes from DCO portal, it has already been placed in the blob store, we only need to add relevant metadata to DB
+			if (documentToDB.sourceSystem === 'dco-portal') {
+				result = {
+					...result,
+					blobStoreUrl: documentToDB.blobStoreUrl,
+					sourceSystem: documentToDB.sourceSystem
+				};
+			}
+
+			return result;
 		});
 
 	logger.info(`Upserted ${results.length} documents to database`);
@@ -209,11 +220,12 @@ const attemptInsertDocuments = async (caseId, documents, isS51, tx = null) => {
 /**
  * @param {DocumentWithDocumentName[]} documents
  * @param {string} caseReference
+ * @param {boolean} isFromDcoPortal
  * @returns {DocumentBlobStoragePayload[]}
  */
-const mapDocumentsToGetBlobStorageProperties = (documents, caseReference) => {
+const mapDocumentsToGetBlobStorageProperties = (documents, caseReference, isFromDcoPortal) => {
 	return documents.map((document) => {
-		return {
+		let result = {
 			caseType: 'application',
 			caseReference,
 			GUID: document.guid,
@@ -221,6 +233,15 @@ const mapDocumentsToGetBlobStorageProperties = (documents, caseReference) => {
 			documentReference: document?.documentReference,
 			version: 1
 		};
+
+		if (isFromDcoPortal) {
+			result = {
+				...result,
+				blobStoreUrl: document.blobStoreUrl
+			};
+		}
+
+		return result;
 	});
 };
 
@@ -229,7 +250,6 @@ const mapDocumentsToGetBlobStorageProperties = (documents, caseReference) => {
  *
  * @param {DocumentAndBlobStorageDetail[]} blobStorageDocuments - Array of documents containing metadata to upsert.
  * @param {string} privateBlobContainer - Name of the blob storage container where documents are stored.
- * @param {import('@prisma/client').Prisma.TransactionClient} [tx] - Optional transaction client
  * @returns {Promise<DocumentVersionWithDocumentAndFolder[]>}
  */
 const upsertDocumentVersionsMetadataToDatabase = async (
@@ -308,15 +328,19 @@ export const createDocuments = async (documentsToUpload, caseId, isS51, tx = nul
 
 	// Step 5: Map documents to the format expected to get blob storage properties
 	logger.info(`Mapping documents to blob storage format...`);
+
+	const fromDcoPortal = successful.every((doc) => doc?.sourceSystem === 'dco-portal');
 	const requestToGetDocumentStorageProperties = mapDocumentsToGetBlobStorageProperties(
 		successful,
-		caseForDocuments.reference
+		caseForDocuments.reference,
+		fromDcoPortal
 	);
 	logger.info(`Documents mapped: ${JSON.stringify(requestToGetDocumentStorageProperties)}`);
 
 	// Step 6: generate the blob storage service properties
 	const documentsWithBlobStorageInfo = await getStorageLocation(
-		requestToGetDocumentStorageProperties
+		requestToGetDocumentStorageProperties,
+		fromDcoPortal
 	);
 	logger.info(
 		`Documents with Blob storage service properties: ${JSON.stringify(

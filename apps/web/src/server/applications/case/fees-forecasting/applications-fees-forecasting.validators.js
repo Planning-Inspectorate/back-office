@@ -1,6 +1,9 @@
 import { createValidator } from '@pins/express';
 import { body } from 'express-validator';
-import { validationDateValid } from '../../common/validators/dates.validators.js';
+import {
+	validationDateValid,
+	validationDateMandatory
+} from '../../common/validators/dates.validators.js';
 import { getSectionData } from './applications-fees-forecasting.utils.js';
 import { sectionData, urlSectionNames } from './fees-forecasting.config.js';
 
@@ -14,12 +17,18 @@ import { sectionData, urlSectionNames } from './fees-forecasting.config.js';
  * @param {*} request
  * @param {*} response
  * @param {*} next
- * @returns {Promise<*>}
  */
-export const feesForecastingValidator = async (request, response, next) => {
-	let sectionName = request.params.sectionName;
+export const feesForecastingValidator = (request, response, next) => {
+	let sectionName;
+
 	if (request.isFeeEdit) {
 		sectionName = 'manage-fee';
+	} else if (request.isProjectMeetingEdit) {
+		sectionName = 'manage-project-meeting';
+	} else if (request.isEvidencePlanMeetingEdit) {
+		sectionName = 'manage-evidence-plan-meeting';
+	} else {
+		sectionName = request.params.sectionName || '';
 	}
 
 	/** @type {Record<string, RequestHandler>} */
@@ -33,7 +42,10 @@ export const feesForecastingValidator = async (request, response, next) => {
 		'add-new-fee': validateFeesForecastingAddFee,
 		'manage-fee': validateFeesForecastingAddFee,
 		'add-project-meeting': validateFeesForecastingProjectMeeting,
-		'add-evidence-plan-meeting': validateFeesForecastingEvidencePlanMeeting
+		'manage-project-meeting': validateFeesForecastingProjectMeeting,
+		'add-evidence-plan-meeting': validateFeesForecastingEvidencePlanMeeting,
+		'manage-evidence-plan-meeting': validateFeesForecastingEvidencePlanMeeting,
+		'disagreement-summary-statement': validateFeesForecastingRadioDateInput
 	};
 
 	if (Object.keys(validators).includes(sectionName)) {
@@ -51,7 +63,7 @@ export const feesForecastingValidator = async (request, response, next) => {
  *
  * @type {RequestHandler}
  */
-export const validateFeesForecastingDate = async (request, response, next) => {
+export const validateFeesForecastingDate = (request, response, next) => {
 	const { body, params } = request;
 	const { sectionName } = params;
 
@@ -69,7 +81,7 @@ export const validateFeesForecastingDate = async (request, response, next) => {
  *
  * @type {RequestHandler}
  */
-export const validateFeesForecastingAddFee = async (request, response, next) => {
+export const validateFeesForecastingAddFee = (request, response, next) => {
 	const invoiceDateValidation = validationDateValid(
 		{ fieldName: 'invoicedDate', extendedFieldName: 'date of invoice' },
 		request.body
@@ -158,4 +170,39 @@ export const validateFeesForecastingEvidencePlanMeeting = (request, response, ne
 	];
 
 	return createValidator(validator)(request, response, next);
+};
+
+/**
+ * Checks radio-date-input data is formatted correctly
+ *
+ * @type {RequestHandler}
+ */
+export const validateFeesForecastingRadioDateInput = (request, response, next) => {
+	const { sectionName } = request.params;
+
+	const section = getSectionData(sectionName, urlSectionNames, sectionData);
+	const fieldName = section?.fieldName || '';
+	const dateFieldName = section?.dateFieldName || 'submissionDate';
+	const extendedFieldName = section?.sectionTitle || '';
+
+	const validators = [
+		body(fieldName)
+			.trim()
+			.notEmpty()
+			.withMessage(`You must select an option for ${extendedFieldName}`)
+	];
+
+	if (request.body[fieldName] === 'submitted_by_applicant') {
+		const dateMandatoryValidation = validationDateMandatory(
+			{ fieldName: dateFieldName, extendedFieldName: `${extendedFieldName} submission date` },
+			request.body
+		);
+		const dateValidation = validationDateValid(
+			{ fieldName: dateFieldName, extendedFieldName: `${extendedFieldName} submission date` },
+			request.body
+		);
+		validators.push(dateMandatoryValidation, dateValidation);
+	}
+
+	return createValidator(validators)(request, response, next);
 };
