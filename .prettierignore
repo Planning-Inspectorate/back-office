@@ -9,3 +9,4 @@ coverage
 apps/e2e/cypress/fixtures/*
 .vscode
 .build
+.turbo
