@@ -61,7 +61,7 @@ jobs:
                     - checkout: self
                     - template: steps/node_script.yml@templates
                       parameters:
-                          nodeVersion: 20
+                          nodeVersion: 22
                           script: npm ci
                     - template: steps/azure_auth.yml@templates
                     - template: steps/azure_get_secrets.yml@templates
@@ -71,14 +71,14 @@ jobs:
                                 variable: DATABASE_URL
                     - template: steps/node_script.yml@templates
                       parameters:
-                          nodeVersion: 20
+                          nodeVersion: 22
                           environmentVariables:
                               DATABASE_URL: $(DATABASE_URL)
                           script: npm run prisma-generate
                           workingDirectory: $(Build.Repository.LocalPath)/apps/api
                     - template: steps/node_script.yml@templates
                       parameters:
-                          nodeVersion: 20
+                          nodeVersion: 22
                           environmentVariables:
                               DATABASE_URL: $(DATABASE_URL)
                               SPECIFIED_CASES: ${{parameters.specifiedCases}}

@@ -21,14 +21,14 @@ Most of the apps are built with [Express.js](https://expressjs.com/), and the fr
 
 ### Node.js
 
-The current node version can be found in the package.json at the root of the project. It is recommended to use a node version manager, such as [nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
+The current node version is **Node.js 22.22.0 LTS**. The version can be found in `.nvmrc` and in the `engines` field of package.json files. It is recommended to use a node version manager, such as [nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
 
 Example node installation, using `nvm`: 
 
 ```
-nvm install 20.11.1
-nvm use 20.11.1
-nvm alias default 20
+nvm install 22
+nvm use 22
+nvm alias default 22
 ```
 
 ### Database Setup

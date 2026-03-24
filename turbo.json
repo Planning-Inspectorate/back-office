@@ -1,12 +1,15 @@
 {
-	"pipeline": {
+	"$schema": "https://turborepo.org/schema.json",
+	"tasks": {
 		"build": {
 			"outputs": ["src/server/static/scripts/**", "src/server/static/styles/**"],
-			"dependsOn": ["^build", "$NODE_ENV", "$APP_RELEASE"]
+			"dependsOn": ["^build"],
+			"env": ["NODE_ENV", "APP_RELEASE"]
 		},
 		"build:release": {
 			"outputs": ["src/server/static/scripts/**", "src/server/static/styles/**"],
-			"dependsOn": ["^build", "$NODE_ENV", "$APP_RELEASE"]
+			"dependsOn": ["^build"],
+			"env": ["NODE_ENV", "APP_RELEASE"]
 		},
 		"topo": {
 			"dependsOn": ["^topo"]
