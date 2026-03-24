@@ -1,4 +1,12 @@
-export const mockProjectData = {
+export const mockProjectFactoryOptions = {
+	id: 100000000,
+	reference: 'TEST',
+	title: 'Test Fees and Forecasting',
+	applicantId: 4,
+	description: 'Fees and forecasting description'
+};
+
+export const mockProjectOtherOptions = {
 	applicant: { id: 4 },
 	gridReference: {
 		northing: 234567,
@@ -90,7 +98,7 @@ export const mockProjectData = {
 	meeting: [
 		{
 			id: 1,
-			caseId: 1,
+			caseId: 100000000,
 			meetingType: 'project',
 			agenda: 'Project Update Meeting (PUM)',
 			pinsRole: null,
@@ -101,7 +109,7 @@ export const mockProjectData = {
 		{
 			id: 1,
 			invoiceNumber: '123',
-			caseId: 1,
+			caseId: 100000000,
 			invoiceStage: 'pre_acceptance',
 			amountDue: 1000,
 			paymentDueDate: null,
@@ -115,7 +123,7 @@ export const mockProjectData = {
 };
 
 export const mockProjectPayloadData = {
-	caseId: 1,
+	caseId: 100000000,
 	applicantId: '4',
 	caseReference: 'TEST',
 	anticipatedSubmissionDateNonSpecific: 'Q3 2025',
@@ -133,7 +141,7 @@ export const mockProjectPayloadData = {
 	projectDescription: 'Fees and forecasting description',
 	projectEmailAddress: 'test@test.com',
 	projectLocation: 'Location description',
-	projectName: 'Test Update Fees and Forecasting',
+	projectName: 'Test Fees and Forecasting',
 	projectType: 'BC01 - Office Use',
 	sector: 'BC - Business and Commercial',
 	stage: 'draft',

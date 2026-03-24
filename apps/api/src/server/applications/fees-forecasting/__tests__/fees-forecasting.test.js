@@ -6,7 +6,8 @@ import { NSIP_PROJECT } from '#infrastructure/topics.js';
 import { buildPayloadEventsForSchema } from '#utils/schema-test-utils.js';
 import { mockApplicationGet } from '#utils/application-factory-for-tests.js';
 import {
-	mockProjectData,
+	mockProjectFactoryOptions,
+	mockProjectOtherOptions,
 	mockProjectPayloadData
 } from '../__fixtures__/fees-forecasting-project.js';
 
@@ -33,16 +34,7 @@ describe('Fees and Forecasting API Endpoints', () => {
 			databaseConnector.case.update.mockResolvedValueOnce({ ApplicationDetails: updatedData });
 
 			databaseConnector.case.findUnique.mockImplementation(
-				mockApplicationGet(
-					{
-						id: 1,
-						reference: 'TEST',
-						title: 'Test Update Fees and Forecasting',
-						applicantId: 4,
-						description: 'Fees and forecasting description'
-					},
-					mockProjectData
-				)
+				mockApplicationGet(mockProjectFactoryOptions, mockProjectOtherOptions)
 			);
 
 			const res = await request

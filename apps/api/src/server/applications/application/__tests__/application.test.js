@@ -93,8 +93,8 @@ describe('Application', () => {
 				}
 			],
 			gridReference: { id: 3, easting: 123456, northing: 654321, caseId: 100000078 },
-			meetings: [],
-			invoices: []
+			meeting: [],
+			invoice: []
 		};
 
 		// 2. Act
@@ -141,7 +141,7 @@ describe('Application', () => {
 	test('buildNsipProjectPayload maps NSIP Case factory test data to NSIP Application Full Payload', async () => {
 		// 1. Arrange
 		/** @type {import('@pins/applications.api').Schema.Case} */
-		const projectEntity = applicationFactoryForTests({
+		let projectEntity = applicationFactoryForTests({
 			id: 1,
 			title: 'EN010003 - NI Case 3 Name',
 			description: 'EN010003 - NI Case 3 Name Description',
@@ -154,9 +154,7 @@ describe('Application', () => {
 				gridReference: true,
 				mapZoomLevel: true,
 				subSector: true
-			},
-			meetings: [],
-			invoices: []
+			}
 		});
 
 		if (projectEntity.ApplicationDetails) {
@@ -166,6 +164,12 @@ describe('Application', () => {
 				submissionAtInternal: new Date('2022-07-22T10:38:33.000Z')
 			};
 		}
+
+		projectEntity = {
+			...projectEntity,
+			meeting: [],
+			invoice: []
+		};
 
 		// 2. Act
 		const payloadResult = buildNsipProjectPayload(projectEntity);
