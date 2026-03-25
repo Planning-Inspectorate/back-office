@@ -57,6 +57,7 @@ export const urlSectionNames = {
 	matureOutlineControlDocument: 'control-documents',
 	caAndTpEvidence: 'compulsory-acquisition',
 	publicSectorEqualityDuty: 'public-sector-equality-duty',
+	fastTrackAdmissionDocument: 'fast-track-admission',
 	multipartyApplicationCheckDocument: 'multiparty-application'
 };
 
@@ -184,6 +185,15 @@ export const sectionData = {
 		componentType: 'radio-date-input',
 		radioFieldPath: 'additionalDetails.publicSectorEqualityDuty',
 		dateFieldPath: 'keyDates.preApplication.publicSectorEqualityDutySubmittedDate'
+	},
+	fastTrackAdmissionDocument: {
+		sectionTitle: 'Fast track admission document',
+		pageHeading: 'Fast track admission document',
+		fieldName: 'fastTrackAdmissionDocument',
+		dateFieldName: 'fastTrackAdmissionDocumentSubmittedDate',
+		componentType: 'radio-date-input',
+		radioFieldPath: 'additionalDetails.fastTrackAdmissionDocument',
+		dateFieldPath: 'keyDates.preApplication.fastTrackAdmissionDocumentSubmittedDate'
 	},
 	multipartyApplicationCheckDocument: {
 		sectionTitle: 'Multiparty application readiness gate-check (trial)',

@@ -454,7 +454,7 @@ export const getFeesForecastingIndexViewModel = ({ caseData, invoices, meetings 
 			),
 			actions: [
 				{
-					href: editPageURL,
+					href: getEditPageURL(urlSectionNames.fastTrackAdmissionDocument, caseData.id),
 					text: genericHrefText,
 					visuallyHiddenText: 'fast track admission document'
 				}

@@ -519,7 +519,7 @@ describe('applications fees forecasting index view-model', () => {
 								actions: {
 									items: [
 										{
-											href: '#',
+											href: '/applications-service/case/4/fees-forecasting/section/fast-track-admission',
 											text: 'Change',
 											visuallyHiddenText: 'fast track admission document'
 										}
