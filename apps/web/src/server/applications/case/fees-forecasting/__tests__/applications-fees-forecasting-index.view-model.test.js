@@ -506,7 +506,7 @@ describe('applications fees forecasting index view-model', () => {
 								actions: {
 									items: [
 										{
-											href: '#',
+											href: '/applications-service/case/4/fees-forecasting/section/public-sector-equality-duty',
 											text: 'Change',
 											visuallyHiddenText: 'public sector equality duty (PSED)'
 										}

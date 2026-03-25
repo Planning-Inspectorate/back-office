@@ -56,6 +56,7 @@ export const urlSectionNames = {
 	designApproachDocument: 'design-approach-document',
 	matureOutlineControlDocument: 'control-documents',
 	caAndTpEvidence: 'compulsory-acquisition',
+	publicSectorEqualityDuty: 'public-sector-equality-duty',
 	multipartyApplicationCheckDocument: 'multiparty-application'
 };
 
@@ -174,6 +175,15 @@ export const sectionData = {
 		componentType: 'radio-date-input',
 		radioFieldPath: 'additionalDetails.caAndTpEvidence',
 		dateFieldPath: 'keyDates.preApplication.caAndTpEvidenceSubmittedDate'
+	},
+	publicSectorEqualityDuty: {
+		sectionTitle: 'Public Section Equality Duty (PSED)',
+		pageHeading: 'Public Section Equality Duty (PSED)',
+		fieldName: 'publicSectorEqualityDuty',
+		dateFieldName: 'publicSectorEqualityDutySubmittedDate',
+		componentType: 'radio-date-input',
+		radioFieldPath: 'additionalDetails.publicSectorEqualityDuty',
+		dateFieldPath: 'keyDates.preApplication.publicSectorEqualityDutySubmittedDate'
 	},
 	multipartyApplicationCheckDocument: {
 		sectionTitle: 'Multiparty application readiness gate-check (trial)',
