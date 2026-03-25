@@ -55,7 +55,8 @@ export const urlSectionNames = {
 	policyComplianceDocument: 'policy-compliance-document',
 	designApproachDocument: 'design-approach-document',
 	matureOutlineControlDocument: 'control-documents',
-	caAndTpEvidence: 'compulsory-acquisition'
+	caAndTpEvidence: 'compulsory-acquisition',
+	multipartyApplicationCheckDocument: 'multiparty-application'
 };
 
 export const sectionData = {
@@ -173,6 +174,15 @@ export const sectionData = {
 		componentType: 'radio-date-input',
 		radioFieldPath: 'additionalDetails.caAndTpEvidence',
 		dateFieldPath: 'keyDates.preApplication.caAndTpEvidenceSubmittedDate'
+	},
+	multipartyApplicationCheckDocument: {
+		sectionTitle: 'Multiparty application readiness gate-check (trial)',
+		pageHeading: 'Multiparty application readiness gate-check (trial)',
+		fieldName: 'multipartyApplicationCheckDocument',
+		dateFieldName: 'multipartyApplicationCheckDocumentSubmittedDate',
+		componentType: 'radio-date-input',
+		radioFieldPath: 'additionalDetails.multipartyApplicationCheckDocument',
+		dateFieldPath: 'keyDates.preApplication.multipartyApplicationCheckDocumentSubmittedDate'
 	}
 };
 
