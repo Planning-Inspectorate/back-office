@@ -1,5 +1,5 @@
-import { PrismaClient } from '@prisma/client';
-import { modifyPrismaDocumentQueryMiddleware } from './prisma-middleware.js';
+import { PrismaClient } from '../../database/client/client.js';
+import { PrismaMssql } from '@prisma/adapter-mssql';
 
 /** @type {PrismaClient} */
 let prismaClient;
@@ -9,12 +9,20 @@ let prismaClient;
  */
 function createPrismaClient() {
 	if (!prismaClient) {
-		prismaClient = new PrismaClient();
-	}
+		const client = new PrismaClient({
+			adapter: new PrismaMssql(process.env.DATABASE_URL)
+		});
 
-	prismaClient.$use(modifyPrismaDocumentQueryMiddleware);
+		prismaClient = client;
+	}
 
 	return prismaClient;
 }
 
-export const databaseConnector = createPrismaClient();
+/** Lazy proxy - creates the real PrismaClient on first property access */
+export const databaseConnector = new Proxy(/** @type {PrismaClient} */ ({}), {
+	get(_target, prop) {
+		const client = /** @type {any} */ (createPrismaClient());
+		return client[prop];
+	}
+});

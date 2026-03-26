@@ -1,3 +1,4 @@
+/apps/api/src/database/client/*
 /apps/e2e/**/*.js
 /apps/api-testing/**/*.js
 /apps/api-testing/**/*.test.js

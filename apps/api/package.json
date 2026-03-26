@@ -6,10 +6,7 @@
   "engines": {
     "node": ">=20.0.0 <21.0.0"
   },
-  "prisma": {
-    "schema": "src/database/schema.prisma",
-    "seed": "node src/database/seed/seed-development.js"
-  },
+
   "type": "module",
   "scripts": {
     "test": "npm run prisma-generate && cross-env NODE_ENV=test NODE_OPTIONS=\"--experimental-vm-modules --max-old-space-size=8192\" npx jest --forceExit --coverage",
@@ -48,6 +45,7 @@
     "@pins/key-vault-secrets-client": "*",
     "@pins/examination-timetable-utils": "*",
     "@pins/platform": "*",
+    "@prisma/adapter-mssql": "*",
     "@prisma/instrumentation": "*",
     "@prisma/client": "*",
     "@supercharge/promise-pool": "*",

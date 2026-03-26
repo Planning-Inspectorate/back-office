@@ -8,5 +8,6 @@
 		"target": "esnext",
 		"module": "es2022",
 		"strict": true
-	}
+	},
+	"exclude": ["**/node_modules", "**/src/database/client", "**/coverage"]
 }

@@ -1,5 +1,5 @@
 {
-	"name": "back-office",
+	"name": "pins-back-office",
 	"private": true,
 	"workspaces": [
 		"apps/*",
@@ -15,6 +15,7 @@
 		"commit": "cz",
 		"commitlint": "commitlint --from=$(git rev-parse $(git cherry main | head -n 1 | cut -c 3-)^1)",
 		"clean": "turbo run clean && rimraf node_modules",
+		"db:generate": "npm run prisma-generate --workspace=@pins/applications.api",
 		"e2e": "npm run cy:run --workspace=@pins/e2e",
 		"e2e:open": "npm run cy:open --workspace=@pins/e2e",
 		"e2e:ci": "npm run cy:ci --workspace=@pins/e2e",
@@ -63,8 +64,9 @@
 		"@pins/redis": "^0.0.0",
 		"@planning-inspectorate/address-lookup": "^1.0.6",
 		"@planning-inspectorate/data-model": "~2.27.0",
-		"@prisma/client": "^5.13.0",
-		"@prisma/instrumentation": "^5.6.0",
+		"@prisma/adapter-mssql": "^7.0.1",
+		"@prisma/client": "^7.0.1",
+		"@prisma/instrumentation": "^7.0.1",
 		"@supercharge/promise-pool": "^2.4.0",
 		"@toast-ui/editor": "^3.2.2",
 		"accessible-autocomplete": "2.0.4",
@@ -192,8 +194,8 @@
 		"npm-run-all": "^4.1.5",
 		"postcss": "^8.4.31",
 		"prettier": "^2.6.2",
-		"prettier-plugin-prisma": "^4.13.0",
-		"prisma": "^5.13.0",
+		"prettier-plugin-prisma": "^5.0.0",
+		"prisma": "^7.0.1",
 		"puppeteer": "^23.5.0",
 		"rimraf": "^3.0.2",
 		"rollup": "^4.22.4",
@@ -207,7 +209,7 @@
 		"terser": "^5.13.1",
 		"turbo": "^1.2.14",
 		"type-fest": "^2.12.2",
-		"typescript": "4.7.4"
+		"typescript": "^5.4.0"
 	},
 	"packageManager": "npm@10.1.0",
 	"lint-staged": {

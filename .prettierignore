@@ -7,5 +7,6 @@ README.md
 *.yaml
 coverage
 apps/e2e/cypress/fixtures/*
+apps/api/src/database/client/*
 .vscode
 .build

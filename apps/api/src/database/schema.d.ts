@@ -1,5 +1,5 @@
-import * as schema from '@prisma/client';
-import { ZoomLevel } from '@prisma/client';
+import * as schema from '../database/client/client.js';
+import { ZoomLevel } from '../database/client/client.js';
 import { GridReference } from 'packages/applications';
 
 export {
@@ -24,7 +24,7 @@ export {
 	SubSector,
 	ZoomLevel,
 	ProjectTeam
-} from '@prisma/client';
+} from '../database/client/client.js';
 
 export interface Case extends schema.Case {
 	CaseStatus?: CaseStatus;
