@@ -364,7 +364,7 @@ export const getFeesForecastingIndexViewModel = ({ caseData, invoices, meetings 
 			),
 			actions: [
 				{
-					href: editPageURL,
+					href: getEditPageURL(urlSectionNames.principalAreaDisagreementSummaryStmt, caseData.id),
 					text: genericHrefText,
 					visuallyHiddenText: 'principal area disagreement summary statement (PADSS)'
 				}
@@ -379,7 +379,7 @@ export const getFeesForecastingIndexViewModel = ({ caseData, invoices, meetings 
 			),
 			actions: [
 				{
-					href: editPageURL,
+					href: getEditPageURL(urlSectionNames.policyComplianceDocument, caseData.id),
 					text: genericHrefText,
 					visuallyHiddenText: 'policy compliance document (PCD)'
 				}
@@ -394,7 +394,7 @@ export const getFeesForecastingIndexViewModel = ({ caseData, invoices, meetings 
 			),
 			actions: [
 				{
-					href: editPageURL,
+					href: getEditPageURL(urlSectionNames.designApproachDocument, caseData.id),
 					text: genericHrefText,
 					visuallyHiddenText: 'design approach document (DAD)'
 				}
@@ -409,7 +409,7 @@ export const getFeesForecastingIndexViewModel = ({ caseData, invoices, meetings 
 			),
 			actions: [
 				{
-					href: editPageURL,
+					href: getEditPageURL(urlSectionNames.matureOutlineControlDocument, caseData.id),
 					text: genericHrefText,
 					visuallyHiddenText: 'mature outline control documents'
 				}
@@ -424,7 +424,7 @@ export const getFeesForecastingIndexViewModel = ({ caseData, invoices, meetings 
 			),
 			actions: [
 				{
-					href: editPageURL,
+					href: getEditPageURL(urlSectionNames.caAndTpEvidence, caseData.id),
 					text: genericHrefText,
 					visuallyHiddenText: 'CA and TP evidence'
 				}
@@ -439,7 +439,7 @@ export const getFeesForecastingIndexViewModel = ({ caseData, invoices, meetings 
 			),
 			actions: [
 				{
-					href: editPageURL,
+					href: getEditPageURL(urlSectionNames.publicSectorEqualityDuty, caseData.id),
 					text: genericHrefText,
 					visuallyHiddenText: 'public sector equality duty (PSED)'
 				}
@@ -454,7 +454,7 @@ export const getFeesForecastingIndexViewModel = ({ caseData, invoices, meetings 
 			),
 			actions: [
 				{
-					href: editPageURL,
+					href: getEditPageURL(urlSectionNames.fastTrackAdmissionDocument, caseData.id),
 					text: genericHrefText,
 					visuallyHiddenText: 'fast track admission document'
 				}
@@ -469,7 +469,7 @@ export const getFeesForecastingIndexViewModel = ({ caseData, invoices, meetings 
 			),
 			actions: [
 				{
-					href: editPageURL,
+					href: getEditPageURL(urlSectionNames.multipartyApplicationCheckDocument, caseData.id),
 					text: genericHrefText,
 					visuallyHiddenText: 'multiparty application readiness gate-check (trial)'
 				}

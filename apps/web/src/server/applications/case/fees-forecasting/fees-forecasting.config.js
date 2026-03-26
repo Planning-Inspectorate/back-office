@@ -50,7 +50,15 @@ export const urlSectionNames = {
 	addProjectMeeting: 'add-project-meeting',
 	manageProjectMeeting: 'manage-project-meeting',
 	addEvidencePlanMeeting: 'add-evidence-plan-meeting',
-	manageEvidencePlanMeeting: 'manage-evidence-plan-meeting'
+	manageEvidencePlanMeeting: 'manage-evidence-plan-meeting',
+	principalAreaDisagreementSummaryStmt: 'disagreement-summary-statement',
+	policyComplianceDocument: 'policy-compliance-document',
+	designApproachDocument: 'design-approach-document',
+	matureOutlineControlDocument: 'control-documents',
+	caAndTpEvidence: 'compulsory-acquisition',
+	publicSectorEqualityDuty: 'public-sector-equality-duty',
+	fastTrackAdmissionDocument: 'fast-track-admission',
+	multipartyApplicationCheckDocument: 'multiparty-application'
 };
 
 export const sectionData = {
@@ -123,6 +131,78 @@ export const sectionData = {
 		sectionTitle: 'Manage evidence plan meeting',
 		pageHeading: 'Manage evidence plan meeting',
 		componentType: 'manage-evidence-plan-meeting'
+	},
+	principalAreaDisagreementSummaryStmt: {
+		sectionTitle: 'Principal area disagreement summary statement (PADSS)',
+		pageHeading: 'Principal area disagreement summary statement (PADSS)',
+		fieldName: 'principalAreaDisagreementSummaryStmt',
+		dateFieldName: 'principalAreaDisagreementSummaryStmtSubmittedDate',
+		componentType: 'radio-date-input',
+		radioFieldPath: 'additionalDetails.principalAreaDisagreementSummaryStmt',
+		dateFieldPath: 'keyDates.preApplication.principalAreaDisagreementSummaryStmtSubmittedDate'
+	},
+	policyComplianceDocument: {
+		sectionTitle: 'Policy compliance document (PCD)',
+		pageHeading: 'Policy compliance document (PCD)',
+		fieldName: 'policyComplianceDocument',
+		dateFieldName: 'policyComplianceDocumentSubmittedDate',
+		componentType: 'radio-date-input',
+		radioFieldPath: 'additionalDetails.policyComplianceDocument',
+		dateFieldPath: 'keyDates.preApplication.policyComplianceDocumentSubmittedDate'
+	},
+	designApproachDocument: {
+		sectionTitle: 'Design approach document (DAD)',
+		pageHeading: 'Design approach document (DAD)',
+		fieldName: 'designApproachDocument',
+		dateFieldName: 'designApproachDocumentSubmittedDate',
+		componentType: 'radio-date-input',
+		radioFieldPath: 'additionalDetails.designApproachDocument',
+		dateFieldPath: 'keyDates.preApplication.designApproachDocumentSubmittedDate'
+	},
+	matureOutlineControlDocument: {
+		sectionTitle: 'Mature outline control documents',
+		pageHeading: 'Mature outline control documents',
+		fieldName: 'matureOutlineControlDocument',
+		dateFieldName: 'matureOutlineControlDocumentSubmittedDate',
+		componentType: 'radio-date-input',
+		radioFieldPath: 'additionalDetails.matureOutlineControlDocument',
+		dateFieldPath: 'keyDates.preApplication.matureOutlineControlDocumentSubmittedDate'
+	},
+	caAndTpEvidence: {
+		sectionTitle: 'Compulsory Acquisition (CA) and Temporary Possession (TP) evidence',
+		pageHeading: 'Compulsory Acquisition (CA) and Temporary Possession (TP) evidence',
+		fieldName: 'caAndTpEvidence',
+		dateFieldName: 'caAndTpEvidenceSubmittedDate',
+		componentType: 'radio-date-input',
+		radioFieldPath: 'additionalDetails.caAndTpEvidence',
+		dateFieldPath: 'keyDates.preApplication.caAndTpEvidenceSubmittedDate'
+	},
+	publicSectorEqualityDuty: {
+		sectionTitle: 'Public Section Equality Duty (PSED)',
+		pageHeading: 'Public Section Equality Duty (PSED)',
+		fieldName: 'publicSectorEqualityDuty',
+		dateFieldName: 'publicSectorEqualityDutySubmittedDate',
+		componentType: 'radio-date-input',
+		radioFieldPath: 'additionalDetails.publicSectorEqualityDuty',
+		dateFieldPath: 'keyDates.preApplication.publicSectorEqualityDutySubmittedDate'
+	},
+	fastTrackAdmissionDocument: {
+		sectionTitle: 'Fast track admission document',
+		pageHeading: 'Fast track admission document',
+		fieldName: 'fastTrackAdmissionDocument',
+		dateFieldName: 'fastTrackAdmissionDocumentSubmittedDate',
+		componentType: 'radio-date-input',
+		radioFieldPath: 'additionalDetails.fastTrackAdmissionDocument',
+		dateFieldPath: 'keyDates.preApplication.fastTrackAdmissionDocumentSubmittedDate'
+	},
+	multipartyApplicationCheckDocument: {
+		sectionTitle: 'Multiparty application readiness gate-check (trial)',
+		pageHeading: 'Multiparty application readiness gate-check (trial)',
+		fieldName: 'multipartyApplicationCheckDocument',
+		dateFieldName: 'multipartyApplicationCheckDocumentSubmittedDate',
+		componentType: 'radio-date-input',
+		radioFieldPath: 'additionalDetails.multipartyApplicationCheckDocument',
+		dateFieldPath: 'keyDates.preApplication.multipartyApplicationCheckDocumentSubmittedDate'
 	}
 };
 
