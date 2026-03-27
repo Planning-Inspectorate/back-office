@@ -6,7 +6,7 @@ exports[`applications edit DCO status GET should render the DCO status page 1`] 
         <div class="govuk-form-group">
             <fieldset class="govuk-fieldset">
                 <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-                    <h1 class="govuk-fieldset__heading"> Choose DCO status</h1>
+                    <h1 class="govuk-fieldset__heading"> Development Consent Order (DCO) status</h1>
                 </legend>
                 <div class="govuk-radios" data-module="govuk-radios">
                     <div class="govuk-radios__item">
