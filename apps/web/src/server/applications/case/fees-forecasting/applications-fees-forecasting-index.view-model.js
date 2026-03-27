@@ -164,10 +164,13 @@ export const getFeesForecastingIndexViewModel = ({ caseData, invoices, meetings 
 		},
 		{
 			key: 'Link to s61 summary',
-			html: getLinkHTML(caseData.additionalDetails.s61SummaryURI, '#'),
+			html: getLinkHTML(
+				caseData.additionalDetails.s61SummaryURI,
+				caseData.additionalDetails.s61SummaryURI
+			),
 			actions: [
 				{
-					href: editPageURL,
+					href: getEditPageURL(urlSectionNames.s61SummaryLink, caseData.id),
 					text: genericHrefText,
 					visuallyHiddenText: 'link to s61 summary'
 				}

@@ -243,11 +243,13 @@ describe('applications fees forecasting index view-model', () => {
 							},
 							{
 								key: { text: 'Link to s61 summary' },
-								value: { html: '<a href="#" class="govuk-link">mock-s61-summary-uri</a>' },
+								value: {
+									html: '<a href="mock-s61-summary-uri" class="govuk-link">mock-s61-summary-uri</a>'
+								},
 								actions: {
 									items: [
 										{
-											href: '#',
+											href: '/applications-service/case/4/fees-forecasting/section/s61-summary-link',
 											text: 'Change',
 											visuallyHiddenText: 'link to s61 summary'
 										}

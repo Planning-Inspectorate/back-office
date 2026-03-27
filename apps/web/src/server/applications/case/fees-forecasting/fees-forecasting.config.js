@@ -58,7 +58,8 @@ export const urlSectionNames = {
 	caAndTpEvidence: 'compulsory-acquisition',
 	publicSectorEqualityDuty: 'public-sector-equality-duty',
 	fastTrackAdmissionDocument: 'fast-track-admission',
-	multipartyApplicationCheckDocument: 'multiparty-application'
+	multipartyApplicationCheckDocument: 'multiparty-application',
+	s61SummaryLink: 's61-summary-link'
 };
 
 export const sectionData = {
@@ -203,6 +204,12 @@ export const sectionData = {
 		componentType: 'radio-date-input',
 		radioFieldPath: 'additionalDetails.multipartyApplicationCheckDocument',
 		dateFieldPath: 'keyDates.preApplication.multipartyApplicationCheckDocumentSubmittedDate'
+	},
+	s61SummaryLink: {
+		sectionTitle: 'Link to s61 summary',
+		pageHeading: 'Link to s61 summary',
+		fieldName: 's61SummaryURI',
+		componentType: 'text-input'
 	}
 };
 
