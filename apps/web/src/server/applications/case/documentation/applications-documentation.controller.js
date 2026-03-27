@@ -1140,7 +1140,7 @@ export async function postRequestAiRedaction(request, response) {
 		await updateDocumentMetaData(caseId, documentGuid, {
 			redactedStatus: 'ai_redaction_failed'
 		});
-	} else if (result?.body?.pollEndpoint) {
+	} else {
 		await updateDocumentMetaData(caseId, documentGuid, {
 			redactedStatus: 'awaiting_ai_suggestions'
 		});
