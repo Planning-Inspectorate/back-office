@@ -93,9 +93,9 @@ exports[`Fees and Forecasting GET /case/123/fees-forecasting/ should render the 
                                 </dd>
                             </div>
                             <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Link to s61 summary</dt>
-                                <dd class="govuk-summary-list__value"><a href="#" class="govuk-link">mock-s61-summary-uri</a>
+                                <dd class="govuk-summary-list__value"><a href="mock-s61-summary-uri" class="govuk-link">mock-s61-summary-uri</a>
                                 </dd>
-                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> link to s61 summary</span></a>
+                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/fees-forecasting/section/s61-summary-link">Change<span class="govuk-visually-hidden"> link to s61 summary</span></a>
                                 </dd>
                             </div>
                             <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Estimated scoping submission date</dt>

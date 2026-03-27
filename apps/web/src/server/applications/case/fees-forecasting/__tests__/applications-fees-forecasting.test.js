@@ -116,7 +116,7 @@ describe('Fees and Forecasting', () => {
 	});
 
 	describe('POST /case/123/fees-forecasting/section/:sectionName', () => {
-		it('should show a validation error when date is NOT entered in correct format', async () => {
+		it('should show a validation error when value is NOT entered in correct format', async () => {
 			const flags = staticFlags;
 			flags['applics-1845-fees-forecasting'] = true;
 
