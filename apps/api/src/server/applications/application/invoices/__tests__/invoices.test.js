@@ -1,6 +1,14 @@
 import { request } from '#app-test';
-
 const { databaseConnector } = await import('#utils/database-connector.js');
+const { eventClient } = await import('../../../../infrastructure/event-client.js');
+import { NSIP_PROJECT } from '#infrastructure/topics.js';
+import { buildPayloadEventsForSchema } from '#utils/schema-test-utils.js';
+import { mockApplicationGet } from '#utils/application-factory-for-tests.js';
+import {
+	mockProjectFactoryOptions,
+	mockProjectOtherOptions,
+	mockProjectPayloadData
+} from '../../../fees-forecasting/__fixtures__/fees-forecasting-project.js';
 
 const caseId = 100000000;
 
@@ -43,6 +51,7 @@ describe('Invoices API', () => {
 		databaseConnector.invoice.create?.mockReset?.();
 		databaseConnector.invoice.update?.mockReset?.();
 		databaseConnector.invoice.delete?.mockReset?.();
+		eventClient.sendEvents?.mockClear?.();
 	});
 	describe('GET /applications/:id/invoices', () => {
 		it('returns 200 with all invoices for the case', async () => {
@@ -120,6 +129,10 @@ describe('Invoices API', () => {
 			const created = { id: 3, caseId, ...payload, createdAt: '2025-11-03T12:00:00.000Z' };
 			databaseConnector.invoice.create.mockResolvedValueOnce(created);
 
+			databaseConnector.case.findUnique.mockImplementation(
+				mockApplicationGet(mockProjectFactoryOptions, mockProjectOtherOptions)
+			);
+
 			const res = await request.post(`/applications/${caseId}/invoices`).send(payload);
 
 			expect(res.status).toBe(201);
@@ -127,6 +140,13 @@ describe('Invoices API', () => {
 			expect(databaseConnector.invoice.create).toHaveBeenCalledWith({
 				data: { caseId, ...payload }
 			});
+
+			expect(eventClient.sendEvents).toHaveBeenNthCalledWith(
+				1,
+				NSIP_PROJECT,
+				buildPayloadEventsForSchema(NSIP_PROJECT, mockProjectPayloadData),
+				'Create'
+			);
 		});
 
 		it('400 on invoice number duplicate (Prisma P2002)', async () => {
@@ -166,6 +186,10 @@ describe('Invoices API', () => {
 		it('200 updates an invoice', async () => {
 			databaseConnector.invoice.update.mockResolvedValueOnce({ ...invoices[1], ...updatePayload });
 
+			databaseConnector.case.findUnique.mockImplementation(
+				mockApplicationGet(mockProjectFactoryOptions, mockProjectOtherOptions)
+			);
+
 			const res = await request
 				.patch(`/applications/${caseId}/invoices/${invoices[1].id}`)
 				.send({ ...invoices[1], updatePayload });
@@ -180,6 +204,13 @@ describe('Invoices API', () => {
 			});
 
 			expect(databaseConnector.invoice.update).toHaveBeenCalledTimes(1);
+
+			expect(eventClient.sendEvents).toHaveBeenNthCalledWith(
+				1,
+				NSIP_PROJECT,
+				buildPayloadEventsForSchema(NSIP_PROJECT, mockProjectPayloadData),
+				'Update'
+			);
 		});
 
 		it('404 when invoice not found for given case', async () => {
@@ -203,10 +234,21 @@ describe('Invoices API', () => {
 		it('204 deletes when invoice belongs to the case', async () => {
 			databaseConnector.invoice.delete.mockResolvedValueOnce({});
 
+			databaseConnector.case.findUnique.mockImplementation(
+				mockApplicationGet(mockProjectFactoryOptions, mockProjectOtherOptions)
+			);
+
 			const res = await request.delete(`/applications/${caseId}/invoices/${invoices[1].id}`);
 
 			expect(res.status).toBe(204);
 			expect(databaseConnector.invoice.delete).toHaveBeenCalled();
+
+			expect(eventClient.sendEvents).toHaveBeenNthCalledWith(
+				1,
+				NSIP_PROJECT,
+				buildPayloadEventsForSchema(NSIP_PROJECT, mockProjectPayloadData),
+				'Update'
+			);
 		});
 
 		it('404 when invoice not found for the case', async () => {
