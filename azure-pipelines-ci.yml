@@ -42,7 +42,7 @@ extends:
                     displayName: Cache npm
                   - template: ../steps/node_script.yml
                     parameters:
-                        nodeVersion: 20
+                        nodeVersion: 22
                         script: npm ci
                         environmentVariables:
                           npm_config_cache: $(npm_config_cache)
@@ -50,11 +50,11 @@ extends:
                     parameters:
                         # only run commitlint on branches, not main
                         condition: ne(variables['Build.SourceBranchName'], 'main')
-                        nodeVersion: 20
+                        nodeVersion: 22
                         script: npm run commitlint
                   - template: ../steps/node_script.yml
                     parameters:
-                        nodeVersion: 20
+                        nodeVersion: 22
                         script: npm run tscheck
                         environmentVariables:
                             TURBO_TEAM: $(TURBO_TEAM)
@@ -62,15 +62,15 @@ extends:
                             TURBO_TOKEN: $(TURBO_TOKEN)
                   - template: ../steps/node_script.yml
                     parameters:
-                        nodeVersion: 20
+                        nodeVersion: 22
                         script: npm run lint:js
                   - template: ../steps/node_script.yml
                     parameters:
-                        nodeVersion: 20
+                        nodeVersion: 22
                         script: npm run format-check
                   - template: ../steps/node_script.yml
                     parameters:
-                        nodeVersion: 20
+                        nodeVersion: 22
                         # Run tests for a subset of apps on Agent A
                         script: npx turbo run test --filter=./apps/api
                         environmentVariables:
@@ -88,13 +88,13 @@ extends:
                     displayName: Cache npm
                   - template: ../steps/node_script.yml
                     parameters:
-                        nodeVersion: 20
+                        nodeVersion: 22
                         script: npm ci
                         environmentVariables:
                           npm_config_cache: $(npm_config_cache)
                   - template: ../steps/node_script.yml
                     parameters:
-                        nodeVersion: 20
+                        nodeVersion: 22
                         # Run tests for the remaining apps on Agent B
                         script: npx turbo run test --filter=./apps/web --filter=./apps/api-testing --filter=./apps/functions/*
                         environmentVariables:
@@ -103,7 +103,7 @@ extends:
                             TURBO_TOKEN: $(TURBO_TOKEN)
                   - template: ../steps/node_script.yml
                     parameters:
-                        nodeVersion: 20
+                        nodeVersion: 22
                         script: npm run build:release
                         environmentVariables:
                             TURBO_TEAM: $(TURBO_TEAM)
