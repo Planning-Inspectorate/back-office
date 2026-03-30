@@ -244,7 +244,9 @@ describe('Start case', () => {
 			nsipOfficerIds: [],
 			nsipAdministrationOfficerIds: [],
 			inspectorIds: [],
-			applicantId: '1'
+			applicantId: '1',
+			meetings: [],
+			invoices: []
 		});
 
 		const expectedApplicantEventPayload = [

@@ -12,6 +12,8 @@ export const buildNsipProjectPayload = (projectEntity) => {
 	const application = mapApplicationDetails(projectEntity);
 	const sectorAndType = mapSectorAndType(projectEntity);
 	const projectTeam = mapProjectTeam(projectEntity);
+	const meetings = mapMeetings(projectEntity);
+	const invoices = mapInvoices(projectEntity);
 
 	// @ts-ignore
 	return {
@@ -28,6 +30,8 @@ export const buildNsipProjectPayload = (projectEntity) => {
 		...sectorAndType,
 		applicantId: projectEntity.applicantId?.toString() ?? null,
 		...projectTeam,
+		meetings: meetings,
+		invoices: invoices,
 
 		// null value fields added fo schema validation
 		migrationStatus: null
@@ -197,4 +201,43 @@ const mapProjectTeam = (projectEntity) => {
 	}
 
 	return teamMembers;
+};
+
+/**
+ * @param {import('@pins/applications.api').Schema.Case} projectEntity
+ * @returns {Array<{ meetingId: number, meetingAgenda: string|null, planningInspectorateRole: string|null, meetingDate: string|null, estimatedPrelimMeetingDate: string|null, meetingType: string|null }>}
+ */
+const mapMeetings = (projectEntity) => {
+	const meetings = projectEntity?.meeting || [];
+	return meetings.map((meeting) => {
+		return {
+			meetingId: meeting.id,
+			meetingAgenda: meeting.agenda ?? null,
+			planningInspectorateRole: meeting?.pinsRole ?? null,
+			meetingDate: meeting.meetingDate?.toISOString() ?? null,
+			estimatedPrelimMeetingDate: null,
+			meetingType: meeting.meetingType ?? null
+		};
+	});
+};
+
+/**
+ * @param {import('@pins/applications.api').Schema.Case} projectEntity
+ * @returns {Array<{ invoiceStage: string, invoiceNumber: string, amountDue: number|null, paymentDueDate: string|null, invoicedDate: string|null, paymentDate: string|null, refundCreditNoteNumber: string|null, refundAmount: number|null, refundIssueDate: string|null }>}
+ */
+const mapInvoices = (projectEntity) => {
+	const invoices = projectEntity?.invoice || [];
+	return invoices.map((invoice) => {
+		return {
+			invoiceStage: invoice.invoiceStage,
+			invoiceNumber: invoice.invoiceNumber,
+			amountDue: invoice?.amountDue ?? null,
+			paymentDueDate: invoice?.paymentDueDate?.toISOString() ?? null,
+			invoicedDate: invoice?.invoicedDate?.toISOString() ?? null,
+			paymentDate: invoice?.paymentDate?.toISOString() ?? null,
+			refundCreditNoteNumber: invoice?.refundCreditNoteNumber ?? null,
+			refundAmount: invoice?.refundAmount ?? null,
+			refundIssueDate: invoice?.refundIssueDate?.toISOString() ?? null
+		};
+	});
 };
