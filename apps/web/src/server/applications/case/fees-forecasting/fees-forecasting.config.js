@@ -60,7 +60,8 @@ export const urlSectionNames = {
 	fastTrackAdmissionDocument: 'fast-track-admission',
 	multipartyApplicationCheckDocument: 'multiparty-application',
 	s61SummaryLink: 's61-summary-link',
-	programmeDocumentLink: 'programme-document-link'
+	programmeDocumentLink: 'programme-document-link',
+	issuesTrackerLink: 'issues-tracker-link'
 };
 
 export const sectionData = {
@@ -216,6 +217,12 @@ export const sectionData = {
 		sectionTitle: 'Link to the programme document',
 		pageHeading: 'Link to the programme document',
 		fieldName: 'programmeDocumentURI',
+		componentType: 'text-input'
+	},
+	issuesTrackerLink: {
+		sectionTitle: 'Link to the issues tracker',
+		pageHeading: 'Link to the issues tracker',
+		fieldName: 'issuesTracker',
 		componentType: 'text-input'
 	}
 };

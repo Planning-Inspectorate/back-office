@@ -47,7 +47,8 @@ export const feesForecastingValidator = (request, response, next) => {
 		'manage-evidence-plan-meeting': validateFeesForecastingEvidencePlanMeeting,
 		'disagreement-summary-statement': validateFeesForecastingRadioDateInput,
 		's61-summary-link': validateFeesForecastingTextInput,
-		'programme-document-link': validateFeesForecastingTextInput
+		'programme-document-link': validateFeesForecastingTextInput,
+		'issues-tracker-link': validateFeesForecastingTextInput
 	};
 
 	if (Object.keys(validators).includes(sectionName)) {

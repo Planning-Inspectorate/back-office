@@ -410,12 +410,12 @@ describe('applications fees forecasting index view-model', () => {
 							{
 								key: { text: 'Link to issues tracker' },
 								value: {
-									html: '<a href="#" class="govuk-link">mock-issues-tracker-uri</a>'
+									html: '<a href="mock-issues-tracker-uri" class="govuk-link">mock-issues-tracker-uri</a>'
 								},
 								actions: {
 									items: [
 										{
-											href: '#',
+											href: '/applications-service/case/4/fees-forecasting/section/issues-tracker-link',
 											text: 'Change',
 											visuallyHiddenText: 'link to issues tracker'
 										}
