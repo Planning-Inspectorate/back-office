@@ -13,6 +13,7 @@ import slugify from 'slugify';
  * @property {string=} step
  * @property {string=} query
  * @property {number=} feeId
+ * @property {number=} meetingId
  * @property {Partial<DocumentationCategory>=} documentationCategory
  */
 
@@ -67,6 +68,7 @@ export const url = (key, filterArguments = {}) => {
 	const version = getArgument('version', filterArguments);
 	const projectUpdateId = getArgument('projectUpdateId', filterArguments);
 	const feeId = getArgument('feeId', filterArguments);
+	const meetingId = getArgument('meetingId', filterArguments);
 
 	switch (key) {
 		case 'base-url':
@@ -83,6 +85,10 @@ export const url = (key, filterArguments = {}) => {
 			return `${domainUrl}/case/${caseId}/project-documentation/${folderId}/document/${documentGuid}/${step}`;
 		case 'document-ai-redaction':
 			return `${domainUrl}/case/${caseId}/project-documentation/${folderId}/document/${documentGuid}/ai-redaction`;
+		case 'review-document-redaction':
+			return `${domainUrl}/case/${caseId}/project-documentation/${folderId}/document/${documentGuid}/${step}`;
+		case 'upload-redaction-amends':
+			return `${domainUrl}/case/${caseId}/project-documentation/${folderId}/document/${documentGuid}/upload-amends`;
 		case 'document-edit':
 			return `${domainUrl}/case/${caseId}/project-documentation/${folderId}/document/${documentGuid}/edit/${step}`;
 		case 'document-category':
@@ -155,6 +161,10 @@ export const url = (key, filterArguments = {}) => {
 			return `${domainUrl}/case/${caseId}/fees-forecasting/section/${step}`;
 		case 'fees-forecasting-fee':
 			return `${domainUrl}/case/${caseId}/fees-forecasting/section/manage-fee/id/${feeId}`;
+		case 'fees-forecasting-project-meeting':
+			return `${domainUrl}/case/${caseId}/fees-forecasting/section/manage-project-meeting/id/${meetingId}`;
+		case 'fees-forecasting-evidence-plan-meeting':
+			return `${domainUrl}/case/${caseId}/fees-forecasting/section/manage-evidence-plan-meeting/id/${meetingId}`;
 		default:
 			return 'app/404';
 	}

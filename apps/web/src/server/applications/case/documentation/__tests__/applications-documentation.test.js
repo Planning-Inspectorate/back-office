@@ -716,18 +716,9 @@ describe('applications documentation', () => {
 
 		describe('POST AI redaction', () => {
 			it('sets awaiting_ai_redaction and redirects back to properties', async () => {
-				const aiRedactionDoc = {
-					...fixtureReadyToPublishDocumentationPdfFile,
-					privateBlobPath: '/application/CASE1/guid-123/1',
-					privateBlobContainer: 'blob-container'
-				};
-
-				nock('http://test/')
-					.get('/applications/123/documents/3/properties')
-					.reply(200, aiRedactionDoc);
-
+				nock('http://test/').post('/applications/123/documents/96/metadata').reply(200, {});
 				const response = await request.post(
-					`${baseUrl}/project-documentation/21/document/3/ai-redaction`
+					`${baseUrl}/project-documentation/21/document/96/ai-redaction`
 				);
 
 				expect(response.status).toBe(302);

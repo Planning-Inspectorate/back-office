@@ -22,7 +22,7 @@
 		{% set otherAgendaHtml %}
 			{{ govukInput({
 				name: "otherAgenda",
-				classes: "govuk-!-width-one-third",
+				classes: "govuk-!-width-two-thirds",
 				errorMessage: errors['otherAgenda'] and {
 					text: errors['otherAgenda'].msg
 				},
@@ -76,8 +76,15 @@
 			values: values
 		}) }}
 
-		<div class='govuk-grid-column-one-third'>
+		<div class='govuk-grid-column-one-third govuk-button-group'>
 			{{ govukButton({ text: 'Save and return' }) }}
+			{% if componentType === 'manage-project-meeting' %}
+				{{ govukButton({
+					text: 'Remove',
+					classes: 'govuk-button--secondary',
+					href: 'fees-forecasting-project-meeting'|url({ caseId: caseId, meetingId: values.id }) + '/delete'
+				}) }}
+			{% endif %}
 		</div>
 	</form>
 

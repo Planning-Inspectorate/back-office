@@ -13,7 +13,7 @@ export const validateCreateMeeting = composeMiddleware(
 		.isEmpty()
 		.withMessage('pinsRole cannot be set for project meetings'),
 	body('meetingDate')
-		.optional()
+		.optional({ nullable: true, checkFalsy: true })
 		.isISO8601()
 		.withMessage('meetingDate must be a valid ISO 8601 date-time.'),
 	validationErrorHandler
@@ -22,11 +22,16 @@ export const validateCreateMeeting = composeMiddleware(
 export const validatePatchMeeting = composeMiddleware(
 	body('agenda').optional().notEmpty().withMessage('Agenda cannot be empty.'),
 	body('pinsRole')
+		.if(body('meetingType').equals('evidence_plan'))
 		.optional()
 		.isIn(['facilitator', 'advisor', 'observer'])
 		.withMessage('pinsRole must be Facilitator, Advisor, or Observer.'),
+	body('pinsRole')
+		.if(body('meetingType').equals('project'))
+		.isEmpty()
+		.withMessage('pinsRole cannot be set for project meetings'),
 	body('meetingDate')
-		.optional()
+		.optional({ nullable: true, checkFalsy: true })
 		.isISO8601()
 		.withMessage('meetingDate must be a valid ISO 8601 date-time.'),
 	validationErrorHandler

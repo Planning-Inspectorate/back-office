@@ -9,10 +9,14 @@ describe('applications fees forecasting edit view model', () => {
 			'./src/server/applications/case/fees-forecasting/applications-fees-forecasting.utils.js',
 			() => {
 				const mockGetSectionData = jest.fn();
+				const mockGetRows = jest.fn();
+				const mockGetBackLinkParams = jest.fn();
 
 				return {
 					__esModule: true,
-					getSectionData: mockGetSectionData
+					getSectionData: mockGetSectionData,
+					getRows: mockGetRows,
+					getBackLinkParams: mockGetBackLinkParams
 				};
 			}
 		);
@@ -41,8 +45,11 @@ describe('applications fees forecasting edit view model', () => {
 				pageTitle: 'Test section - Test case',
 				pageHeading: 'Test page heading',
 				fieldName: 'testSection',
+				dateFieldName: '',
 				hintText: 'Test section hint text',
-				componentType: 'date-input'
+				componentType: 'date-input',
+				radioFieldPath: '',
+				dateFieldPath: ''
 			});
 		});
 
@@ -68,8 +75,45 @@ describe('applications fees forecasting edit view model', () => {
 				pageTitle: '',
 				pageHeading: '',
 				fieldName: '',
+				dateFieldName: '',
 				hintText: '',
-				componentType: 'date-input'
+				componentType: 'date-input',
+				radioFieldPath: '',
+				dateFieldPath: ''
+			});
+		});
+
+		it('should return radio-date-input fields when component type is radio-date-input', async () => {
+			const { getSectionData } = await import('../applications-fees-forecasting.utils.js');
+
+			getSectionData.mockReturnValue({
+				sectionTitle: 'Principal area disagreement summary statement (PADSS)',
+				pageHeading: 'Principal area disagreement summary statement (PADSS)',
+				fieldName: 'principalAreaDisagreementSummaryStmt',
+				dateFieldName: 'principalAreaDisagreementSummaryStmtSubmittedDate',
+				componentType: 'radio-date-input',
+				radioFieldPath: 'additionalDetails.principalAreaDisagreementSummaryStmt',
+				dateFieldPath: 'keyDates.preApplication.principalAreaDisagreementSummaryStmtSubmittedDate'
+			});
+
+			const projectName = 'Test case';
+
+			const { getFeesForecastingEditViewModel } = await import(
+				'../applications-fees-forecasting-edit.view-model.js'
+			);
+
+			const result = getFeesForecastingEditViewModel(projectName, 'disagreement-summary-statement');
+
+			expect(result).toEqual({
+				selectedPageType: 'fees-forecasting',
+				pageTitle: 'Principal area disagreement summary statement (PADSS) - Test case',
+				pageHeading: 'Principal area disagreement summary statement (PADSS)',
+				fieldName: 'principalAreaDisagreementSummaryStmt',
+				dateFieldName: 'principalAreaDisagreementSummaryStmtSubmittedDate',
+				hintText: '',
+				componentType: 'radio-date-input',
+				radioFieldPath: 'additionalDetails.principalAreaDisagreementSummaryStmt',
+				dateFieldPath: 'keyDates.preApplication.principalAreaDisagreementSummaryStmtSubmittedDate'
 			});
 		});
 	});

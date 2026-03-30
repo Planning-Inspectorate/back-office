@@ -72,8 +72,15 @@
 			values: values
 		}) }}
 
-		<div class='govuk-grid-column-one-third'>
+		<div class='govuk-grid-column-one-third govuk-button-group'>
 			{{ govukButton({ text: 'Save and return' }) }}
+			{% if componentType === 'manage-evidence-plan-meeting' %}
+				{{ govukButton({
+					text: 'Remove',
+					classes: 'govuk-button--secondary',
+					href: 'fees-forecasting-evidence-plan-meeting'|url({ caseId: caseId, meetingId: values.id }) + '/delete'
+				}) }}
+			{% endif %}
 		</div>
 	</form>
 {% endblock %}

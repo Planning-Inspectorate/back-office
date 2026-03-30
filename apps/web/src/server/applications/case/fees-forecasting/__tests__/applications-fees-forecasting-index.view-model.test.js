@@ -243,11 +243,13 @@ describe('applications fees forecasting index view-model', () => {
 							},
 							{
 								key: { text: 'Link to s61 summary' },
-								value: { html: '<a href="#" class="govuk-link">mock-s61-summary-uri</a>' },
+								value: {
+									html: '<a href="mock-s61-summary-uri" class="govuk-link">mock-s61-summary-uri</a>'
+								},
 								actions: {
 									items: [
 										{
-											href: '#',
+											href: '/applications-service/case/4/fees-forecasting/section/s61-summary-link',
 											text: 'Change',
 											visuallyHiddenText: 'link to s61 summary'
 										}
@@ -364,7 +366,9 @@ describe('applications fees forecasting index view-model', () => {
 								[
 									{ text: 'Project Update Meeting (PUM)' },
 									{ text: '11 Jan 2025' },
-									{ html: '<a href="#" class="govuk-link">Change</a>' }
+									{
+										html: '<a href="/applications-service/case/4/fees-forecasting/section/manage-project-meeting/id/1" class="govuk-link">Change</a>'
+									}
 								]
 							],
 							head: [{ text: 'Meeting agenda' }, { text: 'Date' }, { text: 'Action' }]
@@ -381,12 +385,16 @@ describe('applications fees forecasting index view-model', () => {
 								[
 									{ text: 'Flood Risk Assessment' },
 									{ text: '09 Jan 2025' },
-									{ html: '<a href="#" class="govuk-link">Change</a>' }
+									{
+										html: '<a href="/applications-service/case/4/fees-forecasting/section/manage-evidence-plan-meeting/id/2" class="govuk-link">Change</a>'
+									}
 								],
 								[
 									{ text: 'Habitat Regulation Assessment' },
 									{ text: '11 Jan 2025' },
-									{ html: '<a href="#" class="govuk-link">Change</a>' }
+									{
+										html: '<a href="/applications-service/case/4/fees-forecasting/section/manage-evidence-plan-meeting/id/3" class="govuk-link">Change</a>'
+									}
 								]
 							],
 							head: [{ text: 'Issues discussed' }, { text: 'Date' }, { text: 'Action' }]
@@ -435,7 +443,7 @@ describe('applications fees forecasting index view-model', () => {
 								actions: {
 									items: [
 										{
-											href: '#',
+											href: '/applications-service/case/4/fees-forecasting/section/disagreement-summary-statement',
 											text: 'Change',
 											visuallyHiddenText: 'principal area disagreement summary statement (PADSS)'
 										}
@@ -448,7 +456,7 @@ describe('applications fees forecasting index view-model', () => {
 								actions: {
 									items: [
 										{
-											href: '#',
+											href: '/applications-service/case/4/fees-forecasting/section/policy-compliance-document',
 											text: 'Change',
 											visuallyHiddenText: 'policy compliance document (PCD)'
 										}
@@ -461,7 +469,7 @@ describe('applications fees forecasting index view-model', () => {
 								actions: {
 									items: [
 										{
-											href: '#',
+											href: '/applications-service/case/4/fees-forecasting/section/design-approach-document',
 											text: 'Change',
 											visuallyHiddenText: 'design approach document (DAD)'
 										}
@@ -474,7 +482,7 @@ describe('applications fees forecasting index view-model', () => {
 								actions: {
 									items: [
 										{
-											href: '#',
+											href: '/applications-service/case/4/fees-forecasting/section/control-documents',
 											text: 'Change',
 											visuallyHiddenText: 'mature outline control documents'
 										}
@@ -487,7 +495,7 @@ describe('applications fees forecasting index view-model', () => {
 								actions: {
 									items: [
 										{
-											href: '#',
+											href: '/applications-service/case/4/fees-forecasting/section/compulsory-acquisition',
 											text: 'Change',
 											visuallyHiddenText: 'CA and TP evidence'
 										}
@@ -500,7 +508,7 @@ describe('applications fees forecasting index view-model', () => {
 								actions: {
 									items: [
 										{
-											href: '#',
+											href: '/applications-service/case/4/fees-forecasting/section/public-sector-equality-duty',
 											text: 'Change',
 											visuallyHiddenText: 'public sector equality duty (PSED)'
 										}
@@ -513,7 +521,7 @@ describe('applications fees forecasting index view-model', () => {
 								actions: {
 									items: [
 										{
-											href: '#',
+											href: '/applications-service/case/4/fees-forecasting/section/fast-track-admission',
 											text: 'Change',
 											visuallyHiddenText: 'fast track admission document'
 										}
@@ -528,7 +536,7 @@ describe('applications fees forecasting index view-model', () => {
 								actions: {
 									items: [
 										{
-											href: '#',
+											href: '/applications-service/case/4/fees-forecasting/section/multiparty-application',
 											text: 'Change',
 											visuallyHiddenText: 'multiparty application readiness gate-check (trial)'
 										}
