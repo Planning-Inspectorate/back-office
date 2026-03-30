@@ -3,9 +3,9 @@ import { mapDateStringToUnixTimestamp } from './map-date-string-to-unix-timestam
 /**
  * @typedef {import('@pins/applications.api').Schema.S51Advice} S51Advice
  * @typedef {import('@pins/applications').S51AdviceDetails} S51AdviceDetails
- * @typedef {import('@prisma/client').Prisma.DocumentGetPayload<{include: {latestDocumentVersion: true}}>} DocumentWithLatestVersion
+ * @typedef {import('#database-client').Prisma.DocumentGetPayload<{include: {latestDocumentVersion: true}}>} DocumentWithLatestVersion
  * @typedef { {Document: DocumentWithLatestVersion}} DocumentWithLatestVersionObj
- * @typedef {import('@prisma/client').Prisma.S51AdviceGetPayload<{include: {S51AdviceDocument: true}}>} S51AdviceWithS51Documents
+ * @typedef {import('#database-client').Prisma.S51AdviceGetPayload<{include: {S51AdviceDocument: true}}>} S51AdviceWithS51Documents
  * @typedef {import('@pins/applications.api').Api.S51AdviceDocumentDetails} S51AdviceDocumentDetails
  */
 

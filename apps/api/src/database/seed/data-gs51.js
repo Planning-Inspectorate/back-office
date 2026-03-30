@@ -3,7 +3,7 @@ import { createRepresentation } from './data-test.js';
 
 /**
  *
- * @param {import('@prisma/client').PrismaClient} databaseConnector
+ * @param {import('#database-client').PrismaClient} databaseConnector
  */
 export const createGeneralS51Application = async (databaseConnector) => {
 	try {

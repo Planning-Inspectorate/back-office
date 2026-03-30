@@ -125,7 +125,7 @@ const mapSubscriptionsToSubscribers = (subscriptions) => {
 /**
  *
  * @param {NSIPSubscriber} m
- * @returns {Promise<import('@prisma/client').Prisma.SubscriptionUncheckedCreateInput>}
+ * @returns {Promise<import('#database-client').Prisma.SubscriptionUncheckedCreateInput>}
  */
 const mapModelToEntity = async (m) => {
 	const caseId = await getCaseIdFromRef(m.caseReference);
