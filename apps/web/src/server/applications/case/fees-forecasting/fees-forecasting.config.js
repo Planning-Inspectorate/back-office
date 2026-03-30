@@ -36,6 +36,7 @@ export const supplementaryComponentsDisplayValues = {
 
 // Different formats used for key dates and fees and forecasting
 export const urlSectionNames = {
+	projectMaturity: 'project-maturity',
 	preApplicationSection: 'preApplicationSection',
 	submissionAtInternal: 'submissionAtInternal',
 	inceptionMeetingDate: 'inceptionMeetingDate',
@@ -65,6 +66,22 @@ export const urlSectionNames = {
 };
 
 export const sectionData = {
+	projectMaturity: {
+		sectionTitle: 'Project maturity',
+		pageHeading: 'What is the new maturity of the project?',
+		fieldName: 'newMaturity',
+		componentType: 'radio-input',
+		radioFieldPath: 'additionalDetails.newMaturity',
+		radioOptions: [
+			{ value: 'a', text: 'A' },
+			{ value: 'b', text: 'B' },
+			{ value: 'c', text: 'C' },
+			{ value: 'd', text: 'D' },
+			{ value: 'e', text: 'E' },
+			{ value: 'f', text: 'F' },
+			{ value: 'g', text: 'G' }
+		]
+	},
 	maturityEvaluationMatrix: {
 		sectionTitle: 'MEM last updated',
 		pageHeading: 'Maturity Evaluation Matrix (MEM) last updated',

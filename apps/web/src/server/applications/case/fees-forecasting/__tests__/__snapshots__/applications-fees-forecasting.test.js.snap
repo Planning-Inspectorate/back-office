@@ -60,7 +60,7 @@ exports[`Fees and Forecasting GET /case/123/fees-forecasting/ should render the 
             <dl class="govuk-summary-list">
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> New maturity</dt>
                     <dd class="govuk-summary-list__value">C</dd>
-                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> new maturity</span></a>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/fees-forecasting/section/project-maturity">Change<span class="govuk-visually-hidden"> new maturity</span></a>
                     </dd>
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Examining inspectors</dt>
@@ -797,6 +797,63 @@ exports[`Fees and Forecasting GET /case/123/fees-forecasting/section/manage-proj
 </main>"
 `;
 
+exports[`Fees and Forecasting GET /case/123/fees-forecasting/section/project-maturity (radio-input) should render the radio-input page when feature flag is ON 1`] = `
+"<main class="govuk-main-wrapper" id="main-content">
+    <form method="post" novalidate="novalidate" class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-form-group">
+                <fieldset class="govuk-fieldset">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                        <h1 class="govuk-fieldset__heading"> What is the new maturity of the project?</h1>
+                    </legend>
+                    <div class="govuk-radios" data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="newMaturity" name="newMaturity"
+                            type="radio" value="a">
+                            <label class="govuk-label govuk-radios__label" for="newMaturity">A</label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="newMaturity-2" name="newMaturity"
+                            type="radio" value="b">
+                            <label class="govuk-label govuk-radios__label" for="newMaturity-2">B</label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="newMaturity-3" name="newMaturity"
+                            type="radio" value="c" checked>
+                            <label class="govuk-label govuk-radios__label" for="newMaturity-3">C</label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="newMaturity-4" name="newMaturity"
+                            type="radio" value="d">
+                            <label class="govuk-label govuk-radios__label" for="newMaturity-4">D</label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="newMaturity-5" name="newMaturity"
+                            type="radio" value="e">
+                            <label class="govuk-label govuk-radios__label" for="newMaturity-5">E</label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="newMaturity-6" name="newMaturity"
+                            type="radio" value="f">
+                            <label class="govuk-label govuk-radios__label" for="newMaturity-6">F</label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="newMaturity-7" name="newMaturity"
+                            type="radio" value="g">
+                            <label class="govuk-label govuk-radios__label" for="newMaturity-7">G</label>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+        <div class="govuk-grid-column-full">
+            <button type="submit" class="govuk-button govuk-grid-column-one-third"
+            data-module="govuk-button">Save and return</button>
+        </div>
+    </form>
+</main>"
+`;
+
 exports[`Fees and Forecasting POST /case/123/fees-forecasting/section/:sectionName should show an API error if creating a project meeting was NOT successful 1`] = `
 "<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
@@ -1320,6 +1377,78 @@ exports[`Fees and Forecasting POST /case/123/fees-forecasting/section/manage-pro
                     will remove it from future forecasting reporting.</strong>
             </div>
             <button type="submit" class="govuk-button govuk-button--warning" data-module="govuk-button">Delete</button>
+        </div>
+    </form>
+</main>"
+`;
+
+exports[`Fees and Forecasting POST /case/123/fees-forecasting/section/project-maturity (radio-input) should show an API error if updating was NOT successful 1`] = `
+"<main class="govuk-main-wrapper" id="main-content">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#msg">An error occurred, please try again later</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <form method="post" novalidate="novalidate" class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-form-group">
+                <fieldset class="govuk-fieldset">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                        <h1 class="govuk-fieldset__heading"> What is the new maturity of the project?</h1>
+                    </legend>
+                    <div class="govuk-radios" data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="newMaturity" name="newMaturity"
+                            type="radio" value="a">
+                            <label class="govuk-label govuk-radios__label" for="newMaturity">A</label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="newMaturity-2" name="newMaturity"
+                            type="radio" value="b">
+                            <label class="govuk-label govuk-radios__label" for="newMaturity-2">B</label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="newMaturity-3" name="newMaturity"
+                            type="radio" value="c" checked>
+                            <label class="govuk-label govuk-radios__label" for="newMaturity-3">C</label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="newMaturity-4" name="newMaturity"
+                            type="radio" value="d">
+                            <label class="govuk-label govuk-radios__label" for="newMaturity-4">D</label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="newMaturity-5" name="newMaturity"
+                            type="radio" value="e">
+                            <label class="govuk-label govuk-radios__label" for="newMaturity-5">E</label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="newMaturity-6" name="newMaturity"
+                            type="radio" value="f">
+                            <label class="govuk-label govuk-radios__label" for="newMaturity-6">F</label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="newMaturity-7" name="newMaturity"
+                            type="radio" value="g">
+                            <label class="govuk-label govuk-radios__label" for="newMaturity-7">G</label>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+        <div class="govuk-grid-column-full">
+            <button type="submit" class="govuk-button govuk-grid-column-one-third"
+            data-module="govuk-button">Save and return</button>
         </div>
     </form>
 </main>"
