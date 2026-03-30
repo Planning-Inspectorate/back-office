@@ -181,7 +181,7 @@ describe('applications fees forecasting index view-model', () => {
 						actions: {
 							items: [
 								{
-									href: '#',
+									href: '/applications-service/case/4/fees-forecasting/section/project-maturity',
 									text: 'Change',
 									visuallyHiddenText: 'new maturity'
 								}

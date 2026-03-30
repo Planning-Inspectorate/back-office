@@ -104,7 +104,7 @@ export const getFeesForecastingIndexViewModel = ({ caseData, invoices, meetings 
 			value: getDisplayValue(newMaturityDisplayValues, caseData.additionalDetails.newMaturity),
 			actions: [
 				{
-					href: editPageURL,
+					href: getEditPageURL(urlSectionNames.projectMaturity, caseData.id),
 					text: genericHrefText,
 					visuallyHiddenText: 'new maturity'
 				}
