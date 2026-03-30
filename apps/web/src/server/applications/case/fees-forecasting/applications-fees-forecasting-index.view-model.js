@@ -483,10 +483,13 @@ export const getFeesForecastingIndexViewModel = ({ caseData, invoices, meetings 
 	const programmeDocumentSectionItems = [
 		{
 			key: 'Link to programme document',
-			html: getLinkHTML(caseData.additionalDetails.programmeDocumentURI, '#'),
+			html: getLinkHTML(
+				caseData.additionalDetails.programmeDocumentURI,
+				caseData.additionalDetails.programmeDocumentURI
+			),
 			actions: [
 				{
-					href: editPageURL,
+					href: getEditPageURL(urlSectionNames.programmeDocumentLink, caseData.id),
 					text: genericHrefText,
 					visuallyHiddenText: 'link to programme document'
 				}

@@ -298,9 +298,9 @@ exports[`Fees and Forecasting GET /case/123/fees-forecasting/ should render the 
                     <div id="accordion-default-content-6" class="govuk-accordion__section-content">
                         <dl class="govuk-summary-list">
                             <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Link to programme document</dt>
-                                <dd                                 class="govuk-summary-list__value"><a href="#" class="govuk-link">mock-programme-document-uri</a>
+                                <dd                                 class="govuk-summary-list__value"><a href="mock-programme-document-uri" class="govuk-link">mock-programme-document-uri</a>
                                     </dd>
-                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> link to programme document</span></a>
+                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/fees-forecasting/section/programme-document-link">Change<span class="govuk-visually-hidden"> link to programme document</span></a>
                                     </dd>
                             </div>
                             <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Date updated programme document is received</dt>

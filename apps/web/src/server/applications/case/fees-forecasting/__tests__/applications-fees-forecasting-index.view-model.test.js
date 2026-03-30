@@ -551,11 +551,13 @@ describe('applications fees forecasting index view-model', () => {
 						content: [
 							{
 								key: { text: 'Link to programme document' },
-								value: { html: '<a href="#" class="govuk-link">mock-programme-document-uri</a>' },
+								value: {
+									html: '<a href="mock-programme-document-uri" class="govuk-link">mock-programme-document-uri</a>'
+								},
 								actions: {
 									items: [
 										{
-											href: '#',
+											href: '/applications-service/case/4/fees-forecasting/section/programme-document-link',
 											text: 'Change',
 											visuallyHiddenText: 'link to programme document'
 										}
