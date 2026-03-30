@@ -54,7 +54,9 @@ export const updateProjectTeamMemberRole = async ({ params, body }, response) =>
 		regions: true,
 		caseStatus: true,
 		projectTeam: true,
-		gridReference: true
+		gridReference: true,
+		invoice: true,
+		meeting: true
 	});
 
 	if (!projectTeamMember || !project) {
@@ -83,7 +85,9 @@ export const removeProjectTeamMember = async ({ params, body }, response) => {
 		regions: true,
 		caseStatus: true,
 		gridReference: true,
-		projectTeam: true
+		projectTeam: true,
+		invoice: true,
+		meeting: true
 	});
 
 	if (!project) {
