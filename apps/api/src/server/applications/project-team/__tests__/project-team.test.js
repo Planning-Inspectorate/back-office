@@ -63,6 +63,9 @@ const teamMembers = {
 	migrationStatus: null
 };
 
+const meetings = [];
+const invoices = [];
+
 const expectedNSIPProjectEvent = buildPayloadEventsForSchema(NSIP_PROJECT, {
 	caseId: 1,
 	applicantId: '1',
@@ -84,7 +87,9 @@ const expectedNSIPProjectEvent = buildPayloadEventsForSchema(NSIP_PROJECT, {
 	anticipatedDateOfSubmission: '2022-07-22T10:38:33.000Z',
 	anticipatedSubmissionDateNonSpecific: 'Q1 2023',
 	sector: 'BC - Business and Commercial',
-	sourceSystem: 'back-office-applications'
+	sourceSystem: 'back-office-applications',
+	meetings: meetings,
+	invoices: invoices
 });
 
 describe('Test Project team members', () => {

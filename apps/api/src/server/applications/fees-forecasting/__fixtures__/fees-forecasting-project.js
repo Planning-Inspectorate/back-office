@@ -1,0 +1,193 @@
+export const mockProjectFactoryOptions = {
+	id: 100000000,
+	reference: 'TEST',
+	title: 'Test Fees and Forecasting',
+	applicantId: 4,
+	description: 'Fees and forecasting description'
+};
+
+export const mockProjectOtherOptions = {
+	applicant: { id: 4 },
+	gridReference: {
+		northing: 234567,
+		easting: 765432
+	},
+	ApplicationDetails: {
+		submissionAtPublished: 'Q3 2025',
+		regions: [{ region: { name: 'east_midlands' } }],
+		locationDescription: 'Location description',
+		caseEmail: 'test@test.com',
+		zoomLevel: {
+			name: 'country'
+		},
+		confirmedDateOfDecision: null,
+		confirmedStartOfExamination: null,
+		dateIAPIDue: null,
+		dateOfDCOAcceptance: null,
+		dateOfDCOSubmission: null,
+		dateOfNonAcceptance: null,
+		dateOfReOpenRelevantRepresentationClose: null,
+		dateOfReOpenRelevantRepresentationStart: null,
+		dateOfRecommendations: null,
+		dateOfRelevantRepresentationClose: null,
+		dateOfRepresentationPeriodOpen: null,
+		datePINSFirstNotifiedOfProject: null,
+		dateProjectAppearsOnWebsite: null,
+		dateProjectWithdrawn: null,
+		dateRRepAppearOnWebsite: null,
+		rule6LetterPublishDate: null,
+		rule8LetterPublishDate: null,
+		scopingOpinionIssued: null,
+		scopingOpinionSought: null,
+		screeningOpinionIssued: null,
+		screeningOpinionSought: null,
+		secretaryOfState: null,
+		section46Notification: null,
+		stage4ExtensionToExamCloseDate: null,
+		stage5ExtensionToDecisionDeadline: null,
+		stage5ExtensionToRecommendationDeadline: null,
+		dateSection58NoticeReceived: null,
+		dateTimeExaminationEnds: null,
+		deadlineForAcceptanceDecision: null,
+		deadlineForCloseOfExamination: null,
+		deadlineForDecision: null,
+		deadlineForSubmissionOfRecommendation: null,
+		extensionToDateRelevantRepresentationsClose: null,
+		notificationDateForPMAndEventsDirectlyFollowingPM: null,
+		preliminaryMeetingStartDate: null,
+		jRPeriodEndDate: null,
+		tier: null,
+		subProjectType: null,
+		newMaturity: null,
+		recommendation: null,
+		courtDecisionOutcome: null,
+		courtDecisionOutcomeText: null,
+		s61SummaryURI: null,
+		programmeDocumentURI: null,
+		additionalComments: null,
+		issuesTracker: null,
+		principalAreaDisagreementSummaryStmt: null,
+		policyComplianceDocument: null,
+		designApproachDocument: null,
+		matureOutlineControlDocument: null,
+		caAndTpEvidence: null,
+		publicSectorEqualityDuty: null,
+		fastTrackAdmissionDocument: null,
+		multipartyApplicationCheckDocument: null,
+		numberBand2Inspectors: null,
+		numberBand3Inspectors: null,
+		essentialFastTrackComponents: null,
+		planProcessEvidence: null,
+		subSectorId: 1,
+		subSector: {
+			id: 1,
+			abbreviation: 'BC01',
+			name: 'office_use',
+			displayNameEn: 'Office Use',
+			displayNameCy: 'Office Use',
+			sectorId: 1,
+			sector: {
+				id: 1,
+				abbreviation: 'BC',
+				name: 'business_and_commercial',
+				displayNameEn: 'Business and Commercial',
+				displayNameCy: 'Business and Commercial'
+			}
+		}
+	},
+	meeting: [
+		{
+			id: 1,
+			caseId: 100000000,
+			meetingType: 'project',
+			agenda: 'Project Update Meeting (PUM)',
+			pinsRole: null,
+			meetingDate: null
+		}
+	],
+	invoice: [
+		{
+			id: 1,
+			invoiceNumber: '123',
+			caseId: 100000000,
+			invoiceStage: 'pre_acceptance',
+			amountDue: 1000,
+			paymentDueDate: null,
+			invoicedDate: null,
+			paymentDate: null,
+			refundCreditNoteNumber: null,
+			refundAmount: null,
+			refundIssueDate: null
+		}
+	]
+};
+
+export const mockProjectPayloadData = {
+	caseId: 100000000,
+	applicantId: '4',
+	caseReference: 'TEST',
+	anticipatedSubmissionDateNonSpecific: 'Q3 2025',
+	sourceSystem: 'back-office-applications',
+	publishStatus: 'unpublished',
+	welshLanguage: false,
+	nsipOfficerIds: [],
+	regions: ['east_midlands'],
+	secretaryOfState: null,
+	nsipAdministrationOfficerIds: [],
+	inspectorIds: [],
+	mapZoomLevel: 'country',
+	northing: 234567,
+	easting: 765432,
+	projectDescription: 'Fees and forecasting description',
+	projectEmailAddress: 'test@test.com',
+	projectLocation: 'Location description',
+	projectName: 'Test Fees and Forecasting',
+	projectType: 'BC01 - Office Use',
+	sector: 'BC - Business and Commercial',
+	stage: 'draft',
+	tier: null,
+	subProjectType: null,
+	newMaturity: null,
+	recommendation: null,
+	courtDecisionOutcome: null,
+	courtDecisionOutcomeText: null,
+	s61SummaryURI: null,
+	programmeDocumentURI: null,
+	additionalComments: null,
+	issuesTracker: null,
+	principalAreaDisagreementSummaryStmt: null,
+	policyComplianceDocument: null,
+	designApproachDocument: null,
+	matureOutlineControlDocument: null,
+	caAndTpEvidence: null,
+	publicSectorEqualityDuty: null,
+	fastTrackAdmissionDocument: null,
+	multipartyApplicationCheckDocument: null,
+	numberBand2Inspectors: null,
+	numberBand3Inspectors: null,
+	essentialFastTrackComponents: null,
+	planProcessEvidence: null,
+	meetings: [
+		{
+			meetingId: 1,
+			meetingAgenda: 'Project Update Meeting (PUM)',
+			planningInspectorateRole: null,
+			meetingDate: null,
+			estimatedPrelimMeetingDate: null,
+			meetingType: 'project'
+		}
+	],
+	invoices: [
+		{
+			invoiceStage: 'pre_acceptance',
+			invoiceNumber: '123',
+			amountDue: 1000,
+			paymentDueDate: null,
+			invoicedDate: null,
+			paymentDate: null,
+			refundCreditNoteNumber: null,
+			refundAmount: null,
+			refundIssueDate: null
+		}
+	]
+};
