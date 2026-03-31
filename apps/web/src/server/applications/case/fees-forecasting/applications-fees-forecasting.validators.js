@@ -33,19 +33,22 @@ export const feesForecastingValidator = (request, response, next) => {
 
 	/** @type {Record<string, RequestHandler>} */
 	const validators = {
-		'maturity-evaluation-matrix': validateFeesForecastingDate,
-		'scoping-submission': validateFeesForecastingDate,
-		'consultation-milestone': validateFeesForecastingDate,
-		'programme-document-received': validateFeesForecastingDate,
-		'programme-document-reviewed': validateFeesForecastingDate,
-		'programme-document-comments': validateFeesForecastingDate,
+		'maturity-evaluation-matrix': validateFeesForecastingDateInput,
+		'scoping-submission': validateFeesForecastingDateInput,
+		'consultation-milestone': validateFeesForecastingDateInput,
+		'programme-document-received': validateFeesForecastingDateInput,
+		'programme-document-reviewed': validateFeesForecastingDateInput,
+		'programme-document-comments': validateFeesForecastingDateInput,
 		'add-new-fee': validateFeesForecastingAddFee,
 		'manage-fee': validateFeesForecastingAddFee,
 		'add-project-meeting': validateFeesForecastingProjectMeeting,
 		'manage-project-meeting': validateFeesForecastingProjectMeeting,
 		'add-evidence-plan-meeting': validateFeesForecastingEvidencePlanMeeting,
 		'manage-evidence-plan-meeting': validateFeesForecastingEvidencePlanMeeting,
-		'disagreement-summary-statement': validateFeesForecastingRadioDateInput
+		'disagreement-summary-statement': validateFeesForecastingRadioDateInput,
+		's61-summary-link': validateFeesForecastingTextInput,
+		'programme-document-link': validateFeesForecastingTextInput,
+		'issues-tracker-link': validateFeesForecastingTextInput
 	};
 
 	if (Object.keys(validators).includes(sectionName)) {
@@ -63,7 +66,7 @@ export const feesForecastingValidator = (request, response, next) => {
  *
  * @type {RequestHandler}
  */
-export const validateFeesForecastingDate = (request, response, next) => {
+export const validateFeesForecastingDateInput = (request, response, next) => {
 	const { body, params } = request;
 	const { sectionName } = params;
 
@@ -205,4 +208,36 @@ export const validateFeesForecastingRadioDateInput = (request, response, next) =
 	}
 
 	return createValidator(validators)(request, response, next);
+};
+
+/**
+ * Checks text-input data is formatted correctly
+ *
+ * @type {RequestHandler}
+ */
+export const validateFeesForecastingTextInput = (request, response, next) => {
+	const { sectionName } = request.params;
+	const section = getSectionData(sectionName, urlSectionNames, sectionData);
+	const fieldName = section?.fieldName || '';
+
+	const validator = [
+		// includes regex to exclude @ signs which are valid in isURL
+		body(fieldName)
+			.trim()
+			.notEmpty()
+			.withMessage('Enter a valid hyperlink')
+			.matches(/^[^@]*$/)
+			.withMessage('Enter a valid hyperlink')
+			.isURL({
+				require_tld: true,
+				require_port: false,
+				allow_trailing_dot: false,
+				allow_protocol_relative_urls: false,
+				allow_query_components: false,
+				allow_fragments: false
+			})
+			.withMessage('Enter a valid hyperlink')
+	];
+
+	return createValidator(validator)(request, response, next);
 };

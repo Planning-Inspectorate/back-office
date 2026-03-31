@@ -164,10 +164,13 @@ export const getFeesForecastingIndexViewModel = ({ caseData, invoices, meetings 
 		},
 		{
 			key: 'Link to s61 summary',
-			html: getLinkHTML(caseData.additionalDetails.s61SummaryURI, '#'),
+			html: getLinkHTML(
+				caseData.additionalDetails.s61SummaryURI,
+				caseData.additionalDetails.s61SummaryURI
+			),
 			actions: [
 				{
-					href: editPageURL,
+					href: getEditPageURL(urlSectionNames.s61SummaryLink, caseData.id),
 					text: genericHrefText,
 					visuallyHiddenText: 'link to s61 summary'
 				}
@@ -330,10 +333,13 @@ export const getFeesForecastingIndexViewModel = ({ caseData, invoices, meetings 
 	const supplementaryComponentsSectionItems = [
 		{
 			key: 'Link to issues tracker',
-			html: getLinkHTML(caseData.additionalDetails.issuesTracker, '#'),
+			html: getLinkHTML(
+				caseData.additionalDetails.issuesTracker,
+				caseData.additionalDetails.issuesTracker
+			),
 			actions: [
 				{
-					href: editPageURL,
+					href: getEditPageURL(urlSectionNames.issuesTrackerLink, caseData.id),
 					text: genericHrefText,
 					visuallyHiddenText: 'link to issues tracker'
 				}
@@ -379,7 +385,7 @@ export const getFeesForecastingIndexViewModel = ({ caseData, invoices, meetings 
 			),
 			actions: [
 				{
-					href: editPageURL,
+					href: getEditPageURL(urlSectionNames.policyComplianceDocument, caseData.id),
 					text: genericHrefText,
 					visuallyHiddenText: 'policy compliance document (PCD)'
 				}
@@ -394,7 +400,7 @@ export const getFeesForecastingIndexViewModel = ({ caseData, invoices, meetings 
 			),
 			actions: [
 				{
-					href: editPageURL,
+					href: getEditPageURL(urlSectionNames.designApproachDocument, caseData.id),
 					text: genericHrefText,
 					visuallyHiddenText: 'design approach document (DAD)'
 				}
@@ -409,7 +415,7 @@ export const getFeesForecastingIndexViewModel = ({ caseData, invoices, meetings 
 			),
 			actions: [
 				{
-					href: editPageURL,
+					href: getEditPageURL(urlSectionNames.matureOutlineControlDocument, caseData.id),
 					text: genericHrefText,
 					visuallyHiddenText: 'mature outline control documents'
 				}
@@ -424,7 +430,7 @@ export const getFeesForecastingIndexViewModel = ({ caseData, invoices, meetings 
 			),
 			actions: [
 				{
-					href: editPageURL,
+					href: getEditPageURL(urlSectionNames.caAndTpEvidence, caseData.id),
 					text: genericHrefText,
 					visuallyHiddenText: 'CA and TP evidence'
 				}
@@ -439,7 +445,7 @@ export const getFeesForecastingIndexViewModel = ({ caseData, invoices, meetings 
 			),
 			actions: [
 				{
-					href: editPageURL,
+					href: getEditPageURL(urlSectionNames.publicSectorEqualityDuty, caseData.id),
 					text: genericHrefText,
 					visuallyHiddenText: 'public sector equality duty (PSED)'
 				}
@@ -454,7 +460,7 @@ export const getFeesForecastingIndexViewModel = ({ caseData, invoices, meetings 
 			),
 			actions: [
 				{
-					href: editPageURL,
+					href: getEditPageURL(urlSectionNames.fastTrackAdmissionDocument, caseData.id),
 					text: genericHrefText,
 					visuallyHiddenText: 'fast track admission document'
 				}
@@ -469,7 +475,7 @@ export const getFeesForecastingIndexViewModel = ({ caseData, invoices, meetings 
 			),
 			actions: [
 				{
-					href: editPageURL,
+					href: getEditPageURL(urlSectionNames.multipartyApplicationCheckDocument, caseData.id),
 					text: genericHrefText,
 					visuallyHiddenText: 'multiparty application readiness gate-check (trial)'
 				}
@@ -480,10 +486,13 @@ export const getFeesForecastingIndexViewModel = ({ caseData, invoices, meetings 
 	const programmeDocumentSectionItems = [
 		{
 			key: 'Link to programme document',
-			html: getLinkHTML(caseData.additionalDetails.programmeDocumentURI, '#'),
+			html: getLinkHTML(
+				caseData.additionalDetails.programmeDocumentURI,
+				caseData.additionalDetails.programmeDocumentURI
+			),
 			actions: [
 				{
-					href: editPageURL,
+					href: getEditPageURL(urlSectionNames.programmeDocumentLink, caseData.id),
 					text: genericHrefText,
 					visuallyHiddenText: 'link to programme document'
 				}
