@@ -46,10 +46,13 @@ describe('applications fees forecasting edit view model', () => {
 				pageHeading: 'Test page heading',
 				fieldName: 'testSection',
 				dateFieldName: '',
+				additionalFieldName: '',
 				hintText: 'Test section hint text',
 				componentType: 'date-input',
 				radioFieldPath: '',
-				dateFieldPath: ''
+				dateFieldPath: '',
+				labelText: '',
+				additionalLabelText: ''
 			});
 		});
 
@@ -76,10 +79,13 @@ describe('applications fees forecasting edit view model', () => {
 				pageHeading: '',
 				fieldName: '',
 				dateFieldName: '',
+				additionalFieldName: '',
 				hintText: '',
 				componentType: 'date-input',
 				radioFieldPath: '',
-				dateFieldPath: ''
+				dateFieldPath: '',
+				labelText: '',
+				additionalLabelText: ''
 			});
 		});
 
@@ -110,10 +116,50 @@ describe('applications fees forecasting edit view model', () => {
 				pageHeading: 'Principal area disagreement summary statement (PADSS)',
 				fieldName: 'principalAreaDisagreementSummaryStmt',
 				dateFieldName: 'principalAreaDisagreementSummaryStmtSubmittedDate',
+				additionalFieldName: '',
 				hintText: '',
 				componentType: 'radio-date-input',
 				radioFieldPath: 'additionalDetails.principalAreaDisagreementSummaryStmt',
-				dateFieldPath: 'keyDates.preApplication.principalAreaDisagreementSummaryStmtSubmittedDate'
+				dateFieldPath: 'keyDates.preApplication.principalAreaDisagreementSummaryStmtSubmittedDate',
+				labelText: '',
+				additionalLabelText: ''
+			});
+		});
+
+		it('should correctly map data for text-input components to the view model when provided', async () => {
+			const { getSectionData } = await import('../applications-fees-forecasting.utils.js');
+
+			getSectionData.mockReturnValue({
+				sectionTitle: 'Test section',
+				pageHeading: 'Test page heading',
+				fieldName: 'testSection',
+				additionalFieldName: 'additionalTestSection',
+				labelText: 'Test label',
+				additionalLabelText: 'Additional test label',
+				componentType: 'text-input'
+			});
+
+			const projectName = 'Test case';
+
+			const { getFeesForecastingEditViewModel } = await import(
+				'../applications-fees-forecasting-edit.view-model.js'
+			);
+
+			const result = getFeesForecastingEditViewModel(projectName, sectionName);
+
+			expect(result).toEqual({
+				selectedPageType: 'fees-forecasting',
+				pageTitle: 'Test section - Test case',
+				pageHeading: 'Test page heading',
+				fieldName: 'testSection',
+				dateFieldName: '',
+				additionalFieldName: 'additionalTestSection',
+				hintText: '',
+				componentType: 'text-input',
+				radioFieldPath: '',
+				dateFieldPath: '',
+				labelText: 'Test label',
+				additionalLabelText: 'Additional test label'
 			});
 		});
 	});

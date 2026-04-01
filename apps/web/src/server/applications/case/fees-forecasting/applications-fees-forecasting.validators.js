@@ -46,9 +46,10 @@ export const feesForecastingValidator = (request, response, next) => {
 		'add-evidence-plan-meeting': validateFeesForecastingEvidencePlanMeeting,
 		'manage-evidence-plan-meeting': validateFeesForecastingEvidencePlanMeeting,
 		'disagreement-summary-statement': validateFeesForecastingRadioDateInput,
-		's61-summary-link': validateFeesForecastingTextInput,
-		'programme-document-link': validateFeesForecastingTextInput,
-		'issues-tracker-link': validateFeesForecastingTextInput
+		's61-summary-link': validateFeesForecastingHyperlink,
+		'programme-document-link': validateFeesForecastingHyperlink,
+		'issues-tracker-link': validateFeesForecastingHyperlink,
+		'examining-inspectors': validateFeesForecastingInspectorNumbers
 	};
 
 	if (Object.keys(validators).includes(sectionName)) {
@@ -211,11 +212,11 @@ export const validateFeesForecastingRadioDateInput = (request, response, next) =
 };
 
 /**
- * Checks text-input data is formatted correctly
+ * Checks hyperlinks are formatted correctly
  *
  * @type {RequestHandler}
  */
-export const validateFeesForecastingTextInput = (request, response, next) => {
+export const validateFeesForecastingHyperlink = (request, response, next) => {
 	const { sectionName } = request.params;
 	const section = getSectionData(sectionName, urlSectionNames, sectionData);
 	const fieldName = section?.fieldName || '';
@@ -237,6 +238,30 @@ export const validateFeesForecastingTextInput = (request, response, next) => {
 				allow_fragments: false
 			})
 			.withMessage('Enter a valid hyperlink')
+	];
+
+	return createValidator(validator)(request, response, next);
+};
+
+/**
+ * Checks inspector numbers are formatted correctly
+ *
+ * @type {RequestHandler}
+ */
+export const validateFeesForecastingInspectorNumbers = (request, response, next) => {
+	const validator = [
+		body('numberBand2Inspectors')
+			.trim()
+			.notEmpty()
+			.withMessage('Enter a number of band 2 inspectors between 0 and 99')
+			.isInt({ min: 0, max: 99 })
+			.withMessage('Enter a number of band 2 inspectors between 0 and 99'),
+		body('numberBand3Inspectors')
+			.trim()
+			.notEmpty()
+			.withMessage('Enter a number of band 3 inspectors between 0 and 99')
+			.isInt({ min: 0, max: 99 })
+			.withMessage('Enter a number of band 3 inspectors between 0 and 99')
 	];
 
 	return createValidator(validator)(request, response, next);
