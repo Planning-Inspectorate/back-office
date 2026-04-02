@@ -88,7 +88,7 @@ export async function viewApplicationsCaseOverview(request, response) {
 		response.locals.case?.geographicalInformation?.regions
 	);
 	const caseIsGeneratingStation =
-		response.locals.case?.subSector?.name === SUB_SECTORS.GENERATING_STATIONS ?? false;
+		response.locals.case?.subSector?.name === SUB_SECTORS.GENERATING_STATIONS || false;
 
 	const rawErrors = {
 		...(request.errors || {}),
