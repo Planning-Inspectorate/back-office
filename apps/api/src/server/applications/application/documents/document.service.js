@@ -119,7 +119,7 @@ const getCaseStageMapping = async (folderId) => {
  * @param {import('@prisma/client').Prisma.TransactionClient} [tx] - Optional transaction client
  * @returns {Promise<{successful: DocumentWithDocumentName[], failed: string[]}>}
  */
-const attemptInsertDocuments = async (caseId, documents, isS51, tx = null) => {
+const attemptInsertDocuments = async (caseId, documents, isS51, tx) => {
 	// Use PromisePool to concurrently process the documents with a concurrency of 5.
 
 	/**
@@ -258,7 +258,7 @@ const mapDocumentsToGetBlobStorageProperties = (documents, caseReference, isFrom
 const upsertDocumentVersionsMetadataToDatabase = async (
 	blobStorageDocuments,
 	privateBlobContainer,
-	tx = null
+	tx
 ) => {
 	// Generate an array of documents to upsert, with metadata pulled from the blob storage documents
 	const documentsMetadataToSendToDatabase = blobStorageDocuments.map((documentToUpload) => {
@@ -297,7 +297,7 @@ const upsertDocumentVersionsMetadataToDatabase = async (
  * @param {import('@prisma/client').Prisma.TransactionClient} [tx] - Optional transaction client
  * @returns {Promise<{response: DocumentAndBlobInfoManyResponse | null, failedDocuments: string[]}>}}
  */
-export const createDocuments = async (documentsToUpload, caseId, isS51, tx = null) => {
+export const createDocuments = async (documentsToUpload, caseId, isS51, tx) => {
 	// Step 1: Retrieve the case object associated with the provided caseId
 	logger.info(`Retrieving case for caseId ${caseId}...`);
 	const caseForDocuments = await caseRepository.getById(Number(caseId), { sector: true });
