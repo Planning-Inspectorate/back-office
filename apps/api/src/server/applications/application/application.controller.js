@@ -44,7 +44,9 @@ export const updateApplication = async ({ params, body }, response) => {
 		caseStatus: true,
 		applicant: true,
 		projectTeam: true,
-		gridReference: true
+		gridReference: true,
+		invoice: true,
+		meeting: true
 	});
 
 	if (!originalResponse) {

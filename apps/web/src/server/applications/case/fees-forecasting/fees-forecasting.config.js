@@ -60,7 +60,9 @@ export const urlSectionNames = {
 	publicSectorEqualityDuty: 'public-sector-equality-duty',
 	fastTrackAdmissionDocument: 'fast-track-admission',
 	multipartyApplicationCheckDocument: 'multiparty-application',
-	s61SummaryLink: 's61-summary-link'
+	s61SummaryLink: 's61-summary-link',
+	programmeDocumentLink: 'programme-document-link',
+	issuesTrackerLink: 'issues-tracker-link'
 };
 
 export const sectionData = {
@@ -226,6 +228,18 @@ export const sectionData = {
 		sectionTitle: 'Link to s61 summary',
 		pageHeading: 'Link to s61 summary',
 		fieldName: 's61SummaryURI',
+		componentType: 'text-input'
+	},
+	programmeDocumentLink: {
+		sectionTitle: 'Link to the programme document',
+		pageHeading: 'Link to the programme document',
+		fieldName: 'programmeDocumentURI',
+		componentType: 'text-input'
+	},
+	issuesTrackerLink: {
+		sectionTitle: 'Link to the issues tracker',
+		pageHeading: 'Link to the issues tracker',
+		fieldName: 'issuesTracker',
 		componentType: 'text-input'
 	}
 };

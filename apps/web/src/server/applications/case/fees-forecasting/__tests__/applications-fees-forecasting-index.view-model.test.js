@@ -410,12 +410,12 @@ describe('applications fees forecasting index view-model', () => {
 							{
 								key: { text: 'Link to issues tracker' },
 								value: {
-									html: '<a href="#" class="govuk-link">mock-issues-tracker-uri</a>'
+									html: '<a href="mock-issues-tracker-uri" class="govuk-link">mock-issues-tracker-uri</a>'
 								},
 								actions: {
 									items: [
 										{
-											href: '#',
+											href: '/applications-service/case/4/fees-forecasting/section/issues-tracker-link',
 											text: 'Change',
 											visuallyHiddenText: 'link to issues tracker'
 										}
@@ -551,11 +551,13 @@ describe('applications fees forecasting index view-model', () => {
 						content: [
 							{
 								key: { text: 'Link to programme document' },
-								value: { html: '<a href="#" class="govuk-link">mock-programme-document-uri</a>' },
+								value: {
+									html: '<a href="mock-programme-document-uri" class="govuk-link">mock-programme-document-uri</a>'
+								},
 								actions: {
 									items: [
 										{
-											href: '#',
+											href: '/applications-service/case/4/fees-forecasting/section/programme-document-link',
 											text: 'Change',
 											visuallyHiddenText: 'link to programme document'
 										}

@@ -47,7 +47,16 @@ export const feesForecastingValidator = (request, response, next) => {
 		'add-evidence-plan-meeting': validateFeesForecastingEvidencePlanMeeting,
 		'manage-evidence-plan-meeting': validateFeesForecastingEvidencePlanMeeting,
 		'disagreement-summary-statement': validateFeesForecastingRadioDateInput,
-		's61-summary-link': validateFeesForecastingTextInput
+		'policy-compliance-document': validateFeesForecastingRadioDateInput,
+		'design-approach-document': validateFeesForecastingRadioDateInput,
+		'control-documents': validateFeesForecastingRadioDateInput,
+		'compulsory-acquisition': validateFeesForecastingRadioDateInput,
+		'public-sector-equality-duty': validateFeesForecastingRadioDateInput,
+		'fast-track-admission': validateFeesForecastingRadioDateInput,
+		'multiparty-application': validateFeesForecastingRadioDateInput,
+		's61-summary-link': validateFeesForecastingTextInput,
+		'programme-document-link': validateFeesForecastingTextInput,
+		'issues-tracker-link': validateFeesForecastingTextInput
 	};
 
 	if (Object.keys(validators).includes(sectionName)) {
