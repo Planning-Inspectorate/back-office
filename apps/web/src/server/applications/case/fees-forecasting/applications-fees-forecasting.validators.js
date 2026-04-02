@@ -46,7 +46,7 @@ export const feesForecastingValidator = (request, response, next) => {
 		'add-evidence-plan-meeting': validateFeesForecastingEvidencePlanMeeting,
 		'manage-evidence-plan-meeting': validateFeesForecastingEvidencePlanMeeting,
 		'disagreement-summary-statement': validateFeesForecastingRadioDateInput,
-    'policy-compliance-document': validateFeesForecastingRadioDateInput,
+		'policy-compliance-document': validateFeesForecastingRadioDateInput,
 		'design-approach-document': validateFeesForecastingRadioDateInput,
 		'control-documents': validateFeesForecastingRadioDateInput,
 		'compulsory-acquisition': validateFeesForecastingRadioDateInput,
