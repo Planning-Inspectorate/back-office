@@ -1,3 +1,6 @@
+// Set NODE_ENV before importing any modules that depend on it
+process.env.NODE_ENV = 'seeding';
+
 import { databaseConnector } from '#utils/database-connector.js';
 import { seedStaticData } from './data-static.js';
 import { seedTestData } from './data-test.js';
@@ -11,14 +14,19 @@ import { deleteAllRecords } from './seed-clear.js';
  * @returns {Promise<void>}
  */
 const seedDevelopment = async () => {
-	process.env.NODE_ENV = 'seeding';
 	try {
-		await deleteAllRecords(databaseConnector);
+		// Check if database is empty first
+		const caseCount = await databaseConnector.case.count();
+
+		if (caseCount > 0) {
+			await deleteAllRecords(databaseConnector);
+		}
+
 		await seedStaticData(databaseConnector);
 		await seedTestData(databaseConnector);
 		await createGeneralS51Application(databaseConnector);
 	} catch (error) {
-		console.error(error);
+		console.error('Error during seeding:', error);
 		throw error;
 	} finally {
 		await databaseConnector.$disconnect();

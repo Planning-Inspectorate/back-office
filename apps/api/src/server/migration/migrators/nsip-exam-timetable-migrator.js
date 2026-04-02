@@ -91,7 +91,7 @@ const getExamTimetableFolderId = async (caseId) => {
 /**
  *
  * @param {import("@planning-inspectorate/data-model").Schemas.ExaminationTimetable} model
- * @returns {Promise<import("@prisma/client").Prisma.ExaminationTimetableUncheckedCreateInput>}
+ * @returns {Promise<import("#database-client").Prisma.ExaminationTimetableUncheckedCreateInput>}
  */
 const mapModelToTimetableEntity = async ({ caseReference }) => {
 	const caseId = await getCaseIdFromRef(caseReference);
@@ -109,7 +109,7 @@ const mapModelToTimetableEntity = async ({ caseReference }) => {
  * @param {number} examinationTimetableId
  * @param {number} examTimetableFolderId
  * @param {import("@planning-inspectorate/data-model").Schemas.Event} model
- * @returns {Promise<import("@prisma/client").Prisma.ExaminationTimetableItemUncheckedCreateInput>}
+ * @returns {Promise<import("#database-client").Prisma.ExaminationTimetableItemUncheckedCreateInput>}
  */
 const mapModelToEventEntity = async (
 	examinationTimetableId,
