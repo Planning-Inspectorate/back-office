@@ -124,7 +124,7 @@ export const getFeesForecastingIndexViewModel = ({ caseData, invoices, meetings 
 				.join('<br/>'),
 			actions: [
 				{
-					href: editPageURL,
+					href: getEditPageURL(urlSectionNames.examiningInspectors, caseData.id),
 					text: genericHrefText,
 					visuallyHiddenText: 'examining inspectors'
 				}
