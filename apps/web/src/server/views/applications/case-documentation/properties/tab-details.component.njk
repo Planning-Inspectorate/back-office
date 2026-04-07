@@ -77,7 +77,7 @@
 		{% endif %}
 
 		{% set noChangeLinkRequired =
-			property.value === 'Redacted'
+			(property.label === 'Redaction' and documentationFile.publishedStatus === 'published')
 			or property.value === 'Redaction in progress'
 			or property.value === 'Suggestions in progress'
 			or property.value === 'Redactions suggested'
