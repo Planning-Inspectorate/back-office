@@ -6,6 +6,22 @@ import {
 	getCaseMeetings,
 	patchCaseMeeting
 } from './meetings.service.js';
+import * as caseRepository from '#repositories/case.repository.js';
+import { broadcastNsipProjectEvent } from '#infrastructure/event-broadcasters.js';
+import { EventType } from '@pins/event-client';
+
+const additionalProjectEntities = {
+	subSector: true,
+	sector: true,
+	applicationDetails: true,
+	zoomLevel: true,
+	regions: true,
+	caseStatus: true,
+	projectTeam: true,
+	gridReference: true,
+	invoice: true,
+	meeting: true
+};
 
 /**
  * Gets all meetings for the case specified
@@ -60,6 +76,14 @@ export const createMeeting = async ({ params, body }, res) => {
 		);
 	}
 
+	const project = await caseRepository.getById(params.id, additionalProjectEntities);
+
+	if (!project) {
+		throw new BackOfficeAppError(`Case ${params.id} not found`, 404);
+	}
+
+	await broadcastNsipProjectEvent(project, EventType.Create);
+
 	return res.status(201).send(meeting);
 };
 
@@ -93,6 +117,14 @@ export const patchMeeting = async ({ params, body }, res) => {
 		);
 	}
 
+	const project = await caseRepository.getById(caseId, additionalProjectEntities);
+
+	if (!project) {
+		throw new BackOfficeAppError(`Case ${caseId} not found`, 404);
+	}
+
+	await broadcastNsipProjectEvent(project, EventType.Update);
+
 	return res.send(meeting);
 };
 
@@ -120,6 +152,14 @@ export const deleteMeeting = async ({ params }, res) => {
 			400
 		);
 	}
+
+	const project = await caseRepository.getById(caseId, additionalProjectEntities);
+
+	if (!project) {
+		throw new BackOfficeAppError(`Case ${caseId} not found`, 404);
+	}
+
+	await broadcastNsipProjectEvent(project, EventType.Update);
 
 	return res.status(204).send();
 };

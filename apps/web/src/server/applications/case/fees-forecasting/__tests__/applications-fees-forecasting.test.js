@@ -116,7 +116,7 @@ describe('Fees and Forecasting', () => {
 	});
 
 	describe('POST /case/123/fees-forecasting/section/:sectionName', () => {
-		it('should show a validation error when date is NOT entered in correct format', async () => {
+		it('should show a validation error when value is NOT entered in correct format', async () => {
 			const flags = staticFlags;
 			flags['applics-1845-fees-forecasting'] = true;
 
@@ -719,6 +719,77 @@ describe('Fees and Forecasting', () => {
 			const response = await request.post(
 				`${baseUrl}/section/manage-evidence-plan-meeting/id/2/delete`
 			);
+
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+			expect(element.innerHTML).toContain('There is a problem');
+		});
+	});
+
+	describe('GET /case/123/fees-forecasting/section/project-maturity (radio-input)', () => {
+		it('should render the radio-input page when feature flag is ON', async () => {
+			const flags = staticFlags;
+			flags['applics-1845-fees-forecasting'] = true;
+
+			const sectionName = 'project-maturity';
+
+			const response = await request.get(`${baseUrl}/section/${sectionName}`);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+			expect(element.innerHTML).toContain('What is the new maturity of the project?');
+		});
+	});
+
+	describe('POST /case/123/fees-forecasting/section/project-maturity (radio-input)', () => {
+		it('should show a validation error when no option is selected', async () => {
+			const flags = staticFlags;
+			flags['applics-1845-fees-forecasting'] = true;
+
+			const sectionName = 'project-maturity';
+
+			const response = await request.post(`${baseUrl}/section/${sectionName}`).send({
+				newMaturity: ''
+			});
+
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toContain('You must select an option for Project maturity');
+		});
+
+		it('should redirect to the index page if updating was successful', async () => {
+			const flags = staticFlags;
+			flags['applics-1845-fees-forecasting'] = true;
+
+			const sectionName = 'project-maturity';
+
+			nock('http://test/')
+				.patch(`/applications/123/fees-forecasting/${sectionName}`)
+				.reply(200, {});
+
+			const response = await request.post(`${baseUrl}/section/${sectionName}`).send({
+				newMaturity: 'c'
+			});
+
+			expect(response?.headers?.location).toEqual(
+				'/applications-service/case/123/fees-forecasting/'
+			);
+		});
+
+		it('should show an API error if updating was NOT successful', async () => {
+			const flags = staticFlags;
+			flags['applics-1845-fees-forecasting'] = true;
+
+			const sectionName = 'project-maturity';
+
+			nock('http://test/')
+				.patch(`/applications/123/fees-forecasting/${sectionName}`)
+				.reply(500, {});
+
+			const response = await request.post(`${baseUrl}/section/${sectionName}`).send({
+				newMaturity: 'c'
+			});
 
 			const element = parseHtml(response.text);
 

@@ -125,7 +125,9 @@ describe('Test Updating Key Dates', () => {
 								displayNameCy: 'Business and Commercial'
 							}
 						}
-					}
+					},
+					meeting: [],
+					invoice: []
 				}
 			)
 		);
@@ -181,7 +183,9 @@ describe('Test Updating Key Dates', () => {
 				projectName: 'Test Update Key Dates',
 				projectType: 'BC01 - Office Use',
 				sector: 'BC - Business and Commercial',
-				stage: 'draft'
+				stage: 'draft',
+				meetings: [],
+				invoices: []
 			}),
 			'Update'
 		);

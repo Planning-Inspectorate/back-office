@@ -181,7 +181,7 @@ describe('applications fees forecasting index view-model', () => {
 						actions: {
 							items: [
 								{
-									href: '#',
+									href: '/applications-service/case/4/fees-forecasting/section/project-maturity',
 									text: 'Change',
 									visuallyHiddenText: 'new maturity'
 								}
@@ -243,11 +243,13 @@ describe('applications fees forecasting index view-model', () => {
 							},
 							{
 								key: { text: 'Link to s61 summary' },
-								value: { html: '<a href="#" class="govuk-link">mock-s61-summary-uri</a>' },
+								value: {
+									html: '<a href="mock-s61-summary-uri" class="govuk-link">mock-s61-summary-uri</a>'
+								},
 								actions: {
 									items: [
 										{
-											href: '#',
+											href: '/applications-service/case/4/fees-forecasting/section/s61-summary-link',
 											text: 'Change',
 											visuallyHiddenText: 'link to s61 summary'
 										}
@@ -408,12 +410,12 @@ describe('applications fees forecasting index view-model', () => {
 							{
 								key: { text: 'Link to issues tracker' },
 								value: {
-									html: '<a href="#" class="govuk-link">mock-issues-tracker-uri</a>'
+									html: '<a href="mock-issues-tracker-uri" class="govuk-link">mock-issues-tracker-uri</a>'
 								},
 								actions: {
 									items: [
 										{
-											href: '#',
+											href: '/applications-service/case/4/fees-forecasting/section/issues-tracker-link',
 											text: 'Change',
 											visuallyHiddenText: 'link to issues tracker'
 										}
@@ -441,7 +443,7 @@ describe('applications fees forecasting index view-model', () => {
 								actions: {
 									items: [
 										{
-											href: '#',
+											href: '/applications-service/case/4/fees-forecasting/section/disagreement-summary-statement',
 											text: 'Change',
 											visuallyHiddenText: 'principal area disagreement summary statement (PADSS)'
 										}
@@ -454,7 +456,7 @@ describe('applications fees forecasting index view-model', () => {
 								actions: {
 									items: [
 										{
-											href: '#',
+											href: '/applications-service/case/4/fees-forecasting/section/policy-compliance-document',
 											text: 'Change',
 											visuallyHiddenText: 'policy compliance document (PCD)'
 										}
@@ -467,7 +469,7 @@ describe('applications fees forecasting index view-model', () => {
 								actions: {
 									items: [
 										{
-											href: '#',
+											href: '/applications-service/case/4/fees-forecasting/section/design-approach-document',
 											text: 'Change',
 											visuallyHiddenText: 'design approach document (DAD)'
 										}
@@ -480,7 +482,7 @@ describe('applications fees forecasting index view-model', () => {
 								actions: {
 									items: [
 										{
-											href: '#',
+											href: '/applications-service/case/4/fees-forecasting/section/control-documents',
 											text: 'Change',
 											visuallyHiddenText: 'mature outline control documents'
 										}
@@ -493,7 +495,7 @@ describe('applications fees forecasting index view-model', () => {
 								actions: {
 									items: [
 										{
-											href: '#',
+											href: '/applications-service/case/4/fees-forecasting/section/compulsory-acquisition',
 											text: 'Change',
 											visuallyHiddenText: 'CA and TP evidence'
 										}
@@ -506,7 +508,7 @@ describe('applications fees forecasting index view-model', () => {
 								actions: {
 									items: [
 										{
-											href: '#',
+											href: '/applications-service/case/4/fees-forecasting/section/public-sector-equality-duty',
 											text: 'Change',
 											visuallyHiddenText: 'public sector equality duty (PSED)'
 										}
@@ -519,7 +521,7 @@ describe('applications fees forecasting index view-model', () => {
 								actions: {
 									items: [
 										{
-											href: '#',
+											href: '/applications-service/case/4/fees-forecasting/section/fast-track-admission',
 											text: 'Change',
 											visuallyHiddenText: 'fast track admission document'
 										}
@@ -534,7 +536,7 @@ describe('applications fees forecasting index view-model', () => {
 								actions: {
 									items: [
 										{
-											href: '#',
+											href: '/applications-service/case/4/fees-forecasting/section/multiparty-application',
 											text: 'Change',
 											visuallyHiddenText: 'multiparty application readiness gate-check (trial)'
 										}
@@ -549,11 +551,13 @@ describe('applications fees forecasting index view-model', () => {
 						content: [
 							{
 								key: { text: 'Link to programme document' },
-								value: { html: '<a href="#" class="govuk-link">mock-programme-document-uri</a>' },
+								value: {
+									html: '<a href="mock-programme-document-uri" class="govuk-link">mock-programme-document-uri</a>'
+								},
 								actions: {
 									items: [
 										{
-											href: '#',
+											href: '/applications-service/case/4/fees-forecasting/section/programme-document-link',
 											text: 'Change',
 											visuallyHiddenText: 'link to programme document'
 										}

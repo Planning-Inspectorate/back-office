@@ -36,6 +36,7 @@ export const supplementaryComponentsDisplayValues = {
 
 // Different formats used for key dates and fees and forecasting
 export const urlSectionNames = {
+	projectMaturity: 'project-maturity',
 	preApplicationSection: 'preApplicationSection',
 	submissionAtInternal: 'submissionAtInternal',
 	inceptionMeetingDate: 'inceptionMeetingDate',
@@ -50,10 +51,37 @@ export const urlSectionNames = {
 	addProjectMeeting: 'add-project-meeting',
 	manageProjectMeeting: 'manage-project-meeting',
 	addEvidencePlanMeeting: 'add-evidence-plan-meeting',
-	manageEvidencePlanMeeting: 'manage-evidence-plan-meeting'
+	manageEvidencePlanMeeting: 'manage-evidence-plan-meeting',
+	principalAreaDisagreementSummaryStmt: 'disagreement-summary-statement',
+	policyComplianceDocument: 'policy-compliance-document',
+	designApproachDocument: 'design-approach-document',
+	matureOutlineControlDocument: 'control-documents',
+	caAndTpEvidence: 'compulsory-acquisition',
+	publicSectorEqualityDuty: 'public-sector-equality-duty',
+	fastTrackAdmissionDocument: 'fast-track-admission',
+	multipartyApplicationCheckDocument: 'multiparty-application',
+	s61SummaryLink: 's61-summary-link',
+	programmeDocumentLink: 'programme-document-link',
+	issuesTrackerLink: 'issues-tracker-link'
 };
 
 export const sectionData = {
+	projectMaturity: {
+		sectionTitle: 'Project maturity',
+		pageHeading: 'What is the new maturity of the project?',
+		fieldName: 'newMaturity',
+		componentType: 'radio-input',
+		radioFieldPath: 'additionalDetails.newMaturity',
+		radioOptions: [
+			{ value: 'a', text: 'A' },
+			{ value: 'b', text: 'B' },
+			{ value: 'c', text: 'C' },
+			{ value: 'd', text: 'D' },
+			{ value: 'e', text: 'E' },
+			{ value: 'f', text: 'F' },
+			{ value: 'g', text: 'G' }
+		]
+	},
 	maturityEvaluationMatrix: {
 		sectionTitle: 'MEM last updated',
 		pageHeading: 'Maturity Evaluation Matrix (MEM) last updated',
@@ -123,6 +151,96 @@ export const sectionData = {
 		sectionTitle: 'Manage evidence plan meeting',
 		pageHeading: 'Manage evidence plan meeting',
 		componentType: 'manage-evidence-plan-meeting'
+	},
+	principalAreaDisagreementSummaryStmt: {
+		sectionTitle: 'Principal area disagreement summary statement (PADSS)',
+		pageHeading: 'Principal area disagreement summary statement (PADSS)',
+		fieldName: 'principalAreaDisagreementSummaryStmt',
+		dateFieldName: 'principalAreaDisagreementSummaryStmtSubmittedDate',
+		componentType: 'radio-date-input',
+		radioFieldPath: 'additionalDetails.principalAreaDisagreementSummaryStmt',
+		dateFieldPath: 'keyDates.preApplication.principalAreaDisagreementSummaryStmtSubmittedDate'
+	},
+	policyComplianceDocument: {
+		sectionTitle: 'Policy compliance document (PCD)',
+		pageHeading: 'Policy compliance document (PCD)',
+		fieldName: 'policyComplianceDocument',
+		dateFieldName: 'policyComplianceDocumentSubmittedDate',
+		componentType: 'radio-date-input',
+		radioFieldPath: 'additionalDetails.policyComplianceDocument',
+		dateFieldPath: 'keyDates.preApplication.policyComplianceDocumentSubmittedDate'
+	},
+	designApproachDocument: {
+		sectionTitle: 'Design approach document (DAD)',
+		pageHeading: 'Design approach document (DAD)',
+		fieldName: 'designApproachDocument',
+		dateFieldName: 'designApproachDocumentSubmittedDate',
+		componentType: 'radio-date-input',
+		radioFieldPath: 'additionalDetails.designApproachDocument',
+		dateFieldPath: 'keyDates.preApplication.designApproachDocumentSubmittedDate'
+	},
+	matureOutlineControlDocument: {
+		sectionTitle: 'Mature outline control documents',
+		pageHeading: 'Mature outline control documents',
+		fieldName: 'matureOutlineControlDocument',
+		dateFieldName: 'matureOutlineControlDocumentSubmittedDate',
+		componentType: 'radio-date-input',
+		radioFieldPath: 'additionalDetails.matureOutlineControlDocument',
+		dateFieldPath: 'keyDates.preApplication.matureOutlineControlDocumentSubmittedDate'
+	},
+	caAndTpEvidence: {
+		sectionTitle: 'Compulsory Acquisition (CA) and Temporary Possession (TP) evidence',
+		pageHeading: 'Compulsory Acquisition (CA) and Temporary Possession (TP) evidence',
+		fieldName: 'caAndTpEvidence',
+		dateFieldName: 'caAndTpEvidenceSubmittedDate',
+		componentType: 'radio-date-input',
+		radioFieldPath: 'additionalDetails.caAndTpEvidence',
+		dateFieldPath: 'keyDates.preApplication.caAndTpEvidenceSubmittedDate'
+	},
+	publicSectorEqualityDuty: {
+		sectionTitle: 'Public Section Equality Duty (PSED)',
+		pageHeading: 'Public Section Equality Duty (PSED)',
+		fieldName: 'publicSectorEqualityDuty',
+		dateFieldName: 'publicSectorEqualityDutySubmittedDate',
+		componentType: 'radio-date-input',
+		radioFieldPath: 'additionalDetails.publicSectorEqualityDuty',
+		dateFieldPath: 'keyDates.preApplication.publicSectorEqualityDutySubmittedDate'
+	},
+	fastTrackAdmissionDocument: {
+		sectionTitle: 'Fast track admission document',
+		pageHeading: 'Fast track admission document',
+		fieldName: 'fastTrackAdmissionDocument',
+		dateFieldName: 'fastTrackAdmissionDocumentSubmittedDate',
+		componentType: 'radio-date-input',
+		radioFieldPath: 'additionalDetails.fastTrackAdmissionDocument',
+		dateFieldPath: 'keyDates.preApplication.fastTrackAdmissionDocumentSubmittedDate'
+	},
+	multipartyApplicationCheckDocument: {
+		sectionTitle: 'Multiparty application readiness gate-check (trial)',
+		pageHeading: 'Multiparty application readiness gate-check (trial)',
+		fieldName: 'multipartyApplicationCheckDocument',
+		dateFieldName: 'multipartyApplicationCheckDocumentSubmittedDate',
+		componentType: 'radio-date-input',
+		radioFieldPath: 'additionalDetails.multipartyApplicationCheckDocument',
+		dateFieldPath: 'keyDates.preApplication.multipartyApplicationCheckDocumentSubmittedDate'
+	},
+	s61SummaryLink: {
+		sectionTitle: 'Link to s61 summary',
+		pageHeading: 'Link to s61 summary',
+		fieldName: 's61SummaryURI',
+		componentType: 'text-input'
+	},
+	programmeDocumentLink: {
+		sectionTitle: 'Link to the programme document',
+		pageHeading: 'Link to the programme document',
+		fieldName: 'programmeDocumentURI',
+		componentType: 'text-input'
+	},
+	issuesTrackerLink: {
+		sectionTitle: 'Link to the issues tracker',
+		pageHeading: 'Link to the issues tracker',
+		fieldName: 'issuesTracker',
+		componentType: 'text-input'
 	}
 };
 

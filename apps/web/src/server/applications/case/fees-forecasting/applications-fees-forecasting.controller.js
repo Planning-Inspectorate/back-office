@@ -154,6 +154,67 @@ export async function getFeesForecastingEditSection(request, response) {
 				`applications/case-fees-forecasting/fees-forecasting-manage-evidence-plan-meeting.njk`
 			);
 		}
+		case 'radio-date-input': {
+			const radioFieldPath = editViewModel.radioFieldPath;
+			const dateFieldPath = editViewModel.dateFieldPath;
+			const dateFieldName = editViewModel.dateFieldName || 'submissionDate';
+
+			if (radioFieldPath) {
+				const radioValue = radioFieldPath
+					.split('.')
+					.reduce(
+						(/** @type {*} */ obj, /** @type {string} */ key) => obj?.[key],
+						response.locals.case
+					);
+				values[fieldName] = radioValue || '';
+			}
+
+			if (dateFieldPath) {
+				const dateValue = dateFieldPath
+					.split('.')
+					.reduce(
+						(/** @type {*} */ obj, /** @type {string} */ key) => obj?.[key],
+						response.locals.case
+					);
+				if (dateValue) {
+					const date =
+						typeof dateValue === 'number' && dateValue.toString().length === 10
+							? new Date(dateValue * 1000)
+							: new Date(dateValue);
+					if (isValid(date)) {
+						values[`${dateFieldName}.day`] = String(date.getDate()).padStart(2, '0');
+						values[`${dateFieldName}.month`] = String(date.getMonth() + 1).padStart(2, '0');
+						values[`${dateFieldName}.year`] = String(date.getFullYear());
+					}
+				}
+			}
+
+			return renderTemplate(
+				`applications/case-fees-forecasting/fees-forecasting-edit-radiodateinput.njk`
+			);
+		}
+		case 'text-input':
+			values[fieldName] = response.locals.case.additionalDetails?.[fieldName] || '';
+			return renderTemplate(
+				`applications/case-fees-forecasting/fees-forecasting-edit-textinput.njk`
+			);
+		case 'radio-input': {
+			const radioFieldPath = editViewModel.radioFieldPath;
+
+			if (radioFieldPath) {
+				const radioValue = radioFieldPath
+					.split('.')
+					.reduce(
+						(/** @type {*} */ obj, /** @type {string} */ key) => obj?.[key],
+						response.locals.case
+					);
+				values[fieldName] = radioValue || '';
+			}
+
+			return renderTemplate(
+				`applications/case-fees-forecasting/fees-forecasting-edit-radioinput.njk`
+			);
+		}
 	}
 }
 
@@ -279,11 +340,48 @@ export async function updateFeesForecastingEditSection(request, response) {
 
 			break;
 		}
+		case 'radio-date-input': {
+			const fieldName = editViewModel?.fieldName || '';
+			const dateFieldName = editViewModel?.dateFieldName || 'submissionDate';
+
+			values[fieldName] = body[fieldName] || '';
+
+			values[`${dateFieldName}.day`] = body[`${dateFieldName}.day`] || '';
+			values[`${dateFieldName}.month`] = body[`${dateFieldName}.month`] || '';
+			values[`${dateFieldName}.year`] = body[`${dateFieldName}.year`] || '';
+
+			if (body[fieldName] === 'submitted_by_applicant') {
+				mapDateValues(dateFieldName);
+			} else {
+				feesForecastingData[dateFieldName] = null;
+			}
+
+			feesForecastingData[fieldName] = body[fieldName] || null;
+
+			break;
+		}
+		case 'text-input': {
+			const fieldName = editViewModel?.fieldName || '';
+			values[fieldName] = body[fieldName] || '';
+			feesForecastingData[fieldName] = body[fieldName] || '';
+
+			break;
+		}
+		case 'radio-input': {
+			const fieldName = editViewModel?.fieldName || '';
+			values[fieldName] = body[fieldName] || '';
+			feesForecastingData[fieldName] = body[fieldName] || null;
+
+			break;
+		}
 	}
 
 	if (!validationErrors) {
 		switch (editViewModel.componentType) {
-			case 'date-input': {
+			case 'date-input':
+			case 'radio-date-input':
+			case 'text-input':
+			case 'radio-input': {
 				const { errors } = await updateFeesForecasting(caseId, sectionName, feesForecastingData);
 				apiErrors = errors;
 				break;
@@ -330,6 +428,21 @@ export async function updateFeesForecastingEditSection(request, response) {
 			case 'date-input': {
 				return renderError(
 					`applications/case-fees-forecasting/fees-forecasting-edit-dateinput.njk`
+				);
+			}
+			case 'radio-date-input': {
+				return renderError(
+					`applications/case-fees-forecasting/fees-forecasting-edit-radiodateinput.njk`
+				);
+			}
+			case 'text-input': {
+				return renderError(
+					`applications/case-fees-forecasting/fees-forecasting-edit-textinput.njk`
+				);
+			}
+			case 'radio-input': {
+				return renderError(
+					`applications/case-fees-forecasting/fees-forecasting-edit-radioinput.njk`
 				);
 			}
 			case 'add-new-fee':
