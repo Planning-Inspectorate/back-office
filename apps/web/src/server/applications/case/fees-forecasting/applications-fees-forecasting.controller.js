@@ -369,8 +369,17 @@ export async function updateFeesForecastingEditSection(request, response) {
 		}
 		case 'radio-input': {
 			const fieldName = editViewModel?.fieldName || '';
-			values[fieldName] = body[fieldName] || '';
-			feesForecastingData[fieldName] = body[fieldName] || null;
+
+			if (body[fieldName] === '1') {
+				values[fieldName] = true;
+				feesForecastingData[fieldName] = true;
+			} else if (body[fieldName] === '0') {
+				values[fieldName] = false;
+				feesForecastingData[fieldName] = false;
+			} else {
+				values[fieldName] = body[fieldName] ?? '';
+				feesForecastingData[fieldName] = body[fieldName] ?? null;
+			}
 
 			break;
 		}
