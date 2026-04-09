@@ -7,7 +7,7 @@
 		"packages/*"
 	],
 	"engines": {
-		"node": ">=20.0.0 <21.0.0"
+		"node": ">=22.0.0 <23.0.0"
 	},
 	"scripts": {
 		"build": "turbo run build",
@@ -25,8 +25,8 @@
 		"prepare": "node -e \"try { require('husky').install() } catch (e) {if (e.code !== 'MODULE_NOT_FOUND') throw e}\"",
 		"storage": "npm run dev --workspace=@pins/applications.document-storage",
 		"test": "turbo run test --filter=./apps/*",
-		"tscheck": "turbo run prisma-generate --concurrency=1 && turbo run tscheck --parallel --filter=!@pins/applications.api",
-		"dev": "turbo run dev --filter=./apps/* --no-cache --parallel --continue",
+		"tscheck": "turbo run prisma-generate --concurrency=1 && turbo run tscheck --filter=!@pins/applications.api",
+		"dev": "turbo run dev --filter=./apps/* --cache=local:rw,remote: --continue",
 		"web": "npm run dev --workspace=@pins/applications.web",
 		"api": "npm run dev --workspace=@pins/applications.api",
 		"api:test": "npm run start:test --workspace=@pins/applications.api-testing",
@@ -206,7 +206,7 @@
 		"swagger-autogen": "^2.21.4",
 		"swagger-typescript-api": "^13.0.3",
 		"terser": "^5.13.1",
-		"turbo": "^1.2.14",
+		"turbo": "^2.8.15",
 		"type-fest": "^2.12.2",
 		"typescript": "^5.9.3"
 	},
