@@ -52,6 +52,7 @@ export const urlSectionNames = {
 	manageProjectMeeting: 'manage-project-meeting',
 	addEvidencePlanMeeting: 'add-evidence-plan-meeting',
 	manageEvidencePlanMeeting: 'manage-evidence-plan-meeting',
+	fastTrack: 'fast-track',
 	principalAreaDisagreementSummaryStmt: 'disagreement-summary-statement',
 	policyComplianceDocument: 'policy-compliance-document',
 	designApproachDocument: 'design-approach-document',
@@ -151,6 +152,19 @@ export const sectionData = {
 		sectionTitle: 'Manage evidence plan meeting',
 		pageHeading: 'Manage evidence plan meeting',
 		componentType: 'manage-evidence-plan-meeting'
+	},
+	fastTrack: {
+		sectionTitle: 'Fast track',
+		pageHeading: 'Fast track',
+		fieldName: 'essentialFastTrackComponents',
+		componentType: 'radio-input',
+		hintText:
+			'Enhanced tier projects can be marked as fast track and require essential fast track components to be submitted by the applicant',
+		radioFieldPath: 'additionalDetails.essentialFastTrackComponents',
+		radioOptions: [
+			{ value: 1, text: 'Yes' },
+			{ value: 0, text: 'No' }
+		]
 	},
 	principalAreaDisagreementSummaryStmt: {
 		sectionTitle: 'Principal area disagreement summary statement (PADSS)',

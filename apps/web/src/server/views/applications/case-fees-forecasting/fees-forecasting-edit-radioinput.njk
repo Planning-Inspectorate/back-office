@@ -26,8 +26,10 @@
 		{% endfor %}
 
 		<div class="govuk-grid-column-two-thirds">
+			{% set radioClasses = "govuk-radios--inline" if radioItems | length == 2 %}
 			{{ govukRadios({
 				name: fieldName,
+				classes: radioClasses,
 				errorMessage: errors[fieldName] and {
 					text: errors[fieldName].msg
 				},
