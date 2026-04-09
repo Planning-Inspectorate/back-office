@@ -26,24 +26,46 @@
 		{% endfor %}
 
 		<div class="govuk-grid-column-two-thirds">
-			{{ govukRadios({
-				name: fieldName,
-				errorMessage: errors[fieldName] and {
-					text: errors[fieldName].msg
-				},
-				value: values[fieldName] if values,
-				fieldset: {
-					legend: {
-						text: pageHeading,
-						isPageHeading: true,
-						classes: "govuk-fieldset__legend--l"
-					}
-				},
-				hint: {
-					text: hintText
-				} if hintText,
-				items: radioItems
-			}) }}
+			{% if radioItems | length == 2 %}
+				{{ govukRadios({
+					name: fieldName,
+					classes: "govuk-radios--inline",
+					errorMessage: errors[fieldName] and {
+						text: errors[fieldName].msg
+					},
+					value: values[fieldName] if values,
+					fieldset: {
+						legend: {
+							text: pageHeading,
+							isPageHeading: true,
+							classes: "govuk-fieldset__legend--l"
+						}
+					},
+					hint: {
+						text: hintText
+					} if hintText,
+					items: radioItems
+				}) }}
+			{% else %}
+				{{ govukRadios({
+					name: fieldName,
+					errorMessage: errors[fieldName] and {
+						text: errors[fieldName].msg
+					},
+					value: values[fieldName] if values,
+					fieldset: {
+						legend: {
+							text: pageHeading,
+							isPageHeading: true,
+							classes: "govuk-fieldset__legend--l"
+						}
+					},
+					hint: {
+						text: hintText
+					} if hintText,
+					items: radioItems
+				}) }}
+			{% endif %}
 		</div>
 
 		<div class="govuk-grid-column-full">
