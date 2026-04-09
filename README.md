@@ -1,6 +1,6 @@
 # Planning Inspectorate Back Office
 
-This is the Planning Inspectorate Back Office monorepo that contains all the apps for running the back office. 
+This is the Planning Inspectorate Back Office monorepo that contains all the apps for running the back office.
 
 The back office system contains the applications back office features, including a JSON API which retrieves data from a database, and a web front-end (utilising [server-side rendering](https://web.dev/rendering-on-the-web/#server-rendering)). There are also some [Azure Functions](https://learn.microsoft.com/en-us/azure/azure-functions/functions-overview) for background tasks (such as virus scans), [Azure Blob Storage](https://azure.microsoft.com/en-gb/products/storage/blobs) is used for documents, and [Azure Service Bus](https://learn.microsoft.com/en-us/azure/service-bus-messaging/service-bus-messaging-overview) for integration.
 
@@ -23,12 +23,12 @@ Most of the apps are built with [Express.js](https://expressjs.com/), and the fr
 
 The current node version can be found in the package.json at the root of the project. It is recommended to use a node version manager, such as [nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
 
-Example node installation, using `nvm`: 
+Example node installation, using `nvm`:
 
 ```
-nvm install 20.11.1
-nvm use 20.11.1
-nvm alias default 20
+nvm install 22
+nvm use 22
+nvm alias default 22
 ```
 
 ### Database Setup
@@ -362,8 +362,8 @@ if (featureFlagClient.isFeatureActive('<feature-flag-name>')) {
 ```
 
 ## Dependencies
-The repo is currently utilising the [NPM Workspaces feature](https://docs.npmjs.com/cli/v8/using-npm/workspaces). This allows us to have a single root node_modules that holds all the project dependencies and a root package.json + package-lock.json that has every dependency + version that's used in the repository listed in it. 
-Every app/function/package (known as workspaces) in the repo also has a package.json file where their dependency list has only the dependencies that the app/function/package in question requires and their versions are denoted as `*` which implies that they're relying on the root package.json for their versioning - this helps us keep versioning consistent across the repo. 
+The repo is currently utilising the [NPM Workspaces feature](https://docs.npmjs.com/cli/v8/using-npm/workspaces). This allows us to have a single root node_modules that holds all the project dependencies and a root package.json + package-lock.json that has every dependency + version that's used in the repository listed in it.
+Every app/function/package (known as workspaces) in the repo also has a package.json file where their dependency list has only the dependencies that the app/function/package in question requires and their versions are denoted as `*` which implies that they're relying on the root package.json for their versioning - this helps us keep versioning consistent across the repo.
 
 **First time installing dependencies**:
 - run `npm ci` from the root of the project (this will use the project's package-lock.json file to sort your local node_modules directory and will avoid creating package-lock.json diffs where they're not expected).
