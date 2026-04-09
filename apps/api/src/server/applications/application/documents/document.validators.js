@@ -18,8 +18,8 @@ import { featureFlagClient } from '#utils/feature-flags.js';
 /** @typedef {{ guid: string}} documentGuid */
 
 /**
- * @typedef {import('@prisma/client').DocumentVersion} DocumentVersion
- * @typedef {import('@prisma/client').Document} Document
+ * @typedef {import('#database-client').DocumentVersion} DocumentVersion
+ * @typedef {import('#database-client').Document} Document
  * @typedef {import('@pins/applications.api').Api.DocumentVersionUpsertRequestBody} DocumentVersionUpsertRequestBody
  * @typedef {import('@pins/applications.api').Schema.DocumentVersionUpsertInput} DocumentVersionUpsertInput
  */
@@ -247,13 +247,20 @@ export const verifyAllDocumentsHaveRequiredPropertiesForPublishing = async (
 
 	const completeDocumentsIds = new Set(completeDocuments.map((pDoc) => pDoc.guid));
 
-	// remove email documents and documents where redaction is required and not completed
-	const publishableDocuments = completeDocuments.filter(
-		(doc) =>
-			doc.latestDocumentVersion?.mime !== 'application/vnd.ms-outlook' &&
-			(doc.latestDocumentVersion?.redactedStatus === 'redacted' ||
-				doc.latestDocumentVersion?.redactedStatus === 'no_redaction_required')
-	);
+	// remove all email documents and, if not s51 advice attachments, remove unredacted documents
+	let publishableDocuments;
+	if (skipRequiredPropertyChecks) {
+		publishableDocuments = completeDocuments.filter(
+			(doc) => doc.latestDocumentVersion?.mime !== 'application/vnd.ms-outlook'
+		);
+	} else {
+		publishableDocuments = completeDocuments.filter(
+			(doc) =>
+				doc.latestDocumentVersion?.mime !== 'application/vnd.ms-outlook' &&
+				(doc.latestDocumentVersion?.redactedStatus === 'redacted' ||
+					doc.latestDocumentVersion?.redactedStatus === 'no_redaction_required')
+		);
+	}
 
 	// complete documents that are MSG files
 	const msgDocuments = completeDocuments.filter(
@@ -300,49 +307,60 @@ export const verifyAllDocumentsHaveRequiredPropertiesForPublishing = async (
 	// incomplete documents
 	const incompleteDocuments = documentIds.filter((id) => !completeDocumentsIds.has(id));
 
-	// Final array of invalid files
-	const invalid = [
-		...msgDocuments.map((doc) => ({
-			guid: doc.guid,
-			msg: "The file type .msg cannot be set to 'Ready for publish'",
-			type: 'invalid-filetype'
-		})),
-		...unredactedDocuments.map((doc) => ({
-			guid: doc.guid,
-			msg: 'Select redacted or redaction not needed in the document properties to be able to change the document status to ready to publish',
-			type: 'unredacted'
-		})),
-		...documentsAwaitingAiSuggestions.map((doc) => ({
-			guid: doc.guid,
-			msg: 'Redaction suggestions are being created and will then need to be reviewed, so the document status cannot be changed to ready to publish',
-			type: 'awaiting-ai-suggestions'
-		})),
-		...documentsAwaitingAiSuggestionsReview.map((doc) => ({
-			guid: doc.guid,
-			msg: 'The document contains redaction suggestions for review, so cannot be set to ready to publish',
-			type: 'awaiting-ai-suggestions-review'
-		})),
-		...documentsWithReviewedAiSuggestions.map((doc) => ({
-			guid: doc.guid,
-			msg: 'Finalise document redactions to be able to change the status to ready to publish',
-			type: 'ai-suggestions-reviewed'
-		})),
-		...documentsAwaitingAiRedaction.map((doc) => ({
-			guid: doc.guid,
-			msg: 'Finalising redactions is still in progress, so the document cannot be set to ready to publish',
-			type: 'awaiting-ai-redaction'
-		})),
-		...documentsWithFailedAiRedaction.map((doc) => ({
-			guid: doc.guid,
-			msg: 'Redaction failed - only redacted documents can be set to ready to publish',
-			type: 'ai-redaction-failed'
-		})),
-		...incompleteDocuments.map((id) => ({
-			guid: id,
-			msg: 'You must fill in all mandatory document properties to publish a document',
-			type: 'missing-properties'
-		}))
-	];
+	// create final array of invalid documents (will contain email documents only if s51 attachment)
+	let invalid;
+	if (skipRequiredPropertyChecks) {
+		invalid = [
+			...msgDocuments.map((doc) => ({
+				guid: doc.guid,
+				msg: "The file type .msg cannot be set to 'Ready for publish'",
+				type: 'invalid-filetype'
+			}))
+		];
+	} else {
+		invalid = [
+			...msgDocuments.map((doc) => ({
+				guid: doc.guid,
+				msg: "The file type .msg cannot be set to 'Ready for publish'",
+				type: 'invalid-filetype'
+			})),
+			...unredactedDocuments.map((doc) => ({
+				guid: doc.guid,
+				msg: 'Select redacted or redaction not needed in the document properties to be able to change the document status to ready to publish',
+				type: 'unredacted'
+			})),
+			...documentsAwaitingAiSuggestions.map((doc) => ({
+				guid: doc.guid,
+				msg: 'Redaction suggestions are being created and will then need to be reviewed, so the document status cannot be changed to ready to publish',
+				type: 'awaiting-ai-suggestions'
+			})),
+			...documentsAwaitingAiSuggestionsReview.map((doc) => ({
+				guid: doc.guid,
+				msg: 'The document contains redaction suggestions for review, so cannot be set to ready to publish',
+				type: 'awaiting-ai-suggestions-review'
+			})),
+			...documentsWithReviewedAiSuggestions.map((doc) => ({
+				guid: doc.guid,
+				msg: 'Finalise document redactions to be able to change the status to ready to publish',
+				type: 'ai-suggestions-reviewed'
+			})),
+			...documentsAwaitingAiRedaction.map((doc) => ({
+				guid: doc.guid,
+				msg: 'Finalising redactions is still in progress, so the document cannot be set to ready to publish',
+				type: 'awaiting-ai-redaction'
+			})),
+			...documentsWithFailedAiRedaction.map((doc) => ({
+				guid: doc.guid,
+				msg: 'Redaction failed - only redacted documents can be set to ready to publish',
+				type: 'ai-redaction-failed'
+			})),
+			...incompleteDocuments.map((id) => ({
+				guid: id,
+				msg: 'You must fill in all mandatory document properties to publish a document',
+				type: 'missing-properties'
+			}))
+		];
+	}
 
 	return {
 		publishable: publishableDocuments.map(({ guid, latestVersionId }) => ({

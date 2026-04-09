@@ -377,9 +377,9 @@ describe('applications documentation', () => {
 			expect(element.innerHTML).toContain('/project-documentation/publishing-queue');
 		});
 
-		it('should NOT show redaction status edit link if document is redacted', async () => {
+		it('should NOT show redaction status edit link if document is published', async () => {
 			const response = await request.get(
-				`${baseUrl}/project-documentation/21/document/95/properties`
+				`${baseUrl}/project-documentation/21/document/100/properties`
 			);
 			const element = parseHtml(response.text);
 
