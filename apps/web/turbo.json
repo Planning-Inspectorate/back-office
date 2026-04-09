@@ -1,0 +1,25 @@
+{
+	"extends": ["//"],
+	"tasks": {
+		"dev": {
+			"persistent": true,
+			"cache": false
+		},
+		"sass": {
+			"inputs": ["src/styles/**/*.scss"],
+			"outputs": ["src/server/static/styles/**"]
+		},
+		"rollup": {
+			"inputs": ["src/client/**/*.js", "rollup.config.js"],
+			"outputs": ["src/server/static/scripts/**"]
+		},
+		"watch:sass": {
+			"cache": false,
+			"persistent": true
+		},
+		"watch:rollup": {
+			"cache": false,
+			"persistent": true
+		}
+	}
+}

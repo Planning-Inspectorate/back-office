@@ -93,7 +93,7 @@ extends:
           # install function specific node_modules
           - template: azure-pipelines-package-function-dep-install.yml@self
             parameters:
-              nodeVersion: 20
+              nodeVersion: 22
               appsFolderNames:
                 - 'applications-migration'
                 - 'applications-background-jobs'
