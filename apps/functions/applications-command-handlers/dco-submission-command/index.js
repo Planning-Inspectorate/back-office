@@ -13,9 +13,9 @@ export default async function (context, msg) {
 	const caseReference = mappedCaseData.case.reference;
 
 	context.log(`Fetching caseId for case reference: ${caseReference}`);
-	const caseId = await api.getCaseID(mappedCaseData.case.reference);
+	const caseId = await api.getCaseID(caseReference);
 	if (!caseId) {
-		throw new Error(`No case found with caseReference: ${mappedCaseData.case.reference}`);
+		throw new Error(`No case found with caseReference: ${caseReference}`);
 	}
 
 	const payload = await buildDocumentsPayload(mappedDocuments, caseId);

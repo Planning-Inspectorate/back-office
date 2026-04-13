@@ -27,18 +27,18 @@ export const index = async (context, { caseId, documentId, version, publishedDoc
 
 	try {
 		context.log(
-			`deleting blob (if exists) in container "${config.BLOB_PUBLISH_CONTAINER}" with name "${publishedBlobName}"`
+			`deleting blob (if exists) in container "${config.BLOB_PUBLISH_CONTAINER}" with name "${publishedBlobName}" for caseId ${caseId}`
 		);
 		await blobClient.deleteBlobIfExists(config.BLOB_PUBLISH_CONTAINER, publishedBlobName);
 	} catch (err) {
-		const errMsg = `encountered error while unpublishing document ID ${documentId}: ${err}`;
+		const errMsg = `encountered error while unpublishing document ID ${documentId} for caseId ${caseId}: ${err}`;
 		context.log.error(errMsg);
 		throw new Error(errMsg);
 	}
 
 	const requestUri = `https://${config.API_HOST}/applications/${caseId}/documents/${documentId}/version/${version}/mark-as-unpublished`;
 
-	context.log(`Making POST request to ${requestUri}`);
+	context.log(`Making POST request to ${requestUri} for caseId ${caseId}`);
 
 	await requestWithApiKey.post(requestUri);
 };
