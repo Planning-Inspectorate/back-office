@@ -51,6 +51,7 @@ describe('applications fees forecasting edit view model', () => {
 				componentType: 'date-input',
 				radioFieldPath: '',
 				dateFieldPath: '',
+				radioOptions: [],
 				labelText: '',
 				additionalLabelText: ''
 			});
@@ -84,6 +85,7 @@ describe('applications fees forecasting edit view model', () => {
 				componentType: 'date-input',
 				radioFieldPath: '',
 				dateFieldPath: '',
+				radioOptions: [],
 				labelText: '',
 				additionalLabelText: ''
 			});
@@ -121,6 +123,59 @@ describe('applications fees forecasting edit view model', () => {
 				componentType: 'radio-date-input',
 				radioFieldPath: 'additionalDetails.principalAreaDisagreementSummaryStmt',
 				dateFieldPath: 'keyDates.preApplication.principalAreaDisagreementSummaryStmtSubmittedDate',
+				radioOptions: [],
+				labelText: '',
+				additionalLabelText: ''
+			});
+		});
+
+		it('should return radio-input fields when component type is radio-input', async () => {
+			const { getSectionData } = await import('../applications-fees-forecasting.utils.js');
+
+			getSectionData.mockReturnValue({
+				sectionTitle: 'Project maturity',
+				pageHeading: 'What is the new maturity of the project?',
+				fieldName: 'newMaturity',
+				componentType: 'radio-input',
+				radioFieldPath: 'additionalDetails.newMaturity',
+				radioOptions: [
+					{ value: 'a', text: 'A' },
+					{ value: 'b', text: 'B' },
+					{ value: 'c', text: 'C' },
+					{ value: 'd', text: 'D' },
+					{ value: 'e', text: 'E' },
+					{ value: 'f', text: 'F' },
+					{ value: 'g', text: 'G' }
+				]
+			});
+
+			const projectName = 'Test case';
+
+			const { getFeesForecastingEditViewModel } = await import(
+				'../applications-fees-forecasting-edit.view-model.js'
+			);
+
+			const result = getFeesForecastingEditViewModel(projectName, 'project-maturity');
+
+			expect(result).toEqual({
+				selectedPageType: 'fees-forecasting',
+				pageTitle: 'Project maturity - Test case',
+				pageHeading: 'What is the new maturity of the project?',
+				fieldName: 'newMaturity',
+				dateFieldName: '',
+				hintText: '',
+				componentType: 'radio-input',
+				radioFieldPath: 'additionalDetails.newMaturity',
+				dateFieldPath: '',
+				radioOptions: [
+					{ value: 'a', text: 'A' },
+					{ value: 'b', text: 'B' },
+					{ value: 'c', text: 'C' },
+					{ value: 'd', text: 'D' },
+					{ value: 'e', text: 'E' },
+					{ value: 'f', text: 'F' },
+					{ value: 'g', text: 'G' }
+				],
 				labelText: '',
 				additionalLabelText: ''
 			});
@@ -158,6 +213,7 @@ describe('applications fees forecasting edit view model', () => {
 				componentType: 'text-input',
 				radioFieldPath: '',
 				dateFieldPath: '',
+				radioOptions: [],
 				labelText: 'Test label',
 				additionalLabelText: 'Additional test label'
 			});

@@ -21,6 +21,7 @@ export const getFeesForecastingEditViewModel = (projectName, sectionName) => {
 		componentType: section?.componentType || '',
 		radioFieldPath: section?.radioFieldPath || '',
 		dateFieldPath: section?.dateFieldPath || '',
+		radioOptions: section?.radioOptions || [],
 		labelText: section?.labelText || '',
 		additionalLabelText: section?.additionalLabelText || ''
 	};

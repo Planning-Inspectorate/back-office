@@ -12,7 +12,11 @@ export const createSessionMockMiddleware = ({ initialSession = {}, getSessionID 
 	const sessions = new Map();
 	const sessionInitializer = createSessionInitializerMiddleware({ initialSession });
 
-	return (request, response, next) => {
+	return (
+		/** @type {import('express').Request} */ request,
+		/** @type {import('express').Response} */ response,
+		next
+	) => {
 		// If we are using a mocked sessionID, such as in unit-testing, then use a
 		// locally-implemented session that does not integrate with the store
 		if (getSessionID) {
@@ -43,9 +47,12 @@ export const createSessionMockMiddleware = ({ initialSession = {}, getSessionID 
 			}
 			request.session = session;
 
-			response.on('finish', () => {
-				sessions.set(request.sessionID, request.session);
-			});
+			/** @type {import('events').EventEmitter} */ (/** @type {unknown} */ (response)).on(
+				'finish',
+				() => {
+					sessions.set(request.sessionID, request.session);
+				}
+			);
 			next();
 		} else {
 			sessionInitializer(request, response, next);

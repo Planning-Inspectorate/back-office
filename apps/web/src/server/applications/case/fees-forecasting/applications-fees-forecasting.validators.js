@@ -33,6 +33,7 @@ export const feesForecastingValidator = (request, response, next) => {
 
 	/** @type {Record<string, RequestHandler>} */
 	const validators = {
+		'project-maturity': validateFeesForecastingRadioInput,
 		'maturity-evaluation-matrix': validateFeesForecastingDateInput,
 		'scoping-submission': validateFeesForecastingDateInput,
 		'consultation-milestone': validateFeesForecastingDateInput,
@@ -214,6 +215,28 @@ export const validateFeesForecastingRadioDateInput = (request, response, next) =
 		);
 		validators.push(dateMandatoryValidation, dateValidation);
 	}
+
+	return createValidator(validators)(request, response, next);
+};
+
+/**
+ * Checks radio-input data is formatted correctly
+ *
+ * @type {RequestHandler}
+ */
+export const validateFeesForecastingRadioInput = (request, response, next) => {
+	const { sectionName } = request.params;
+
+	const section = getSectionData(sectionName, urlSectionNames, sectionData);
+	const fieldName = section?.fieldName || '';
+	const extendedFieldName = section?.sectionTitle || '';
+
+	const validators = [
+		body(fieldName)
+			.trim()
+			.notEmpty()
+			.withMessage(`You must select an option for ${extendedFieldName}`)
+	];
 
 	return createValidator(validators)(request, response, next);
 };
