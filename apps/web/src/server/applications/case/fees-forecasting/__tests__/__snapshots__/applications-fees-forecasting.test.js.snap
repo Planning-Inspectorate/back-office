@@ -1148,7 +1148,7 @@ exports[`Fees and Forecasting POST /case/123/fees-forecasting/section/manage-evi
             </fieldset>
         </div>
         <div class='govuk-grid-column-one-third govuk-button-group'>
-            <button type="submit" class="govuk-button" data-module="govuk-button">Save and return</button><a href="/applications-service/case/123/fees-forecasting/section/manage-evidence-plan-meeting/id//delete"
+            <button type="submit" class="govuk-button" data-module="govuk-button">Save and return</button><a href="/applications-service/case/123/fees-forecasting/section/manage-evidence-plan-meeting/id/2/delete"
             role="button" draggable="false" class="govuk-button govuk-button--secondary"
             data-module="govuk-button"> Remove</a>
         </div>
@@ -1330,7 +1330,7 @@ exports[`Fees and Forecasting POST /case/123/fees-forecasting/section/manage-pro
             </fieldset>
         </div>
         <div class='govuk-grid-column-one-third govuk-button-group'>
-            <button type="submit" class="govuk-button" data-module="govuk-button">Save and return</button><a href="/applications-service/case/123/fees-forecasting/section/manage-project-meeting/id//delete"
+            <button type="submit" class="govuk-button" data-module="govuk-button">Save and return</button><a href="/applications-service/case/123/fees-forecasting/section/manage-project-meeting/id/1/delete"
             role="button" draggable="false" class="govuk-button govuk-button--secondary"
             data-module="govuk-button"> Remove</a>
         </div>
