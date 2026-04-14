@@ -52,6 +52,7 @@ export async function getFeesForecastingEditSection(request, response) {
 	const isEvidencePlanMeetingEdit = /** @type {*} */ (request).isEvidencePlanMeetingEdit;
 	const { caseId } = response.locals;
 	const projectName = response.locals.case.title;
+	const originalURL = request.originalUrl;
 	let sectionName;
 
 	if (isFeeEdit) {
@@ -76,7 +77,8 @@ export async function getFeesForecastingEditSection(request, response) {
 	const renderTemplate = (template) => {
 		return response.render(template, {
 			...editViewModel,
-			values
+			values,
+			originalURL
 		});
 	};
 
@@ -238,6 +240,7 @@ export async function updateFeesForecastingEditSection(request, response) {
 	const isEvidencePlanMeetingEdit = /** @type {*} */ (request).isEvidencePlanMeetingEdit;
 	const { caseId } = response.locals;
 	const projectName = response.locals.case.title;
+	const originalURL = request.originalUrl;
 	let sectionName;
 
 	if (isFeeEdit) {
@@ -440,7 +443,8 @@ export async function updateFeesForecastingEditSection(request, response) {
 			return response.render(template, {
 				...editViewModel,
 				errors: validationErrors || apiErrors,
-				values
+				values,
+				originalURL
 			});
 		};
 
