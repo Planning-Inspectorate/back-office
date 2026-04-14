@@ -174,10 +174,9 @@ const attemptInsertDocuments = async (caseId, documents, isS51) => {
 				authorWelsh: documentToDB.authorWelsh,
 				stage: stage,
 				version: 1,
-				...(config.virusScanningDisabled ||
-					(documentToDB.sourceSystem === 'dco-portal' && {
-						publishedStatus: 'not_checked'
-					}))
+				...((config.virusScanningDisabled || documentToDB.sourceSystem === 'dco-portal') && {
+					publishedStatus: 'not_checked'
+				})
 			});
 
 			await documentRepository.update(document.guid, {
