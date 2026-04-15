@@ -1,3 +1,22 @@
+/**
+ * @file key-dates-property.js
+ * @description Nunjucks filter for resolving human-readable display names for key date field names.
+ *
+ * The `propertyToName` map covers three types of entries per field:
+ *   - Plain key (e.g. `courtDecisionDate`) — the display label shown in the UI
+ *   - `_label` suffix (e.g. `courtDecisionDate_label`) — hint text shown below the field
+ *   - `_advisory` suffix (e.g. `confirmedDateOfDecision_advisory`) — additional advisory
+ *     text shown alongside the hint, typically warning that recording the date may
+ *     trigger a case stage change
+ *
+ * The `keyDatesProperty` filter is registered as a Nunjucks filter and used in templates
+ * via the `| keyDatesProperty` syntax, e.g.:
+ *   `{{ 'courtDecisionDate' | keyDatesProperty }}` → `'Date of court decision'`
+ *
+ * Returns an empty string for unknown `_label` / `_advisory` keys, and `'property'`
+ * for unknown plain keys (to make missing mappings visible during development).
+ */
+
 /** @type {Record<string, string>} */
 const propertyToName = {
 	preApplication: 'Pre-application',
@@ -122,6 +141,10 @@ const propertyToName = {
 	courtDecisionDate_label: 'Date of the court decision.',
 	decisionChallengeSubmissionDate: 'Date of decision challenge submission',
 	decisionChallengeSubmissionDate_label: 'Date of decision challenge submission',
+	courtDecisionOutcome: 'Court decision outcome',
+	courtDecisionOutcome_label: 'Select the outcome of the court decision.',
+	courtDecisionOutcomeText: 'Decision',
+	courtDecisionOutcomeText_label: 'Describe the court decision outcome.',
 
 	withdrawal: 'Withdrawal',
 	dateProjectWithdrawn: 'Date project withdrawn',
