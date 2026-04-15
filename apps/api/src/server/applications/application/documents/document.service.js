@@ -29,10 +29,10 @@ import { getApplicationDocumentsFolderName } from '#utils/mapping/map-document-f
 import { handleCreationOfDocumentActivityLogs } from '../../../migration/migrators/nsip-document-migrator.js';
 
 /**
- * @typedef {import('@prisma/client').DocumentVersion} DocumentVersion
- * @typedef {import('@prisma/client').Document} Document
- * @typedef {import('@prisma/client').Document & {documentName: string}} DocumentWithDocumentName
- * @typedef {import('@prisma/client').Prisma.DocumentVersionGetPayload<{include: {Document: {include: {folder: {include: {case: {include: {CaseStatus: true}}}}}}}}> } DocumentVersionWithDocumentAndFolder
+ * @typedef {import('#database-client').DocumentVersion} DocumentVersion
+ * @typedef {import('#database-client').Document} Document
+ * @typedef {import('#database-client').Document & {documentName: string}} DocumentWithDocumentName
+ * @typedef {import('#database-client').Prisma.DocumentVersionGetPayload<{include: {Document: {include: {folder: {include: {case: {include: {CaseStatus: true}}}}}}}}> } DocumentVersionWithDocumentAndFolder
  * @typedef {import('@pins/applications.api').Schema.DocumentDetails} DocumentDetails
  * @typedef {import('@pins/applications.api').Schema.DocumentVersionWithDocument} DocumentVersionWithDocument
  * @typedef {import('@pins/applications.api').Api.DocumentAndBlobInfoManyResponse} DocumentAndBlobInfoManyResponse
@@ -116,9 +116,10 @@ const getCaseStageMapping = async (folderId) => {
  * @param {number} caseId
  * @param {DocumentToSaveExtended[]} documents
  * @param {boolean} isS51
+ * @param {import('@prisma/client').Prisma.TransactionClient} [tx] - Optional transaction client
  * @returns {Promise<{successful: DocumentWithDocumentName[], failed: string[]}>}
  */
-const attemptInsertDocuments = async (caseId, documents, isS51) => {
+const attemptInsertDocuments = async (caseId, documents, isS51, tx) => {
 	// Use PromisePool to concurrently process the documents with a concurrency of 5.
 
 	/**
@@ -139,13 +140,16 @@ const attemptInsertDocuments = async (caseId, documents, isS51) => {
 
 			let document;
 			try {
-				document = await documentRepository.create({
-					caseId,
-					folderId: documentToDB.folderId,
-					documentReference: documentToDB.documentReference,
-					fromFrontOffice: documentToDB.fromFrontOffice,
-					documentType: isS51 ? DOCUMENT_TYPES.S51Attachment : DOCUMENT_TYPES.Document
-				});
+				document = await documentRepository.create(
+					{
+						caseId,
+						folderId: documentToDB.folderId,
+						documentReference: documentToDB.documentReference,
+						fromFrontOffice: documentToDB.fromFrontOffice,
+						documentType: isS51 ? DOCUMENT_TYPES.S51Attachment : DOCUMENT_TYPES.Document
+					},
+					tx
+				);
 			} catch (err) {
 				logger.error(err);
 				failed.add(documentToDB.documentName);
@@ -158,31 +162,37 @@ const attemptInsertDocuments = async (caseId, documents, isS51) => {
 			let stage = await getCaseStageMapping(documentToDB.folderId);
 
 			logger.info(`Upserting metadata for document with guid: ${document.guid}`);
-			await documentVersionRepository.upsert({
-				documentGuid: document.guid,
-				fileName,
-				originalFilename: documentToDB.documentName,
-				description: documentToDB.description,
-				descriptionWelsh: documentToDB.descriptionWelsh,
-				filter1: documentToDB.filter1,
-				filter1Welsh: documentToDB.filter1Welsh,
-				mime: documentToDB.documentType,
-				size: documentToDB.documentSize,
-				sourceSystem: documentToDB.sourceSystem,
-				owner: documentToDB.username,
-				author: documentToDB.author,
-				authorWelsh: documentToDB.authorWelsh,
-				stage: stage,
-				version: 1,
-				...(config.virusScanningDisabled ||
-					(documentToDB.sourceSystem === 'dco-portal' && {
+			await documentVersionRepository.upsert(
+				{
+					documentGuid: document.guid,
+					fileName,
+					originalFilename: documentToDB.documentName,
+					description: documentToDB.description,
+					descriptionWelsh: documentToDB.descriptionWelsh,
+					filter1: documentToDB.filter1,
+					filter1Welsh: documentToDB.filter1Welsh,
+					mime: documentToDB.documentType,
+					size: documentToDB.documentSize,
+					sourceSystem: documentToDB.sourceSystem,
+					owner: documentToDB.username,
+					author: documentToDB.author,
+					authorWelsh: documentToDB.authorWelsh,
+					stage: stage,
+					version: 1,
+					...((config.virusScanningDisabled || documentToDB.sourceSystem === 'dco-portal') && {
 						publishedStatus: 'not_checked'
-					}))
-			});
+					})
+				},
+				tx
+			);
 
-			await documentRepository.update(document.guid, {
-				latestVersionId: 1
-			});
+			await documentRepository.update(
+				document.guid,
+				{
+					latestVersionId: 1
+				},
+				tx
+			);
 
 			logger.info(`Upserted metadata for document with guid: ${document.guid}`);
 
@@ -242,11 +252,13 @@ const mapDocumentsToGetBlobStorageProperties = (documents, caseReference, isFrom
  *
  * @param {DocumentAndBlobStorageDetail[]} blobStorageDocuments - Array of documents containing metadata to upsert.
  * @param {string} privateBlobContainer - Name of the blob storage container where documents are stored.
+ * @param {import('@prisma/client').Prisma.TransactionClient} [tx] - Optional transaction client for database operations.
  * @returns {Promise<DocumentVersionWithDocumentAndFolder[]>}
  */
 const upsertDocumentVersionsMetadataToDatabase = async (
 	blobStorageDocuments,
-	privateBlobContainer
+	privateBlobContainer,
+	tx
 ) => {
 	// Generate an array of documents to upsert, with metadata pulled from the blob storage documents
 	const documentsMetadataToSendToDatabase = blobStorageDocuments.map((documentToUpload) => {
@@ -271,7 +283,7 @@ const upsertDocumentVersionsMetadataToDatabase = async (
 			logger.info(`Upserting document metadata: ${JSON.stringify(metadata)}`);
 
 			// Upsert the metadata using the documentVersionRepository
-			return documentVersionRepository.upsert(metadata);
+			return documentVersionRepository.upsert(metadata, tx);
 		});
 	return upsertedDocumentsResponse.results;
 };
@@ -282,9 +294,10 @@ const upsertDocumentVersionsMetadataToDatabase = async (
  * @param {DocumentToSaveExtended[]} documentsToUpload
  * @param {number} caseId
  * @param {boolean} [isS51]
+ * @param {import('@prisma/client').Prisma.TransactionClient} [tx] - Optional transaction client
  * @returns {Promise<{response: DocumentAndBlobInfoManyResponse | null, failedDocuments: string[]}>}}
  */
-export const createDocuments = async (documentsToUpload, caseId, isS51) => {
+export const createDocuments = async (documentsToUpload, caseId, isS51, tx) => {
 	// Step 1: Retrieve the case object associated with the provided caseId
 	logger.info(`Retrieving case for caseId ${caseId}...`);
 	const caseForDocuments = await caseRepository.getById(Number(caseId), { sector: true });
@@ -307,7 +320,8 @@ export const createDocuments = async (documentsToUpload, caseId, isS51) => {
 	const { successful, failed } = await attemptInsertDocuments(
 		caseId,
 		documentsToSendToDatabase,
-		isS51 ?? false
+		isS51 ?? false,
+		tx
 	);
 	if (successful.length === 0) {
 		logger.info(`Return early because all files failed to upload.`);
@@ -326,6 +340,7 @@ export const createDocuments = async (documentsToUpload, caseId, isS51) => {
 	);
 	logger.info(`Documents mapped: ${JSON.stringify(requestToGetDocumentStorageProperties)}`);
 
+	// Step 6: generate the blob storage service properties
 	const documentsWithBlobStorageInfo = await getStorageLocation(
 		requestToGetDocumentStorageProperties,
 		fromDcoPortal
@@ -340,18 +355,22 @@ export const createDocuments = async (documentsToUpload, caseId, isS51) => {
 	logger.info(`Upserting document versions metadata to database...`);
 	const upsertedDocuments = await upsertDocumentVersionsMetadataToDatabase(
 		documentsWithBlobStorageInfo.documents,
-		documentsWithBlobStorageInfo.privateBlobContainer
+		documentsWithBlobStorageInfo.privateBlobContainer,
+		tx
 	);
 
-	/** @type {Promise<import('@prisma/client').DocumentActivityLog>[]} */
+	/** @type {Promise<import('#database-client').DocumentActivityLog>[]} */
 	// TODO: refactor to use createMany instead?
 	const documentActivityLogs = requestToGetDocumentStorageProperties.map((document) =>
-		documentActivityLogRepository.create({
-			documentGuid: document.GUID,
-			version: document.version,
-			user: documentsToUpload[0].username,
-			status: 'uploaded'
-		})
+		documentActivityLogRepository.create(
+			{
+				documentGuid: document.GUID,
+				version: document.version,
+				user: documentsToUpload[0].username,
+				status: 'uploaded'
+			},
+			tx
+		)
 	);
 
 	await Promise.all(documentActivityLogs);
@@ -742,6 +761,38 @@ export const getDocumentMetadataByFolderName = async (caseData, folderId) => {
 
 	//return empty default
 	return documentMetadata;
+};
+
+export const attachMetadataToDocuments = async (caseData, documents) => {
+	const caseRegions = caseData?.ApplicationDetails?.regions || [];
+	const isCaseWelsh = Boolean(
+		caseRegions.find((caseRegion) => caseRegion?.region.name?.toLowerCase() === 'wales')
+	);
+
+	let previousFolderId = null;
+	let documentMetadata = null;
+
+	return Promise.all(
+		documents.map(async (doc) => {
+			//since createDocumentsOnCase can create documents in multiple folders in one go,
+			//we need to get the metadata for each document, but to avoid repeated api calls, we only call the api when the folderId changes
+			if (doc.folderId !== previousFolderId) {
+				documentMetadata = await getDocumentMetadataByFolderName(caseData, doc.folderId);
+				previousFolderId = doc.folderId;
+			}
+
+			//add metadata to the original document values only if the metadata exists
+			return {
+				...doc,
+				...(documentMetadata?.webfilter?.en && { filter1: documentMetadata.webfilter.en }),
+				...(documentMetadata?.author?.en && { author: documentMetadata.author.en }),
+				...(isCaseWelsh &&
+					documentMetadata?.webfilter?.cy && { filter1Welsh: documentMetadata.webfilter.cy }),
+				...(isCaseWelsh &&
+					documentMetadata?.author?.cy && { authorWelsh: documentMetadata.author.cy })
+			};
+		})
+	);
 };
 
 /**

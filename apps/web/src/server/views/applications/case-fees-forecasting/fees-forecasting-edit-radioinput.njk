@@ -1,0 +1,56 @@
+{% extends "../layouts/applications.layout.njk" %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% block beforeContent %}
+	<aside>
+		{{ govukBackLink({
+			text: "Back",
+			href: 'fees-forecasting'|url({caseId: caseId})
+		}) }}
+	</aside>
+{% endblock %}
+
+{% block pageHeading %}
+{% endblock %}
+
+{% block pageContent %}
+	<form method="post" novalidate="novalidate" class="govuk-grid-row">
+		{% set radioItems = [] %}
+		{% for option in radioOptions %}
+			{% set radioItems = (radioItems.push({
+				value: option.value,
+				text: option.text,
+				checked: values[fieldName] == option.value if values
+			}), radioItems) %}
+		{% endfor %}
+
+		<div class="govuk-grid-column-two-thirds">
+			{% set radioClasses = "govuk-radios--inline" if radioItems | length == 2 %}
+			{{ govukRadios({
+				name: fieldName,
+				classes: radioClasses,
+				errorMessage: errors[fieldName] and {
+					text: errors[fieldName].msg
+				},
+				value: values[fieldName] if values,
+				fieldset: {
+					legend: {
+						text: pageHeading,
+						isPageHeading: true,
+						classes: "govuk-fieldset__legend--l"
+					}
+				},
+				hint: {
+					text: hintText
+				} if hintText,
+				items: radioItems
+			}) }}
+		</div>
+
+		<div class="govuk-grid-column-full">
+			{{ govukButton({ text: 'Save and return', classes: "govuk-grid-column-one-third" }) }}
+		</div>
+	</form>
+
+{% endblock %}

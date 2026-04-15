@@ -104,7 +104,7 @@ export const getFeesForecastingIndexViewModel = ({ caseData, invoices, meetings 
 			value: getDisplayValue(newMaturityDisplayValues, caseData.additionalDetails.newMaturity),
 			actions: [
 				{
-					href: editPageURL,
+					href: getEditPageURL(urlSectionNames.projectMaturity, caseData.id),
 					text: genericHrefText,
 					visuallyHiddenText: 'new maturity'
 				}
@@ -333,10 +333,13 @@ export const getFeesForecastingIndexViewModel = ({ caseData, invoices, meetings 
 	const supplementaryComponentsSectionItems = [
 		{
 			key: 'Link to issues tracker',
-			html: getLinkHTML(caseData.additionalDetails.issuesTracker, '#'),
+			html: getLinkHTML(
+				caseData.additionalDetails.issuesTracker,
+				caseData.additionalDetails.issuesTracker
+			),
 			actions: [
 				{
-					href: editPageURL,
+					href: getEditPageURL(urlSectionNames.issuesTrackerLink, caseData.id),
 					text: genericHrefText,
 					visuallyHiddenText: 'link to issues tracker'
 				}
@@ -352,7 +355,7 @@ export const getFeesForecastingIndexViewModel = ({ caseData, invoices, meetings 
 					: '',
 			actions: [
 				{
-					href: editPageURL,
+					href: getEditPageURL(urlSectionNames.fastTrack, caseData.id),
 					text: genericHrefText,
 					visuallyHiddenText: 'essential fast track components'
 				}
@@ -483,10 +486,13 @@ export const getFeesForecastingIndexViewModel = ({ caseData, invoices, meetings 
 	const programmeDocumentSectionItems = [
 		{
 			key: 'Link to programme document',
-			html: getLinkHTML(caseData.additionalDetails.programmeDocumentURI, '#'),
+			html: getLinkHTML(
+				caseData.additionalDetails.programmeDocumentURI,
+				caseData.additionalDetails.programmeDocumentURI
+			),
 			actions: [
 				{
-					href: editPageURL,
+					href: getEditPageURL(urlSectionNames.programmeDocumentLink, caseData.id),
 					text: genericHrefText,
 					visuallyHiddenText: 'link to programme document'
 				}

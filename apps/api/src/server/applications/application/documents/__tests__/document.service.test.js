@@ -3,9 +3,14 @@ import config from '#config/config.js';
 const { databaseConnector } = await import('#utils/database-connector.js');
 
 import {
+	attachMetadataToDocuments,
 	createDocumentVersion,
 	getApplicationDocumentWebfilter,
-	isFolderApplicationDocuments
+	getDocumentMetadataByFolderName,
+	getIndexFromReference,
+	isFolderApplicationDocuments,
+	makeDocumentReference,
+	buildDocumentFolderPath
 } from '../document.service.js';
 import {
 	extractYouTubeTitleFromHTML,
@@ -454,6 +459,319 @@ describe('Document service test', () => {
 				cy: 'Gwybodaeth Ychwanegol Rheoliad 6',
 				en: 'Additional Reg 6 Information'
 			});
+		});
+	});
+
+	describe('#getIndexFromReference', () => {
+		it('should extract the numeric index from a valid reference', () => {
+			expect(getIndexFromReference('BC0110001-000003')).toBe(3);
+		});
+
+		it('should return null when there is no dash followed by digits', () => {
+			expect(getIndexFromReference('NODASH')).toBeNull();
+		});
+
+		it('should return null for an empty string', () => {
+			expect(getIndexFromReference('')).toBeNull();
+		});
+	});
+
+	describe('#makeDocumentReference', () => {
+		it('should create a reference with zero-padded index', () => {
+			expect(makeDocumentReference('BC0110001', 3)).toBe('BC0110001-000003');
+		});
+
+		it('should pad a single-digit index to 6 digits', () => {
+			expect(makeDocumentReference('EN010120', 1)).toBe('EN010120-000001');
+		});
+
+		it('should handle a 6-digit index without extra padding', () => {
+			expect(makeDocumentReference('EN010120', 999999)).toBe('EN010120-999999');
+		});
+	});
+
+	describe('#buildDocumentFolderPath', () => {
+		it('should build a folder path with nested parent folders', async () => {
+			const folder2 = {
+				id: 2,
+				parentFolderId: 1,
+				caseId: 1,
+				displayNameEn: 'Sub Folder'
+			};
+			const folder1 = {
+				id: 1,
+				parentFolderId: null,
+				caseId: 1,
+				displayNameEn: 'Root Folder'
+			};
+
+			databaseConnector.folder.findUnique
+				.mockResolvedValueOnce(folder2)
+				.mockResolvedValueOnce(folder1);
+
+			const result = await buildDocumentFolderPath(2, 'EN010120', 'test.pdf');
+			expect(result).toBe('EN010120/Root Folder/Sub Folder/test.pdf');
+		});
+
+		it('should build a folder path with a single root folder', async () => {
+			const folder1 = {
+				id: 1,
+				parentFolderId: null,
+				caseId: 1,
+				displayNameEn: 'Root'
+			};
+
+			databaseConnector.folder.findUnique.mockResolvedValueOnce(folder1);
+
+			const result = await buildDocumentFolderPath(1, 'BC0110001', 'doc.pdf');
+			expect(result).toBe('BC0110001/Root/doc.pdf');
+		});
+
+		it('should handle deeply nested folder structures', async () => {
+			const folder3 = {
+				id: 3,
+				parentFolderId: 2,
+				caseId: 1,
+				displayNameEn: 'Level 3'
+			};
+			const folder2 = {
+				id: 2,
+				parentFolderId: 1,
+				caseId: 1,
+				displayNameEn: 'Level 2'
+			};
+			const folder1 = {
+				id: 1,
+				parentFolderId: null,
+				caseId: 1,
+				displayNameEn: 'Level 1'
+			};
+
+			databaseConnector.folder.findUnique
+				.mockResolvedValueOnce(folder3)
+				.mockResolvedValueOnce(folder2)
+				.mockResolvedValueOnce(folder1);
+
+			const result = await buildDocumentFolderPath(3, 'EN010120', 'file.txt');
+			expect(result).toBe('EN010120/Level 1/Level 2/Level 3/file.txt');
+		});
+	});
+
+	describe('#getDocumentMetadataByFolderName', () => {
+		it('should return webfilter and author when folder is Application documents', async () => {
+			const caseData = {
+				id: 1,
+				applicant: { organisationName: 'Test Org' }
+			};
+
+			databaseConnector.folder.findMany.mockResolvedValue([
+				{ id: 1, parentFolderId: null, displayNameEn: 'Acceptance', caseId: 1 },
+				{ id: 2, parentFolderId: 1, displayNameEn: 'Application documents', caseId: 1 },
+				{ id: 3, parentFolderId: 2, displayNameEn: 'Application form', caseId: 1 }
+			]);
+
+			const result = await getDocumentMetadataByFolderName(caseData, 3);
+			expect(result).toEqual({
+				webfilter: { en: 'Application Form', cy: 'Ffurflen Gais' },
+				author: { en: 'Test Org', cy: 'Test Org' }
+			});
+		});
+
+		it('should return empty object when folder is not Application documents', async () => {
+			const caseData = {
+				id: 1,
+				applicant: { organisationName: 'Test Org' }
+			};
+
+			databaseConnector.folder.findMany.mockResolvedValue([
+				{ id: 1, parentFolderId: null, displayNameEn: 'Pre-application', caseId: 1 },
+				{ id: 10, parentFolderId: 1, displayNameEn: 'Some folder', caseId: 1 }
+			]);
+
+			const result = await getDocumentMetadataByFolderName(caseData, 10);
+			expect(result).toEqual({});
+		});
+
+		it('should handle applicant without organisationName', async () => {
+			const caseData = {
+				id: 1,
+				applicant: {}
+			};
+
+			databaseConnector.folder.findMany.mockResolvedValue([
+				{ id: 1, parentFolderId: null, displayNameEn: 'Acceptance', caseId: 1 },
+				{ id: 2, parentFolderId: 1, displayNameEn: 'Application documents', caseId: 1 },
+				{ id: 3, parentFolderId: 2, displayNameEn: 'Application form', caseId: 1 }
+			]);
+
+			const result = await getDocumentMetadataByFolderName(caseData, 3);
+			expect(result.author).toEqual({ en: '', cy: '' });
+		});
+	});
+
+	describe('#attachMetadataToDocuments', () => {
+		it('should attach English metadata when case is not Welsh', async () => {
+			const caseData = {
+				id: 1,
+				applicant: { organisationName: 'Test Org' },
+				ApplicationDetails: {
+					regions: [{ region: { name: 'England' } }]
+				}
+			};
+
+			databaseConnector.folder.findMany.mockResolvedValue([
+				{ id: 1, parentFolderId: null, displayNameEn: 'Acceptance', caseId: 1 },
+				{ id: 2, parentFolderId: 1, displayNameEn: 'Application documents', caseId: 1 },
+				{ id: 3, parentFolderId: 2, displayNameEn: 'Application form', caseId: 1 }
+			]);
+
+			const documents = [{ folderId: 3, documentName: 'test.pdf' }];
+
+			const result = await attachMetadataToDocuments(caseData, documents);
+
+			expect(result).toEqual([
+				{
+					folderId: 3,
+					documentName: 'test.pdf',
+					filter1: 'Application Form',
+					author: 'Test Org'
+				}
+			]);
+		});
+
+		it('should attach both English and Welsh metadata when case includes Wales region', async () => {
+			const caseData = {
+				id: 1,
+				applicant: { organisationName: 'Test Org' },
+				ApplicationDetails: {
+					regions: [{ region: { name: 'Wales' } }]
+				}
+			};
+
+			databaseConnector.folder.findMany.mockResolvedValue([
+				{ id: 1, parentFolderId: null, displayNameEn: 'Acceptance', caseId: 1 },
+				{ id: 2, parentFolderId: 1, displayNameEn: 'Application documents', caseId: 1 },
+				{ id: 3, parentFolderId: 2, displayNameEn: 'Application form', caseId: 1 }
+			]);
+
+			const documents = [{ folderId: 3, documentName: 'test.pdf' }];
+
+			const result = await attachMetadataToDocuments(caseData, documents);
+
+			expect(result[0].filter1).toBe('Application Form');
+			expect(result[0].author).toBe('Test Org');
+			expect(result[0].filter1Welsh).toBe('Ffurflen Gais');
+			expect(result[0].authorWelsh).toBe('Test Org');
+		});
+
+		it('should not attach Welsh metadata when case is not Welsh', async () => {
+			const caseData = {
+				id: 1,
+				applicant: { organisationName: 'Test Org' },
+				ApplicationDetails: {
+					regions: [{ region: { name: 'South East' } }]
+				}
+			};
+
+			databaseConnector.folder.findMany.mockResolvedValue([
+				{ id: 1, parentFolderId: null, displayNameEn: 'Acceptance', caseId: 1 },
+				{ id: 2, parentFolderId: 1, displayNameEn: 'Application documents', caseId: 1 },
+				{ id: 3, parentFolderId: 2, displayNameEn: 'Application form', caseId: 1 }
+			]);
+
+			const documents = [{ folderId: 3, documentName: 'test.pdf' }];
+
+			const result = await attachMetadataToDocuments(caseData, documents);
+
+			expect(result[0].filter1Welsh).toBeUndefined();
+			expect(result[0].authorWelsh).toBeUndefined();
+		});
+
+		it('should not overwrite existing document properties when no metadata is found', async () => {
+			const caseData = {
+				id: 1,
+				applicant: { organisationName: 'Test Org' },
+				ApplicationDetails: {
+					regions: []
+				}
+			};
+
+			databaseConnector.folder.findMany.mockResolvedValue([
+				{ id: 1, parentFolderId: null, displayNameEn: 'Pre-application', caseId: 1 },
+				{ id: 10, parentFolderId: 1, displayNameEn: 'Some folder', caseId: 1 }
+			]);
+
+			const documents = [{ folderId: 10, documentName: 'test.pdf', existingProp: 'keep-me' }];
+
+			const result = await attachMetadataToDocuments(caseData, documents);
+
+			expect(result[0]).toEqual({
+				folderId: 10,
+				documentName: 'test.pdf',
+				existingProp: 'keep-me'
+			});
+		});
+
+		it('should handle multiple documents in the same folder', async () => {
+			const caseData = {
+				id: 1,
+				applicant: { organisationName: 'Test Org' },
+				ApplicationDetails: {
+					regions: [{ region: { name: 'England' } }]
+				}
+			};
+
+			databaseConnector.folder.findMany.mockResolvedValue([
+				{ id: 1, parentFolderId: null, displayNameEn: 'Acceptance', caseId: 1 },
+				{ id: 2, parentFolderId: 1, displayNameEn: 'Application documents', caseId: 1 },
+				{ id: 3, parentFolderId: 2, displayNameEn: 'Application form', caseId: 1 }
+			]);
+
+			const documents = [
+				{ folderId: 3, documentName: 'doc1.pdf' },
+				{ folderId: 3, documentName: 'doc2.pdf' }
+			];
+
+			const result = await attachMetadataToDocuments(caseData, documents);
+
+			expect(result).toHaveLength(2);
+			expect(result[0].filter1).toBe('Application Form');
+			expect(result[1].filter1).toBe('Application Form');
+		});
+
+		it('should handle documents in different folders', async () => {
+			const caseData = {
+				id: 1,
+				applicant: { organisationName: 'Test Org' },
+				ApplicationDetails: {
+					regions: [{ region: { name: 'England' } }]
+				}
+			};
+
+			databaseConnector.folder.findMany
+				.mockResolvedValueOnce([
+					{ id: 1, parentFolderId: null, displayNameEn: 'Acceptance', caseId: 1 },
+					{ id: 2, parentFolderId: 1, displayNameEn: 'Application documents', caseId: 1 },
+					{ id: 3, parentFolderId: 2, displayNameEn: 'Application form', caseId: 1 }
+				])
+				.mockResolvedValueOnce([
+					{ id: 1, parentFolderId: null, displayNameEn: 'Pre-application', caseId: 1 },
+					{ id: 20, parentFolderId: 1, displayNameEn: 'Some folder', caseId: 1 }
+				]);
+
+			const documents = [
+				{ folderId: 3, documentName: 'doc1.pdf' },
+				{ folderId: 20, documentName: 'doc2.pdf' }
+			];
+
+			const result = await attachMetadataToDocuments(caseData, documents);
+
+			console.log('result :>> ', result);
+
+			expect(result[0].filter1).toBe('Application Form');
+			expect(result[0].author).toBe('Test Org');
+			expect(result[1].filter1).toBeUndefined();
+			expect(result[1].author).toBe(undefined);
 		});
 	});
 });

@@ -1,39 +1,83 @@
 {
-	"pipeline": {
+	"$schema": "https://turbo.build/schema.json",
+	"globalEnv": [
+		"NODE_ENV",
+		"APP_RELEASE",
+		"DATABASE_URL",
+		"AZURE_CLIENT_ID",
+		"AZURE_CLIENT_SECRET",
+		"AZURE_TENANT_ID"
+	],
+	"globalPassThroughEnv": ["TURBO_*", "CI", "GITHUB_*"],
+	"tasks": {
 		"build": {
-			"outputs": ["src/server/static/scripts/**", "src/server/static/styles/**"],
-			"dependsOn": ["^build", "$NODE_ENV", "$APP_RELEASE"]
+			"outputs": [
+				"src/server/static/scripts/**",
+				"src/server/static/styles/**",
+				"dist/**",
+				".build/**"
+			],
+			"dependsOn": ["^build"],
+			"env": ["NODE_ENV", "APP_RELEASE"],
+			"inputs": ["src/**", "package.json", "rollup.config.js", "postcss.config.js"]
 		},
 		"build:release": {
-			"outputs": ["src/server/static/scripts/**", "src/server/static/styles/**"],
-			"dependsOn": ["^build", "$NODE_ENV", "$APP_RELEASE"]
-		},
-		"topo": {
-			"dependsOn": ["^topo"]
+			"outputs": [
+				"src/server/static/scripts/**",
+				"src/server/static/styles/**",
+				"dist/**",
+				".build/**"
+			],
+			"dependsOn": ["^build"],
+			"env": ["NODE_ENV", "APP_RELEASE"],
+			"inputs": ["src/**", "package.json", "rollup.config.js", "postcss.config.js"]
 		},
 		"test": {
 			"outputs": ["coverage/**"],
-			"dependsOn": ["topo"]
+			"dependsOn": ["prisma-generate"],
+			"inputs": ["src/**", "__tests__/**", "*.test.js", "jest.config.js", "package.json"],
+			"env": ["NODE_ENV", "DATABASE_URL"]
 		},
 		"lint:js": {
-			"dependsOn": ["^build"],
+			"inputs": ["src/**/*.js", "*.js", ".eslintrc*", "package.json"],
 			"outputs": []
 		},
 		"lint:js:fix": {
-			"dependsOn": ["^build"],
+			"inputs": ["src/**/*.js", "*.js", ".eslintrc*", "package.json"],
+			"outputs": []
+		},
+		"tscheck": {
+			"inputs": ["src/**", "*.js", "jsconfig.json", "package.json"],
 			"outputs": []
 		},
 		"prisma-generate": {
-			"cache": false
-		},
-		"tscheck": {
-			"dependsOn": ["topo"]
+			"cache": false,
+			"inputs": ["src/database/schema.prisma", "src/database/migrations/**", "package.json"],
+			"outputs": ["src/database/client/**", "node_modules/.prisma/**"],
+			"env": ["DATABASE_URL"]
 		},
 		"dev": {
-			"cache": false
+			"cache": false,
+			"persistent": true
 		},
 		"clean": {
-			"cache": false
+			"cache": false,
+			"outputs": []
+		},
+		"gen-api-spec": {
+			"inputs": ["src/server/**/*.js", "package.json"],
+			"outputs": ["src/server/swagger-output.json"],
+			"dependsOn": ["prisma-generate"]
+		},
+		"db:migrate": {
+			"cache": false,
+			"env": ["DATABASE_URL"],
+			"dependsOn": ["prisma-generate"]
+		},
+		"db:seed": {
+			"cache": false,
+			"env": ["DATABASE_URL"],
+			"dependsOn": ["prisma-generate"]
 		}
 	}
 }

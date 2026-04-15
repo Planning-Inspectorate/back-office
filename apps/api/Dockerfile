@@ -1,4 +1,4 @@
-FROM node:20-alpine3.20
+FROM node:22-alpine3.22
 WORKDIR /src/app
 
 ARG GIT_SHA
@@ -17,7 +17,7 @@ ENV DATABASE_URL=$DATABASE_URL
 ENV GIT_SHA=$GIT_SHA
 
 WORKDIR /src/app/apps/api
-RUN npx prisma generate
+RUN npm run prisma-generate
 
 EXPOSE 3000
 

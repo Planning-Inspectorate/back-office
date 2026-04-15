@@ -1,9 +1,10 @@
 import { databaseConnector } from '#utils/database-connector.js';
 import { getFileNameWithoutSuffix } from '../applications/application/documents/document.service.js';
+import { withRetry } from '#utils/query-with-retry.js';
 
 /**
- * @typedef {import('@prisma/client').Document} Document
- * @typedef {import('@prisma/client').Prisma.DocumentGetPayload<{include: {documentVersion: true }}>} DocumentWithDocumentVersion
+ * @typedef {import('#database-client').Document} Document
+ * @typedef {import('#database-client').Prisma.DocumentGetPayload<{include: {documentVersion: true }}>} DocumentWithDocumentVersion
  */
 
 /** @typedef {Object} LatestDocumentVersion
@@ -17,11 +18,12 @@ import { getFileNameWithoutSuffix } from '../applications/application/documents/
 
 * Create a new Document record
  *
- * @param {import('@prisma/client').Prisma.DocumentUncheckedCreateInput} document
- * @returns {import('@prisma/client').PrismaPromise<Document>}
+ * @param {import('#database-client').Prisma.DocumentUncheckedCreateInput} document
+ * @param {import('#database-client').Prisma.TransactionClient} [tx] - Optional transaction client or default to databaseConnector
+ * @returns {import('#database-client').PrismaPromise<Document>}
  */
-export const create = (document) => {
-	return databaseConnector.document.create({
+export const create = (document, tx = databaseConnector) => {
+	return tx.document.create({
 		data: document
 	});
 };
@@ -30,7 +32,7 @@ export const create = (document) => {
  * Get a document by documentGuid
  *
  * @param {string} documentGuid
- * @returns {import('@prisma/client').PrismaPromise<Document |null>}
+ * @returns {import('#database-client').PrismaPromise<Document |null>}
  */
 export const getById = (documentGuid) => {
 	return databaseConnector.document.findUnique({
@@ -44,7 +46,7 @@ export const getById = (documentGuid) => {
  * Get a paginated array of documents by caseid
  *
  * @param {{ caseId: number, skipValue?: number, pageSize?: number }} _
- * @returns {import('@prisma/client').PrismaPromise<Document[]>}
+ * @returns {import('#database-client').PrismaPromise<Document[]>}
  */
 export const getByCaseId = ({ caseId, skipValue, pageSize }) => {
 	return databaseConnector.document.findMany({
@@ -94,11 +96,15 @@ export const getDocumentVersionsByCaseId = async (caseId) => {
  * Get latest document reference (excluding ones from migration (with -M-)
  * Includes deleted docs, and orders by documentReference descending
  *
- * @param {{ caseId: number, skipValue?: number, pageSize?: number }} _
- * @returns {Promise<string>}
+ * @param {{ caseId: number, skipValue?: number, pageSize?: number }} params
+ * @param {import('@prisma/client').Prisma.TransactionClient} [tx] - Optional transaction client or default to databaseConnector
+ * @returns {Promise<string | null>}
  */
-export const getLatestDocReferenceByCaseIdExcludingMigrated = async ({ caseId }) => {
-	const latestDoc = await databaseConnector.document.findMany({
+export const getLatestDocReferenceByCaseIdExcludingMigrated = async (
+	{ caseId },
+	tx = databaseConnector
+) => {
+	const latestDoc = await tx.document.findMany({
 		where: {
 			caseId,
 			NOT: { documentReference: { contains: '-M-' } } // Migration created doc references are `${document.caseRef}-M-${documentId}`, so we want to exclude that when finding latest one
@@ -114,10 +120,28 @@ export const getLatestDocReferenceByCaseIdExcludingMigrated = async ({ caseId })
 };
 
 /**
+ * Transaction wrapper to execute multiple database operations atomically with isolation
+ * The transaction itself is wrapped with a retry logic handling transient Prisma errors
+ *
+ * @template T
+ * @param {(tx: import('@prisma/client').Prisma.TransactionClient) => Promise<T>} cb
+ * @returns {Promise<T>}
+ */
+export const executeInTransaction = async (cb) => {
+	return withRetry(() =>
+		databaseConnector.$transaction(cb, {
+			isolationLevel: 'RepeatableRead',
+			maxWait: 60000,
+			timeout: 30000
+		})
+	);
+};
+
+/**
  * Get a document by documentGuid
  *
  * @param {string} documentGuid
- * @returns {import('@prisma/client').PrismaPromise<DocumentWithDocumentVersion |null>}
+ * @returns {import('#database-client').PrismaPromise<DocumentWithDocumentVersion |null>}
  */
 export const getByIdWithVersion = (documentGuid) => {
 	return databaseConnector.document.findUnique({
@@ -133,7 +157,7 @@ export const getByIdWithVersion = (documentGuid) => {
  *
  * @param {string} documentGuid
  * @param {number} caseId
- * @returns {import('@prisma/client').PrismaPromise<Document |null>}
+ * @returns {import('#database-client').PrismaPromise<Document |null>}
  */
 export const getByIdRelatedToCaseId = (documentGuid, caseId) => {
 	return databaseConnector.document.findFirst({
@@ -153,7 +177,7 @@ export const getByIdRelatedToCaseId = (documentGuid, caseId) => {
  *
  * @param {string} documentReference
  * @param {number} caseId
- * @returns {import('@prisma/client').PrismaPromise<Document |null>}
+ * @returns {import('#database-client').PrismaPromise<Document |null>}
  */
 export const getByReferenceRelatedToCaseId = (documentReference, caseId) => {
 	return databaseConnector.document.findFirst({
@@ -300,10 +324,11 @@ export const getPublishableDocumentsWithoutRequiredPropertiesCheck = (documentId
  *
  * @param {string} documentId
  * @param {import('@pins/applications.api').Schema.DocumentUpdateInput} documentDetails
+ * @param {import('@prisma/client').Prisma.TransactionClient} [tx] - Optional transaction client or default to databaseConnector
  * @returns {Promise<Document>}
  */
-export const update = (documentId, documentDetails) => {
-	return databaseConnector.document.update({
+export const update = (documentId, documentDetails, tx = databaseConnector) => {
+	return tx.document.update({
 		where: {
 			guid: documentId
 		},
@@ -352,7 +377,7 @@ export const updateDocumentsFolderId = ({
  *
  * @async
  * @param {string} documentGuid
- * @returns {import('@prisma/client').PrismaPromise<Document>}
+ * @returns {import('#database-client').PrismaPromise<Document>}
  */
 export const deleteDocument = (documentGuid) => {
 	return databaseConnector.document.delete({
@@ -365,8 +390,8 @@ export const deleteDocument = (documentGuid) => {
 /**
  *
  * @param {number} folderId
- * @param {import('@prisma/client').Prisma.DocumentFindManyArgs} [options={}]
- * @returns {import('@prisma/client').PrismaPromise<Document[]>}
+ * @param {import('#database-client').Prisma.DocumentFindManyArgs} [options={}]
+ * @returns {import('#database-client').PrismaPromise<Document[]>}
  */
 export const getDocumentsInFolder = (folderId, options = {}) => {
 	const orderBy = options.orderBy || {
@@ -466,7 +491,7 @@ const buildWhereClause_AllDocsOnCaseWithoutS51Advice = (
  * @param {number} skipValue
  * @param {number} pageSize
  * @param {boolean} includeDeletedDocuments
- * @returns {import('@prisma/client').PrismaPromise<Document[]>}
+ * @returns {import('#database-client').PrismaPromise<Document[]>}
  */
 export const getDocumentsInCase = (
 	caseId,
@@ -503,7 +528,7 @@ export const getDocumentsInCase = (
 /**
  *
  * @param {number} folderId
- *  @returns {import('@prisma/client').PrismaPromise<number>}
+ *  @returns {import('#database-client').PrismaPromise<number>}
  */
 export const countDocumentsInFolder = (folderId) => {
 	return databaseConnector.document.count({
@@ -517,7 +542,7 @@ export const countDocumentsInFolder = (folderId) => {
 /**
  *
  * @param {string} documentGUID
- * @returns {import('@prisma/client').PrismaPromise<Document | null>}
+ * @returns {import('#database-client').PrismaPromise<Document | null>}
  */
 export const getByDocumentGUID = (documentGUID) => {
 	return databaseConnector.document.findUnique({
@@ -533,7 +558,7 @@ export const getByDocumentGUID = (documentGUID) => {
 /**
  *
  * @param {string[]} guids
- * @returns {import('@prisma/client').PrismaPromise<DocumentWithDocumentVersion[] | null>}
+ * @returns {import('#database-client').PrismaPromise<DocumentWithDocumentVersion[] | null>}
  * */
 export const getDocumentsByGUID = (guids) =>
 	databaseConnector.document.findMany({
@@ -551,7 +576,7 @@ export const getDocumentsByGUID = (guids) =>
 /**
  * TODO: I dont think this fn is used anymore
  * @param {{guid: string, status: import('xstate').StateValue }} documentStatusUpdate
- * @returns {import('@prisma/client').PrismaPromise<Document>}
+ * @returns {import('#database-client').PrismaPromise<Document>}
  */
 export const updateDocumentStatus = ({ guid, status }) => {
 	return databaseConnector.document.update({
@@ -569,7 +594,7 @@ export const updateDocumentStatus = ({ guid, status }) => {
  *
  * @param {number} folderId
  * @param {boolean} getAllDocuments
- * @returns {import('@prisma/client').PrismaPromise<number>}
+ * @returns {import('#database-client').PrismaPromise<number>}
  */
 export const getDocumentsCountInFolder = (folderId, getAllDocuments = false) => {
 	/** @type {{folderId: number, isDeleted?:boolean}} */
@@ -591,7 +616,7 @@ export const getDocumentsCountInFolder = (folderId, getAllDocuments = false) => 
  * @param {string} criteria
  * @param {number |undefined} s51AdviceFolderId
  * @param {boolean} includeDeletedDocuments
- * @returns {import('@prisma/client').PrismaPromise<number>}
+ * @returns {import('#database-client').PrismaPromise<number>}
  */
 export const getDocumentsCountInCase = (
 	caseId,
@@ -616,7 +641,7 @@ export const getDocumentsCountInCase = (
  * Filter document table to retrieve documents by 'ready-to-publish' status
  *
  * @param {{skipValue: number, pageSize: number, caseId: number, documentVersion?: number}} params
- * @returns {import('@prisma/client').PrismaPromise<Document[]>}
+ * @returns {import('#database-client').PrismaPromise<Document[]>}
  */
 export const getDocumentsReadyPublishStatus = ({ skipValue, pageSize, caseId }) => {
 	return databaseConnector.document.findMany({
@@ -645,7 +670,7 @@ export const getDocumentsReadyPublishStatus = ({ skipValue, pageSize, caseId }) 
  * Returns total number of documents by published status (ready-to-publish)
  *
  * @param {number} caseId
- * @returns {import('@prisma/client').PrismaPromise<number>}
+ * @returns {import('#database-client').PrismaPromise<number>}
  */
 export const getDocumentsCountInByPublishStatus = (caseId) => {
 	console.info('getDocumentsCountInByPublishStatus for case ' + caseId);
@@ -666,7 +691,7 @@ export const getDocumentsCountInByPublishStatus = (caseId) => {
  * @param {number} folderId
  * @param {string} fileName
  * @param {boolean} [includeDeleted]
- * @returns {import('@prisma/client').PrismaPromise<Document | null>}
+ * @returns {import('#database-client').PrismaPromise<Document | null>}
  */
 export const getInFolderByName = (folderId, fileName, includeDeleted) => {
 	const fileNameWithoutSuffix = getFileNameWithoutSuffix(fileName);

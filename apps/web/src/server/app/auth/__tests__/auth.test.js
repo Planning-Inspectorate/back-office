@@ -29,6 +29,7 @@ describe('auth', () => {
 
 			// Assert azure msal client's `getAuthCodeUrl` was invoked correctly
 
+			// @ts-expect-error
 			const [authOptions] = /** @type {import('@azure/msal-node').AuthorizationUrlRequest[]} */ (
 				client.getAuthCodeUrl.mock.lastCall
 			);

@@ -2,12 +2,12 @@ import { createValidator } from '@pins/express';
 import { validationDateValid } from '../../common/validators/dates.validators.js';
 import { keyDatesProperty } from '../../../lib/nunjucks-filters/key-dates-property.js';
 
-/** @typedef {import('express').RequestHandler} RequestHandler */
+/** @typedef {import('@pins/express/types/express.d.ts').AsyncRequestHandler} AsyncRequestHandler */
 
 /**
  * Validate key dates are in the MM/DD/YYYY format
  *
- * @type {RequestHandler}
+ * @type {AsyncRequestHandler}
  */
 export const validateKeyDates = async (request, response, next) => {
 	const { body } = request;

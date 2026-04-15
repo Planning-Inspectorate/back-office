@@ -36,6 +36,7 @@ export const supplementaryComponentsDisplayValues = {
 
 // Different formats used for key dates and fees and forecasting
 export const urlSectionNames = {
+	projectMaturity: 'project-maturity',
 	preApplicationSection: 'preApplicationSection',
 	submissionAtInternal: 'submissionAtInternal',
 	inceptionMeetingDate: 'inceptionMeetingDate',
@@ -51,6 +52,7 @@ export const urlSectionNames = {
 	manageProjectMeeting: 'manage-project-meeting',
 	addEvidencePlanMeeting: 'add-evidence-plan-meeting',
 	manageEvidencePlanMeeting: 'manage-evidence-plan-meeting',
+	fastTrack: 'fast-track',
 	principalAreaDisagreementSummaryStmt: 'disagreement-summary-statement',
 	policyComplianceDocument: 'policy-compliance-document',
 	designApproachDocument: 'design-approach-document',
@@ -59,10 +61,28 @@ export const urlSectionNames = {
 	publicSectorEqualityDuty: 'public-sector-equality-duty',
 	fastTrackAdmissionDocument: 'fast-track-admission',
 	multipartyApplicationCheckDocument: 'multiparty-application',
-	s61SummaryLink: 's61-summary-link'
+	s61SummaryLink: 's61-summary-link',
+	programmeDocumentLink: 'programme-document-link',
+	issuesTrackerLink: 'issues-tracker-link'
 };
 
 export const sectionData = {
+	projectMaturity: {
+		sectionTitle: 'Project maturity',
+		pageHeading: 'What is the new maturity of the project?',
+		fieldName: 'newMaturity',
+		componentType: 'radio-input',
+		radioFieldPath: 'additionalDetails.newMaturity',
+		radioOptions: [
+			{ value: 'a', text: 'A' },
+			{ value: 'b', text: 'B' },
+			{ value: 'c', text: 'C' },
+			{ value: 'd', text: 'D' },
+			{ value: 'e', text: 'E' },
+			{ value: 'f', text: 'F' },
+			{ value: 'g', text: 'G' }
+		]
+	},
 	maturityEvaluationMatrix: {
 		sectionTitle: 'MEM last updated',
 		pageHeading: 'Maturity Evaluation Matrix (MEM) last updated',
@@ -132,6 +152,19 @@ export const sectionData = {
 		sectionTitle: 'Manage evidence plan meeting',
 		pageHeading: 'Manage evidence plan meeting',
 		componentType: 'manage-evidence-plan-meeting'
+	},
+	fastTrack: {
+		sectionTitle: 'Fast track',
+		pageHeading: 'Fast track',
+		fieldName: 'essentialFastTrackComponents',
+		componentType: 'radio-input',
+		hintText:
+			'Enhanced tier projects can be marked as fast track and require essential fast track components to be submitted by the applicant',
+		radioFieldPath: 'additionalDetails.essentialFastTrackComponents',
+		radioOptions: [
+			{ value: 1, text: 'Yes' },
+			{ value: 0, text: 'No' }
+		]
 	},
 	principalAreaDisagreementSummaryStmt: {
 		sectionTitle: 'Principal area disagreement summary statement (PADSS)',
@@ -209,6 +242,18 @@ export const sectionData = {
 		sectionTitle: 'Link to s61 summary',
 		pageHeading: 'Link to s61 summary',
 		fieldName: 's61SummaryURI',
+		componentType: 'text-input'
+	},
+	programmeDocumentLink: {
+		sectionTitle: 'Link to the programme document',
+		pageHeading: 'Link to the programme document',
+		fieldName: 'programmeDocumentURI',
+		componentType: 'text-input'
+	},
+	issuesTrackerLink: {
+		sectionTitle: 'Link to the issues tracker',
+		pageHeading: 'Link to the issues tracker',
+		fieldName: 'issuesTracker',
 		componentType: 'text-input'
 	}
 };
