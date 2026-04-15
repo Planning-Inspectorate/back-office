@@ -1,0 +1,76 @@
+<div class="govuk-grid-column-full">
+	<h2 class="govuk-heading-m">Post-decision dates</h2>
+	<p class="govuk-body">Record dates related to the judicial review process following the decision.</p>
+</div>
+
+{{ dateInput({
+	layout: {
+		fieldName: "jRPeriodEndDate",
+		label: "jRPeriodEndDate" | keyDatesProperty,
+		classes: 'govuk-grid-column-one-third',
+		hint: {
+			html: getDatesHint("jRPeriodEndDate")
+		}
+	},
+	errors: errors,
+	values: sectionValues
+}) }}
+
+{{ dateInput({
+	layout: {
+		fieldName: "decisionChallengeSubmissionDate",
+		label: "decisionChallengeSubmissionDate" | keyDatesProperty,
+		classes: 'govuk-grid-column-one-third',
+		hint: {
+			html: getDatesHint("decisionChallengeSubmissionDate")
+		}
+	},
+	errors: errors,
+	values: sectionValues
+}) }}
+
+{{ dateInput({
+	layout: {
+		fieldName: "courtDecisionDate",
+		label: "courtDecisionDate" | keyDatesProperty,
+		classes: 'govuk-grid-column-one-third',
+		hint: {
+			html: getDatesHint("courtDecisionDate")
+		}
+	},
+	errors: errors,
+	values: sectionValues
+}) }}
+
+<div class="govuk-form-group govuk-grid-column-full">
+	{{ govukRadios({
+		name: 'courtDecisionOutcome',
+		fieldset: {
+			legend: {
+				text: 'courtDecisionOutcome' | keyDatesProperty,
+				classes: 'govuk-fieldset__legend--s'
+			}
+		},
+		errorMessage: { text: errors.courtDecisionOutcomeText.msg } if errors.courtDecisionOutcomeText else ({ text: errors.courtDecisionOutcome.msg } if errors.courtDecisionOutcome),
+		items: [
+			{ value: 'Upheld', text: 'Upheld', checked: sectionValues.courtDecisionOutcome === 'Upheld' },
+			{ value: 'Partially upheld', text: 'Partially upheld', checked: sectionValues.courtDecisionOutcome === 'Partially upheld' },
+			{ value: 'Quashed', text: 'Quashed', checked: sectionValues.courtDecisionOutcome === 'Quashed' },
+			{
+				value: 'Other',
+				text: 'Other',
+				checked: sectionValues.courtDecisionOutcome === 'Other',
+				conditional: {
+					html: govukInput({
+						name: 'courtDecisionOutcomeText',
+						id: 'courtDecisionOutcomeText',
+						classes: 'govuk-!-width-one-third',
+						label: { text: 'Describe the court decision outcome', classes: 'govuk-label--s' },
+						value: sectionValues.courtDecisionOutcomeText or '',
+						errorMessage: { text: errors.courtDecisionOutcomeText.msg } if errors.courtDecisionOutcomeText
+					})
+				}
+			}
+		]
+	}) }}
+</div>

@@ -1,3 +1,29 @@
+/**
+ * @file applications-key-dates.controller.js
+ * @description Controller for the key dates section of the NSIP applications back office.
+ *
+ * Handles three main responsibilities:
+ *
+ * - `viewKeyDatesIndex` — renders the key dates summary page showing all lifecycle
+ *   sections and their current values.
+ *
+ * - `viewKeyDatesEditSection` — renders the edit form for a specific key dates section,
+ *   pre-populated with current values from the API.
+ *
+ * - `updateKeyDatesSection` — handles form submission, transforms date components
+ *   (day/month/year) into Unix timestamps, calls the API to persist changes, and
+ *   redirects on success or re-renders the form with errors on failure.
+ *
+ * Some sections are "virtual" — they are sub-divisions of a parent API section:
+ *   - `preApplication` splits into `preApplicationSection` and `screeningAndScoping`
+ *   - `preExamination` splits into `relevantRepresentations`, `relevantRepresentationsReOpen`,
+ *     and `otherDates`
+ *
+ * On validation failure, submitted string values (e.g. `courtDecisionOutcome`,
+ * `courtDecisionOutcomeText`) are merged back into `sectionValues` so the form
+ * re-renders with the user's input preserved.
+ */
+
 import { getAllCaseKeyDates, updateKeyDates } from './applications-key-dates.service.js';
 import {
 	isRelevantRepresentationsReOpened,
@@ -299,6 +325,11 @@ export async function updateKeyDatesSection(
 		// Use the actual API section name for updates
 		const apiSectionName = getApiSectionName(sectionName);
 		const cleanedPayload = removeUndefined({ ...payload, ...validDates });
+		// If outcome is not 'Other', clear the free-text field so stale values
+		// from a previous 'Other' submission don't persist in the database.
+		if (cleanedPayload.courtDecisionOutcome && cleanedPayload.courtDecisionOutcome !== 'Other') {
+			cleanedPayload.courtDecisionOutcomeText = null;
+		}
 		const { errors } = await updateKeyDates(+caseId, {
 			[apiSectionName]: cleanedPayload
 		});
@@ -336,7 +367,12 @@ export async function updateKeyDatesSection(
 
 		return response.render(`applications/case-key-dates/key-dates-section.njk`, {
 			sectionName: targetSectionName,
-			sectionValues: { ...sectionValuesForDisplay, ...validDates },
+			sectionValues: {
+				...sectionValuesForDisplay,
+				...validDates,
+				courtDecisionOutcome: body.courtDecisionOutcome,
+				courtDecisionOutcomeText: body.courtDecisionOutcomeText
+			},
 			errors: validationErrors || apiErrors,
 			backLink: backLink,
 			showOnlySection: showOnlySection
