@@ -193,11 +193,16 @@ export async function getFeesForecastingEditSection(request, response) {
 				`applications/case-fees-forecasting/fees-forecasting-edit-radiodateinput.njk`
 			);
 		}
-		case 'text-input':
+		case 'text-input': {
+			const additionalFieldName = editViewModel?.additionalFieldName || '';
 			values[fieldName] = response.locals.case.additionalDetails?.[fieldName] || '';
+			values[additionalFieldName] =
+				response.locals.case.additionalDetails?.[additionalFieldName] || '';
+
 			return renderTemplate(
 				`applications/case-fees-forecasting/fees-forecasting-edit-textinput.njk`
 			);
+		}
 		case 'radio-input': {
 			const radioFieldPath = editViewModel.radioFieldPath;
 
@@ -328,11 +333,9 @@ export async function updateFeesForecastingEditSection(request, response) {
 
 				if (dateFieldMatch) {
 					mapDateValues(dateFieldMatch[1]);
-				} else {
-					if (body[key] !== '') {
-						values[key] = body[key];
-						feesForecastingData[key] = body[key];
-					}
+				} else if (body[key] !== '') {
+					values[key] = body[key];
+					feesForecastingData[key] = body[key];
 				}
 			});
 
@@ -360,10 +363,18 @@ export async function updateFeesForecastingEditSection(request, response) {
 
 			break;
 		}
+		// preserves alphabetic strings and converts numeric strings to numbers
 		case 'text-input': {
-			const fieldName = editViewModel?.fieldName || '';
-			values[fieldName] = body[fieldName] || '';
-			feesForecastingData[fieldName] = body[fieldName] || '';
+			Object.keys(body).forEach((key) => {
+				values[key] = body[key] || '';
+				const formattedValue = body[key] ? Number(body[key]) : '';
+
+				if (Number.isNaN(formattedValue)) {
+					feesForecastingData[key] = body[key];
+				} else if (formattedValue !== '') {
+					feesForecastingData[key] = formattedValue;
+				}
+			});
 
 			break;
 		}

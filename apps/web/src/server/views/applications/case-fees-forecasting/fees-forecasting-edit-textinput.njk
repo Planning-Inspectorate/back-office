@@ -18,13 +18,29 @@
 {% block pageContent %}
 	<form method="post" novalidate="novalidate" class="govuk-grid-row">
 		<div class='govuk-grid-column-two-thirds'>
+			{% set widthClass = "govuk-input--width-5" if additionalFieldName else false %}
+
 			{{ govukInput({
+				label: labelText and { text: labelText },
 				name: fieldName,
 				errorMessage: errors[fieldName] and {
 					text: errors[fieldName].msg
 				},
-				value: values[fieldName]
+				value: values[fieldName],
+				classes: widthClass
 			}) }}
+
+			{% if additionalFieldName %}
+				{{ govukInput({
+					label: { text: additionalLabelText },
+					name: additionalFieldName,
+					errorMessage: errors[additionalFieldName] and {
+						text: errors[additionalFieldName].msg
+					},
+					value: values[additionalFieldName],
+					classes: "govuk-input--width-5"
+				}) }}
+			{% endif %}
 
 			{{ govukButton({ text: 'Save and return' }) }}
 		</div>
