@@ -64,7 +64,8 @@ export const urlSectionNames = {
 	s61SummaryLink: 's61-summary-link',
 	programmeDocumentLink: 'programme-document-link',
 	issuesTrackerLink: 'issues-tracker-link',
-	examiningInspectors: 'examining-inspectors'
+	examiningInspectors: 'examining-inspectors',
+	additionalComments: 'additional-comments'
 };
 
 export const sectionData = {
@@ -265,6 +266,12 @@ export const sectionData = {
 		labelText: 'Number of band 2 inspectors',
 		additionalLabelText: 'Number of band 3 inspectors',
 		componentType: 'text-input'
+	},
+	additionalComments: {
+		sectionTitle: 'Additional comments',
+		pageHeading: 'Additional comments (optional)',
+		fieldName: 'additionalComments',
+		componentType: 'text-area'
 	}
 };
 

@@ -222,6 +222,11 @@ export async function getFeesForecastingEditSection(request, response) {
 				`applications/case-fees-forecasting/fees-forecasting-edit-radioinput.njk`
 			);
 		}
+		case 'text-area':
+			values[fieldName] = response.locals.case.additionalDetails?.[fieldName] || '';
+			return renderTemplate(
+				`applications/case-fees-forecasting/fees-forecasting-edit-textarea.njk`
+			);
 	}
 }
 
@@ -397,6 +402,11 @@ export async function updateFeesForecastingEditSection(request, response) {
 
 			break;
 		}
+		case 'text-area': {
+			const fieldName = editViewModel?.fieldName || '';
+			values[fieldName] = body[fieldName] || '';
+			feesForecastingData[fieldName] = body[fieldName] || '';
+		}
 	}
 
 	if (!validationErrors) {
@@ -404,7 +414,8 @@ export async function updateFeesForecastingEditSection(request, response) {
 			case 'date-input':
 			case 'radio-date-input':
 			case 'text-input':
-			case 'radio-input': {
+			case 'radio-input':
+			case 'text-area': {
 				const { errors } = await updateFeesForecasting(caseId, sectionName, feesForecastingData);
 				apiErrors = errors;
 				break;
@@ -468,6 +479,9 @@ export async function updateFeesForecastingEditSection(request, response) {
 				return renderError(
 					`applications/case-fees-forecasting/fees-forecasting-edit-radioinput.njk`
 				);
+			}
+			case 'text-area': {
+				return renderError(`applications/case-fees-forecasting/fees-forecasting-edit-textarea.njk`);
 			}
 			case 'add-new-fee':
 			case 'manage-fee': {
