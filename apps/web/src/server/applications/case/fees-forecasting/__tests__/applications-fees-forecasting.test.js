@@ -294,6 +294,48 @@ describe('Fees and Forecasting', () => {
 			);
 		});
 
+		it('should show an API error for text area if updating comment was NOT successful', async () => {
+			const flags = staticFlags;
+			flags['applics-1845-fees-forecasting'] = true;
+
+			const sectionName = 'additional-comments';
+			const fieldName = 'additionalComments';
+
+			nock('http://test/')
+				.patch(`/applications/123/fees-forecasting/${sectionName}`)
+				.reply(500, {});
+
+			const response = await request.post(`${baseUrl}/section/${sectionName}`).send({
+				[fieldName]:
+					'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.'
+			});
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+			expect(element.innerHTML).toContain('There is a problem');
+		});
+
+		it('should redirect to the index page if updating comment was successful', async () => {
+			const flags = staticFlags;
+			flags['applics-1845-fees-forecasting'] = true;
+
+			const sectionName = 'additional-comments';
+			const fieldName = 'additionalComments';
+
+			nock('http://test/')
+				.patch(`/applications/123/fees-forecasting/${sectionName}`)
+				.reply(200, {});
+
+			const response = await request.post(`${baseUrl}/section/${sectionName}`).send({
+				[fieldName]:
+					'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.'
+			});
+
+			expect(response?.headers?.location).toEqual(
+				'/applications-service/case/123/fees-forecasting/'
+			);
+		});
+
 		it('should create a new fee and redirect when add-new-fee is posted successfully', async () => {
 			const flags = staticFlags;
 			flags['applics-1845-fees-forecasting'] = true;
