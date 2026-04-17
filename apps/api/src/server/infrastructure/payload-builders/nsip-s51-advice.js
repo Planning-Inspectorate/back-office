@@ -20,8 +20,8 @@ import { getById as getCaseById } from '#repositories/case.repository.js';
  * @returns {Promise<NSIPS51AdviceSchema>}
  * */
 export const buildNsipS51AdvicePayload = async (s51Advice) => {
-	const c = await getCaseById(s51Advice.caseId, {});
-	const caseReference = c?.reference ?? '';
+	const caseData = await getCaseById(s51Advice.caseId, {});
+	const caseReference = caseData?.reference ?? '';
 
 	return {
 		...pick(s51Advice, [
