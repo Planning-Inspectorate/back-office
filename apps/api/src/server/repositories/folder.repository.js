@@ -304,6 +304,11 @@ export const getS51AdviceFolder = (caseId) => {
  */
 const defaultCaseFolders = [
 	{
+		displayNameEn: 'GIS Shapefiles',
+		displayOrder: 175,
+		stage: null
+	},
+	{
 		displayNameEn: 'Project management',
 		displayOrder: 100,
 		stage: folderDocumentCaseStageMappings.PROJECT_MANAGEMENT,

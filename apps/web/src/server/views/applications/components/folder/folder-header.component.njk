@@ -1,7 +1,7 @@
 {% from "govuk/components/table/macro.njk" import govukTable %}
 {% from "govuk/components/accordion/macro.njk" import govukAccordion %}
 
-{% macro folderHeader(currentFolder, subFolders, caseId, isS51folder, cspNonce, isGeneralS51folder, isCustomFolder) %}
+{% macro folderHeader(currentFolder, subFolders, caseId, isS51folder, cspNonce, isGeneralS51folder, isCustomFolder, isGisShapefilesFolder) %}
 
 	{% set folderRows = [] %}
 	{% set folderItems = {} %}
@@ -14,8 +14,9 @@
   		</svg>
 	{% endmacro %}
 
-	{# Add the Create Folder link #}
-	{% if ('applic-625-custom-folders' | isFeatureActive) %}
+
+	{# Add the Create Folder link, but not for GIS Shapefiles folder #}
+	{% if ('applic-625-custom-folders' | isFeatureActive) and not isGisShapefilesFolder %}
 		{% set createFolderLink %}
 			<a class="govuk-link govuk-body-m" href="{{'folder-create' |url({caseId: caseId, folderId: currentFolder.id})}}">
 				Create folder
@@ -77,18 +78,18 @@
           <div class="govuk-grid-column-two-thirds">
             <h2 class="govuk-heading-l">{{ currentFolder.displayNameEn }} folder</h2>
           </div>
-          {% if ('applic-625-custom-folders' | isFeatureActive) %}
-            {% if isCustomFolder %}
-              <div class="govuk-grid-column-one-third govuk-!-text-align-right pins-folder-button-group">
-                <a class="govuk-link govuk-body-m" href="{{'folder-rename' |url({caseId: caseId, folderId: currentFolder.id})}}">
-                  Rename folder
-                </a>
-                <a class="govuk-link govuk-body-m" href="{{'folder-delete' |url({caseId: caseId, folderId: currentFolder.id})}}">
-                  Delete folder
-                </a>
-              </div>
-            {% endif %}
-          {% endif %}
+					{% if ('applic-625-custom-folders' | isFeatureActive) and not isGisShapefilesFolder %}
+						{% if isCustomFolder %}
+							<div class="govuk-grid-column-one-third govuk-!-text-align-right pins-folder-button-group">
+								<a class="govuk-link govuk-body-m" href="{{'folder-rename' |url({caseId: caseId, folderId: currentFolder.id})}}">
+									Rename folder
+								</a>
+								<a class="govuk-link govuk-body-m" href="{{'folder-delete' |url({caseId: caseId, folderId: currentFolder.id})}}">
+									Delete folder
+								</a>
+							</div>
+						{% endif %}
+					{% endif %}
         </div>
         {% if folderRows.length > 0 %}
           {{ govukAccordion(folderItems) }}
