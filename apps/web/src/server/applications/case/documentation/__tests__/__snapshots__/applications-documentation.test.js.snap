@@ -68,18 +68,25 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
             <script nonce="EdcOUaJ8lczj9tIPO0lPow==">
                 let clickEventListenerAdded = false
                 		window.addEventListener("load", () => {
-                			document.querySelector("#pins-subfolder-accordian .govuk-accordion__section-heading").addEventListener("mouseenter", (event) => {
+                			const sectionHeading = document.querySelector("#pins-subfolder-accordian .govuk-accordion__section-heading");
+                			if (!sectionHeading) {
+                				return;
+                			}
+                			sectionHeading.addEventListener("mouseenter", (event) => {
                 				if (clickEventListenerAdded) {
-                					return
+                					return;
                 				}
-                				event.target.getElementsByClassName("govuk-accordion__section-button")[0].addEventListener("click", (event) => {
-                					if (event.pointerType) {
-                						event.currentTarget.blur()
-                					}
-                				})
-                				clickEventListenerAdded = true
-                			})
-                		})
+                				const sectionButton = event.target.getElementsByClassName("govuk-accordion__section-button")[0];
+                				if (sectionButton) {
+                					sectionButton.addEventListener("click", (event) => {
+                						if (event.pointerType) {
+                							event.currentTarget.blur();
+                						}
+                					});
+                				}
+                				clickEventListenerAdded = true;
+                			});
+                		});
             </script>
             <div class="govuk-width-container">
                 <div class="govuk-grid-row govuk-!-margin-top-0">
@@ -956,18 +963,25 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
             <script nonce="EdcOUaJ8lczj9tIPO0lPow==">
                 let clickEventListenerAdded = false
                 		window.addEventListener("load", () => {
-                			document.querySelector("#pins-subfolder-accordian .govuk-accordion__section-heading").addEventListener("mouseenter", (event) => {
+                			const sectionHeading = document.querySelector("#pins-subfolder-accordian .govuk-accordion__section-heading");
+                			if (!sectionHeading) {
+                				return;
+                			}
+                			sectionHeading.addEventListener("mouseenter", (event) => {
                 				if (clickEventListenerAdded) {
-                					return
+                					return;
                 				}
-                				event.target.getElementsByClassName("govuk-accordion__section-button")[0].addEventListener("click", (event) => {
-                					if (event.pointerType) {
-                						event.currentTarget.blur()
-                					}
-                				})
-                				clickEventListenerAdded = true
-                			})
-                		})
+                				const sectionButton = event.target.getElementsByClassName("govuk-accordion__section-button")[0];
+                				if (sectionButton) {
+                					sectionButton.addEventListener("click", (event) => {
+                						if (event.pointerType) {
+                							event.currentTarget.blur();
+                						}
+                					});
+                				}
+                				clickEventListenerAdded = true;
+                			});
+                		});
             </script>
             <div class="govuk-width-container">
                 <div class="govuk-grid-row govuk-!-margin-top-0">
@@ -2262,18 +2276,25 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
             <script nonce="EdcOUaJ8lczj9tIPO0lPow==">
                 let clickEventListenerAdded = false
                 		window.addEventListener("load", () => {
-                			document.querySelector("#pins-subfolder-accordian .govuk-accordion__section-heading").addEventListener("mouseenter", (event) => {
+                			const sectionHeading = document.querySelector("#pins-subfolder-accordian .govuk-accordion__section-heading");
+                			if (!sectionHeading) {
+                				return;
+                			}
+                			sectionHeading.addEventListener("mouseenter", (event) => {
                 				if (clickEventListenerAdded) {
-                					return
+                					return;
                 				}
-                				event.target.getElementsByClassName("govuk-accordion__section-button")[0].addEventListener("click", (event) => {
-                					if (event.pointerType) {
-                						event.currentTarget.blur()
-                					}
-                				})
-                				clickEventListenerAdded = true
-                			})
-                		})
+                				const sectionButton = event.target.getElementsByClassName("govuk-accordion__section-button")[0];
+                				if (sectionButton) {
+                					sectionButton.addEventListener("click", (event) => {
+                						if (event.pointerType) {
+                							event.currentTarget.blur();
+                						}
+                					});
+                				}
+                				clickEventListenerAdded = true;
+                			});
+                		});
             </script>
             <div class="govuk-width-container">
                 <div class="govuk-grid-row govuk-!-margin-top-0">
@@ -2362,18 +2383,25 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
             <script nonce="EdcOUaJ8lczj9tIPO0lPow==">
                 let clickEventListenerAdded = false
                 		window.addEventListener("load", () => {
-                			document.querySelector("#pins-subfolder-accordian .govuk-accordion__section-heading").addEventListener("mouseenter", (event) => {
+                			const sectionHeading = document.querySelector("#pins-subfolder-accordian .govuk-accordion__section-heading");
+                			if (!sectionHeading) {
+                				return;
+                			}
+                			sectionHeading.addEventListener("mouseenter", (event) => {
                 				if (clickEventListenerAdded) {
-                					return
+                					return;
                 				}
-                				event.target.getElementsByClassName("govuk-accordion__section-button")[0].addEventListener("click", (event) => {
-                					if (event.pointerType) {
-                						event.currentTarget.blur()
-                					}
-                				})
-                				clickEventListenerAdded = true
-                			})
-                		})
+                				const sectionButton = event.target.getElementsByClassName("govuk-accordion__section-button")[0];
+                				if (sectionButton) {
+                					sectionButton.addEventListener("click", (event) => {
+                						if (event.pointerType) {
+                							event.currentTarget.blur();
+                						}
+                					});
+                				}
+                				clickEventListenerAdded = true;
+                			});
+                		});
             </script>
             <div class="govuk-width-container">
                 <div class="govuk-grid-row govuk-!-margin-top-0">
@@ -3276,18 +3304,25 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
             <script nonce="EdcOUaJ8lczj9tIPO0lPow==">
                 let clickEventListenerAdded = false
                 		window.addEventListener("load", () => {
-                			document.querySelector("#pins-subfolder-accordian .govuk-accordion__section-heading").addEventListener("mouseenter", (event) => {
+                			const sectionHeading = document.querySelector("#pins-subfolder-accordian .govuk-accordion__section-heading");
+                			if (!sectionHeading) {
+                				return;
+                			}
+                			sectionHeading.addEventListener("mouseenter", (event) => {
                 				if (clickEventListenerAdded) {
-                					return
+                					return;
                 				}
-                				event.target.getElementsByClassName("govuk-accordion__section-button")[0].addEventListener("click", (event) => {
-                					if (event.pointerType) {
-                						event.currentTarget.blur()
-                					}
-                				})
-                				clickEventListenerAdded = true
-                			})
-                		})
+                				const sectionButton = event.target.getElementsByClassName("govuk-accordion__section-button")[0];
+                				if (sectionButton) {
+                					sectionButton.addEventListener("click", (event) => {
+                						if (event.pointerType) {
+                							event.currentTarget.blur();
+                						}
+                					});
+                				}
+                				clickEventListenerAdded = true;
+                			});
+                		});
             </script>
             <div class="govuk-width-container">
                 <div class="govuk-grid-row govuk-!-margin-top-0">
@@ -4573,18 +4608,25 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
             <script nonce="EdcOUaJ8lczj9tIPO0lPow==">
                 let clickEventListenerAdded = false
                 		window.addEventListener("load", () => {
-                			document.querySelector("#pins-subfolder-accordian .govuk-accordion__section-heading").addEventListener("mouseenter", (event) => {
+                			const sectionHeading = document.querySelector("#pins-subfolder-accordian .govuk-accordion__section-heading");
+                			if (!sectionHeading) {
+                				return;
+                			}
+                			sectionHeading.addEventListener("mouseenter", (event) => {
                 				if (clickEventListenerAdded) {
-                					return
+                					return;
                 				}
-                				event.target.getElementsByClassName("govuk-accordion__section-button")[0].addEventListener("click", (event) => {
-                					if (event.pointerType) {
-                						event.currentTarget.blur()
-                					}
-                				})
-                				clickEventListenerAdded = true
-                			})
-                		})
+                				const sectionButton = event.target.getElementsByClassName("govuk-accordion__section-button")[0];
+                				if (sectionButton) {
+                					sectionButton.addEventListener("click", (event) => {
+                						if (event.pointerType) {
+                							event.currentTarget.blur();
+                						}
+                					});
+                				}
+                				clickEventListenerAdded = true;
+                			});
+                		});
             </script>
             <div class="govuk-width-container">
                 <div class="govuk-grid-row govuk-!-margin-top-0">
@@ -5894,18 +5936,25 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
             <script nonce="EdcOUaJ8lczj9tIPO0lPow==">
                 let clickEventListenerAdded = false
                 		window.addEventListener("load", () => {
-                			document.querySelector("#pins-subfolder-accordian .govuk-accordion__section-heading").addEventListener("mouseenter", (event) => {
+                			const sectionHeading = document.querySelector("#pins-subfolder-accordian .govuk-accordion__section-heading");
+                			if (!sectionHeading) {
+                				return;
+                			}
+                			sectionHeading.addEventListener("mouseenter", (event) => {
                 				if (clickEventListenerAdded) {
-                					return
+                					return;
                 				}
-                				event.target.getElementsByClassName("govuk-accordion__section-button")[0].addEventListener("click", (event) => {
-                					if (event.pointerType) {
-                						event.currentTarget.blur()
-                					}
-                				})
-                				clickEventListenerAdded = true
-                			})
-                		})
+                				const sectionButton = event.target.getElementsByClassName("govuk-accordion__section-button")[0];
+                				if (sectionButton) {
+                					sectionButton.addEventListener("click", (event) => {
+                						if (event.pointerType) {
+                							event.currentTarget.blur();
+                						}
+                					});
+                				}
+                				clickEventListenerAdded = true;
+                			});
+                		});
             </script>
             <div class="govuk-width-container">
                 <div class="govuk-grid-row govuk-!-margin-top-0">
@@ -23629,18 +23678,25 @@ exports[`applications documentation Move documents file list page POST /case/123
             <script nonce="EdcOUaJ8lczj9tIPO0lPow==">
                 let clickEventListenerAdded = false
                 		window.addEventListener("load", () => {
-                			document.querySelector("#pins-subfolder-accordian .govuk-accordion__section-heading").addEventListener("mouseenter", (event) => {
+                			const sectionHeading = document.querySelector("#pins-subfolder-accordian .govuk-accordion__section-heading");
+                			if (!sectionHeading) {
+                				return;
+                			}
+                			sectionHeading.addEventListener("mouseenter", (event) => {
                 				if (clickEventListenerAdded) {
-                					return
+                					return;
                 				}
-                				event.target.getElementsByClassName("govuk-accordion__section-button")[0].addEventListener("click", (event) => {
-                					if (event.pointerType) {
-                						event.currentTarget.blur()
-                					}
-                				})
-                				clickEventListenerAdded = true
-                			})
-                		})
+                				const sectionButton = event.target.getElementsByClassName("govuk-accordion__section-button")[0];
+                				if (sectionButton) {
+                					sectionButton.addEventListener("click", (event) => {
+                						if (event.pointerType) {
+                							event.currentTarget.blur();
+                						}
+                					});
+                				}
+                				clickEventListenerAdded = true;
+                			});
+                		});
             </script>
             <div class="govuk-width-container">
                 <div class="govuk-grid-row govuk-!-margin-top-0">
