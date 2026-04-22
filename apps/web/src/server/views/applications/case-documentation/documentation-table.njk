@@ -65,7 +65,8 @@
 			</tr>
 			{% for item in items.items %}
 				{# Files in a disabled status can be edited but not published #}
-				{% set isNotDisabled = (item.publishedStatus !== 'awaiting_upload') and (item.publishedStatus !== 'awaiting_virus_check') and (item.publishedStatus !== 'failed_virus_check') %}
+				{% set isNotDisabled = not item.publishedStatus in ['awaiting_upload', 'awaiting_virus_check', 'failed_virus_check', 'invalid'] %}
+				{% set downloadNotDisabled = not item.publishedStatus in ['awaiting_upload', 'awaiting_virus_check', 'failed_virus_check'] %}
 
 				<tr class="govuk-table__row {{ "" if isNotDisabled else "govuk-table__row--disabled" }} {{ "govuk-table__row--failed" if item.error else "" }}">
 					<td class="govuk-table__cell">
@@ -86,7 +87,7 @@
 					<td class="govuk-table__cell">
 						{% if item.error %}
 							<span class='govuk-body-s govuk-!-font-weight-bold colour--red'>{{item.error}}</span>{% endif %}
-						{% set isPreviewActive = isNotDisabled and(item.mime === 'application/pdf' or item.mime === 'image/jpeg' or item.mime === 'image/png') %}
+						{% set isPreviewActive = downloadNotDisabled and(item.mime === 'application/pdf' or item.mime === 'image/jpeg' or item.mime === 'image/png') %}
 						{{ createOptionalLink(
 												{
 													classes: 'govuk-body-s govuk-!-font-weight-bold',
@@ -109,12 +110,13 @@
 					<td class="govuk-table__cell">
 						{% set avWaiting = item.publishedStatus === 'awaiting_virus_check' or item.publishedStatus === 'awaiting_upload'%}
 						{% set avFailed = item.publishedStatus === 'failed_virus_check' %}
+						{% set invalidShapefile = item.publishedStatus === 'invalid' %}
 						{% if isNotDisabled %}
 							{{ item.publishedStatus|statusName }}
 						{% else %}
 							{% if avWaiting %}
 								<strong class="govuk-tag govuk-tag--yellow">
-								{% elif avFailed %}
+								{% elif avFailed or invalidShapefile %}
 									<strong class="govuk-tag govuk-tag--red">
 									{% else %}
 										<strong class="govuk-tag">
@@ -133,7 +135,7 @@
 												},
 												true
 											) }}
-								{% if isNotDisabled %}
+								{% if downloadNotDisabled %}
 									{{ createOptionalLink(
 												{
 													classes: 'govuk-body-s',
@@ -142,7 +144,7 @@
 													text:'Download',
 													visuallyHiddenText: item.fileName
 												},
-												isNotDisabled
+												downloadNotDisabled
 											) }}
 								{% endif %}
 							</td>

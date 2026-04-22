@@ -6,6 +6,7 @@ import {
 } from '../../common/validators/dates.validators.js';
 import { getSectionData } from './applications-fees-forecasting.utils.js';
 import { sectionData, urlSectionNames } from './fees-forecasting.config.js';
+import { getMeetings } from './applications-fees-forecasting.service.js';
 
 /**
  * @typedef {import('express').RequestHandler} RequestHandler
@@ -35,6 +36,7 @@ export const feesForecastingValidator = (request, response, next) => {
 	const validators = {
 		'project-maturity': validateFeesForecastingRadioInput,
 		'maturity-evaluation-matrix': validateFeesForecastingDateInput,
+		'project-tier': validateFeesForecastingRadioInput,
 		'scoping-submission': validateFeesForecastingDateInput,
 		'consultation-milestone': validateFeesForecastingDateInput,
 		'programme-document-received': validateFeesForecastingDateInput,
@@ -57,7 +59,9 @@ export const feesForecastingValidator = (request, response, next) => {
 		's61-summary-link': validateFeesForecastingHyperlink,
 		'programme-document-link': validateFeesForecastingHyperlink,
 		'issues-tracker-link': validateFeesForecastingHyperlink,
-		'examining-inspectors': validateFeesForecastingInspectorNumbers
+		'examining-inspectors': validateFeesForecastingInspectorNumbers,
+		'fast-track': validateFeesForecastingRadioInput,
+		'evidence-plan': validateFeesForecastingEvidencePlanProcess
 	};
 
 	if (Object.keys(validators).includes(sectionName)) {
@@ -295,4 +299,45 @@ export const validateFeesForecastingInspectorNumbers = (request, response, next)
 	];
 
 	return createValidator(validator)(request, response, next);
+};
+
+/**
+ * Checks evidence plan process radio input.
+ * If evidence plan meetings already exist for the case,
+ * "Not required" (value 0) is not allowed.
+ *
+ * @type {RequestHandler}
+ */
+export const validateFeesForecastingEvidencePlanProcess = (request, response, next) => {
+	const { sectionName } = request.params;
+	const section = getSectionData(sectionName, urlSectionNames, sectionData);
+	const fieldName = section?.fieldName || '';
+	const extendedFieldName = section?.sectionTitle || '';
+	const { caseId } = response.locals;
+
+	const validators = [
+		body(fieldName)
+			.trim()
+			.notEmpty()
+			.withMessage(`You must select an option for ${extendedFieldName}`)
+			.bail()
+			.custom(async (value) => {
+				if (String(value) !== '0') return true;
+
+				const meetings = (await getMeetings(caseId)) || [];
+				const hasEvidencePlanMeetings = meetings.some(
+					(/** @type {{ meetingType?: string }} */ m) => m.meetingType === 'evidence_plan'
+				);
+
+				if (hasEvidencePlanMeetings) {
+					throw new Error(
+						'Cancel all scheduled evidence plan meetings to remove the evidence plan process'
+					);
+				}
+
+				return true;
+			})
+	];
+
+	return createValidator(validators)(request, response, next);
 };

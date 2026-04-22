@@ -238,7 +238,13 @@ describe('applications fees forecasting index view-model', () => {
 								key: { text: 'Tier' },
 								value: { text: 'Basic' },
 								actions: {
-									items: [{ href: '#', text: 'Change', visuallyHiddenText: 'tier' }]
+									items: [
+										{
+											href: '/applications-service/case/4/fees-forecasting/section/project-tier',
+											text: 'Change',
+											visuallyHiddenText: 'tier'
+										}
+									]
 								}
 							},
 							{
@@ -288,7 +294,7 @@ describe('applications fees forecasting index view-model', () => {
 								actions: {
 									items: [
 										{
-											href: '#',
+											href: '/applications-service/case/4/fees-forecasting/section/evidence-plan',
 											text: 'Change',
 											visuallyHiddenText: 'evidence plan process'
 										}
