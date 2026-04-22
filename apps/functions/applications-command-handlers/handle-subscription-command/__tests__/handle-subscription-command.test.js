@@ -18,7 +18,7 @@ describe('handle-subscription-command', () => {
 				context: {},
 				msg: {},
 				log: {
-					warn: 'Ingoring invalid message, no type'
+					warn: 'Ignoring invalid message, no type'
 				}
 			},
 			{
@@ -32,7 +32,7 @@ describe('handle-subscription-command', () => {
 				},
 				msg: {},
 				log: {
-					warn: `Ingoring invalid message, unsupported type 'random-str'`
+					warn: `Ignoring invalid message, unsupported type 'random-str'`
 				}
 			},
 			{
@@ -52,7 +52,7 @@ describe('handle-subscription-command', () => {
 					subscriptionTypes: ['allUpdates']
 				},
 				log: {
-					info: `subscription created/updated: 1`
+					info: `subscription created/updated for caseReference abc: 1`
 				}
 			}
 		];
@@ -107,7 +107,7 @@ describe('handle-subscription-command', () => {
 					nsipSubscription: {}
 				},
 				log: {
-					warn: `Ingoring invalid message, invalid caseReference`
+					warn: `Ignoring invalid message, invalid caseReference`
 				}
 			},
 			{
@@ -125,7 +125,7 @@ describe('handle-subscription-command', () => {
 					}
 				},
 				log: {
-					warn: `Ingoring invalid message, invalid emailAddress`
+					warn: `Ignoring invalid message, invalid emailAddress`
 				}
 			},
 			{
@@ -145,7 +145,7 @@ describe('handle-subscription-command', () => {
 				},
 				existing: null,
 				log: {
-					warn: `Existing subscription not found`
+					warn: `Existing subscription not found for caseReference 13334`
 				}
 			},
 			{
@@ -165,7 +165,7 @@ describe('handle-subscription-command', () => {
 				},
 				existing: { id: 1 },
 				log: {
-					info: `subscription updated to end now: 1, ${mockDate.toISOString()}`
+					info: `subscription updated for caseReference 13334 to end now: 1, ${mockDate.toISOString()}`
 				}
 			}
 		];
