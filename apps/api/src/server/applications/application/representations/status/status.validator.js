@@ -3,7 +3,14 @@ import { body } from 'express-validator';
 import { validationErrorHandler } from '../../../../middleware/error-handler.js';
 import { representationsStatusesList } from '../representation.validators.js';
 
-const invalidReasons = ['Duplicate', 'Merged', 'Not relevant', 'Resubmitted', 'Test'];
+const invalidReasons = [
+	'Duplicate',
+	'Merged',
+	'Missing information',
+	'Not relevant',
+	'Resubmitted',
+	'Test submission'
+];
 const referredTo = ['Case Team', 'Inspector', 'Central Admin Team', 'Interested Party'];
 export const representationPatchStatusValidator = composeMiddleware(
 	body('status')
