@@ -83,15 +83,18 @@ export const getCaseDocumentationFilesInFolder = async (
  * Update the status and the redaction of one or many documents
  *
  * @param {number} caseId
- * @param {{status: string, redacted?: boolean, documents: Array<{guid: string}>}} payload
+ * @param {{status: string, redactedStatus?: string, documents: Array<{guid: string}>}} payload
  * @returns {Promise<{documents?: Array<{guid: string}>, errors?: {guid: string, msg: string}[]}>}
  */
-export const updateCaseDocumentationFiles = async (caseId, { status, redacted, documents }) => {
+export const updateCaseDocumentationFiles = async (
+	caseId,
+	{ status, redactedStatus, documents }
+) => {
 	try {
 		return await patch(`applications/${caseId}/documents`, {
 			json: {
 				status,
-				redacted,
+				redactedStatus,
 				documents
 			}
 		});
@@ -371,15 +374,51 @@ export const deleteFolder = async (caseId, folderId) => {
 };
 
 /**
+ * Send document to AI redaction tool for final redaction
+ * @param {object} payload
+ * @returns {Promise<{ body?: AiRedactionResponse, errors?: { msg: string } }>}
+ */
+export const postDocumentForAiRedactionApply = async (payload) => {
+	const applyEndpoint = `${config.azureAiDocRedactionBaseUrl}/api/apply?code=${config.azureAiDocRedactionApplyKey}`;
+	try {
+		const body = await aiRedactionClientPost(applyEndpoint, {
+			json: payload
+		});
+
+		logger.info({ body }, '[AI redaction apply] response received');
+
+		return { body };
+	} catch (/** @type {*} */ error) {
+		logger.error(
+			{
+				statusCode: error?.response?.statusCode,
+				statusMessage: error?.response?.statusMessage,
+				headers: error?.response?.headers,
+				body:
+					typeof error?.response?.body === 'string'
+						? error.response.body.slice(0, 500)
+						: error?.response?.body
+			},
+			'[AI redaction apply] request failed'
+		);
+
+		return { errors: { msg: 'AI redaction apply failed - try again' } };
+	}
+};
+
+/**
  * Send document to AI redaction tool
  * @param {object} payload
  * @returns {Promise<{ body?: AiRedactionResponse, errors?: { msg: string } }>}
  */
 export const postDocumentForAiRedaction = async (payload) => {
+	const redactionSuggestionsEndpoint = `${config.azureAiDocRedactionBaseUrl}/api/redact?code=${config.azureAiDocRedactionRedactKey}`;
 	try {
-		const body = await aiRedactionClientPost(config.azureAiDocRedactionEndpoint, {
+		const body = await aiRedactionClientPost(redactionSuggestionsEndpoint, {
 			json: payload
 		});
+
+		logger.info({ body }, '[AI redaction] response received');
 
 		return { body };
 	} catch (/** @type {*} */ error) {

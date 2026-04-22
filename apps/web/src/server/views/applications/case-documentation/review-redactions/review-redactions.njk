@@ -1,0 +1,86 @@
+{% extends "../../layouts/applications.layout.njk" %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/table/macro.njk" import govukTable %}
+
+{% set serviceName = case.title %}
+{% set pageTitle = "Review the document's redaction suggestions" %}
+
+{% block beforeContent %}
+<aside>
+	{{ govukBackLink({
+		text: "Back",
+		href: 'document'|url({caseId: caseId, folderId: folderId, documentGuid: documentationFile.documentGuid, step: 'properties'})
+	}) }}
+</aside>
+{% endblock %}
+
+{% block pageHeading %}{% endblock %}
+
+{% block pageContent %}
+	<div class="govuk-grid-row">
+		<div class="govuk-grid-column-full">
+			<h1 class="govuk-heading-xl">{{ pageTitle }}</h1>
+
+			{% set fileNameHtml %}
+				<a class="govuk-link" href="{{ 'document-download'|url({caseId: caseId, documentGuid: documentationFile.documentGuid, version: documentationFile.version, isPreviewActive: true}) }}" target="_blank">
+					{{ documentationFile.fileName }}
+				</a>
+			{% endset %}
+
+			{% set downloadHtml %}
+				<a class="govuk-link" href="{{ 'document-download'|url({caseId: caseId, documentGuid: documentationFile.documentGuid, version: documentationFile.version}) }}">
+					Download
+					<span class="govuk-visually-hidden">{{ documentationFile.fileName }}</span>
+				</a>
+			{% endset %}
+
+			{{ govukTable({
+				head: [
+					{ text: "File name" },
+					{ text: "Activity" },
+					{ text: "Download" }
+				],
+				rows: [
+					[
+						{ html: fileNameHtml },
+						{ text: documentationFile.dateCreated|datestamp({format: 'HH:mm, dd MMM yyyy'}) + ", Redaction tool" },
+						{ html: downloadHtml }
+					]
+				]
+			}) }}
+
+			<p class="govuk-body">You can accept the suggested redactions or make further changes if there are any unnecessary or missing redactions.</p>
+
+			<form method="post">
+				{% include 'app/includes/csrf.njk' %}
+
+				{{ govukRadios({
+					name: "reviewDecision",
+					fieldset: {
+						legend: {
+							text: "Are the suggested redactions correct?",
+							isPageHeading: false,
+							classes: "govuk-fieldset__legend--m"
+						}
+					},
+					items: [
+						{
+							value: "ready",
+							text: "Yes, the document is correctly redacted and ready for finalising"
+						},
+						{
+							value: "upload-new",
+							text: "No, I've edited the redactions and need to upload a new version"
+						}
+					]
+				}) }}
+
+				{{ govukButton({
+					text: "Continue"
+				}) }}
+			</form>
+		</div>
+	</div>
+{% endblock %}

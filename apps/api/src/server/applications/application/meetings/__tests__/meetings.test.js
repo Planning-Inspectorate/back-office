@@ -1,5 +1,14 @@
-const { databaseConnector } = await import('#utils/database-connector.js');
 import { request } from '#app-test';
+const { databaseConnector } = await import('#utils/database-connector.js');
+const { eventClient } = await import('../../../../infrastructure/event-client.js');
+import { NSIP_PROJECT } from '#infrastructure/topics.js';
+import { buildPayloadEventsForSchema } from '#utils/schema-test-utils.js';
+import { mockApplicationGet } from '#utils/application-factory-for-tests.js';
+import {
+	mockProjectFactoryOptions,
+	mockProjectOtherOptions,
+	mockProjectPayloadData
+} from '../../../fees-forecasting/__fixtures__/fees-forecasting-project.js';
 
 const allMeetings = [
 	{
@@ -8,7 +17,7 @@ const allMeetings = [
 		agenda: 'This is a test agenda',
 		meetingDate: '2024-01-15T10:00:00Z',
 		meetingType: 'evidence_plan',
-		pinsRole: 'Observer',
+		pinsRole: 'observer',
 		createdAt: '2024-01-01T09:00:00Z'
 	},
 	{
@@ -25,7 +34,7 @@ const evidencePlanMeetingPayload = {
 	agenda: 'This is a payload agenda',
 	meetingDate: '2024-03-10T09:30:00Z',
 	meetingType: 'evidence_plan',
-	pinsRole: 'Observer'
+	pinsRole: 'observer'
 };
 
 const projectMeetingPayload = {
@@ -46,6 +55,7 @@ describe('Test Meetings API Endpoints', () => {
 		databaseConnector.meeting.create?.mockReset?.();
 		databaseConnector.meeting.upsert?.mockReset?.();
 		databaseConnector.meeting.delete.mockReset?.();
+		eventClient.sendEvents?.mockClear?.();
 	});
 
 	describe('GET /applications/:id/meetings', () => {
@@ -82,6 +92,10 @@ describe('Test Meetings API Endpoints', () => {
 			};
 			databaseConnector.meeting.create.mockResolvedValueOnce(createdEvidencePlanMeeting);
 
+			databaseConnector.case.findUnique.mockImplementation(
+				mockApplicationGet(mockProjectFactoryOptions, mockProjectOtherOptions)
+			);
+
 			const res = await request
 				.post(`/applications/100000000/meetings`)
 				.send(evidencePlanMeetingPayload);
@@ -91,6 +105,13 @@ describe('Test Meetings API Endpoints', () => {
 				data: { caseId: 100000000, ...evidencePlanMeetingPayload }
 			});
 			expect(res.body).toEqual(createdEvidencePlanMeeting);
+
+			expect(eventClient.sendEvents).toHaveBeenNthCalledWith(
+				1,
+				NSIP_PROJECT,
+				buildPayloadEventsForSchema(NSIP_PROJECT, mockProjectPayloadData),
+				'Create'
+			);
 		});
 
 		it('should create a new project meeting for an application', async () => {
@@ -102,6 +123,10 @@ describe('Test Meetings API Endpoints', () => {
 			};
 			databaseConnector.meeting.create.mockResolvedValueOnce(createdProjectMeeting);
 
+			databaseConnector.case.findUnique.mockImplementation(
+				mockApplicationGet(mockProjectFactoryOptions, mockProjectOtherOptions)
+			);
+
 			const res = await request
 				.post(`/applications/100000000/meetings`)
 				.send(projectMeetingPayload);
@@ -111,6 +136,13 @@ describe('Test Meetings API Endpoints', () => {
 				data: { caseId: 100000000, ...projectMeetingPayload }
 			});
 			expect(res.body).toEqual(createdProjectMeeting);
+
+			expect(eventClient.sendEvents).toHaveBeenNthCalledWith(
+				1,
+				NSIP_PROJECT,
+				buildPayloadEventsForSchema(NSIP_PROJECT, mockProjectPayloadData),
+				'Create'
+			);
 		});
 
 		it('should return 400 for malformed meeting payload', async () => {
@@ -165,6 +197,10 @@ describe('Test Meetings API Endpoints', () => {
 				agenda: updatePayload.agenda
 			});
 
+			databaseConnector.case.findUnique.mockImplementation(
+				mockApplicationGet(mockProjectFactoryOptions, mockProjectOtherOptions)
+			);
+
 			const res = await request.patch(`/applications/100000000/meetings/1`).send(updatePayload);
 
 			expect(res.status).toBe(200);
@@ -173,6 +209,13 @@ describe('Test Meetings API Endpoints', () => {
 				data: { agenda: updatePayload.agenda }
 			});
 			expect(res.body).toEqual({ ...allMeetings[0], agenda: updatePayload.agenda });
+
+			expect(eventClient.sendEvents).toHaveBeenNthCalledWith(
+				1,
+				NSIP_PROJECT,
+				buildPayloadEventsForSchema(NSIP_PROJECT, mockProjectPayloadData),
+				'Update'
+			);
 		});
 
 		it('should return 400 if the meeting could not be updated', async () => {
@@ -192,12 +235,23 @@ describe('Test Meetings API Endpoints', () => {
 			databaseConnector.meeting.findFirst.mockResolvedValueOnce(allMeetings[0]);
 			databaseConnector.meeting.delete.mockResolvedValueOnce(allMeetings[0]);
 
+			databaseConnector.case.findUnique.mockImplementation(
+				mockApplicationGet(mockProjectFactoryOptions, mockProjectOtherOptions)
+			);
+
 			const res = await request.delete(`/applications/100000000/meetings/1`);
 
 			expect(res.status).toBe(204);
 			expect(databaseConnector.meeting.delete).toHaveBeenCalledWith({
 				where: { id: 1 }
 			});
+
+			expect(eventClient.sendEvents).toHaveBeenNthCalledWith(
+				1,
+				NSIP_PROJECT,
+				buildPayloadEventsForSchema(NSIP_PROJECT, mockProjectPayloadData),
+				'Update'
+			);
 		});
 
 		it('should return 404 if the meeting to delete is not found', async () => {

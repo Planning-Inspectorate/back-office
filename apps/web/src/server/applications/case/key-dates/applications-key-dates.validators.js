@@ -1,18 +1,41 @@
+/**
+ * @file applications-key-dates.validators.js
+ * @description Validation middleware for the key dates form submission.
+ *
+ * Used by the POST handler in the key dates router to validate user input
+ * before the controller attempts to save data to the API.
+ *
+ * Validation rules:
+ *   - All date fields (identified by a `.year` component in the field name) are
+ *     validated for correct format using `validationDateValid`.
+ *   - If `courtDecisionOutcome` is set to "Other", the `courtDecisionOutcomeText`
+ *     field is required and must not be empty.
+ *
+ * Errors are collected and attached to `request.errors` by `createValidator`,
+ * which the controller then uses to re-render the form with inline error messages.
+ */
+
+import { body } from 'express-validator';
 import { createValidator } from '@pins/express';
 import { validationDateValid } from '../../common/validators/dates.validators.js';
 import { keyDatesProperty } from '../../../lib/nunjucks-filters/key-dates-property.js';
 
-/** @typedef {import('express').RequestHandler} RequestHandler */
+/** @typedef {import('@pins/express/types/express.d.ts').AsyncRequestHandler} AsyncRequestHandler */
 
 /**
- * Validate key dates are in the MM/DD/YYYY format
+ * Validate key dates form submission.
  *
- * @type {RequestHandler}
+ * Validates:
+ * 1. All date fields are in valid dd/mm/yyyy format
+ * 2. Court decision outcome radio button (if provided) is one of 4 valid options
+ * 3. If "Other" outcome selected, the custom text field is not empty
+ *
+ * @type {AsyncRequestHandler}
  */
 export const validateKeyDates = async (request, response, next) => {
-	const { body } = request;
+	const { body: requestBody } = request;
 
-	const allValidations = Object.keys(body)
+	const allValidations = Object.keys(requestBody)
 		// exclude all the not-date fields
 		.filter((key) => key.indexOf('year') > 1)
 		.map((key) => {
@@ -22,8 +45,17 @@ export const validateKeyDates = async (request, response, next) => {
 
 			// only check date validity (MM/DD/YYYY)
 			// exclude other checks such as future/past dates
-			return validationDateValid({ fieldName, extendedFieldName }, request.body);
+			return validationDateValid({ fieldName, extendedFieldName }, requestBody);
 		});
+
+	if (requestBody.courtDecisionOutcome === 'Other') {
+		allValidations.push(
+			body('courtDecisionOutcomeText')
+				.trim()
+				.notEmpty()
+				.withMessage('Enter the court decision outcome')
+		);
+	}
 
 	return createValidator(allValidations)(request, response, next);
 };

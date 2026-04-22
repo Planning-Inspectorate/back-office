@@ -47,12 +47,12 @@ jobs:
             - checkout: self
             - template: steps/node_script.yml@templates
               parameters:
-                nodeVersion: 20
+                nodeVersion: 22
                 script: npm ci --workspaces=@pins/packages.scripts
             - template: steps/node_script.yml@templates
               parameters:
                 condition: or(eq('${{ parameters.environment }}', '*'), eq('${{ parameters.environment }}', 'Dev'))
-                nodeVersion: 20
+                nodeVersion: 22
                 environmentVariables:
                   AZURE_CLIENT_ID: $(AZURE_CLIENT_ID)
                   AZURE_CLIENT_SECRET: $(AZURE_CLIENT_SECRET)
@@ -63,7 +63,7 @@ jobs:
             - template: steps/node_script.yml@templates
               parameters:
                 condition: or(eq('${{ parameters.environment }}', '*'), eq('${{ parameters.environment }}', 'Test'))
-                nodeVersion: 20
+                nodeVersion: 22
                 environmentVariables:
                   AZURE_CLIENT_ID: $(AZURE_CLIENT_ID)
                   AZURE_CLIENT_SECRET: $(AZURE_CLIENT_SECRET)
@@ -85,7 +85,7 @@ jobs:
             - template: steps/node_script.yml@templates
               parameters:
                 condition: or(eq('${{ parameters.environment }}', '*'), eq('${{ parameters.environment }}', 'Prod'))
-                nodeVersion: 20
+                nodeVersion: 22
                 environmentVariables:
                   AZURE_CLIENT_ID: $(AZURE_CLIENT_ID)
                   AZURE_CLIENT_SECRET: $(AZURE_CLIENT_SECRET)

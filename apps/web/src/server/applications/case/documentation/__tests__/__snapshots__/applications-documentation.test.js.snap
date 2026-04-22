@@ -110,14 +110,19 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                                             <legend class="govuk-fieldset__legend">Redaction</legend>
                                             <div class="govuk-radios" data-module="govuk-radios">
                                                 <div class="govuk-radios__item">
-                                                    <input class="govuk-radios__input" id="isRedacted" name="isRedacted" type="radio"
-                                                    value="0">
-                                                    <label class="govuk-label govuk-radios__label" for="isRedacted">Unredacted</label>
+                                                    <input class="govuk-radios__input" id="redactedStatus" name="redactedStatus"
+                                                    type="radio" value="not_redacted">
+                                                    <label class="govuk-label govuk-radios__label" for="redactedStatus">Unredacted</label>
                                                 </div>
                                                 <div class="govuk-radios__item">
-                                                    <input class="govuk-radios__input" id="isRedacted-2" name="isRedacted"
-                                                    type="radio" value="1">
-                                                    <label class="govuk-label govuk-radios__label" for="isRedacted-2">Redacted</label>
+                                                    <input class="govuk-radios__input" id="redactedStatus-2" name="redactedStatus"
+                                                    type="radio" value="redacted">
+                                                    <label class="govuk-label govuk-radios__label" for="redactedStatus-2">Redacted</label>
+                                                </div>
+                                                <div class="govuk-radios__item">
+                                                    <input class="govuk-radios__input" id="redactedStatus-3" name="redactedStatus"
+                                                    type="radio" value="no_redaction_required">
+                                                    <label class="govuk-label govuk-radios__label" for="redactedStatus-3">Redaction not needed</label>
                                                 </div>
                                             </div>
                                         </fieldset>
@@ -993,14 +998,19 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                                             <legend class="govuk-fieldset__legend">Redaction</legend>
                                             <div class="govuk-radios" data-module="govuk-radios">
                                                 <div class="govuk-radios__item">
-                                                    <input class="govuk-radios__input" id="isRedacted" name="isRedacted" type="radio"
-                                                    value="0">
-                                                    <label class="govuk-label govuk-radios__label" for="isRedacted">Unredacted</label>
+                                                    <input class="govuk-radios__input" id="redactedStatus" name="redactedStatus"
+                                                    type="radio" value="not_redacted">
+                                                    <label class="govuk-label govuk-radios__label" for="redactedStatus">Unredacted</label>
                                                 </div>
                                                 <div class="govuk-radios__item">
-                                                    <input class="govuk-radios__input" id="isRedacted-2" name="isRedacted"
-                                                    type="radio" value="1">
-                                                    <label class="govuk-label govuk-radios__label" for="isRedacted-2">Redacted</label>
+                                                    <input class="govuk-radios__input" id="redactedStatus-2" name="redactedStatus"
+                                                    type="radio" value="redacted">
+                                                    <label class="govuk-label govuk-radios__label" for="redactedStatus-2">Redacted</label>
+                                                </div>
+                                                <div class="govuk-radios__item">
+                                                    <input class="govuk-radios__input" id="redactedStatus-3" name="redactedStatus"
+                                                    type="radio" value="no_redaction_required">
+                                                    <label class="govuk-label govuk-radios__label" for="redactedStatus-3">Redaction not needed</label>
                                                 </div>
                                             </div>
                                         </fieldset>
@@ -2394,14 +2404,19 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                                             <legend class="govuk-fieldset__legend">Redaction</legend>
                                             <div class="govuk-radios" data-module="govuk-radios">
                                                 <div class="govuk-radios__item">
-                                                    <input class="govuk-radios__input" id="isRedacted" name="isRedacted" type="radio"
-                                                    value="0">
-                                                    <label class="govuk-label govuk-radios__label" for="isRedacted">Unredacted</label>
+                                                    <input class="govuk-radios__input" id="redactedStatus" name="redactedStatus"
+                                                    type="radio" value="not_redacted">
+                                                    <label class="govuk-label govuk-radios__label" for="redactedStatus">Unredacted</label>
                                                 </div>
                                                 <div class="govuk-radios__item">
-                                                    <input class="govuk-radios__input" id="isRedacted-2" name="isRedacted"
-                                                    type="radio" value="1">
-                                                    <label class="govuk-label govuk-radios__label" for="isRedacted-2">Redacted</label>
+                                                    <input class="govuk-radios__input" id="redactedStatus-2" name="redactedStatus"
+                                                    type="radio" value="redacted">
+                                                    <label class="govuk-label govuk-radios__label" for="redactedStatus-2">Redacted</label>
+                                                </div>
+                                                <div class="govuk-radios__item">
+                                                    <input class="govuk-radios__input" id="redactedStatus-3" name="redactedStatus"
+                                                    type="radio" value="no_redaction_required">
+                                                    <label class="govuk-label govuk-radios__label" for="redactedStatus-3">Redaction not needed</label>
                                                 </div>
                                             </div>
                                         </fieldset>
@@ -3187,7 +3202,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                     <h2 class="govuk-error-summary__title"> There is a problem</h2>
                     <div class="govuk-error-summary__body">
                         <ul class="govuk-list govuk-error-summary__list">
-                            <li><a href="#isRedacted">Select a status to apply a change</a>
+                            <li><a href="#redactedStatus">Select a status to apply a change</a>
                             </li>
                         </ul>
                     </div>
@@ -3303,14 +3318,19 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                                             <legend class="govuk-fieldset__legend">Redaction</legend>
                                             <div class="govuk-radios" data-module="govuk-radios">
                                                 <div class="govuk-radios__item">
-                                                    <input class="govuk-radios__input" id="isRedacted" name="isRedacted" type="radio"
-                                                    value="0">
-                                                    <label class="govuk-label govuk-radios__label" for="isRedacted">Unredacted</label>
+                                                    <input class="govuk-radios__input" id="redactedStatus" name="redactedStatus"
+                                                    type="radio" value="not_redacted">
+                                                    <label class="govuk-label govuk-radios__label" for="redactedStatus">Unredacted</label>
                                                 </div>
                                                 <div class="govuk-radios__item">
-                                                    <input class="govuk-radios__input" id="isRedacted-2" name="isRedacted"
-                                                    type="radio" value="1">
-                                                    <label class="govuk-label govuk-radios__label" for="isRedacted-2">Redacted</label>
+                                                    <input class="govuk-radios__input" id="redactedStatus-2" name="redactedStatus"
+                                                    type="radio" value="redacted">
+                                                    <label class="govuk-label govuk-radios__label" for="redactedStatus-2">Redacted</label>
+                                                </div>
+                                                <div class="govuk-radios__item">
+                                                    <input class="govuk-radios__input" id="redactedStatus-3" name="redactedStatus"
+                                                    type="radio" value="no_redaction_required">
+                                                    <label class="govuk-label govuk-radios__label" for="redactedStatus-3">Redaction not needed</label>
                                                 </div>
                                             </div>
                                         </fieldset>
@@ -4595,14 +4615,19 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                                             <legend class="govuk-fieldset__legend">Redaction</legend>
                                             <div class="govuk-radios" data-module="govuk-radios">
                                                 <div class="govuk-radios__item">
-                                                    <input class="govuk-radios__input" id="isRedacted" name="isRedacted" type="radio"
-                                                    value="0">
-                                                    <label class="govuk-label govuk-radios__label" for="isRedacted">Unredacted</label>
+                                                    <input class="govuk-radios__input" id="redactedStatus" name="redactedStatus"
+                                                    type="radio" value="not_redacted">
+                                                    <label class="govuk-label govuk-radios__label" for="redactedStatus">Unredacted</label>
                                                 </div>
                                                 <div class="govuk-radios__item">
-                                                    <input class="govuk-radios__input" id="isRedacted-2" name="isRedacted"
-                                                    type="radio" value="1">
-                                                    <label class="govuk-label govuk-radios__label" for="isRedacted-2">Redacted</label>
+                                                    <input class="govuk-radios__input" id="redactedStatus-2" name="redactedStatus"
+                                                    type="radio" value="redacted">
+                                                    <label class="govuk-label govuk-radios__label" for="redactedStatus-2">Redacted</label>
+                                                </div>
+                                                <div class="govuk-radios__item">
+                                                    <input class="govuk-radios__input" id="redactedStatus-3" name="redactedStatus"
+                                                    type="radio" value="no_redaction_required">
+                                                    <label class="govuk-label govuk-radios__label" for="redactedStatus-3">Redaction not needed</label>
                                                 </div>
                                             </div>
                                         </fieldset>
@@ -5795,7 +5820,7 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                     <h2 class="govuk-error-summary__title"> There is a problem</h2>
                     <div class="govuk-error-summary__body">
                         <ul class="govuk-list govuk-error-summary__list">
-                            <li><a href="#isRedacted">Select a status to apply a change</a>
+                            <li><a href="#redactedStatus">Select a status to apply a change</a>
                             </li>
                         </ul>
                     </div>
@@ -5911,14 +5936,19 @@ exports[`applications documentation /case/123/project-documentation/21/sub-folde
                                             <legend class="govuk-fieldset__legend">Redaction</legend>
                                             <div class="govuk-radios" data-module="govuk-radios">
                                                 <div class="govuk-radios__item">
-                                                    <input class="govuk-radios__input" id="isRedacted" name="isRedacted" type="radio"
-                                                    value="0">
-                                                    <label class="govuk-label govuk-radios__label" for="isRedacted">Unredacted</label>
+                                                    <input class="govuk-radios__input" id="redactedStatus" name="redactedStatus"
+                                                    type="radio" value="not_redacted">
+                                                    <label class="govuk-label govuk-radios__label" for="redactedStatus">Unredacted</label>
                                                 </div>
                                                 <div class="govuk-radios__item">
-                                                    <input class="govuk-radios__input" id="isRedacted-2" name="isRedacted"
-                                                    type="radio" value="1">
-                                                    <label class="govuk-label govuk-radios__label" for="isRedacted-2">Redacted</label>
+                                                    <input class="govuk-radios__input" id="redactedStatus-2" name="redactedStatus"
+                                                    type="radio" value="redacted">
+                                                    <label class="govuk-label govuk-radios__label" for="redactedStatus-2">Redacted</label>
+                                                </div>
+                                                <div class="govuk-radios__item">
+                                                    <input class="govuk-radios__input" id="redactedStatus-3" name="redactedStatus"
+                                                    type="radio" value="no_redaction_required">
+                                                    <label class="govuk-label govuk-radios__label" for="redactedStatus-3">Redaction not needed</label>
                                                 </div>
                                             </div>
                                         </fieldset>
@@ -7289,8 +7319,10 @@ exports[`applications documentation Document properties page page should render 
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href=""></a>
                             </dd>
                         </div>
-                        <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Redaction</dt>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Redaction</dt>
                             <dd class="govuk-summary-list__value">Redacted</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/redaction">Change<span class="govuk-visually-hidden"> Redaction</span></a>
+                            </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Status</dt>
                             <dd class="govuk-summary-list__value">Ready to publish</dd>
@@ -7455,10 +7487,8 @@ exports[`applications documentation Document properties page page should render 
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/11/edit/published-date">Change<span class="govuk-visually-hidden"> Published date</span></a>
                             </dd>
                         </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Redaction</dt>
+                        <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Redaction</dt>
                             <dd class="govuk-summary-list__value">Unredacted</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/11/edit/redaction">Change<span class="govuk-visually-hidden"> Redaction</span></a>
-                            </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Status</dt>
                             <dd class="govuk-summary-list__value">Published</dd>
@@ -7533,6 +7563,15 @@ exports[`applications documentation Document properties page should NOT show red
                     </li>
                 </ol>
             </nav>
+            <div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title"
+            data-module="govuk-notification-banner">
+                <div class="govuk-notification-banner__header">
+                    <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title"> Important</h2>
+                </div>
+                <div class="govuk-notification-banner__content">
+                    <h3 class="govuk-notification-banner__heading"> Finalising redactions, check back later.</h3>
+                </div>
+            </div>
             <h1 class="govuk-heading-xl govuk-!-margin-top-4"><span class="govuk-caption-xl">Document properties</span> 1 Ut enim ad</h1>
             <ul class="govuk-list">
                 <li class="govuk-!-margin-top-4"><strong>Description:</strong> Ut enim ad minim veniam quis nostrud exercitation
@@ -7849,6 +7888,15 @@ exports[`applications documentation Document properties page should NOT show red
                     </li>
                 </ol>
             </nav>
+            <div class="govuk-notification-banner govuk-notification-banner--success"
+            role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner">
+                <div class="govuk-notification-banner__header">
+                    <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title"> Success</h2>
+                </div>
+                <div class="govuk-notification-banner__content">
+                    <h3 class="govuk-notification-banner__heading"> Redaction suggestions created.<a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/151/review-redactions"> Review redactions</a>.</h3>
+                </div>
+            </div>
             <h1 class="govuk-heading-xl govuk-!-margin-top-4"><span class="govuk-caption-xl">Document properties</span> 1 Ut enim ad</h1>
             <ul class="govuk-list">
                 <li class="govuk-!-margin-top-4"><strong>Description:</strong> Ut enim ad minim veniam quis nostrud exercitation
@@ -8007,6 +8055,15 @@ exports[`applications documentation Document properties page should NOT show red
                     </li>
                 </ol>
             </nav>
+            <div class="govuk-notification-banner" role="region" aria-labelledby="govuk-notification-banner-title"
+            data-module="govuk-notification-banner">
+                <div class="govuk-notification-banner__header">
+                    <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title"> Important</h2>
+                </div>
+                <div class="govuk-notification-banner__content">
+                    <h3 class="govuk-notification-banner__heading"> Making redaction suggestions, check back later.</h3>
+                </div>
+            </div>
             <h1 class="govuk-heading-xl govuk-!-margin-top-4"><span class="govuk-caption-xl">Document properties</span> 1 Ut enim ad</h1>
             <ul class="govuk-list">
                 <li class="govuk-!-margin-top-4"><strong>Description:</strong> Ut enim ad minim veniam quis nostrud exercitation
@@ -8149,7 +8206,7 @@ exports[`applications documentation Document properties page should NOT show red
 </main>"
 `;
 
-exports[`applications documentation Document properties page should NOT show redaction status edit link if document is redacted 1`] = `
+exports[`applications documentation Document properties page should NOT show redaction status edit link if document is published 1`] = `
 "<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full govuk-!-margin-top-0">
@@ -8165,31 +8222,29 @@ exports[`applications documentation Document properties page should NOT show red
                     </li>
                 </ol>
             </nav>
-            <h1 class="govuk-heading-xl govuk-!-margin-top-4"><span class="govuk-caption-xl">Document properties</span> 4 Elit sed</h1>
+            <h1 class="govuk-heading-xl govuk-!-margin-top-4"><span class="govuk-caption-xl">Document properties</span> 12 Ullamco laboris nisi ut</h1>
             <ul class="govuk-list">
-                <li class="govuk-!-margin-top-4"><strong>Description:</strong> Elit sed do eiusmod tempor incididunt ut
-                    labore et dolore magna aliqua Ut enim ad</li>
+                <li class="govuk-!-margin-top-4"><strong>Description:</strong> Ullamco laboris nisi ut aliquip ex ea commodo
+                    consequat</li>
                 <li class="govuk-!-margin-top-4"><strong>Case reference:</strong> CASE/04</li>
                 <li class="govuk-!-margin-top-4"><strong>Document reference number:</strong>
                 </li>
-                <li class="govuk-!-margin-top-4"><strong>File type and size:</strong> PDF, 2.6 MB</li>
+                <li class="govuk-!-margin-top-4"><strong>File type and size:</strong> MP3, 9 MB</li>
                 <li class="govuk-!-margin-top-4"><strong>Version:</strong>
                 </li>
             </ul>
-            <div class="display--flex govuk-!-margin-top-7 govuk-!-margin-bottom-7"><a class="govuk-button govuk-!-margin-0" href="/applications-service/case/123/project-documentation/21/document/3/new-version"> Upload new version</a>
+            <div class="display--flex govuk-!-margin-top-7 govuk-!-margin-bottom-7"><a class="govuk-button govuk-!-margin-0" href="/applications-service/case/123/project-documentation/21/document/11/new-version"> Upload new version</a>
             </div>
             <nav class="pins-nav-button-group">
                 <h3 class="govuk-heading-m govuk-!-margin-bottom-4">Document actions</h3>
-                <form method="post" action="/applications-service/case/123/project-documentation/21/document/3/ai-redaction">
-                    <div class="govuk-button-group"><a href="/documents/123/download/3/version//preview" role="button" draggable="false"
-                        class="govuk-button govuk-button--secondary" data-module="govuk-button"> Open</a>
-                        <a                         href="/documents/123/download/3/version//" role="button" draggable="false"
-                        class="govuk-button govuk-button--secondary" data-module="govuk-button">Download</a><a href="/applications-service/case/123/project-documentation/21/document/3/delete"
-                            role="button" draggable="false" class="govuk-button govuk-button--secondary"
-                            data-module="govuk-button"> Delete</a>
+                <input type='hidden' value='11' name='selectedFilesIds[]'>
+                <form method="post" action="/applications-service/case/123/project-documentation/21/document/11/ai-redaction">
+                    <div class="govuk-button-group"><a href="/documents/123/download/11/version//" role="button" draggable="false"
+                        class="govuk-button govuk-button--secondary" data-module="govuk-button"> Download</a>
+                        <a                         href="./unpublish" role="button" draggable="false" class="govuk-button govuk-button--secondary"
+                        data-module="govuk-button">Unpublish</a>
                     </div>
-                </form><a class="govuk-link govuk-body-m govuk-!-text-align-right pins-nav-right-aligned-link"
-                href="/applications-service/case/123/project-documentation/publishing-queue">View publishing queue</a>
+                </form>
             </nav>
             <div class="govuk-tabs" data-module="govuk-tabs">
                 <h2 class="govuk-tabs__title"> Contents</h2>
@@ -8203,62 +8258,66 @@ exports[`applications documentation Document properties page should NOT show red
                     <h4 class="govuk-heading-m govuk-!-margin-bottom-4">Document properties</h4>
                     <dl class="govuk-summary-list">
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> File name</dt>
-                            <dd class="govuk-summary-list__value">4 Elit sed</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/name">Change<span class="govuk-visually-hidden"> File name</span></a>
+                            <dd class="govuk-summary-list__value">12 Ullamco laboris nisi ut</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/11/edit/name">Change<span class="govuk-visually-hidden"> File name</span></a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Description</dt>
-                            <dd class="govuk-summary-list__value">Elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua
-                                Ut enim ad</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/description">Change<span class="govuk-visually-hidden"> Description</span></a>
+                            <dd class="govuk-summary-list__value">Ullamco laboris nisi ut aliquip ex ea commodo consequat</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/11/edit/description">Change<span class="govuk-visually-hidden"> Description</span></a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> IP number (optional)</dt>
                             <dd class="govuk-summary-list__value"></dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/interestedPartyNumber">Change<span class="govuk-visually-hidden"> IP number (optional)</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/11/edit/interestedPartyNumber">Change<span class="govuk-visually-hidden"> IP number (optional)</span></a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Who the document is from</dt>
-                            <dd                             class="govuk-summary-list__value">Consectetur adipiscing</dd>
-                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/author">Change<span class="govuk-visually-hidden"> Who the document is from</span></a>
+                            <dd                             class="govuk-summary-list__value">Tempor incididunt</dd>
+                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/11/edit/author">Change<span class="govuk-visually-hidden"> Who the document is from</span></a>
                                 </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Agent (optional)</dt>
-                            <dd class="govuk-summary-list__value">Elit Sed</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/agent">Change<span class="govuk-visually-hidden"> Agent (optional)</span></a>
+                            <dd class="govuk-summary-list__value">Ullamco Aliqua</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/11/edit/agent">Change<span class="govuk-visually-hidden"> Agent (optional)</span></a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Document case stage</dt>
-                            <dd class="govuk-summary-list__value">pre-examination</dd>
+                            <dd class="govuk-summary-list__value">withdrawn</dd>
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href=""></a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Webfilter</dt>
-                            <dd class="govuk-summary-list__value">Consectetur</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/webfilter">Change<span class="govuk-visually-hidden"> Webfilter</span></a>
+                            <dd class="govuk-summary-list__value">Ut</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/11/edit/webfilter">Change<span class="govuk-visually-hidden"> Webfilter</span></a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Document type (optional)</dt>
-                            <dd                             class="govuk-summary-list__value">Rule 8 letter</dd>
-                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/type">Change<span class="govuk-visually-hidden"> Document type (optional)</span></a>
+                            <dd                             class="govuk-summary-list__value"></dd>
+                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/11/edit/type">Change<span class="govuk-visually-hidden"> Document type (optional)</span></a>
                                 </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Transcript (optional)</dt>
+                            <dd class="govuk-summary-list__value"></dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/11/edit/transcript">Change<span class="govuk-visually-hidden"> Transcript (optional)</span></a>
+                            </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Date received</dt>
                             <dd class="govuk-summary-list__value">01/12/2022</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/receipt-date">Change<span class="govuk-visually-hidden"> Date received</span></a>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/11/edit/receipt-date">Change<span class="govuk-visually-hidden"> Date received</span></a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Published date</dt>
-                            <dd class="govuk-summary-list__value"></dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href=""></a>
+                            <dd class="govuk-summary-list__value">07/03/2023</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/11/edit/published-date">Change<span class="govuk-visually-hidden"> Published date</span></a>
                             </dd>
                         </div>
                         <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Redaction</dt>
-                            <dd class="govuk-summary-list__value">Redacted</dd>
+                            <dd class="govuk-summary-list__value">Unredacted</dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Status</dt>
-                            <dd class="govuk-summary-list__value">Ready to publish</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/published-status">Change<span class="govuk-visually-hidden"> Status</span></a>
+                            <dd class="govuk-summary-list__value">Published</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href=""></a>
                             </dd>
                         </div>
                     </dl>
@@ -8417,8 +8476,10 @@ exports[`applications documentation Document properties page should not show pub
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href=""></a>
                             </dd>
                         </div>
-                        <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Redaction</dt>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Redaction</dt>
                             <dd class="govuk-summary-list__value">Redacted</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/redaction">Change<span class="govuk-visually-hidden"> Redaction</span></a>
+                            </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Status</dt>
                             <dd class="govuk-summary-list__value">Ready to publish</dd>
@@ -8583,10 +8644,8 @@ exports[`applications documentation Document properties page should not show pub
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/11/edit/published-date">Change<span class="govuk-visually-hidden"> Published date</span></a>
                             </dd>
                         </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Redaction</dt>
+                        <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Redaction</dt>
                             <dd class="govuk-summary-list__value">Unredacted</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/11/edit/redaction">Change<span class="govuk-visually-hidden"> Redaction</span></a>
-                            </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Status</dt>
                             <dd class="govuk-summary-list__value">Published</dd>
@@ -8749,8 +8808,10 @@ exports[`applications documentation Document properties page should show publish
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href=""></a>
                             </dd>
                         </div>
-                        <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Redaction</dt>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Redaction</dt>
                             <dd class="govuk-summary-list__value">Redacted</dd>
+                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/redaction">Change<span class="govuk-visually-hidden"> Redaction</span></a>
+                            </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Status</dt>
                             <dd class="govuk-summary-list__value">Ready to publish</dd>

@@ -17,35 +17,35 @@ export default async function (context, msg) {
 		Boolean(applicationProperties) &&
 		Object.prototype.hasOwnProperty.call(applicationProperties, 'type');
 	if (!hasType) {
-		context.log.warn('Ingoring invalid message, no type', msgWithoutEmail);
+		context.log.warn('Ignoring invalid message, no type', msgWithoutEmail);
 		return;
 	}
 
 	const type = applicationProperties?.type;
 
 	if (type !== EventType.Create && type !== EventType.Delete) {
-		context.log.warn(`Ingoring invalid message, unsupported type '${type}'`, msgWithoutEmail);
+		context.log.warn(`Ignoring invalid message, unsupported type '${type}'`, msgWithoutEmail);
 		return;
 	}
 
 	if (!msg.nsipSubscription) {
-		context.log.warn(`Ingoring invalid message, nsipSubscription is required`, msgWithoutEmail);
+		context.log.warn(`Ignoring invalid message, nsipSubscription is required`, msgWithoutEmail);
 		return;
 	}
 
 	const { caseReference, emailAddress } = msg.nsipSubscription;
 	if (!caseReference || typeof caseReference !== 'string') {
-		context.log.warn(`Ingoring invalid message, invalid caseReference`, msgWithoutEmail);
+		context.log.warn(`Ignoring invalid message, invalid caseReference`, msgWithoutEmail);
 		return;
 	}
 	if (!emailAddress || typeof emailAddress !== 'string') {
-		context.log.warn(`Ingoring invalid message, invalid emailAddress`, msgWithoutEmail);
+		context.log.warn(`Ignoring invalid message, invalid emailAddress`, msgWithoutEmail);
 		return;
 	}
 
 	if (type === EventType.Create) {
 		if (!msg.subscriptionTypes) {
-			context.log.warn(`Ingoring invalid message, subscriptionTypes is required`, msgWithoutEmail);
+			context.log.warn(`Ignoring invalid message, subscriptionTypes is required`, msgWithoutEmail);
 			return;
 		}
 
@@ -54,24 +54,34 @@ export default async function (context, msg) {
 				...msg.nsipSubscription,
 				subscriptionTypes: msg.subscriptionTypes
 			});
-			context.log.info(`subscription created/updated: ${res.id}`);
+			context.log.info(
+				`subscription created/updated for caseReference ${caseReference}: ${res.id}`
+			);
 		} catch (e) {
-			context.log.error('error creating/updating subscription', e);
+			context.log.error(
+				`error creating/updating subscription for caseReference ${caseReference}`,
+				e
+			);
 		}
 	} else if (type === EventType.Delete) {
 		try {
 			const existing = await api.getSubscription(caseReference, emailAddress);
 			if (existing === null) {
-				context.log.warn(`Existing subscription not found`, msgWithoutEmail);
+				context.log.warn(
+					`Existing subscription not found for caseReference ${caseReference}`,
+					msgWithoutEmail
+				);
 				return;
 			}
 
 			// todo: maybe we do want to delete?
 			const endDate = new Date().toISOString();
 			await api.updateSubscription(existing.id, { endDate });
-			context.log.info(`subscription updated to end now: ${existing.id}, ${endDate}`);
+			context.log.info(
+				`subscription updated for caseReference ${caseReference} to end now: ${existing.id}, ${endDate}`
+			);
 		} catch (e) {
-			context.log.error('error deleting subscription', e);
+			context.log.error(`error deleting subscription for caseReference ${caseReference}`, e);
 		}
 	}
 }

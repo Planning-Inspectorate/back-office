@@ -36,7 +36,9 @@ const expectedNsipProjectPayload = buildPayloadEventsForSchema(NSIP_PROJECT, {
 	projectLocation: 'Some Location',
 	regions: ['north_west', 'south_west'],
 	stage: 'draft',
-	welshLanguage: false
+	welshLanguage: false,
+	meetings: [],
+	invoices: []
 });
 
 const expectedApplicantPayload = buildPayloadEventsForSchema(SERVICE_USER, {

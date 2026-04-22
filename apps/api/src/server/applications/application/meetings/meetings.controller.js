@@ -6,6 +6,22 @@ import {
 	getCaseMeetings,
 	patchCaseMeeting
 } from './meetings.service.js';
+import * as caseRepository from '#repositories/case.repository.js';
+import { broadcastNsipProjectEvent } from '#infrastructure/event-broadcasters.js';
+import { EventType } from '@pins/event-client';
+
+const additionalProjectEntities = {
+	subSector: true,
+	sector: true,
+	applicationDetails: true,
+	zoomLevel: true,
+	regions: true,
+	caseStatus: true,
+	projectTeam: true,
+	gridReference: true,
+	invoice: true,
+	meeting: true
+};
 
 /**
  * Gets all meetings for the case specified
@@ -60,6 +76,14 @@ export const createMeeting = async ({ params, body }, res) => {
 		);
 	}
 
+	const project = await caseRepository.getById(params.id, additionalProjectEntities);
+
+	if (!project) {
+		throw new BackOfficeAppError(`Case ${params.id} not found`, 404);
+	}
+
+	await broadcastNsipProjectEvent(project, EventType.Create);
+
 	return res.status(201).send(meeting);
 };
 
@@ -69,20 +93,37 @@ export const createMeeting = async ({ params, body }, res) => {
  * @type {import('express').RequestHandler<{id: number, meetingId: number}, ?, import('@pins/applications.api').Schema.Meeting>}
  */
 export const patchMeeting = async ({ params, body }, res) => {
+	const { meetingId, id: caseId } = params;
 	const mappedMeeting = {
-		id: Number(params.meetingId),
-		caseId: params.id,
+		id: Number(meetingId),
+		caseId: caseId,
 		...body
 	};
 
-	const meeting = await patchCaseMeeting(mappedMeeting);
+	let meeting;
+
+	try {
+		meeting = await patchCaseMeeting(mappedMeeting);
+	} catch (error) {
+		if (error?.code === 'P2025') {
+			throw new BackOfficeAppError(`Meeting with id: ${meetingId} not found`, 404);
+		}
+	}
 
 	if (!meeting) {
 		throw new BackOfficeAppError(
-			`Meeting could not be updated for application with id: ${params.id}`,
+			`Meeting could not be updated for application with id: ${caseId}`,
 			400
 		);
 	}
+
+	const project = await caseRepository.getById(caseId, additionalProjectEntities);
+
+	if (!project) {
+		throw new BackOfficeAppError(`Case ${caseId} not found`, 404);
+	}
+
+	await broadcastNsipProjectEvent(project, EventType.Update);
 
 	return res.send(meeting);
 };
@@ -93,14 +134,32 @@ export const patchMeeting = async ({ params, body }, res) => {
  * @type {import('express').RequestHandler<{id: number, meetingId: number}>}
  */
 export const deleteMeeting = async ({ params }, res) => {
-	const { meetingId: meetingId } = params;
+	const { meetingId: meetingId, id: caseId } = params;
+
+	let meeting;
 
 	try {
-		await deleteCaseMeeting(meetingId);
-		return res.status(204).send();
+		meeting = await deleteCaseMeeting(meetingId);
 	} catch (error) {
 		if (error?.code === 'P2025') {
 			throw new BackOfficeAppError(`Meeting with id: ${meetingId} not found`, 404);
 		}
 	}
+
+	if (!meeting) {
+		throw new BackOfficeAppError(
+			`Meeting could not be deleted for application with id: ${caseId}`,
+			400
+		);
+	}
+
+	const project = await caseRepository.getById(caseId, additionalProjectEntities);
+
+	if (!project) {
+		throw new BackOfficeAppError(`Case ${caseId} not found`, 404);
+	}
+
+	await broadcastNsipProjectEvent(project, EventType.Update);
+
+	return res.status(204).send();
 };

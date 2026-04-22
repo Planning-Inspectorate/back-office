@@ -1,29 +1,63 @@
 import { createValidator } from '@pins/express';
 import { body } from 'express-validator';
-import { validationDateValid } from '../../common/validators/dates.validators.js';
+import {
+	validationDateValid,
+	validationDateMandatory
+} from '../../common/validators/dates.validators.js';
 import { getSectionData } from './applications-fees-forecasting.utils.js';
 import { sectionData, urlSectionNames } from './fees-forecasting.config.js';
 
-/** @typedef {import('express').RequestHandler} RequestHandler */
+/**
+ * @typedef {import('express').RequestHandler} RequestHandler
+ */
 
 /**
  * Calls specified validator function based on section name in request
  *
- * @type {RequestHandler}
+ * @param {*} request
+ * @param {*} response
+ * @param {*} next
  */
 export const feesForecastingValidator = (request, response, next) => {
-	const { sectionName } = request.params;
+	let sectionName;
+
+	if (request.isFeeEdit) {
+		sectionName = 'manage-fee';
+	} else if (request.isProjectMeetingEdit) {
+		sectionName = 'manage-project-meeting';
+	} else if (request.isEvidencePlanMeetingEdit) {
+		sectionName = 'manage-evidence-plan-meeting';
+	} else {
+		sectionName = request.params.sectionName || '';
+	}
 
 	/** @type {Record<string, RequestHandler>} */
 	const validators = {
-		'maturity-evaluation-matrix': validateFeesForecastingDate,
-		'scoping-submission': validateFeesForecastingDate,
-		'consultation-milestone': validateFeesForecastingDate,
-		'programme-document-received': validateFeesForecastingDate,
-		'programme-document-reviewed': validateFeesForecastingDate,
-		'programme-document-comments': validateFeesForecastingDate,
+		'project-maturity': validateFeesForecastingRadioInput,
+		'maturity-evaluation-matrix': validateFeesForecastingDateInput,
+		'scoping-submission': validateFeesForecastingDateInput,
+		'consultation-milestone': validateFeesForecastingDateInput,
+		'programme-document-received': validateFeesForecastingDateInput,
+		'programme-document-reviewed': validateFeesForecastingDateInput,
+		'programme-document-comments': validateFeesForecastingDateInput,
 		'add-new-fee': validateFeesForecastingAddFee,
-		'add-project-meeting': validateFeesForecastingProjectMeeting
+		'manage-fee': validateFeesForecastingAddFee,
+		'add-project-meeting': validateFeesForecastingProjectMeeting,
+		'manage-project-meeting': validateFeesForecastingProjectMeeting,
+		'add-evidence-plan-meeting': validateFeesForecastingEvidencePlanMeeting,
+		'manage-evidence-plan-meeting': validateFeesForecastingEvidencePlanMeeting,
+		'disagreement-summary-statement': validateFeesForecastingRadioDateInput,
+		'policy-compliance-document': validateFeesForecastingRadioDateInput,
+		'design-approach-document': validateFeesForecastingRadioDateInput,
+		'control-documents': validateFeesForecastingRadioDateInput,
+		'compulsory-acquisition': validateFeesForecastingRadioDateInput,
+		'public-sector-equality-duty': validateFeesForecastingRadioDateInput,
+		'fast-track-admission': validateFeesForecastingRadioDateInput,
+		'multiparty-application': validateFeesForecastingRadioDateInput,
+		's61-summary-link': validateFeesForecastingHyperlink,
+		'programme-document-link': validateFeesForecastingHyperlink,
+		'issues-tracker-link': validateFeesForecastingHyperlink,
+		'examining-inspectors': validateFeesForecastingInspectorNumbers
 	};
 
 	if (Object.keys(validators).includes(sectionName)) {
@@ -41,7 +75,7 @@ export const feesForecastingValidator = (request, response, next) => {
  *
  * @type {RequestHandler}
  */
-export const validateFeesForecastingDate = (request, response, next) => {
+export const validateFeesForecastingDateInput = (request, response, next) => {
 	const { body, params } = request;
 	const { sectionName } = params;
 
@@ -125,6 +159,139 @@ export const validateFeesForecastingProjectMeeting = (request, response, next) =
 			.notEmpty()
 			.withMessage('Enter meeting agenda'),
 		projectMeetingDateValidation
+	];
+
+	return createValidator(validator)(request, response, next);
+};
+
+/**
+ * Checks evidence plan meeting data is formatted correctly
+ *
+ * @type {RequestHandler}
+ */
+export const validateFeesForecastingEvidencePlanMeeting = (request, response, next) => {
+	const evidencePlanMeetingDateValidation = validationDateValid(
+		{ fieldName: 'meetingDate', extendedFieldName: 'Date of evidence plan meeting' },
+		request.body
+	);
+
+	const validator = [
+		body('agenda').trim().notEmpty().withMessage('Enter Meeting agenda'),
+		body('pinsRole').trim().notEmpty().withMessage('Select Planning Inspectorate role'),
+		evidencePlanMeetingDateValidation
+	];
+
+	return createValidator(validator)(request, response, next);
+};
+
+/**
+ * Checks radio-date-input data is formatted correctly
+ *
+ * @type {RequestHandler}
+ */
+export const validateFeesForecastingRadioDateInput = (request, response, next) => {
+	const { sectionName } = request.params;
+
+	const section = getSectionData(sectionName, urlSectionNames, sectionData);
+	const fieldName = section?.fieldName || '';
+	const dateFieldName = section?.dateFieldName || 'submissionDate';
+	const extendedFieldName = section?.sectionTitle || '';
+
+	const validators = [
+		body(fieldName)
+			.trim()
+			.notEmpty()
+			.withMessage(`You must select an option for ${extendedFieldName}`)
+	];
+
+	if (request.body[fieldName] === 'submitted_by_applicant') {
+		const dateMandatoryValidation = validationDateMandatory(
+			{ fieldName: dateFieldName, extendedFieldName: `${extendedFieldName} submission date` },
+			request.body
+		);
+		const dateValidation = validationDateValid(
+			{ fieldName: dateFieldName, extendedFieldName: `${extendedFieldName} submission date` },
+			request.body
+		);
+		validators.push(dateMandatoryValidation, dateValidation);
+	}
+
+	return createValidator(validators)(request, response, next);
+};
+
+/**
+ * Checks radio-input data is formatted correctly
+ *
+ * @type {RequestHandler}
+ */
+export const validateFeesForecastingRadioInput = (request, response, next) => {
+	const { sectionName } = request.params;
+
+	const section = getSectionData(sectionName, urlSectionNames, sectionData);
+	const fieldName = section?.fieldName || '';
+	const extendedFieldName = section?.sectionTitle || '';
+
+	const validators = [
+		body(fieldName)
+			.trim()
+			.notEmpty()
+			.withMessage(`You must select an option for ${extendedFieldName}`)
+	];
+
+	return createValidator(validators)(request, response, next);
+};
+
+/**
+ * Checks hyperlinks are formatted correctly
+ *
+ * @type {RequestHandler}
+ */
+export const validateFeesForecastingHyperlink = (request, response, next) => {
+	const { sectionName } = request.params;
+	const section = getSectionData(sectionName, urlSectionNames, sectionData);
+	const fieldName = section?.fieldName || '';
+
+	const validator = [
+		// includes regex to exclude @ signs which are valid in isURL
+		body(fieldName)
+			.trim()
+			.notEmpty()
+			.withMessage('Enter a valid hyperlink')
+			.matches(/^[^@]*$/)
+			.withMessage('Enter a valid hyperlink')
+			.isURL({
+				require_tld: true,
+				require_port: false,
+				allow_trailing_dot: false,
+				allow_protocol_relative_urls: false,
+				allow_query_components: false,
+				allow_fragments: false
+			})
+			.withMessage('Enter a valid hyperlink')
+	];
+
+	return createValidator(validator)(request, response, next);
+};
+
+/**
+ * Checks inspector numbers are formatted correctly
+ *
+ * @type {RequestHandler}
+ */
+export const validateFeesForecastingInspectorNumbers = (request, response, next) => {
+	const validator = [
+		body('numberBand2Inspectors')
+			.trim()
+			.notEmpty()
+			.withMessage('Enter a number of band 2 inspectors between 0 and 99')
+			.isInt({ min: 0, max: 99 })
+			.withMessage('Enter a number of band 2 inspectors between 0 and 99'),
+		body('numberBand3Inspectors')
+			.trim()
+			.notEmpty()
+			.withMessage('Enter a number of band 3 inspectors between 0 and 99')
+			.isInt({ min: 0, max: 99 })
+			.withMessage('Enter a number of band 3 inspectors between 0 and 99')
 	];
 
 	return createValidator(validator)(request, response, next);

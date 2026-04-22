@@ -6,6 +6,23 @@ import {
 	getInvoicesWithCreditNoteNumber
 } from './invoices.service.js';
 import BackOfficeAppError from '../../../utils/app-error.js';
+import { mapDateToUnixTimestamp } from '#utils/mapping/map-date-to-unix-timestamp.js';
+import * as caseRepository from '#repositories/case.repository.js';
+import { broadcastNsipProjectEvent } from '#infrastructure/event-broadcasters.js';
+import { EventType } from '@pins/event-client';
+
+const additionalProjectEntities = {
+	subSector: true,
+	sector: true,
+	applicationDetails: true,
+	zoomLevel: true,
+	regions: true,
+	caseStatus: true,
+	projectTeam: true,
+	gridReference: true,
+	invoice: true,
+	meeting: true
+};
 
 /**
  * Gets all invoices for a case by case Id
@@ -21,7 +38,14 @@ export const getAllCaseInvoicesController = async ({ params }, res) => {
 		return res.send([]);
 	}
 
-	return res.send(invoices);
+	const mappedInvoices = invoices.map((invoice) => ({
+		...invoice,
+		paymentDueDate: mapDateToUnixTimestamp(invoice.paymentDueDate),
+		invoicedDate: mapDateToUnixTimestamp(invoice.invoicedDate),
+		paymentDate: mapDateToUnixTimestamp(invoice.paymentDate)
+	}));
+
+	return res.send(mappedInvoices);
 };
 
 /**
@@ -37,7 +61,19 @@ export const getCaseInvoiceController = async ({ params }, res) => {
 	if (!invoice) {
 		throw new BackOfficeAppError(`Invoice ${invoiceId} not found`, 404);
 	}
-	return res.send(invoice);
+
+	const mappedInvoice = {
+		...invoice,
+		paymentDueDate: mapDateToUnixTimestamp(invoice.paymentDueDate),
+		invoicedDate: mapDateToUnixTimestamp(invoice.invoicedDate),
+		paymentDate: mapDateToUnixTimestamp(invoice.paymentDate),
+		amountDue: invoice.amountDue ? Number(invoice.amountDue).toFixed(2) : invoice.amountDue,
+		refundAmount: invoice.refundAmount
+			? Number(invoice.refundAmount).toFixed(2)
+			: invoice.refundAmount
+	};
+
+	return res.send(mappedInvoice);
 };
 
 /**
@@ -51,7 +87,7 @@ export const createOrUpdateInvoiceController = async ({ params, body }, res) => 
 
 	if (body.refundCreditNoteNumber) {
 		const creditNoteExists = await getInvoicesWithCreditNoteNumber(body.refundCreditNoteNumber);
-		if (creditNoteExists && creditNoteExists.invoiceNumber != body.invoiceNumber) {
+		if (creditNoteExists && creditNoteExists.id !== invoiceId) {
 			throw new BackOfficeAppError(
 				'An invoice with this refund credit note number already exists',
 				400
@@ -59,10 +95,10 @@ export const createOrUpdateInvoiceController = async ({ params, body }, res) => 
 		}
 	}
 
-	try {
-		const invoice = await createOrUpdateInvoiceForCase(caseId, invoiceId, body);
+	let invoice;
 
-		return res.status(isCreateRequest ? 201 : 200).send(invoice);
+	try {
+		invoice = await createOrUpdateInvoiceForCase(caseId, invoiceId, body);
 	} catch (error) {
 		// Unique constraint violation error (duplicate invoice number or refund credit note number)
 		if (error?.code === 'P2002') {
@@ -72,6 +108,20 @@ export const createOrUpdateInvoiceController = async ({ params, body }, res) => 
 			throw new BackOfficeAppError(`Invoice ${invoiceId} not found`, 404);
 		}
 	}
+
+	const project = await caseRepository.getById(params.id, additionalProjectEntities);
+
+	if (!project) {
+		throw new BackOfficeAppError(`Case ${params.id} not found`, 404);
+	}
+
+	if (isCreateRequest) {
+		await broadcastNsipProjectEvent(project, EventType.Create);
+	} else {
+		await broadcastNsipProjectEvent(project, EventType.Update);
+	}
+
+	return res.status(isCreateRequest ? 201 : 200).send(invoice);
 };
 
 /**
@@ -80,14 +130,29 @@ export const createOrUpdateInvoiceController = async ({ params, body }, res) => 
  * @type {import('express').RequestHandler<{id:number, invoiceId:number}>}
  */
 export const deleteInvoiceController = async ({ params }, res) => {
-	const { invoiceId } = params;
+	const { id: caseId, invoiceId } = params;
+
+	let invoice;
 
 	try {
-		await deleteInvoiceForCase(invoiceId);
-		return res.status(204).send();
+		invoice = await deleteInvoiceForCase(invoiceId);
 	} catch (error) {
 		if (error?.code === 'P2025') {
 			throw new BackOfficeAppError(`Invoice ${invoiceId} not found`, 404);
 		}
 	}
+
+	if (!invoice) {
+		throw new BackOfficeAppError(`Invoice ${invoiceId} could not be deleted`, 400);
+	}
+
+	const project = await caseRepository.getById(caseId, additionalProjectEntities);
+
+	if (!project) {
+		throw new BackOfficeAppError(`Case ${caseId} not found`, 404);
+	}
+
+	await broadcastNsipProjectEvent(project, EventType.Update);
+
+	return res.status(204).send();
 };

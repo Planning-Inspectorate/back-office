@@ -60,23 +60,23 @@ exports[`Fees and Forecasting GET /case/123/fees-forecasting/ should render the 
             <dl class="govuk-summary-list">
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> New maturity</dt>
                     <dd class="govuk-summary-list__value">C</dd>
-                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> new maturity</span></a>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/fees-forecasting/section/project-maturity">Change<span class="govuk-visually-hidden"> new maturity</span></a>
                     </dd>
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Examining inspectors</dt>
                     <dd class="govuk-summary-list__value">2 band 2 inspectors
                         <br>1 band 3 inspectors</dd>
-                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> examining inspectors</span></a>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/fees-forecasting/section/examining-inspectors">Change<span class="govuk-visually-hidden"> examining inspectors</span></a>
                     </dd>
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> MEM last updated</dt>
                     <dd class="govuk-summary-list__value">09 Mar 2024</dd>
-                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/fees-forecasting/maturity-evaluation-matrix">Change<span class="govuk-visually-hidden"> MEM last updated</span></a>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/fees-forecasting/section/maturity-evaluation-matrix">Change<span class="govuk-visually-hidden"> MEM last updated</span></a>
                     </dd>
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Additional comments (optional)</dt>
                     <dd                     class="govuk-summary-list__value">Some comments</dd>
-                        <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> additional comments</span></a>
+                        <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/fees-forecasting/section/additional-comments">Change<span class="govuk-visually-hidden"> additional comments</span></a>
                         </dd>
                 </div>
             </dl>
@@ -93,19 +93,19 @@ exports[`Fees and Forecasting GET /case/123/fees-forecasting/ should render the 
                                 </dd>
                             </div>
                             <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Link to s61 summary</dt>
-                                <dd class="govuk-summary-list__value"><a href="#" class="govuk-link">mock-s61-summary-uri</a>
+                                <dd class="govuk-summary-list__value"><a href="mock-s61-summary-uri" class="govuk-link">mock-s61-summary-uri</a>
                                 </dd>
-                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> link to s61 summary</span></a>
+                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/fees-forecasting/section/s61-summary-link">Change<span class="govuk-visually-hidden"> link to s61 summary</span></a>
                                 </dd>
                             </div>
                             <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Estimated scoping submission date</dt>
                                 <dd                                 class="govuk-summary-list__value">09 Feb 2025</dd>
-                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/fees-forecasting/scoping-submission">Change<span class="govuk-visually-hidden"> estimated scoping submission date</span></a>
+                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/fees-forecasting/section/scoping-submission">Change<span class="govuk-visually-hidden"> estimated scoping submission date</span></a>
                                     </dd>
                             </div>
                             <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Adequacy of Consultation Milestone (AoCM) date</dt>
                                 <dd                                 class="govuk-summary-list__value">13 Mar 2025</dd>
-                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/fees-forecasting/consultation-milestone">Change<span class="govuk-visually-hidden"> adequacy of consultation milestone date</span></a>
+                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/fees-forecasting/section/consultation-milestone">Change<span class="govuk-visually-hidden"> adequacy of consultation milestone date</span></a>
                                     </dd>
                             </div>
                             <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Evidence plan process</dt>
@@ -143,7 +143,8 @@ exports[`Fees and Forecasting GET /case/123/fees-forecasting/ should render the 
                                     <td class="govuk-table__cell">180000000</td>
                                     <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--purple">Refunded</strong>
                                     </td>
-                                    <td class="govuk-table__cell"><a href="#" class="govuk-link">Review</a>
+                                    <td class="govuk-table__cell"><a href="/applications-service/case/4/fees-forecasting/section/manage-fee/id/1"
+                                        class="govuk-link">Review</a>
                                     </td>
                                 </tr>
                                 <tr class="govuk-table__row">
@@ -152,12 +153,14 @@ exports[`Fees and Forecasting GET /case/123/fees-forecasting/ should render the 
                                     <td class="govuk-table__cell">180000001</td>
                                     <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--purple">Refunded</strong>
                                     </td>
-                                    <td class="govuk-table__cell"><a href="#" class="govuk-link">Review</a>
+                                    <td class="govuk-table__cell"><a href="/applications-service/case/4/fees-forecasting/section/manage-fee/id/2"
+                                        class="govuk-link">Review</a>
                                     </td>
                                 </tr>
                             </tbody>
-                        </table><a href="/applications-service/case/4/fees-forecasting/add-new-fee" role="button"
-                        draggable="false" class="govuk-button govuk-button--secondary" data-module="govuk-button"> Add new fee</a>
+                        </table><a href="/applications-service/case/4/fees-forecasting/section/add-new-fee"
+                        role="button" draggable="false" class="govuk-button govuk-button--secondary"
+                        data-module="govuk-button"> Add new fee</a>
                     </div>
                 </div>
                 <div class="govuk-accordion__section">
@@ -184,11 +187,12 @@ exports[`Fees and Forecasting GET /case/123/fees-forecasting/ should render the 
                                 <tr class="govuk-table__row">
                                     <td class="govuk-table__cell">Project Update Meeting (PUM)</td>
                                     <td class="govuk-table__cell">11 Jan 2025</td>
-                                    <td class="govuk-table__cell"><a href="#" class="govuk-link">Change</a>
+                                    <td class="govuk-table__cell"><a href="/applications-service/case/4/fees-forecasting/section/manage-project-meeting/id/1"
+                                        class="govuk-link">Change</a>
                                     </td>
                                 </tr>
                             </tbody>
-                        </table><a href="/applications-service/case/4/fees-forecasting/add-project-meeting"
+                        </table><a href="/applications-service/case/4/fees-forecasting/section/add-project-meeting"
                         role="button" draggable="false" class="govuk-button govuk-button--secondary"
                         data-module="govuk-button"> Add project meeting</a>
                     </div>
@@ -210,17 +214,20 @@ exports[`Fees and Forecasting GET /case/123/fees-forecasting/ should render the 
                                 <tr class="govuk-table__row">
                                     <td class="govuk-table__cell">Flood Risk Assessment</td>
                                     <td class="govuk-table__cell">09 Jan 2025</td>
-                                    <td class="govuk-table__cell"><a href="#" class="govuk-link">Change</a>
+                                    <td class="govuk-table__cell"><a href="/applications-service/case/4/fees-forecasting/section/manage-evidence-plan-meeting/id/2"
+                                        class="govuk-link">Change</a>
                                     </td>
                                 </tr>
                                 <tr class="govuk-table__row">
                                     <td class="govuk-table__cell">Habitat Regulation Assessment</td>
                                     <td class="govuk-table__cell">11 Jan 2025</td>
-                                    <td class="govuk-table__cell"><a href="#" class="govuk-link">Change</a>
+                                    <td class="govuk-table__cell"><a href="/applications-service/case/4/fees-forecasting/section/manage-evidence-plan-meeting/id/3"
+                                        class="govuk-link">Change</a>
                                     </td>
                                 </tr>
                             </tbody>
-                        </table><a href="#" role="button" draggable="false" class="govuk-button govuk-button--secondary"
+                        </table><a href="/applications-service/case/4/fees-forecasting/section/add-evidence-plan-meeting"
+                        role="button" draggable="false" class="govuk-button govuk-button--secondary"
                         data-module="govuk-button"> Add evidence plan meeting</a>
                     </div>
                 </div>
@@ -231,54 +238,54 @@ exports[`Fees and Forecasting GET /case/123/fees-forecasting/ should render the 
                     <div id="accordion-default-content-5" class="govuk-accordion__section-content">
                         <dl class="govuk-summary-list">
                             <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Link to issues tracker</dt>
-                                <dd class="govuk-summary-list__value"><a href="#" class="govuk-link">mock-issues-tracker-uri</a>
+                                <dd class="govuk-summary-list__value"><a href="mock-issues-tracker-uri" class="govuk-link">mock-issues-tracker-uri</a>
                                 </dd>
-                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> link to issues tracker</span></a>
+                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/fees-forecasting/section/issues-tracker-link">Change<span class="govuk-visually-hidden"> link to issues tracker</span></a>
                                 </dd>
                             </div>
                             <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Essential fast track components</dt>
                                 <dd                                 class="govuk-summary-list__value">Yes</dd>
-                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> essential fast track components</span></a>
+                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/fees-forecasting/section/fast-track">Change<span class="govuk-visually-hidden"> essential fast track components</span></a>
                                     </dd>
                             </div>
                             <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Principal area disagreement summary statement (PADSS)</dt>
                                 <dd                                 class="govuk-summary-list__value">Submitted, 09 Mar 2024</dd>
-                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> principal area disagreement summary statement (PADSS)</span></a>
+                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/fees-forecasting/section/disagreement-summary-statement">Change<span class="govuk-visually-hidden"> principal area disagreement summary statement (PADSS)</span></a>
                                     </dd>
                             </div>
                             <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Policy compliance document (PCD)</dt>
                                 <dd                                 class="govuk-summary-list__value">Not applicable</dd>
-                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> policy compliance document (PCD)</span></a>
+                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/fees-forecasting/section/policy-compliance-document">Change<span class="govuk-visually-hidden"> policy compliance document (PCD)</span></a>
                                     </dd>
                             </div>
                             <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Design approach document (DAD)</dt>
                                 <dd                                 class="govuk-summary-list__value">Awaiting submission</dd>
-                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> design approach document (DAD)</span></a>
+                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/fees-forecasting/section/design-approach-document">Change<span class="govuk-visually-hidden"> design approach document (DAD)</span></a>
                                     </dd>
                             </div>
                             <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Mature outline control documents</dt>
                                 <dd                                 class="govuk-summary-list__value">Awaiting submission</dd>
-                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> mature outline control documents</span></a>
+                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/fees-forecasting/section/control-documents">Change<span class="govuk-visually-hidden"> mature outline control documents</span></a>
                                     </dd>
                             </div>
                             <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> CA and TP evidence</dt>
                                 <dd class="govuk-summary-list__value">Awaiting submission</dd>
-                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> CA and TP evidence</span></a>
+                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/fees-forecasting/section/compulsory-acquisition">Change<span class="govuk-visually-hidden"> CA and TP evidence</span></a>
                                 </dd>
                             </div>
                             <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Public sector equality duty (PSED)</dt>
                                 <dd                                 class="govuk-summary-list__value">Not applicable</dd>
-                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> public sector equality duty (PSED)</span></a>
+                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/fees-forecasting/section/public-sector-equality-duty">Change<span class="govuk-visually-hidden"> public sector equality duty (PSED)</span></a>
                                     </dd>
                             </div>
                             <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Fast track admission document</dt>
                                 <dd                                 class="govuk-summary-list__value">Submitted, 07 Jun 2025</dd>
-                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> fast track admission document</span></a>
+                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/fees-forecasting/section/fast-track-admission">Change<span class="govuk-visually-hidden"> fast track admission document</span></a>
                                     </dd>
                             </div>
                             <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Multiparty application readiness gate-check (trial)</dt>
                                 <dd                                 class="govuk-summary-list__value">Awaiting submission</dd>
-                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> multiparty application readiness gate-check (trial)</span></a>
+                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/fees-forecasting/section/multiparty-application">Change<span class="govuk-visually-hidden"> multiparty application readiness gate-check (trial)</span></a>
                                     </dd>
                             </div>
                         </dl>
@@ -291,24 +298,24 @@ exports[`Fees and Forecasting GET /case/123/fees-forecasting/ should render the 
                     <div id="accordion-default-content-6" class="govuk-accordion__section-content">
                         <dl class="govuk-summary-list">
                             <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Link to programme document</dt>
-                                <dd                                 class="govuk-summary-list__value"><a href="#" class="govuk-link">mock-programme-document-uri</a>
+                                <dd                                 class="govuk-summary-list__value"><a href="mock-programme-document-uri" class="govuk-link">mock-programme-document-uri</a>
                                     </dd>
-                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> link to programme document</span></a>
+                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/fees-forecasting/section/programme-document-link">Change<span class="govuk-visually-hidden"> link to programme document</span></a>
                                     </dd>
                             </div>
                             <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Date updated programme document is received</dt>
                                 <dd                                 class="govuk-summary-list__value">10 Apr 2025</dd>
-                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/fees-forecasting/programme-document-received">Change<span class="govuk-visually-hidden"> date updated programme document is received</span></a>
+                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/fees-forecasting/section/programme-document-received">Change<span class="govuk-visually-hidden"> date updated programme document is received</span></a>
                                     </dd>
                             </div>
                             <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Date programme document reviewed by EST</dt>
                                 <dd                                 class="govuk-summary-list__value">11 May 2025</dd>
-                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/fees-forecasting/programme-document-reviewed">Change<span class="govuk-visually-hidden"> date programme document reviewed by EST</span></a>
+                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/fees-forecasting/section/programme-document-reviewed">Change<span class="govuk-visually-hidden"> date programme document reviewed by EST</span></a>
                                     </dd>
                             </div>
                             <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Date case team issued comments on programme document</dt>
                                 <dd                                 class="govuk-summary-list__value">07 Jun 2025</dd>
-                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/fees-forecasting/programme-document-comments">Change<span class="govuk-visually-hidden"> date case team issued comments on programme document</span></a>
+                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/fees-forecasting/section/programme-document-comments">Change<span class="govuk-visually-hidden"> date case team issued comments on programme document</span></a>
                                     </dd>
                             </div>
                         </dl>
@@ -320,7 +327,7 @@ exports[`Fees and Forecasting GET /case/123/fees-forecasting/ should render the 
 </main>"
 `;
 
-exports[`Fees and Forecasting GET /case/123/fees-forecasting/:sectionName should NOT render the page when feature flag is OFF 1`] = `
+exports[`Fees and Forecasting GET /case/123/fees-forecasting/section/:sectionName should NOT render the page when feature flag is OFF 1`] = `
 "<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
@@ -335,7 +342,7 @@ exports[`Fees and Forecasting GET /case/123/fees-forecasting/:sectionName should
 </main>"
 `;
 
-exports[`Fees and Forecasting GET /case/123/fees-forecasting/:sectionName should render the page when feature flag is ON 1`] = `
+exports[`Fees and Forecasting GET /case/123/fees-forecasting/section/:sectionName should render the page when feature flag is ON 1`] = `
 "<main class="govuk-main-wrapper" id="main-content">
     <h1 class="govuk-heading-l">Maturity Evaluation Matrix (MEM) last updated</h1>
     <form method="post" novalidate="novalidate" class="govuk-grid-row">
@@ -369,24 +376,327 @@ exports[`Fees and Forecasting GET /case/123/fees-forecasting/:sectionName should
 </main>"
 `;
 
-exports[`Fees and Forecasting POST /case/123/fees-forecasting/:sectionName should show an API error if creating a project meeting was NOT successful 1`] = `
+exports[`Fees and Forecasting GET /case/123/fees-forecasting/section/manage-evidence-plan-meeting/id/:meetingId should render the manage evidence plan meeting page when the feature flag is ON 1`] = `
 "<main class="govuk-main-wrapper" id="main-content">
-    <div class="govuk-grid-row">
-        <div class="govuk-grid-column-full">
-            <div class="govuk-error-summary" data-module="govuk-error-summary">
-                <div role="alert">
-                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
-                    <div class="govuk-error-summary__body">
-                        <ul class="govuk-list govuk-error-summary__list">
-                            <li><a href="#msg">API error message</a>
-                            </li>
-                        </ul>
+    <h1 class="govuk-heading-l">Manage evidence plan meeting</h1>
+    <form method="post" novalidate="novalidate" class="govuk-grid-row">
+        <div class='govuk-grid-column-two-thirds'>
+            <div class="govuk-form-group">
+                <label class="govuk-label" for="agenda"><strong>Meeting agenda</strong>
+                </label>
+                <div id="agenda-hint" class="govuk-hint">for example, Flood Risk Assessment (FRA)</div>
+                <input class="govuk-input"
+                id="agenda" name="agenda" type="text" value="Test Meeting" aria-describedby="agenda-hint">
+            </div>
+            <div class="govuk-form-group">
+                <fieldset class="govuk-fieldset">
+                    <legend class="govuk-fieldset__legend"><strong>Planning Inspectorate role</strong>
+                    </legend>
+                    <div class="govuk-radios" data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="pinsRole" name="pinsRole" type="radio"
+                            value="facilitator">
+                            <label class="govuk-label govuk-radios__label" for="pinsRole">Facilitator</label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="pinsRole-2" name="pinsRole" type="radio"
+                            value="advisor">
+                            <label class="govuk-label govuk-radios__label" for="pinsRole-2">Advisor</label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="pinsRole-3" name="pinsRole" type="radio"
+                            value="observer" checked>
+                            <label class="govuk-label govuk-radios__label" for="pinsRole-3">Observer</label>
+                        </div>
                     </div>
+                </fieldset>
+            </div>
+        </div>
+        <div class="govuk-form-group govuk-grid-column-full ">
+            <fieldset class="govuk-fieldset">
+                <legend class="govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4">Date of evidence planning meeting</legend>
+                <div class="govuk-grid-column-one-third">
+                    <div class="govuk-grid-row pins-date-form-group">
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="meetingDate.day">Day</label>
+                            <input class="govuk-input" id="meetingDate.day" name="meetingDate.day"
+                            type="text" value="12">
+                        </div>
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="meetingDate.month">Month</label>
+                            <input class="govuk-input" id="meetingDate.month" name="meetingDate.month"
+                            type="text" value="03">
+                        </div>
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="meetingDate.year">Year</label>
+                            <input class="govuk-input" id="meetingDate.year" name="meetingDate.year"
+                            type="text" value="2026">
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <div class='govuk-grid-column-one-third govuk-button-group'>
+            <button type="submit" class="govuk-button" data-module="govuk-button">Save and return</button><a href="/applications-service/case/123/fees-forecasting/section/manage-evidence-plan-meeting/id/2/delete"
+            role="button" draggable="false" class="govuk-button govuk-button--secondary"
+            data-module="govuk-button"> Remove</a>
+        </div>
+    </form>
+</main>"
+`;
+
+exports[`Fees and Forecasting GET /case/123/fees-forecasting/section/manage-evidence-plan-meeting/id/:meetingId/delete should render the delete confirmation page 1`] = `
+"<main class="govuk-main-wrapper" id="main-content">
+    <h1 class="govuk-heading-l">Delete evidence plan meeting</h1>
+    <form method="post" novalidate="novalidate" class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <table class="govuk-table">
+                <thead class="govuk-table__head">
+                    <tr class="govuk-table__row">
+                        <th scope="col" class="govuk-table__header">Meeting agenda</th>
+                        <th scope="col" class="govuk-table__header">Date</th>
+                    </tr>
+                </thead>
+                <tbody class="govuk-table__body">
+                    <tr class="govuk-table__row">
+                        <td class="govuk-table__cell">Test Meeting</td>
+                        <td class="govuk-table__cell">12 Mar 2026</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="govuk-warning-text"><span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                <strong                 class="govuk-warning-text__text"><span class="govuk-visually-hidden">Warning</span> Deleting this meeting
+                    will remove it from future forecasting reporting.</strong>
+            </div>
+            <button type="submit" class="govuk-button govuk-button--warning" data-module="govuk-button">Delete</button>
+        </div>
+    </form>
+</main>"
+`;
+
+exports[`Fees and Forecasting GET /case/123/fees-forecasting/section/manage-fee/id/:feeId should render the manage fee page when feature flag is ON: manage-fee-edit 1`] = `
+"<main class="govuk-main-wrapper" id="main-content">
+    <h1 class="govuk-heading-l">Manage fee</h1>
+    <form method="post" novalidate="novalidate" class="pins-applications-create govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-form-group">
+                <fieldset class="govuk-fieldset" aria-describedby="invoiceStage-hint">
+                    <legend class="govuk-fieldset__legend"><strong>Case stage for fee</strong>
+                    </legend>
+                    <div id="invoiceStage-hint" class="govuk-hint">The relevant case stage attributed to this fee.</div>
+                    <div class="govuk-radios"
+                    data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="invoiceStage" name="invoiceStage"
+                            type="radio" value="pre_acceptance" checked>
+                            <label class="govuk-label govuk-radios__label" for="invoiceStage">Pre-acceptance</label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="invoiceStage-2" name="invoiceStage"
+                            type="radio" value="acceptance">
+                            <label class="govuk-label govuk-radios__label" for="invoiceStage-2">Acceptance</label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="invoiceStage-3" name="invoiceStage"
+                            type="radio" value="pre_examination">
+                            <label class="govuk-label govuk-radios__label" for="invoiceStage-3">Pre-examination</label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="invoiceStage-4" name="invoiceStage"
+                            type="radio" value="initial_examination">
+                            <label class="govuk-label govuk-radios__label" for="invoiceStage-4">Initial examination</label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="invoiceStage-5" name="invoiceStage"
+                            type="radio" value="final_examination">
+                            <label class="govuk-label govuk-radios__label" for="invoiceStage-5">Final examination</label>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="govuk-form-group">
+                <label class="govuk-label" for="invoiceNumber"><strong>Invoice number</strong>
+                </label>
+                <div id="invoiceNumber-hint" class="govuk-hint">For example, 1800004419</div>
+                <input class="govuk-input govuk-!-width-one-quarter"
+                id="invoiceNumber" name="invoiceNumber" type="text" value="180000000" aria-describedby="invoiceNumber-hint">
+            </div>
+            <div class="govuk-form-group">
+                <label class="govuk-label" for="amountDue"><strong>Amount due (optional)</strong>
+                </label>
+                <div id="amountDue-hint" class="govuk-hint">Total amount due, in pounds</div>
+                <div class="govuk-input__wrapper">
+                    <div class="govuk-input__prefix" aria-hidden="true">£</div>
+                    <input class="govuk-input govuk-!-width-one-quarter" id="amountDue"
+                    name="amountDue" type="text" value="20500.00" aria-describedby="amountDue-hint">
                 </div>
             </div>
         </div>
-    </div>
-    <h1 class="govuk-heading-l">Add a project meeting</h1>
+        <div class="govuk-form-group govuk-grid-column-full ">
+            <fieldset class="govuk-fieldset">
+                <legend class="govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4">Date of invoice (optional)</legend>
+                <div id="invoicedDate-hint" class="govuk-hint">Date the invoice is submitted</div>
+                <div class="govuk-grid-column-one-third">
+                    <div class="govuk-grid-row pins-date-form-group">
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="invoicedDate.day">Day</label>
+                            <input class="govuk-input" id="invoicedDate.day" name="invoicedDate.day"
+                            type="text">
+                        </div>
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="invoicedDate.month">Month</label>
+                            <input class="govuk-input" id="invoicedDate.month" name="invoicedDate.month"
+                            type="text">
+                        </div>
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="invoicedDate.year">Year</label>
+                            <input class="govuk-input" id="invoicedDate.year" name="invoicedDate.year"
+                            type="text">
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <div class="govuk-form-group govuk-grid-column-full ">
+            <fieldset class="govuk-fieldset">
+                <legend class="govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4">Payment due date (optional)</legend>
+                <div id="paymentDueDate-hint" class="govuk-hint">Date the initial payment is due</div>
+                <div class="govuk-grid-column-one-third">
+                    <div class="govuk-grid-row pins-date-form-group">
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="paymentDueDate.day">Day</label>
+                            <input class="govuk-input" id="paymentDueDate.day" name="paymentDueDate.day"
+                            type="text" value="01">
+                        </div>
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="paymentDueDate.month">Month</label>
+                            <input class="govuk-input" id="paymentDueDate.month" name="paymentDueDate.month"
+                            type="text" value="01">
+                        </div>
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="paymentDueDate.year">Year</label>
+                            <input class="govuk-input" id="paymentDueDate.year" name="paymentDueDate.year"
+                            type="text" value="1970">
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <div class="govuk-form-group govuk-grid-column-full ">
+            <fieldset class="govuk-fieldset">
+                <legend class="govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4">Date of payment (optional)</legend>
+                <div id="paymentDate-hint" class="govuk-hint">Date the initial payment is received</div>
+                <div class="govuk-grid-column-one-third">
+                    <div class="govuk-grid-row pins-date-form-group">
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="paymentDate.day">Day</label>
+                            <input class="govuk-input" id="paymentDate.day" name="paymentDate.day"
+                            type="text" value="01">
+                        </div>
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="paymentDate.month">Month</label>
+                            <input class="govuk-input" id="paymentDate.month" name="paymentDate.month"
+                            type="text" value="01">
+                        </div>
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="paymentDate.year">Year</label>
+                            <input class="govuk-input" id="paymentDate.year" name="paymentDate.year"
+                            type="text" value="1970">
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-form-group">
+                <label class="govuk-label" for="refundCreditNoteNumber"><strong>Refund credit note number (optional)</strong>
+                </label>
+                <div id="refundCreditNoteNumber-hint" class="govuk-hint">For example, 1800004419</div>
+                <input class="govuk-input govuk-!-width-one-quarter"
+                id="refundCreditNoteNumber" name="refundCreditNoteNumber" type="text" aria-describedby="refundCreditNoteNumber-hint">
+            </div>
+            <div class="govuk-form-group">
+                <label class="govuk-label" for="refundAmount"><strong>Amount refunded (optional)</strong>
+                </label>
+                <div id="refundAmount-hint" class="govuk-hint">Total amount refunded, in pounds</div>
+                <div class="govuk-input__wrapper">
+                    <div class="govuk-input__prefix" aria-hidden="true">£</div>
+                    <input class="govuk-input govuk-!-width-one-quarter" id="refundAmount"
+                    name="refundAmount" type="text" aria-describedby="refundAmount-hint">
+                </div>
+            </div>
+        </div>
+        <div class="govuk-form-group govuk-grid-column-full ">
+            <fieldset class="govuk-fieldset">
+                <legend class="govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4">Refund issue date (optional)</legend>
+                <div id="refundIssueDate-hint" class="govuk-hint">Date the refund is issued</div>
+                <div class="govuk-grid-column-one-third">
+                    <div class="govuk-grid-row pins-date-form-group">
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="refundIssueDate.day">Day</label>
+                            <input class="govuk-input" id="refundIssueDate.day" name="refundIssueDate.day"
+                            type="text" value="01">
+                        </div>
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="refundIssueDate.month">Month</label>
+                            <input class="govuk-input" id="refundIssueDate.month" name="refundIssueDate.month"
+                            type="text" value="01">
+                        </div>
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="refundIssueDate.year">Year</label>
+                            <input class="govuk-input" id="refundIssueDate.year" name="refundIssueDate.year"
+                            type="text" value="1970">
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <div class='govuk-grid-column-one-third govuk-button-group'>
+            <button type="submit" class="govuk-button" data-module="govuk-button">Save and return</button><a href="/applications-service/case/123/fees-forecasting/section/manage-fee/id/1/delete"
+            role="button" draggable="false" class="govuk-button govuk-button--secondary"
+            data-module="govuk-button"> Remove</a>
+        </div>
+    </form>
+</main>"
+`;
+
+exports[`Fees and Forecasting GET /case/123/fees-forecasting/section/manage-fee/id/:feeId/delete should render the delete confirmation page: delete-fee-confirmation 1`] = `
+"<main class="govuk-main-wrapper" id="main-content">
+    <h1 class="govuk-heading-l">Delete fee</h1>
+    <form method="post" novalidate="novalidate" class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <table class="govuk-table">
+                <thead class="govuk-table__head">
+                    <tr class="govuk-table__row">
+                        <th scope="col" class="govuk-table__header">Stage</th>
+                        <th scope="col" class="govuk-table__header">Amount</th>
+                        <th scope="col" class="govuk-table__header">Invoice number</th>
+                        <th scope="col" class="govuk-table__header">Status</th>
+                    </tr>
+                </thead>
+                <tbody class="govuk-table__body">
+                    <tr class="govuk-table__row">
+                        <td class="govuk-table__cell">Pre-acceptance</td>
+                        <td class="govuk-table__cell">£20500.00</td>
+                        <td class="govuk-table__cell">180000000</td>
+                        <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--purple">Refunded</strong>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="govuk-warning-text"><span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                <strong                 class="govuk-warning-text__text"><span class="govuk-visually-hidden">Warning</span> Deleting this fee will
+                    remove it from future forecasting reporting.</strong>
+            </div>
+            <button type="submit" class="govuk-button govuk-button--warning" data-module="govuk-button">Delete</button>
+        </div>
+    </form>
+</main>"
+`;
+
+exports[`Fees and Forecasting GET /case/123/fees-forecasting/section/manage-project-meeting/id/:meetingId should render the manage project meeting page when the feature flag is ON 1`] = `
+"<main class="govuk-main-wrapper" id="main-content">
+    <h1 class="govuk-heading-l">Manage project meeting</h1>
     <form method="post" novalidate="novalidate" class="govuk-grid-row">
         <div class='govuk-grid-column-two-thirds'>
             <div class="govuk-form-group">
@@ -417,7 +727,7 @@ exports[`Fees and Forecasting POST /case/123/fees-forecasting/:sectionName shoul
                         <div class="govuk-radios__conditional govuk-radios__conditional--hidden"
                         id="conditional-agenda-4">
                             <div class="govuk-form-group">
-                                <input class="govuk-input govuk-!-width-one-third" id="otherAgenda" name="otherAgenda"
+                                <input class="govuk-input govuk-!-width-two-thirds" id="otherAgenda" name="otherAgenda"
                                 type="text">
                             </div>
                         </div>
@@ -433,30 +743,118 @@ exports[`Fees and Forecasting POST /case/123/fees-forecasting/:sectionName shoul
                         <div class="govuk-form-group">
                             <label class="govuk-label govuk-hint" for="meetingDate.day">Day</label>
                             <input class="govuk-input" id="meetingDate.day" name="meetingDate.day"
-                            type="text">
+                            type="text" value="04">
                         </div>
                         <div class="govuk-form-group">
                             <label class="govuk-label govuk-hint" for="meetingDate.month">Month</label>
                             <input class="govuk-input" id="meetingDate.month" name="meetingDate.month"
-                            type="text">
+                            type="text" value="03">
                         </div>
                         <div class="govuk-form-group">
                             <label class="govuk-label govuk-hint" for="meetingDate.year">Year</label>
                             <input class="govuk-input" id="meetingDate.year" name="meetingDate.year"
-                            type="text">
+                            type="text" value="2026">
                         </div>
                     </div>
                 </div>
             </fieldset>
         </div>
-        <div class='govuk-grid-column-one-third'>
-            <button type="submit" class="govuk-button" data-module="govuk-button">Save and return</button>
+        <div class='govuk-grid-column-one-third govuk-button-group'>
+            <button type="submit" class="govuk-button" data-module="govuk-button">Save and return</button><a href="/applications-service/case/123/fees-forecasting/section/manage-project-meeting/id/1/delete"
+            role="button" draggable="false" class="govuk-button govuk-button--secondary"
+            data-module="govuk-button"> Remove</a>
         </div>
     </form>
 </main>"
 `;
 
-exports[`Fees and Forecasting POST /case/123/fees-forecasting/:sectionName should show an API error if updating was NOT successful 1`] = `
+exports[`Fees and Forecasting GET /case/123/fees-forecasting/section/manage-project-meeting/id/:meetingId/delete should render the delete confirmation page 1`] = `
+"<main class="govuk-main-wrapper" id="main-content">
+    <h1 class="govuk-heading-l">Delete project meeting</h1>
+    <form method="post" novalidate="novalidate" class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <table class="govuk-table">
+                <thead class="govuk-table__head">
+                    <tr class="govuk-table__row">
+                        <th scope="col" class="govuk-table__header">Meeting agenda</th>
+                        <th scope="col" class="govuk-table__header">Date</th>
+                    </tr>
+                </thead>
+                <tbody class="govuk-table__body">
+                    <tr class="govuk-table__row">
+                        <td class="govuk-table__cell">Project Update Meeting (PUM)</td>
+                        <td class="govuk-table__cell">04 Mar 2026</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="govuk-warning-text"><span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                <strong                 class="govuk-warning-text__text"><span class="govuk-visually-hidden">Warning</span> Deleting this meeting
+                    will remove it from future forecasting reporting.</strong>
+            </div>
+            <button type="submit" class="govuk-button govuk-button--warning" data-module="govuk-button">Delete</button>
+        </div>
+    </form>
+</main>"
+`;
+
+exports[`Fees and Forecasting GET /case/123/fees-forecasting/section/project-maturity (radio-input) should render the radio-input page when feature flag is ON 1`] = `
+"<main class="govuk-main-wrapper" id="main-content">
+    <form method="post" novalidate="novalidate" class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-form-group">
+                <fieldset class="govuk-fieldset">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                        <h1 class="govuk-fieldset__heading"> What is the new maturity of the project?</h1>
+                    </legend>
+                    <div class="govuk-radios" data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="newMaturity" name="newMaturity"
+                            type="radio" value="a">
+                            <label class="govuk-label govuk-radios__label" for="newMaturity">A</label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="newMaturity-2" name="newMaturity"
+                            type="radio" value="b">
+                            <label class="govuk-label govuk-radios__label" for="newMaturity-2">B</label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="newMaturity-3" name="newMaturity"
+                            type="radio" value="c" checked>
+                            <label class="govuk-label govuk-radios__label" for="newMaturity-3">C</label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="newMaturity-4" name="newMaturity"
+                            type="radio" value="d">
+                            <label class="govuk-label govuk-radios__label" for="newMaturity-4">D</label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="newMaturity-5" name="newMaturity"
+                            type="radio" value="e">
+                            <label class="govuk-label govuk-radios__label" for="newMaturity-5">E</label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="newMaturity-6" name="newMaturity"
+                            type="radio" value="f">
+                            <label class="govuk-label govuk-radios__label" for="newMaturity-6">F</label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="newMaturity-7" name="newMaturity"
+                            type="radio" value="g">
+                            <label class="govuk-label govuk-radios__label" for="newMaturity-7">G</label>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+        <div class="govuk-grid-column-full">
+            <button type="submit" class="govuk-button govuk-grid-column-one-third"
+            data-module="govuk-button">Save and return</button>
+        </div>
+    </form>
+</main>"
+`;
+
+exports[`Fees and Forecasting POST /case/123/fees-forecasting/section/:sectionName should show an API error for date input if updating date was NOT successful 1`] = `
 "<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-full">
@@ -500,6 +898,654 @@ exports[`Fees and Forecasting POST /case/123/fees-forecasting/:sectionName shoul
         </div>
         <div class='govuk-grid-column-one-third'>
             <button type="submit" class="govuk-button" data-module="govuk-button">Save and return</button>
+        </div>
+    </form>
+</main>"
+`;
+
+exports[`Fees and Forecasting POST /case/123/fees-forecasting/section/:sectionName should show an API error for text area if updating comment was NOT successful 1`] = `
+"<main class="govuk-main-wrapper" id="main-content">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#msg">An error occurred, please try again later</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h1 class="govuk-heading-l">Additional comments (optional)</h1>
+    <form method="post" novalidate="novalidate" class="govuk-grid-row">
+        <div class='govuk-grid-column-two-thirds'>
+            <div class="govuk-form-group">
+                <textarea class="govuk-textarea" id="additionalComments" name="additionalComments"
+                rows="5">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
+                    ligula eget dolor.</textarea>
+            </div>
+            <button type="submit" class="govuk-button" data-module="govuk-button">Save and return</button>
+        </div>
+    </form>
+</main>"
+`;
+
+exports[`Fees and Forecasting POST /case/123/fees-forecasting/section/:sectionName should show an API error for text input if updating hyperlink was NOT successful 1`] = `
+"<main class="govuk-main-wrapper" id="main-content">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#msg">An error occurred, please try again later</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h1 class="govuk-heading-l">Link to the issues tracker</h1>
+    <form method="post" novalidate="novalidate" class="govuk-grid-row">
+        <div class='govuk-grid-column-two-thirds'>
+            <div class="govuk-form-group">
+                <input class="govuk-input" id="issuesTracker" name="issuesTracker" type="text"
+                value="test.hyperlink.com/">
+            </div>
+            <button type="submit" class="govuk-button" data-module="govuk-button">Save and return</button>
+        </div>
+    </form>
+</main>"
+`;
+
+exports[`Fees and Forecasting POST /case/123/fees-forecasting/section/:sectionName should show an API error for text input if updating inspector number was NOT successful 1`] = `
+"<main class="govuk-main-wrapper" id="main-content">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#msg">An error occurred, please try again later</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h1 class="govuk-heading-l">Examining inspectors</h1>
+    <form method="post" novalidate="novalidate" class="govuk-grid-row">
+        <div class='govuk-grid-column-two-thirds'>
+            <div class="govuk-form-group">
+                <label class="govuk-label" for="numberBand2Inspectors">Number of band 2 inspectors</label>
+                <input class="govuk-input govuk-input--width-5"
+                id="numberBand2Inspectors" name="numberBand2Inspectors" type="text" value="2">
+            </div>
+            <div class="govuk-form-group">
+                <label class="govuk-label" for="numberBand3Inspectors">Number of band 3 inspectors</label>
+                <input class="govuk-input govuk-input--width-5"
+                id="numberBand3Inspectors" name="numberBand3Inspectors" type="text" value="3">
+            </div>
+            <button type="submit" class="govuk-button" data-module="govuk-button">Save and return</button>
+        </div>
+    </form>
+</main>"
+`;
+
+exports[`Fees and Forecasting POST /case/123/fees-forecasting/section/:sectionName should show an API error if creating a project meeting was NOT successful 1`] = `
+"<main class="govuk-main-wrapper" id="main-content">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#msg">Project Update Meeting (PUM) could not be created - please try again</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h1 class="govuk-heading-l">Add a project meeting</h1>
+    <form method="post" novalidate="novalidate" class="govuk-grid-row">
+        <div class='govuk-grid-column-two-thirds'>
+            <div class="govuk-form-group">
+                <fieldset class="govuk-fieldset">
+                    <legend class="govuk-fieldset__legend"><strong>Meeting agenda</strong>
+                    </legend>
+                    <div class="govuk-radios" data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="agenda" name="agenda" type="radio"
+                            value="Project Update Meeting (PUM)" checked>
+                            <label class="govuk-label govuk-radios__label" for="agenda">Project Update Meeting (PUM)</label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="agenda-2" name="agenda" type="radio"
+                            value="Multi-Party Meeting (MPM)">
+                            <label class="govuk-label govuk-radios__label" for="agenda-2">Multi-Party Meeting (MPM)</label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="agenda-3" name="agenda" type="radio"
+                            value="Draft document review">
+                            <label class="govuk-label govuk-radios__label" for="agenda-3">Draft document review</label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="agenda-4" name="agenda" type="radio"
+                            value="Other" data-aria-controls="conditional-agenda-4">
+                            <label class="govuk-label govuk-radios__label" for="agenda-4">Other</label>
+                        </div>
+                        <div class="govuk-radios__conditional govuk-radios__conditional--hidden"
+                        id="conditional-agenda-4">
+                            <div class="govuk-form-group">
+                                <input class="govuk-input govuk-!-width-two-thirds" id="otherAgenda" name="otherAgenda"
+                                type="text">
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+        <div class="govuk-form-group govuk-grid-column-full ">
+            <fieldset class="govuk-fieldset">
+                <legend class="govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4">Date of project meeting</legend>
+                <div class="govuk-grid-column-one-third">
+                    <div class="govuk-grid-row pins-date-form-group">
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="meetingDate.day">Day</label>
+                            <input class="govuk-input" id="meetingDate.day" name="meetingDate.day"
+                            type="text">
+                        </div>
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="meetingDate.month">Month</label>
+                            <input class="govuk-input" id="meetingDate.month" name="meetingDate.month"
+                            type="text">
+                        </div>
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="meetingDate.year">Year</label>
+                            <input class="govuk-input" id="meetingDate.year" name="meetingDate.year"
+                            type="text">
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <div class='govuk-grid-column-one-third govuk-button-group'>
+            <button type="submit" class="govuk-button" data-module="govuk-button">Save and return</button>
+        </div>
+    </form>
+</main>"
+`;
+
+exports[`Fees and Forecasting POST /case/123/fees-forecasting/section/:sectionName should show an API error if creating an evidence plan meeting was NOT successful 1`] = `
+"<main class="govuk-main-wrapper" id="main-content">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#msg">Test Meeting could not be created - please try again</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h1 class="govuk-heading-l">Add an evidence plan meeting</h1>
+    <form method="post" novalidate="novalidate" class="govuk-grid-row">
+        <div class='govuk-grid-column-two-thirds'>
+            <div class="govuk-form-group">
+                <label class="govuk-label" for="agenda"><strong>Meeting agenda</strong>
+                </label>
+                <div id="agenda-hint" class="govuk-hint">for example, Flood Risk Assessment (FRA)</div>
+                <input class="govuk-input"
+                id="agenda" name="agenda" type="text" value="Test Meeting" aria-describedby="agenda-hint">
+            </div>
+            <div class="govuk-form-group">
+                <fieldset class="govuk-fieldset">
+                    <legend class="govuk-fieldset__legend"><strong>Planning Inspectorate role</strong>
+                    </legend>
+                    <div class="govuk-radios" data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="pinsRole" name="pinsRole" type="radio"
+                            value="facilitator" checked>
+                            <label class="govuk-label govuk-radios__label" for="pinsRole">Facilitator</label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="pinsRole-2" name="pinsRole" type="radio"
+                            value="advisor">
+                            <label class="govuk-label govuk-radios__label" for="pinsRole-2">Advisor</label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="pinsRole-3" name="pinsRole" type="radio"
+                            value="observer">
+                            <label class="govuk-label govuk-radios__label" for="pinsRole-3">Observer</label>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+        <div class="govuk-form-group govuk-grid-column-full ">
+            <fieldset class="govuk-fieldset">
+                <legend class="govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4">Date of evidence planning meeting</legend>
+                <div class="govuk-grid-column-one-third">
+                    <div class="govuk-grid-row pins-date-form-group">
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="meetingDate.day">Day</label>
+                            <input class="govuk-input" id="meetingDate.day" name="meetingDate.day"
+                            type="text">
+                        </div>
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="meetingDate.month">Month</label>
+                            <input class="govuk-input" id="meetingDate.month" name="meetingDate.month"
+                            type="text">
+                        </div>
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="meetingDate.year">Year</label>
+                            <input class="govuk-input" id="meetingDate.year" name="meetingDate.year"
+                            type="text">
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <div class='govuk-grid-column-one-third govuk-button-group'>
+            <button type="submit" class="govuk-button" data-module="govuk-button">Save and return</button>
+        </div>
+    </form>
+</main>"
+`;
+
+exports[`Fees and Forecasting POST /case/123/fees-forecasting/section/manage-evidence-plan-meeting/id/:meetingId should show an API error if updating the evidence plan meeting was NOT successful 1`] = `
+"<main class="govuk-main-wrapper" id="main-content">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#msg">New Test Meeting could not be updated - please try again</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h1 class="govuk-heading-l">Manage evidence plan meeting</h1>
+    <form method="post" novalidate="novalidate" class="govuk-grid-row">
+        <div class='govuk-grid-column-two-thirds'>
+            <div class="govuk-form-group">
+                <label class="govuk-label" for="agenda"><strong>Meeting agenda</strong>
+                </label>
+                <div id="agenda-hint" class="govuk-hint">for example, Flood Risk Assessment (FRA)</div>
+                <input class="govuk-input"
+                id="agenda" name="agenda" type="text" value="New Test Meeting" aria-describedby="agenda-hint">
+            </div>
+            <div class="govuk-form-group">
+                <fieldset class="govuk-fieldset">
+                    <legend class="govuk-fieldset__legend"><strong>Planning Inspectorate role</strong>
+                    </legend>
+                    <div class="govuk-radios" data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="pinsRole" name="pinsRole" type="radio"
+                            value="facilitator" checked>
+                            <label class="govuk-label govuk-radios__label" for="pinsRole">Facilitator</label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="pinsRole-2" name="pinsRole" type="radio"
+                            value="advisor">
+                            <label class="govuk-label govuk-radios__label" for="pinsRole-2">Advisor</label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="pinsRole-3" name="pinsRole" type="radio"
+                            value="observer">
+                            <label class="govuk-label govuk-radios__label" for="pinsRole-3">Observer</label>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+        <div class="govuk-form-group govuk-grid-column-full ">
+            <fieldset class="govuk-fieldset">
+                <legend class="govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4">Date of evidence planning meeting</legend>
+                <div class="govuk-grid-column-one-third">
+                    <div class="govuk-grid-row pins-date-form-group">
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="meetingDate.day">Day</label>
+                            <input class="govuk-input" id="meetingDate.day" name="meetingDate.day"
+                            type="text">
+                        </div>
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="meetingDate.month">Month</label>
+                            <input class="govuk-input" id="meetingDate.month" name="meetingDate.month"
+                            type="text">
+                        </div>
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="meetingDate.year">Year</label>
+                            <input class="govuk-input" id="meetingDate.year" name="meetingDate.year"
+                            type="text">
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <div class='govuk-grid-column-one-third govuk-button-group'>
+            <button type="submit" class="govuk-button" data-module="govuk-button">Save and return</button><a href="/applications-service/case/123/fees-forecasting/section/manage-evidence-plan-meeting/id/2/delete"
+            role="button" draggable="false" class="govuk-button govuk-button--secondary"
+            data-module="govuk-button"> Remove</a>
+        </div>
+    </form>
+</main>"
+`;
+
+exports[`Fees and Forecasting POST /case/123/fees-forecasting/section/manage-evidence-plan-meeting/id/:meetingId/delete should show an API error if deleting the evidence plan meeting was NOT successful 1`] = `
+"<main class="govuk-main-wrapper" id="main-content">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#msg">Test Meeting could not be deleted - please try again</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h1 class="govuk-heading-l">Delete evidence plan meeting</h1>
+    <form method="post" novalidate="novalidate" class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <table class="govuk-table">
+                <thead class="govuk-table__head">
+                    <tr class="govuk-table__row">
+                        <th scope="col" class="govuk-table__header">Meeting agenda</th>
+                        <th scope="col" class="govuk-table__header">Date</th>
+                    </tr>
+                </thead>
+                <tbody class="govuk-table__body">
+                    <tr class="govuk-table__row">
+                        <td class="govuk-table__cell">Test Meeting</td>
+                        <td class="govuk-table__cell">12 Mar 2026</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="govuk-warning-text"><span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                <strong                 class="govuk-warning-text__text"><span class="govuk-visually-hidden">Warning</span> Deleting this meeting
+                    will remove it from future forecasting reporting.</strong>
+            </div>
+            <button type="submit" class="govuk-button govuk-button--warning" data-module="govuk-button">Delete</button>
+        </div>
+    </form>
+</main>"
+`;
+
+exports[`Fees and Forecasting POST /case/123/fees-forecasting/section/manage-fee/id/:feeId/delete should show an API error if deleting fee was NOT successful 1`] = `
+"<main class="govuk-main-wrapper" id="main-content">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#msg">Invoice 1 could not be deleted - please try again</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h1 class="govuk-heading-l">Delete fee</h1>
+    <form method="post" novalidate="novalidate" class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <table class="govuk-table">
+                <thead class="govuk-table__head">
+                    <tr class="govuk-table__row">
+                        <th scope="col" class="govuk-table__header">Stage</th>
+                        <th scope="col" class="govuk-table__header">Amount</th>
+                        <th scope="col" class="govuk-table__header">Invoice number</th>
+                        <th scope="col" class="govuk-table__header">Status</th>
+                    </tr>
+                </thead>
+                <tbody class="govuk-table__body">
+                    <tr class="govuk-table__row">
+                        <td class="govuk-table__cell">Pre-acceptance</td>
+                        <td class="govuk-table__cell">£20500.00</td>
+                        <td class="govuk-table__cell">180000000</td>
+                        <td class="govuk-table__cell"><strong class="govuk-tag govuk-tag--purple">Refunded</strong>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="govuk-warning-text"><span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                <strong                 class="govuk-warning-text__text"><span class="govuk-visually-hidden">Warning</span> Deleting this fee will
+                    remove it from future forecasting reporting.</strong>
+            </div>
+            <button type="submit" class="govuk-button govuk-button--warning" data-module="govuk-button">Delete</button>
+        </div>
+    </form>
+</main>"
+`;
+
+exports[`Fees and Forecasting POST /case/123/fees-forecasting/section/manage-project-meeting/id/:meetingId should show an API error if updating the project meeting was NOT successful 1`] = `
+"<main class="govuk-main-wrapper" id="main-content">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#msg">Multi-Party Meeting (MPM) could not be updated - please try again</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h1 class="govuk-heading-l">Manage project meeting</h1>
+    <form method="post" novalidate="novalidate" class="govuk-grid-row">
+        <div class='govuk-grid-column-two-thirds'>
+            <div class="govuk-form-group">
+                <fieldset class="govuk-fieldset">
+                    <legend class="govuk-fieldset__legend"><strong>Meeting agenda</strong>
+                    </legend>
+                    <div class="govuk-radios" data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="agenda" name="agenda" type="radio"
+                            value="Project Update Meeting (PUM)">
+                            <label class="govuk-label govuk-radios__label" for="agenda">Project Update Meeting (PUM)</label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="agenda-2" name="agenda" type="radio"
+                            value="Multi-Party Meeting (MPM)" checked>
+                            <label class="govuk-label govuk-radios__label" for="agenda-2">Multi-Party Meeting (MPM)</label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="agenda-3" name="agenda" type="radio"
+                            value="Draft document review">
+                            <label class="govuk-label govuk-radios__label" for="agenda-3">Draft document review</label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="agenda-4" name="agenda" type="radio"
+                            value="Other" data-aria-controls="conditional-agenda-4">
+                            <label class="govuk-label govuk-radios__label" for="agenda-4">Other</label>
+                        </div>
+                        <div class="govuk-radios__conditional govuk-radios__conditional--hidden"
+                        id="conditional-agenda-4">
+                            <div class="govuk-form-group">
+                                <input class="govuk-input govuk-!-width-two-thirds" id="otherAgenda" name="otherAgenda"
+                                type="text">
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+        <div class="govuk-form-group govuk-grid-column-full ">
+            <fieldset class="govuk-fieldset">
+                <legend class="govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4">Date of project meeting</legend>
+                <div class="govuk-grid-column-one-third">
+                    <div class="govuk-grid-row pins-date-form-group">
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="meetingDate.day">Day</label>
+                            <input class="govuk-input" id="meetingDate.day" name="meetingDate.day"
+                            type="text">
+                        </div>
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="meetingDate.month">Month</label>
+                            <input class="govuk-input" id="meetingDate.month" name="meetingDate.month"
+                            type="text">
+                        </div>
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="meetingDate.year">Year</label>
+                            <input class="govuk-input" id="meetingDate.year" name="meetingDate.year"
+                            type="text">
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <div class='govuk-grid-column-one-third govuk-button-group'>
+            <button type="submit" class="govuk-button" data-module="govuk-button">Save and return</button><a href="/applications-service/case/123/fees-forecasting/section/manage-project-meeting/id/1/delete"
+            role="button" draggable="false" class="govuk-button govuk-button--secondary"
+            data-module="govuk-button"> Remove</a>
+        </div>
+    </form>
+</main>"
+`;
+
+exports[`Fees and Forecasting POST /case/123/fees-forecasting/section/manage-project-meeting/id/:meetingId/delete should show an API error if deleting the project meeting was NOT successful 1`] = `
+"<main class="govuk-main-wrapper" id="main-content">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#msg">Project Update Meeting (PUM) could not be deleted - please try again</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h1 class="govuk-heading-l">Delete project meeting</h1>
+    <form method="post" novalidate="novalidate" class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <table class="govuk-table">
+                <thead class="govuk-table__head">
+                    <tr class="govuk-table__row">
+                        <th scope="col" class="govuk-table__header">Meeting agenda</th>
+                        <th scope="col" class="govuk-table__header">Date</th>
+                    </tr>
+                </thead>
+                <tbody class="govuk-table__body">
+                    <tr class="govuk-table__row">
+                        <td class="govuk-table__cell">Project Update Meeting (PUM)</td>
+                        <td class="govuk-table__cell">04 Mar 2026</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="govuk-warning-text"><span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                <strong                 class="govuk-warning-text__text"><span class="govuk-visually-hidden">Warning</span> Deleting this meeting
+                    will remove it from future forecasting reporting.</strong>
+            </div>
+            <button type="submit" class="govuk-button govuk-button--warning" data-module="govuk-button">Delete</button>
+        </div>
+    </form>
+</main>"
+`;
+
+exports[`Fees and Forecasting POST /case/123/fees-forecasting/section/project-maturity (radio-input) should show an API error if updating was NOT successful 1`] = `
+"<main class="govuk-main-wrapper" id="main-content">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#msg">An error occurred, please try again later</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <form method="post" novalidate="novalidate" class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <div class="govuk-form-group">
+                <fieldset class="govuk-fieldset">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                        <h1 class="govuk-fieldset__heading"> What is the new maturity of the project?</h1>
+                    </legend>
+                    <div class="govuk-radios" data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="newMaturity" name="newMaturity"
+                            type="radio" value="a">
+                            <label class="govuk-label govuk-radios__label" for="newMaturity">A</label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="newMaturity-2" name="newMaturity"
+                            type="radio" value="b">
+                            <label class="govuk-label govuk-radios__label" for="newMaturity-2">B</label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="newMaturity-3" name="newMaturity"
+                            type="radio" value="c" checked>
+                            <label class="govuk-label govuk-radios__label" for="newMaturity-3">C</label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="newMaturity-4" name="newMaturity"
+                            type="radio" value="d">
+                            <label class="govuk-label govuk-radios__label" for="newMaturity-4">D</label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="newMaturity-5" name="newMaturity"
+                            type="radio" value="e">
+                            <label class="govuk-label govuk-radios__label" for="newMaturity-5">E</label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="newMaturity-6" name="newMaturity"
+                            type="radio" value="f">
+                            <label class="govuk-label govuk-radios__label" for="newMaturity-6">F</label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="newMaturity-7" name="newMaturity"
+                            type="radio" value="g">
+                            <label class="govuk-label govuk-radios__label" for="newMaturity-7">G</label>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+        <div class="govuk-grid-column-full">
+            <button type="submit" class="govuk-button govuk-grid-column-one-third"
+            data-module="govuk-button">Save and return</button>
         </div>
     </form>
 </main>"

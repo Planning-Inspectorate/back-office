@@ -6,12 +6,13 @@ import {
 	validationDateValid
 } from '../../common/validators/dates.validators.js';
 
+/** @typedef {import('@pins/express/types/express.d.ts').AsyncRequestHandler} AsyncRequestHandler */
 /** @typedef {import('express').RequestHandler} RequestHandler */
 
 /**
  * Dispatch the POST route to the right validator
  *
- * @type {RequestHandler}
+ * @type {AsyncRequestHandler}
  */
 export const validatorsDispatcher = async (request, response, next) => {
 	const { metaDataName } = request.params;

@@ -1,0 +1,86 @@
+{% extends "../layouts/applications.layout.njk" %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from '../components/inputs/date-input.component.njk' import dateInput %}
+
+{% block beforeContent %}
+	<aside>
+		{{ govukBackLink({
+			text: "Back",
+			href: 'fees-forecasting'|url({caseId: caseId})
+		}) }}
+	</aside>
+{% endblock %}
+
+{% block pageHeading %}
+	<h1 class="govuk-heading-l">{{ pageHeading }}</h1>
+{% endblock %}
+
+{% block pageContent %}
+	<form method="post" novalidate="novalidate" class="govuk-grid-row">
+		<div class='govuk-grid-column-two-thirds'>
+			{{ govukInput({
+				name: "agenda",
+				label: {
+					html: "<strong>Meeting agenda</strong>"
+				},
+				hint: {
+					text: "for example, Flood Risk Assessment (FRA)"
+				},
+				errorMessage: errors['agenda'] and {
+					text: errors['agenda'].msg
+				},
+				value: values['agenda']
+			}) }}
+
+			{{ govukRadios({
+				name: 'pinsRole',
+				fieldset: {
+					legend: {
+						html: "<strong>Planning Inspectorate role</strong>"
+					}
+				},
+				items: [
+					{
+						value: "facilitator",
+						text: "Facilitator"
+					},
+					{
+						value: "advisor",
+						text: "Advisor"
+					},
+					{
+						value: "observer",
+						text: "Observer"
+					}
+				],
+				errorMessage: errors['pinsRole'] and {
+					text: errors['pinsRole'].msg
+				},
+				value: values['pinsRole']
+			}) }}
+		</div>
+
+		{{ dateInput({
+			layout: {
+				fieldName: 'meetingDate',
+				label: "Date of evidence planning meeting",
+				classes: 'govuk-grid-column-one-third'
+			},
+			errors: errors,
+			values: values
+		}) }}
+
+		<div class='govuk-grid-column-one-third govuk-button-group'>
+			{{ govukButton({ text: 'Save and return' }) }}
+			{% if componentType === 'manage-evidence-plan-meeting' %}
+				{{ govukButton({
+					text: 'Remove',
+					classes: 'govuk-button--secondary',
+					href: originalURL + '/delete'
+				}) }}
+			{% endif %}
+		</div>
+	</form>
+{% endblock %}

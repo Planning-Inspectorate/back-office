@@ -39,7 +39,14 @@ export const validateUpdateKeyDates = composeMiddleware(
 	...validationMiddleware('examination', examinationDateNames),
 	...validationMiddleware('recommendation', recommendationDateNames),
 	...validationMiddleware('decision', decisionDateNames),
-	...validationMiddleware('postDecision', postDecisionDateNames),
+	...validationMiddleware(
+		'postDecision',
+		postDecisionDateNames.filter(
+			(key) => key !== 'courtDecisionOutcome' && key !== 'courtDecisionOutcomeText'
+		)
+	),
+	body('postDecision.courtDecisionOutcome').optional({ nullable: true }),
+	body('postDecision.courtDecisionOutcomeText').optional({ nullable: true }),
 	...validationMiddleware('withdrawal', withdrawalDateNames),
 	validationErrorHandler
 );

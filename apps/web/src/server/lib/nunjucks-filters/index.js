@@ -38,4 +38,4 @@ export { sanitize } from './sanitize.js';
 export { default as stripQueryParamsDev } from './strip-query-parameters.js';
 export { actionsParameterForDocumentStatus } from './actions-parameter-for-document-status.js';
 export { formatNameOrg } from './format-name-org.js';
-export { isFeatureActive } from './feature-flag.js';
+export { isFeatureActive, isFeatureActiveForCase } from './feature-flag.js';

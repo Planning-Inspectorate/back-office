@@ -22,7 +22,7 @@ resources:
       type: github
       endpoint: Planning-Inspectorate
       name: Planning-Inspectorate/common-pipeline-templates
-      ref: refs/tags/release/3.24.2
+      ref: refs/tags/release/3.25.2
   pipelines:
       - pipeline: Back Office PR
         source: Back Office PR
@@ -93,7 +93,7 @@ extends:
           # install function specific node_modules
           - template: azure-pipelines-package-function-dep-install.yml@self
             parameters:
-              nodeVersion: 20
+              nodeVersion: 22
               appsFolderNames:
                 - 'applications-migration'
                 - 'applications-background-jobs'

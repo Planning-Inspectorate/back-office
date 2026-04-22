@@ -33,6 +33,7 @@ export const mapApplicationDetailsToRepository = (applicationDetails) => {
 			'caseEmail',
 			'dateOfReOpenRelevantRepresentationStart',
 			'dateOfReOpenRelevantRepresentationClose',
+			'dcoStatus',
 			// enums / strings
 			'tier',
 			'subProjectType',
@@ -64,6 +65,10 @@ export const mapApplicationDetailsToRepository = (applicationDetails) => {
 	if (formattedApplicationDetails.caseEmail === '') {
 		// Make sure caseEmail is saved as a null if blank
 		formattedApplicationDetails.caseEmail = null;
+	}
+
+	if (formattedApplicationDetails.dcoStatus === '') {
+		formattedApplicationDetails.dcoStatus = null;
 	}
 
 	if (formattedApplicationDetails.planProcessEvidence != null) {

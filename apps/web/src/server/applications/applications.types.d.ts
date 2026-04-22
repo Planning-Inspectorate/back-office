@@ -47,6 +47,8 @@ export interface Case {
 	subSector?: Sector;
 	additionalDetails?: {
 		subProjectType?: string | null;
+		recommendation?: string | null;
+		dcoStatus?: string | null;
 	};
 	caseEmail?: string;
 	applicant?: Applicant;
@@ -164,6 +166,10 @@ export interface DocumentVersion {
 		unpublished: {
 			name: string;
 			username: string;
+			date: number;
+		} | null;
+		uploaded: {
+			name: string;
 			date: number;
 		} | null;
 	};

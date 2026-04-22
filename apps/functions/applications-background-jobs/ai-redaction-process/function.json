@@ -1,0 +1,12 @@
+{
+	"bindings": [
+		{
+			"name": "documentRedaction",
+			"type": "serviceBusTrigger",
+			"direction": "in",
+			"topicName": "redaction-process-complete",
+			"subscriptionName": "cbos",
+			"connection": "ServiceBusConnection"
+		}
+	]
+}

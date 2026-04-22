@@ -1,10 +1,11 @@
 generator client {
-  provider = "prisma-client-js"
+  provider            = "prisma-client"
+  output              = "./client"
+  importFileExtension = "js"
 }
 
 datasource db {
   provider = "sqlserver"
-  url      = env("DATABASE_URL")
 }
 
 /// Case model
@@ -157,6 +158,7 @@ model ApplicationDetails {
   courtDecisionOutcomeText                          String?
   decisionChallengeSubmissionDate                   DateTime?
   recommendation                                    String?
+  dcoStatus                                         String?
   subProjectType                                    String?
   newMaturity                                       String?
   statutoryConsultationPeriodEndDate                DateTime?

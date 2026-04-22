@@ -1,0 +1,31 @@
+{% extends "app/layouts/app.layout.njk" %}
+
+{% from 'app/components/file-uploader.component.njk' import fileUploader %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+
+{% set serviceName = case.title %}
+
+{% block pageHeading %}{% endblock %}
+
+{% block beforeContent %}
+<aside>
+	{{ govukBackLink({
+		text: "Back",
+		href: 'review-document-redaction'|url({caseId: caseId, folderId: folderId, documentGuid: documentationFile.documentGuid, step: 'review-redactions'})
+	}) }}
+</aside>
+{% endblock %}
+
+{% block pageContent %}
+	{{ fileUploader({
+		text: 'Finalise redactions',
+		formId: 1,
+		caseId: caseId,
+		documentId: documentationFile.documentGuid,
+		folderId: currentFolder.id,
+		formTitle: 'Upload document with edited redaction suggestions',
+		nextPageUrl: 'review-document-redaction'|url({caseId: caseId, folderId: folderId, documentGuid: documentationFile.documentGuid, step: 'finalise-redactions'}),
+		allowedTypes: ['pdf'],
+		disclaimerText: "Finalising the redactions will create a new version of the document."
+	}) }}
+{% endblock %}

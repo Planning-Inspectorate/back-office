@@ -23,6 +23,7 @@ import {
 	fixtureDocumentationTopLevelFolders
 } from '../../../../../../testing/applications/fixtures/options-item.js';
 import { createTestEnvironment } from '../../../../../../testing/index.js';
+import { featureFlagClient } from '../../../../../common/feature-flags.js';
 
 const { app, installMockApi, teardown } = createTestEnvironment();
 const request = supertest(app);
@@ -376,9 +377,9 @@ describe('applications documentation', () => {
 			expect(element.innerHTML).toContain('/project-documentation/publishing-queue');
 		});
 
-		it('should NOT show redaction status edit link if document is redacted', async () => {
+		it('should NOT show redaction status edit link if document is published', async () => {
 			const response = await request.get(
-				`${baseUrl}/project-documentation/21/document/95/properties`
+				`${baseUrl}/project-documentation/21/document/100/properties`
 			);
 			const element = parseHtml(response.text);
 
@@ -424,25 +425,6 @@ describe('applications documentation', () => {
 
 			expect(element.innerHTML).toMatchSnapshot();
 			expect(element.innerHTML).not.toContain('/edit/redaction');
-		});
-
-		it('should show AI redaction button for eligible PDF', async () => {
-			const response = await request.get(
-				`${baseUrl}/project-documentation/21/document/96/properties`
-			);
-			const element = parseHtml(response.text);
-
-			expect(element.innerHTML).toContain('AI Redaction');
-		});
-
-		it('should NOT show AI redaction button for non PDF', async () => {
-			const response = await request.get(
-				`${baseUrl}/project-documentation/21/document/100/properties`
-			);
-
-			const element = parseHtml(response.text);
-
-			expect(element.innerHTML).not.toContain('AI Redaction');
 		});
 	});
 
@@ -702,24 +684,41 @@ describe('applications documentation', () => {
 		});
 	});
 
-	describe('AI Redaction request', () => {
+	describe('AI Redaction feature enabled', () => {
+		beforeEach(async () => {
+			nocks();
+			await request.get('/applications-service/');
+
+			jest.spyOn(featureFlagClient, 'isFeatureActiveForCase').mockReturnValue(true);
+		});
+
+		afterEach(() => {
+			jest.restoreAllMocks();
+		});
+		it('should show AI redaction button for eligible PDF', async () => {
+			const response = await request.get(
+				`${baseUrl}/project-documentation/21/document/96/properties`
+			);
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toContain('Suggest redactions');
+		});
+
+		it('should NOT show AI redaction button for non PDF', async () => {
+			const response = await request.get(
+				`${baseUrl}/project-documentation/21/document/100/properties`
+			);
+
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).not.toContain('Suggest redactions');
+		});
+
 		describe('POST AI redaction', () => {
-			beforeEach(async () => {
-				nocks();
-			});
 			it('sets awaiting_ai_redaction and redirects back to properties', async () => {
-				const aiRedactionDoc = {
-					...fixtureReadyToPublishDocumentationPdfFile,
-					privateBlobPath: '/application/CASE1/guid-123/1',
-					privateBlobContainer: 'blob-container'
-				};
-
-				nock('http://test/')
-					.get('/applications/123/documents/3/properties')
-					.reply(200, aiRedactionDoc);
-
+				nock('http://test/').post('/applications/123/documents/96/metadata').reply(200, {});
 				const response = await request.post(
-					`${baseUrl}/project-documentation/21/document/3/ai-redaction`
+					`${baseUrl}/project-documentation/21/document/96/ai-redaction`
 				);
 
 				expect(response.status).toBe(302);

@@ -1,0 +1,11 @@
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+
+{% macro dcoStatus(values, errors, dcoStatuses, fieldset) %}
+    {{ govukRadios({
+        name: "dcoStatus",
+        fieldset: fieldset,
+        idPrefix: "dcoStatus",
+        errorMessage: errors.dcoStatus | errorMessage,
+        items: dcoStatuses | selectItems({ valueKey: 'name', labelKey: 'displayNameEn', selectedValue: values.dcoStatus })
+    }) }}
+{% endmacro %}

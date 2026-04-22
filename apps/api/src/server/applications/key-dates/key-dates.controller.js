@@ -46,7 +46,9 @@ export const updateKeyDates = async ({ body, params }, response) => {
 		caseStatus: true,
 		applicant: true,
 		gridReference: true,
-		projectTeam: true
+		projectTeam: true,
+		invoice: true,
+		meeting: true
 	};
 
 	const originalCase = await caseRepository.getById(id, queryOptions);

@@ -2,7 +2,7 @@
  * @typedef {import('@planning-inspectorate/data-model').Schemas.Representation} NSIPRepresentationSchema
  * @typedef {import('@planning-inspectorate/data-model').Schemas.ServiceUser} ServiceUserSchema
  *
- * @typedef {import('@prisma/client').Prisma.RepresentationGetPayload<{include: {case: true, user: true, represented: true, representative: true, attachments: true, representationActions: true} }>} RepresentationWithFullDetails
+ * @typedef {import('#database-client').Prisma.RepresentationGetPayload<{include: {case: true, user: true, represented: true, representative: true, attachments: true, representationActions: true} }>} RepresentationWithFullDetails
  * @typedef {import('@pins/applications.api').Schema.ServiceUser} ServiceUser
  */
 
@@ -25,7 +25,7 @@ export const buildNsipRepresentationPayload = (representation) => {
 		examinationLibraryRef: '',
 		caseRef: representation.case.reference,
 		caseId: representation.caseId,
-		status: mapRepresentationStatusToSchema(representation.status),
+		status: representation.status?.toLowerCase(),
 		redacted,
 		redactedBy: lastRepresentativeAction?.actionBy ?? null,
 		redactedNotes: lastRepresentativeAction?.notes ?? null,
@@ -36,7 +36,7 @@ export const buildNsipRepresentationPayload = (representation) => {
 		representationType: mapRepresentationTypeToSchema(representation.type),
 		representedId: representation.represented?.id.toString() ?? null,
 		representativeId:
-			representation.representedType == REPRESENTATION_FROM_TYPE.AGENT
+			representation.representedType === REPRESENTATION_FROM_TYPE.AGENT
 				? representation.representative?.id?.toString()
 				: null,
 		representationFrom: representation.representedType ?? null,
@@ -78,7 +78,7 @@ export const buildNsipRepresentationPayload = (representation) => {
 export const buildNsipRepresentationPayloadForPublish = (representation) => {
 	let publishRepresentationPayload = buildNsipRepresentationPayload(representation);
 	// @ts-ignore
-	publishRepresentationPayload.status = mapRepresentationStatusToSchema('PUBLISHED');
+	publishRepresentationPayload.status = 'published';
 
 	return publishRepresentationPayload;
 };
@@ -94,7 +94,7 @@ export const buildNsipRepresentationPayloadForPublish = (representation) => {
 export const buildNsipRepresentationPayloadForUnpublish = (representation) => {
 	let unpublishRepresentationPayload = buildNsipRepresentationPayload(representation);
 	// @ts-ignore
-	unpublishRepresentationPayload.status = mapRepresentationStatusToSchema('UNPUBLISHED');
+	unpublishRepresentationPayload.status = 'unpublished';
 
 	return unpublishRepresentationPayload;
 };
@@ -107,7 +107,7 @@ export const buildNsipRepresentationPayloadForUnpublish = (representation) => {
  */
 export const buildRepresentationServiceUserPayload = (representation) => {
 	const serviceUserPayloads = [];
-	if (representation.represented)
+	if (representation.represented) {
 		serviceUserPayloads.push(
 			buildServiceUserPayload(
 				representation.represented,
@@ -115,7 +115,8 @@ export const buildRepresentationServiceUserPayload = (representation) => {
 				'RepresentationContact'
 			)
 		);
-	if (representation.representative)
+	}
+	if (representation.representative) {
 		serviceUserPayloads.push(
 			buildServiceUserPayload(
 				representation.representative,
@@ -123,18 +124,8 @@ export const buildRepresentationServiceUserPayload = (representation) => {
 				'RepresentationContact'
 			)
 		);
+	}
 	return serviceUserPayloads;
-};
-
-/**
- * Convert BOAS rep status to the schema enum value
- * currently upper case to lower, eg 'AWAITING_REVIEW' to 'awaiting_review'
- *
- * @param {string} status
- */
-const mapRepresentationStatusToSchema = (status) => {
-	// TODO: Note at Mar 2024, we have 2 options not in schema: DRAFT, and WITHDRAWN
-	return status.toLowerCase();
 };
 
 /**
@@ -145,26 +136,13 @@ const mapRepresentationStatusToSchema = (status) => {
  * @returns
  */
 const mapRepresentationTypeToSchema = (representationType) => {
-	let schemaRepresentationType = null;
+	const representationMap = {
+		'Local authorities': 'Local Authorities',
+		'Members of the public/businesses': 'Members of the Public/Businesses',
+		'Non-statutory organisations': 'Non-Statutory Organisations',
+		'Parish councils': 'Parish Councils',
+		'Statutory consultees': 'Statutory Consultees'
+	};
 
-	switch (representationType) {
-		case 'Local authorities':
-			schemaRepresentationType = 'Local Authorities';
-			break;
-		case 'Members of the public/businesses':
-			schemaRepresentationType = 'Members of the Public/Businesses';
-			break;
-		case 'Non-statutory organisations':
-			schemaRepresentationType = 'Non-Statutory Organisations';
-			break;
-		case 'Parish councils':
-			schemaRepresentationType = 'Parish Councils';
-			break;
-		case 'Statutory consultees':
-			schemaRepresentationType = 'Statutory Consultees';
-			break;
-		// TODO: Note at Mar 2024, Schema has 2 options we do not have: Public & Businesses, and Another Individual
-	}
-
-	return schemaRepresentationType;
+	return representationMap[representationType] ?? null;
 };
