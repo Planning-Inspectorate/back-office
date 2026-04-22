@@ -16,10 +16,13 @@ export const getFeesForecastingEditViewModel = (projectName, sectionName) => {
 		pageHeading: section?.pageHeading || '',
 		fieldName: section?.fieldName || '',
 		dateFieldName: section?.dateFieldName || '',
+		additionalFieldName: section?.additionalFieldName || '',
 		hintText: section?.hintText || '',
 		componentType: section?.componentType || '',
 		radioFieldPath: section?.radioFieldPath || '',
 		dateFieldPath: section?.dateFieldPath || '',
-		radioOptions: section?.radioOptions || []
+		radioOptions: section?.radioOptions || [],
+		labelText: section?.labelText || '',
+		additionalLabelText: section?.additionalLabelText || ''
 	};
 };

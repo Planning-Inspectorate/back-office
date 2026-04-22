@@ -52,6 +52,7 @@ export async function getFeesForecastingEditSection(request, response) {
 	const isEvidencePlanMeetingEdit = /** @type {*} */ (request).isEvidencePlanMeetingEdit;
 	const { caseId } = response.locals;
 	const projectName = response.locals.case.title;
+	const originalURL = request.originalUrl;
 	let sectionName;
 
 	if (isFeeEdit) {
@@ -76,7 +77,8 @@ export async function getFeesForecastingEditSection(request, response) {
 	const renderTemplate = (template) => {
 		return response.render(template, {
 			...editViewModel,
-			values
+			values,
+			originalURL
 		});
 	};
 
@@ -193,11 +195,16 @@ export async function getFeesForecastingEditSection(request, response) {
 				`applications/case-fees-forecasting/fees-forecasting-edit-radiodateinput.njk`
 			);
 		}
-		case 'text-input':
+		case 'text-input': {
+			const additionalFieldName = editViewModel?.additionalFieldName || '';
 			values[fieldName] = response.locals.case.additionalDetails?.[fieldName] || '';
+			values[additionalFieldName] =
+				response.locals.case.additionalDetails?.[additionalFieldName] || '';
+
 			return renderTemplate(
 				`applications/case-fees-forecasting/fees-forecasting-edit-textinput.njk`
 			);
+		}
 		case 'radio-input': {
 			const radioFieldPath = editViewModel.radioFieldPath;
 
@@ -215,6 +222,11 @@ export async function getFeesForecastingEditSection(request, response) {
 				`applications/case-fees-forecasting/fees-forecasting-edit-radioinput.njk`
 			);
 		}
+		case 'text-area':
+			values[fieldName] = response.locals.case.additionalDetails?.[fieldName] || '';
+			return renderTemplate(
+				`applications/case-fees-forecasting/fees-forecasting-edit-textarea.njk`
+			);
 	}
 }
 
@@ -233,6 +245,7 @@ export async function updateFeesForecastingEditSection(request, response) {
 	const isEvidencePlanMeetingEdit = /** @type {*} */ (request).isEvidencePlanMeetingEdit;
 	const { caseId } = response.locals;
 	const projectName = response.locals.case.title;
+	const originalURL = request.originalUrl;
 	let sectionName;
 
 	if (isFeeEdit) {
@@ -328,11 +341,9 @@ export async function updateFeesForecastingEditSection(request, response) {
 
 				if (dateFieldMatch) {
 					mapDateValues(dateFieldMatch[1]);
-				} else {
-					if (body[key] !== '') {
-						values[key] = body[key];
-						feesForecastingData[key] = body[key];
-					}
+				} else if (body[key] !== '') {
+					values[key] = body[key];
+					feesForecastingData[key] = body[key];
 				}
 			});
 
@@ -360,10 +371,18 @@ export async function updateFeesForecastingEditSection(request, response) {
 
 			break;
 		}
+		// preserves alphabetic strings and converts numeric strings to numbers
 		case 'text-input': {
-			const fieldName = editViewModel?.fieldName || '';
-			values[fieldName] = body[fieldName] || '';
-			feesForecastingData[fieldName] = body[fieldName] || '';
+			Object.keys(body).forEach((key) => {
+				values[key] = body[key] || '';
+				const formattedValue = body[key] ? Number(body[key]) : '';
+
+				if (Number.isNaN(formattedValue)) {
+					feesForecastingData[key] = body[key];
+				} else if (formattedValue !== '') {
+					feesForecastingData[key] = formattedValue;
+				}
+			});
 
 			break;
 		}
@@ -383,6 +402,11 @@ export async function updateFeesForecastingEditSection(request, response) {
 
 			break;
 		}
+		case 'text-area': {
+			const fieldName = editViewModel?.fieldName || '';
+			values[fieldName] = body[fieldName] || '';
+			feesForecastingData[fieldName] = body[fieldName] || '';
+		}
 	}
 
 	if (!validationErrors) {
@@ -390,7 +414,8 @@ export async function updateFeesForecastingEditSection(request, response) {
 			case 'date-input':
 			case 'radio-date-input':
 			case 'text-input':
-			case 'radio-input': {
+			case 'radio-input':
+			case 'text-area': {
 				const { errors } = await updateFeesForecasting(caseId, sectionName, feesForecastingData);
 				apiErrors = errors;
 				break;
@@ -429,7 +454,8 @@ export async function updateFeesForecastingEditSection(request, response) {
 			return response.render(template, {
 				...editViewModel,
 				errors: validationErrors || apiErrors,
-				values
+				values,
+				originalURL
 			});
 		};
 
@@ -453,6 +479,9 @@ export async function updateFeesForecastingEditSection(request, response) {
 				return renderError(
 					`applications/case-fees-forecasting/fees-forecasting-edit-radioinput.njk`
 				);
+			}
+			case 'text-area': {
+				return renderError(`applications/case-fees-forecasting/fees-forecasting-edit-textarea.njk`);
 			}
 			case 'add-new-fee':
 			case 'manage-fee': {

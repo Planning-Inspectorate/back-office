@@ -221,7 +221,8 @@ describe('Patch Application Representation Status', () => {
 		expect(response.body).toEqual({
 			errors: {
 				status: 'Invalid value',
-				invalidReason: 'Must be a valid: Duplicate,Merged,Not relevant,Resubmitted,Test',
+				invalidReason:
+					'Must be a valid: Duplicate,Merged,Missing information,Not relevant,Resubmitted,Test submission',
 				referredTo: 'Must be a valid: Case Team,Inspector,Central Admin Team,Interested Party'
 			}
 		});

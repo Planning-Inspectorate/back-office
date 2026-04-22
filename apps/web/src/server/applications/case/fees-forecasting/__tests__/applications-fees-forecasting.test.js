@@ -116,7 +116,7 @@ describe('Fees and Forecasting', () => {
 	});
 
 	describe('POST /case/123/fees-forecasting/section/:sectionName', () => {
-		it('should show a validation error when value is NOT entered in correct format', async () => {
+		it('should show a validation error for date input when date is NOT entered in correct format', async () => {
 			const flags = staticFlags;
 			flags['applics-1845-fees-forecasting'] = true;
 
@@ -132,7 +132,7 @@ describe('Fees and Forecasting', () => {
 			expect(element.innerHTML).toContain('Enter a valid year');
 		});
 
-		it('should show an API error if updating was NOT successful', async () => {
+		it('should show an API error for date input if updating date was NOT successful', async () => {
 			const flags = staticFlags;
 			flags['applics-1845-fees-forecasting'] = true;
 
@@ -154,7 +154,7 @@ describe('Fees and Forecasting', () => {
 			expect(element.innerHTML).toContain('There is a problem');
 		});
 
-		it('should redirect to the index page if updating was successful', async () => {
+		it('should redirect to the index page if updating date was successful', async () => {
 			const flags = staticFlags;
 			flags['applics-1845-fees-forecasting'] = true;
 
@@ -169,6 +169,166 @@ describe('Fees and Forecasting', () => {
 				[fieldName + '.day']: '01',
 				[fieldName + '.month']: '02',
 				[fieldName + '.year']: '2000'
+			});
+
+			expect(response?.headers?.location).toEqual(
+				'/applications-service/case/123/fees-forecasting/'
+			);
+		});
+
+		it('should show a validation error for text input when hyperlink is NOT entered in correct format', async () => {
+			const flags = staticFlags;
+			flags['applics-1845-fees-forecasting'] = true;
+
+			const sectionName = 'issues-tracker-link';
+			const fieldName = 'issuesTracker';
+
+			const response = await request.post(`${baseUrl}/section/${sectionName}`).send({
+				[fieldName]: 'test@hyperlink'
+			});
+
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toContain('Enter a valid hyperlink');
+		});
+
+		it('should show an API error for text input if updating hyperlink was NOT successful', async () => {
+			const flags = staticFlags;
+			flags['applics-1845-fees-forecasting'] = true;
+
+			const sectionName = 'issues-tracker-link';
+			const fieldName = 'issuesTracker';
+
+			nock('http://test/')
+				.patch(`/applications/123/fees-forecasting/${sectionName}`)
+				.reply(500, {});
+
+			const response = await request.post(`${baseUrl}/section/${sectionName}`).send({
+				[fieldName]: 'test.hyperlink.com/'
+			});
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+			expect(element.innerHTML).toContain('There is a problem');
+		});
+
+		it('should redirect to the index page if updating hyperlink was successful', async () => {
+			const flags = staticFlags;
+			flags['applics-1845-fees-forecasting'] = true;
+
+			const sectionName = 'issues-tracker-link';
+			const fieldName = 'issuesTracker';
+
+			nock('http://test/')
+				.patch(`/applications/123/fees-forecasting/${sectionName}`)
+				.reply(200, {});
+
+			const response = await request.post(`${baseUrl}/section/${sectionName}`).send({
+				[fieldName]: 'test.hyperlink.com/'
+			});
+
+			expect(response?.headers?.location).toEqual(
+				'/applications-service/case/123/fees-forecasting/'
+			);
+		});
+
+		it('should show a validation error for text input when inspector number is NOT entered in correct format', async () => {
+			const flags = staticFlags;
+			flags['applics-1845-fees-forecasting'] = true;
+
+			const sectionName = 'examining-inspectors';
+			const fieldName = 'numberBand2Inspectors';
+			const additionalFieldName = 'numberBand3Inspectors';
+
+			const response = await request.post(`${baseUrl}/section/${sectionName}`).send({
+				[fieldName]: 'abc',
+				[additionalFieldName]: '5'
+			});
+
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toContain('Enter a number of band 2 inspectors between 0 and 99');
+		});
+
+		it('should show an API error for text input if updating inspector number was NOT successful', async () => {
+			const flags = staticFlags;
+			flags['applics-1845-fees-forecasting'] = true;
+
+			const sectionName = 'examining-inspectors';
+			const fieldName = 'numberBand2Inspectors';
+			const additionalFieldName = 'numberBand3Inspectors';
+
+			nock('http://test/')
+				.patch(`/applications/123/fees-forecasting/${sectionName}`)
+				.reply(500, {});
+
+			const response = await request.post(`${baseUrl}/section/${sectionName}`).send({
+				[fieldName]: '2',
+				[additionalFieldName]: '3'
+			});
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+			expect(element.innerHTML).toContain('There is a problem');
+		});
+
+		it('should redirect to the index page if updating inspector number was successful', async () => {
+			const flags = staticFlags;
+			flags['applics-1845-fees-forecasting'] = true;
+
+			const sectionName = 'examining-inspectors';
+			const fieldName = 'numberBand2Inspectors';
+			const additionalFieldName = 'numberBand3Inspectors';
+
+			nock('http://test/')
+				.patch(`/applications/123/fees-forecasting/${sectionName}`)
+				.reply(200, {});
+
+			const response = await request.post(`${baseUrl}/section/${sectionName}`).send({
+				[fieldName]: '2',
+				[additionalFieldName]: '3'
+			});
+
+			expect(response?.headers?.location).toEqual(
+				'/applications-service/case/123/fees-forecasting/'
+			);
+		});
+
+		it('should show an API error for text area if updating comment was NOT successful', async () => {
+			const flags = staticFlags;
+			flags['applics-1845-fees-forecasting'] = true;
+
+			const sectionName = 'additional-comments';
+			const fieldName = 'additionalComments';
+
+			nock('http://test/')
+				.patch(`/applications/123/fees-forecasting/${sectionName}`)
+				.reply(500, {});
+
+			const response = await request.post(`${baseUrl}/section/${sectionName}`).send({
+				[fieldName]:
+					'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.'
+			});
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toMatchSnapshot();
+			expect(element.innerHTML).toContain('There is a problem');
+		});
+
+		it('should redirect to the index page if updating comment was successful', async () => {
+			const flags = staticFlags;
+			flags['applics-1845-fees-forecasting'] = true;
+
+			const sectionName = 'additional-comments';
+			const fieldName = 'additionalComments';
+
+			nock('http://test/')
+				.patch(`/applications/123/fees-forecasting/${sectionName}`)
+				.reply(200, {});
+
+			const response = await request.post(`${baseUrl}/section/${sectionName}`).send({
+				[fieldName]:
+					'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.'
 			});
 
 			expect(response?.headers?.location).toEqual(

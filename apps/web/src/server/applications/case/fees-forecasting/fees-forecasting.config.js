@@ -63,7 +63,9 @@ export const urlSectionNames = {
 	multipartyApplicationCheckDocument: 'multiparty-application',
 	s61SummaryLink: 's61-summary-link',
 	programmeDocumentLink: 'programme-document-link',
-	issuesTrackerLink: 'issues-tracker-link'
+	issuesTrackerLink: 'issues-tracker-link',
+	examiningInspectors: 'examining-inspectors',
+	additionalComments: 'additional-comments'
 };
 
 export const sectionData = {
@@ -255,6 +257,21 @@ export const sectionData = {
 		pageHeading: 'Link to the issues tracker',
 		fieldName: 'issuesTracker',
 		componentType: 'text-input'
+	},
+	examiningInspectors: {
+		sectionTitle: 'Examining inspectors',
+		pageHeading: 'Examining inspectors',
+		fieldName: 'numberBand2Inspectors',
+		additionalFieldName: 'numberBand3Inspectors',
+		labelText: 'Number of band 2 inspectors',
+		additionalLabelText: 'Number of band 3 inspectors',
+		componentType: 'text-input'
+	},
+	additionalComments: {
+		sectionTitle: 'Additional comments',
+		pageHeading: 'Additional comments (optional)',
+		fieldName: 'additionalComments',
+		componentType: 'text-area'
 	}
 };
 

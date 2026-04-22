@@ -25,7 +25,7 @@ export function subscriptionToResponse(subscription) {
 
 /**
  * Create a payload (event) for each subscription type for this subscription.
- * Each subscription type is it's own message/event.
+ * Each subscription type is its own message/event.
  *
  * @param {import('#database-client').Subscription} subscription
  * @returns {NSIPSubscription[]}

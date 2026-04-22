@@ -5,7 +5,7 @@ import {
 	mapProjectCaseStageToDocumentCaseStageSchema
 } from '#utils/mapping/map-case-status.js';
 
-const NSIP_CASETYPE = 'nsip';
+const NSIP_CASE_TYPE = 'nsip';
 
 /**
  * @typedef {import('@planning-inspectorate/data-model').Schemas.NSIPDocument} NSIPDocumentSchema
@@ -78,7 +78,7 @@ export const buildNsipDocumentPayload = (docVersionWithFullDetails, filePath = '
 		caseRef: caseReference,
 		documentReference: document.documentReference,
 		path: filePath,
-		caseType: NSIP_CASETYPE,
+		caseType: NSIP_CASE_TYPE,
 		version: docVersionWithFullDetails.version,
 		filename: docVersionWithFullDetails.fileName,
 		originalFilename: docVersionWithFullDetails.originalFilename,

@@ -2,6 +2,7 @@
 
 {% from "govuk/components/input/macro.njk" import govukInput %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
 {% from '../components/inputs/date-input.component.njk' import dateInput %}
 
 {% set serviceName = case.title %}
@@ -44,6 +45,8 @@
 	<form method="post" action="" novalidate="novalidate" class="pins-applications-create govuk-grid-row {{ marginClass }}">
 		{% if sectionName == "preExamination" %}
 			{% include "./includes/pre-examination/pre-examination-manage-dates.include.njk" %}
+		{% elif sectionName == 'postDecision' %}
+			{% include "./includes/post-decision/post-decision-manage-dates.include.njk" %}
 		{% else %}
 			{% for key, values in sectionValues %}
 				{% if key === 'submissionAtPublished' %}

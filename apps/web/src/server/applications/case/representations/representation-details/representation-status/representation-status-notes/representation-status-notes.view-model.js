@@ -52,6 +52,11 @@ const getPageContentByStatus = (newStatus) => {
 			checked: false
 		},
 		{
+			value: 'Missing information',
+			text: 'Missing information',
+			checked: false
+		},
+		{
 			value: 'Not relevant',
 			text: 'Not relevant',
 			checked: false
@@ -59,6 +64,11 @@ const getPageContentByStatus = (newStatus) => {
 		{
 			value: 'Resubmitted',
 			text: 'Resubmitted',
+			checked: false
+		},
+		{
+			value: 'Test submission',
+			text: 'Test submission',
 			checked: false
 		}
 	];

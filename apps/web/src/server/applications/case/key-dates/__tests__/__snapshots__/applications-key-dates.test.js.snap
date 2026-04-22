@@ -1236,6 +1236,10 @@ exports[`S51 Advice Key dates page Sections GET /case/123/key-dates/:sectionName
 "<main class="govuk-main-wrapper" id="main-content">
     <h1 class="govuk-heading-l govuk-!-margin-bottom-4"><span class="govuk-caption-l">Manage key dates</span> Post-decision dates</h1>
     <form method="post" action="" novalidate="novalidate" class="pins-applications-create govuk-grid-row govuk-!-margin-top-8">
+        <div class="govuk-grid-column-full">
+            <h2 class="govuk-heading-m">Post-decision dates</h2>
+            <p class="govuk-body">Record dates related to the judicial review process following the decision.</p>
+        </div>
         <div class="govuk-form-group govuk-grid-column-full ">
             <fieldset class="govuk-fieldset">
                 <legend class="govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4">Judicial review period end date</legend>
@@ -1261,6 +1265,95 @@ exports[`S51 Advice Key dates page Sections GET /case/123/key-dates/:sectionName
                     </div>
                 </div>
             </fieldset>
+        </div>
+        <div class="govuk-form-group govuk-grid-column-full ">
+            <fieldset class="govuk-fieldset">
+                <legend class="govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4">Date of decision challenge submission</legend>
+                <div id="decisionChallengeSubmissionDate-hint"
+                class="govuk-hint">Date of decision challenge submission</div>
+                <div class="govuk-grid-column-one-third">
+                    <div class="govuk-grid-row pins-date-form-group">
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="decisionChallengeSubmissionDate.day">Day</label>
+                            <input class="govuk-input" id="decisionChallengeSubmissionDate.day"
+                            name="decisionChallengeSubmissionDate.day" type="text">
+                        </div>
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="decisionChallengeSubmissionDate.month">Month</label>
+                            <input class="govuk-input" id="decisionChallengeSubmissionDate.month"
+                            name="decisionChallengeSubmissionDate.month" type="text">
+                        </div>
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="decisionChallengeSubmissionDate.year">Year</label>
+                            <input class="govuk-input" id="decisionChallengeSubmissionDate.year"
+                            name="decisionChallengeSubmissionDate.year" type="text">
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <div class="govuk-form-group govuk-grid-column-full ">
+            <fieldset class="govuk-fieldset">
+                <legend class="govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4">Date of court decision</legend>
+                <div id="courtDecisionDate-hint" class="govuk-hint">Date of the court decision.</div>
+                <div class="govuk-grid-column-one-third">
+                    <div class="govuk-grid-row pins-date-form-group">
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="courtDecisionDate.day">Day</label>
+                            <input class="govuk-input" id="courtDecisionDate.day" name="courtDecisionDate.day"
+                            type="text">
+                        </div>
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="courtDecisionDate.month">Month</label>
+                            <input class="govuk-input" id="courtDecisionDate.month" name="courtDecisionDate.month"
+                            type="text">
+                        </div>
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="courtDecisionDate.year">Year</label>
+                            <input class="govuk-input" id="courtDecisionDate.year" name="courtDecisionDate.year"
+                            type="text">
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <div class="govuk-form-group govuk-grid-column-full">
+            <div class="govuk-form-group">
+                <fieldset class="govuk-fieldset">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">Court decision outcome</legend>
+                    <div class="govuk-radios" data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="courtDecisionOutcome" name="courtDecisionOutcome"
+                            type="radio" value="Upheld">
+                            <label class="govuk-label govuk-radios__label" for="courtDecisionOutcome">Upheld</label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="courtDecisionOutcome-2" name="courtDecisionOutcome"
+                            type="radio" value="Partially upheld">
+                            <label class="govuk-label govuk-radios__label" for="courtDecisionOutcome-2">Partially upheld</label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="courtDecisionOutcome-3" name="courtDecisionOutcome"
+                            type="radio" value="Quashed">
+                            <label class="govuk-label govuk-radios__label" for="courtDecisionOutcome-3">Quashed</label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="courtDecisionOutcome-4" name="courtDecisionOutcome"
+                            type="radio" value="Other" data-aria-controls="conditional-courtDecisionOutcome-4">
+                            <label class="govuk-label govuk-radios__label" for="courtDecisionOutcome-4">Other</label>
+                        </div>
+                        <div class="govuk-radios__conditional govuk-radios__conditional--hidden"
+                        id="conditional-courtDecisionOutcome-4">
+                            <div class="govuk-form-group">
+                                <label class="govuk-label govuk-label--s" for="courtDecisionOutcomeText">Describe the court decision outcome</label>
+                                <input class="govuk-input govuk-!-width-one-third"
+                                id="courtDecisionOutcomeText" name="courtDecisionOutcomeText" type="text"
+                                value="">
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
         </div>
         <div class='govuk-grid-column-one-third'>
             <button type="submit" class="govuk-button" data-module="govuk-button">Save and return</button>
@@ -1399,6 +1492,56 @@ exports[`S51 Advice Key dates page Sections POST /case/123/key-dates/:sectionNam
         </div>
         </fieldset>
         </div>
+        <div class="govuk-form-group govuk-grid-column-full ">
+            <fieldset class="govuk-fieldset">
+                <legend class="govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4">Court decision outcome</legend>
+                <div id="courtDecisionOutcome-hint" class="govuk-hint">Select the outcome of the court decision.</div>
+                <div class="govuk-grid-column-one-third">
+                    <div class="govuk-grid-row pins-date-form-group">
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="courtDecisionOutcome.day">Day</label>
+                            <input class="govuk-input" id="courtDecisionOutcome.day" name="courtDecisionOutcome.day"
+                            type="text">
+                        </div>
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="courtDecisionOutcome.month">Month</label>
+                            <input class="govuk-input" id="courtDecisionOutcome.month"
+                            name="courtDecisionOutcome.month" type="text">
+                        </div>
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="courtDecisionOutcome.year">Year</label>
+                            <input class="govuk-input" id="courtDecisionOutcome.year"
+                            name="courtDecisionOutcome.year" type="text">
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <div class="govuk-form-group govuk-grid-column-full ">
+            <fieldset class="govuk-fieldset">
+                <legend class="govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4">Decision</legend>
+                <div id="courtDecisionOutcomeText-hint" class="govuk-hint">Describe the court decision outcome.</div>
+                <div class="govuk-grid-column-one-third">
+                    <div class="govuk-grid-row pins-date-form-group">
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="courtDecisionOutcomeText.day">Day</label>
+                            <input class="govuk-input" id="courtDecisionOutcomeText.day"
+                            name="courtDecisionOutcomeText.day" type="text">
+                        </div>
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="courtDecisionOutcomeText.month">Month</label>
+                            <input class="govuk-input" id="courtDecisionOutcomeText.month"
+                            name="courtDecisionOutcomeText.month" type="text">
+                        </div>
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="courtDecisionOutcomeText.year">Year</label>
+                            <input class="govuk-input" id="courtDecisionOutcomeText.year"
+                            name="courtDecisionOutcomeText.year" type="text">
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
         <div class='govuk-grid-column-one-third'>
             <button type="submit" class="govuk-button" data-module="govuk-button">Save and return</button>
         </div>
@@ -1525,6 +1668,56 @@ exports[`S51 Advice Key dates page Sections POST /case/123/key-dates/:sectionNam
                             <label class="govuk-label govuk-hint" for="dateOfNonAcceptance.year">Year</label>
                             <input class="govuk-input" id="dateOfNonAcceptance.year" name="dateOfNonAcceptance.year"
                             type="text" value="2023">
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <div class="govuk-form-group govuk-grid-column-full ">
+            <fieldset class="govuk-fieldset">
+                <legend class="govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4">Court decision outcome</legend>
+                <div id="courtDecisionOutcome-hint" class="govuk-hint">Select the outcome of the court decision.</div>
+                <div class="govuk-grid-column-one-third">
+                    <div class="govuk-grid-row pins-date-form-group">
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="courtDecisionOutcome.day">Day</label>
+                            <input class="govuk-input" id="courtDecisionOutcome.day" name="courtDecisionOutcome.day"
+                            type="text">
+                        </div>
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="courtDecisionOutcome.month">Month</label>
+                            <input class="govuk-input" id="courtDecisionOutcome.month"
+                            name="courtDecisionOutcome.month" type="text">
+                        </div>
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="courtDecisionOutcome.year">Year</label>
+                            <input class="govuk-input" id="courtDecisionOutcome.year"
+                            name="courtDecisionOutcome.year" type="text">
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <div class="govuk-form-group govuk-grid-column-full ">
+            <fieldset class="govuk-fieldset">
+                <legend class="govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4">Decision</legend>
+                <div id="courtDecisionOutcomeText-hint" class="govuk-hint">Describe the court decision outcome.</div>
+                <div class="govuk-grid-column-one-third">
+                    <div class="govuk-grid-row pins-date-form-group">
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="courtDecisionOutcomeText.day">Day</label>
+                            <input class="govuk-input" id="courtDecisionOutcomeText.day"
+                            name="courtDecisionOutcomeText.day" type="text">
+                        </div>
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="courtDecisionOutcomeText.month">Month</label>
+                            <input class="govuk-input" id="courtDecisionOutcomeText.month"
+                            name="courtDecisionOutcomeText.month" type="text">
+                        </div>
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="courtDecisionOutcomeText.year">Year</label>
+                            <input class="govuk-input" id="courtDecisionOutcomeText.year"
+                            name="courtDecisionOutcomeText.year" type="text">
                         </div>
                     </div>
                 </div>
@@ -2032,6 +2225,56 @@ exports[`S51 Advice Key dates page Sections POST /case/123/key-dates/:sectionNam
                 </div>
             </fieldset>
         </div>
+        <div class="govuk-form-group govuk-grid-column-full ">
+            <fieldset class="govuk-fieldset">
+                <legend class="govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4">Court decision outcome</legend>
+                <div id="courtDecisionOutcome-hint" class="govuk-hint">Select the outcome of the court decision.</div>
+                <div class="govuk-grid-column-one-third">
+                    <div class="govuk-grid-row pins-date-form-group">
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="courtDecisionOutcome.day">Day</label>
+                            <input class="govuk-input" id="courtDecisionOutcome.day" name="courtDecisionOutcome.day"
+                            type="text">
+                        </div>
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="courtDecisionOutcome.month">Month</label>
+                            <input class="govuk-input" id="courtDecisionOutcome.month"
+                            name="courtDecisionOutcome.month" type="text">
+                        </div>
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="courtDecisionOutcome.year">Year</label>
+                            <input class="govuk-input" id="courtDecisionOutcome.year"
+                            name="courtDecisionOutcome.year" type="text">
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <div class="govuk-form-group govuk-grid-column-full ">
+            <fieldset class="govuk-fieldset">
+                <legend class="govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4">Decision</legend>
+                <div id="courtDecisionOutcomeText-hint" class="govuk-hint">Describe the court decision outcome.</div>
+                <div class="govuk-grid-column-one-third">
+                    <div class="govuk-grid-row pins-date-form-group">
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="courtDecisionOutcomeText.day">Day</label>
+                            <input class="govuk-input" id="courtDecisionOutcomeText.day"
+                            name="courtDecisionOutcomeText.day" type="text">
+                        </div>
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="courtDecisionOutcomeText.month">Month</label>
+                            <input class="govuk-input" id="courtDecisionOutcomeText.month"
+                            name="courtDecisionOutcomeText.month" type="text">
+                        </div>
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="courtDecisionOutcomeText.year">Year</label>
+                            <input class="govuk-input" id="courtDecisionOutcomeText.year"
+                            name="courtDecisionOutcomeText.year" type="text">
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
         <div class='govuk-grid-column-one-third'>
             <button type="submit" class="govuk-button" data-module="govuk-button">Save and return</button>
         </div>
@@ -2138,6 +2381,56 @@ exports[`S51 Advice Key dates page Sections POST /case/123/key-dates/:sectionNam
         </div>
         </fieldset>
         </div>
+        <div class="govuk-form-group govuk-grid-column-full ">
+            <fieldset class="govuk-fieldset">
+                <legend class="govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4">Court decision outcome</legend>
+                <div id="courtDecisionOutcome-hint" class="govuk-hint">Select the outcome of the court decision.</div>
+                <div class="govuk-grid-column-one-third">
+                    <div class="govuk-grid-row pins-date-form-group">
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="courtDecisionOutcome.day">Day</label>
+                            <input class="govuk-input" id="courtDecisionOutcome.day" name="courtDecisionOutcome.day"
+                            type="text">
+                        </div>
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="courtDecisionOutcome.month">Month</label>
+                            <input class="govuk-input" id="courtDecisionOutcome.month"
+                            name="courtDecisionOutcome.month" type="text">
+                        </div>
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="courtDecisionOutcome.year">Year</label>
+                            <input class="govuk-input" id="courtDecisionOutcome.year"
+                            name="courtDecisionOutcome.year" type="text">
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <div class="govuk-form-group govuk-grid-column-full ">
+            <fieldset class="govuk-fieldset">
+                <legend class="govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4">Decision</legend>
+                <div id="courtDecisionOutcomeText-hint" class="govuk-hint">Describe the court decision outcome.</div>
+                <div class="govuk-grid-column-one-third">
+                    <div class="govuk-grid-row pins-date-form-group">
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="courtDecisionOutcomeText.day">Day</label>
+                            <input class="govuk-input" id="courtDecisionOutcomeText.day"
+                            name="courtDecisionOutcomeText.day" type="text">
+                        </div>
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="courtDecisionOutcomeText.month">Month</label>
+                            <input class="govuk-input" id="courtDecisionOutcomeText.month"
+                            name="courtDecisionOutcomeText.month" type="text">
+                        </div>
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="courtDecisionOutcomeText.year">Year</label>
+                            <input class="govuk-input" id="courtDecisionOutcomeText.year"
+                            name="courtDecisionOutcomeText.year" type="text">
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
         <div class='govuk-grid-column-one-third'>
             <button type="submit" class="govuk-button" data-module="govuk-button">Save and return</button>
         </div>
@@ -2241,6 +2534,56 @@ exports[`S51 Advice Key dates page Sections POST /case/123/key-dates/:sectionNam
         </div>
         </fieldset>
         </div>
+        <div class="govuk-form-group govuk-grid-column-full ">
+            <fieldset class="govuk-fieldset">
+                <legend class="govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4">Court decision outcome</legend>
+                <div id="courtDecisionOutcome-hint" class="govuk-hint">Select the outcome of the court decision.</div>
+                <div class="govuk-grid-column-one-third">
+                    <div class="govuk-grid-row pins-date-form-group">
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="courtDecisionOutcome.day">Day</label>
+                            <input class="govuk-input" id="courtDecisionOutcome.day" name="courtDecisionOutcome.day"
+                            type="text">
+                        </div>
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="courtDecisionOutcome.month">Month</label>
+                            <input class="govuk-input" id="courtDecisionOutcome.month"
+                            name="courtDecisionOutcome.month" type="text">
+                        </div>
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="courtDecisionOutcome.year">Year</label>
+                            <input class="govuk-input" id="courtDecisionOutcome.year"
+                            name="courtDecisionOutcome.year" type="text">
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <div class="govuk-form-group govuk-grid-column-full ">
+            <fieldset class="govuk-fieldset">
+                <legend class="govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4">Decision</legend>
+                <div id="courtDecisionOutcomeText-hint" class="govuk-hint">Describe the court decision outcome.</div>
+                <div class="govuk-grid-column-one-third">
+                    <div class="govuk-grid-row pins-date-form-group">
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="courtDecisionOutcomeText.day">Day</label>
+                            <input class="govuk-input" id="courtDecisionOutcomeText.day"
+                            name="courtDecisionOutcomeText.day" type="text">
+                        </div>
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="courtDecisionOutcomeText.month">Month</label>
+                            <input class="govuk-input" id="courtDecisionOutcomeText.month"
+                            name="courtDecisionOutcomeText.month" type="text">
+                        </div>
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="courtDecisionOutcomeText.year">Year</label>
+                            <input class="govuk-input" id="courtDecisionOutcomeText.year"
+                            name="courtDecisionOutcomeText.year" type="text">
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
         <div class='govuk-grid-column-one-third'>
             <button type="submit" class="govuk-button" data-module="govuk-button">Save and return</button>
         </div>
@@ -2267,6 +2610,10 @@ exports[`S51 Advice Key dates page Sections POST /case/123/key-dates/:sectionNam
     </div>
     <h1 class="govuk-heading-l govuk-!-margin-bottom-4"><span class="govuk-caption-l">Manage key dates</span> Post-decision dates</h1>
     <form method="post" action="" novalidate="novalidate" class="pins-applications-create govuk-grid-row govuk-!-margin-top-8">
+        <div class="govuk-grid-column-full">
+            <h2 class="govuk-heading-m">Post-decision dates</h2>
+            <p class="govuk-body">Record dates related to the judicial review process following the decision.</p>
+        </div>
         <div class="govuk-form-group govuk-grid-column-full ">
             <fieldset class="govuk-fieldset">
                 <legend class="govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4">Judicial review period end date</legend>
@@ -2292,6 +2639,95 @@ exports[`S51 Advice Key dates page Sections POST /case/123/key-dates/:sectionNam
                     </div>
                 </div>
             </fieldset>
+        </div>
+        <div class="govuk-form-group govuk-grid-column-full ">
+            <fieldset class="govuk-fieldset">
+                <legend class="govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4">Date of decision challenge submission</legend>
+                <div id="decisionChallengeSubmissionDate-hint"
+                class="govuk-hint">Date of decision challenge submission</div>
+                <div class="govuk-grid-column-one-third">
+                    <div class="govuk-grid-row pins-date-form-group">
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="decisionChallengeSubmissionDate.day">Day</label>
+                            <input class="govuk-input" id="decisionChallengeSubmissionDate.day"
+                            name="decisionChallengeSubmissionDate.day" type="text">
+                        </div>
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="decisionChallengeSubmissionDate.month">Month</label>
+                            <input class="govuk-input" id="decisionChallengeSubmissionDate.month"
+                            name="decisionChallengeSubmissionDate.month" type="text">
+                        </div>
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="decisionChallengeSubmissionDate.year">Year</label>
+                            <input class="govuk-input" id="decisionChallengeSubmissionDate.year"
+                            name="decisionChallengeSubmissionDate.year" type="text">
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <div class="govuk-form-group govuk-grid-column-full ">
+            <fieldset class="govuk-fieldset">
+                <legend class="govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4">Date of court decision</legend>
+                <div id="courtDecisionDate-hint" class="govuk-hint">Date of the court decision.</div>
+                <div class="govuk-grid-column-one-third">
+                    <div class="govuk-grid-row pins-date-form-group">
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="courtDecisionDate.day">Day</label>
+                            <input class="govuk-input" id="courtDecisionDate.day" name="courtDecisionDate.day"
+                            type="text">
+                        </div>
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="courtDecisionDate.month">Month</label>
+                            <input class="govuk-input" id="courtDecisionDate.month" name="courtDecisionDate.month"
+                            type="text">
+                        </div>
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="courtDecisionDate.year">Year</label>
+                            <input class="govuk-input" id="courtDecisionDate.year" name="courtDecisionDate.year"
+                            type="text">
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <div class="govuk-form-group govuk-grid-column-full">
+            <div class="govuk-form-group">
+                <fieldset class="govuk-fieldset">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--s">Court decision outcome</legend>
+                    <div class="govuk-radios" data-module="govuk-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="courtDecisionOutcome" name="courtDecisionOutcome"
+                            type="radio" value="Upheld">
+                            <label class="govuk-label govuk-radios__label" for="courtDecisionOutcome">Upheld</label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="courtDecisionOutcome-2" name="courtDecisionOutcome"
+                            type="radio" value="Partially upheld">
+                            <label class="govuk-label govuk-radios__label" for="courtDecisionOutcome-2">Partially upheld</label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="courtDecisionOutcome-3" name="courtDecisionOutcome"
+                            type="radio" value="Quashed">
+                            <label class="govuk-label govuk-radios__label" for="courtDecisionOutcome-3">Quashed</label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="courtDecisionOutcome-4" name="courtDecisionOutcome"
+                            type="radio" value="Other" data-aria-controls="conditional-courtDecisionOutcome-4">
+                            <label class="govuk-label govuk-radios__label" for="courtDecisionOutcome-4">Other</label>
+                        </div>
+                        <div class="govuk-radios__conditional govuk-radios__conditional--hidden"
+                        id="conditional-courtDecisionOutcome-4">
+                            <div class="govuk-form-group">
+                                <label class="govuk-label govuk-label--s" for="courtDecisionOutcomeText">Describe the court decision outcome</label>
+                                <input class="govuk-input govuk-!-width-one-third"
+                                id="courtDecisionOutcomeText" name="courtDecisionOutcomeText" type="text"
+                                value="">
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
         </div>
         <div class='govuk-grid-column-one-third'>
             <button type="submit" class="govuk-button" data-module="govuk-button">Save and return</button>
