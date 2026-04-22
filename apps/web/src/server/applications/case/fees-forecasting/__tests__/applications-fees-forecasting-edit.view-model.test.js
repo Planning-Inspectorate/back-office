@@ -53,7 +53,8 @@ describe('applications fees forecasting edit view model', () => {
 				dateFieldPath: '',
 				radioOptions: [],
 				labelText: '',
-				additionalLabelText: ''
+				additionalLabelText: '',
+				insetText: ''
 			});
 		});
 
@@ -87,7 +88,8 @@ describe('applications fees forecasting edit view model', () => {
 				dateFieldPath: '',
 				radioOptions: [],
 				labelText: '',
-				additionalLabelText: ''
+				additionalLabelText: '',
+				insetText: ''
 			});
 		});
 
@@ -125,7 +127,8 @@ describe('applications fees forecasting edit view model', () => {
 				dateFieldPath: 'keyDates.preApplication.principalAreaDisagreementSummaryStmtSubmittedDate',
 				radioOptions: [],
 				labelText: '',
-				additionalLabelText: ''
+				additionalLabelText: '',
+				insetText: ''
 			});
 		});
 
@@ -146,7 +149,8 @@ describe('applications fees forecasting edit view model', () => {
 					{ value: 'e', text: 'E' },
 					{ value: 'f', text: 'F' },
 					{ value: 'g', text: 'G' }
-				]
+				],
+				insetText: ''
 			});
 
 			const projectName = 'Test case';
@@ -178,7 +182,8 @@ describe('applications fees forecasting edit view model', () => {
 					{ value: 'g', text: 'G' }
 				],
 				labelText: '',
-				additionalLabelText: ''
+				additionalLabelText: '',
+				insetText: ''
 			});
 		});
 
@@ -216,7 +221,8 @@ describe('applications fees forecasting edit view model', () => {
 				dateFieldPath: '',
 				radioOptions: [],
 				labelText: 'Test label',
-				additionalLabelText: 'Additional test label'
+				additionalLabelText: 'Additional test label',
+				insetText: ''
 			});
 		});
 	});
