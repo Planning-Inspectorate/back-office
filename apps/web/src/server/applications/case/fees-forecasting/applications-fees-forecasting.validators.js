@@ -35,6 +35,7 @@ export const feesForecastingValidator = (request, response, next) => {
 	const validators = {
 		'project-maturity': validateFeesForecastingRadioInput,
 		'maturity-evaluation-matrix': validateFeesForecastingDateInput,
+		'project-tier': validateFeesForecastingRadioInput,
 		'scoping-submission': validateFeesForecastingDateInput,
 		'consultation-milestone': validateFeesForecastingDateInput,
 		'programme-document-received': validateFeesForecastingDateInput,
@@ -57,7 +58,8 @@ export const feesForecastingValidator = (request, response, next) => {
 		's61-summary-link': validateFeesForecastingHyperlink,
 		'programme-document-link': validateFeesForecastingHyperlink,
 		'issues-tracker-link': validateFeesForecastingHyperlink,
-		'examining-inspectors': validateFeesForecastingInspectorNumbers
+		'examining-inspectors': validateFeesForecastingInspectorNumbers,
+		'fast-track': validateFeesForecastingRadioInput
 	};
 
 	if (Object.keys(validators).includes(sectionName)) {

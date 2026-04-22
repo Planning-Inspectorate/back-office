@@ -41,6 +41,7 @@ export const urlSectionNames = {
 	submissionAtInternal: 'submissionAtInternal',
 	inceptionMeetingDate: 'inceptionMeetingDate',
 	maturityEvaluationMatrix: 'maturity-evaluation-matrix',
+	projectTier: 'project-tier',
 	scopingSubmission: 'scoping-submission',
 	consultationMilestone: 'consultation-milestone',
 	programmeDocumentReceived: 'programme-document-received',
@@ -90,6 +91,18 @@ export const sectionData = {
 		pageHeading: 'Maturity Evaluation Matrix (MEM) last updated',
 		fieldName: 'memLastUpdated',
 		componentType: 'date-input'
+	},
+	projectTier: {
+		sectionTitle: 'Project tier',
+		pageHeading: 'Tier of the project',
+		fieldName: 'tier',
+		componentType: 'radio-input',
+		radioFieldPath: 'additionalDetails.tier',
+		radioOptions: [
+			{ value: 'basic', text: 'Basic' },
+			{ value: 'standard', text: 'Standard' },
+			{ value: 'enhanced', text: 'Enhanced' }
+		]
 	},
 	scopingSubmission: {
 		sectionTitle: 'Estimated scoping submission date',
