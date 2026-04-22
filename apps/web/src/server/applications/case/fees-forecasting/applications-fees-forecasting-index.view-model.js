@@ -148,7 +148,7 @@ export const getFeesForecastingIndexViewModel = ({ caseData, invoices, meetings 
 				: '',
 			actions: [
 				{
-					href: editPageURL,
+					href: getEditPageURL(urlSectionNames.additionalComments, caseData.id),
 					text: genericHrefText,
 					visuallyHiddenText: 'additional comments'
 				}

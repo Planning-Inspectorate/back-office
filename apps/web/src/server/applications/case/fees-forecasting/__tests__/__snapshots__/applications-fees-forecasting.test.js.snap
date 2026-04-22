@@ -76,7 +76,7 @@ exports[`Fees and Forecasting GET /case/123/fees-forecasting/ should render the 
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Additional comments (optional)</dt>
                     <dd                     class="govuk-summary-list__value">Some comments</dd>
-                        <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> additional comments</span></a>
+                        <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/fees-forecasting/section/additional-comments">Change<span class="govuk-visually-hidden"> additional comments</span></a>
                         </dd>
                 </div>
             </dl>
@@ -895,6 +895,37 @@ exports[`Fees and Forecasting POST /case/123/fees-forecasting/section/:sectionNa
             </fieldset>
         </div>
         <div class='govuk-grid-column-one-third'>
+            <button type="submit" class="govuk-button" data-module="govuk-button">Save and return</button>
+        </div>
+    </form>
+</main>"
+`;
+
+exports[`Fees and Forecasting POST /case/123/fees-forecasting/section/:sectionName should show an API error for text area if updating comment was NOT successful 1`] = `
+"<main class="govuk-main-wrapper" id="main-content">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#msg">An error occurred, please try again later</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h1 class="govuk-heading-l">Additional comments (optional)</h1>
+    <form method="post" novalidate="novalidate" class="govuk-grid-row">
+        <div class='govuk-grid-column-two-thirds'>
+            <div class="govuk-form-group">
+                <textarea class="govuk-textarea" id="additionalComments" name="additionalComments"
+                rows="5">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
+                    ligula eget dolor.</textarea>
+            </div>
             <button type="submit" class="govuk-button" data-module="govuk-button">Save and return</button>
         </div>
     </form>
