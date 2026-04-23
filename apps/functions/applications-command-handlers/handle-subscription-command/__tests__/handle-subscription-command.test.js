@@ -52,7 +52,7 @@ describe('handle-subscription-command', () => {
 					subscriptionTypes: ['allUpdates']
 				},
 				log: {
-					info: `subscription created/updated: 1`
+					info: `subscription created/updated for caseReference abc: 1`
 				}
 			}
 		];
@@ -145,7 +145,7 @@ describe('handle-subscription-command', () => {
 				},
 				existing: null,
 				log: {
-					warn: `Existing subscription not found`
+					warn: `Existing subscription not found for caseReference 13334`
 				}
 			},
 			{
@@ -165,7 +165,7 @@ describe('handle-subscription-command', () => {
 				},
 				existing: { id: 1 },
 				log: {
-					info: `subscription updated to end now: 1, ${mockDate.toISOString()}`
+					info: `subscription updated for caseReference 13334 to end now: 1, ${mockDate.toISOString()}`
 				}
 			}
 		];
