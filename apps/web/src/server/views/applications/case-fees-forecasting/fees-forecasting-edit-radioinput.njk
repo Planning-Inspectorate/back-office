@@ -1,6 +1,7 @@
 {% extends "../layouts/applications.layout.njk" %}
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
 
 {% block beforeContent %}
 	<aside>
@@ -26,7 +27,7 @@
 		{% endfor %}
 
 		<div class="govuk-grid-column-two-thirds">
-			{% set radioClasses = "govuk-radios--inline" if radioItems | length == 2 %}
+			{% set radioClasses = "govuk-radios--inline white-space--nowrap" if radioItems | length == 2 %}
 			{{ govukRadios({
 				name: fieldName,
 				classes: radioClasses,
@@ -46,9 +47,13 @@
 				} if hintText,
 				items: radioItems
 			}) }}
-		</div>
 
-		<div class="govuk-grid-column-full">
+			{% if insetText %}
+				{{ govukInsetText({
+					text: insetText
+				}) }}
+			{% endif %}
+
 			{{ govukButton({ text: 'Save and return', classes: "govuk-grid-column-one-third" }) }}
 		</div>
 	</form>

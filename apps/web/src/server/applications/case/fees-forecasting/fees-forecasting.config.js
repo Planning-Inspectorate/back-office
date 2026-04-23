@@ -43,6 +43,7 @@ export const urlSectionNames = {
 	maturityEvaluationMatrix: 'maturity-evaluation-matrix',
 	scopingSubmission: 'scoping-submission',
 	consultationMilestone: 'consultation-milestone',
+	evidencePlanProcess: 'evidence-plan',
 	programmeDocumentReceived: 'programme-document-received',
 	programmeDocumentReviewed: 'programme-document-reviewed',
 	programmeDocumentComments: 'programme-document-comments',
@@ -102,6 +103,21 @@ export const sectionData = {
 		pageHeading: 'Adequacy of Consultation Milestone (AoCM) date',
 		fieldName: 'consultationMilestoneAdequacyDate',
 		componentType: 'date-input'
+	},
+	evidencePlanProcess: {
+		sectionTitle: 'Evidence plan process',
+		pageHeading: 'Evidence plan process',
+		fieldName: 'planProcessEvidence',
+		componentType: 'radio-input',
+		hintText:
+			'The schedule of evidence plan activities should be provided before the process begins.',
+		radioFieldPath: 'additionalDetails.planProcessEvidence',
+		radioOptions: [
+			{ value: 1, text: 'Required' },
+			{ value: 0, text: 'Not required' }
+		],
+		insetText:
+			'Adding the evidence plan process will require you to add any scheduled meetings to the evidence plan meetings section.'
 	},
 	programmeDocumentReceived: {
 		sectionTitle: 'Date updated programme document received',
