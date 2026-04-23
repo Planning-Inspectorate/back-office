@@ -21,6 +21,7 @@ export interface CaseDocumentationProps {
 	errors?: ValidationErrors;
 	sessionBannerText?: string;
 	isCustomFolder: boolean;
+	folderDetails: DocumentationCategory;
 }
 
 export interface CaseDocumentationBody {

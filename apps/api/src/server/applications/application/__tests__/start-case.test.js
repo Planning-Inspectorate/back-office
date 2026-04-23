@@ -183,6 +183,18 @@ describe('Start case', () => {
 			}
 		});
 
+		// Test the GIS Shapefiles folder is created as a root folder
+		const folderCreateCalls = databaseConnector.folder.create.mock.calls.map(
+			(call) => call[0].data
+		);
+		const hasRootGisShapefiles = folderCreateCalls.some(
+			(folder) =>
+				folder.displayNameEn === 'GIS Shapefiles' &&
+				folder.parentFolderId === undefined &&
+				folder.isCustom === false
+		);
+		expect(hasRootGisShapefiles).toBe(true);
+
 		// 2nd top level folder
 		expect(databaseConnector.folder.create).toHaveBeenCalledWith({
 			data: {
