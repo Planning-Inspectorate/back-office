@@ -45,12 +45,15 @@ describe('applications fees forecasting edit view model', () => {
 				pageTitle: 'Test section - Test case',
 				pageHeading: 'Test page heading',
 				fieldName: 'testSection',
+				additionalFieldName: '',
 				dateFieldName: '',
 				hintText: 'Test section hint text',
 				componentType: 'date-input',
 				radioFieldPath: '',
 				dateFieldPath: '',
-				radioOptions: []
+				radioOptions: [],
+				labelText: '',
+				additionalLabelText: ''
 			});
 		});
 
@@ -77,11 +80,14 @@ describe('applications fees forecasting edit view model', () => {
 				pageHeading: '',
 				fieldName: '',
 				dateFieldName: '',
+				additionalFieldName: '',
 				hintText: '',
 				componentType: 'date-input',
 				radioFieldPath: '',
 				dateFieldPath: '',
-				radioOptions: []
+				radioOptions: [],
+				labelText: '',
+				additionalLabelText: ''
 			});
 		});
 
@@ -112,11 +118,14 @@ describe('applications fees forecasting edit view model', () => {
 				pageHeading: 'Principal area disagreement summary statement (PADSS)',
 				fieldName: 'principalAreaDisagreementSummaryStmt',
 				dateFieldName: 'principalAreaDisagreementSummaryStmtSubmittedDate',
+				additionalFieldName: '',
 				hintText: '',
 				componentType: 'radio-date-input',
 				radioFieldPath: 'additionalDetails.principalAreaDisagreementSummaryStmt',
 				dateFieldPath: 'keyDates.preApplication.principalAreaDisagreementSummaryStmtSubmittedDate',
-				radioOptions: []
+				radioOptions: [],
+				labelText: '',
+				additionalLabelText: ''
 			});
 		});
 
@@ -154,6 +163,7 @@ describe('applications fees forecasting edit view model', () => {
 				pageHeading: 'What is the new maturity of the project?',
 				fieldName: 'newMaturity',
 				dateFieldName: '',
+				additionalFieldName: '',
 				hintText: '',
 				componentType: 'radio-input',
 				radioFieldPath: 'additionalDetails.newMaturity',
@@ -166,7 +176,47 @@ describe('applications fees forecasting edit view model', () => {
 					{ value: 'e', text: 'E' },
 					{ value: 'f', text: 'F' },
 					{ value: 'g', text: 'G' }
-				]
+				],
+				labelText: '',
+				additionalLabelText: ''
+			});
+		});
+
+		it('should correctly map data for text-input components to the view model when provided', async () => {
+			const { getSectionData } = await import('../applications-fees-forecasting.utils.js');
+
+			getSectionData.mockReturnValue({
+				sectionTitle: 'Test section',
+				pageHeading: 'Test page heading',
+				fieldName: 'testSection',
+				additionalFieldName: 'additionalTestSection',
+				labelText: 'Test label',
+				additionalLabelText: 'Additional test label',
+				componentType: 'text-input'
+			});
+
+			const projectName = 'Test case';
+
+			const { getFeesForecastingEditViewModel } = await import(
+				'../applications-fees-forecasting-edit.view-model.js'
+			);
+
+			const result = getFeesForecastingEditViewModel(projectName, sectionName);
+
+			expect(result).toEqual({
+				selectedPageType: 'fees-forecasting',
+				pageTitle: 'Test section - Test case',
+				pageHeading: 'Test page heading',
+				fieldName: 'testSection',
+				dateFieldName: '',
+				additionalFieldName: 'additionalTestSection',
+				hintText: '',
+				componentType: 'text-input',
+				radioFieldPath: '',
+				dateFieldPath: '',
+				radioOptions: [],
+				labelText: 'Test label',
+				additionalLabelText: 'Additional test label'
 			});
 		});
 	});

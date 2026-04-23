@@ -33,14 +33,14 @@ async function run(context, msg) {
 
 	const timetableItem = await api.getTimetableItem(timetableId, msg.deadline);
 	if (!timetableItem) {
-		throw new Error(`Timetable item "${msg.deadline}" does not exist.`);
+		throw new Error(`Timetable item "${msg.deadline}" does not exist for case ID: ${caseID}.`);
 	}
 
 	if (!lib.lineItemExists(timetableItem, msg.submissionType)) {
 		throw new Error(
-			`Line item "${msg.submissionType}" does not exist in timetable item:\n${JSON.stringify(
-				timetableItem
-			)}`
+			`Line item "${
+				msg.submissionType
+			}" does not exist for case ID ${caseID} in timetable item:\n${JSON.stringify(timetableItem)}`
 		);
 	}
 
@@ -99,7 +99,7 @@ async function run(context, msg) {
 		);
 	} catch (err) {
 		context.log(
-			`Error getting Exam Item Sub Item folder ID for ${msg.submissionType} in Folder ${timetableItem.folderId} : ${err}`
+			`Error getting Exam Item Sub Item folder ID for ${msg.submissionType} in Folder ${timetableItem.folderId} for case ID ${caseID} : ${err}`
 		);
 		// get the high level Unassigned folder, or create it if it doesn't exist
 		examLineItemFolderID = await api.getOrCreateUnassignedFolderId(
@@ -123,7 +123,7 @@ async function run(context, msg) {
 	});
 
 	if (documents.length === 0) {
-		throw new Error('No documents to process in response from API');
+		throw new Error(`No documents to process in response from API for case ID ${caseID}`);
 	}
 
 	const { blobStoreUrl } = documents[0];

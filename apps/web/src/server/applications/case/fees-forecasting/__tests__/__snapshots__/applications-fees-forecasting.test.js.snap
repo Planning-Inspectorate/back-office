@@ -66,7 +66,7 @@ exports[`Fees and Forecasting GET /case/123/fees-forecasting/ should render the 
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Examining inspectors</dt>
                     <dd class="govuk-summary-list__value">2 band 2 inspectors
                         <br>1 band 3 inspectors</dd>
-                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> examining inspectors</span></a>
+                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/fees-forecasting/section/examining-inspectors">Change<span class="govuk-visually-hidden"> examining inspectors</span></a>
                     </dd>
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> MEM last updated</dt>
@@ -76,7 +76,7 @@ exports[`Fees and Forecasting GET /case/123/fees-forecasting/ should render the 
                 </div>
                 <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Additional comments (optional)</dt>
                     <dd                     class="govuk-summary-list__value">Some comments</dd>
-                        <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> additional comments</span></a>
+                        <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/fees-forecasting/section/additional-comments">Change<span class="govuk-visually-hidden"> additional comments</span></a>
                         </dd>
                 </div>
             </dl>
@@ -245,7 +245,7 @@ exports[`Fees and Forecasting GET /case/123/fees-forecasting/ should render the 
                             </div>
                             <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Essential fast track components</dt>
                                 <dd                                 class="govuk-summary-list__value">Yes</dd>
-                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="#">Change<span class="govuk-visually-hidden"> essential fast track components</span></a>
+                                    <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/4/fees-forecasting/section/fast-track">Change<span class="govuk-visually-hidden"> essential fast track components</span></a>
                                     </dd>
                             </div>
                             <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Principal area disagreement summary statement (PADSS)</dt>
@@ -854,6 +854,152 @@ exports[`Fees and Forecasting GET /case/123/fees-forecasting/section/project-mat
 </main>"
 `;
 
+exports[`Fees and Forecasting POST /case/123/fees-forecasting/section/:sectionName should show an API error for date input if updating date was NOT successful 1`] = `
+"<main class="govuk-main-wrapper" id="main-content">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#msg">An error occurred, please try again later</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h1 class="govuk-heading-l">Maturity Evaluation Matrix (MEM) last updated</h1>
+    <form method="post" novalidate="novalidate" class="govuk-grid-row">
+        <div class="govuk-form-group govuk-grid-column-full ">
+            <fieldset class="govuk-fieldset">
+                <div class="govuk-grid-column-one-third">
+                    <div class="govuk-grid-row pins-date-form-group">
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="memLastUpdated.day">Day</label>
+                            <input class="govuk-input" id="memLastUpdated.day" name="memLastUpdated.day"
+                            type="text" value="01">
+                        </div>
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="memLastUpdated.month">Month</label>
+                            <input class="govuk-input" id="memLastUpdated.month" name="memLastUpdated.month"
+                            type="text" value="02">
+                        </div>
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="memLastUpdated.year">Year</label>
+                            <input class="govuk-input" id="memLastUpdated.year" name="memLastUpdated.year"
+                            type="text" value="2000">
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <div class='govuk-grid-column-one-third'>
+            <button type="submit" class="govuk-button" data-module="govuk-button">Save and return</button>
+        </div>
+    </form>
+</main>"
+`;
+
+exports[`Fees and Forecasting POST /case/123/fees-forecasting/section/:sectionName should show an API error for text area if updating comment was NOT successful 1`] = `
+"<main class="govuk-main-wrapper" id="main-content">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#msg">An error occurred, please try again later</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h1 class="govuk-heading-l">Additional comments (optional)</h1>
+    <form method="post" novalidate="novalidate" class="govuk-grid-row">
+        <div class='govuk-grid-column-two-thirds'>
+            <div class="govuk-form-group">
+                <textarea class="govuk-textarea" id="additionalComments" name="additionalComments"
+                rows="5">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo
+                    ligula eget dolor.</textarea>
+            </div>
+            <button type="submit" class="govuk-button" data-module="govuk-button">Save and return</button>
+        </div>
+    </form>
+</main>"
+`;
+
+exports[`Fees and Forecasting POST /case/123/fees-forecasting/section/:sectionName should show an API error for text input if updating hyperlink was NOT successful 1`] = `
+"<main class="govuk-main-wrapper" id="main-content">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#msg">An error occurred, please try again later</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h1 class="govuk-heading-l">Link to the issues tracker</h1>
+    <form method="post" novalidate="novalidate" class="govuk-grid-row">
+        <div class='govuk-grid-column-two-thirds'>
+            <div class="govuk-form-group">
+                <input class="govuk-input" id="issuesTracker" name="issuesTracker" type="text"
+                value="test.hyperlink.com/">
+            </div>
+            <button type="submit" class="govuk-button" data-module="govuk-button">Save and return</button>
+        </div>
+    </form>
+</main>"
+`;
+
+exports[`Fees and Forecasting POST /case/123/fees-forecasting/section/:sectionName should show an API error for text input if updating inspector number was NOT successful 1`] = `
+"<main class="govuk-main-wrapper" id="main-content">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#msg">An error occurred, please try again later</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h1 class="govuk-heading-l">Examining inspectors</h1>
+    <form method="post" novalidate="novalidate" class="govuk-grid-row">
+        <div class='govuk-grid-column-two-thirds'>
+            <div class="govuk-form-group">
+                <label class="govuk-label" for="numberBand2Inspectors">Number of band 2 inspectors</label>
+                <input class="govuk-input govuk-input--width-5"
+                id="numberBand2Inspectors" name="numberBand2Inspectors" type="text" value="2">
+            </div>
+            <div class="govuk-form-group">
+                <label class="govuk-label" for="numberBand3Inspectors">Number of band 3 inspectors</label>
+                <input class="govuk-input govuk-input--width-5"
+                id="numberBand3Inspectors" name="numberBand3Inspectors" type="text" value="3">
+            </div>
+            <button type="submit" class="govuk-button" data-module="govuk-button">Save and return</button>
+        </div>
+    </form>
+</main>"
+`;
+
 exports[`Fees and Forecasting POST /case/123/fees-forecasting/section/:sectionName should show an API error if creating a project meeting was NOT successful 1`] = `
 "<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
@@ -1023,55 +1169,6 @@ exports[`Fees and Forecasting POST /case/123/fees-forecasting/section/:sectionNa
 </main>"
 `;
 
-exports[`Fees and Forecasting POST /case/123/fees-forecasting/section/:sectionName should show an API error if updating was NOT successful 1`] = `
-"<main class="govuk-main-wrapper" id="main-content">
-    <div class="govuk-grid-row">
-        <div class="govuk-grid-column-full">
-            <div class="govuk-error-summary" data-module="govuk-error-summary">
-                <div role="alert">
-                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
-                    <div class="govuk-error-summary__body">
-                        <ul class="govuk-list govuk-error-summary__list">
-                            <li><a href="#msg">An error occurred, please try again later</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <h1 class="govuk-heading-l">Maturity Evaluation Matrix (MEM) last updated</h1>
-    <form method="post" novalidate="novalidate" class="govuk-grid-row">
-        <div class="govuk-form-group govuk-grid-column-full ">
-            <fieldset class="govuk-fieldset">
-                <div class="govuk-grid-column-one-third">
-                    <div class="govuk-grid-row pins-date-form-group">
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-hint" for="memLastUpdated.day">Day</label>
-                            <input class="govuk-input" id="memLastUpdated.day" name="memLastUpdated.day"
-                            type="text" value="01">
-                        </div>
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-hint" for="memLastUpdated.month">Month</label>
-                            <input class="govuk-input" id="memLastUpdated.month" name="memLastUpdated.month"
-                            type="text" value="02">
-                        </div>
-                        <div class="govuk-form-group">
-                            <label class="govuk-label govuk-hint" for="memLastUpdated.year">Year</label>
-                            <input class="govuk-input" id="memLastUpdated.year" name="memLastUpdated.year"
-                            type="text" value="2000">
-                        </div>
-                    </div>
-                </div>
-            </fieldset>
-        </div>
-        <div class='govuk-grid-column-one-third'>
-            <button type="submit" class="govuk-button" data-module="govuk-button">Save and return</button>
-        </div>
-    </form>
-</main>"
-`;
-
 exports[`Fees and Forecasting POST /case/123/fees-forecasting/section/manage-evidence-plan-meeting/id/:meetingId should show an API error if updating the evidence plan meeting was NOT successful 1`] = `
 "<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">
@@ -1148,7 +1245,7 @@ exports[`Fees and Forecasting POST /case/123/fees-forecasting/section/manage-evi
             </fieldset>
         </div>
         <div class='govuk-grid-column-one-third govuk-button-group'>
-            <button type="submit" class="govuk-button" data-module="govuk-button">Save and return</button><a href="/applications-service/case/123/fees-forecasting/section/manage-evidence-plan-meeting/id//delete"
+            <button type="submit" class="govuk-button" data-module="govuk-button">Save and return</button><a href="/applications-service/case/123/fees-forecasting/section/manage-evidence-plan-meeting/id/2/delete"
             role="button" draggable="false" class="govuk-button govuk-button--secondary"
             data-module="govuk-button"> Remove</a>
         </div>
@@ -1330,7 +1427,7 @@ exports[`Fees and Forecasting POST /case/123/fees-forecasting/section/manage-pro
             </fieldset>
         </div>
         <div class='govuk-grid-column-one-third govuk-button-group'>
-            <button type="submit" class="govuk-button" data-module="govuk-button">Save and return</button><a href="/applications-service/case/123/fees-forecasting/section/manage-project-meeting/id//delete"
+            <button type="submit" class="govuk-button" data-module="govuk-button">Save and return</button><a href="/applications-service/case/123/fees-forecasting/section/manage-project-meeting/id/1/delete"
             role="button" draggable="false" class="govuk-button govuk-button--secondary"
             data-module="govuk-button"> Remove</a>
         </div>

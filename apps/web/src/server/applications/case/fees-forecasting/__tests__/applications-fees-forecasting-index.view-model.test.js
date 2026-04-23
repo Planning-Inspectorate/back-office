@@ -194,7 +194,7 @@ describe('applications fees forecasting index view-model', () => {
 						actions: {
 							items: [
 								{
-									href: '#',
+									href: '/applications-service/case/4/fees-forecasting/section/examining-inspectors',
 									text: 'Change',
 									visuallyHiddenText: 'examining inspectors'
 								}
@@ -222,7 +222,7 @@ describe('applications fees forecasting index view-model', () => {
 						actions: {
 							items: [
 								{
-									href: '#',
+									href: '/applications-service/case/4/fees-forecasting/section/additional-comments',
 									text: 'Change',
 									visuallyHiddenText: 'additional comments'
 								}
@@ -428,7 +428,7 @@ describe('applications fees forecasting index view-model', () => {
 								actions: {
 									items: [
 										{
-											href: '#',
+											href: '/applications-service/case/4/fees-forecasting/section/fast-track',
 											text: 'Change',
 											visuallyHiddenText: 'essential fast track components'
 										}

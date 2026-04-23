@@ -40,7 +40,7 @@ export const index = async (
 		if (!isValidHtml) {
 			await handleHtmlValidityFail(documentURI, context.log);
 			throw Error(
-				'Publishing failed due to HTML file failing validity check. File marked as malicious'
+				`Publishing failed for caseId ${caseId} due to HTML file failing validity check. File marked as malicious`
 			);
 		}
 	}
@@ -52,7 +52,9 @@ export const index = async (
 		originalFilename
 	});
 
-	context.log(`Deploying source blob ${documentURI} to destination ${publishFileName}`);
+	context.log(
+		`Deploying source blob ${documentURI} to destination ${publishFileName} for caseId ${caseId}`
+	);
 
 	await blobClient.copyFileFromUrl({
 		sourceUrl: documentURI,
