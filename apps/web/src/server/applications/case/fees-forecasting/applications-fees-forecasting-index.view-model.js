@@ -160,7 +160,13 @@ export const getFeesForecastingIndexViewModel = ({ caseData, invoices, meetings 
 		{
 			key: 'Tier',
 			value: getDisplayValue(tierDisplayValues, caseData.additionalDetails.tier),
-			actions: [{ href: editPageURL, text: genericHrefText, visuallyHiddenText: 'tier' }]
+			actions: [
+				{
+					href: getEditPageURL(urlSectionNames.projectTier, caseData.id),
+					text: genericHrefText,
+					visuallyHiddenText: 'tier'
+				}
+			]
 		},
 		{
 			key: 'Link to s61 summary',

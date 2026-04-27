@@ -238,7 +238,13 @@ describe('applications fees forecasting index view-model', () => {
 								key: { text: 'Tier' },
 								value: { text: 'Basic' },
 								actions: {
-									items: [{ href: '#', text: 'Change', visuallyHiddenText: 'tier' }]
+									items: [
+										{
+											href: '/applications-service/case/4/fees-forecasting/section/project-tier',
+											text: 'Change',
+											visuallyHiddenText: 'tier'
+										}
+									]
 								}
 							},
 							{
