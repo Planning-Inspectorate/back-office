@@ -27,6 +27,8 @@ export const statusName = (key) => {
 			return 'Unpublishing';
 		case 'unpublished':
 			return 'Unpublished';
+		case 'invalid':
+			return 'Invalid shapefile';
 		default:
 			return '';
 	}
