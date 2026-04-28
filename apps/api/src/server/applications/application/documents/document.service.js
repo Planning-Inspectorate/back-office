@@ -341,7 +341,7 @@ export const createDocuments = async (documentsToUpload, caseId, isS51, tx) => {
 	logger.info(`Documents mapped: ${JSON.stringify(requestToGetDocumentStorageProperties)}`);
 
 	// Step 6: generate the blob storage service properties
-	const documentsWithBlobStorageInfo = await getStorageLocation(
+	const documentsWithBlobStorageInfo = getStorageLocation(
 		requestToGetDocumentStorageProperties,
 		fromDcoPortal
 	);
@@ -477,9 +477,7 @@ export const createDocumentVersion = async (
 
 	// Step 7: generate the blob storage service properties
 	logger.info(`Generate the blob storage properties...`);
-	const documentWithBlobStorageInfo = await getStorageLocation(
-		requestToGetDocumentStorageProperties
-	);
+	const documentWithBlobStorageInfo = getStorageLocation(requestToGetDocumentStorageProperties);
 	logger.info(
 		`Documents with Blob storage service properties: ${JSON.stringify(documentWithBlobStorageInfo)}`
 	);

@@ -703,3 +703,28 @@ export const getInFolderByName = (folderId, fileName, includeDeleted) => {
 		}
 	});
 };
+
+/**
+ * Returns the latest unique number for document reference
+ *
+ * @param {string} caseReference
+ * @returns {import('#database-client').PrismaPromise<DocumentReferenceNumber | null>}
+ */
+export async function getNextDocumentReferenceCounter(caseReference) {
+	try {
+		return await databaseConnector.documentReferenceNumberCounter.upsert({
+			where: { caseReference },
+			update: { value: { increment: 1 } },
+			create: { caseReference, value: 1 }
+		});
+	} catch (error) {
+		if (error.code === 'P2002') {
+			// account for the edge case where multiple azure function processes try to initialise the row at the same time
+			return databaseConnector.documentReferenceNumberCounter.update({
+				where: { caseReference },
+				data: { value: { increment: 1 } }
+			});
+		}
+		throw error;
+	}
+}

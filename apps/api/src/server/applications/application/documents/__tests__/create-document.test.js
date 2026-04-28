@@ -127,6 +127,10 @@ describe('Create documents', () => {
 			databaseConnector.document.findFirst.mockResolvedValueOnce(null);
 			databaseConnector.documentVersion.upsert.mockResolvedValue(upsertedDocVersionResponse);
 			databaseConnector.document.update.mockResolvedValue(updatedDocResponse);
+			databaseConnector.documentReferenceNumberCounter.upsert.mockResolvedValue({
+				caseReference: 'case reference',
+				count: 1
+			});
 
 			// WHEN
 			const response = await request.post('/applications/1/documents').send([
@@ -252,6 +256,10 @@ describe('Create documents', () => {
 			databaseConnector.folder.findUnique.mockResolvedValue({ id: 1, caseId: 1 });
 			databaseConnector.document.create.mockResolvedValue({ id: 1, guid, name: 'test doc' });
 			databaseConnector.document.findFirst.mockResolvedValueOnce(null);
+			databaseConnector.documentReferenceNumberCounter.upsert.mockResolvedValue({
+				caseReference: 'case reference',
+				count: 1
+			});
 
 			const DCOPayload = [
 				{
@@ -298,6 +306,10 @@ describe('Create documents', () => {
 			throw new Error();
 		});
 		databaseConnector.documentVersion.upsert.mockResolvedValue({});
+		databaseConnector.documentReferenceNumberCounter.upsert.mockResolvedValue({
+			caseReference: 'case reference',
+			count: 1
+		});
 
 		// WHEN
 		const response = await request.post('/applications/1/documents').send([

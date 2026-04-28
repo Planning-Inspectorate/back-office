@@ -9,10 +9,10 @@ import BackOfficeAppError from '#utils/app-error.js';
 import logger from '#utils/logger.js';
 import { publishDocuments, unpublishDocuments } from '../application/documents/document.service.js';
 import {
-	verifyAllS51AdviceHasRequiredPropertiesForPublishing,
-	verifyAllS51DocumentsAreVirusChecked,
 	hasPublishedAdvice,
-	hasPublishedDocument
+	hasPublishedDocument,
+	verifyAllS51AdviceHasRequiredPropertiesForPublishing,
+	verifyAllS51DocumentsAreVirusChecked
 } from './s51-advice.validators.js';
 
 /**
@@ -85,9 +85,7 @@ export const getS51AdviceDocuments = async (caseId, adviceId) => {
 		};
 	});
 
-	const blobResponse = await getStorageLocation(blobStorageRequest);
-
-	return blobResponse;
+	return getStorageLocation(blobStorageRequest);
 };
 
 /**

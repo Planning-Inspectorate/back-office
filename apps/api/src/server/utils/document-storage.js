@@ -8,9 +8,9 @@ import config from '../config/config.js';
 /**
  * @param {DocumentBlobStoragePayload[]} documentsToSave
  * @param {boolean} isFromDcoPortal
- * @returns {Promise<import('@pins/applications.api').Api.DocumentAndBlobInfoManyResponse>}
+ * @returns {import('@pins/applications.api').Api.DocumentAndBlobInfoManyResponse}
  */
-export const getStorageLocation = async (documentsToSave, isFromDcoPortal) => {
+export const getStorageLocation = (documentsToSave, isFromDcoPortal) => {
 	return {
 		blobStorageHost: config.blobStorageUrl,
 		privateBlobContainer: config.blobStorageContainer,

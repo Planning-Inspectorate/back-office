@@ -123,6 +123,9 @@ const mockInvoiceCreate = jest.fn().mockResolvedValue({});
 const mockInvoiceUpdate = jest.fn().mockResolvedValue({});
 const mockInvoiceDelete = jest.fn().mockResolvedValue({});
 
+const mockDocumentReferenceCounterUpsert = jest.fn().mockResolvedValue({});
+const mockDocumentReferenceCounterUpdate = jest.fn().mockResolvedValue({});
+
 class MockPrismaClient {
 	get address() {
 		return {
@@ -352,6 +355,13 @@ class MockPrismaClient {
 			create: mockInvoiceCreate,
 			update: mockInvoiceUpdate,
 			delete: mockInvoiceDelete
+		};
+	}
+
+	get documentReferenceNumberCounter() {
+		return {
+			upsert: mockDocumentReferenceCounterUpsert,
+			update: mockDocumentReferenceCounterUpdate
 		};
 	}
 
