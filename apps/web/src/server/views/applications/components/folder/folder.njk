@@ -54,7 +54,7 @@
 	<div class="govuk-grid-row">
 		<div class="govuk-grid-column-full">
 			{% block sectionContent %}
-				{{ folderHeader(currentFolder, subFolders, caseId, isS51folder, cspNonce, isGeneralS51folder, isCustomFolder) }}
+				{{ folderHeader(currentFolder, subFolders, caseId, isS51folder, cspNonce, isGeneralS51folder, isCustomFolder, isGisShapefilesFolder) }}
 
 				{{ folderStatus(currentFolder, items, caseId, isS51folder, isGeneralS51folder) }}
 					{% if items.itemCount %}

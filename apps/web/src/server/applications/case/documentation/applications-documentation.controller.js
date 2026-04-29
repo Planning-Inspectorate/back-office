@@ -51,6 +51,32 @@ import { redactionStatusDisplayValues } from './applications-documentation.confi
 import { canRequestAiRedaction } from './utils/can-request-ai-redaction.js';
 import { buildAiRedactionPayload } from './utils/build-ai-redaction-payload.js';
 import { getAiRedactionBannerFromStatus } from './utils/get-ai-redaction-banner-from-status.js';
+import { isGisShapefilesFolder } from './utils/is-gis-shapefiles-folder.js';
+
+/**
+ * Redirects to the folder view if the folder is the GIS Shapefiles folder.
+ * Returns true if a redirect was performed, false otherwise.
+ * @param {import('express').Response} response Express response object
+ * @param {number|string} caseId
+ * @param {{ id?: number; displayNameEn?: string }} folder Folder object
+ * @returns {boolean}
+ */
+function redirectIfGisShapefilesFolder(response, caseId, folder) {
+	if (
+		isGisShapefilesFolder(folder) &&
+		typeof folder.id === 'number' &&
+		typeof folder.displayNameEn === 'string'
+	) {
+		response.redirect(
+			url('document-category', {
+				caseId: Number(caseId),
+				documentationCategory: { id: folder.id, displayNameEn: folder.displayNameEn }
+			})
+		);
+		return true;
+	}
+	return false;
+}
 
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
 /** @typedef {import('../applications-case.locals.js').ApplicationCaseLocals} ApplicationCaseLocals */
@@ -118,13 +144,15 @@ export async function viewApplicationsCaseDocumentationFolder(request, response)
 	/**
 	 * @typedef {Object} CaseDocumentationProps
 	 */
+
 	response.render(`applications/components/folder/folder`, {
 		...properties,
 		sessionBannerText,
 		activeFolderSlug: request.params.folderName,
 		table: {
 			sortLinks: tableSortLinks(request.query)
-		}
+		},
+		isGisShapefilesFolder: isGisShapefilesFolder(properties.folderDetails)
 	});
 
 	deleteSessionBanner(session);
@@ -606,7 +634,8 @@ const documentationFolderData = async (caseId, folderId, query = {}, session) =>
 		subFolders,
 		items: documentationFiles,
 		pagination,
-		isCustomFolder: folderDetails.isCustom
+		isCustomFolder: folderDetails.isCustom,
+		folderDetails
 	};
 };
 
@@ -701,6 +730,12 @@ export async function viewApplicationsCaseDocumentationSearchPage(
  */
 export async function viewFolderCreationPage(request, response) {
 	const { caseId } = response.locals;
+	const { folderId } = request.params;
+	let parentFolder = null;
+	if (folderId) {
+		parentFolder = await getCaseFolder(caseId, parseInt(folderId));
+		if (redirectIfGisShapefilesFolder(response, caseId, parentFolder)) return;
+	}
 	const backLink =
 		documentationSessionHandlers.getSessionFolderPage(request.session) ??
 		url('document-category', { caseId });
@@ -719,6 +754,7 @@ export async function viewFolderRenamePage(request, response) {
 		url('document-category', { caseId });
 
 	const folder = await getCaseFolder(caseId, parseInt(request.params.folderId));
+	if (redirectIfGisShapefilesFolder(response, caseId, folder)) return;
 	const currentName = folder?.displayNameEn;
 
 	return response.render('applications/components/folder/folder-rename', {
@@ -735,6 +771,7 @@ export async function viewFolderDeletionPage(request, response) {
 	const { folderId } = request.params;
 
 	const folderObject = await getCaseFolder(caseId, parseInt(folderId));
+	if (redirectIfGisShapefilesFolder(response, caseId, folderObject)) return;
 	const backLink =
 		documentationSessionHandlers.getSessionFolderPage(request.session) ??
 		url('document-category', { caseId });
