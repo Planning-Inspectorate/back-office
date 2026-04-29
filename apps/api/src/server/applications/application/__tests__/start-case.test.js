@@ -241,6 +241,7 @@ describe('Start case', () => {
 			anticipatedSubmissionDateNonSpecific: 'Q1 2023',
 			sector: 'BC - Business and Commercial',
 			projectType: 'BC01 - Office Use',
+			estimatedPrelimMeetingDate: null,
 			nsipOfficerIds: [],
 			nsipAdministrationOfficerIds: [],
 			inspectorIds: [],

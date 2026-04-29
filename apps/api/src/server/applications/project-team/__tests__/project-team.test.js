@@ -88,6 +88,7 @@ const expectedNSIPProjectEvent = buildPayloadEventsForSchema(NSIP_PROJECT, {
 	anticipatedSubmissionDateNonSpecific: 'Q1 2023',
 	sector: 'BC - Business and Commercial',
 	sourceSystem: 'back-office-applications',
+	estimatedPrelimMeetingDate: null,
 	meetings: meetings,
 	invoices: invoices
 });
