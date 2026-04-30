@@ -79,22 +79,28 @@ export const registerFolderId = async ({ params }, response, next) => {
 
 /**
  * Register the current folder and the items (url and text) for the breadcrumbs component
+ * Catches errors (e.g., 400 Bad Request for deleted or invalid folders) from the API
+ * and passes them to the Express global error handler to prevent app crashes.
  *
  * @type {import('@pins/express').RequestHandler<ApplicationCaseLocals>}
  */
 export const registerFolder = async ({ params }, response, next) => {
-	const folderId = Number.parseInt(params.folderId, 10);
-	const { caseId } = response.locals;
+	try {
+		const folderId = Number.parseInt(params.folderId, 10);
+		const { caseId } = response.locals;
 
-	response.locals.folderId = folderId;
+		response.locals.folderId = folderId;
 
-	// get the current folder
-	response.locals.currentFolder = await getCaseFolder(caseId, folderId);
+		// get the current folder
+		response.locals.currentFolder = await getCaseFolder(caseId, folderId);
 
-	// get the folderTree for breadcrumbs
-	response.locals.breadcrumbItems = await buildBreadcrumbItems(caseId, folderId);
+		// get the folderTree for breadcrumbs
+		response.locals.breadcrumbItems = await buildBreadcrumbItems(caseId, folderId);
 
-	next();
+		next();
+	} catch (error) {
+		next(error);
+	}
 };
 
 /**
