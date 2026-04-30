@@ -38,13 +38,13 @@ After confirming all required folders are created and no further migration is ne
 
 - Remove these files:
   - `apps/api/src/server/migration/migrators/gis-shapefiles-folder.controller.js`
-  - `apps/api/src/server/migration/migrators/gis-shapefiles-folder.delete.controller.js`
   - `apps/api/src/server/migration/migrators/gis-shapefiles-folder.service.js`
 - Remove the following lines from `apps/api/src/server/migration/migration.routes.js`:
-  - `import { migrateGisShapefilesFolders } from './migrators/gis-shapefiles-folder.controller.js';`
-  - `import { deleteGisShapefilesFoldersController } from './migrators/gis-shapefiles-folder.delete.controller.js';`
-  - The `router.post('/gis-shapefiles-folders', ...)` and `router.post('/gis-shapefiles-folders/delete', ...)` route blocks.
-- Remove the corresponding Swagger/OpenAPI documentation for these endpoints from `swagger-output.json`.
-- Search for `MigrationAddition:` comments to remove any temporary migration logic.
+    - import on Line 7:`import { migrateGisShapefilesFolders, deleteGisShapefilesFoldersController } from './migrators/gis-shapefiles-folder.controller.js';`
+	- Route block in Lines 79-112: `router.post('/gis-shapefiles-folders', ...)`
+	- Route block in Lines 114-142: `router.post('/gis-shapefiles-folders/delete', ...)`
+
+- Remove the corresponding Swagger/OpenAPI documentation for these endpoints from `swagger-output.json` by running `npm run gen-api-spec`  in `apps\api` folder, after you remove the route blocks above
+- Update this `README.md` by deleting the `GIS Shapefiles Folder Migration (One-off)` block
 
 **Important:** These endpoints directly modify the production DB. Ensure all operations are complete and validated before deleting the code.

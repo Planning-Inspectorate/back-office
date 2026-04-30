@@ -4,8 +4,10 @@ import { postMigrateFolders, postMigrateModel } from './migration.controller.js'
 import { validateMigration } from './validate-migration.controller.js';
 import { getArchiveFolderInformation } from './archive-folder-info.controller.js';
 import { migrationCleanup } from './migrators/migration-cleanup.controller.js';
-import { migrateGisShapefilesFolders } from './migrators/gis-shapefiles-folder.controller.js';
-import { deleteGisShapefilesFoldersController } from './migrators/gis-shapefiles-folder.delete.controller.js';
+import {
+	migrateGisShapefilesFolders,
+	deleteGisShapefilesFoldersController
+} from './migrators/gis-shapefiles-folder.controller.js';
 
 const router = createRouter();
 
