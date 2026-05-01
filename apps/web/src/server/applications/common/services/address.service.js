@@ -1,10 +1,10 @@
 import config from '@pins/applications.web/environment/config.js';
-import { findAddressListByPostcode } from '@planning-inspectorate/address-lookup';
+import { findAddressListByPostcode } from './address-lookup/index.js';
 import path from 'node:path';
 import fs from 'node:fs/promises';
 
-/** @typedef {import('@planning-inspectorate/address-lookup').address} address */
-/** @typedef {import('@planning-inspectorate/address-lookup').ValidationErrors} AddressLookupValidationErrors */
+/** @typedef {import('./address-lookup').address} address */
+/** @typedef {import('./address-lookup').ValidationErrors} AddressLookupValidationErrors */
 
 /**
  * Only lookup addresses when not in development *
