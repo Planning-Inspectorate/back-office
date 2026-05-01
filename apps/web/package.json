@@ -42,6 +42,7 @@
     "@planning-inspectorate/address-lookup": "*",
     "@toast-ui/editor": "*",
     "accessible-autocomplete": "*",
+    "axios": "*",
     "applicationinsights": "*",
     "body-parser": "*",
     "classnames": "*",
