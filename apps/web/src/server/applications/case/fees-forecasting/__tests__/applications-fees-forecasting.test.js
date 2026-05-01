@@ -957,4 +957,109 @@ describe('Fees and Forecasting', () => {
 			expect(element.innerHTML).toContain('There is a problem');
 		});
 	});
+
+	describe('POST /case/123/fees-forecasting/section/evidence-plan (validateFeesForecastingEvidencePlanProcess)', () => {
+		const sectionName = 'evidence-plan';
+		const fieldName = 'planProcessEvidence';
+		const blockingErrorMessage =
+			'Cancel all scheduled evidence plan meetings to remove the evidence plan process';
+
+		it('should show a validation error when no option is selected', async () => {
+			const flags = staticFlags;
+			flags['applics-1845-fees-forecasting'] = true;
+
+			const response = await request.post(`${baseUrl}/section/${sectionName}`).send({
+				[fieldName]: ''
+			});
+
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toContain('You must select an option for Evidence plan process');
+		});
+
+		it('should show a validation error when "Not required" is selected and evidence plan meetings exist', async () => {
+			const flags = staticFlags;
+			flags['applics-1845-fees-forecasting'] = true;
+
+			const response = await request.post(`${baseUrl}/section/${sectionName}`).send({
+				[fieldName]: '0'
+			});
+
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toContain(blockingErrorMessage);
+		});
+
+		it('should redirect to the index page when "Required" is selected (regardless of meetings)', async () => {
+			const flags = staticFlags;
+			flags['applics-1845-fees-forecasting'] = true;
+
+			nock('http://test/')
+				.patch(`/applications/123/fees-forecasting/${sectionName}`)
+				.reply(200, {});
+
+			const response = await request.post(`${baseUrl}/section/${sectionName}`).send({
+				[fieldName]: '1'
+			});
+
+			expect(response?.headers?.location).toEqual(
+				'/applications-service/case/123/fees-forecasting/'
+			);
+		});
+
+		it('should redirect to the index page when "Not required" is selected and there are no evidence plan meetings', async () => {
+			const flags = staticFlags;
+			flags['applics-1845-fees-forecasting'] = true;
+
+			nock.cleanAll();
+			nock('http://test/').get('/applications').reply(200, []);
+			nock('http://test/')
+				.get('/applications/123')
+				.reply(200, fixtureFeesForecastingIndex.caseData);
+			nock('http://test/')
+				.get('/applications/123/invoices')
+				.reply(200, fixtureFeesForecastingIndex.invoices);
+			nock('http://test/')
+				.get('/applications/123/meetings')
+				.reply(200, [
+					{
+						id: 1,
+						caseId: 123,
+						meetingType: 'project',
+						agenda: 'Project Update Meeting (PUM)',
+						pinsRole: null,
+						meetingDate: '2026-03-04T00:00:00.000Z'
+					}
+				]);
+			nock('http://test/').get('/applications-service/').reply(200, {});
+			nock('http://test/')
+				.patch(`/applications/123/fees-forecasting/${sectionName}`)
+				.reply(200, {});
+
+			const response = await request.post(`${baseUrl}/section/${sectionName}`).send({
+				[fieldName]: '0'
+			});
+
+			expect(response?.headers?.location).toEqual(
+				'/applications-service/case/123/fees-forecasting/'
+			);
+		});
+
+		it('should show an API error if updating was NOT successful', async () => {
+			const flags = staticFlags;
+			flags['applics-1845-fees-forecasting'] = true;
+
+			nock('http://test/')
+				.patch(`/applications/123/fees-forecasting/${sectionName}`)
+				.reply(500, {});
+
+			const response = await request.post(`${baseUrl}/section/${sectionName}`).send({
+				[fieldName]: '1'
+			});
+
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toContain('There is a problem');
+		});
+	});
 });
