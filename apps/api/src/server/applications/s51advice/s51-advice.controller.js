@@ -26,14 +26,13 @@ import * as caseRepository from '#repositories/case.repository.js';
 import {
 	makeDocumentReference,
 	createDocuments,
-	deleteDocument,
-	getIndexFromReference
+	deleteDocument
 } from './../application/documents/document.service.js';
 import BackOfficeAppError from '#utils/app-error.js';
 import { mapDateStringToUnixTimestamp } from '#utils/mapping/map-date-string-to-unix-timestamp.js';
 import logger from '#utils/logger.js';
 import isCaseWelsh from '#utils/is-case-welsh.js';
-import { getLatestDocReferenceByCaseIdExcludingMigrated } from '#repositories/document.repository.js';
+import { getNextDocumentReferenceCounter } from '#repositories/document.repository.js';
 
 /**
  * @typedef {import('@pins/applications.api').Schema.Folder} Folder
@@ -169,16 +168,6 @@ export const addDocuments = async ({ params, body }, response) => {
 		throw new BackOfficeAppError(`Case with id: ${caseId} not found.`, 404);
 	}
 
-	// find the latest document reference for this case, and then add 1 for the next free one
-	const latestDocumentReference = await getLatestDocReferenceByCaseIdExcludingMigrated({
-		caseId
-	});
-
-	const lastReferenceIndex = latestDocumentReference
-		? getIndexFromReference(latestDocumentReference)
-		: 1;
-	let nextDocumentReferenceIndex = lastReferenceIndex ? lastReferenceIndex + 1 : 1;
-
 	const { duplicates, deleted, remainder } = await extractDuplicatesAndDeleted(
 		adviceId,
 		/** @type {DocumentToSaveExtended[]} */ (documentsToUpload).map((doc) => doc.documentName)
@@ -189,10 +178,9 @@ export const addDocuments = async ({ params, body }, response) => {
 	);
 
 	for (const doc of filteredToUpload) {
-		doc.documentReference = makeDocumentReference(theCase.reference, nextDocumentReferenceIndex);
+		const nextReferenceCounter = await getNextDocumentReferenceCounter(theCase.reference);
+		doc.documentReference = makeDocumentReference(theCase.reference, nextReferenceCounter.count);
 		doc.folderId = Number(doc.folderId);
-
-		nextDocumentReferenceIndex++;
 	}
 
 	// create document records

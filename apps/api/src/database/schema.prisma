@@ -383,6 +383,11 @@ model DocumentVersion {
   @@index([documentGuid], map: "documentGuid")
 }
 
+model DocumentReferenceNumberCounter {
+  caseReference String @id
+  count         Int
+}
+
 /// Representation model
 model Representation {
   id                     Int                        @id @default(autoincrement())

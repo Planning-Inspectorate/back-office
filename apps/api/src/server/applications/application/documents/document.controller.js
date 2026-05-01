@@ -15,7 +15,6 @@ import {
 import {
 	getDocumentsInCase,
 	extractDuplicatesAndDeleted,
-	getIndexFromReference,
 	handleUpdateDocuments,
 	makeDocumentReference,
 	markDocumentVersionAsPublished,
@@ -72,29 +71,17 @@ export const createDocumentsOnCase = async ({ params, body }, response) => {
 
 	const filteredToUploadWithMetadata = await attachMetadataToDocuments(theCase, filteredToUpload);
 
-	const { response: dbResponse, failedDocuments } = await documentRepository.executeInTransaction(
-		async (tx) => {
-			const latestDocumentReference =
-				await documentRepository.getLatestDocReferenceByCaseIdExcludingMigrated(
-					{ caseId: /** @type {number} */ (params.id) },
-					tx
-				);
+	for (const doc of filteredToUploadWithMetadata) {
+		const nextReferenceCounter = await documentRepository.getNextDocumentReferenceCounter(
+			theCase.reference
+		);
+		doc.documentReference = makeDocumentReference(theCase.reference, nextReferenceCounter.count);
+	}
 
-			const lastReferenceIndex = latestDocumentReference
-				? getIndexFromReference(latestDocumentReference)
-				: 1;
-			let nextReferenceIndex = lastReferenceIndex ? lastReferenceIndex + 1 : 1;
-
-			for (const doc of filteredToUploadWithMetadata) {
-				//documentReference metadata is part of the transaction as we have to ensure it is unique and sequential
-				doc.documentReference = makeDocumentReference(theCase.reference, nextReferenceIndex);
-
-				nextReferenceIndex++;
-			}
-
-			// create document, documentVersion etc records for the array of docs within the transaction
-			return await createDocuments(filteredToUploadWithMetadata, params.id, false, tx);
-		}
+	// create document, documentVersion etc records for the array of docs within the transaction
+	const { response: dbResponse, failedDocuments } = await createDocuments(
+		filteredToUploadWithMetadata,
+		params.id
 	);
 
 	if (dbResponse === null) {
