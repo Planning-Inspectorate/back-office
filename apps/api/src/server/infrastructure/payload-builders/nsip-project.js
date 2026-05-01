@@ -33,7 +33,7 @@ export const buildNsipProjectPayload = (projectEntity) => {
 		meetings: meetings,
 		invoices: invoices,
 
-		// null value fields added fo schema validation
+		// null value fields added for schema validation
 		migrationStatus: null
 	};
 };
@@ -108,7 +108,8 @@ const mapApplicationDetails = (projectEntity) => {
 		numberBand3Inspectors: appDetails?.numberBand3Inspectors,
 		essentialFastTrackComponents: appDetails?.essentialFastTrackComponents,
 		planProcessEvidence: appDetails?.planProcessEvidence,
-		decision: null
+		decision: null,
+		estimatedPrelimMeetingDate: null
 	};
 };
 
@@ -205,7 +206,7 @@ const mapProjectTeam = (projectEntity) => {
 
 /**
  * @param {import('@pins/applications.api').Schema.Case} projectEntity
- * @returns {Array<{ meetingId: number, meetingAgenda: string|null, planningInspectorateRole: string|null, meetingDate: string|null, estimatedPrelimMeetingDate: string|null, meetingType: string|null }>}
+ * @returns {Array<{ meetingId: number, meetingAgenda: string|null, planningInspectorateRole: string|null, meetingDate: string|null, meetingType: string|null }>}
  */
 const mapMeetings = (projectEntity) => {
 	const meetings = projectEntity?.meeting || [];
@@ -215,7 +216,6 @@ const mapMeetings = (projectEntity) => {
 			meetingAgenda: meeting.agenda ?? null,
 			planningInspectorateRole: meeting?.pinsRole ?? null,
 			meetingDate: meeting.meetingDate?.toISOString() ?? null,
-			estimatedPrelimMeetingDate: null,
 			meetingType: meeting.meetingType ?? null
 		};
 	});
@@ -231,7 +231,7 @@ const mapInvoices = (projectEntity) => {
 		return {
 			invoiceStage: invoice.invoiceStage,
 			invoiceNumber: invoice.invoiceNumber,
-			amountDue: invoice?.amountDue ?? null,
+			amountDue: Number(invoice?.amountDue) ?? null,
 			paymentDueDate: invoice?.paymentDueDate?.toISOString() ?? null,
 			invoicedDate: invoice?.invoicedDate?.toISOString() ?? null,
 			paymentDate: invoice?.paymentDate?.toISOString() ?? null,
