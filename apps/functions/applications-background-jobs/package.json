@@ -23,6 +23,7 @@
         "joi": "*",
         "jsdom": "*",
         "notifications-node-client": "*",
+        "shpjs": "*",
         "turndown": "*"
     },
     "devDependencies": {

@@ -1,0 +1,12 @@
+{
+	"bindings": [
+		{
+			"name": "documentShapefileProcess",
+			"type": "serviceBusTrigger",
+			"direction": "in",
+			"topicName": "nsip-document-process-shapefile",
+			"subscriptionName": "nsip-document-process-shapefile",
+			"connection": "ServiceBusConnection"
+		}
+	]
+}
