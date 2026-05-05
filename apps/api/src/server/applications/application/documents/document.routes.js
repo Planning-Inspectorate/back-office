@@ -24,6 +24,7 @@ import {
 	getManyDocumentsProperties,
 	moveDocumentsToAnotherFolder
 } from './document.controller.js';
+import { processShapefile } from './shapefile-processing.controller.js';
 import {
 	validateDocumentIds,
 	validateDocumentsToMove,
@@ -846,6 +847,33 @@ router.get(
 	validateApplicationId,
 	validatePaginationParameters(),
 	asyncHandler(searchDocuments)
+);
+
+router.post(
+	'/:id/documents/:guid/process-shapefile',
+	/*
+		#swagger.tags = ['Applications']
+		#swagger.path = '/applications/{id}/documents/{guid}/process-shapefile'
+		#swagger.description = 'Called by the shapefile processing Azure Function to store a GeoJSON document version or mark the ZIP as invalid'
+		#swagger.parameters['id'] = {
+			in: 'path',
+			description: 'Application ID',
+			required: true,
+			type: 'integer'
+		}
+		#swagger.parameters['guid'] = {
+			in: 'path',
+			description: 'Document GUID of the source ZIP file',
+			required: true,
+			type: 'string'
+		}
+		#swagger.responses[200] = {
+			description: 'Processing result',
+			schema: { status: 'processed' }
+		}
+	*/
+	validateApplicationId,
+	asyncHandler(processShapefile)
 );
 
 export { router as documentRoutes };
