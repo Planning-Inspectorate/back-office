@@ -15,6 +15,8 @@ import { relevantRepresentationsAttachmentUpload } from './_relevant_representat
 const clientActions = (uploadForm) => {
 	/** @type {NodeListOf<HTMLElement> | null} */
 	const uploadDescriptions = uploadForm.querySelectorAll('.pins-file-upload--text');
+	/** @type {HTMLElement| null} */
+	const uploadLabel = uploadForm.querySelector('.pins-file-upload--label');
 	/** @type {HTMLElement | null} */
 	const uploadButton = uploadForm.querySelector('.pins-file-upload--button');
 	/** @type {HTMLElement | null} */
@@ -55,7 +57,7 @@ const clientActions = (uploadForm) => {
 	 *
 	 */
 	const updateButtonText = () => {
-		const isMultipleUploadAllowed = uploadForm.dataset.multiple || false;
+		const isMultipleUploadAllowed = uploadForm.dataset.multiple === 'true';
 		const filesRowsNumber = globalDataTransfer.files.length;
 
 		if (isMultipleUploadAllowed) {
@@ -64,8 +66,8 @@ const clientActions = (uploadForm) => {
 			uploadCounter.textContent =
 				filesRowsNumber > 0 ? `${filesRowsNumber} files` : 'No file chosen';
 		} else {
-			for (const uploadDescription of [...uploadDescriptions]) {
-				uploadDescription.style.display = filesRowsNumber > 0 ? 'none' : 'block';
+			if (uploadLabel instanceof HTMLElement) {
+				uploadLabel.style.display = filesRowsNumber > 0 ? 'none' : 'block';
 			}
 			uploadButton.style.display = filesRowsNumber > 0 ? 'none' : 'block';
 			uploadCounter.style.display = filesRowsNumber > 0 ? 'none' : 'block';
@@ -78,6 +80,10 @@ const clientActions = (uploadForm) => {
 	 */
 	const checkSelectedFile = (selectedFile) => {
 		const allowedMimeTypes = (uploadForm.dataset.allowedTypes || '').split(',');
+
+		const isZip =
+			selectedFile.type === 'appliocation/zip' ||
+			selectedFile.type === 'application/x-zip-compressed';
 
 		if (selectedFile.name.length > 255) {
 			return { message: 'NAME_SINGLE_FILE' };
@@ -99,7 +105,9 @@ const clientActions = (uploadForm) => {
 				return extensionMatch[1];
 			})();
 
-		if (!(type && allowedMimeTypes.includes(type))) {
+		if (
+			!(type && (allowedMimeTypes.includes(type) || (isZip && allowedMimeTypes.includes('.zip'))))
+		) {
 			return { message: 'TYPE_SINGLE_FILE' };
 		}
 
