@@ -97,7 +97,9 @@ export async function postValidateFileSignatures({ body }, response) {
 			hexSignature: '4F504C4461746162, 61736546696C65, 036E0C017E010000'
 		},
 		/* .shp  */ 'application/vnd.shp': { hexSignature: '' },
-		/* .shx  */ 'application/vnd.shx': { hexSignature: '' }
+		/* .shx  */ 'application/vnd.shx': { hexSignature: '' },
+		/* .zip  */ 'application/zip': { hexSignature: '504B0304' },
+		/* .zip  */ 'application/x-zip-compressed': { hexSignature: '504B0304' }
 		// Add more file signatures as needed
 	};
 	const invalidSignatures = body

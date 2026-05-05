@@ -16,21 +16,40 @@
 		<form class="govuk-grid-column-two-thirds">
 			<div class="pins-file-upload--container">
 				<div class="govuk-body colour--secondary pins-file-upload--instructions">
-					{% if params.multiple %}
-						<label class='pins-file-upload--text' for="upload-file-{{ params.formId }}">Choose a single or multiple files to upload.</label>
-					{% else %}
-						<label class='pins-file-upload--text' for="upload-file-{{ params.formId }}">Choose a single file to upload.</label>
+					{% if params.showUploadLabel !== false %}
+						<label class='pins-file-upload--label' for="upload-file-{{ params.formId }}">
+							{% if params.multiple %}
+								Choose a single or multiple files to upload.
+							{% else %}
+								Choose a single file to upload.
+							{% endif %}
+						</label>
 					{% endif %}
 					<span class='pins-file-upload--text'>
-					Your file must be {% for extension in params.allowedTypes %}
-							{% if loop.index !== params.allowedTypes.length %}{{ extension|upper }}, {% else %}	or {{ extension|upper }}{% endif %}
-						{% endfor %}.
+						{% if params.fileTypeText %}
+							{{ params.fileTypeText }}
+						{% else %}
+							Your file must be
+							{% for extension in params.allowedTypes %}
+								{% if loop.index !== params.allowedTypes.length %}
+									{{ extension | upper }},
+								{% else %}
+									or {{ extension | upper }}
+								{% endif %}
+							{% endfor %}.
+						{% endif %}
 					</span>
-					{% if params.multiple %}
-						<span class='pins-file-upload--text'>The total of your uploaded files must be smaller than 1 GB.</span>
-					{% else %}
-						<span class='pins-file-upload--text'>Your uploaded file must be smaller than 1 GB.</span>
-					{% endif %}
+					<span class='pins-file-upload--text'>
+						{% if params.sizeText %}
+							{{ params.sizeText }}
+					    {% else %}
+							{% if params.multiple %}
+								The total of your uploaded files must be smaller than 1 GB.
+							{% else %}
+								Your uploaded file must be smaller than 1 GB.
+							{% endif %}
+						{% endif %}
+					</span>
 					<div class="middle-errors-hook"></div>
 				</div>
 				<div class="display--flex">

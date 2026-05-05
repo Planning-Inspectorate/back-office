@@ -4,7 +4,11 @@
 {% from "govuk/components/breadcrumbs/macro.njk" import govukBreadcrumbs %}
 
 
-{% set serviceName = ["Upload files in ", currentFolder.displayNameEn, " folder"] | join  %}
+{% if isGisShapefilesFolder %}
+	{% set serviceName = ["Upload shapefile to ", currentFolder.displayNameEn, " folder"] | join %}
+{% else %}
+	{% set serviceName = ["Upload files in ", currentFolder.displayNameEn, " folder"] | join %}
+{% endif %}
 
 {% block pageHeading %}{% endblock %}
 
@@ -28,9 +32,12 @@
 		folderId: currentFolder.id,
 		formTitle: serviceName,
 		nextPageUrl: 'document-category'|url({caseId:caseId, documentationCategory: currentFolder}),
-		allowedTypes: ['dbf', 'doc', 'docx', 'html', 'jpeg', 'jpg', 'mov', 'mp3', 'mp4', 'mpeg', 'msg', 'pdf', 'png', 'ppt', 'pptx', 'prj', 'shp','shx','tif','tiff', 'xls', 'xlsm', 'xlsx'],
-		disclaimerText: "Saving files will default them to ‘Unredacted’ and ‘Not checked’",
-		multiple: true
+		allowedTypes: allowedTypes,
+		showUploadLabel: showUploadLabel,
+		fileTypeText: fileTypeText,
+		sizeText: sizeText,
+		disclaimerText: disclaimerText,
+		multiple: multiple
 	}) }}
 
 {% endblock %}
