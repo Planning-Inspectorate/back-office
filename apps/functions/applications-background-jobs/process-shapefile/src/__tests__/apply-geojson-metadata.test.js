@@ -7,14 +7,12 @@ describe('applyGeoJsonMetadata', () => {
 		const receivedDate = new Date('2024-01-15T00:00:00.000Z');
 		const result = applyGeoJsonMetadata(geoJson, {
 			caseReference: 'EN010001',
-			projectName: 'Test Project',
 			projectDescription: 'A test project',
 			fileName: 'boundary.geojson',
 			receivedDate
 		});
 		expect(result.properties).toEqual({
 			caseReference: 'EN010001',
-			projectName: 'Test Project',
 			projectDescription: 'A test project',
 			fileName: 'boundary.geojson',
 			receivedDate: '2024-01-15T00:00:00.000Z'
@@ -27,7 +25,6 @@ describe('applyGeoJsonMetadata', () => {
 		const geoJson = { type: 'FeatureCollection', features: [] };
 		const result = applyGeoJsonMetadata(geoJson, {
 			caseReference: 'EN010001',
-			projectName: 'Test',
 			projectDescription: '',
 			fileName: 'test.geojson',
 			receivedDate: null
@@ -39,7 +36,6 @@ describe('applyGeoJsonMetadata', () => {
 		const geoJson = { type: 'FeatureCollection', features: [{ type: 'Feature' }] };
 		const result = applyGeoJsonMetadata(geoJson, {
 			caseReference: 'EN010001',
-			projectName: '',
 			projectDescription: '',
 			fileName: 'test.geojson',
 			receivedDate: new Date()

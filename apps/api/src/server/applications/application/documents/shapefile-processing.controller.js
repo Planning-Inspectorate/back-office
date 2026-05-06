@@ -2,7 +2,8 @@ import BackOfficeAppError from '#utils/app-error.js';
 import logger from '#utils/logger.js';
 import {
 	createGeoJsonDocumentVersion,
-	markDocumentAsInvalid
+	markDocumentAsInvalid,
+	isDocumentInGisShapefilesFolder
 } from './shapefile-processing.service.js';
 
 /**
@@ -23,6 +24,11 @@ import {
  */
 export const processShapefile = async ({ params, body }, response) => {
 	const { id: caseId, guid: documentGuid } = params;
+
+	const inGisFolder = await isDocumentInGisShapefilesFolder(documentGuid);
+	if (!inGisFolder) {
+		throw new BackOfficeAppError(`Document ${documentGuid} is not in GIS Shapefiles folder`, 400);
+	}
 
 	if (body.invalid) {
 		logger.info(`[SHAPEFILE] Marking document ${documentGuid} as invalid`);

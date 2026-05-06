@@ -15,7 +15,6 @@ import {
 	SYSTEM_USER_NAME,
 	DocumentPublishedStatus
 } from '../../constants.js';
-import { getIndexFromReference, makeDocumentReference } from './document.service.js';
 
 /**
  * Checks whether a document (by guid) lives in the GIS Shapefiles folder.
@@ -98,13 +97,6 @@ export const createGeoJsonDocumentVersion = async ({
 	const currentVersion = document.latestVersionId ?? 1;
 	const newVersion = currentVersion + 1;
 
-	// Derive the latest reference index for this case to assign a document reference
-	const latestRef = await documentRepository.getLatestDocReferenceByCaseIdExcludingMigrated({
-		caseId
-	});
-	const lastIndex = latestRef ? getIndexFromReference(latestRef) : 0;
-	const documentReference = makeDocumentReference(caseRecord.reference, (lastIndex ?? 0) + 1);
-
 	// Copy metadata from the current version, overriding GIS-specific fields
 	const currentVersionData = document.documentVersion?.find(
 		(/** @type {{ version: number }} */ v) => v.version === currentVersion
@@ -141,8 +133,7 @@ export const createGeoJsonDocumentVersion = async ({
 	await documentVersionRepository.upsert(newVersionData);
 
 	await documentRepository.update(documentGuid, {
-		latestVersionId: newVersion,
-		documentReference
+		latestVersionId: newVersion
 	});
 
 	await documentActivityLogRepository.create({
