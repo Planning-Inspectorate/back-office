@@ -52,6 +52,7 @@ import { canRequestAiRedaction } from './utils/can-request-ai-redaction.js';
 import { buildAiRedactionPayload } from './utils/build-ai-redaction-payload.js';
 import { getAiRedactionBannerFromStatus } from './utils/get-ai-redaction-banner-from-status.js';
 import { isGisShapefilesFolder } from './utils/is-gis-shapefiles-folder.js';
+import { getUploadConfigForFolder } from './applications-documentation.config.js';
 
 /**
  * Redirects to the folder view if the folder is the GIS Shapefiles folder.
@@ -134,7 +135,6 @@ export async function viewApplicationsCaseDocumentationFolder(request, response)
 			document.redactedStatus
 		)
 	}));
-
 	const { session } = request;
 
 	documentationSessionHandlers.deleteMoveDocumentsSession(session);
@@ -218,7 +218,16 @@ export async function updateApplicationsCaseDocumentationFolder(request, respons
  * @type {import('@pins/express').RenderHandler<CaseDocumentationUploadProps, {}>}
  */
 export async function viewApplicationsCaseDocumentationUpload(request, response) {
-	response.render(`applications/case-documentation/documentation-upload`);
+	const { folders } = request.params;
+	const { caseId, currentFolder } = response.locals;
+
+	const uploadConfig = getUploadConfigForFolder(folders);
+
+	response.render(`applications/case-documentation/documentation-upload`, {
+		caseId,
+		currentFolder,
+		...uploadConfig
+	});
 }
 
 /**

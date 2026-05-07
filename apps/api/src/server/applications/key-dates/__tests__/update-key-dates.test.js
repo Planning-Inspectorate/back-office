@@ -184,6 +184,7 @@ describe('Test Updating Key Dates', () => {
 				projectType: 'BC01 - Office Use',
 				sector: 'BC - Business and Commercial',
 				stage: 'draft',
+				estimatedPrelimMeetingDate: null,
 				meetings: [],
 				invoices: []
 			}),

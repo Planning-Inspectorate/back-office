@@ -117,6 +117,103 @@
 				}
 			}
 		},
+		"/migration/gis-shapefiles-folders": {
+			"post": {
+				"tags": ["Migration"],
+				"description": "Bulk create GIS Shapefiles folder for all existing cases (idempotent, safe to rerun)",
+				"parameters": [
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Migration options",
+						"required": false,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"caseIds": {
+									"type": "array",
+									"example": [1, 2, 3],
+									"items": {
+										"type": "number"
+									}
+								},
+								"dryRun": {
+									"type": "boolean",
+									"example": true
+								}
+							}
+						}
+					},
+					{
+						"name": "x-service-name",
+						"in": "header",
+						"type": "string",
+						"description": "Service name header",
+						"default": "swagger"
+					},
+					{
+						"name": "x-api-key",
+						"in": "header",
+						"type": "string",
+						"description": "API key header",
+						"default": "123"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "GIS Shapefiles folder migration results"
+					}
+				}
+			}
+		},
+		"/migration/gis-shapefiles-folders/delete": {
+			"post": {
+				"tags": ["Migration"],
+				"description": "Bulk or per-case delete GIS Shapefiles folders by name. Accepts { caseIds?: number[], dryRun?: boolean }.",
+				"parameters": [
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Delete options",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"caseIds": {
+									"type": "array",
+									"example": [1, 2, 3],
+									"items": {
+										"type": "number"
+									}
+								},
+								"dryRun": {
+									"type": "boolean",
+									"example": true
+								}
+							}
+						}
+					},
+					{
+						"name": "x-service-name",
+						"in": "header",
+						"type": "string",
+						"description": "Service name header",
+						"default": "swagger"
+					},
+					{
+						"name": "x-api-key",
+						"in": "header",
+						"type": "string",
+						"description": "API key header",
+						"default": "123"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "GIS Shapefiles folder deletion results"
+					}
+				}
+			}
+		},
 		"/migration/{modelType}": {
 			"post": {
 				"tags": ["Migration"],

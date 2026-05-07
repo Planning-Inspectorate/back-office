@@ -37,6 +37,7 @@ const expectedNsipProjectPayload = buildPayloadEventsForSchema(NSIP_PROJECT, {
 	regions: ['north_west', 'south_west'],
 	stage: 'draft',
 	welshLanguage: false,
+	estimatedPrelimMeetingDate: null,
 	meetings: [],
 	invoices: []
 });

@@ -22,7 +22,13 @@ export const MIMEs = {
 	prj: 'application/x-anjuta-project',
 	dbf: 'application/x-dbf',
 	shp: 'application/vnd.shp',
-	shx: 'application/vnd.shx'
+	shx: 'application/vnd.shx',
+	zip: 'application/zip'
+};
+
+/** @type {Record<string, string>} */
+const MIME_ALIASES = {
+	'application/x-zip-compressed': 'application/zip'
 };
 
 /**
@@ -42,8 +48,10 @@ export const MIME = (extension) => {
  * @returns {string}
  */
 export const fileType = (mime) => {
+	const normalisedMime = MIME_ALIASES[mime] || mime;
+
 	const MIMEList = Object.values(MIMEs);
-	const mimeIndex = MIMEList.indexOf(mime);
+	const mimeIndex = MIMEList.indexOf(normalisedMime);
 
 	if (mimeIndex < 0) return '';
 

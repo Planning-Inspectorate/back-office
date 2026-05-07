@@ -32,6 +32,7 @@ const expectedNsipProjectPayload = buildPayloadEventsForSchema(NSIP_PROJECT, {
 	sector: 'BC - Business and Commercial',
 	stage: 'draft',
 	welshLanguage: false,
+	estimatedPrelimMeetingDate: null,
 	meetings: [],
 	invoices: []
 });

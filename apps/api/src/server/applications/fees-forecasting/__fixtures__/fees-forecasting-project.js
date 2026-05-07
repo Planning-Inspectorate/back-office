@@ -167,13 +167,13 @@ export const mockProjectPayloadData = {
 	numberBand3Inspectors: null,
 	essentialFastTrackComponents: null,
 	planProcessEvidence: null,
+	estimatedPrelimMeetingDate: null,
 	meetings: [
 		{
 			meetingId: 1,
 			meetingAgenda: 'Project Update Meeting (PUM)',
 			planningInspectorateRole: null,
 			meetingDate: null,
-			estimatedPrelimMeetingDate: null,
 			meetingType: 'project'
 		}
 	],
