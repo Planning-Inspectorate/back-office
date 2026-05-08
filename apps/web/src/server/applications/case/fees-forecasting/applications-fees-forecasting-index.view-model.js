@@ -1,7 +1,6 @@
 import {
 	feesHrefText,
 	genericHrefText,
-	editPageURL,
 	newMaturityDisplayValues,
 	tierDisplayValues,
 	invoiceStageDisplayValues,
@@ -216,7 +215,7 @@ export const getFeesForecastingIndexViewModel = ({ caseData, invoices, meetings 
 					: '',
 			actions: [
 				{
-					href: editPageURL,
+					href: getEditPageURL(urlSectionNames.evidencePlanProcess, caseData.id),
 					text: genericHrefText,
 					visuallyHiddenText: 'evidence plan process'
 				}

@@ -209,13 +209,12 @@ export async function getFeesForecastingEditSection(request, response) {
 			const radioFieldPath = editViewModel.radioFieldPath;
 
 			if (radioFieldPath) {
-				const radioValue = radioFieldPath
+				values[fieldName] = radioFieldPath
 					.split('.')
 					.reduce(
 						(/** @type {*} */ obj, /** @type {string} */ key) => obj?.[key],
 						response.locals.case
 					);
-				values[fieldName] = radioValue || '';
 			}
 
 			return renderTemplate(
