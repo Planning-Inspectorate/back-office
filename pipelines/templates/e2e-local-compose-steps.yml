@@ -62,7 +62,7 @@ steps:
     inputs:
       targetType: inline
       workingDirectory: $(Build.SourcesDirectory)
-      script: docker compose -f "$(ComposeFile)" build api web
+      script: bash apps/e2e/scripts/e2e-compose.sh -f "$(ComposeFile)" build api web
     env:
       COMPOSE_PROJECT_NAME: $(ComposeProject)
       LOCAL_SQL_PASSWORD: $(LocalSqlPassword)
@@ -76,16 +76,16 @@ steps:
       targetType: inline
       workingDirectory: $(Build.SourcesDirectory)
       script: |
-        docker compose -f "$(ComposeFile)" up -d sqlserver
+        bash apps/e2e/scripts/e2e-compose.sh -f "$(ComposeFile)" up -d sqlserver
 
         for attempt in {1..90}; do
-          if docker compose -f "$(ComposeFile)" logs sqlserver 2>&1 | grep -q "SQL Server is now ready for client connections"; then
+          if bash apps/e2e/scripts/e2e-compose.sh -f "$(ComposeFile)" logs sqlserver 2>&1 | grep -q "SQL Server is now ready for client connections"; then
             exit 0
           fi
           sleep 2
         done
 
-        docker compose -f "$(ComposeFile)" logs sqlserver
+        bash apps/e2e/scripts/e2e-compose.sh -f "$(ComposeFile)" logs sqlserver
         exit 1
     env:
       COMPOSE_PROJECT_NAME: $(ComposeProject)
@@ -100,8 +100,8 @@ steps:
       targetType: inline
       workingDirectory: $(Build.SourcesDirectory)
       script: |
-        docker compose -f "$(ComposeFile)" run --rm --entrypoint npm api run db:migrate:prod
-        docker compose -f "$(ComposeFile)" run --rm --entrypoint npm api run db:seed
+        bash apps/e2e/scripts/e2e-compose.sh -f "$(ComposeFile)" run --rm --entrypoint npm api run db:migrate:prod
+        bash apps/e2e/scripts/e2e-compose.sh -f "$(ComposeFile)" run --rm --entrypoint npm api run db:seed
     env:
       COMPOSE_PROJECT_NAME: $(ComposeProject)
       LOCAL_SQL_PASSWORD: $(LocalSqlPassword)
@@ -115,7 +115,7 @@ steps:
       targetType: inline
       workingDirectory: $(Build.SourcesDirectory)
       script: |
-        docker compose -f "$(ComposeFile)" up -d api web
+        bash apps/e2e/scripts/e2e-compose.sh -f "$(ComposeFile)" up -d api web
 
         for attempt in {1..60}; do
           if curl --silent --fail --output /dev/null "http://localhost:$(E2eWebPort)/"; then
@@ -124,7 +124,7 @@ steps:
           sleep 2
         done
 
-        docker compose -f "$(ComposeFile)" logs api web
+        bash apps/e2e/scripts/e2e-compose.sh -f "$(ComposeFile)" logs api web
         exit 1
     env:
       COMPOSE_PROJECT_NAME: $(ComposeProject)
@@ -157,7 +157,7 @@ steps:
       workingDirectory: $(Build.SourcesDirectory)
       script: |
         mkdir -p "$(Pipeline.Workspace)/e2e-logs"
-        docker compose -f "$(ComposeFile)" logs --no-color > "$(Pipeline.Workspace)/e2e-logs/docker-compose-${{ parameters.runName }}.log" || true
+        bash apps/e2e/scripts/e2e-compose.sh -f "$(ComposeFile)" logs --no-color > "$(Pipeline.Workspace)/e2e-logs/docker-compose-${{ parameters.runName }}.log" || true
     env:
       COMPOSE_PROJECT_NAME: $(ComposeProject)
       LOCAL_SQL_PASSWORD: $(LocalSqlPassword)
@@ -171,7 +171,7 @@ steps:
     inputs:
       targetType: inline
       workingDirectory: $(Build.SourcesDirectory)
-      script: docker compose -f "$(ComposeFile)" down -v --remove-orphans || true
+      script: bash apps/e2e/scripts/e2e-compose.sh -f "$(ComposeFile)" down -v --remove-orphans || true
     env:
       COMPOSE_PROJECT_NAME: $(ComposeProject)
       LOCAL_SQL_PASSWORD: $(LocalSqlPassword)
