@@ -4,12 +4,14 @@ import { blobClient } from '../../common/blob-client.js';
 import { notifyShapefileProcessingResult } from '../src/back-office-api-client.js';
 import { validateShapefileContents } from '../src/validate-shapefile.js';
 import { shpZipToGeoJson } from '../src/convert-shapefile.js';
+import { validateConvertedGeoJson } from '../src/validate-geojson.js';
 import { applyGeoJsonMetadata } from '../src/apply-geojson-metadata.js';
 
 jest.mock('../../common/blob-client.js');
 jest.mock('../src/back-office-api-client.js');
 jest.mock('../src/validate-shapefile.js');
 jest.mock('../src/convert-shapefile.js');
+jest.mock('../src/validate-geojson.js');
 jest.mock('../src/apply-geojson-metadata.js');
 
 describe('process-shapefile function', () => {
@@ -35,6 +37,7 @@ describe('process-shapefile function', () => {
 
 	beforeEach(() => {
 		jest.clearAllMocks();
+		validateConvertedGeoJson.mockReturnValue({ valid: true, reason: null });
 	});
 
 	test('should process a valid shapefile ZIP and notify API', async () => {
@@ -89,6 +92,27 @@ describe('process-shapefile function', () => {
 			expect.stringContaining('Validation failure'),
 			expect.anything()
 		);
+	});
+
+	test('should mark as invalid when converted GeoJSON fails sanity validation', async () => {
+		blobClient.downloadStream.mockResolvedValue({
+			readableStreamBody: (async function* () {
+				yield Buffer.from('zip');
+			})()
+		});
+		validateShapefileContents.mockResolvedValue({ valid: true, missingExtensions: [] });
+		shpZipToGeoJson.mockResolvedValue({ type: 'NotGeoJson' });
+		validateConvertedGeoJson.mockReturnValue({
+			valid: false,
+			reason: 'invalid or missing GeoJSON type'
+		});
+
+		await index(context, message);
+
+		expect(blobClient.uploadStream).not.toHaveBeenCalled();
+		expect(notifyShapefileProcessingResult).toHaveBeenCalledWith(caseId, documentId, {
+			invalid: true
+		});
 	});
 
 	test('should re-throw on infrastructure error (e.g. download failed)', async () => {

@@ -1,4 +1,5 @@
 import BackOfficeAppError from '#utils/app-error.js';
+import logger from '#utils/logger.js';
 import {
 	extractYouTubeURLFromHTML,
 	renderYouTubeTemplate,
@@ -10,6 +11,22 @@ import {
  */
 export const updateDocumentStatus = async ({ params, body }, response) => {
 	const updateResponse = await updateStatus(params.documentGUID, body.machineAction);
+
+	if (!updateResponse) {
+		logger.warn('[SHAPEFILE] updateDocumentStatus returned no document', {
+			documentGuid: params.documentGUID,
+			machineAction: body.machineAction
+		});
+	} else {
+		logger.info('[SHAPEFILE] updateDocumentStatus response', {
+			documentGuid: params.documentGUID,
+			machineAction: body.machineAction,
+			status: updateResponse.status,
+			documentType: updateResponse.documentType,
+			hasDocumentURI: Boolean(updateResponse.documentURI),
+			caseId: updateResponse.caseId
+		});
+	}
 
 	response.send(updateResponse);
 };

@@ -7,7 +7,7 @@ import BackOfficeAppError from '#utils/app-error.js';
 import config from '#config/config.js';
 import { getPageCount, getSkipValue } from '#utils/database-pagination.js';
 import logger from '#utils/logger.js';
-import { GIS_SHAPEFILE_DOCUMENT_TYPE } from '../../constants.js';
+import { GIS_SHAPEFILE_DOCUMENT_TYPE, GIS_SHAPEFILES_FOLDER_NAME } from '../../constants.js';
 import { getFolder } from '../file-folders/folders.service.js';
 import { mapDateStringToUnixTimestamp } from '#utils/mapping/map-date-string-to-unix-timestamp.js';
 import {
@@ -47,6 +47,16 @@ import { validateDocumentVersionMetadataBody } from './document.validators.js';
  */
 
 /**
+ * @param {number | string | null | undefined} folderId
+ * @returns {Promise<boolean>}
+ */
+const isGisShapefilesFolder = async (folderId) => {
+	if (!folderId) return false;
+	const folder = await getFolder(Number(folderId));
+	return folder?.displayNameEn === GIS_SHAPEFILES_FOLDER_NAME;
+};
+
+/**
  * Adds an array of documents to a folder on a case, creating Document and Document Version records, and Activity log records,
  * and emit service bus events
  *
@@ -71,6 +81,14 @@ export const createDocumentsOnCase = async ({ params, body }, response) => {
 	const filteredToUpload = /** @type {DocumentToSaveExtended[]} */ (documentsToUpload).filter(
 		(doc) => remainder.includes(doc.documentName)
 	);
+
+	// Override documentType for uploads targeting the GIS Shapefiles folder.
+	// This ensures malware-detected can route clean ZIPs to shapefile-processing-queue.
+	for (const documentToUpload of filteredToUpload) {
+		if (await isGisShapefilesFolder(documentToUpload.folderId)) {
+			documentToUpload.documentType = GIS_SHAPEFILE_DOCUMENT_TYPE;
+		}
+	}
 
 	const filteredToUploadWithMetadata = await attachMetadataToDocuments(theCase, filteredToUpload);
 
@@ -133,11 +151,8 @@ export const createDocumentVersionOnCase = async ({ params, body }, response) =>
 
 	// If uploading to GIS Shapefiles folder, override documentType to "GIS shapefile"
 	// so malware-detected function can route it for processing
-	if (documentToUpload.folderId) {
-		const folder = await getFolder(documentToUpload.folderId);
-		if (folder?.displayNameEn === 'GIS Shapefiles') {
-			documentToUpload.documentType = GIS_SHAPEFILE_DOCUMENT_TYPE;
-		}
+	if (await isGisShapefilesFolder(documentToUpload.folderId)) {
+		documentToUpload.documentType = GIS_SHAPEFILE_DOCUMENT_TYPE;
 	}
 
 	// create version record etc

@@ -3,6 +3,7 @@ import { blobClient } from '../common/blob-client.js';
 import { notifyShapefileProcessingResult } from './src/back-office-api-client.js';
 import { validateShapefileContents } from './src/validate-shapefile.js';
 import { shpZipToGeoJson } from './src/convert-shapefile.js';
+import { validateConvertedGeoJson } from './src/validate-geojson.js';
 import { applyGeoJsonMetadata } from './src/apply-geojson-metadata.js';
 import { extractBlobNameFromUri } from '../common/util.js';
 import config from '../common/config.js';
@@ -100,6 +101,14 @@ export const index = async (context, documentShapefileProcess) => {
 
 		// Convert the ZIP directly to GeoJSON — shpjs handles extraction and parsing internally
 		const geoJson = await shpZipToGeoJson(zipBuffer);
+
+		const { valid: isGeoJsonValid, reason: geoJsonValidationReason } =
+			validateConvertedGeoJson(geoJson);
+		if (!isGeoJsonValid) {
+			throw new ShapefileValidationError(
+				`Converted GeoJSON failed sanity validation: ${geoJsonValidationReason}`
+			);
+		}
 
 		// Derive GeoJSON filename from the original ZIP filename
 		const baseFileName = (originalFilename ?? documentId).replace(/\.zip$/i, '');
