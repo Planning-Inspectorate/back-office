@@ -15,6 +15,7 @@ services:
       - sqlserver
     environment:
       NODE_ENV: development
+      GIT_SHA: local-e2e
       PORT: 3000
       DATABASE_URL: sqlserver://sqlserver:1433;database=pins_development;user=sa;password=${LOCAL_SQL_PASSWORD:-P@ssw0rdPINS2026!};trustServerCertificate=true
       QUERY_BATCH_SIZE: 2090
@@ -38,6 +39,7 @@ services:
       - api
     environment:
       NODE_ENV: local
+      GIT_SHA: local-e2e
       AUTH_DISABLED: 'true'
       AUTH_DISABLED_GROUP_IDS: '*'
       APPLICATIONS_CASE_ADMIN_OFFICER_GROUP_ID: applications_case_admin_officer
