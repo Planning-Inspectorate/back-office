@@ -56,7 +56,7 @@ export const markDocumentAsInvalid = async (documentGuid) => {
 		documentGuid,
 		version,
 		user: SYSTEM_USER_NAME,
-		status: 'invalid'
+		status: DocumentPublishedStatus.INVALID
 	});
 
 	await broadcastNsipDocumentEvent(updated, EventType.Update);

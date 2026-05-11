@@ -3,10 +3,36 @@ import * as documentRepository from '#repositories/document.repository.js';
 import * as documentVersionRepository from '#repositories/document-metadata.repository.js';
 import { YouTubeHTMLTemplate } from './youtube-html-template.js';
 import { broadcastNsipDocumentEvent } from '#infrastructure/event-broadcasters.js';
+import config from '#config/config.js';
+
+/**
+ * Builds a full blob URI from container and path, using the API's configured blob storage host.
+ * Returns null if any component is missing (mirrors pattern in nsip-document payload builder).
+ *
+ * @param {string | null | undefined} container
+ * @param {string | null | undefined} path
+ * @returns {string | null}
+ */
+const buildDocumentUri = (container, path) => {
+	if (!config.blobStorageUrl || !container || !path) return null;
+	/** @param {string} s */
+	const trimSlashes = (s) => s.replace(/^\/+|\/+$/g, '');
+	return [config.blobStorageUrl, container, path].map(trimSlashes).join('/');
+};
 
 /**
  * @param {string} guid
  * @param {string} status
+ * @returns {Promise<{
+ *   caseId: number,
+ *   guid: string,
+ *   status: string,
+ *   documentType: string | null,
+ *   documentURI: string | null,
+ *   caseRef: string | null,
+ *   originalFilename: string | null,
+ *   dateCreated: string | null
+ * } | undefined>}
  */
 export const updateStatus = async (guid, status) => {
 	const document = await documentRepository.getByDocumentGUID(guid);
@@ -40,7 +66,16 @@ export const updateStatus = async (guid, status) => {
 	return {
 		caseId: document.caseId,
 		guid: updatedDocument.documentGuid,
-		status: updatedDocument.publishedStatus
+		status: updatedDocument.publishedStatus,
+		documentType: updatedDocument.documentType ?? null,
+		documentURI: buildDocumentUri(
+			updatedDocument.privateBlobContainer,
+			updatedDocument.privateBlobPath
+		),
+		// @ts-ignore — case is included via getByDocumentGUID enriched query
+		caseRef: document.case?.reference ?? null,
+		originalFilename: updatedDocument.originalFilename ?? null,
+		dateCreated: updatedDocument.dateCreated?.toISOString() ?? null
 	};
 };
 

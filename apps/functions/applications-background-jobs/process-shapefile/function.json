@@ -4,8 +4,7 @@
 			"name": "documentShapefileProcess",
 			"type": "serviceBusTrigger",
 			"direction": "in",
-			"topicName": "nsip-document",
-			"subscriptionName": "nsip-document-gis-shapefile-processor",
+			"queueName": "shapefile-processing-queue",
 			"connection": "ServiceBusConnection"
 		}
 	]

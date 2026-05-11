@@ -118,7 +118,10 @@ describe('Update document status when awaiting_virus_check', () => {
 				{
 					publishedStatus: 'awaiting_upload'
 				}
-			]
+			],
+			case: {
+				reference: 'EN0110001'
+			}
 		});
 		let documentVersionWithDocumentAfterUpdate = {
 			...documentVersionWithDocument,
@@ -138,7 +141,12 @@ describe('Update document status when awaiting_virus_check', () => {
 		expect(response.body).toEqual({
 			caseId: 1,
 			guid: docGuid,
-			status: 'awaiting_virus_check'
+			status: 'awaiting_virus_check',
+			documentType: 'test',
+			documentURI: 'http://localhost:10000/devstoreaccount1/test-container/test-path',
+			caseRef: 'EN0110001',
+			originalFilename: 'test-original-filename',
+			dateCreated: dateDocCreated
 		});
 		expect(databaseConnector.documentVersion.update).toHaveBeenCalledWith({
 			where: { documentGuid_version: { documentGuid: docGuid, version: 1 } },

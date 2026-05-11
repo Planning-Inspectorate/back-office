@@ -547,7 +547,12 @@ export const countDocumentsInFolder = (folderId) => {
 export const getByDocumentGUID = (documentGUID) => {
 	return databaseConnector.document.findUnique({
 		include: {
-			latestDocumentVersion: true
+			latestDocumentVersion: true,
+			case: {
+				select: {
+					reference: true
+				}
+			}
 		},
 		where: {
 			guid: documentGUID

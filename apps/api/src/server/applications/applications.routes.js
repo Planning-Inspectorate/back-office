@@ -76,7 +76,16 @@ router.patch(
         }
         #swagger.responses[200] = {
             description: 'Document status updated',
-            schema: { caseId: 1, guid: 'a1b2c4d4-7ce5-410c-937e-28926dd7ab24', status: 'awaiting_virus_check'}
+            schema: {
+                caseId: 1,
+                guid: 'a1b2c4d4-7ce5-410c-937e-28926dd7ab24',
+                status: 'awaiting_virus_check',
+                documentType: 'document',
+                documentURI: 'https://...',
+                caseRef: 'EN010001',
+                originalFilename: 'example.pdf',
+                dateCreated: '2026-05-08T22:55:11.000Z'
+            }
         }
 		#swagger.parameters['x-service-name'] = {
 			in: 'header',

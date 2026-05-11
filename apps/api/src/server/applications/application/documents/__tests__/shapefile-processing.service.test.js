@@ -9,7 +9,8 @@ jest.mock('#infrastructure/event-broadcasters.js', () => ({
 
 import {
 	isDocumentInGisShapefilesFolder,
-	markDocumentAsInvalid
+	markDocumentAsInvalid,
+	createGeoJsonDocumentVersion
 } from '../shapefile-processing.service.js';
 
 describe('isDocumentInGisShapefilesFolder', () => {
@@ -87,5 +88,86 @@ describe('markDocumentAsInvalid', () => {
 		await markDocumentAsInvalid('missing-guid');
 
 		expect(databaseConnector.documentVersion.update).not.toHaveBeenCalled();
+	});
+});
+
+describe('createGeoJsonDocumentVersion', () => {
+	beforeEach(() => jest.clearAllMocks());
+
+	const baseParams = {
+		documentGuid: 'doc-guid',
+		caseId: 1,
+		geoJsonFileName: 'boundary.geojson',
+		geoJsonBlobPath: 'path/to/boundary.geojson',
+		blobContainer: 'uploads',
+		geoJsonSizeBytes: 2048
+	};
+
+	const mockCase = {
+		id: 1,
+		reference: 'EN010001',
+		description: 'Test project description',
+		applicant: { organisationName: 'Test Org' }
+	};
+
+	const mockDocument = {
+		guid: 'doc-guid',
+		latestVersionId: 1,
+		documentVersion: [{ version: 1, filter1Welsh: null, authorWelsh: null }]
+	};
+
+	it('creates a new GeoJSON document version and updates latestVersionId', async () => {
+		databaseConnector.case.findUnique.mockResolvedValue(mockCase);
+		databaseConnector.document.findUnique.mockResolvedValue(mockDocument);
+		databaseConnector.documentVersion.upsert.mockResolvedValue({
+			documentGuid: 'doc-guid',
+			version: 2
+		});
+		databaseConnector.document.update.mockResolvedValue({});
+		databaseConnector.documentActivityLog.create.mockResolvedValue({});
+		// getById call to broadcast
+		databaseConnector.documentVersion.findUnique.mockResolvedValue({
+			documentGuid: 'doc-guid',
+			version: 2
+		});
+
+		await createGeoJsonDocumentVersion(baseParams);
+
+		expect(databaseConnector.documentVersion.upsert).toHaveBeenCalledWith(
+			expect.objectContaining({
+				create: expect.objectContaining({
+					version: 2,
+					mime: 'application/geo+json',
+					originalFilename: 'boundary.geojson',
+					size: 2048,
+					privateBlobPath: 'path/to/boundary.geojson',
+					privateBlobContainer: 'uploads',
+					publishedStatus: DocumentPublishedStatus.NOT_CHECKED
+				})
+			})
+		);
+
+		expect(databaseConnector.document.update).toHaveBeenCalledWith(
+			expect.objectContaining({
+				where: { guid: 'doc-guid' },
+				data: expect.objectContaining({ latestVersionId: 2 })
+			})
+		);
+	});
+
+	it('throws when case is not found', async () => {
+		databaseConnector.case.findUnique.mockResolvedValue(null);
+		databaseConnector.document.findUnique.mockResolvedValue(mockDocument);
+
+		await expect(createGeoJsonDocumentVersion(baseParams)).rejects.toThrow('Case not found: 1');
+	});
+
+	it('throws when document is not found', async () => {
+		databaseConnector.case.findUnique.mockResolvedValue(mockCase);
+		databaseConnector.document.findUnique.mockResolvedValue(null);
+
+		await expect(createGeoJsonDocumentVersion(baseParams)).rejects.toThrow(
+			'Document not found: doc-guid'
+		);
 	});
 });

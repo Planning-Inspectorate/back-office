@@ -5,7 +5,6 @@ import { validateShapefileContents } from './src/validate-shapefile.js';
 import { shpZipToGeoJson } from './src/convert-shapefile.js';
 import { applyGeoJsonMetadata } from './src/apply-geojson-metadata.js';
 import { extractBlobNameFromUri } from '../common/util.js';
-import { GIS_SHAPEFILE_DOCUMENT_TYPE, DocumentPublishedStatus } from '../common/constants.js';
 import config from '../common/config.js';
 
 /**
@@ -38,68 +37,49 @@ const downloadZipBuffer = async (container, blobName) => {
 };
 
 /**
- * Azure Function triggered by the nsip-document Service Bus topic.
- * The Terraform-managed subscription `nsip-document-gis-shapefile-processor`
- * delivers all nsip-document events here; the function guards internally and
- * skips messages that are not GIS shapefiles at `not_checked` status.
+ * Azure Function triggered by the `shapefile-processing-queue` Service Bus queue.
+ *
+ * Messages are placed on this queue by the `malware-detected` function after a virus
+ * scan completes cleanly on a GIS shapefile ZIP. Because the queue is dedicated to
+ * shapefile processing, no document-type or status filtering is required here.
+ *
+ * Message body shape (as sent by malware-detected/src/shapefile-queue.js):
+ *   { documentId, caseId, caseRef, documentURI, originalFilename, dateCreated }
  *
  * Processing steps:
- *  1. Guard: skip if documentType !== 'GIS shapefile' or publishedStatus !== 'not_checked'
- *  2. Guard: skip if any required identifiers are missing
- *  3. Download the ZIP from blob storage using documentURI
- *  4. Validate required shapefile components (.shp, .shx, .dbf) — throws ShapefileValidationError on failure
- *  5. Convert .shp to GeoJSON FeatureCollection
- *  6. Apply case metadata to the GeoJSON (project name resolved by the API from caseId)
- *  7. Upload GeoJSON to blob storage in the same directory as the ZIP
- *  8. Notify the API to create a new document version record with metadata
+ *  1. Guard: skip if any required identifiers are missing (defensive — should not happen)
+ *  2. Download the ZIP from blob storage using documentURI
+ *  3. Validate required shapefile components (.shp, .shx, .dbf) — throws ShapefileValidationError on failure
+ *  4. Convert .shp to GeoJSON FeatureCollection
+ *  5. Apply case metadata to the GeoJSON
+ *  6. Upload GeoJSON to blob storage alongside the source ZIP
+ *  7. Notify the API to create a new document version record with the GeoJSON metadata
  *
- * On validation failure (missing shapefile components): notify the API to mark the document as 'invalid'.
- * On infrastructure failure (blob/network/parse errors): re-throw so Service Bus can retry.
+ * On validation failure (missing shapefile components):
+ *   Notify the API to mark the document as 'invalid'. Do NOT re-throw — retrying would not help.
+ * On infrastructure failure (blob download, parse crash, API call, etc.):
+ *   Re-throw so the Service Bus queue retries the message. Do NOT mark as invalid.
  *
  * @type {import('@azure/functions').AzureFunction}
  */
 export const index = async (context, documentShapefileProcess) => {
-	const {
-		documentId,
-		caseId,
-		caseRef,
-		description,
-		filename,
-		originalFilename,
-		documentURI,
-		publishedStatus,
-		documentType,
-		dateCreated
-	} = documentShapefileProcess ?? {};
+	const { documentId, caseId, caseRef, documentURI, originalFilename, dateCreated } =
+		documentShapefileProcess ?? {};
 
-	context.log(`[SHAPEFILE] Received nsip-document event for document ${documentId}`, {
+	context.log(`[SHAPEFILE] Received shapefile processing job for document ${documentId}`, {
 		documentId,
-		caseId,
-		publishedStatus,
-		documentType
+		caseId
 	});
 
-	// Only process GIS shapefiles that have just cleared the virus scan
-	if (
-		documentType !== GIS_SHAPEFILE_DOCUMENT_TYPE ||
-		publishedStatus !== DocumentPublishedStatus.NOT_CHECKED
-	) {
-		context.log(
-			`[SHAPEFILE] Skipping: documentType=${documentType}, publishedStatus=${publishedStatus}`
-		);
-		return;
-	}
-
+	// Defensive guard: all fields must be present. Should not happen if malware-detected is correct.
 	if (!documentId || !caseId || !documentURI) {
-		context.log.warn(`[SHAPEFILE] Missing required fields on message, skipping`, {
+		context.log.warn(`[SHAPEFILE] Missing required fields, skipping`, {
 			documentId,
 			caseId,
 			documentURI
 		});
 		return;
 	}
-
-	context.log(`[SHAPEFILE] Processing shapefile ZIP for document ${documentId}`);
 
 	try {
 		// Derive the private blob container and path from the documentURI
@@ -122,16 +102,15 @@ export const index = async (context, documentShapefileProcess) => {
 		const geoJson = await shpZipToGeoJson(zipBuffer);
 
 		// Derive GeoJSON filename from the original ZIP filename
-		const baseFileName = (originalFilename ?? filename ?? documentId).replace(/\.zip$/i, '');
+		const baseFileName = (originalFilename ?? documentId).replace(/\.zip$/i, '');
 		const geoJsonFileName = `${baseFileName}.geojson`;
 
-		// Note: projectName is NOT available on the nsip-document event schema.
+		// Note: projectName is NOT available on the queue message.
 		// The API derives it from the case record (Case.title) using caseId.
-		// description here is the document-level description, not the project description.
 		const receivedDate = dateCreated ? new Date(dateCreated) : new Date();
 		const geoJsonWithMetadata = applyGeoJsonMetadata(geoJson, {
 			caseReference: caseRef ?? '',
-			projectDescription: description ?? '',
+			projectDescription: '',
 			fileName: geoJsonFileName,
 			receivedDate
 		});
@@ -175,7 +154,7 @@ export const index = async (context, documentShapefileProcess) => {
 		}
 
 		// Unexpected infrastructure failure (blob download, parse crash, API call, etc.).
-		// Re-throw so Service Bus retries the message. Do NOT mark as invalid — the ZIP may be fine.
+		// Re-throw so the Service Bus queue retries the message. Do NOT mark as invalid.
 		context.log.error(
 			`[SHAPEFILE] Infrastructure error processing document ${documentId}: ${error.message}`
 		);
