@@ -56,15 +56,7 @@ steps:
       targetType: inline
       workingDirectory: $(Build.SourcesDirectory)
       script: bash apps/e2e/scripts/prepare-local-fixtures.sh
-
-  - task: Bash@3
-    displayName: Build local app containers
-    inputs:
-      targetType: inline
-      workingDirectory: $(Build.SourcesDirectory)
-      script: bash apps/e2e/scripts/e2e-compose.sh -f "$(ComposeFile)" build api web
     env:
-      COMPOSE_PROJECT_NAME: $(ComposeProject)
       LOCAL_SQL_PASSWORD: $(LocalSqlPassword)
       E2E_SQL_PORT: $(E2eSqlPort)
       E2E_API_PORT: $(E2eApiPort)
@@ -100,36 +92,29 @@ steps:
       targetType: inline
       workingDirectory: $(Build.SourcesDirectory)
       script: |
-        bash apps/e2e/scripts/e2e-compose.sh -f "$(ComposeFile)" run --rm --entrypoint npm api run db:migrate:prod
-        bash apps/e2e/scripts/e2e-compose.sh -f "$(ComposeFile)" run --rm --entrypoint npm api run db:seed
+        npm run db:migrate:prod --workspace=@pins/applications.api
+        npm run db:seed --workspace=@pins/applications.api
     env:
-      COMPOSE_PROJECT_NAME: $(ComposeProject)
-      LOCAL_SQL_PASSWORD: $(LocalSqlPassword)
       E2E_SQL_PORT: $(E2eSqlPort)
       E2E_API_PORT: $(E2eApiPort)
       E2E_WEB_PORT: $(E2eWebPort)
+
+  - task: Bash@3
+    displayName: Build local web assets
+    inputs:
+      targetType: inline
+      workingDirectory: $(Build.SourcesDirectory)
+      script: npm run build --workspace=@pins/applications.web
 
   - task: Bash@3
     displayName: Start local app
     inputs:
       targetType: inline
       workingDirectory: $(Build.SourcesDirectory)
-      script: |
-        bash apps/e2e/scripts/e2e-compose.sh -f "$(ComposeFile)" up -d api web
-
-        for attempt in {1..60}; do
-          if curl --silent --fail --output /dev/null "http://localhost:$(E2eWebPort)/"; then
-            exit 0
-          fi
-          sleep 2
-        done
-
-        bash apps/e2e/scripts/e2e-compose.sh -f "$(ComposeFile)" logs api web
-        exit 1
+      script: bash apps/e2e/scripts/start-local-apps.sh
     env:
-      COMPOSE_PROJECT_NAME: $(ComposeProject)
-      LOCAL_SQL_PASSWORD: $(LocalSqlPassword)
-      E2E_SQL_PORT: $(E2eSqlPort)
+      RUN_NAME: ${{ parameters.runName }}
+      E2E_LOG_DIR: $(Pipeline.Workspace)/e2e-logs
       E2E_API_PORT: $(E2eApiPort)
       E2E_WEB_PORT: $(E2eWebPort)
 
@@ -158,6 +143,8 @@ steps:
       script: |
         mkdir -p "$(Pipeline.Workspace)/e2e-logs"
         bash apps/e2e/scripts/e2e-compose.sh -f "$(ComposeFile)" logs --no-color > "$(Pipeline.Workspace)/e2e-logs/docker-compose-${{ parameters.runName }}.log" || true
+        tail -200 "$(Pipeline.Workspace)/e2e-logs/api-${{ parameters.runName }}.log" || true
+        tail -200 "$(Pipeline.Workspace)/e2e-logs/web-${{ parameters.runName }}.log" || true
     env:
       COMPOSE_PROJECT_NAME: $(ComposeProject)
       LOCAL_SQL_PASSWORD: $(LocalSqlPassword)
@@ -171,7 +158,9 @@ steps:
     inputs:
       targetType: inline
       workingDirectory: $(Build.SourcesDirectory)
-      script: bash apps/e2e/scripts/e2e-compose.sh -f "$(ComposeFile)" down -v --remove-orphans || true
+      script: |
+        RUN_NAME="${{ parameters.runName }}" E2E_LOG_DIR="$(Pipeline.Workspace)/e2e-logs" bash apps/e2e/scripts/stop-local-apps.sh
+        bash apps/e2e/scripts/e2e-compose.sh -f "$(ComposeFile)" down -v --remove-orphans || true
     env:
       COMPOSE_PROJECT_NAME: $(ComposeProject)
       LOCAL_SQL_PASSWORD: $(LocalSqlPassword)

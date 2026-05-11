@@ -2,8 +2,53 @@
 set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../.." && pwd)"
+E2E_SQL_PORT="${E2E_SQL_PORT:-14330}"
+E2E_API_PORT="${E2E_API_PORT:-3001}"
+E2E_WEB_PORT="${E2E_WEB_PORT:-8080}"
+LOCAL_SQL_PASSWORD="${LOCAL_SQL_PASSWORD:-P@ssw0rdPINS2026!}"
 
 mkdir -p "$ROOT_DIR/apps/e2e/cypress/support/browserAuthData"
+
+cat > "$ROOT_DIR/apps/api/.env" <<EOF
+NODE_ENV=development
+GIT_SHA=local-e2e
+PORT=$E2E_API_PORT
+DATABASE_URL="sqlserver://127.0.0.1:$E2E_SQL_PORT;database=pins_development;user=sa;password=$LOCAL_SQL_PASSWORD;trustServerCertificate=true"
+QUERY_BATCH_SIZE=2090
+VIRUS_SCANNING_DISABLED=true
+AZURE_BLOB_STORE_HOST=blob-store-host
+AZURE_BLOB_STORE_CONTAINER=blob-store-container
+AUTH_DISABLED=true
+SERVICE_BUS_ENABLED=false
+KEY_VAULT_ENABLED=false
+PINS_FEATURE_FLAG_AZURE_CONNECTION_STRING=""
+STATIC_FEATURE_FLAGS_ENABLED=true
+LOG_LEVEL_STDOUT=debug
+EOF
+
+cat > "$ROOT_DIR/apps/web/.env" <<EOF
+NODE_ENV=local
+GIT_SHA=local-e2e
+AUTH_DISABLED=true
+AUTH_DISABLED_GROUP_IDS=*
+APPLICATIONS_CASE_ADMIN_OFFICER_GROUP_ID=applications_case_admin_officer
+APPLICATIONS_CASETEAM_GROUP_ID=applications_case_team
+APPLICATIONS_INSPECTOR_GROUP_ID=applications_inspector
+API_HOST=http://localhost:$E2E_API_PORT
+APP_HOSTNAME=localhost:$E2E_WEB_PORT
+HTTPS_ENABLED=false
+HTTP_PORT=$E2E_WEB_PORT
+LOG_LEVEL_STDOUT=debug
+SESSION_SECRET=local-e2e-session-secret
+DISABLE_REDIS=true
+AZURE_BLOB_STORE_HOST=blob-store-host
+STATIC_FEATURE_FLAGS_ENABLED=true
+PINS_FEATURE_FLAG_AZURE_CONNECTION_STRING=""
+DUMMY_ADDRESS_DATA=true
+DUMMY_USER_DATA=true
+RETRY_MAX_ATTEMPTS=3
+RETRY_STATUS_CODES="500,501,502"
+EOF
 
 cat > "$ROOT_DIR/apps/web/dummy_user_data.json" <<'EOF'
 [
