@@ -53,7 +53,7 @@ CASE_ADMIN_EMAIL=caseofficeradmin.test@planninginspectorate.gov.uk \
 INSPECTOR_EMAIL=inspector.test@planninginspectorate.gov.uk \
 VALIDATION_OFFICER_EMAIL=validationofficer.test@planninginspectorate.gov.uk \
 USER_PASSWORD="" \
-FEATURE_FLAG_CONNECTION_STRING="" \
+FEATURE_FLAG_CONNECTION_STRING=local-e2e \
 STATIC_FEATURE_FLAGS_ENABLED=true \
 npx cypress run \
 	--browser "$CYPRESS_BROWSER" \
