@@ -171,6 +171,7 @@ const attemptInsertDocuments = async (caseId, documents, isS51, tx) => {
 					descriptionWelsh: documentToDB.descriptionWelsh,
 					filter1: documentToDB.filter1,
 					filter1Welsh: documentToDB.filter1Welsh,
+					documentType: documentToDB.documentType,
 					mime: documentToDB.documentType,
 					size: documentToDB.documentSize,
 					sourceSystem: documentToDB.sourceSystem,
@@ -436,6 +437,7 @@ export const createDocumentVersion = async (
 	const previousDocumentVersion = documentFromDatabase.documentVersion.pop();
 	// copy all meta data from previous version except below properties.
 	newDocumentVersion.version = version;
+	newDocumentVersion.documentType = documentToSendToDatabase.documentType;
 	newDocumentVersion.mime = documentToSendToDatabase.documentType;
 	newDocumentVersion.fileName = previousDocumentVersion?.fileName ?? fileName;
 	newDocumentVersion.size = documentToSendToDatabase.documentSize;
