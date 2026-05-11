@@ -7,6 +7,8 @@ import BackOfficeAppError from '#utils/app-error.js';
 import config from '#config/config.js';
 import { getPageCount, getSkipValue } from '#utils/database-pagination.js';
 import logger from '#utils/logger.js';
+import { GIS_SHAPEFILE_DOCUMENT_TYPE } from '../../constants.js';
+import { getFolder } from '../file-folders/folders.service.js';
 import { mapDateStringToUnixTimestamp } from '#utils/mapping/map-date-string-to-unix-timestamp.js';
 import {
 	mapDocumentVersionDetails,
@@ -128,6 +130,16 @@ export const createDocumentsOnCase = async ({ params, body }, response) => {
  */
 export const createDocumentVersionOnCase = async ({ params, body }, response) => {
 	const documentToUpload = body;
+
+	// If uploading to GIS Shapefiles folder, override documentType to "GIS shapefile"
+	// so malware-detected function can route it for processing
+	if (documentToUpload.folderId) {
+		const folder = await getFolder(documentToUpload.folderId);
+		if (folder?.displayNameEn === 'GIS Shapefiles') {
+			documentToUpload.documentType = GIS_SHAPEFILE_DOCUMENT_TYPE;
+		}
+	}
+
 	// create version record etc
 	const { blobStorageHost, privateBlobContainer, documents } = await createDocumentVersion(
 		documentToUpload,
