@@ -1,165 +1,285 @@
 parameters:
   - name: Environment
+    displayName: Environment
     type: string
     default: 'test'
     values:
       - 'dev'
       - 'test'
+  - name: manualSuite
+    displayName: Manual suite
+    type: string
+    default: smoke
+    values:
+      - smoke
+      - regression
+      - both
+
+name: applications-e2e-$(Date:yyyyMMdd)$(Rev:.r)
+
+trigger: none
+
+pr:
+  autoCancel: true
+  branches:
+    include:
+      - '*'
+  paths:
+    include:
+      - azure-pipelines-e2e-applications.yml
+      - package.json
+      - package-lock.json
+      - apps/e2e/**
+      - apps/api/**
+      - apps/web/**
+      - packages/**
+
+schedules:
+  - cron: "0 2 * * 1-5"
+    displayName: Weekday early regression
+    branches:
+      include:
+        - main
+    always: true
+  - cron: "0 14 * * 1-5"
+    displayName: Weekday afternoon regression
+    branches:
+      include:
+        - main
+    always: true
 
 variables:
   - name: APP
     value: 'applications'
+  - name: NodeVersion
+    value: '22.x'
+  - name: NpmCacheDir
+    value: '$(Pipeline.Workspace)/.npm'
+  - name: CypressCacheDir
+    value: '$(Pipeline.Workspace)/.cache/Cypress'
+  - name: CypressBrowser
+    value: 'chrome'
   - group: e2e-${{ parameters.Environment }}
 
-pr: none
-
-trigger: none
-
 jobs:
-  - job: E2E_Tests_Group_1
-    timeoutInMinutes: 60
-    pool: pins-odt-agent-pool-tests
+  - job: Smoke_E2E
+    displayName: Smoke E2E (PR)
+    condition: >-
+      or(
+        and(
+          eq(variables['Build.Reason'], 'PullRequest'),
+          not(startsWith(variables['System.PullRequest.SourceBranch'], 'refs/heads/dependabot/'))
+        ),
+        and(
+          eq(variables['Build.Reason'], 'Manual'),
+          or(
+            eq('${{ parameters.manualSuite }}', 'smoke'),
+            eq('${{ parameters.manualSuite }}', 'both')
+          )
+        )
+      )
+    timeoutInMinutes: 35
+    pool:
+      name: pins-odt-agent-pool-tests
+      demands:
+        - Agent.OS -equals Linux
+
     steps:
       - task: NodeTool@0
+        displayName: Use Node.js $(NodeVersion)
         inputs:
-          versionSpec: "20.x"
-        displayName: "Install Node.js"
+          versionSpec: $(NodeVersion)
 
-      - task: Npm@1
+      - task: Cache@2
+        displayName: Cache npm
         inputs:
-          command: "install"
-          workingDir: $(System.DefaultWorkingDirectory)/apps/e2e
-        displayName: "Install Dependencies"
+          key: 'npm | "$(Agent.OS)" | package-lock.json'
+          restoreKeys: |
+            npm | "$(Agent.OS)"
+          path: $(NpmCacheDir)
+
+      - task: Cache@2
+        displayName: Cache Cypress
+        inputs:
+          key: 'cypress | "$(Agent.OS)" | package-lock.json'
+          restoreKeys: |
+            cypress | "$(Agent.OS)"
+          path: $(CypressCacheDir)
 
       - task: Bash@3
+        displayName: Install dependencies
         inputs:
-          targetType: 'inline'
-          script: npx cypress run --spec "cypress/e2e/back-office-applications/addRepresentation.spec.js,cypress/e2e/back-office-applications/addTeam.spec.js,cypress/e2e/back-office-applications/createCase.spec.js,cypress/e2e/back-office-applications/documentProperties.spec.js,cypress/e2e/back-office-applications/documentPropertiesWelsh.spec.js,cypress/e2e/back-office-applications/documentUpload.spec.js"
-          workingDirectory: 'apps/e2e'
-
+          targetType: inline
+          script: |
+            mkdir -p "$(Pipeline.Workspace)/e2e-logs" apps/e2e/cypress/screenshots
+            npm ci --cache "$(NpmCacheDir)" --prefer-offline
+          workingDirectory: $(Build.SourcesDirectory)
         env:
+          CYPRESS_CACHE_FOLDER: $(CypressCacheDir)
+
+      - task: Bash@3
+        displayName: Run smoke E2E suite
+        inputs:
+          targetType: inline
+          workingDirectory: $(Build.SourcesDirectory)
+          script: |
+            mkdir -p "$(Pipeline.Workspace)/e2e-logs" apps/e2e/cypress/screenshots
+            set -o pipefail
+            unset ELECTRON_RUN_AS_NODE
+            cd apps/e2e
+            npx cypress run \
+              --browser "$(CypressBrowser)" \
+              --spec cypress/e2e/back-office-applications/smokeTests.spec.js \
+              2>&1 | tee "$(Pipeline.Workspace)/e2e-logs/cypress-smoke.log"
+        env:
+          APP: $(APP)
           BASE_URL: $(BASE_URL)
           CASE_TEAM_EMAIL: $(CASE_TEAM_EMAIL)
           CASE_ADMIN_EMAIL: $(CASE_ADMIN_EMAIL)
           INSPECTOR_EMAIL: $(INSPECTOR_EMAIL)
           USER_PASSWORD: $(USER_PASSWORD)
           FEATURE_FLAG_CONNECTION_STRING: $(FEATURE_FLAG_CONNECTION_STRING)
-        displayName: "Run Cypress Tests Group 1"
+          STATIC_FEATURE_FLAGS_ENABLED: $(STATIC_FEATURE_FLAGS_ENABLED)
+          CYPRESS_CACHE_FOLDER: $(CypressCacheDir)
 
-      - task: PublishBuildArtifacts@1
-        inputs:
-          pathToPublish: 'apps/e2e/cypress/screenshots'
-          artifactName: 'FailedTests'
-        displayName: "Publish Failed Tests Artifacts"
+      - task: PublishPipelineArtifact@1
+        displayName: Publish failed test screenshots
         condition: failed()
+        inputs:
+          targetPath: $(Build.SourcesDirectory)/apps/e2e/cypress/screenshots
+          artifact: cypress-screenshots-smoke
 
-  - job: E2E_Tests_Group_2
+      - task: PublishPipelineArtifact@1
+        displayName: Publish Cypress supporting logs
+        condition: always()
+        inputs:
+          targetPath: $(Pipeline.Workspace)/e2e-logs
+          artifact: cypress-supporting-logs-smoke
+
+  - job: Regression_E2E
+    displayName: Regression E2E
+    condition: >-
+      or(
+        eq(variables['Build.Reason'], 'Schedule'),
+        and(
+          eq(variables['Build.Reason'], 'Manual'),
+          or(
+            eq('${{ parameters.manualSuite }}', 'regression'),
+            eq('${{ parameters.manualSuite }}', 'both')
+          )
+        )
+      )
     timeoutInMinutes: 60
-    pool: pins-odt-agent-pool-tests
+    pool:
+      name: pins-odt-agent-pool-tests
+      demands:
+        - Agent.OS -equals Linux
+    strategy:
+      matrix:
+        shard_1_of_6:
+          SHARD_INDEX: '1'
+          SHARD_COUNT: '6'
+        shard_2_of_6:
+          SHARD_INDEX: '2'
+          SHARD_COUNT: '6'
+        shard_3_of_6:
+          SHARD_INDEX: '3'
+          SHARD_COUNT: '6'
+        shard_4_of_6:
+          SHARD_INDEX: '4'
+          SHARD_COUNT: '6'
+        shard_5_of_6:
+          SHARD_INDEX: '5'
+          SHARD_COUNT: '6'
+        shard_6_of_6:
+          SHARD_INDEX: '6'
+          SHARD_COUNT: '6'
+      maxParallel: 6
+
     steps:
       - task: NodeTool@0
+        displayName: Use Node.js $(NodeVersion)
         inputs:
-          versionSpec: "20.x"
-        displayName: "Install Node.js"
+          versionSpec: $(NodeVersion)
 
-      - task: Npm@1
+      - task: Cache@2
+        displayName: Cache npm
         inputs:
-          command: "install"
-          workingDir: $(System.DefaultWorkingDirectory)/apps/e2e
-        displayName: "Install Dependencies"
+          key: 'npm | "$(Agent.OS)" | package-lock.json'
+          restoreKeys: |
+            npm | "$(Agent.OS)"
+          path: $(NpmCacheDir)
+
+      - task: Cache@2
+        displayName: Cache Cypress
+        inputs:
+          key: 'cypress | "$(Agent.OS)" | package-lock.json'
+          restoreKeys: |
+            cypress | "$(Agent.OS)"
+          path: $(CypressCacheDir)
 
       - task: Bash@3
+        displayName: Install dependencies
         inputs:
-          targetType: 'inline'
-          script: npx cypress run --spec "cypress/e2e/back-office-applications/documentVersioning.spec.js,cypress/e2e/back-office-applications/editCase.spec.js,cypress/e2e/back-office-applications/examTimetable.spec.js"
-          workingDirectory: 'apps/e2e'
-
+          targetType: inline
+          script: |
+            mkdir -p "$(Pipeline.Workspace)/e2e-logs" apps/e2e/cypress/screenshots
+            npm ci --cache "$(NpmCacheDir)" --prefer-offline
+          workingDirectory: $(Build.SourcesDirectory)
         env:
+          CYPRESS_CACHE_FOLDER: $(CypressCacheDir)
+
+      - task: Bash@3
+        displayName: Run regression E2E shard
+        inputs:
+          targetType: inline
+          workingDirectory: $(Build.SourcesDirectory)
+          script: |
+            mkdir -p "$(Pipeline.Workspace)/e2e-logs" apps/e2e/cypress/screenshots
+            set -o pipefail
+            unset ELECTRON_RUN_AS_NODE
+            cd apps/e2e
+
+            SPEC_LIST="$(
+              find cypress/e2e/back-office-applications -type f -name '*.spec.js' | sort | awk \
+                -v shard_index="$(SHARD_INDEX)" \
+                -v shard_count="$(SHARD_COUNT)" \
+                '((NR - 1) % shard_count) == (shard_index - 1) { print }' | paste -sd, -
+            )"
+
+            if [ -z "$SPEC_LIST" ]; then
+              echo "No specs were assigned to shard $(SHARD_INDEX) of $(SHARD_COUNT)"
+              exit 0
+            fi
+
+            echo "Running shard $(SHARD_INDEX) of $(SHARD_COUNT)"
+            echo "$SPEC_LIST" | tr ',' '\n'
+
+            npx cypress run \
+              --browser "$(CypressBrowser)" \
+              --spec "$SPEC_LIST" \
+              2>&1 | tee "$(Pipeline.Workspace)/e2e-logs/cypress-regression-$(SHARD_INDEX).log"
+        env:
+          APP: $(APP)
           BASE_URL: $(BASE_URL)
           CASE_TEAM_EMAIL: $(CASE_TEAM_EMAIL)
           CASE_ADMIN_EMAIL: $(CASE_ADMIN_EMAIL)
           INSPECTOR_EMAIL: $(INSPECTOR_EMAIL)
           USER_PASSWORD: $(USER_PASSWORD)
           FEATURE_FLAG_CONNECTION_STRING: $(FEATURE_FLAG_CONNECTION_STRING)
-        displayName: "Run Cypress Tests Group 2"
+          STATIC_FEATURE_FLAGS_ENABLED: $(STATIC_FEATURE_FLAGS_ENABLED)
+          CYPRESS_CACHE_FOLDER: $(CypressCacheDir)
 
-      - task: PublishBuildArtifacts@1
-        inputs:
-          pathToPublish: 'apps/e2e/cypress/screenshots'
-          artifactName: 'FailedTests'
-        displayName: "Publish Failed Tests Artifacts"
+      - task: PublishPipelineArtifact@1
+        displayName: Publish failed test screenshots
         condition: failed()
-
-  - job: E2E_Tests_Group_3
-    timeoutInMinutes: 60
-    pool: pins-odt-agent-pool-tests
-    steps:
-      - task: NodeTool@0
         inputs:
-          versionSpec: "20.x"
-        displayName: "Install Node.js"
+          targetPath: $(Build.SourcesDirectory)/apps/e2e/cypress/screenshots
+          artifact: cypress-screenshots-regression-$(SHARD_INDEX)
 
-      - task: Npm@1
+      - task: PublishPipelineArtifact@1
+        displayName: Publish Cypress supporting logs
+        condition: always()
         inputs:
-          command: "install"
-          workingDir: $(System.DefaultWorkingDirectory)/apps/e2e
-        displayName: "Install Dependencies"
-
-      - task: Bash@3
-        inputs:
-          targetType: 'inline'
-          script: npx cypress run --spec "cypress/e2e/back-office-applications/publishDocuments.spec.js,cypress/e2e/back-office-applications/s51Advice.spec.js,cypress/e2e/back-office-applications/search.spec.js,cypress/e2e/back-office-applications/searchDocuments.spec.js,cypress/e2e/back-office-applications/sectorAsTraing.spec.js,cypress/e2e/back-office-applications/smokeTests.spec.js"
-          workingDirectory: 'apps/e2e'
-
-        env:
-          BASE_URL: $(BASE_URL)
-          CASE_TEAM_EMAIL: $(CASE_TEAM_EMAIL)
-          CASE_ADMIN_EMAIL: $(CASE_ADMIN_EMAIL)
-          INSPECTOR_EMAIL: $(INSPECTOR_EMAIL)
-          USER_PASSWORD: $(USER_PASSWORD)
-          FEATURE_FLAG_CONNECTION_STRING: $(FEATURE_FLAG_CONNECTION_STRING)
-        displayName: "Run Cypress Tests Group 3"
-
-      - task: PublishBuildArtifacts@1
-        inputs:
-          pathToPublish: 'apps/e2e/cypress/screenshots'
-          artifactName: 'FailedTests'
-        displayName: "Publish Failed Tests Artifacts"
-        condition: failed()
-
-  - job: E2E_Tests_Group_4
-    timeoutInMinutes: 60
-    pool: pins-odt-agent-pool-tests
-    steps:
-      - task: NodeTool@0
-        inputs:
-          versionSpec: "20.x"
-        displayName: "Install Node.js"
-
-      - task: Npm@1
-        inputs:
-          command: "install"
-          workingDir: $(System.DefaultWorkingDirectory)/apps/e2e
-        displayName: "Install Dependencies"
-
-      - task: Bash@3
-        inputs:
-          targetType: 'inline'
-          script: DEBUG=cypress:* npx cypress run --headed --browser chrome --spec "cypress/e2e/back-office-applications/publishDocuments.spec.js,cypress/e2e/back-office-applications/s51Advice.spec.js,cypress/e2e/back-office-applications/search.spec.js,cypress/e2e/back-office-applications/searchDocuments.spec.js,cypress/e2e/back-office-applications/sectorAsTraing.spec.js,cypress/e2e/back-office-applications/smokeTests.spec.js"
-          workingDirectory: 'apps/e2e'
-
-        env:
-          BASE_URL: $(BASE_URL)
-          CASE_TEAM_EMAIL: $(CASE_TEAM_EMAIL)
-          CASE_ADMIN_EMAIL: $(CASE_ADMIN_EMAIL)
-          INSPECTOR_EMAIL: $(INSPECTOR_EMAIL)
-          USER_PASSWORD: $(USER_PASSWORD)
-          FEATURE_FLAG_CONNECTION_STRING: $(FEATURE_FLAG_CONNECTION_STRING)
-        displayName: "Run Cypress Tests Group 4"
-
-      - task: PublishBuildArtifacts@1
-        inputs:
-          pathToPublish: 'apps/e2e/cypress/screenshots'
-          artifactName: 'FailedTests'
-        displayName: "Publish Failed Tests Artifacts"
-        condition: failed()
+          targetPath: $(Pipeline.Workspace)/e2e-logs
+          artifact: cypress-supporting-logs-regression-$(SHARD_INDEX)

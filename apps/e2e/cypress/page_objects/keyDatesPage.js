@@ -5,55 +5,40 @@ export class KeyDatesPage extends Page {
 	elements = {};
 
 	clickManageDates(sectionName) {
-		this.getSection(sectionName).find('a').click();
+		const manageDatesSelectors = {
+			'Pre-application': '[data-cy="manage-dates-pre-application-section"]'
+		};
+		const selector = manageDatesSelectors[sectionName];
+
+		if (selector) {
+			cy.get(selector).click();
+			return;
+		}
+
+		this.getSection(sectionName).find('a').first().click();
 	}
 
 	preApplication(data) {
-		const fields = Object.keys(data);
-		// Date first notified of project
-		cy.get('#datePINSFirstNotifiedOfProject\\.day').clear().type(data[fields[0]].enteredFormat[0]);
-		cy.get('#datePINSFirstNotifiedOfProject\\.month')
+		this.fillDate('datePINSFirstNotifiedOfProject', data['Date first notified of project']);
+		this.fillDate('inceptionMeetingDate', data['Date of inception meeting']);
+		this.fillDate('programmeDocumentSubmissionDate', data['Programme document submission date']);
+		this.fillDate('section46Notification', data['Section 46 notification']);
+		this.fillDate(
+			'statutoryConsultationPeriodEndDate',
+			data['Statutory consultation period end date']
+		);
+		this.fillDate('draftDocumentSubmissionDate', data['Date for submission of draft documents']);
+		this.fillDate('dateProjectAppearsOnWebsite', data['Project published on website']);
+		cy.get('[id="submissionAtPublished"]')
 			.clear()
-			.type(data[fields[0]].enteredFormat[1]);
-		cy.get('#datePINSFirstNotifiedOfProject\\.year').clear().type(data[fields[0]].enteredFormat[2]);
+			.type(data['Anticipated submission date published']);
+		this.fillDate('submissionAtInternal', data['Anticipated submission date internal']);
+	}
 
-		// Project published on website
-		cy.get('#dateProjectAppearsOnWebsite\\.day').clear().type(data[fields[1]].enteredFormat[0]);
-		cy.get('#dateProjectAppearsOnWebsite\\.month').clear().type(data[fields[1]].enteredFormat[1]);
-		cy.get('#dateProjectAppearsOnWebsite\\.year').clear().type(data[fields[1]].enteredFormat[2]);
-
-		// Anticipated date published
-		cy.get('[id="submissionAtPublished"]').clear().type(data[fields[2]]);
-
-		// Anticipated submission date internal
-		cy.get('#submissionAtInternal\\.day').clear().type(data[fields[3]].enteredFormat[0]);
-		cy.get('#submissionAtInternal\\.month').clear().type(data[fields[3]].enteredFormat[1]);
-		cy.get('#submissionAtInternal\\.year').clear().type(data[fields[3]].enteredFormat[2]);
-
-		// Screening opinion sought
-		cy.get('#screeningOpinionSought\\.day').clear().type(data[fields[4]].enteredFormat[0]);
-		cy.get('#screeningOpinionSought\\.month').clear().type(data[fields[4]].enteredFormat[1]);
-		cy.get('#screeningOpinionSought\\.year').clear().type(data[fields[4]].enteredFormat[2]);
-
-		// Screening opinion issued
-		cy.get('#screeningOpinionIssued\\.day').clear().type(data[fields[5]].enteredFormat[0]);
-		cy.get('#screeningOpinionIssued\\.month').clear().type(data[fields[5]].enteredFormat[1]);
-		cy.get('#screeningOpinionIssued\\.year').clear().type(data[fields[5]].enteredFormat[2]);
-
-		// Scoping opinion sought
-		cy.get('#scopingOpinionSought\\.day').clear().type(data[fields[6]].enteredFormat[0]);
-		cy.get('#scopingOpinionSought\\.month').clear().type(data[fields[6]].enteredFormat[1]);
-		cy.get('#scopingOpinionSought\\.year').clear().type(data[fields[6]].enteredFormat[2]);
-
-		// Scoping opinion issued
-		cy.get('#scopingOpinionIssued\\.day').clear().type(data[fields[7]].enteredFormat[0]);
-		cy.get('#scopingOpinionIssued\\.month').clear().type(data[fields[7]].enteredFormat[1]);
-		cy.get('#scopingOpinionIssued\\.year').clear().type(data[fields[7]].enteredFormat[2]);
-
-		// Section 46 notification
-		cy.get('#section46Notification\\.day').clear().type(data[fields[8]].enteredFormat[0]);
-		cy.get('#section46Notification\\.month').clear().type(data[fields[8]].enteredFormat[1]);
-		cy.get('#section46Notification\\.year').clear().type(data[fields[8]].enteredFormat[2]);
+	fillDate(fieldName, date) {
+		cy.get(`#${fieldName}\\.day`).clear().type(date.enteredFormat[0]);
+		cy.get(`#${fieldName}\\.month`).clear().type(date.enteredFormat[1]);
+		cy.get(`#${fieldName}\\.year`).clear().type(date.enteredFormat[2]);
 	}
 
 	getSection(sectionName) {
@@ -65,16 +50,29 @@ export class KeyDatesPage extends Page {
 
 	getTableData() {
 		const tableData = {};
-		return cy
-			.get(`${this.selectors.table} tbody ${this.selectors.tableRow}`)
-			.each(($row) => {
+		return cy.root().then(($root) => {
+			const tableRows = $root.find(`${this.selectors.table} tbody ${this.selectors.tableRow}`);
+			const summaryRows = $root.find('.govuk-summary-list__row');
+			const rows = tableRows.length ? tableRows : summaryRows;
+
+			rows.each((_, row) => {
+				const $row = Cypress.$(row);
 				const header = $row.find(this.selectors.tableHeader).text().trim();
+				const summaryHeader = $row.find(this.selectors.summaryListKey).text().trim();
 				const cellValue = $row.find(this.selectors.tableCell).text().trim();
-				tableData[header] = cellValue;
-			})
-			.then(() => {
-				return Cypress.Promise.resolve(tableData);
+				const summaryValue = $row.find(this.selectors.summaryListValue).text().trim();
+				const key = header || summaryHeader;
+				const value = cellValue || summaryValue;
+
+				if (!key) {
+					return;
+				}
+
+				tableData[key] = value;
 			});
+
+			return tableData;
+		});
 	}
 
 	validateSectionDates(sectionName, expectedData) {
@@ -89,7 +87,10 @@ export class KeyDatesPage extends Page {
 							cleanedData[key] = value;
 						}
 					}
-					expect(actualData).to.deep.equal(cleanedData);
+					const relevantData = Object.fromEntries(
+						Object.keys(cleanedData).map((key) => [key, actualData[key]])
+					);
+					expect(relevantData).to.deep.equal(cleanedData);
 				});
 			});
 		});

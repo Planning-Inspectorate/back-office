@@ -4,8 +4,24 @@ import { SECTORS, SUBSECTORS } from './options';
 import { REGIONS } from './options';
 import { ZOOM_LEVELS } from './options';
 
-let sector = faker.helpers.arrayElement(SECTORS);
-let subsector = faker.helpers.arrayElement(SUBSECTORS[sector]);
+const projectTypesBySubsector = {
+	'Generating Stations': 'Solar'
+};
+
+const createSectorDetails = (options) => {
+	const selectableSectors = options.includeTrainingSector
+		? SECTORS
+		: SECTORS.filter((sector) => sector !== 'Training');
+	const sector = options.sector || faker.helpers.arrayElement(selectableSectors);
+	const selectableSubsectors =
+		sector === 'Energy' && !options.includeProjectType
+			? SUBSECTORS[sector].filter((subsector) => subsector !== 'Generating Stations')
+			: SUBSECTORS[sector];
+	const subsector = options.subsector || faker.helpers.arrayElement(selectableSubsectors);
+	const projectType = options.projectType || projectTypesBySubsector[subsector];
+
+	return { sector, subsector, projectType };
+};
 
 const populateRegions = (options) => {
 	let regions = faker.helpers.arrayElements(REGIONS);
@@ -22,6 +38,7 @@ const populateRegions = (options) => {
 export const projectInformation = (options = {}) => {
 	const now = Date.now();
 	const currentYear = new Date().getFullYear();
+	const sectorDetails = createSectorDetails(options);
 
 	// P R O J E C T  I N F O R M A T I O N
 	let projectName = `AutoTest_${now}`;
@@ -133,8 +150,9 @@ export const projectInformation = (options = {}) => {
 		projectNameInWelsh,
 		publishedDate,
 		regions,
-		sector,
-		subsector,
+		sector: sectorDetails.sector,
+		subsector: sectorDetails.subsector,
+		projectType: sectorDetails.projectType,
 		zoomLevel,
 		defaultPublishedStatus
 	};

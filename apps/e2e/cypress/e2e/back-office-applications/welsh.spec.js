@@ -59,7 +59,12 @@ function validateErrorMessageForProjectlocation() {
 describe('Enable and update Project Information with Welsh fields', () => {
 	context('As a user', () => {
 		let projectInfo = projectInformation({ includeWales: true });
-		let projectInfoNew = projectInformation({ includeWales: true });
+		let projectInfoNew = projectInformation({
+			includeWales: true,
+			sector: projectInfo.sector,
+			subsector: projectInfo.subsector,
+			projectType: projectInfo.projectType
+		});
 
 		before(() => {
 			if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
