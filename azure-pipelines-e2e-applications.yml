@@ -1,11 +1,4 @@
 parameters:
-  - name: Environment
-    displayName: Environment
-    type: string
-    default: 'test'
-    values:
-      - 'dev'
-      - 'test'
   - name: manualSuite
     displayName: Manual suite
     type: string
@@ -27,6 +20,8 @@ pr:
   paths:
     include:
       - azure-pipelines-e2e-applications.yml
+      - docker-compose.e2e.yml
+      - pipelines/templates/e2e-local-compose-steps.yml
       - package.json
       - package-lock.json
       - apps/e2e/**
@@ -49,8 +44,6 @@ schedules:
     always: true
 
 variables:
-  - name: APP
-    value: 'applications'
   - name: NodeVersion
     value: '22.x'
   - name: NpmCacheDir
@@ -59,7 +52,10 @@ variables:
     value: '$(Pipeline.Workspace)/.cache/Cypress'
   - name: CypressBrowser
     value: 'chrome'
-  - group: e2e-${{ parameters.Environment }}
+  - name: LocalSqlPassword
+    value: 'P@ssw0rdPINS2026!'
+  - name: ComposeFile
+    value: 'docker-compose.e2e.yml'
 
 jobs:
   - job: Smoke_E2E
@@ -78,83 +74,25 @@ jobs:
           )
         )
       )
-    timeoutInMinutes: 35
+    timeoutInMinutes: 50
     pool:
       name: pins-odt-agent-pool-tests
       demands:
         - Agent.OS -equals Linux
+    variables:
+      ComposeProject: applications_e2e_smoke_$(Build.BuildId)
+      E2eSqlPort: '14329'
+      E2eApiPort: '3090'
+      E2eWebPort: '8090'
 
     steps:
-      - task: NodeTool@0
-        displayName: Use Node.js $(NodeVersion)
-        inputs:
-          versionSpec: $(NodeVersion)
-
-      - task: Cache@2
-        displayName: Cache npm
-        inputs:
-          key: 'npm | "$(Agent.OS)" | package-lock.json'
-          restoreKeys: |
-            npm | "$(Agent.OS)"
-          path: $(NpmCacheDir)
-
-      - task: Cache@2
-        displayName: Cache Cypress
-        inputs:
-          key: 'cypress | "$(Agent.OS)" | package-lock.json'
-          restoreKeys: |
-            cypress | "$(Agent.OS)"
-          path: $(CypressCacheDir)
-
-      - task: Bash@3
-        displayName: Install dependencies
-        inputs:
-          targetType: inline
-          script: |
-            mkdir -p "$(Pipeline.Workspace)/e2e-logs" apps/e2e/cypress/screenshots
-            npm ci --cache "$(NpmCacheDir)" --prefer-offline
-          workingDirectory: $(Build.SourcesDirectory)
-        env:
-          CYPRESS_CACHE_FOLDER: $(CypressCacheDir)
-
-      - task: Bash@3
-        displayName: Run smoke E2E suite
-        inputs:
-          targetType: inline
-          workingDirectory: $(Build.SourcesDirectory)
-          script: |
-            mkdir -p "$(Pipeline.Workspace)/e2e-logs" apps/e2e/cypress/screenshots
-            set -o pipefail
-            unset ELECTRON_RUN_AS_NODE
-            cd apps/e2e
-            npx cypress run \
-              --browser "$(CypressBrowser)" \
-              --spec cypress/e2e/back-office-applications/smokeTests.spec.js \
-              2>&1 | tee "$(Pipeline.Workspace)/e2e-logs/cypress-smoke.log"
-        env:
-          APP: $(APP)
-          BASE_URL: $(BASE_URL)
-          CASE_TEAM_EMAIL: $(CASE_TEAM_EMAIL)
-          CASE_ADMIN_EMAIL: $(CASE_ADMIN_EMAIL)
-          INSPECTOR_EMAIL: $(INSPECTOR_EMAIL)
-          USER_PASSWORD: $(USER_PASSWORD)
-          FEATURE_FLAG_CONNECTION_STRING: $(FEATURE_FLAG_CONNECTION_STRING)
-          STATIC_FEATURE_FLAGS_ENABLED: $(STATIC_FEATURE_FLAGS_ENABLED)
-          CYPRESS_CACHE_FOLDER: $(CypressCacheDir)
-
-      - task: PublishPipelineArtifact@1
-        displayName: Publish failed test screenshots
-        condition: failed()
-        inputs:
-          targetPath: $(Build.SourcesDirectory)/apps/e2e/cypress/screenshots
-          artifact: cypress-screenshots-smoke
-
-      - task: PublishPipelineArtifact@1
-        displayName: Publish Cypress supporting logs
-        condition: always()
-        inputs:
-          targetPath: $(Pipeline.Workspace)/e2e-logs
-          artifact: cypress-supporting-logs-smoke
+      - template: pipelines/templates/e2e-local-compose-steps.yml
+        parameters:
+          runDisplayName: Run smoke E2E suite
+          runName: smoke
+          cypressSpec: cypress/e2e/back-office-applications/smokeTests.spec.js
+          screenshotsArtifact: cypress-screenshots-smoke
+          logsArtifact: cypress-supporting-logs-smoke
 
   - job: Regression_E2E
     displayName: Regression E2E
@@ -169,7 +107,7 @@ jobs:
           )
         )
       )
-    timeoutInMinutes: 60
+    timeoutInMinutes: 75
     pool:
       name: pins-odt-agent-pool-tests
       demands:
@@ -195,91 +133,18 @@ jobs:
           SHARD_INDEX: '6'
           SHARD_COUNT: '6'
       maxParallel: 6
+    variables:
+      ComposeProject: applications_e2e_regression_$(Build.BuildId)_$(SHARD_INDEX)
+      E2eSqlPort: 1433$(SHARD_INDEX)
+      E2eApiPort: 300$(SHARD_INDEX)
+      E2eWebPort: 808$(SHARD_INDEX)
 
     steps:
-      - task: NodeTool@0
-        displayName: Use Node.js $(NodeVersion)
-        inputs:
-          versionSpec: $(NodeVersion)
-
-      - task: Cache@2
-        displayName: Cache npm
-        inputs:
-          key: 'npm | "$(Agent.OS)" | package-lock.json'
-          restoreKeys: |
-            npm | "$(Agent.OS)"
-          path: $(NpmCacheDir)
-
-      - task: Cache@2
-        displayName: Cache Cypress
-        inputs:
-          key: 'cypress | "$(Agent.OS)" | package-lock.json'
-          restoreKeys: |
-            cypress | "$(Agent.OS)"
-          path: $(CypressCacheDir)
-
-      - task: Bash@3
-        displayName: Install dependencies
-        inputs:
-          targetType: inline
-          script: |
-            mkdir -p "$(Pipeline.Workspace)/e2e-logs" apps/e2e/cypress/screenshots
-            npm ci --cache "$(NpmCacheDir)" --prefer-offline
-          workingDirectory: $(Build.SourcesDirectory)
-        env:
-          CYPRESS_CACHE_FOLDER: $(CypressCacheDir)
-
-      - task: Bash@3
-        displayName: Run regression E2E shard
-        inputs:
-          targetType: inline
-          workingDirectory: $(Build.SourcesDirectory)
-          script: |
-            mkdir -p "$(Pipeline.Workspace)/e2e-logs" apps/e2e/cypress/screenshots
-            set -o pipefail
-            unset ELECTRON_RUN_AS_NODE
-            cd apps/e2e
-
-            SPEC_LIST="$(
-              find cypress/e2e/back-office-applications -type f -name '*.spec.js' | sort | awk \
-                -v shard_index="$(SHARD_INDEX)" \
-                -v shard_count="$(SHARD_COUNT)" \
-                '((NR - 1) % shard_count) == (shard_index - 1) { print }' | paste -sd, -
-            )"
-
-            if [ -z "$SPEC_LIST" ]; then
-              echo "No specs were assigned to shard $(SHARD_INDEX) of $(SHARD_COUNT)"
-              exit 0
-            fi
-
-            echo "Running shard $(SHARD_INDEX) of $(SHARD_COUNT)"
-            echo "$SPEC_LIST" | tr ',' '\n'
-
-            npx cypress run \
-              --browser "$(CypressBrowser)" \
-              --spec "$SPEC_LIST" \
-              2>&1 | tee "$(Pipeline.Workspace)/e2e-logs/cypress-regression-$(SHARD_INDEX).log"
-        env:
-          APP: $(APP)
-          BASE_URL: $(BASE_URL)
-          CASE_TEAM_EMAIL: $(CASE_TEAM_EMAIL)
-          CASE_ADMIN_EMAIL: $(CASE_ADMIN_EMAIL)
-          INSPECTOR_EMAIL: $(INSPECTOR_EMAIL)
-          USER_PASSWORD: $(USER_PASSWORD)
-          FEATURE_FLAG_CONNECTION_STRING: $(FEATURE_FLAG_CONNECTION_STRING)
-          STATIC_FEATURE_FLAGS_ENABLED: $(STATIC_FEATURE_FLAGS_ENABLED)
-          CYPRESS_CACHE_FOLDER: $(CypressCacheDir)
-
-      - task: PublishPipelineArtifact@1
-        displayName: Publish failed test screenshots
-        condition: failed()
-        inputs:
-          targetPath: $(Build.SourcesDirectory)/apps/e2e/cypress/screenshots
-          artifact: cypress-screenshots-regression-$(SHARD_INDEX)
-
-      - task: PublishPipelineArtifact@1
-        displayName: Publish Cypress supporting logs
-        condition: always()
-        inputs:
-          targetPath: $(Pipeline.Workspace)/e2e-logs
-          artifact: cypress-supporting-logs-regression-$(SHARD_INDEX)
+      - template: pipelines/templates/e2e-local-compose-steps.yml
+        parameters:
+          runDisplayName: Run regression E2E shard
+          runName: regression-$(SHARD_INDEX)
+          shardIndex: $(SHARD_INDEX)
+          shardCount: $(SHARD_COUNT)
+          screenshotsArtifact: cypress-screenshots-regression-$(SHARD_INDEX)
+          logsArtifact: cypress-supporting-logs-regression-$(SHARD_INDEX)

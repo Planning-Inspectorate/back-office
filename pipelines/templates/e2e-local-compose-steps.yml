@@ -1,0 +1,194 @@
+parameters:
+  - name: runDisplayName
+    type: string
+  - name: runName
+    type: string
+  - name: cypressSpec
+    type: string
+    default: ''
+  - name: shardIndex
+    type: string
+    default: ''
+  - name: shardCount
+    type: string
+    default: ''
+  - name: screenshotsArtifact
+    type: string
+  - name: logsArtifact
+    type: string
+
+steps:
+  - task: NodeTool@0
+    displayName: Use Node.js $(NodeVersion)
+    inputs:
+      versionSpec: $(NodeVersion)
+
+  - task: Cache@2
+    displayName: Cache npm
+    inputs:
+      key: 'npm | "$(Agent.OS)" | package-lock.json'
+      restoreKeys: |
+        npm | "$(Agent.OS)"
+      path: $(NpmCacheDir)
+
+  - task: Cache@2
+    displayName: Cache Cypress
+    inputs:
+      key: 'cypress | "$(Agent.OS)" | package-lock.json'
+      restoreKeys: |
+        cypress | "$(Agent.OS)"
+      path: $(CypressCacheDir)
+
+  - task: Bash@3
+    displayName: Install dependencies
+    inputs:
+      targetType: inline
+      script: |
+        mkdir -p "$(Pipeline.Workspace)/e2e-logs" apps/e2e/cypress/screenshots
+        npm ci --cache "$(NpmCacheDir)" --prefer-offline
+      workingDirectory: $(Build.SourcesDirectory)
+    env:
+      CYPRESS_CACHE_FOLDER: $(CypressCacheDir)
+
+  - task: Bash@3
+    displayName: Prepare local E2E fixtures
+    inputs:
+      targetType: inline
+      workingDirectory: $(Build.SourcesDirectory)
+      script: bash apps/e2e/scripts/prepare-local-fixtures.sh
+
+  - task: Bash@3
+    displayName: Build local app containers
+    inputs:
+      targetType: inline
+      workingDirectory: $(Build.SourcesDirectory)
+      script: docker compose -f "$(ComposeFile)" build api web
+    env:
+      COMPOSE_PROJECT_NAME: $(ComposeProject)
+      LOCAL_SQL_PASSWORD: $(LocalSqlPassword)
+      E2E_SQL_PORT: $(E2eSqlPort)
+      E2E_API_PORT: $(E2eApiPort)
+      E2E_WEB_PORT: $(E2eWebPort)
+
+  - task: Bash@3
+    displayName: Start local database
+    inputs:
+      targetType: inline
+      workingDirectory: $(Build.SourcesDirectory)
+      script: |
+        docker compose -f "$(ComposeFile)" up -d sqlserver
+
+        for attempt in {1..90}; do
+          if docker compose -f "$(ComposeFile)" logs sqlserver 2>&1 | grep -q "SQL Server is now ready for client connections"; then
+            exit 0
+          fi
+          sleep 2
+        done
+
+        docker compose -f "$(ComposeFile)" logs sqlserver
+        exit 1
+    env:
+      COMPOSE_PROJECT_NAME: $(ComposeProject)
+      LOCAL_SQL_PASSWORD: $(LocalSqlPassword)
+      E2E_SQL_PORT: $(E2eSqlPort)
+      E2E_API_PORT: $(E2eApiPort)
+      E2E_WEB_PORT: $(E2eWebPort)
+
+  - task: Bash@3
+    displayName: Migrate and seed local database
+    inputs:
+      targetType: inline
+      workingDirectory: $(Build.SourcesDirectory)
+      script: |
+        docker compose -f "$(ComposeFile)" run --rm --entrypoint npm api run db:migrate:prod
+        docker compose -f "$(ComposeFile)" run --rm --entrypoint npm api run db:seed
+    env:
+      COMPOSE_PROJECT_NAME: $(ComposeProject)
+      LOCAL_SQL_PASSWORD: $(LocalSqlPassword)
+      E2E_SQL_PORT: $(E2eSqlPort)
+      E2E_API_PORT: $(E2eApiPort)
+      E2E_WEB_PORT: $(E2eWebPort)
+
+  - task: Bash@3
+    displayName: Start local app
+    inputs:
+      targetType: inline
+      workingDirectory: $(Build.SourcesDirectory)
+      script: |
+        docker compose -f "$(ComposeFile)" up -d api web
+
+        for attempt in {1..60}; do
+          if curl --silent --fail --output /dev/null "http://localhost:$(E2eWebPort)/"; then
+            exit 0
+          fi
+          sleep 2
+        done
+
+        docker compose -f "$(ComposeFile)" logs api web
+        exit 1
+    env:
+      COMPOSE_PROJECT_NAME: $(ComposeProject)
+      LOCAL_SQL_PASSWORD: $(LocalSqlPassword)
+      E2E_SQL_PORT: $(E2eSqlPort)
+      E2E_API_PORT: $(E2eApiPort)
+      E2E_WEB_PORT: $(E2eWebPort)
+
+  - task: Bash@3
+    displayName: ${{ parameters.runDisplayName }}
+    inputs:
+      targetType: inline
+      workingDirectory: $(Build.SourcesDirectory)
+      script: bash apps/e2e/scripts/run-cypress-specs.sh
+    env:
+      RUN_NAME: ${{ parameters.runName }}
+      CYPRESS_SPEC: ${{ parameters.cypressSpec }}
+      SHARD_INDEX: ${{ parameters.shardIndex }}
+      SHARD_COUNT: ${{ parameters.shardCount }}
+      CYPRESS_BROWSER: $(CypressBrowser)
+      CYPRESS_CACHE_FOLDER: $(CypressCacheDir)
+      E2E_LOG_DIR: $(Pipeline.Workspace)/e2e-logs
+      E2E_WEB_PORT: $(E2eWebPort)
+
+  - task: Bash@3
+    displayName: Capture local app logs
+    condition: always()
+    inputs:
+      targetType: inline
+      workingDirectory: $(Build.SourcesDirectory)
+      script: |
+        mkdir -p "$(Pipeline.Workspace)/e2e-logs"
+        docker compose -f "$(ComposeFile)" logs --no-color > "$(Pipeline.Workspace)/e2e-logs/docker-compose-${{ parameters.runName }}.log" || true
+    env:
+      COMPOSE_PROJECT_NAME: $(ComposeProject)
+      LOCAL_SQL_PASSWORD: $(LocalSqlPassword)
+      E2E_SQL_PORT: $(E2eSqlPort)
+      E2E_API_PORT: $(E2eApiPort)
+      E2E_WEB_PORT: $(E2eWebPort)
+
+  - task: Bash@3
+    displayName: Stop local app
+    condition: always()
+    inputs:
+      targetType: inline
+      workingDirectory: $(Build.SourcesDirectory)
+      script: docker compose -f "$(ComposeFile)" down -v --remove-orphans || true
+    env:
+      COMPOSE_PROJECT_NAME: $(ComposeProject)
+      LOCAL_SQL_PASSWORD: $(LocalSqlPassword)
+      E2E_SQL_PORT: $(E2eSqlPort)
+      E2E_API_PORT: $(E2eApiPort)
+      E2E_WEB_PORT: $(E2eWebPort)
+
+  - task: PublishPipelineArtifact@1
+    displayName: Publish failed test screenshots
+    condition: failed()
+    inputs:
+      targetPath: $(Build.SourcesDirectory)/apps/e2e/cypress/screenshots
+      artifact: ${{ parameters.screenshotsArtifact }}
+
+  - task: PublishPipelineArtifact@1
+    displayName: Publish Cypress supporting logs
+    condition: always()
+    inputs:
+      targetPath: $(Pipeline.Workspace)/e2e-logs
+      artifact: ${{ parameters.logsArtifact }}
