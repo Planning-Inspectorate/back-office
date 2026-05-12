@@ -1,5 +1,4 @@
 import { Readable } from 'node:stream';
-import { parseZip } from 'shpjs';
 import { blobClient } from '../common/blob-client.js';
 import { notifyShapefileProcessingResult } from './src/back-office-api-client.js';
 import { validateShapefileContents } from './src/validate-shapefile.js';
@@ -119,12 +118,17 @@ export const index = async (context, documentShapefileProcess) => {
 		const zipBuffer = await downloadZipBuffer(privateBlobContainer, blobName, context);
 
 		// Validate required shapefile components — throws ShapefileValidationError on failure
-		const { valid, missingExtensions } = await validateShapefileContents(zipBuffer);
+		const { valid, missingExtensions, fileNames, parseError } = await validateShapefileContents(
+			zipBuffer
+		);
 
 		if (!valid) {
-			const parsedZip = await parseZip(zipBuffer);
-			const foundFiles = Object.keys(parsedZip).map((n) => n.toLowerCase());
-			context.log.warn(`[SHAPEFILE] Files found in ZIP: ${foundFiles.join(', ')}`);
+			if (fileNames.length > 0) {
+				context.log.warn(`[SHAPEFILE] Files found in ZIP: ${fileNames.join(', ')}`);
+			}
+			if (parseError) {
+				context.log.warn(`[SHAPEFILE] ZIP parse failed for document ${documentId}: ${parseError}`);
+			}
 			throw new ShapefileValidationError(
 				`Missing required shapefile components: ${missingExtensions.join(', ')}`
 			);

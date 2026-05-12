@@ -48,7 +48,12 @@ describe('process-shapefile function', () => {
 				yield zipBuffer;
 			})()
 		});
-		validateShapefileContents.mockResolvedValue({ valid: true });
+		validateShapefileContents.mockResolvedValue({
+			valid: true,
+			missingExtensions: [],
+			fileNames: ['test.shp', 'test.shx', 'test.dbf'],
+			parseError: null
+		});
 		shpZipToGeoJson.mockResolvedValue({ type: 'FeatureCollection', features: [] });
 		applyGeoJsonMetadata.mockReturnValue({ type: 'FeatureCollection', features: [], metadata: {} });
 
@@ -79,7 +84,12 @@ describe('process-shapefile function', () => {
 				yield Buffer.from('zip');
 			})()
 		});
-		validateShapefileContents.mockResolvedValue({ valid: false, missingExtensions: ['.dbf'] });
+		validateShapefileContents.mockResolvedValue({
+			valid: false,
+			missingExtensions: ['.dbf'],
+			fileNames: ['test.shp', 'test.shx'],
+			parseError: null
+		});
 
 		// WHEN
 		await index(context, message);
@@ -100,7 +110,12 @@ describe('process-shapefile function', () => {
 				yield Buffer.from('zip');
 			})()
 		});
-		validateShapefileContents.mockResolvedValue({ valid: true, missingExtensions: [] });
+		validateShapefileContents.mockResolvedValue({
+			valid: true,
+			missingExtensions: [],
+			fileNames: ['test.shp', 'test.shx', 'test.dbf'],
+			parseError: null
+		});
 		shpZipToGeoJson.mockResolvedValue({ type: 'NotGeoJson' });
 		validateConvertedGeoJson.mockReturnValue({
 			valid: false,
@@ -113,6 +128,29 @@ describe('process-shapefile function', () => {
 		expect(notifyShapefileProcessingResult).toHaveBeenCalledWith(caseId, documentId, {
 			invalid: true
 		});
+	});
+
+	test('should mark as invalid and NOT re-throw when ZIP parsing fails', async () => {
+		blobClient.downloadStream.mockResolvedValue({
+			readableStreamBody: (async function* () {
+				yield Buffer.from('not-a-valid-shapefile-zip');
+			})()
+		});
+		validateShapefileContents.mockResolvedValue({
+			valid: false,
+			missingExtensions: ['.shp', '.shx', '.dbf'],
+			fileNames: [],
+			parseError: 'no layers founds'
+		});
+
+		await index(context, message);
+
+		expect(notifyShapefileProcessingResult).toHaveBeenCalledWith(caseId, documentId, {
+			invalid: true
+		});
+		expect(context.log.error).not.toHaveBeenCalledWith(
+			expect.stringContaining('Infrastructure error processing document')
+		);
 	});
 
 	test('should re-throw on infrastructure error (e.g. download failed)', async () => {

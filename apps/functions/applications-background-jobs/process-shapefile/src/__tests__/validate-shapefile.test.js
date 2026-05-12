@@ -1,5 +1,9 @@
 import { describe, it, expect } from '@jest/globals';
-import { checkRequiredExtensions, getFileNamesFromParsedZip } from '../validate-shapefile.js';
+import {
+	checkRequiredExtensions,
+	getFileNamesFromParsedZip,
+	validateShapefileContents
+} from '../validate-shapefile.js';
 
 describe('getFileNamesFromParsedZip', () => {
 	it('returns lowercased filenames from parsed ZIP keys', () => {
@@ -36,5 +40,16 @@ describe('checkRequiredExtensions', () => {
 		const result = checkRequiredExtensions([]);
 		expect(result.valid).toBe(false);
 		expect(result.missingExtensions).toEqual(['.shp', '.shx', '.dbf']);
+	});
+});
+
+describe('validateShapefileContents', () => {
+	it('treats parseZip errors as validation failure', async () => {
+		const result = await validateShapefileContents(Buffer.from('not-a-zip'));
+
+		expect(result.valid).toBe(false);
+		expect(result.missingExtensions).toEqual(['.shp', '.shx', '.dbf']);
+		expect(result.fileNames).toEqual([]);
+		expect(result.parseError).toEqual(expect.any(String));
 	});
 });

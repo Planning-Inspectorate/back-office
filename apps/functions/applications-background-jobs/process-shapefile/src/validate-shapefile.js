@@ -29,9 +29,31 @@ export const checkRequiredExtensions = (fileNames) => {
  * Validates that a ZIP buffer contains the required shapefile components (.shp, .shx, .dbf).
  *
  * @param {Buffer} zipBuffer
- * @returns {Promise<{ valid: boolean, missingExtensions: string[] }>}
+ * @returns {Promise<{
+ *   valid: boolean,
+ *   missingExtensions: string[],
+ *   fileNames: string[],
+ *   parseError: string | null
+ * }>}
  */
 export const validateShapefileContents = async (zipBuffer) => {
-	const parsedZip = await parseZip(zipBuffer);
-	return checkRequiredExtensions(getFileNamesFromParsedZip(parsedZip));
+	try {
+		const parsedZip = await parseZip(zipBuffer);
+		const fileNames = getFileNamesFromParsedZip(parsedZip);
+		const { valid, missingExtensions } = checkRequiredExtensions(fileNames);
+
+		return {
+			valid,
+			missingExtensions,
+			fileNames,
+			parseError: null
+		};
+	} catch (error) {
+		return {
+			valid: false,
+			missingExtensions: SHAPEFILE_REQUIRED_EXTENSIONS,
+			fileNames: [],
+			parseError: error instanceof Error ? error.message : 'Unknown parse error'
+		};
+	}
 };
