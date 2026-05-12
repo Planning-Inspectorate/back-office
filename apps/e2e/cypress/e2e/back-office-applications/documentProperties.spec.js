@@ -35,7 +35,7 @@ describe('Document Properties', () => {
 		return `${day}/${month}/${received ? year - 1 : year}`;
 	};
 
-	before(() => {
+	beforeEach(() => {
 		projectInfo = projectInformation();
 		cy.login(applicationsUsers.caseAdmin);
 		createCasePage.createCase(projectInfo);

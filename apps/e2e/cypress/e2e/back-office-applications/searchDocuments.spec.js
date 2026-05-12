@@ -18,7 +18,7 @@ const { applications: applicationUsers } = users;
 describe('Search Documents for various file types', () => {
 	let projectInfo;
 
-	before(() => {
+	beforeEach(() => {
 		projectInfo = projectInformation();
 		cy.login(applicationUsers.caseAdmin);
 		createCasePage.createCase(projectInfo);
@@ -63,7 +63,10 @@ describe('Search Documents for various file types', () => {
 	});
 
 	it('As a user able to verify documents search page contains view link next to document filename', () => {
-		searchResultsPage.verifyDocumentSearchResults('map');
+		searchResultsPage.clickLinkByText('Project management');
+		fileUpload('dmap.dbf');
+		fileUploadPage.backToProjectDocumentationPage();
+		searchResultsPage.verifyDocumentSearchResults('dmap');
 		searchResultsPage.clickButtonByText('Search');
 		searchResultsPage.clickDocumentViewLink();
 		documentPropertiesPage.verifyDocumentPropertiesHeading();

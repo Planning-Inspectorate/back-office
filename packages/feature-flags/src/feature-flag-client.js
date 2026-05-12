@@ -80,7 +80,7 @@ export class FeatureFlagClient {
 	async loadFlags() {
 		if (this._useStaticFlags) {
 			this._logger.debug('returning static feature flags (STATIC_FEATURE_FLAGS_ENABLED=true)');
-			this.featureFlags = staticFlags;
+			this.featureFlags = applyStaticFlagOverrides(staticFlags);
 			this.featureFlagsByCaseReference = flagsByReference;
 			return;
 		}
@@ -141,6 +141,32 @@ export class FeatureFlagClient {
 		this.featureFlags = flags;
 		this.featureFlagsByCaseReference = flagsByCaseReference;
 	}
+}
+
+/**
+ * @param {Record<string, boolean>} flags
+ * @returns {Record<string, boolean>}
+ */
+function applyStaticFlagOverrides(flags) {
+	const overriddenFlags = { ...flags };
+	const overrides =
+		typeof process !== 'undefined' ? process.env?.STATIC_FEATURE_FLAG_OVERRIDES : undefined;
+
+	if (!overrides) {
+		return overriddenFlags;
+	}
+
+	for (const override of overrides.split(',')) {
+		const [flagName, rawValue] = override.split('=').map((part) => part?.trim());
+
+		if (!flagName || !rawValue) {
+			continue;
+		}
+
+		overriddenFlags[flagName] = rawValue.toLowerCase() === 'true';
+	}
+
+	return overriddenFlags;
 }
 
 /**

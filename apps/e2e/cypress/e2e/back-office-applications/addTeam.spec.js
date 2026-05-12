@@ -17,7 +17,7 @@ describe('Project team related scenarios ', () => {
 	let projectInfo;
 	let email;
 
-	before(() => {
+	beforeEach(() => {
 		projectInfo = projectInformation();
 		cy.login(applicationUsers.caseAdmin);
 		createCasePage.createCase(projectInfo);
@@ -44,6 +44,8 @@ describe('Project team related scenarios ', () => {
 
 	it('As a user able to verify team member is added', () => {
 		email = Cypress.env('CASE_ADMIN_EMAIL');
+		projectTeamPage.addTeamMember(email);
+		searchResultsPage.clickButtonByText('Add team member');
 		projectTeamPage.searchTeamMemberByEmail(email);
 		projectTeamPage.verifyTeamMemberIsAdded();
 	});

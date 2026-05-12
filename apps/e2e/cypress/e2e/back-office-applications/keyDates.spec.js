@@ -21,9 +21,10 @@ const { applications: applicationsUsers } = users;
 
 describe('Update Key Dates', () => {
 	context('As Case Team Admin', () => {
-		let projectInfo = projectInformation();
+		let projectInfo;
 
-		before(() => {
+		beforeEach(() => {
+			projectInfo = projectInformation();
 			cy.login(applicationsUsers.caseAdmin);
 			createCasePage.createCase(projectInfo, true);
 		});

@@ -8,6 +8,7 @@ SHARD_INDEX="${SHARD_INDEX:-0}"
 SHARD_COUNT="${SHARD_COUNT:-0}"
 CYPRESS_BROWSER="${CYPRESS_BROWSER:-chrome}"
 E2E_WEB_PORT="${E2E_WEB_PORT:-8080}"
+STATIC_FEATURE_FLAG_OVERRIDES="${STATIC_FEATURE_FLAG_OVERRIDES:-applics-1036-training-sector=true}"
 
 mkdir -p "$LOG_DIR" "$ROOT_DIR/apps/e2e/cypress/screenshots"
 
@@ -55,6 +56,7 @@ VALIDATION_OFFICER_EMAIL=validationofficer.test@planninginspectorate.gov.uk \
 USER_PASSWORD="" \
 FEATURE_FLAG_CONNECTION_STRING=local-e2e \
 STATIC_FEATURE_FLAGS_ENABLED=true \
+STATIC_FEATURE_FLAG_OVERRIDES="$STATIC_FEATURE_FLAG_OVERRIDES" \
 npx cypress run \
 	--browser "$CYPRESS_BROWSER" \
 	--spec "$SPEC_LIST" \

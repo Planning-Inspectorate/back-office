@@ -18,7 +18,7 @@ const page = new Page();
 describe('Folders', () => {
 	let projectInfo;
 
-	before(() => {
+	beforeEach(() => {
 		if (!Cypress.env('featureFlags')['applic-625-custom-folders']) {
 			return;
 		}

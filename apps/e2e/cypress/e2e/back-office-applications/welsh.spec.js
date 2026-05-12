@@ -58,18 +58,33 @@ function validateErrorMessageForProjectlocation() {
 
 describe('Enable and update Project Information with Welsh fields', () => {
 	context('As a user', () => {
-		let projectInfo = projectInformation({ includeWales: true });
-		let projectInfoNew = projectInformation({
-			includeWales: true,
-			sector: projectInfo.sector,
-			subsector: projectInfo.subsector,
-			projectType: projectInfo.projectType
-		});
+		let projectInfo;
+		let projectInfoNew;
+
+		const createWelshCase = () => {
+			projectInfo = projectInformation({ includeWales: true });
+			projectInfoNew = projectInformation({
+				includeWales: true,
+				sector: projectInfo.sector,
+				subsector: projectInfo.subsector,
+				projectType: projectInfo.projectType
+			});
+			cy.login(applicationsUsers.caseAdmin);
+			createCasePage.createCase(projectInfo, true);
+		};
 
 		before(() => {
 			if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
-				cy.login(applicationsUsers.caseAdmin);
-				createCasePage.createCase(projectInfo, true);
+				createWelshCase();
+			}
+		});
+
+		beforeEach(function () {
+			if (
+				Cypress.env('featureFlags')['applic-55-welsh-translation'] &&
+				this.currentTest.currentRetry() > 0
+			) {
+				createWelshCase();
 			}
 		});
 
@@ -128,11 +143,24 @@ describe('Update project information to add a Welsh region', () => {
 	context('As a user', () => {
 		let projectInfo;
 
+		const createNonWelshCase = () => {
+			projectInfo = projectInformation({ excludeWales: true });
+			cy.login(applicationsUsers.caseAdmin);
+			createCasePage.createCase(projectInfo);
+		};
+
 		before(() => {
 			if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
-				projectInfo = projectInformation({ excludeWales: true });
-				cy.login(applicationsUsers.caseAdmin);
-				createCasePage.createCase(projectInfo);
+				createNonWelshCase();
+			}
+		});
+
+		beforeEach(function () {
+			if (
+				Cypress.env('featureFlags')['applic-55-welsh-translation'] &&
+				this.currentTest.currentRetry() > 0
+			) {
+				createNonWelshCase();
 			}
 		});
 
@@ -170,16 +198,23 @@ describe('Display and edit welsh fields in Examination Timetable', () => {
 	context('As a user', () => {
 		let projectInfo;
 
+		const createNonWelshCase = () => {
+			projectInfo = projectInformation({ excludeWales: true });
+			cy.login(applicationsUsers.caseAdmin);
+			createCasePage.createCase(projectInfo);
+		};
+
 		before(() => {
 			if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
-				projectInfo = projectInformation({ excludeWales: true });
-				cy.login(applicationsUsers.caseAdmin);
-				createCasePage.createCase(projectInfo);
+				createNonWelshCase();
 			}
 		});
 
-		beforeEach(() => {
+		beforeEach(function () {
 			if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
+				if (this.currentTest.currentRetry() > 0) {
+					createNonWelshCase();
+				}
 				applicationsHomePage.loadCurrentCase();
 				updateProjectRegions(['Wales']);
 				examTimetablePage.clickLinkByText('Examination timetable');

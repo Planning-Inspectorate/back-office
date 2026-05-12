@@ -84,14 +84,21 @@ export class CreateCasePage extends Page {
 	}
 
 	chooseProjectTypeIfRequired(projectInformation) {
-		cy.get('body').then(($body) => {
-			if (!$body.text().includes('Choose a project type')) {
+		cy.get('h1').should(($heading) => {
+			const headingText = $heading.text();
+			expect(headingText).to.match(/Choose a project type|Enter geographical information/);
+		});
+
+		cy.get('h1').then(($heading) => {
+			if (!$heading.text().includes('Choose a project type')) {
 				return;
 			}
 
-			cy.contains('.govuk-radios__item', projectInformation.projectType || 'Solar')
-				.find('input')
-				.check();
+			if (!projectInformation.projectType) {
+				throw new Error('Project type is required for this sector/subsector');
+			}
+
+			cy.contains('.govuk-radios__item', projectInformation.projectType).find('input').check();
 			this.clickSaveAndContinue();
 		});
 	}

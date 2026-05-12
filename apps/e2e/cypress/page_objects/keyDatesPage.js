@@ -50,29 +50,27 @@ export class KeyDatesPage extends Page {
 
 	getTableData() {
 		const tableData = {};
-		return cy.root().then(($root) => {
-			const tableRows = $root.find(`${this.selectors.table} tbody ${this.selectors.tableRow}`);
-			const summaryRows = $root.find('.govuk-summary-list__row');
-			const rows = tableRows.length ? tableRows : summaryRows;
+		return cy
+			.get(`${this.selectors.table} tbody ${this.selectors.tableRow}, .govuk-summary-list__row`)
+			.then(($rows) => {
+				$rows.each((_, row) => {
+					const $row = Cypress.$(row);
+					const header = $row.find(this.selectors.tableHeader).text().trim();
+					const summaryHeader = $row.find(this.selectors.summaryListKey).text().trim();
+					const cellValue = $row.find(this.selectors.tableCell).text().trim();
+					const summaryValue = $row.find(this.selectors.summaryListValue).text().trim();
+					const key = header || summaryHeader;
+					const value = cellValue || summaryValue;
 
-			rows.each((_, row) => {
-				const $row = Cypress.$(row);
-				const header = $row.find(this.selectors.tableHeader).text().trim();
-				const summaryHeader = $row.find(this.selectors.summaryListKey).text().trim();
-				const cellValue = $row.find(this.selectors.tableCell).text().trim();
-				const summaryValue = $row.find(this.selectors.summaryListValue).text().trim();
-				const key = header || summaryHeader;
-				const value = cellValue || summaryValue;
+					if (!key) {
+						return;
+					}
 
-				if (!key) {
-					return;
-				}
+					tableData[key] = value;
+				});
 
-				tableData[key] = value;
+				return tableData;
 			});
-
-			return tableData;
-		});
 	}
 
 	validateSectionDates(sectionName, expectedData) {

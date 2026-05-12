@@ -27,6 +27,23 @@ describe('feature-flag-client', () => {
 		expect(client.isFeatureActiveForCase(AZURE_AI_LANGUAGE_REDACTION, 'BLAH')).toBe(false);
 	});
 
+	it('should apply static flag overrides', async () => {
+		const originalOverrides = process.env.STATIC_FEATURE_FLAG_OVERRIDES;
+		process.env.STATIC_FEATURE_FLAG_OVERRIDES = 'applics-1036-training-sector=true';
+
+		try {
+			const client = new FeatureFlagClient(console, 'fake-connection-string', true);
+			await client.loadFlags();
+			expect(client.isFeatureActive('applics-1036-training-sector')).toBe(true);
+		} finally {
+			if (originalOverrides === undefined) {
+				delete process.env.STATIC_FEATURE_FLAG_OVERRIDES;
+			} else {
+				process.env.STATIC_FEATURE_FLAG_OVERRIDES = originalOverrides;
+			}
+		}
+	});
+
 	it('should handle feature flags with Azure App Configuration', async () => {
 		const client = new FeatureFlagClient(console, 'fake-connection-string', false);
 		const contentType = 'application/vnd.microsoft.appconfig.ff+json;charset=utf-8';

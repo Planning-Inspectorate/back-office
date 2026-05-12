@@ -14,6 +14,19 @@ WEB_LOG="$LOG_DIR/web-$RUN_NAME.log"
 API_PID_FILE="$LOG_DIR/api-$RUN_NAME.pid"
 WEB_PID_FILE="$LOG_DIR/web-$RUN_NAME.pid"
 
+start_app() {
+	local pid_file="$1"
+	local log_file="$2"
+
+	if command -v setsid >/dev/null 2>&1; then
+		setsid npm run start > "$log_file" 2>&1 &
+	else
+		npm run start > "$log_file" 2>&1 &
+	fi
+
+	echo "$!" > "$pid_file"
+}
+
 wait_for_url() {
 	local url="$1"
 	local name="$2"
@@ -40,13 +53,11 @@ wait_for_url() {
 }
 
 cd "$ROOT_DIR/apps/api"
-npm run start > "$API_LOG" 2>&1 &
-echo "$!" > "$API_PID_FILE"
+start_app "$API_PID_FILE" "$API_LOG"
 
 wait_for_url "http://localhost:$E2E_API_PORT/health" "API" "$API_PID_FILE" "$API_LOG"
 
 cd "$ROOT_DIR/apps/web"
-npm run start > "$WEB_LOG" 2>&1 &
-echo "$!" > "$WEB_PID_FILE"
+start_app "$WEB_PID_FILE" "$WEB_LOG"
 
 wait_for_url "http://localhost:$E2E_WEB_PORT/" "Web app" "$WEB_PID_FILE" "$WEB_LOG"

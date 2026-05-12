@@ -23,7 +23,7 @@ describe('Publish Documents', () => {
 	let projectInfo;
 	let caseRef;
 
-	before(() => {
+	beforeEach(() => {
 		projectInfo = projectInformation();
 		cy.login(applicationsUsers.caseAdmin);
 		createCasePage.createCase(projectInfo);
@@ -49,6 +49,11 @@ describe('Publish Documents', () => {
 	});
 
 	it('As a user able to set document for "Ready to publish" and see it in the publishing queue', () => {
+		fileUploadPage.verifyUploadButtonIsVisible();
+		fileUploadPage.uploadFile('sample-doc.pdf');
+		searchResultsPage.clickButtonByText('Save and continue');
+		fileUploadPage.verifyFolderDocuments(1);
+		fileUploadPage.verifyUploadIsComplete();
 		fileUploadPage.clickLinkByText('View/Edit properties');
 		cy.get('div.govuk-summary-list__row:nth-child(3) > dt').then(($elem) => {
 			const text = $elem.text().trim();
