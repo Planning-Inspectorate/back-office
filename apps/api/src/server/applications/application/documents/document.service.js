@@ -253,45 +253,75 @@ const mapDocumentsToGetBlobStorageProperties = (documents, caseReference, isFrom
 };
 
 /**
- * Upserts metadata for a set of documents to a database.
+ * Updates blob storage metadata for a set of existing document versions.
  *
- * @param {DocumentAndBlobStorageDetail[]} blobStorageDocuments - Array of documents containing metadata to upsert.
- * @param {string} privateBlobContainer - Name of the blob storage container where documents are stored.
- * @param {import('@prisma/client').Prisma.TransactionClient} [tx] - Optional transaction client for database operations.
+ * Why this uses targeted update instead of upsert:
+ * - This function runs after the initial metadata write in attemptInsertDocuments.
+ * - At this stage we only know blob fields (container/path), not the full metadata payload.
+ * - A previous implementation used upsert with this partial payload and could clear non-blob fields
+ *   (notably documentType) on existing records.
+ * - documentType is required later by malware-detected routing to send clean GIS files to the
+ *   shapefile processing queue. If documentType is lost, routing can be skipped.
+ *
+ * Design rule:
+ * - Phase 1 (create): write full metadata using upsert.
+ * - Phase 2 (blob location available): patch only blob properties using
+ *   documentVersionRepository.updateBlobStorageProperties.
+ *
+ * This preserves business-critical metadata while still making blob writes deterministic and idempotent.
+ *
+ * @param {DocumentAndBlobStorageDetail[]} blobStorageDocuments - Documents with resolved blob URLs.
+ * @param {string} privateBlobContainer - Blob container name to persist on each document version.
+ * @param {import('@prisma/client').Prisma.TransactionClient} [tx] - Optional transaction client.
  * @returns {Promise<DocumentVersionWithDocumentAndFolder[]>}
  */
-const upsertDocumentVersionsMetadataToDatabase = async (
+const updateDocumentVersionsBlobMetadataInDatabase = async (
 	blobStorageDocuments,
 	privateBlobContainer,
 	tx
 ) => {
-	// Generate an array of documents to upsert, with metadata pulled from the blob storage documents
+	// Generate an array of documents to update, with metadata pulled from the blob storage documents
 	const documentsMetadataToSendToDatabase = blobStorageDocuments.map((documentToUpload) => {
-		// Create an object containing the metadata to upsert for the current document
+		// Create an object containing the metadata to update for the current document
 		return {
-			privateBlobContainer,
 			documentGuid: documentToUpload.GUID,
+			privateBlobContainer,
 			privateBlobPath: documentToUpload.blobStoreUrl
 		};
 	});
 
 	// Use PromisePool to concurrently process the documents metadata with a concurrency of 5.
-	const upsertedDocumentsResponse = await PromisePool.withConcurrency(5)
+	const updatedDocumentsResponse = await PromisePool.withConcurrency(5)
 		.for(documentsMetadataToSendToDatabase)
 		.handleError((error) => {
-			// Log any errors that occur during the upsert process and re-throw the error.
-			logger.error(`Error while upserting documents to database: ${error}`);
+			// Log any errors that occur during the update process and re-throw the error.
+			logger.error(`Error while updating document blob metadata in database: ${error}`);
 			throw error;
 		})
 		.process(async (metadata) => {
-			// Log the metadata being upserted for debugging purposes
-			logger.info(`Upserting document metadata: ${JSON.stringify(metadata)}`);
+			// Log the metadata being updated for debugging purposes
+			logger.info(`Updating document blob metadata: ${JSON.stringify(metadata)}`);
 
-			// Upsert the metadata using the documentVersionRepository
-			return documentVersionRepository.upsert(metadata, tx);
+			// Intentionally patch only blob fields to avoid overwriting metadata from phase 1 (e.g. documentType).
+			const { documentGuid, ...blobProperties } = metadata;
+			return documentVersionRepository.updateBlobStorageProperties(
+				documentGuid,
+				blobProperties,
+				tx
+			);
 		});
-	return upsertedDocumentsResponse.results;
+	return updatedDocumentsResponse.results;
 };
+
+/**
+ * @deprecated Use updateDocumentVersionsBlobMetadataInDatabase.
+ * Kept as a compatibility proxy while callers migrate from the legacy name.
+ */
+const upsertDocumentVersionsMetadataToDatabase = async (
+	blobStorageDocuments,
+	privateBlobContainer,
+	tx
+) => updateDocumentVersionsBlobMetadataInDatabase(blobStorageDocuments, privateBlobContainer, tx);
 
 /**
  * creates document, document version, and activity log records for an array of new documents on a case
@@ -361,9 +391,10 @@ export const createDocuments = async (documentsToUpload, caseId, isS51, tx) => {
 		)}`
 	);
 
-	// Step 7: Upsert document versions metadata to the database
-	logger.info(`Upserting document versions metadata to database...`);
-	const upsertedDocuments = await upsertDocumentVersionsMetadataToDatabase(
+	// Step 7: Update document version blob metadata in the database.
+	// This is a targeted patch, not a full metadata upsert, to preserve previously persisted fields.
+	logger.info(`Updating document version blob metadata in database...`);
+	const updatedDocuments = await upsertDocumentVersionsMetadataToDatabase(
 		documentsWithBlobStorageInfo.documents,
 		documentsWithBlobStorageInfo.privateBlobContainer,
 		tx
@@ -386,7 +417,7 @@ export const createDocuments = async (documentsToUpload, caseId, isS51, tx) => {
 	await Promise.all(documentActivityLogs);
 
 	// now send broadcast events for doc creations - ignoring docs on training cases.
-	await broadcastNsipDocumentEvent(upsertedDocuments, EventType.Create);
+	await broadcastNsipDocumentEvent(updatedDocuments, EventType.Create);
 
 	// Step 8: Return information about the uploaded documents and their storage location
 	logger.info(`Returning created and failed documents with blob storage properties...`);

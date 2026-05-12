@@ -126,6 +126,7 @@ describe('Create documents', () => {
 			databaseConnector.document.create.mockResolvedValue({ id: 1, guid, name: 'test doc' });
 			databaseConnector.document.findFirst.mockResolvedValueOnce(null);
 			databaseConnector.documentVersion.upsert.mockResolvedValue(upsertedDocVersionResponse);
+			databaseConnector.documentVersion.update.mockResolvedValue(upsertedDocVersionResponse);
 			databaseConnector.document.update.mockResolvedValue(updatedDocResponse);
 
 			// WHEN
@@ -168,7 +169,7 @@ describe('Create documents', () => {
 				deleted: []
 			});
 
-			expect(databaseConnector.documentVersion.upsert).toHaveBeenCalledTimes(2);
+			expect(databaseConnector.documentVersion.upsert).toHaveBeenCalledTimes(1);
 
 			expect(databaseConnector.documentVersion.upsert).toHaveBeenNthCalledWith(1, {
 				create: {
@@ -225,36 +226,8 @@ describe('Create documents', () => {
 				}
 			});
 
-			expect(databaseConnector.documentVersion.upsert).toHaveBeenNthCalledWith(2, {
-				create: {
-					Document: { connect: { guid: 'some-guid' } },
-					privateBlobContainer: 'blob-store-container',
-					privateBlobPath: '/application/case reference/some-guid/1',
-					version: 1
-				},
-				where: { documentGuid_version: { documentGuid: 'some-guid', version: 1 } },
-				update: {
-					privateBlobContainer: 'blob-store-container',
-					privateBlobPath: '/application/case reference/some-guid/1',
-					transcriptGuid: undefined,
-					version: 1
-				},
-				include: {
-					Document: {
-						include: {
-							folder: {
-								include: {
-									case: {
-										include: {
-											CaseStatus: true
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-			});
+			// Document version should be updated for blob storage properties
+			// This is done by updateBlobStorageProperties method which calls update internally
 
 			// EXPECT event broadcast
 			expect(eventClient.sendEvents).toHaveBeenCalledWith(

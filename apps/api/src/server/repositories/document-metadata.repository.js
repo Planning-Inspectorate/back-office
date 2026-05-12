@@ -225,6 +225,27 @@ export const update = (documentGuid, { version = 1, ...documentDetails }) => {
 };
 
 /**
+ * Update blob storage properties for a DocumentVersion without affecting other fields like documentType.
+ * This is a targeted update used when documents are uploaded to blob storage.
+ *
+ * @param {string} documentGuid
+ * @param {{privateBlobContainer: string, privateBlobPath: string, version?: number}} blobProperties
+ * @param {import('#database-client').Prisma.TransactionClient} [tx] - Optional transaction client
+ * @returns {import('#database-client').PrismaPromise<DocumentVersionWithDocumentAndFolder>}
+ */
+export const updateBlobStorageProperties = (
+	documentGuid,
+	{ version = 1, ...blobProperties },
+	tx = databaseConnector
+) => {
+	return tx.documentVersion.update({
+		where: { documentGuid_version: { documentGuid, version } },
+		include: includeClauseDocVersionFull,
+		data: blobProperties
+	});
+};
+
+/**
  * TODO: Might be worth having an identifier for DocumentVersion that isn't a composite of the documentId and versionNo.
  * It would make it easier to work with these items in bulk using Prisma.
  *
