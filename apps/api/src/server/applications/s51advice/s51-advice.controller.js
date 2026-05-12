@@ -33,7 +33,10 @@ import BackOfficeAppError from '#utils/app-error.js';
 import { mapDateStringToUnixTimestamp } from '#utils/mapping/map-date-string-to-unix-timestamp.js';
 import logger from '#utils/logger.js';
 import isCaseWelsh from '#utils/is-case-welsh.js';
-import { getLatestDocReferenceByCaseIdExcludingMigrated } from '#repositories/document.repository.js';
+import {
+	getLatestDocReferenceByCaseIdExcludingMigrated,
+	executeInTransaction
+} from '#repositories/document.repository.js';
 
 /**
  * @typedef {import('@pins/applications.api').Schema.Folder} Folder
@@ -170,15 +173,7 @@ export const addDocuments = async ({ params, body }, response) => {
 	}
 
 	// find the latest document reference for this case, and then add 1 for the next free one
-	const latestDocumentReference = await getLatestDocReferenceByCaseIdExcludingMigrated({
-		caseId
-	});
-
-	const lastReferenceIndex = latestDocumentReference
-		? getIndexFromReference(latestDocumentReference)
-		: 1;
-	let nextDocumentReferenceIndex = lastReferenceIndex ? lastReferenceIndex + 1 : 1;
-
+	// Wrapped in a transaction with UPDLOCK to prevent duplicate references under concurrency
 	const { duplicates, deleted, remainder } = await extractDuplicatesAndDeleted(
 		adviceId,
 		/** @type {DocumentToSaveExtended[]} */ (documentsToUpload).map((doc) => doc.documentName)
@@ -188,19 +183,27 @@ export const addDocuments = async ({ params, body }, response) => {
 		(doc) => remainder.includes(doc.documentName)
 	);
 
-	for (const doc of filteredToUpload) {
-		doc.documentReference = makeDocumentReference(theCase.reference, nextDocumentReferenceIndex);
-		doc.folderId = Number(doc.folderId);
+	const { response: dbResponse, failedDocuments } = await executeInTransaction(async (tx) => {
+		const latestDocumentReference = await getLatestDocReferenceByCaseIdExcludingMigrated(
+			{ caseId },
+			tx
+		);
 
-		nextDocumentReferenceIndex++;
-	}
+		const lastReferenceIndex = latestDocumentReference
+			? getIndexFromReference(latestDocumentReference)
+			: 1;
+		let nextDocumentReferenceIndex = lastReferenceIndex ? lastReferenceIndex + 1 : 1;
 
-	// create document records
-	const { response: dbResponse, failedDocuments } = await createDocuments(
-		filteredToUpload,
-		caseId,
-		true
-	);
+		for (const doc of filteredToUpload) {
+			doc.documentReference = makeDocumentReference(theCase.reference, nextDocumentReferenceIndex);
+			doc.folderId = Number(doc.folderId);
+
+			nextDocumentReferenceIndex++;
+		}
+
+		// create document records within the transaction
+		return await createDocuments(filteredToUpload, caseId, true, tx);
+	});
 
 	if (dbResponse === null) {
 		response.status(409).send({ failedDocuments, duplicates });

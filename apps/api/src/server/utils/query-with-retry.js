@@ -50,7 +50,8 @@ export const withRetry = async (query, options = {}) => {
 				throw error;
 			}
 
-			const delay = Math.min(baseDelayMs * Math.pow(2, attempt - 1), maxDelayMs);
+			const jitter = Math.random() * baseDelayMs;
+			const delay = Math.min(baseDelayMs * Math.pow(2, attempt - 1) + jitter, maxDelayMs);
 			await sleep(delay);
 		}
 	}

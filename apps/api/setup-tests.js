@@ -406,6 +406,7 @@ class MockPrismaClient {
 const mockPrismaUse = jest.fn().mockResolvedValue();
 
 MockPrismaClient.prototype.$executeRawUnsafe = mockExecuteRawUnsafe;
+MockPrismaClient.prototype.$queryRaw = jest.fn().mockResolvedValue([]);
 MockPrismaClient.prototype.$use = mockPrismaUse;
 
 class MockPrisma {
