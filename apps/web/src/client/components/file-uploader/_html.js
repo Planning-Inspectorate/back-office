@@ -12,6 +12,7 @@ export const errorMessage = (type, replaceValue) => {
 		GENERIC: 'Something went wrong, please try again',
 		SIZE_EXCEEDED:
 			'The total of your uploaded files is {REPLACE_VALUE}, it must be smaller than 1 GB',
+		SIZE_EXCEEDED_SINGLE: 'The selected file must be smaller than 1 GB',
 		TIMEOUT: 'There was a timeout and your files could not be uploaded, try again',
 		NO_FILE: 'Select a file',
 		GENERIC_SINGLE_FILE: `{REPLACE_VALUE} could not be added, try again`,
