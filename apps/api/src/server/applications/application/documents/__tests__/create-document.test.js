@@ -168,50 +168,75 @@ describe('Create documents', () => {
 				deleted: []
 			});
 
-			const metadata = {
-				documentGuid: guid,
-				originalFilename: 'test doc',
-				privateBlobPath: '/some/path/test doc'
-			};
-
 			expect(databaseConnector.documentVersion.upsert).toHaveBeenCalledTimes(2);
 
-			expect(databaseConnector.documentVersion.upsert).toHaveBeenCalledWith({
+			expect(databaseConnector.documentVersion.upsert).toHaveBeenNthCalledWith(1, {
 				create: {
 					Document: { connect: { guid: 'some-guid' } },
-					originalFilename: 'test doc',
+					author: undefined,
+					authorWelsh: undefined,
+					description: undefined,
+					descriptionWelsh: undefined,
+					documentType: 'application/pdf',
 					fileName: 'test doc',
+					filter1: undefined,
+					filter1Welsh: undefined,
 					mime: 'application/pdf',
+					originalFilename: 'test doc',
+					owner: undefined,
 					size: 1024,
+					sourceSystem: undefined,
+					stage: undefined,
+					version: 1
+				},
+				where: { documentGuid_version: { documentGuid: 'some-guid', version: 1 } },
+				update: {
+					author: undefined,
+					authorWelsh: undefined,
+					description: undefined,
+					descriptionWelsh: undefined,
+					documentType: 'application/pdf',
+					fileName: 'test doc',
+					filter1: undefined,
+					filter1Welsh: undefined,
+					mime: 'application/pdf',
+					originalFilename: 'test doc',
+					owner: undefined,
+					size: 1024,
+					sourceSystem: undefined,
+					stage: undefined,
+					transcriptGuid: undefined,
 					version: 1
 				},
 				include: {
 					Document: {
-						include: { folder: { include: { case: { include: { CaseStatus: true } } } } }
+						include: {
+							folder: {
+								include: {
+									case: {
+										include: {
+											CaseStatus: true
+										}
+									}
+								}
+							}
+						}
 					}
-				},
-				update: {
-					fileName: 'test doc',
-					originalFilename: 'test doc',
-					mime: 'application/pdf',
-					size: 1024,
-					version: 1
-				},
-				where: { documentGuid_version: { documentGuid: 'some-guid', version: 1 } }
+				}
 			});
 
-			expect(databaseConnector.documentVersion.upsert).toHaveBeenLastCalledWith({
+			expect(databaseConnector.documentVersion.upsert).toHaveBeenNthCalledWith(2, {
 				create: {
+					Document: { connect: { guid: 'some-guid' } },
 					privateBlobContainer: 'blob-store-container',
-					privateBlobPath: blobPath,
-					Document: { connect: { guid: metadata?.documentGuid } },
+					privateBlobPath: '/application/case reference/some-guid/1',
 					version: 1
 				},
-				where: { documentGuid_version: { documentGuid: metadata?.documentGuid, version: 1 } },
-
+				where: { documentGuid_version: { documentGuid: 'some-guid', version: 1 } },
 				update: {
 					privateBlobContainer: 'blob-store-container',
-					privateBlobPath: blobPath,
+					privateBlobPath: '/application/case reference/some-guid/1',
+					transcriptGuid: undefined,
 					version: 1
 				},
 				include: {

@@ -142,8 +142,8 @@ describe('Update document status when awaiting_virus_check', () => {
 			caseId: 1,
 			guid: docGuid,
 			status: 'awaiting_virus_check',
-			documentType: 'test',
-			documentURI: 'http://localhost:10000/devstoreaccount1/test-container/test-path',
+			documentType: null,
+			documentURI: 'https://127.0.0.1:10000/test-container/test-path',
 			caseRef: 'EN0110001',
 			originalFilename: 'test-original-filename',
 			dateCreated: dateDocCreated

@@ -85,8 +85,15 @@ export const createDocumentsOnCase = async ({ params, body }, response) => {
 	// Override documentType for uploads targeting the GIS Shapefiles folder.
 	// This ensures malware-detected can route clean ZIPs to shapefile-processing-queue.
 	for (const documentToUpload of filteredToUpload) {
-		if (await isGisShapefilesFolder(documentToUpload.folderId)) {
+		const isGisFolder = await isGisShapefilesFolder(documentToUpload.folderId);
+		logger.info(
+			`[GIS] Document upload check: documentName=${documentToUpload.documentName}, folderId=${documentToUpload.folderId}, isGisFolder=${isGisFolder}, originalDocType=${documentToUpload.documentType}`
+		);
+		if (isGisFolder) {
 			documentToUpload.documentType = GIS_SHAPEFILE_DOCUMENT_TYPE;
+			logger.info(
+				`[GIS] Applied GIS override: documentName=${documentToUpload.documentName}, newDocType=${documentToUpload.documentType}`
+			);
 		}
 	}
 
@@ -151,8 +158,15 @@ export const createDocumentVersionOnCase = async ({ params, body }, response) =>
 
 	// If uploading to GIS Shapefiles folder, override documentType to "GIS shapefile"
 	// so malware-detected function can route it for processing
-	if (await isGisShapefilesFolder(documentToUpload.folderId)) {
+	const isGisFolder = await isGisShapefilesFolder(documentToUpload.folderId);
+	logger.info(
+		`[GIS] Document version upload check: documentName=${documentToUpload.documentName}, folderId=${documentToUpload.folderId}, isGisFolder=${isGisFolder}, originalDocType=${documentToUpload.documentType}`
+	);
+	if (isGisFolder) {
 		documentToUpload.documentType = GIS_SHAPEFILE_DOCUMENT_TYPE;
+		logger.info(
+			`[GIS] Applied GIS override: documentName=${documentToUpload.documentName}, newDocType=${documentToUpload.documentType}`
+		);
 	}
 
 	// create version record etc

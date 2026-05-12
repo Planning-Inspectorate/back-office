@@ -162,6 +162,9 @@ const attemptInsertDocuments = async (caseId, documents, isS51, tx) => {
 			let stage = await getCaseStageMapping(documentToDB.folderId);
 
 			logger.info(`Upserting metadata for document with guid: ${document.guid}`);
+			logger.info(
+				`[GIS] Upsert metadata: documentType=${documentToDB.documentType}, mime=${documentToDB.documentType}`
+			);
 			await documentVersionRepository.upsert(
 				{
 					documentGuid: document.guid,
@@ -196,6 +199,7 @@ const attemptInsertDocuments = async (caseId, documents, isS51, tx) => {
 			);
 
 			logger.info(`Upserted metadata for document with guid: ${document.guid}`);
+			logger.info(`[GIS] After upsert, checking response would go here`);
 
 			let result = {
 				...document,
@@ -315,6 +319,11 @@ export const createDocuments = async (documentsToUpload, caseId, isS51, tx) => {
 	logger.info(`Mapping documents to database format...`);
 	const documentsToSendToDatabase = mapDocumentsToSendToDatabase(caseId, documentsToUpload);
 	logger.info(`Documents mapped: ${JSON.stringify(documentsToSendToDatabase)}`);
+	for (const doc of documentsToSendToDatabase) {
+		logger.info(
+			`[GIS] Document to send to DB: name=${doc.documentName}, documentType=${doc.documentType}, mime=${doc.mime}`
+		);
+	}
 
 	// Step 4: Add documents to the database if all are new
 	logger.info(`Attempting to insert documents to database...`);

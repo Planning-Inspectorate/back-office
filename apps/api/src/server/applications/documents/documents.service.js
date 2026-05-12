@@ -1,6 +1,7 @@
 import { EventType } from '@pins/event-client';
 import * as documentRepository from '#repositories/document.repository.js';
 import * as documentVersionRepository from '#repositories/document-metadata.repository.js';
+import logger from '#utils/logger.js';
 import { YouTubeHTMLTemplate } from './youtube-html-template.js';
 import { broadcastNsipDocumentEvent } from '#infrastructure/event-broadcasters.js';
 import config from '#config/config.js';
@@ -57,13 +58,17 @@ export const updateStatus = async (guid, status) => {
 		updatedDocument = await documentVersionRepository.updateDocumentStatus(updatePayload);
 	}
 
+	logger.info(
+		`[GIS] After status update: guid=${guid}, documentType=${updatedDocument?.documentType}, originalFilename=${updatedDocument?.originalFilename}`
+	);
+
 	const eventType =
 		updatedDocument.publishedStatus === 'published' ? EventType.Publish : EventType.Update;
 
 	// broadcast event message - ignore training cases
 	await broadcastNsipDocumentEvent(updatedDocument, eventType);
 
-	return {
+	const responsePayload = {
 		caseId: document.caseId,
 		guid: updatedDocument.documentGuid,
 		status: updatedDocument.publishedStatus,
@@ -77,6 +82,12 @@ export const updateStatus = async (guid, status) => {
 		originalFilename: updatedDocument.originalFilename ?? null,
 		dateCreated: updatedDocument.dateCreated?.toISOString() ?? null
 	};
+
+	logger.info(
+		`[GIS] Returning status response: documentType=${responsePayload.documentType}, uri=${responsePayload.documentURI}`
+	);
+
+	return responsePayload;
 };
 
 /**
