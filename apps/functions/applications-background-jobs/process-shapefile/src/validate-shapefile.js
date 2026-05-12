@@ -1,4 +1,4 @@
-import shpjs from 'shpjs';
+import { parseZip } from 'shpjs';
 import { SHAPEFILE_REQUIRED_EXTENSIONS } from '../../common/constants.js';
 
 /**
@@ -32,6 +32,6 @@ export const checkRequiredExtensions = (fileNames) => {
  * @returns {Promise<{ valid: boolean, missingExtensions: string[] }>}
  */
 export const validateShapefileContents = async (zipBuffer) => {
-	const parsedZip = await shpjs.parseZip(zipBuffer);
+	const parsedZip = await parseZip(zipBuffer);
 	return checkRequiredExtensions(getFileNamesFromParsedZip(parsedZip));
 };
