@@ -47,7 +47,7 @@ export const markDocumentAsInvalid = async (documentGuid) => {
 	}
 
 	const version = document.latestVersionId ?? 1;
-	const updated = await documentVersionRepository.updateDocumentVersion(documentGuid, version, {
+	await documentVersionRepository.updateDocumentVersion(documentGuid, version, {
 		publishedStatus: DocumentPublishedStatus.INVALID,
 		publishedStatusPrev: DocumentPublishedStatus.NOT_CHECKED
 	});
@@ -59,7 +59,15 @@ export const markDocumentAsInvalid = async (documentGuid) => {
 		status: DocumentPublishedStatus.INVALID
 	});
 
-	await broadcastNsipDocumentEvent(updated, EventType.Update);
+	const documentVersionForEvent = await documentVersionRepository.getById(documentGuid, version);
+
+	if (documentVersionForEvent) {
+		await broadcastNsipDocumentEvent(documentVersionForEvent, EventType.Update);
+	} else {
+		logger.warn(
+			`[SHAPEFILE] Skipping document event broadcast: could not reload updated version for ${documentGuid} v${version}`
+		);
+	}
 
 	logger.info(`[SHAPEFILE] Marked document ${documentGuid} as invalid`);
 };

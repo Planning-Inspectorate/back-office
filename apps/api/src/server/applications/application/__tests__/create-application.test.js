@@ -78,7 +78,9 @@ const expectedApplicantPayload = buildPayloadEventsForSchema(SERVICE_USER, {
 	webAddress: null
 })[0];
 
-jest.useFakeTimers({ doNotFake: ['performance'], now: 1_649_319_144_000 });
+// Keep real timers to avoid intermittent async stalls in full-suite runs.
+// This suite does not require timer control for its assertions.
+jest.useRealTimers();
 
 beforeEach(async () => {
 	jest.clearAllMocks();

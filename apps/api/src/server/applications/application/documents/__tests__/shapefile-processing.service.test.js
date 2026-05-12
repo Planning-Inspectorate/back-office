@@ -59,6 +59,7 @@ describe('markDocumentAsInvalid', () => {
 			version: 1,
 			publishedStatus: DocumentPublishedStatus.INVALID
 		});
+		databaseConnector.documentVersion.findUnique.mockResolvedValue(null);
 		databaseConnector.documentActivityLog.create.mockResolvedValue({});
 
 		await markDocumentAsInvalid('test-guid');
@@ -78,6 +79,11 @@ describe('markDocumentAsInvalid', () => {
 					status: DocumentPublishedStatus.INVALID,
 					user: 'System'
 				})
+			})
+		);
+		expect(databaseConnector.documentVersion.findUnique).toHaveBeenCalledWith(
+			expect.objectContaining({
+				where: { documentGuid_version: { documentGuid: 'test-guid', version: 1 } }
 			})
 		);
 	});
@@ -126,10 +132,7 @@ describe('createGeoJsonDocumentVersion', () => {
 		databaseConnector.document.update.mockResolvedValue({});
 		databaseConnector.documentActivityLog.create.mockResolvedValue({});
 		// getById call to broadcast
-		databaseConnector.documentVersion.findUnique.mockResolvedValue({
-			documentGuid: 'doc-guid',
-			version: 2
-		});
+		databaseConnector.documentVersion.findUnique.mockResolvedValue(null);
 
 		await createGeoJsonDocumentVersion(baseParams);
 
