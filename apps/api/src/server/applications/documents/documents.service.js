@@ -1,10 +1,12 @@
 import { EventType } from '@pins/event-client';
 import * as documentRepository from '#repositories/document.repository.js';
 import * as documentVersionRepository from '#repositories/document-metadata.repository.js';
+import * as folderRepository from '#repositories/folder.repository.js';
 import logger from '#utils/logger.js';
 import { YouTubeHTMLTemplate } from './youtube-html-template.js';
 import { broadcastNsipDocumentEvent } from '#infrastructure/event-broadcasters.js';
 import config from '#config/config.js';
+import { GIS_SHAPEFILE_DOCUMENT_TYPE, GIS_SHAPEFILES_FOLDER_NAME } from '../constants.js';
 
 /**
  * Builds a full blob URI from container and path, using the API's configured blob storage host.
@@ -58,6 +60,16 @@ export const updateStatus = async (guid, status) => {
 		updatedDocument = await documentVersionRepository.updateDocumentStatus(updatePayload);
 	}
 
+	const documentFolder = document?.folderId
+		? await folderRepository.getById(document.folderId)
+		: null;
+
+	const resolvedDocumentType =
+		updatedDocument.documentType ??
+		(documentFolder?.displayNameEn === GIS_SHAPEFILES_FOLDER_NAME
+			? GIS_SHAPEFILE_DOCUMENT_TYPE
+			: null);
+
 	logger.info(
 		`[GIS] After status update: guid=${guid}, documentType=${updatedDocument?.documentType}, originalFilename=${updatedDocument?.originalFilename}`
 	);
@@ -72,7 +84,7 @@ export const updateStatus = async (guid, status) => {
 		caseId: document.caseId,
 		guid: updatedDocument.documentGuid,
 		status: updatedDocument.publishedStatus,
-		documentType: updatedDocument.documentType ?? null,
+		documentType: resolvedDocumentType,
 		documentURI: buildDocumentUri(
 			updatedDocument.privateBlobContainer,
 			updatedDocument.privateBlobPath
@@ -84,7 +96,7 @@ export const updateStatus = async (guid, status) => {
 	};
 
 	logger.info(
-		`[GIS] Returning status response: documentType=${responsePayload.documentType}, uri=${responsePayload.documentURI}`
+		`[GIS] Returning status response: rawDocumentType=${updatedDocument.documentType}, resolvedDocumentType=${responsePayload.documentType}, uri=${responsePayload.documentURI}`
 	);
 
 	return responsePayload;
