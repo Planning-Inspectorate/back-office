@@ -1,4 +1,5 @@
 import { Readable } from 'node:stream';
+import { parseZip } from 'shpjs';
 import { blobClient } from '../common/blob-client.js';
 import { notifyShapefileProcessingResult } from './src/back-office-api-client.js';
 import { validateShapefileContents } from './src/validate-shapefile.js';
@@ -26,15 +27,34 @@ class ShapefileValidationError extends Error {
  *
  * @param {string} container
  * @param {string} blobName
+ * @param {object} context - Azure Function context for logging
  * @returns {Promise<Buffer>}
  */
-const downloadZipBuffer = async (container, blobName) => {
+const downloadZipBuffer = async (container, blobName, context) => {
 	const downloadResponse = await blobClient.downloadStream(container, blobName);
+	const contentLength = downloadResponse.contentLength || 0;
 	const chunks = [];
+
 	for await (const chunk of downloadResponse.readableStreamBody) {
-		chunks.push(Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk));
+		const buf = Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk);
+		chunks.push(buf);
 	}
-	return Buffer.concat(chunks);
+
+	const buffer = Buffer.concat(chunks);
+	context.log(
+		`[SHAPEFILE] Downloaded ${blobName}: expected=${contentLength}, actual=${buffer.length} bytes`
+	);
+
+	// Warn if the download appears incomplete
+	if (contentLength > 0 && buffer.length < contentLength) {
+		context.log.warn(
+			`[SHAPEFILE] Incomplete download: received ${
+				buffer.length
+			}/${contentLength} bytes (${Math.round((buffer.length / contentLength) * 100)}%)`
+		);
+	}
+
+	return buffer;
 };
 
 /**
@@ -88,12 +108,15 @@ export const index = async (context, documentShapefileProcess) => {
 		const blobName = extractBlobNameFromUri(documentURI);
 		const privateBlobContainer = config.BLOB_SOURCE_CONTAINER;
 
-		const zipBuffer = await downloadZipBuffer(privateBlobContainer, blobName);
+		const zipBuffer = await downloadZipBuffer(privateBlobContainer, blobName, context);
 
 		// Validate required shapefile components — throws ShapefileValidationError on failure
 		const { valid, missingExtensions } = await validateShapefileContents(zipBuffer);
 
 		if (!valid) {
+			const parsedZip = await parseZip(zipBuffer);
+			const foundFiles = Object.keys(parsedZip).map((n) => n.toLowerCase());
+			context.log.warn(`[SHAPEFILE] Files found in ZIP: ${foundFiles.join(', ')}`);
 			throw new ShapefileValidationError(
 				`Missing required shapefile components: ${missingExtensions.join(', ')}`
 			);
