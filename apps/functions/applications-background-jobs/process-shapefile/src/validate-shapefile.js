@@ -1,15 +1,17 @@
-import { parseZip } from 'shpjs';
+import JSZip from 'jszip';
 import { SHAPEFILE_REQUIRED_EXTENSIONS } from '../../common/constants.js';
 
 /**
- * Returns the list of filenames from a parsed ZIP object.
+ * Returns the list of file names from ZIP archive entries.
  * Pure function — no external dependencies.
  *
- * @param {Record<string, unknown>} parsedZip
+ * @param {{ files: Record<string, { dir?: boolean }> }} zipArchive
  * @returns {string[]}
  */
-export const getFileNamesFromParsedZip = (parsedZip) =>
-	Object.keys(parsedZip).map((n) => n.toLowerCase());
+export const getFileNamesFromZipArchive = (zipArchive) =>
+	Object.entries(zipArchive.files)
+		.filter(([, entry]) => !entry?.dir)
+		.map(([name]) => name.toLowerCase());
 
 /**
  * Checks whether all required shapefile extensions are present in a list of filenames.
@@ -38,8 +40,8 @@ export const checkRequiredExtensions = (fileNames) => {
  */
 export const validateShapefileContents = async (zipBuffer) => {
 	try {
-		const parsedZip = await parseZip(zipBuffer);
-		const fileNames = getFileNamesFromParsedZip(parsedZip);
+		const zipArchive = await JSZip.loadAsync(zipBuffer);
+		const fileNames = getFileNamesFromZipArchive(zipArchive);
 		const { valid, missingExtensions } = checkRequiredExtensions(fileNames);
 
 		return {

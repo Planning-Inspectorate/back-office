@@ -1,18 +1,45 @@
 import { jest } from '@jest/globals';
-import { index } from '../index.js';
-import { blobClient } from '../../common/blob-client.js';
-import { notifyShapefileProcessingResult } from '../src/back-office-api-client.js';
-import { validateShapefileContents } from '../src/validate-shapefile.js';
-import { shpZipToGeoJson } from '../src/convert-shapefile.js';
-import { validateConvertedGeoJson } from '../src/validate-geojson.js';
-import { applyGeoJsonMetadata } from '../src/apply-geojson-metadata.js';
 
-jest.mock('../../common/blob-client.js');
-jest.mock('../src/back-office-api-client.js');
-jest.mock('../src/validate-shapefile.js');
-jest.mock('../src/convert-shapefile.js');
-jest.mock('../src/validate-geojson.js');
-jest.mock('../src/apply-geojson-metadata.js');
+const blobClient = {
+	downloadStream: jest.fn(),
+	uploadStream: jest.fn()
+};
+
+const notifyShapefileProcessingResult = jest.fn();
+const validateShapefileContents = jest.fn();
+const shpZipToGeoJson = jest.fn();
+const validateConvertedGeoJson = jest.fn();
+const applyGeoJsonMetadata = jest.fn();
+
+const blobClientModulePath = new URL('../../common/blob-client.js', import.meta.url).pathname;
+const apiClientModulePath = new URL('../src/back-office-api-client.js', import.meta.url).pathname;
+const validateShapefileModulePath = new URL('../src/validate-shapefile.js', import.meta.url)
+	.pathname;
+const convertShapefileModulePath = new URL('../src/convert-shapefile.js', import.meta.url).pathname;
+const validateGeoJsonModulePath = new URL('../src/validate-geojson.js', import.meta.url).pathname;
+const applyGeoJsonModulePath = new URL('../src/apply-geojson-metadata.js', import.meta.url)
+	.pathname;
+
+await jest.unstable_mockModule(blobClientModulePath, () => ({
+	blobClient
+}));
+await jest.unstable_mockModule(apiClientModulePath, () => ({
+	notifyShapefileProcessingResult
+}));
+await jest.unstable_mockModule(validateShapefileModulePath, () => ({
+	validateShapefileContents
+}));
+await jest.unstable_mockModule(convertShapefileModulePath, () => ({
+	shpZipToGeoJson
+}));
+await jest.unstable_mockModule(validateGeoJsonModulePath, () => ({
+	validateConvertedGeoJson
+}));
+await jest.unstable_mockModule(applyGeoJsonModulePath, () => ({
+	applyGeoJsonMetadata
+}));
+
+const { index } = await import('../index.js');
 
 describe('process-shapefile function', () => {
 	const context = {
@@ -37,6 +64,12 @@ describe('process-shapefile function', () => {
 
 	beforeEach(() => {
 		jest.clearAllMocks();
+		blobClient.downloadStream.mockResolvedValue({
+			readableStreamBody: (async function* () {
+				yield Buffer.from('zip-content');
+			})()
+		});
+		blobClient.uploadStream.mockResolvedValue(undefined);
 		validateConvertedGeoJson.mockReturnValue({ valid: true, reason: null });
 	});
 
@@ -62,7 +95,7 @@ describe('process-shapefile function', () => {
 
 		// THEN
 		expect(blobClient.downloadStream).toHaveBeenCalledWith(
-			'document-service-uploads',
+			'test-blob-source-container',
 			'application/BC0110001/guid/1/test.zip'
 		);
 		expect(validateShapefileContents).toHaveBeenCalledWith(zipBuffer);
@@ -98,10 +131,7 @@ describe('process-shapefile function', () => {
 		expect(notifyShapefileProcessingResult).toHaveBeenCalledWith(caseId, documentId, {
 			invalid: true
 		});
-		expect(context.log.warn).toHaveBeenCalledWith(
-			expect.stringContaining('Validation failure'),
-			expect.anything()
-		);
+		expect(context.log.warn).toHaveBeenCalledWith(expect.stringContaining('Validation failure'));
 	});
 
 	test('should mark as invalid when converted GeoJSON fails sanity validation', async () => {

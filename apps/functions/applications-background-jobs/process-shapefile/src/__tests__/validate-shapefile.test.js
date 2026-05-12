@@ -1,18 +1,30 @@
 import { describe, it, expect } from '@jest/globals';
 import {
 	checkRequiredExtensions,
-	getFileNamesFromParsedZip,
+	getFileNamesFromZipArchive,
 	validateShapefileContents
 } from '../validate-shapefile.js';
 
-describe('getFileNamesFromParsedZip', () => {
-	it('returns lowercased filenames from parsed ZIP keys', () => {
-		const result = getFileNamesFromParsedZip({ 'boundary.SHP': {}, 'boundary.DBF': {} });
+describe('getFileNamesFromZipArchive', () => {
+	it('returns lowercased filenames from ZIP archive entries', () => {
+		const result = getFileNamesFromZipArchive({
+			files: { 'boundary.SHP': { dir: false }, 'boundary.DBF': { dir: false } }
+		});
 		expect(result).toEqual(['boundary.shp', 'boundary.dbf']);
 	});
 
 	it('returns empty array for empty ZIP', () => {
-		expect(getFileNamesFromParsedZip({})).toEqual([]);
+		expect(getFileNamesFromZipArchive({ files: {} })).toEqual([]);
+	});
+
+	it('ignores directory entries', () => {
+		const result = getFileNamesFromZipArchive({
+			files: {
+				'folder/': { dir: true },
+				'folder/boundary.shp': { dir: false }
+			}
+		});
+		expect(result).toEqual(['folder/boundary.shp']);
 	});
 });
 
