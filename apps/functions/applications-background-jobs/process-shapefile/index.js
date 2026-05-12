@@ -89,7 +89,9 @@ export const index = async (context, documentShapefileProcess) => {
 
 	context.log(`[SHAPEFILE] Received shapefile processing job for document ${documentId}`, {
 		documentId,
-		caseId
+		caseId,
+		documentURI,
+		originalFilename
 	});
 
 	// Defensive guard: all fields must be present. Should not happen if malware-detected is correct.
@@ -107,6 +109,12 @@ export const index = async (context, documentShapefileProcess) => {
 		// documentURI format: <blobStorageUrl>/<container>/<path>
 		const blobName = extractBlobNameFromUri(documentURI);
 		const privateBlobContainer = config.BLOB_SOURCE_CONTAINER;
+
+		context.log(`[SHAPEFILE] Blob details`, {
+			documentURI,
+			extractedBlobName: blobName,
+			privateBlobContainer
+		});
 
 		const zipBuffer = await downloadZipBuffer(privateBlobContainer, blobName, context);
 
