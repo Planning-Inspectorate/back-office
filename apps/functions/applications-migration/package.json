@@ -24,7 +24,8 @@
     "mysql2": "*",
     "@planning-inspectorate/data-model": "*",
     "sequelize": "*",
-    "tedious": "*"
+    "tedious": "*",
+    "xlsx-populate": "*"
   },
   "devDependencies": {
     "jest": "*",
