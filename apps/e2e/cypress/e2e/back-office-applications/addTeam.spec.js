@@ -21,22 +21,24 @@ describe('Project team related scenarios ', () => {
 		projectInfo = projectInformation();
 		cy.login(applicationUsers.caseAdmin);
 		createCasePage.createCase(projectInfo);
+		applicationsHomePage.loadCurrentCase();
 	});
 
-	beforeEach(() => {
-		applicationsHomePage.loadCurrentCase();
+	const openAddTeamMemberPage = () => {
 		searchResultsPage.clickLinkByText('Project team');
 		searchResultsPage.clickButtonByText('Add team member');
 		projectTeamPage.verifyPageTitle(`Search for a team member - ${projectInfo.projectName}`);
-	});
+	};
 
 	it('As a user able to add team member and error when no role selected', () => {
 		email = Cypress.env('CASE_ADMIN_EMAIL');
+		openAddTeamMemberPage();
 		projectTeamPage.addTeamMemberError(email);
 	});
 
 	it('As a user able to add team member and verify the role is added to project team', () => {
 		email = Cypress.env('CASE_ADMIN_EMAIL');
+		openAddTeamMemberPage();
 		projectTeamPage.addTeamMember(email);
 		projectTeamPage.verifyCaseManagerRoleAdded();
 		projectTeamPage.verifyPageTitle(`Project team - ${projectInfo.projectName}`);
@@ -44,24 +46,27 @@ describe('Project team related scenarios ', () => {
 
 	it('As a user able to verify team member is added', () => {
 		email = Cypress.env('CASE_ADMIN_EMAIL');
+		openAddTeamMemberPage();
 		projectTeamPage.addTeamMember(email);
-		searchResultsPage.clickLinkByText('Project team');
 		searchResultsPage.clickButtonByText('Add team member');
 		projectTeamPage.searchTeamMemberByEmail(email);
 		projectTeamPage.verifyTeamMemberIsAdded();
 	});
 
 	it('As a user able to enter valid input and verify multiple results count', () => {
+		openAddTeamMemberPage();
 		projectTeamPage.searchTeamMemberByEmail('test');
 		projectTeamPage.validateMultipleSearchCount();
 	});
 
 	it('As a user able to enter invalid input and verify the error and count', () => {
+		openAddTeamMemberPage();
 		projectTeamPage.searchTeamMemberByEmail('abc');
 		projectTeamPage.verifyInvalidSearchResultsMessageAndCount();
 	});
 
 	it('As a user able to verify the error message without entering the search criteria', () => {
+		openAddTeamMemberPage();
 		projectTeamPage.validateErrorMessageWithoutEnteringAnything(projectInfo);
 		projectTeamPage.verifyPageTitle(`Search for a team member - ${projectInfo.projectName}`, {
 			error: true

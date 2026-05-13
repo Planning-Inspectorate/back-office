@@ -44,6 +44,8 @@ steps:
     inputs:
       targetType: inline
       script: |
+        set -euo pipefail
+
         mkdir -p "$(Pipeline.Workspace)/e2e-logs" apps/e2e/cypress/screenshots
         npm ci --cache "$(NpmCacheDir)" --prefer-offline
       workingDirectory: $(Build.SourcesDirectory)
@@ -56,6 +58,8 @@ steps:
       targetType: inline
       workingDirectory: $(Build.SourcesDirectory)
       script: |
+        set -euo pipefail
+
         read -r sql_port api_port web_port < <(node - <<'NODE'
         const net = require('node:net');
 
@@ -104,6 +108,8 @@ steps:
       targetType: inline
       workingDirectory: $(Build.SourcesDirectory)
       script: |
+        set -euo pipefail
+
         bash apps/e2e/scripts/e2e-compose.sh -f "$(ComposeFile)" up -d sqlserver
 
         for attempt in {1..90}; do
@@ -128,6 +134,8 @@ steps:
       targetType: inline
       workingDirectory: $(Build.SourcesDirectory)
       script: |
+        set -euo pipefail
+
         npm run db:migrate:prod --workspace=@pins/applications.api
         npm run db:seed --workspace=@pins/applications.api
     env:
@@ -140,7 +148,10 @@ steps:
     inputs:
       targetType: inline
       workingDirectory: $(Build.SourcesDirectory)
-      script: npm run build --workspace=@pins/applications.web
+      script: |
+        set -euo pipefail
+
+        npm run build --workspace=@pins/applications.web
 
   - task: Bash@3
     displayName: Start local app
@@ -179,6 +190,8 @@ steps:
       targetType: inline
       workingDirectory: $(Build.SourcesDirectory)
       script: |
+        set -euo pipefail
+
         mkdir -p "$(Pipeline.Workspace)/e2e-logs"
         bash apps/e2e/scripts/e2e-compose.sh -f "$(ComposeFile)" logs --no-color > "$(Pipeline.Workspace)/e2e-logs/docker-compose-${{ parameters.runName }}.log" || true
         tail -200 "$(Pipeline.Workspace)/e2e-logs/api-${{ parameters.runName }}.log" || true
@@ -197,6 +210,8 @@ steps:
       targetType: inline
       workingDirectory: $(Build.SourcesDirectory)
       script: |
+        set -euo pipefail
+
         RUN_NAME="${{ parameters.runName }}" E2E_LOG_DIR="$(Pipeline.Workspace)/e2e-logs" bash apps/e2e/scripts/stop-local-apps.sh
         bash apps/e2e/scripts/e2e-compose.sh -f "$(ComposeFile)" down -v --remove-orphans || true
     env:
