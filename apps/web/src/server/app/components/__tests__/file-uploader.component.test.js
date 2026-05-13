@@ -89,5 +89,46 @@ describe('file-uploader.component', () => {
 				]
 			});
 		});
+		describe('validate zip file signatures', () => {
+			it('should accept valid zip signatures for both zip MIME types', async () => {
+				request = {
+					body: [
+						{
+							fileRowId: 'zip1',
+							fileType: 'application/zip',
+							hexSignature: '504B03041400'
+						},
+						{
+							fileRowId: 'zip2',
+							fileType: 'application/x-zip-compressed',
+							hexSignature: '504B03041400'
+						}
+					]
+				};
+
+				await postValidateFileSignatures(request, response);
+
+				expect(response.send).toHaveBeenCalledWith({
+					invalidSignatures: []
+				});
+			});
+			it('should reject invalid zip signature', async () => {
+				request = {
+					body: [
+						{
+							fileRowId: 'zip3',
+							fileType: 'application/zip',
+							hexSignature: '1234567890'
+						}
+					]
+				};
+
+				await postValidateFileSignatures(request, response);
+
+				expect(response.send).toHaveBeenCalledWith({
+					invalidSignatures: ['zip3']
+				});
+			});
+		});
 	});
 });
