@@ -20,12 +20,8 @@ export class FileUploadPage extends Page {
 	uploadFile(fileName, newVersion = false) {
 		const text = newVersion ? this.uploadNewVersionBtnText : this.uploadFileBtnText;
 		this.clickButtonByText(text);
-		this.elements
-			.chooseFileInput()
-			.selectFile(`cypress/fixtures/${fileName}`, { force: true })
-			.should(($input) => {
-				expect($input[0].files[0]?.name).to.equal(fileName);
-			});
+		this.elements.chooseFileInput().selectFile(`cypress/fixtures/${fileName}`, { force: true });
+		cy.contains('.pins-file-upload--file-row', fileName).should('be.visible');
 	}
 
 	verifyUploadButtonIsVisible(reverse = false) {
