@@ -11,8 +11,7 @@ const schema = joi.object({
 		levelStdOut: joi.string()
 	}),
 	NODE_ENV: joi.string().valid('development', 'production', 'test'),
-	SERVICE_BUS_CONNECTION_STRING: joi.string().allow('', null),
-	ServiceBusConnection: joi.string().allow('', null)
+	SERVICE_BUS_HOST_NAME: joi.string().allow('', null)
 });
 
 const environment = loadEnvironment(process.env.NODE_ENV);
@@ -27,24 +26,11 @@ const { value, error } = schema.validate({
 		levelStdOut: environment.LOG_LEVEL_STDOUT || 'debug'
 	},
 	NODE_ENV: environment.NODE_ENV,
-	SERVICE_BUS_CONNECTION_STRING: environment.SERVICE_BUS_CONNECTION_STRING,
-	ServiceBusConnection: environment.ServiceBusConnection
+	SERVICE_BUS_HOST_NAME: environment.ServiceBusConnection__fullyQualifiedNamespace
 });
 
 if (error) {
 	throw error;
 }
 
-const resolvedServiceBusConnectionString =
-	value.SERVICE_BUS_CONNECTION_STRING || value.ServiceBusConnection;
-
-if (!resolvedServiceBusConnectionString) {
-	throw new Error(
-		'No Service Bus connection string configured. Set ServiceBusConnection or SERVICE_BUS_CONNECTION_STRING.'
-	);
-}
-
-export default {
-	...value,
-	SERVICE_BUS_CONNECTION_STRING: resolvedServiceBusConnectionString
-};
+export default value;
