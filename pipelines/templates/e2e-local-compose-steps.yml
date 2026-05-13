@@ -113,7 +113,8 @@ steps:
         bash apps/e2e/scripts/e2e-compose.sh -f "$(ComposeFile)" up -d sqlserver
 
         for attempt in {1..90}; do
-          if bash apps/e2e/scripts/e2e-compose.sh -f "$(ComposeFile)" logs sqlserver 2>&1 | grep -q "SQL Server is now ready for client connections"; then
+          sql_logs="$(bash apps/e2e/scripts/e2e-compose.sh -f "$(ComposeFile)" logs --tail=200 sqlserver 2>&1 || true)"
+          if [[ "$sql_logs" == *"SQL Server is now ready for client connections"* ]]; then
             exit 0
           fi
           sleep 2
