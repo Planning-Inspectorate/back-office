@@ -51,6 +51,41 @@ steps:
       CYPRESS_CACHE_FOLDER: $(CypressCacheDir)
 
   - task: Bash@3
+    displayName: Allocate local ports
+    inputs:
+      targetType: inline
+      workingDirectory: $(Build.SourcesDirectory)
+      script: |
+        read -r sql_port api_port web_port < <(node - <<'NODE'
+        const net = require('node:net');
+
+        const reservePort = () => new Promise((resolve, reject) => {
+          const server = net.createServer();
+          server.unref();
+          server.on('error', reject);
+          server.listen(0, '127.0.0.1', () => {
+            const { port } = server.address();
+            server.close(() => resolve(port));
+          });
+        });
+
+        Promise.all([reservePort(), reservePort(), reservePort()])
+          .then((ports) => console.log(ports.join(' ')))
+          .catch((error) => {
+            console.error(error);
+            process.exit(1);
+          });
+        NODE
+        )
+
+        echo "Allocated SQL port: $sql_port"
+        echo "Allocated API port: $api_port"
+        echo "Allocated web port: $web_port"
+        echo "##vso[task.setvariable variable=E2eSqlPort]$sql_port"
+        echo "##vso[task.setvariable variable=E2eApiPort]$api_port"
+        echo "##vso[task.setvariable variable=E2eWebPort]$web_port"
+
+  - task: Bash@3
     displayName: Prepare local E2E fixtures
     inputs:
       targetType: inline
@@ -58,6 +93,7 @@ steps:
       script: bash apps/e2e/scripts/prepare-local-fixtures.sh
     env:
       LOCAL_SQL_PASSWORD: $(LocalSqlPassword)
+      STATIC_FEATURE_FLAG_OVERRIDES: $(StaticFeatureFlagOverrides)
       E2E_SQL_PORT: $(E2eSqlPort)
       E2E_API_PORT: $(E2eApiPort)
       E2E_WEB_PORT: $(E2eWebPort)
@@ -130,6 +166,8 @@ steps:
       SHARD_INDEX: ${{ parameters.shardIndex }}
       SHARD_COUNT: ${{ parameters.shardCount }}
       CYPRESS_BROWSER: $(CypressBrowser)
+      CYPRESS_RETRIES: $(CypressRetries)
+      STATIC_FEATURE_FLAG_OVERRIDES: $(StaticFeatureFlagOverrides)
       CYPRESS_CACHE_FOLDER: $(CypressCacheDir)
       E2E_LOG_DIR: $(Pipeline.Workspace)/e2e-logs
       E2E_WEB_PORT: $(E2eWebPort)

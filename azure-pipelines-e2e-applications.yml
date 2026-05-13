@@ -52,6 +52,10 @@ variables:
     value: '$(Pipeline.Workspace)/.cache/Cypress'
   - name: CypressBrowser
     value: 'chrome'
+  - name: CypressRetries
+    value: '2'
+  - name: StaticFeatureFlagOverrides
+    value: 'applics-1036-training-sector=true'
   - name: LocalSqlPassword
     value: 'P@ssw0rdPINS2026!'
   - name: ComposeFile
@@ -81,9 +85,6 @@ jobs:
         - Agent.OS -equals Linux
     variables:
       ComposeProject: applications_e2e_smoke_$(Build.BuildId)
-      E2eSqlPort: '14329'
-      E2eApiPort: '3090'
-      E2eWebPort: '8090'
 
     steps:
       - template: pipelines/templates/e2e-local-compose-steps.yml
@@ -135,9 +136,6 @@ jobs:
       maxParallel: 6
     variables:
       ComposeProject: applications_e2e_regression_$(Build.BuildId)_$(SHARD_INDEX)
-      E2eSqlPort: 1433$(SHARD_INDEX)
-      E2eApiPort: 300$(SHARD_INDEX)
-      E2eWebPort: 808$(SHARD_INDEX)
 
     steps:
       - template: pipelines/templates/e2e-local-compose-steps.yml

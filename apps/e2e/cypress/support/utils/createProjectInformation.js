@@ -32,6 +32,9 @@ const populateRegions = (options) => {
 	if (options.includeWales && !includesWales) {
 		regions.push('Wales');
 	}
+	if (!regions.length) {
+		regions.push(faker.helpers.arrayElement(REGIONS.filter((region) => region !== 'Wales')));
+	}
 	return regions.sort();
 };
 

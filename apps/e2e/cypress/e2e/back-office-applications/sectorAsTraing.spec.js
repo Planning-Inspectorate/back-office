@@ -10,11 +10,17 @@ import { SearchResultsPage } from '../../page_objects/searchResultsPage';
 const createCasePage = new CreateCasePage();
 const applicationsHomePage = new ApplicationsHomePage();
 const searchResultsPage = new SearchResultsPage();
-const projectInfo = projectInformation();
 const { applications: applicationsUsers } = users;
 
 describe('Create Case with sector as training', () => {
-	it('As a user able to create case with sector and sub-sector as training', () => {
+	let projectInfo;
+
+	const createTrainingCase = () => {
+		projectInfo = projectInformation({
+			includeTrainingSector: true,
+			sector: 'Training',
+			subsector: 'Training'
+		});
 		cy.login(applicationsUsers.caseAdmin);
 		cy.visit('/');
 		createCasePage.clickButtonByText('Create case');
@@ -39,13 +45,25 @@ describe('Create Case with sector as training', () => {
 		createCasePage.clickSaveAndContinue();
 		createCasePage.clickButtonByText('I accept - confirm creation of a new case');
 		createCasePage.sections.caseCreated.validateCaseCreated();
+	};
+
+	beforeEach(function () {
+		if (!Cypress.env('featureFlags')['applics-1036-training-sector']) {
+			this.skip();
+		}
+	});
+
+	it('As a user able to create case with sector and sub-sector as training', () => {
+		createTrainingCase();
+		cy.then(() => {
+			expect(Cypress.env('currentCreatedCase')).to.match(/^TRAIN/);
+		});
 	});
 
 	it('As a user able to verify the sector and sub sector names', () => {
-		cy.login(applicationsUsers.caseAdmin);
-		cy.visit('/');
+		createTrainingCase();
 		const caseRef = Cypress.env('currentCreatedCase');
-		assert(caseRef.startsWith('TRAIN'));
+		expect(caseRef).to.match(/^TRAIN/);
 		applicationsHomePage.searchFor(caseRef);
 		searchResultsPage.clickTopSearchResult();
 		validateSectorSubsectorValues('Training', 'Training');

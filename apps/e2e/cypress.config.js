@@ -54,9 +54,6 @@ module.exports = defineConfig({
 		experimentalModifyObstructiveThirdPartyCode: true,
 		chromeWebSecurity: false,
 		video: false,
-		retries: {
-			runMode: 2,
-			openMode: 0
-		}
+		retries: 0
 	}
 });

@@ -30,10 +30,7 @@ describe('Search Documents for various file types', () => {
 	});
 
 	function fileUpload(filename) {
-		fileUploadPage.verifyUploadButtonIsVisible();
-		fileUploadPage.uploadFile(filename);
-		searchResultsPage.clickButtonByText('Save and continue');
-		fileUploadPage.verifyFileIsUploaded();
+		return fileUploadPage.fileUpload(filename, 1);
 	}
 
 	it('As a user able to search and verify the documents count after uploading the .dbf file type to case', () => {

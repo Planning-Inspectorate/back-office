@@ -45,6 +45,7 @@ describe('Project team related scenarios ', () => {
 	it('As a user able to verify team member is added', () => {
 		email = Cypress.env('CASE_ADMIN_EMAIL');
 		projectTeamPage.addTeamMember(email);
+		searchResultsPage.clickLinkByText('Project team');
 		searchResultsPage.clickButtonByText('Add team member');
 		projectTeamPage.searchTeamMemberByEmail(email);
 		projectTeamPage.verifyTeamMemberIsAdded();

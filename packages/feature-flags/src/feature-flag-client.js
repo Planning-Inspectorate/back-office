@@ -16,8 +16,9 @@ export class FeatureFlagClient {
 	 * @param {Logger} logger
 	 * @param {string} [connectionString]
 	 * @param {boolean} [useStaticFlags]
+	 * @param {string} [staticFlagOverrides]
 	 * */
-	constructor(logger, connectionString, useStaticFlags) {
+	constructor(logger, connectionString, useStaticFlags, staticFlagOverrides) {
 		/** @type {import('@azure/app-configuration').AppConfigurationClient | undefined} */
 		this.client = (() => {
 			if (!connectionString) {
@@ -45,6 +46,7 @@ export class FeatureFlagClient {
 
 		this._logger = logger;
 		this._useStaticFlags = useStaticFlags;
+		this._staticFlagOverrides = staticFlagOverrides;
 	}
 
 	/**
@@ -80,7 +82,7 @@ export class FeatureFlagClient {
 	async loadFlags() {
 		if (this._useStaticFlags) {
 			this._logger.debug('returning static feature flags (STATIC_FEATURE_FLAGS_ENABLED=true)');
-			this.featureFlags = applyStaticFlagOverrides(staticFlags);
+			this.featureFlags = applyStaticFlagOverrides(staticFlags, this._staticFlagOverrides);
 			this.featureFlagsByCaseReference = flagsByReference;
 			return;
 		}
@@ -145,12 +147,14 @@ export class FeatureFlagClient {
 
 /**
  * @param {Record<string, boolean>} flags
+ * @param {string} [staticFlagOverrides]
  * @returns {Record<string, boolean>}
  */
-function applyStaticFlagOverrides(flags) {
+function applyStaticFlagOverrides(flags, staticFlagOverrides) {
 	const overriddenFlags = { ...flags };
 	const overrides =
-		typeof process !== 'undefined' ? process.env?.STATIC_FEATURE_FLAG_OVERRIDES : undefined;
+		staticFlagOverrides ||
+		(typeof process !== 'undefined' ? process.env?.STATIC_FEATURE_FLAG_OVERRIDES : undefined);
 
 	if (!overrides) {
 		return overriddenFlags;

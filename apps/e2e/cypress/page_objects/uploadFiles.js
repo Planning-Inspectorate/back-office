@@ -1,5 +1,4 @@
 // @ts-nocheck
-import 'cypress-wait-until';
 import { Page } from './basePage';
 import { SearchResultsPage } from '../page_objects/searchResultsPage';
 const searchResultsPage = new SearchResultsPage();
@@ -21,8 +20,12 @@ export class FileUploadPage extends Page {
 	uploadFile(fileName, newVersion = false) {
 		const text = newVersion ? this.uploadNewVersionBtnText : this.uploadFileBtnText;
 		this.clickButtonByText(text);
-		cy.fixture(fileName).as('file');
-		this.elements.chooseFileInput().selectFile('@file', { force: true });
+		this.elements
+			.chooseFileInput()
+			.selectFile(`cypress/fixtures/${fileName}`, { force: true })
+			.should(($input) => {
+				expect($input[0].files[0]?.name).to.equal(fileName);
+			});
 	}
 
 	verifyUploadButtonIsVisible(reverse = false) {
@@ -30,15 +33,45 @@ export class FileUploadPage extends Page {
 		this.basePageElements.buttonByLabelText(this.uploadFileBtnText).should(assertion);
 	}
 
-	verifyUploadIsComplete() {
-		cy.waitUntil(
-			async () => {
-				cy.reload();
-				const $downloadLink = cy.$$(`a:contains('Download')`);
-				return !!$downloadLink.length;
-			},
-			{ timeout: 30000 }
-		);
+	verifyUploadIsComplete(fileName, options = {}) {
+		const { requireDownload = true } = options;
+		const expectedFileName = fileName?.replace(/\.[^.]+$/, '');
+		const maxAttempts = 10;
+
+		cy.location('pathname', { timeout: 60000 }).should('not.match', /\/upload\/?$/);
+
+		const checkUpload = (attempt = 1) => {
+			return cy.get('body', { timeout: 30000 }).then(($body) => {
+				const $filesList = $body.find('.pins-files-list');
+				const filesListText = $filesList.text();
+				const links = $filesList.find('a').toArray();
+				const hasExpectedFile = expectedFileName
+					? filesListText.includes(expectedFileName)
+					: $filesList.find('.govuk-table__row').length > 1;
+				const hasExpectedAction = links.some((link) =>
+					link.textContent.includes(requireDownload ? 'Download' : 'View/Edit properties')
+				);
+
+				if (hasExpectedFile && hasExpectedAction) {
+					return;
+				}
+
+				if (attempt >= maxAttempts) {
+					throw new Error(
+						`Upload did not complete after ${maxAttempts} attempts. Expected ${
+							expectedFileName || 'an uploaded document'
+						} with a ${requireDownload ? 'Download' : 'View/Edit properties'} link.`
+					);
+				}
+
+				return cy
+					.wait(3000)
+					.then(() => cy.reload())
+					.then(() => checkUpload(attempt + 1));
+			});
+		};
+
+		return checkUpload();
 	}
 
 	downloadFile(fileNumber, button = false) {
@@ -84,8 +117,9 @@ export class FileUploadPage extends Page {
 		this.verifyUploadButtonIsVisible();
 		this.uploadFile(filename);
 		searchResultsPage.clickButtonByText('Save and continue');
-		this.verifyFolderDocuments(count);
-		this.verifyUploadIsComplete();
+		return this.verifyUploadIsComplete(filename, { requireDownload: false }).then(() => {
+			this.verifyFolderDocuments(count);
+		});
 	}
 
 	verifyFolderTitle(title) {

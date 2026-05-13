@@ -149,17 +149,8 @@ describe('Update project information to add a Welsh region', () => {
 			createCasePage.createCase(projectInfo);
 		};
 
-		before(() => {
+		beforeEach(() => {
 			if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
-				createNonWelshCase();
-			}
-		});
-
-		beforeEach(function () {
-			if (
-				Cypress.env('featureFlags')['applic-55-welsh-translation'] &&
-				this.currentTest.currentRetry() > 0
-			) {
 				createNonWelshCase();
 			}
 		});
