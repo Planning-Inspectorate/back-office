@@ -115,25 +115,13 @@ jobs:
         - Agent.OS -equals Linux
     strategy:
       matrix:
-        shard_1_of_6:
+        shard_1_of_2:
           SHARD_INDEX: '1'
-          SHARD_COUNT: '6'
-        shard_2_of_6:
+          SHARD_COUNT: '2'
+        shard_2_of_2:
           SHARD_INDEX: '2'
-          SHARD_COUNT: '6'
-        shard_3_of_6:
-          SHARD_INDEX: '3'
-          SHARD_COUNT: '6'
-        shard_4_of_6:
-          SHARD_INDEX: '4'
-          SHARD_COUNT: '6'
-        shard_5_of_6:
-          SHARD_INDEX: '5'
-          SHARD_COUNT: '6'
-        shard_6_of_6:
-          SHARD_INDEX: '6'
-          SHARD_COUNT: '6'
-      maxParallel: 6
+          SHARD_COUNT: '2'
+      maxParallel: 2
     variables:
       ComposeProject: applications_e2e_regression_$(Build.BuildId)_$(SHARD_INDEX)
 
