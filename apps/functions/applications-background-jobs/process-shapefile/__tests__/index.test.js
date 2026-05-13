@@ -5,6 +5,7 @@ const blobClient = {
 	uploadStream: jest.fn()
 };
 
+const downloadZipBuffer = jest.fn();
 const notifyShapefileProcessingResult = jest.fn();
 const validateShapefileContents = jest.fn();
 const shpZipToGeoJson = jest.fn();
@@ -19,6 +20,8 @@ const convertShapefileModulePath = new URL('../src/convert-shapefile.js', import
 const validateGeoJsonModulePath = new URL('../src/validate-geojson.js', import.meta.url).pathname;
 const applyGeoJsonModulePath = new URL('../src/apply-geojson-metadata.js', import.meta.url)
 	.pathname;
+const downloadZipModulePath = new URL('../src/download-zip.js', import.meta.url).pathname;
+const configModulePath = new URL('../../common/config.js', import.meta.url).pathname;
 
 await jest.unstable_mockModule(blobClientModulePath, () => ({
 	blobClient
@@ -37,6 +40,15 @@ await jest.unstable_mockModule(validateGeoJsonModulePath, () => ({
 }));
 await jest.unstable_mockModule(applyGeoJsonModulePath, () => ({
 	applyGeoJsonMetadata
+}));
+await jest.unstable_mockModule(downloadZipModulePath, () => ({
+	downloadZipBuffer
+}));
+await jest.unstable_mockModule(configModulePath, () => ({
+	default: {
+		BLOB_SOURCE_CONTAINER: 'test-blob-source-container',
+		API_HOST: 'test-api-host:3000'
+	}
 }));
 
 const { index } = await import('../index.js');
@@ -76,11 +88,7 @@ describe('process-shapefile function', () => {
 	test('should process a valid shapefile ZIP and notify API', async () => {
 		// GIVEN
 		const zipBuffer = Buffer.from('zip-content');
-		blobClient.downloadStream.mockResolvedValue({
-			readableStreamBody: (async function* () {
-				yield zipBuffer;
-			})()
-		});
+		downloadZipBuffer.mockResolvedValue(zipBuffer);
 		validateShapefileContents.mockResolvedValue({
 			valid: true,
 			missingExtensions: [],
@@ -94,9 +102,10 @@ describe('process-shapefile function', () => {
 		await index(context, message);
 
 		// THEN
-		expect(blobClient.downloadStream).toHaveBeenCalledWith(
+		expect(downloadZipBuffer).toHaveBeenCalledWith(
 			'test-blob-source-container',
-			'application/BC0110001/guid/1/test.zip'
+			'application/BC0110001/guid/1/test.zip',
+			context
 		);
 		expect(validateShapefileContents).toHaveBeenCalledWith(zipBuffer);
 		expect(shpZipToGeoJson).toHaveBeenCalledWith(zipBuffer);
@@ -112,11 +121,7 @@ describe('process-shapefile function', () => {
 
 	test('should mark as invalid and NOT re-throw on validation error', async () => {
 		// GIVEN
-		blobClient.downloadStream.mockResolvedValue({
-			readableStreamBody: (async function* () {
-				yield Buffer.from('zip');
-			})()
-		});
+		downloadZipBuffer.mockResolvedValue(Buffer.from('zip'));
 		validateShapefileContents.mockResolvedValue({
 			valid: false,
 			missingExtensions: ['.dbf'],
@@ -135,11 +140,7 @@ describe('process-shapefile function', () => {
 	});
 
 	test('should mark as invalid when converted GeoJSON fails sanity validation', async () => {
-		blobClient.downloadStream.mockResolvedValue({
-			readableStreamBody: (async function* () {
-				yield Buffer.from('zip');
-			})()
-		});
+		downloadZipBuffer.mockResolvedValue(Buffer.from('zip'));
 		validateShapefileContents.mockResolvedValue({
 			valid: true,
 			missingExtensions: [],
@@ -161,11 +162,7 @@ describe('process-shapefile function', () => {
 	});
 
 	test('should mark as invalid and NOT re-throw when ZIP parsing fails', async () => {
-		blobClient.downloadStream.mockResolvedValue({
-			readableStreamBody: (async function* () {
-				yield Buffer.from('not-a-valid-shapefile-zip');
-			})()
-		});
+		downloadZipBuffer.mockResolvedValue(Buffer.from('not-a-valid-shapefile-zip'));
 		validateShapefileContents.mockResolvedValue({
 			valid: false,
 			missingExtensions: ['.shp', '.shx', '.dbf'],
@@ -185,7 +182,7 @@ describe('process-shapefile function', () => {
 
 	test('should re-throw on infrastructure error (e.g. download failed)', async () => {
 		// GIVEN
-		blobClient.downloadStream.mockRejectedValue(new Error('Network error'));
+		downloadZipBuffer.mockRejectedValue(new Error('Network error'));
 
 		// WHEN & THEN
 		await expect(index(context, message)).rejects.toThrow('Network error');
@@ -197,7 +194,7 @@ describe('process-shapefile function', () => {
 
 		await index(context, invalidMessage);
 
-		expect(blobClient.downloadStream).not.toHaveBeenCalled();
+		expect(downloadZipBuffer).not.toHaveBeenCalled();
 		expect(context.log.warn).toHaveBeenCalledWith(
 			expect.stringContaining('Missing required fields'),
 			expect.anything()

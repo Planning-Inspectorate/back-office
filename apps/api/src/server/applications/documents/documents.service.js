@@ -2,7 +2,6 @@ import { EventType } from '@pins/event-client';
 import * as documentRepository from '#repositories/document.repository.js';
 import * as documentVersionRepository from '#repositories/document-metadata.repository.js';
 import * as folderRepository from '#repositories/folder.repository.js';
-import logger from '#utils/logger.js';
 import { YouTubeHTMLTemplate } from './youtube-html-template.js';
 import { broadcastNsipDocumentEvent } from '#infrastructure/event-broadcasters.js';
 import config from '#config/config.js';
@@ -66,13 +65,10 @@ export const updateStatus = async (guid, status) => {
 
 	const resolvedDocumentType =
 		updatedDocument.documentType ??
+		// @ts-ignore — Folder Prisma type omits displayNameEn; the field exists at runtime
 		(documentFolder?.displayNameEn === GIS_SHAPEFILES_FOLDER_NAME
 			? GIS_SHAPEFILE_DOCUMENT_TYPE
 			: null);
-
-	logger.info(
-		`[GIS] After status update: guid=${guid}, documentType=${updatedDocument?.documentType}, originalFilename=${updatedDocument?.originalFilename}`
-	);
 
 	const eventType =
 		updatedDocument.publishedStatus === 'published' ? EventType.Publish : EventType.Update;
@@ -89,15 +85,11 @@ export const updateStatus = async (guid, status) => {
 			updatedDocument.privateBlobContainer,
 			updatedDocument.privateBlobPath
 		),
-		// @ts-ignore — case is included via getByDocumentGUID enriched query
+		// @ts-ignore — getByDocumentGUID includes case.reference via a select; static type is incomplete
 		caseRef: document.case?.reference ?? null,
 		originalFilename: updatedDocument.originalFilename ?? null,
 		dateCreated: updatedDocument.dateCreated?.toISOString() ?? null
 	};
-
-	logger.info(
-		`[GIS] Returning status response: rawDocumentType=${updatedDocument.documentType}, resolvedDocumentType=${responsePayload.documentType}, uri=${responsePayload.documentURI}`
-	);
 
 	return responsePayload;
 };

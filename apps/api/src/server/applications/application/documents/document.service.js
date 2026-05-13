@@ -4,7 +4,9 @@ import {
 	DEFAULT_PAGE_SIZE,
 	DOCUMENT_TYPES,
 	folderDocumentCaseStageMappings,
-	SYSTEM_USER_NAME
+	SYSTEM_USER_NAME,
+	GIS_SHAPEFILE_DOCUMENT_TYPE,
+	GIS_SHAPEFILES_FOLDER_NAME
 } from '../../constants.js';
 import { PromisePool } from '@supercharge/promise-pool/dist/promise-pool.js';
 import * as caseRepository from '#repositories/case.repository.js';
@@ -57,6 +59,34 @@ export const getFileNameWithoutSuffix = (documentNameWithExtension) => {
 	documentNameSplit.pop();
 
 	return documentNameSplit.join('.');
+};
+
+/**
+ * Overrides the `documentType` to `"GIS shapefile"` for any document being uploaded
+ * to the GIS Shapefiles folder. This ensures the malware-detected applications-background-jobs azure function can
+ * correctly route clean ZIPs to the shapefile processing queue.
+ *
+ * Called before the DB insert so the correct type is persisted on the DocumentVersion.
+ *
+ * @template {{ folderId?: number | string | null, documentType?: string }} T
+ * @param {T[]} documents
+ * @returns {Promise<T[]>}
+ */
+export const applyGisDocumentTypeIfNeeded = async (documents) => {
+	if (!documents?.length) return documents;
+
+	for (const doc of documents) {
+		if (!doc.folderId) continue;
+		const folder = await getFolder(Number(doc.folderId));
+		if (folder?.displayNameEn === GIS_SHAPEFILES_FOLDER_NAME) {
+			logger.info(
+				`[SHAPEFILE] Overriding documentType to GIS shapefile for document in folder ${doc.folderId}`
+			);
+			doc.documentType = GIS_SHAPEFILE_DOCUMENT_TYPE;
+		}
+	}
+
+	return documents;
 };
 
 /**
@@ -162,9 +192,6 @@ const attemptInsertDocuments = async (caseId, documents, isS51, tx) => {
 			let stage = await getCaseStageMapping(documentToDB.folderId);
 
 			logger.info(`Upserting metadata for document with guid: ${document.guid}`);
-			logger.info(
-				`[GIS] Upsert metadata: documentType=${documentToDB.documentType}, mime=${documentToDB.documentType}`
-			);
 			await documentVersionRepository.upsert(
 				{
 					documentGuid: document.guid,
@@ -199,7 +226,6 @@ const attemptInsertDocuments = async (caseId, documents, isS51, tx) => {
 			);
 
 			logger.info(`Upserted metadata for document with guid: ${document.guid}`);
-			logger.info(`[GIS] After upsert, checking response would go here`);
 
 			let result = {
 				...document,
@@ -314,16 +340,6 @@ const updateDocumentVersionsBlobMetadataInDatabase = async (
 };
 
 /**
- * @deprecated Use updateDocumentVersionsBlobMetadataInDatabase.
- * Kept as a compatibility proxy while callers migrate from the legacy name.
- */
-const upsertDocumentVersionsMetadataToDatabase = async (
-	blobStorageDocuments,
-	privateBlobContainer,
-	tx
-) => updateDocumentVersionsBlobMetadataInDatabase(blobStorageDocuments, privateBlobContainer, tx);
-
-/**
  * creates document, document version, and activity log records for an array of new documents on a case
  *
  * @param {DocumentToSaveExtended[]} documentsToUpload
@@ -349,11 +365,6 @@ export const createDocuments = async (documentsToUpload, caseId, isS51, tx) => {
 	logger.info(`Mapping documents to database format...`);
 	const documentsToSendToDatabase = mapDocumentsToSendToDatabase(caseId, documentsToUpload);
 	logger.info(`Documents mapped: ${JSON.stringify(documentsToSendToDatabase)}`);
-	for (const doc of documentsToSendToDatabase) {
-		logger.info(
-			`[GIS] Document to send to DB: name=${doc.documentName}, documentType=${doc.documentType}, mime=${doc.mime}`
-		);
-	}
 
 	// Step 4: Add documents to the database if all are new
 	logger.info(`Attempting to insert documents to database...`);
@@ -392,9 +403,10 @@ export const createDocuments = async (documentsToUpload, caseId, isS51, tx) => {
 	);
 
 	// Step 7: Update document version blob metadata in the database.
-	// This is a targeted patch, not a full metadata upsert, to preserve previously persisted fields.
+	// This is a targeted patch (not a full metadata upsert) to preserve previously persisted fields
+	// such as documentType, which is required by malware-detected for shapefile routing.
 	logger.info(`Updating document version blob metadata in database...`);
-	const updatedDocuments = await upsertDocumentVersionsMetadataToDatabase(
+	const updatedDocuments = await updateDocumentVersionsBlobMetadataInDatabase(
 		documentsWithBlobStorageInfo.documents,
 		documentsWithBlobStorageInfo.privateBlobContainer,
 		tx

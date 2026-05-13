@@ -6,55 +6,9 @@ import { shpZipToGeoJson } from './src/convert-shapefile.js';
 import { validateConvertedGeoJson } from './src/validate-geojson.js';
 import { applyGeoJsonMetadata } from './src/apply-geojson-metadata.js';
 import { extractBlobNameFromUri } from '../common/util.js';
+import { downloadZipBuffer } from './src/download-zip.js';
+import { ShapefileValidationError } from './src/errors.js';
 import config from '../common/config.js';
-
-/**
- * Raised when a ZIP fails shapefile content validation (missing required files).
- * Distinguishes expected validation failures from unexpected infrastructure errors,
- * so the caller can decide whether to mark the document as invalid or re-throw.
- */
-class ShapefileValidationError extends Error {
-	/** @param {string} message */
-	constructor(message) {
-		super(message);
-		this.name = 'ShapefileValidationError';
-	}
-}
-
-/**
- * Downloads the ZIP at `blobName` from `container` and returns it as a Buffer.
- *
- * @param {string} container
- * @param {string} blobName
- * @param {object} context - Azure Function context for logging
- * @returns {Promise<Buffer>}
- */
-const downloadZipBuffer = async (container, blobName, context) => {
-	const downloadResponse = await blobClient.downloadStream(container, blobName);
-	const contentLength = downloadResponse.contentLength || 0;
-	const chunks = [];
-
-	for await (const chunk of downloadResponse.readableStreamBody) {
-		const buf = Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk);
-		chunks.push(buf);
-	}
-
-	const buffer = Buffer.concat(chunks);
-	context.log(
-		`[SHAPEFILE] Downloaded ${blobName}: expected=${contentLength}, actual=${buffer.length} bytes`
-	);
-
-	// Warn if the download appears incomplete
-	if (contentLength > 0 && buffer.length < contentLength) {
-		context.log.warn(
-			`[SHAPEFILE] Incomplete download: received ${
-				buffer.length
-			}/${contentLength} bytes (${Math.round((buffer.length / contentLength) * 100)}%)`
-		);
-	}
-
-	return buffer;
-};
 
 /**
  * Azure Function triggered by the `shapefile-processing-queue` Service Bus queue.
@@ -154,7 +108,6 @@ export const index = async (context, documentShapefileProcess) => {
 		const receivedDate = dateCreated ? new Date(dateCreated) : new Date();
 		const geoJsonWithMetadata = applyGeoJsonMetadata(geoJson, {
 			caseReference: caseRef ?? '',
-			projectDescription: '',
 			fileName: geoJsonFileName,
 			receivedDate
 		});

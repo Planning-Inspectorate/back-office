@@ -7,8 +7,6 @@ import BackOfficeAppError from '#utils/app-error.js';
 import config from '#config/config.js';
 import { getPageCount, getSkipValue } from '#utils/database-pagination.js';
 import logger from '#utils/logger.js';
-import { GIS_SHAPEFILE_DOCUMENT_TYPE, GIS_SHAPEFILES_FOLDER_NAME } from '../../constants.js';
-import { getFolder } from '../file-folders/folders.service.js';
 import { mapDateStringToUnixTimestamp } from '#utils/mapping/map-date-string-to-unix-timestamp.js';
 import {
 	mapDocumentVersionDetails,
@@ -32,7 +30,8 @@ import {
 	deleteDocument,
 	revertDocumentStatusToPrevious,
 	updateDocumentsFolderId,
-	attachMetadataToDocuments
+	attachMetadataToDocuments,
+	applyGisDocumentTypeIfNeeded
 } from './document.service.js';
 import { validateDocumentVersionMetadataBody } from './document.validators.js';
 
@@ -45,16 +44,6 @@ import { validateDocumentVersionMetadataBody } from './document.validators.js';
  * @typedef {import('@pins/applications.api').Api.DocumentToSaveExtended} DocumentToSaveExtended
  * @typedef {import('@pins/applications.api').Api.DocumentsToSaveManyRequestBody} DocumentsToSaveManyRequestBody
  */
-
-/**
- * @param {number | string | null | undefined} folderId
- * @returns {Promise<boolean>}
- */
-const isGisShapefilesFolder = async (folderId) => {
-	if (!folderId) return false;
-	const folder = await getFolder(Number(folderId));
-	return folder?.displayNameEn === GIS_SHAPEFILES_FOLDER_NAME;
-};
 
 /**
  * Adds an array of documents to a folder on a case, creating Document and Document Version records, and Activity log records,
@@ -83,19 +72,8 @@ export const createDocumentsOnCase = async ({ params, body }, response) => {
 	);
 
 	// Override documentType for uploads targeting the GIS Shapefiles folder.
-	// This ensures malware-detected can route clean ZIPs to shapefile-processing-queue.
-	for (const documentToUpload of filteredToUpload) {
-		const isGisFolder = await isGisShapefilesFolder(documentToUpload.folderId);
-		logger.info(
-			`[GIS] Document upload check: documentName=${documentToUpload.documentName}, folderId=${documentToUpload.folderId}, isGisFolder=${isGisFolder}, originalDocType=${documentToUpload.documentType}`
-		);
-		if (isGisFolder) {
-			documentToUpload.documentType = GIS_SHAPEFILE_DOCUMENT_TYPE;
-			logger.info(
-				`[GIS] Applied GIS override: documentName=${documentToUpload.documentName}, newDocType=${documentToUpload.documentType}`
-			);
-		}
-	}
+	// This ensures malware-detected applications-background-jobs azure function can route clean ZIPs to shapefile-processing-queue.
+	await applyGisDocumentTypeIfNeeded(filteredToUpload);
 
 	const filteredToUploadWithMetadata = await attachMetadataToDocuments(theCase, filteredToUpload);
 
@@ -156,18 +134,9 @@ export const createDocumentsOnCase = async ({ params, body }, response) => {
 export const createDocumentVersionOnCase = async ({ params, body }, response) => {
 	const documentToUpload = body;
 
-	// If uploading to GIS Shapefiles folder, override documentType to "GIS shapefile"
-	// so malware-detected function can route it for processing
-	const isGisFolder = await isGisShapefilesFolder(documentToUpload.folderId);
-	logger.info(
-		`[GIS] Document version upload check: documentName=${documentToUpload.documentName}, folderId=${documentToUpload.folderId}, isGisFolder=${isGisFolder}, originalDocType=${documentToUpload.documentType}`
-	);
-	if (isGisFolder) {
-		documentToUpload.documentType = GIS_SHAPEFILE_DOCUMENT_TYPE;
-		logger.info(
-			`[GIS] Applied GIS override: documentName=${documentToUpload.documentName}, newDocType=${documentToUpload.documentType}`
-		);
-	}
+	// Override documentType for uploads targeting the GIS Shapefiles folder.
+	// Delegated to the service layer so the logic isn't duplicated across upload handlers.
+	await applyGisDocumentTypeIfNeeded([documentToUpload]);
 
 	// create version record etc
 	const { blobStorageHost, privateBlobContainer, documents } = await createDocumentVersion(
