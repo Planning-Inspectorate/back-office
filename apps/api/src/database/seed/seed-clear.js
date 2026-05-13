@@ -70,10 +70,10 @@ export async function deleteAllRecords(databaseConnector) {
 
 	// delete before cases
 	await deleteProjectUpdates;
-
-	await databaseConnector.$transaction([deleteLowestFolders, deleteRegionsOnApplicationDetails]);
-
-	await databaseConnector.$transaction([deleteFolders, deleteServiceUsers]);
+	await deleteLowestFolders;
+	await deleteRegionsOnApplicationDetails;
+	await deleteFolders;
+	await deleteServiceUsers;
 
 	await databaseConnector.$transaction([
 		deleteGridReference,

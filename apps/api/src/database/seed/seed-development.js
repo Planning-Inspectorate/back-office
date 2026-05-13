@@ -16,9 +16,14 @@ import { deleteAllRecords } from './seed-clear.js';
 const seedDevelopment = async () => {
 	try {
 		// Check if database is empty first
-		const caseCount = await databaseConnector.case.count();
+		// Includes check of Sector and SubSector tables which will be populated by migration script on initial set up or after database reset
+		const [caseCount, sectorCount, subSectorCount] = await Promise.all([
+			databaseConnector.case.count(),
+			databaseConnector.sector.count(),
+			databaseConnector.subSector.count()
+		]);
 
-		if (caseCount > 0) {
+		if (caseCount > 0 || sectorCount > 0 || subSectorCount > 0) {
 			await deleteAllRecords(databaseConnector);
 		}
 
