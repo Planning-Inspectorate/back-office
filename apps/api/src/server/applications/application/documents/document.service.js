@@ -62,11 +62,17 @@ export const getFileNameWithoutSuffix = (documentNameWithExtension) => {
 };
 
 /**
- * Overrides the `documentType` to `"GIS shapefile"` for any document being uploaded
- * to the GIS Shapefiles folder. This ensures the malware-detected applications-background-jobs azure function can
- * correctly route clean ZIPs to the shapefile processing queue.
+ * [IDAS-221] Overrides the `documentType` to `"GIS shapefile"` for any document being uploaded
+ * to the GIS Shapefiles folder. This ensures the malware-detected applications-background-jobs
+ * azure function can correctly route clean ZIPs to the shapefile processing queue after the
+ * virus scan completes.
  *
- * Called before the DB insert so the correct type is persisted on the DocumentVersion.
+ * Why this is here (in the service, called before DB insert):
+ * - Previously, no documentType was set at upload time for GIS shapefiles.
+ * - The malware-detected function checks `documentType === 'GIS shapefile'` to decide whether to
+ *   enqueue for shapefile processing. Without this override, routing was silently skipped.
+ * - This function is called before `createDocuments` / `attemptInsertDocuments` so the correct
+ *   type is written during the full metadata upsert, not overwritten.
  *
  * @template {{ folderId?: number | string | null, documentType?: string }} T
  * @param {T[]} documents
@@ -402,9 +408,22 @@ export const createDocuments = async (documentsToUpload, caseId, isS51, tx) => {
 		)}`
 	);
 
-	// Step 7: Update document version blob metadata in the database.
-	// This is a targeted patch (not a full metadata upsert) to preserve previously persisted fields
-	// such as documentType, which is required by malware-detected for shapefile routing.
+	// Step 7: [IDAS-221] Update document version blob metadata in the database.
+	//
+	// IMPORTANT: This is a targeted patch (privateBlobContainer + privateBlobPath only).
+	// It intentionally does NOT use a full upsert.
+	//
+	// Background: The previous implementation called documentVersionRepository.upsert() at this
+	// stage with only a partial payload (blob fields). Because Prisma upsert merges on all
+	// provided fields, this silently cleared documentType (and other metadata) to null on existing
+	// records - the document version record already exists from step 4 above.
+	//
+	// The malware-detected azure function checks documentType === 'GIS shapefile'
+	// to decide whether to enqueue for processing. With documentType cleared, clean ZIP files
+	// uploaded to the GIS Shapefiles folder were silently dropped after passing the virus scan.
+	//
+	// The fix: use updateBlobStorageProperties (a targeted Prisma update) which only writes
+	// privateBlobContainer and privateBlobPath, preserving all other fields set in step 4.
 	logger.info(`Updating document version blob metadata in database...`);
 	const updatedDocuments = await updateDocumentVersionsBlobMetadataInDatabase(
 		documentsWithBlobStorageInfo.documents,

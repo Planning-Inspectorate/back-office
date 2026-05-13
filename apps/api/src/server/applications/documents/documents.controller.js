@@ -13,19 +13,25 @@ export const updateDocumentStatus = async ({ params, body }, response) => {
 	const updateResponse = await updateStatus(params.documentGUID, body.machineAction);
 
 	if (!updateResponse) {
-		logger.warn('[SHAPEFILE] updateDocumentStatus returned no document', {
-			documentGuid: params.documentGUID,
-			machineAction: body.machineAction
-		});
+		logger.warn(
+			{
+				documentGuid: params.documentGUID,
+				machineAction: body.machineAction
+			},
+			'[SHAPEFILE] updateDocumentStatus returned no document'
+		);
 	} else {
-		logger.info('[SHAPEFILE] updateDocumentStatus response', {
-			documentGuid: params.documentGUID,
-			machineAction: body.machineAction,
-			status: updateResponse.status,
-			documentType: updateResponse.documentType,
-			hasDocumentURI: Boolean(updateResponse.documentURI),
-			caseId: updateResponse.caseId
-		});
+		logger.info(
+			{
+				documentGuid: params.documentGUID,
+				machineAction: body.machineAction,
+				status: updateResponse.status,
+				documentType: updateResponse.documentType,
+				hasDocumentURI: Boolean(updateResponse.documentURI),
+				caseId: updateResponse.caseId
+			},
+			'[SHAPEFILE] updateDocumentStatus response'
+		);
 	}
 
 	response.send(updateResponse);

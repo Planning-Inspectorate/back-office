@@ -71,8 +71,16 @@ export const createDocumentsOnCase = async ({ params, body }, response) => {
 		(doc) => remainder.includes(doc.documentName)
 	);
 
-	// Override documentType for uploads targeting the GIS Shapefiles folder.
-	// This ensures malware-detected applications-background-jobs azure function can route clean ZIPs to shapefile-processing-queue.
+	// [IDAS-221] Override documentType for uploads targeting the GIS Shapefiles folder BEFORE the DB
+	// insert so the correct type is persisted on the DocumentVersion record.
+	//
+	// Context: Previously, documentType was not set at this stage and the malware-detected
+	// applications-background-jobs azure function had no way to distinguish a GIS shapefile ZIP from
+	// any other document. This meant clean shapefile ZIPs were never routed to the
+	// shapefile-processing-queue after passing the virus scan.
+	//
+	// The logic was moved from the controller into document.service.applyGisDocumentTypeIfNeeded
+	// so it is shared, testable, and not duplicated across upload handlers.
 	await applyGisDocumentTypeIfNeeded(filteredToUpload);
 
 	const filteredToUploadWithMetadata = await attachMetadataToDocuments(theCase, filteredToUpload);
@@ -134,9 +142,12 @@ export const createDocumentsOnCase = async ({ params, body }, response) => {
 export const createDocumentVersionOnCase = async ({ params, body }, response) => {
 	const documentToUpload = body;
 
-	// Override documentType for uploads targeting the GIS Shapefiles folder.
-	// Delegated to the service layer so the logic isn't duplicated across upload handlers.
-	await applyGisDocumentTypeIfNeeded([documentToUpload]);
+	// Note: applyGisDocumentTypeIfNeeded is intentionally NOT called here.
+	// [IDAS-221] documentType is set once at document creation time (createDocumentsOnCase above)
+	// and is already persisted on the existing DocumentVersion record in the database.
+	// A version upload body does not carry folderId, so folder detection cannot be reliably
+	// performed at this stage. Re-applying it would also risk overwriting the type on documents
+	// that have already been correctly classified.
 
 	// create version record etc
 	const { blobStorageHost, privateBlobContainer, documents } = await createDocumentVersion(
