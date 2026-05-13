@@ -67,6 +67,7 @@ describe('Create Case with sector as training', () => {
 			expect(caseRef).to.match(/^TRAIN/);
 			return caseRef;
 		}).then((caseRef) => {
+			cy.visit('/');
 			applicationsHomePage.searchFor(caseRef);
 			searchResultsPage.clickTopSearchResult();
 			validateSectorSubsectorValues('Training', 'Training');
