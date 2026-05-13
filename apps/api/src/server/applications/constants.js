@@ -15,7 +15,7 @@ export const DOCUMENT_TYPES = {
 export const GIS_SHAPEFILES_FOLDER_NAME = 'GIS Shapefiles';
 export const GIS_SHAPEFILE_DOCUMENT_TYPE = 'GIS shapefile';
 export const GIS_SHAPEFILE_WEBFILTER = 'GIS shapefile';
-export const GIS_SHAPEFILE_REDACTED_STATUS = 'redaction_not_needed';
+export const GIS_SHAPEFILE_REDACTED_STATUS = 'no_redaction_required';
 // Stage value that prevents display in FO (same pattern as S51 advice)
 export const GIS_SHAPEFILE_STAGE = '0';
 

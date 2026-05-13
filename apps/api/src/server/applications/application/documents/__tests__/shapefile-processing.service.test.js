@@ -140,11 +140,13 @@ describe('createGeoJsonDocumentVersion', () => {
 			expect.objectContaining({
 				create: expect.objectContaining({
 					version: 2,
+					fileName: 'boundary.geojson',
 					mime: 'application/geo+json',
 					originalFilename: 'boundary.geojson',
 					size: 2048,
 					privateBlobPath: 'path/to/boundary.geojson',
 					privateBlobContainer: 'uploads',
+					redactedStatus: 'no_redaction_required',
 					publishedStatus: DocumentPublishedStatus.NOT_CHECKED
 				})
 			})
