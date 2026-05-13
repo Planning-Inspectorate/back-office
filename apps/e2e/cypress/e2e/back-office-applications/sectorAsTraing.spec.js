@@ -62,10 +62,14 @@ describe('Create Case with sector as training', () => {
 
 	it('As a user able to verify the sector and sub sector names', () => {
 		createTrainingCase();
-		const caseRef = Cypress.env('currentCreatedCase');
-		expect(caseRef).to.match(/^TRAIN/);
-		applicationsHomePage.searchFor(caseRef);
-		searchResultsPage.clickTopSearchResult();
-		validateSectorSubsectorValues('Training', 'Training');
+		cy.then(() => {
+			const caseRef = Cypress.env('currentCreatedCase');
+			expect(caseRef).to.match(/^TRAIN/);
+			return caseRef;
+		}).then((caseRef) => {
+			applicationsHomePage.searchFor(caseRef);
+			searchResultsPage.clickTopSearchResult();
+			validateSectorSubsectorValues('Training', 'Training');
+		});
 	});
 });
