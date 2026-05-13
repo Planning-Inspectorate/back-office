@@ -226,11 +226,11 @@ steps:
     condition: failed()
     inputs:
       targetPath: $(Build.SourcesDirectory)/apps/e2e/cypress/screenshots
-      artifact: ${{ parameters.screenshotsArtifact }}
+      artifact: ${{ parameters.screenshotsArtifact }}-attempt-$(System.JobAttempt)
 
   - task: PublishPipelineArtifact@1
     displayName: Publish Cypress supporting logs
     condition: always()
     inputs:
       targetPath: $(Pipeline.Workspace)/e2e-logs
-      artifact: ${{ parameters.logsArtifact }}
+      artifact: ${{ parameters.logsArtifact }}-attempt-$(System.JobAttempt)
