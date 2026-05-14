@@ -85,9 +85,6 @@ export const applyGisDocumentTypeIfNeeded = async (documents) => {
 		if (!doc.folderId) continue;
 		const folder = await getFolder(Number(doc.folderId));
 		if (folder?.displayNameEn === GIS_SHAPEFILES_FOLDER_NAME) {
-			logger.info(
-				`[SHAPEFILE] Overriding documentType to GIS shapefile for document in folder ${doc.folderId}`
-			);
 			doc.documentType = GIS_SHAPEFILE_DOCUMENT_TYPE;
 		}
 	}
