@@ -13,3 +13,6 @@ export const GEOJSON_ENQUEUE_REASON = {
 	SOURCE_NOT_ZIP: 'source_not_zip',
 	GEOJSON_EVENT_LOOP_GUARD: 'geojson_event_loop_guard'
 };
+
+export const SHAPEFILE_SOURCE_ZIP_FILE_REGEX = /\.zip$/i;
+export const GEOJSON_FILE_REGEX = /\.geojson($|\?)/i;
