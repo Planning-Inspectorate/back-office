@@ -22,7 +22,8 @@ import {
 	unpublishDocuments,
 	searchDocuments,
 	getManyDocumentsProperties,
-	moveDocumentsToAnotherFolder
+	moveDocumentsToAnotherFolder,
+	getPublishedGisBoundaryDocuments
 } from './document.controller.js';
 import {
 	validateDocumentIds,
@@ -34,6 +35,43 @@ import {
 } from './document.validators.js';
 
 const router = createRouter();
+
+router.get(
+	'/documents/gis-boundaries/published',
+	/*
+		#swagger.tags = ['Applications']
+		#swagger.path = '/applications/documents/gis-boundaries/published'
+		#swagger.description = 'Gets all published GIS shapefile GeoJSON document versions used to build the master GeoJSON FeatureCollection'
+		#swagger.parameters['x-service-name'] = {
+			in: 'header',
+			type: 'string',
+			description: 'Service name header',
+			default: 'swagger'
+		}
+		#swagger.parameters['x-api-key'] = {
+			in: 'header',
+			type: 'string',
+			description: 'API key header',
+			default: '123'
+		}
+		#swagger.responses[200] = {
+			description: 'Published GIS boundary GeoJSON documents',
+			schema: [
+				{
+					caseId: 1,
+					caseReference: 'BC0110001',
+					projectName: 'Example Project',
+					documentGuid: '0084b156-006b-48b1-a47f-e7176414db29',
+					version: 2,
+					publishedBlobContainer: 'published-documents',
+					publishedBlobPath: 'BC0110001-example.geojson',
+					datePublished: '2026-05-05T10:00:00.000Z'
+				}
+			]
+		}
+	*/
+	asyncHandler(getPublishedGisBoundaryDocuments)
+);
 
 router.post(
 	'/:id/documents/:guid/metadata',

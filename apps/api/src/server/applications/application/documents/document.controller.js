@@ -30,7 +30,8 @@ import {
 	deleteDocument,
 	revertDocumentStatusToPrevious,
 	updateDocumentsFolderId,
-	attachMetadataToDocuments
+	attachMetadataToDocuments,
+	getPublishedGisBoundaryDocuments as getPublishedGisBoundaryDocumentsService
 } from './document.service.js';
 import { validateDocumentVersionMetadataBody } from './document.validators.js';
 
@@ -683,4 +684,13 @@ export const searchDocuments = async ({ params, query }, response) => {
 
 	const paginatedDocuments = await getDocumentsInCase(caseId, criteria, page, pageSize);
 	response.send(paginatedDocuments);
+};
+
+/**
+ * @type {import('express').RequestHandler}
+ */
+export const getPublishedGisBoundaryDocuments = async (_request, response) => {
+	const documents = await getPublishedGisBoundaryDocumentsService();
+
+	response.status(200).send(documents);
 };
