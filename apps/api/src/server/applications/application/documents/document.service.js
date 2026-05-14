@@ -1197,3 +1197,22 @@ export const buildDocumentFolderPath = async (folderId, caseRef, filename) => {
 
 	return folderPath;
 };
+
+export const getPublishedGisBoundaryDocuments = async () => {
+	const documents = await documentRepository.getPublishedGisBoundaryDocuments();
+
+	return documents.map((document) => {
+		const publishedVersion = document.documentVersion[0];
+
+		return {
+			caseId: document.caseId,
+			caseReference: document.case.reference,
+			projectName: document.case.title,
+			documentGuid: document.guid,
+			version: publishedVersion.version,
+			publishedBlobContainer: publishedVersion.publishedBlobContainer,
+			publishedBlobPath: publishedVersion.publishedBlobPath,
+			datePublished: publishedVersion.datePublished
+		};
+	});
+};

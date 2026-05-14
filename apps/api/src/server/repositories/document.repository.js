@@ -703,3 +703,49 @@ export const getInFolderByName = (folderId, fileName, includeDeleted) => {
 		}
 	});
 };
+
+/**
+ * Returns all published GIS boundary documents
+ *
+ * @returns {import('#database-client').PrismaPromise<Document[]>}
+ */
+export const getPublishedGisBoundaryDocuments = () => {
+	return databaseConnector.document.findMany({
+		where: {
+			isDeleted: false,
+			documentVersion: {
+				some: {
+					publishedStatus: 'published',
+					documentType: 'GIS shapefile',
+					isDeleted: false,
+					publishedBlobContainer: { not: null },
+					publishedBlobPath: { not: null },
+					mime: 'application/geo+json'
+				}
+			}
+		},
+		include: {
+			case: {
+				select: {
+					id: true,
+					reference: true,
+					title: true
+				}
+			},
+			documentVersion: {
+				where: {
+					publishedStatus: 'published',
+					documentType: 'GIS shapefile',
+					isDeleted: false,
+					publishedBlobContainer: { not: null },
+					publishedBlobPath: { not: null },
+					mime: 'application/geo+json'
+				},
+				orderBy: {
+					version: 'desc'
+				},
+				take: 1
+			}
+		}
+	});
+};
