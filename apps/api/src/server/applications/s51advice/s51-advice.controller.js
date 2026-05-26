@@ -549,8 +549,9 @@ export const deleteS51Advice = async ({ params: { adviceId } }, response) => {
 export const unpublishS51Advice = async ({ body, params }, response) => {
 	const adviceId = params.adviceId;
 	const payload = body[''];
+	const username = body.username || '';
 
-	const updatedS51Advice = await unpublishS51(adviceId);
+	const updatedS51Advice = await unpublishS51(adviceId, username);
 
 	const docs = await s51AdviceDocumentRepository.getForAdvice(adviceId);
 	// @ts-ignore
