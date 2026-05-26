@@ -53,6 +53,10 @@ const buildApp = (
 
 	app.use(asyncHandler(authoriseRequest));
 
+	app.use(
+		'/migration/spreadsheet-case-data',
+		bodyParser.raw({ type: 'application/octet-stream', limit: '100mb' })
+	);
 	app.use('/migration', bodyParser.json({ limit: '100mb' }));
 	app.use(bodyParser.json());
 
