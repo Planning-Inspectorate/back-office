@@ -5,12 +5,6 @@
 		"AzureWebJobsStorage": "UseDevelopmentStorage=true",
 		"API_HOST": "localhost:3000",
 		"SYNAPSE_SQL_HOST": "pins-synw-odw-test-uks-ondemand.sql.azuresynapse.net",
-		"BLOB_STORAGE_ACCOUNT_CUSTOM_DOMAIN": "< get_correct_url_from_colleagues >",
-		"BO_DB_HOST": "localhost",
-		"BO_DB_NAME": "pins_bo",
-		"BO_DB_USE_AZURE_AUTH": "false",
-		"BO_DB_USERNAME": "< your_local_db_username >",
-		"BO_DB_PASSWORD": "< your_local_db_password >",
-		"BO_DB_PORT": "1433"
+		"BLOB_STORAGE_ACCOUNT_CUSTOM_DOMAIN": "< get_correct_url_from_colleagues >"
 	}
 }

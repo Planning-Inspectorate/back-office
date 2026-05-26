@@ -1,86 +1,65 @@
-import { app } from '@azure/functions';
 import XlsxPopulate from 'xlsx-populate';
+import { databaseConnector } from '#utils/database-connector.js';
+import logger from '#utils/logger.js';
 
-import { getBackOfficeDB, closeBackOfficeDB } from './database.js';
+/**
+ * POST /migration/spreadsheet-case-data
+ * Accepts an Excel spreadsheet as the raw request body and applies row-level updates.
+ *
+ * @type {import('express').RequestHandler}
+ */
+export const spreadsheetCaseDataMigration = async (req, res) => {
+	logger.info('Received spreadsheet migration request');
 
-app.http('spreadsheet-case-data-migration', {
-	methods: ['POST'],
-	/**
-	 * @param {import('@azure/functions').HttpRequest} request
-	 * @param {import('@azure/functions').InvocationContext} context
-	 */
-	handler: async (request, context) => {
-		context.log('Received spreadsheet migration request');
+	try {
+		const buffer = req.body;
 
-		try {
-			const buffer = Buffer.from(await request.arrayBuffer());
-
-			if (buffer.length === 0) {
-				context.error('No file data received in request body');
-				return {
-					status: 400,
-					jsonBody: { error: 'Request body must contain the Excel spreadsheet file' }
-				};
-			}
-
-			context.log(`Received ${buffer.length} bytes, parsing spreadsheet`);
-			const { tableName, headers, rows } = await parseSpreadsheet(buffer);
-			context.log(
-				`Table: "${tableName}", Columns: [${headers.join(', ')}], Data rows: ${rows.length}`
-			);
-
-			const db = getBackOfficeDB();
-			const tableValidation = await validateTable(db, tableName);
-
-			if (!tableValidation.valid) {
-				context.error(tableValidation.error);
-				return {
-					status: 400,
-					jsonBody: { error: tableValidation.error }
-				};
-			}
-
-			const columnValidation = await validateColumns(db, tableName, headers);
-
-			if (!columnValidation.valid) {
-				context.error(columnValidation.error);
-				return {
-					status: 400,
-					jsonBody: { error: columnValidation.error }
-				};
-			}
-
-			const dateColumns = columnValidation.dateColumns || [];
-			const results = await processRows(context, db, tableName, headers, rows, dateColumns);
-
-			context.log(
-				`Migration complete. Success: ${results.success}, Skipped: ${results.skipped}, Failed: ${results.failed}`
-			);
-
-			await closeBackOfficeDB();
-
-			return {
-				status: 200,
-				jsonBody: {
-					message: 'Migration complete',
-					tableName,
-					totalRows: rows.length,
-					success: results.success,
-					skipped: results.skipped,
-					failed: results.failed,
-					failedRows: results.failedRows
-				}
-			};
-		} catch (error) {
-			context.error('Migration failed', error);
-			await closeBackOfficeDB();
-			return {
-				status: 500,
-				jsonBody: { error: `Migration failed: ${error.message}` }
-			};
+		if (!Buffer.isBuffer(buffer) || buffer.length === 0) {
+			res.status(400).json({ error: 'Request body must contain the Excel spreadsheet file' });
+			return;
 		}
+
+		logger.info(`Received ${buffer.length} bytes, parsing spreadsheet`);
+		const { tableName, headers, rows } = await parseSpreadsheet(buffer);
+		logger.info(
+			`Table: "${tableName}", Columns: [${headers.join(', ')}], Data rows: ${rows.length}`
+		);
+
+		const tableValidation = await validateTable(tableName);
+
+		if (!tableValidation.valid) {
+			res.status(400).json({ error: tableValidation.error });
+			return;
+		}
+
+		const columnValidation = await validateColumns(tableName, headers);
+
+		if (!columnValidation.valid) {
+			res.status(400).json({ error: columnValidation.error });
+			return;
+		}
+
+		const dateColumns = columnValidation.dateColumns || [];
+		const results = await processRows(tableName, headers, rows, dateColumns);
+
+		logger.info(
+			`Migration complete. Success: ${results.success}, Skipped: ${results.skipped}, Failed: ${results.failed}`
+		);
+
+		res.status(200).json({
+			message: 'Migration complete',
+			tableName,
+			totalRows: rows.length,
+			success: results.success,
+			skipped: results.skipped,
+			failed: results.failed,
+			failedRows: results.failedRows
+		});
+	} catch (error) {
+		logger.error(`Spreadsheet migration failed: ${error.message}`);
+		res.status(500).json({ error: `Migration failed: ${error.message}` });
 	}
-});
+};
 
 /**
  * @param {Buffer} buffer
@@ -147,17 +126,15 @@ const parseSpreadsheet = async (buffer) => {
 };
 
 /**
- * @param {import('sequelize').Sequelize} db
  * @param {string} tableName
  * @returns {Promise<{valid: boolean, error?: string}>}
  */
-const validateTable = async (db, tableName) => {
-	const [results] = await db.query(
-		`SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = :tableName`,
-		{ replacements: { tableName } }
+const validateTable = async (tableName) => {
+	const results = await databaseConnector.$queryRawUnsafe(
+		`SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = '${tableName}'`
 	);
 
-	if (results.length === 0) {
+	if (/** @type {any[]} */ (results).length === 0) {
 		return {
 			valid: false,
 			error: `Table "${tableName}" does not exist in the database`
@@ -168,23 +145,21 @@ const validateTable = async (db, tableName) => {
 };
 
 /**
- * @param {import('sequelize').Sequelize} db
  * @param {string} tableName
  * @param {string[]} headers
  * @returns {Promise<{valid: boolean, error?: string, dateColumns?: string[]}>}
  */
-const validateColumns = async (db, tableName, headers) => {
-	const [results] = await db.query(
-		`SELECT COLUMN_NAME, DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = :tableName`,
-		{ replacements: { tableName } }
+const validateColumns = async (tableName, headers) => {
+	const results = /** @type {any[]} */ (
+		await databaseConnector.$queryRawUnsafe(
+			`SELECT COLUMN_NAME, DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = '${tableName}'`
+		)
 	);
 
-	const validColumns = results.map((/** @type {any} */ r) => r.COLUMN_NAME);
+	const validColumns = results.map((r) => r.COLUMN_NAME);
 	const dateColumns = results
-		.filter((/** @type {any} */ r) =>
-			['datetime', 'datetime2', 'date', 'datetimeoffset'].includes(r.DATA_TYPE)
-		)
-		.map((/** @type {any} */ r) => r.COLUMN_NAME);
+		.filter((r) => ['datetime', 'datetime2', 'date', 'datetimeoffset'].includes(r.DATA_TYPE))
+		.map((r) => r.COLUMN_NAME);
 
 	const columnsToWrite = headers.filter((h) => h !== 'caseReference');
 	const invalidColumns = columnsToWrite.filter((h) => !validColumns.includes(h));
@@ -232,15 +207,13 @@ const parseDateValue = (value) => {
 };
 
 /**
- * @param {import('@azure/functions').InvocationContext} context
- * @param {import('sequelize').Sequelize} db
  * @param {string} tableName
  * @param {string[]} headers
  * @param {Record<string, any>[]} rows
  * @param {string[]} dateColumns
  * @returns {Promise<{success: number, skipped: number, failed: number, failedRows: Array<{row: number, caseReference: string, reason: string}>}>}
  */
-const processRows = async (context, db, tableName, headers, rows, dateColumns) => {
+const processRows = async (tableName, headers, rows, dateColumns) => {
 	const results = { success: 0, skipped: 0, failed: 0, failedRows: [] };
 	const columnsToWrite = headers.filter((h) => h !== 'caseReference');
 
@@ -250,21 +223,24 @@ const processRows = async (context, db, tableName, headers, rows, dateColumns) =
 
 		if (!caseReference) {
 			const reason = 'Missing caseReference';
-			context.warn(`Row ${rowNumber}: ${reason}, skipping`);
+			logger.warn(`Row ${rowNumber}: ${reason}, skipping`);
 			results.skipped++;
 			results.failedRows.push({ row: rowNumber, caseReference: '', reason });
 			continue;
 		}
 
 		try {
-			context.log(`Row ${rowNumber}: Looking up case ${caseReference}`);
-			const [caseRows] = await db.query(`SELECT id FROM [Case] WHERE reference = :caseReference`, {
-				replacements: { caseReference }
-			});
+			logger.info(`Row ${rowNumber}: Looking up case ${caseReference}`);
+			const caseRows = /** @type {any[]} */ (
+				await databaseConnector.$queryRawUnsafe(
+					`SELECT id FROM [Case] WHERE reference = @p1`,
+					caseReference
+				)
+			);
 
 			if (caseRows.length === 0) {
 				const reason = `Case "${caseReference}" not found in the database`;
-				context.warn(`Row ${rowNumber}: ${reason}`);
+				logger.warn(`Row ${rowNumber}: ${reason}`);
 				results.failed++;
 				results.failedRows.push({ row: rowNumber, caseReference, reason });
 				continue;
@@ -273,7 +249,7 @@ const processRows = async (context, db, tableName, headers, rows, dateColumns) =
 			const caseId = caseRows[0].id;
 
 			const setClauses = [];
-			const replacements = { caseId };
+			const values = [];
 
 			for (const column of columnsToWrite) {
 				const value = row[column];
@@ -282,41 +258,34 @@ const processRows = async (context, db, tableName, headers, rows, dateColumns) =
 					continue;
 				}
 
-				setClauses.push(`[${column}] = :${column}`);
-				replacements[column] = dateColumns.includes(column) ? parseDateValue(value) : value;
+				setClauses.push(`[${column}] = @p${values.length + 1}`);
+				values.push(dateColumns.includes(column) ? parseDateValue(value) : value);
 			}
 
 			if (setClauses.length === 0) {
 				const reason = 'All cells are empty, nothing to update';
-				context.warn(`Row ${rowNumber}: ${reason} for case ${caseReference}`);
+				logger.warn(`Row ${rowNumber}: ${reason} for case ${caseReference}`);
 				results.skipped++;
 				results.failedRows.push({ row: rowNumber, caseReference, reason });
 				continue;
 			}
 
-			const updateQuery = `UPDATE [${tableName}] SET ${setClauses.join(
-				', '
-			)} WHERE [caseId] = :caseId`;
+			const updateQuery = `UPDATE [${tableName}] SET ${setClauses.join(', ')} WHERE [caseId] = @p${
+				values.length + 1
+			}`;
+			values.push(caseId);
 
-			context.log(
+			logger.info(
 				`Row ${rowNumber}: Updating ${setClauses.length} field(s) for case ${caseReference} (id: ${caseId})`
 			);
 
-			const [, metadata] = await db.query(updateQuery, { replacements });
+			await databaseConnector.$executeRawUnsafe(updateQuery, ...values);
 
-			if (metadata === 0) {
-				const reason = `No matching row found in table "${tableName}" for caseId ${caseId}`;
-				context.warn(`Row ${rowNumber}: ${reason}`);
-				results.failed++;
-				results.failedRows.push({ row: rowNumber, caseReference, reason });
-				continue;
-			}
-
-			context.log(`Row ${rowNumber}: Successfully updated case ${caseReference}`);
+			logger.info(`Row ${rowNumber}: Successfully updated case ${caseReference}`);
 			results.success++;
 		} catch (/** @type {any} */ error) {
 			const reason = error.message || 'Unknown error';
-			context.error(`Row ${rowNumber}: Failed to update case ${caseReference} — ${reason}`);
+			logger.error(`Row ${rowNumber}: Failed to update case ${caseReference} — ${reason}`);
 			results.failed++;
 			results.failedRows.push({ row: rowNumber, caseReference, reason });
 		}
