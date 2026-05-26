@@ -547,13 +547,16 @@ export async function removeApplicationsCaseDocumentationPublishingQueue(request
 /**
  * Handle unpublishing multiple documents
  *
+ * @param {*} request
+ * @param {*} response
  * @type {import('@pins/express').RenderHandler<{}, {}, {documentGuids: string[]}, {}, {}>}
  * */
 export async function postUnpublishDocuments({ body, session }, response) {
 	const { documentGuids } = body;
 	const { caseId } = response.locals;
+	const username = session.account?.name;
 
-	const { errors } = await unpublishCaseDocumentationFiles(caseId, documentGuids);
+	const { errors } = await unpublishCaseDocumentationFiles(caseId, documentGuids, username);
 
 	const documentationFiles = await getCaseManyDocumentationFilesInfo(caseId, documentGuids);
 
