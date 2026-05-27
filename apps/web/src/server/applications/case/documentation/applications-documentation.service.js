@@ -130,13 +130,15 @@ export const updateDocumentsFolderId = async (
 /**
  * @param {number} caseId
  * @param {string[]} documentGuids
+ * @param {string} username
  * @returns {Promise<{errors: {guid: string, msg: string}[]}>};
  * */
-export const unpublishCaseDocumentationFiles = async (caseId, documentGuids) => {
+export const unpublishCaseDocumentationFiles = async (caseId, documentGuids, username) => {
 	try {
 		return await patch(`applications/${caseId}/documents/unpublish`, {
 			json: {
-				documents: documentGuids.map((guid) => ({ guid }))
+				documents: documentGuids.map((guid) => ({ guid })),
+				username
 			}
 		});
 	} catch (/** @type {*} */ error) {
