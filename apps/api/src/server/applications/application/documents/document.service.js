@@ -444,6 +444,9 @@ export const createDocumentVersion = async (
 	newDocumentVersion.datePublished = isMigrationPublish
 		? previousDocumentVersion.publishedDate
 		: null;
+	newDocumentVersion.publishedStatus = isMigrationPublish
+		? previousDocumentVersion.publishedStatus
+		: 'awaiting_upload';
 	newDocumentVersion.publishedBlobPath = null;
 	newDocumentVersion.publishedBlobContainer = null;
 	newDocumentVersion.publishedStatusPrev = null;
