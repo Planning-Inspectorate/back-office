@@ -172,7 +172,6 @@ export const addDocuments = async ({ params, body }, response) => {
 		throw new BackOfficeAppError(`Case with id: ${caseId} not found.`, 404);
 	}
 
-	// find the latest document reference for this case, and then add 1 for the next free one
 	// Wrapped in a transaction with UPDLOCK to prevent duplicate references under concurrency
 	const { duplicates, deleted, remainder } = await extractDuplicatesAndDeleted(
 		adviceId,
@@ -184,6 +183,7 @@ export const addDocuments = async ({ params, body }, response) => {
 	);
 
 	const { response: dbResponse, failedDocuments } = await executeInTransaction(async (tx) => {
+		// find the latest document reference for this case, and then add 1 for the next free one
 		const latestDocumentReference = await getLatestDocReferenceByCaseIdExcludingMigrated(
 			{ caseId },
 			tx
