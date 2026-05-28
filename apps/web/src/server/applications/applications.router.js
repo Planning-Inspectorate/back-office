@@ -6,6 +6,7 @@ import * as locals from './applications.locals.js';
 import applicationsCaseRouter from './case/applications-case.router.js';
 import applicationsCreateRouter from './create-new-case/applications-create.router.js';
 import applicationsSearchRouter from './search-results/applications-search.router.js';
+import filePropsWipePocRouter from './poc/file-props-wipe/file-props-wipe-poc.router.js';
 import { destroySessionS51 } from './case/s51/applications-s51.session.js';
 import { viewGeneralSection51page } from './case/general-s51/applications-general-s51.controller.js';
 
@@ -31,6 +32,8 @@ router.route('/').get(asyncHandler(controller.viewDashboard));
 router.use('/search-results', applicationsSearchRouter);
 
 router.use('/create-new-case', applicationsCreateRouter);
+
+router.use('/poc/file-props-wipe', filePropsWipePocRouter);
 
 router.use('/case', applicationsCaseRouter);
 

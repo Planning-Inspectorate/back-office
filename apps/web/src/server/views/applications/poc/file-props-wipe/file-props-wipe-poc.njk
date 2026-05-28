@@ -1,0 +1,245 @@
+{% extends "applications/layouts/applications.layout.njk" %}
+
+{% from "govuk/components/input/macro.njk" import govukInput %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
+{% from 'app/components/file-uploader.component.njk' import fileUploader %}
+
+{% set pageTitle = "File Properties Wipe — POC" %}
+
+{% block pageHeading %}
+	<h1 class="govuk-heading-l">{{ pageTitle }}</h1>
+{% endblock %}
+
+{% block pageContent %}
+
+	{% if apiError %}
+		<div class="govuk-error-summary" data-module="govuk-error-summary">
+			<h2 class="govuk-error-summary__title">API Error during "{{ apiError.step }}" step</h2>
+			<div class="govuk-error-summary__body">
+				<p class="govuk-body">{{ apiError.message }}</p>
+			</div>
+		</div>
+	{% endif %}
+
+	{% if not showUploader and not results %}
+		{# Step 1: Enter case ID and folder ID #}
+		<div class="govuk-grid-row">
+			<div class="govuk-grid-column-two-thirds">
+				<p class="govuk-body">This page demonstrates the blob-field-wipe bug. It will:</p>
+				<ol class="govuk-list govuk-list--number">
+					<li>Upload a file to the specified folder</li>
+					<li>Fetch the document properties (confirming blob fields are populated)</li>
+					<li>Send a metadata-only update (omitting blob fields)</li>
+					<li>Fetch the document properties again and compare</li>
+				</ol>
+				<p class="govuk-body">Enter the case ID and folder ID to target, then upload a file on the next step.</p>
+			</div>
+		</div>
+
+		<form method="POST" novalidate>
+			<div class="govuk-grid-row">
+				<div class="govuk-grid-column-two-thirds">
+
+					{{ govukInput({
+						label: {
+							text: "Case ID",
+							classes: "govuk-label--m"
+						},
+						hint: {
+							text: "e.g. 100000086"
+						},
+						id: "caseId",
+						name: "caseId",
+						errorMessage: errors.caseId and {
+							text: errors.caseId
+						}
+					}) }}
+
+					{{ govukInput({
+						label: {
+							text: "Folder ID",
+							classes: "govuk-label--m"
+						},
+						hint: {
+							text: "e.g. 100011130"
+						},
+						id: "folderId",
+						name: "folderId",
+						errorMessage: errors.folderId and {
+							text: errors.folderId
+						}
+					}) }}
+
+					{{ govukButton({
+						text: "Continue to file upload"
+					}) }}
+
+					<p class="govuk-body govuk-!-margin-top-4">Or, if a file already exists in the folder:</p>
+
+					{{ govukButton({
+						text: "Use existing file in folder",
+						classes: "govuk-button--secondary",
+						name: "action",
+						value: "use-existing"
+					}) }}
+
+				</div>
+			</div>
+		</form>
+	{% endif %}
+
+	{% if showUploader %}
+		{# Step 2: Upload a file using the existing file uploader component #}
+		<div class="govuk-grid-row govuk-!-margin-bottom-6">
+			<div class="govuk-grid-column-two-thirds">
+				<details class="govuk-details">
+					<summary class="govuk-details__summary">
+						<span class="govuk-details__summary-text">File already exists in folder?</span>
+					</summary>
+					<div class="govuk-details__text">
+						<p class="govuk-body">If you get a duplicate file error, delete the existing file first.</p>
+						<form method="POST" action="/applications-service/poc/file-props-wipe/delete">
+							<input type="hidden" name="caseId" value="{{ caseId }}">
+							<input type="hidden" name="folderId" value="{{ folderId }}">
+							{{ govukButton({
+								text: "Delete existing file and retry",
+								classes: "govuk-button--warning"
+							}) }}
+						</form>
+					</div>
+				</details>
+			</div>
+		</div>
+
+		{{ fileUploader({
+			text: 'Upload and compare properties',
+			formId: 'poc-wipe',
+			caseId: caseId,
+			folderId: folderId,
+			formTitle: 'Upload a file to test with',
+			nextPageUrl: '/applications-service/poc/file-props-wipe/results?caseId=' + caseId + '&folderId=' + folderId,
+			allowedTypes: ['dbf','doc','docx','html','jpeg','jpg','mov','mp3','mp4','mpeg','msg','pdf','png','ppt','pptx','prj','shp','shx','tif','tiff','xls','xlsm','xlsx','zip'],
+			showUploadLabel: true,
+			multiple: false
+		}) }}
+	{% endif %}
+
+	{% if results %}
+		<hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+
+		<h2 class="govuk-heading-m">Document: {{ results.documentGuid }} (version {{ results.version }})</h2>
+
+		{% set blobFields = ["privateBlobPath", "privateBlobContainer", "size", "mime", "originalFilename"] %}
+		{% set diffFieldNames = [] %}
+		{% for diff in results.diffs %}
+			{% set diffFieldNames = diffFieldNames | concat([diff.field]) %}
+		{% endfor %}
+
+		{# Before Update Section #}
+		<h3 class="govuk-heading-s">Before Update</h3>
+		<table class="govuk-table">
+			<caption class="govuk-table__caption govuk-table__caption--s">Blob Fields</caption>
+			<thead class="govuk-table__head">
+				<tr class="govuk-table__row">
+					<th class="govuk-table__header" scope="col">Field</th>
+					<th class="govuk-table__header" scope="col">Value</th>
+				</tr>
+			</thead>
+			<tbody class="govuk-table__body">
+				{% for field in blobFields %}
+					<tr class="govuk-table__row">
+						<th class="govuk-table__header" scope="row">{{ field }}</th>
+						<td class="govuk-table__cell">{{ results.beforeState[field] if results.beforeState[field] !== null else "null" }}</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+
+		<table class="govuk-table">
+			<caption class="govuk-table__caption govuk-table__caption--s">Metadata Fields</caption>
+			<thead class="govuk-table__head">
+				<tr class="govuk-table__row">
+					<th class="govuk-table__header" scope="col">Field</th>
+					<th class="govuk-table__header" scope="col">Value</th>
+				</tr>
+			</thead>
+			<tbody class="govuk-table__body">
+				{% for key, value in results.beforeState %}
+					{% if key not in blobFields %}
+						<tr class="govuk-table__row">
+							<th class="govuk-table__header" scope="row">{{ key }}</th>
+							<td class="govuk-table__cell">{{ value if value !== null else "null" }}</td>
+						</tr>
+					{% endif %}
+				{% endfor %}
+			</tbody>
+		</table>
+
+		{# After Update Section #}
+		<h3 class="govuk-heading-s">After Update</h3>
+		<table class="govuk-table">
+			<caption class="govuk-table__caption govuk-table__caption--s">Blob Fields</caption>
+			<thead class="govuk-table__head">
+				<tr class="govuk-table__row">
+					<th class="govuk-table__header" scope="col">Field</th>
+					<th class="govuk-table__header" scope="col">Value</th>
+				</tr>
+			</thead>
+			<tbody class="govuk-table__body">
+				{% for field in blobFields %}
+					{% set isDiff = field in diffFieldNames %}
+					<tr class="govuk-table__row">
+						<th class="govuk-table__header" scope="row">{{ field }}</th>
+						<td class="govuk-table__cell" {% if isDiff %}style="background-color: #f3e1e1;"{% endif %}>
+							{{ results.afterState[field] if results.afterState[field] !== null else "null" }}
+							{% if isDiff %}
+								<strong class="govuk-tag govuk-tag--red">CHANGED</strong>
+							{% endif %}
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+
+		<table class="govuk-table">
+			<caption class="govuk-table__caption govuk-table__caption--s">Metadata Fields</caption>
+			<thead class="govuk-table__head">
+				<tr class="govuk-table__row">
+					<th class="govuk-table__header" scope="col">Field</th>
+					<th class="govuk-table__header" scope="col">Value</th>
+				</tr>
+			</thead>
+			<tbody class="govuk-table__body">
+				{% for key, value in results.afterState %}
+					{% if key not in blobFields %}
+						<tr class="govuk-table__row">
+							<th class="govuk-table__header" scope="row">{{ key }}</th>
+							<td class="govuk-table__cell">{{ value if value !== null else "null" }}</td>
+						</tr>
+					{% endif %}
+				{% endfor %}
+			</tbody>
+		</table>
+
+		{# Verdict Banner #}
+		{% if results.bugReproduced %}
+			<div class="govuk-panel govuk-panel--confirmation" style="background-color: #d4351c;">
+				<h2 class="govuk-panel__title">Bug Reproduced</h2>
+				<div class="govuk-panel__body">
+					Blob fields were wiped after the metadata-only update.
+					{{ results.diffs | length }} field(s) changed: {{ diffFieldNames | join(", ") }}
+				</div>
+			</div>
+		{% else %}
+			<div class="govuk-panel govuk-panel--confirmation">
+				<h2 class="govuk-panel__title">Bug NOT Reproduced</h2>
+				<div class="govuk-panel__body">
+					All blob fields remained unchanged after the metadata-only update.
+				</div>
+			</div>
+		{% endif %}
+
+	{% endif %}
+
+{% endblock %}
