@@ -101,9 +101,7 @@ export async function runFilePropsWipePoc(request, response) {
 	const { caseId, folderId } = request.query;
 
 	if (!caseId || !folderId) {
-		response.render(TEMPLATE_PATH, {
-			apiError: { step: 'params', message: 'Missing caseId or folderId query parameters' }
-		});
+		response.redirect('/applications-service/poc/file-props-wipe');
 		return;
 	}
 
