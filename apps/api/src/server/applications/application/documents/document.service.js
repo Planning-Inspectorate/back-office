@@ -1015,9 +1015,10 @@ export const separateNonPublishedDocuments = async (guids) => {
  * Unpublish a list of documents
  *
  * @param {string[]} guids
+ * @param {string} username
  * @returns {Promise<string[]>} // array of unpublished doc guids
  * */
-export const unpublishDocuments = async (guids) => {
+export const unpublishDocuments = async (guids, username) => {
 	const versionPromises = guids.map(documentVersionRepository.getPublished);
 	const versions = await Promise.all(versionPromises);
 
@@ -1035,7 +1036,7 @@ export const unpublishDocuments = async (guids) => {
 			documentActivityLogRepository.create({
 				documentGuid: version.documentGuid,
 				version: version.version,
-				user: version.owner ?? '',
+				user: username || version.owner || 'System',
 				status: 'unpublished'
 			})
 		)

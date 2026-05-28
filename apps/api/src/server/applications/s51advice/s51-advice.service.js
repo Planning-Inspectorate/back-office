@@ -200,9 +200,10 @@ export const publishS51Items = async (ids) => {
  * Unpublish S51 advice item and associated documents
  *
  * @param {number} id
+ * @param {string} username
  * @returns {Promise<S51AdviceWithS51AdviceDocuments>}
  * */
-export const unpublishS51 = async (id) => {
+export const unpublishS51 = async (id, username) => {
 	const advice = await s51AdviceRepository.get(id);
 	if (!advice) {
 		throw new BackOfficeAppError(`no S51 advice found with id ${id}`, 404);
@@ -218,7 +219,7 @@ export const unpublishS51 = async (id) => {
 			(/** @type {S51AdviceDocument} */ advice) => advice.documentGuid
 		);
 
-		await unpublishDocuments(docs);
+		await unpublishDocuments(docs, username);
 	}
 
 	return updateResponseInTable;

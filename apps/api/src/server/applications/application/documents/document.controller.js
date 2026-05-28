@@ -247,7 +247,7 @@ export const moveDocumentsToAnotherFolder = async ({ body }, response) => {
  * @type {import('express').RequestHandler<{id: number}, any, { documents: { guid: string }[] }, any>}
  * */
 export const unpublishDocuments = async ({ body }, response) => {
-	const { documents } = body;
+	const { documents, username } = body;
 
 	const guids = documents.map(({ guid }) => guid);
 
@@ -258,7 +258,7 @@ export const unpublishDocuments = async ({ body }, response) => {
 	}));
 
 	const publishedGuids = guids.filter((guid) => !nonPublishedDocuments.includes(guid));
-	const results = await unpublishDocumentGuids(publishedGuids);
+	const results = await unpublishDocumentGuids(publishedGuids, username);
 	const updateErrors = publishedGuids
 		.filter((guid) => !results.includes(guid))
 		.map((guid) => ({ guid, msg: 'Something went wrong.' }));

@@ -8,6 +8,7 @@ import {
 	migrateGisShapefilesFolders,
 	deleteGisShapefilesFoldersController
 } from './migrators/gis-shapefiles-folder.controller.js';
+import { spreadsheetCaseDataMigration } from './migrators/spreadsheet-case-data.controller.js';
 
 const router = createRouter();
 
@@ -142,6 +143,38 @@ router.post(
 		}
 	*/
 	asyncHandler(deleteGisShapefilesFoldersController)
+);
+
+router.post(
+	'/spreadsheet-case-data',
+	/*
+		#swagger.tags = ['Migration']
+		#swagger.path = '/migration/spreadsheet-case-data'
+		#swagger.description = 'Migrate case data from an Excel spreadsheet upload'
+		#swagger.consumes = ['application/octet-stream']
+		#swagger.parameters['body'] = {
+			in: 'body',
+			description: 'Excel spreadsheet file (binary)',
+			required: true,
+			type: 'file'
+		}
+		#swagger.parameters['x-service-name'] = {
+			in: 'header',
+			type: 'string',
+			description: 'Service name header',
+			default: 'swagger'
+		}
+		#swagger.parameters['x-api-key'] = {
+			in: 'header',
+			type: 'string',
+			description: 'API key header',
+			default: '123'
+		}
+		#swagger.responses[200] = {
+			description: 'Migration results',
+		}
+	*/
+	asyncHandler(spreadsheetCaseDataMigration)
 );
 
 router.post(

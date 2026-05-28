@@ -210,7 +210,6 @@ router.patch(
 	validateApplicationId,
 	validateDocumentsToUpdateProvided,
 	validateDocumentIds,
-	trimUnexpectedRequestParameters,
 	asyncHandler(unpublishDocuments)
 );
 
