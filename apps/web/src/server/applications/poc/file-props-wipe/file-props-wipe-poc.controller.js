@@ -1,37 +1,6 @@
 import * as pocService from './file-props-wipe-poc.service.js';
 import logger from '../../../lib/logger.js';
 
-/**
- * Fields that Phase 1 (attemptInsertDocuments) sets via attachMetadataToDocuments,
- * but Phase 2 (upsertDocumentVersionsMetadataToDatabase) wipes because it only
- * sends { privateBlobContainer, documentGuid, privateBlobPath } to the upsert.
- */
-const METADATA_FIELDS_SET_IN_PHASE1 = [
-	'documentType',
-	'filter1',
-	'filter1Welsh',
-	'author',
-	'authorWelsh',
-	'description',
-	'descriptionWelsh',
-	'stage',
-	'sourceSystem',
-	'owner'
-];
-
-/**
- * Fields that should survive because they're on the DocumentVersion record
- * from Phase 1's create path (not the update path).
- */
-const FIELDS_THAT_SURVIVE = [
-	'privateBlobPath',
-	'privateBlobContainer',
-	'mime',
-	'size',
-	'originalFilename',
-	'fileName'
-];
-
 const BASE_URL = '/applications-service/poc/file-props-wipe';
 const TEMPLATE_PATH = 'applications/poc/file-props-wipe/file-props-wipe-poc';
 
@@ -168,6 +137,7 @@ export async function deleteAndRetry(request, response) {
 /**
  * GET /result — fetches the most recent document in the folder and shows
  * which metadata fields were wiped by Phase 2 of the upload process.
+ * Infers Phase 1 expected state from the folder metadata and upload payload.
  *
  * @param {import('express').Request} request
  * @param {import('express').Response} response
@@ -185,7 +155,7 @@ export async function showResult(request, response) {
 
 	logger.info(`[POC] Checking Phase 2 wipe for case=${caseIdStr}, folder=${folderIdStr}`);
 
-	// 1. Fetch the most recently uploaded document from the folder
+	// 1. Fetch the most recently uploaded document
 	/** @type {any} */
 	let folderDocuments;
 
@@ -216,7 +186,7 @@ export async function showResult(request, response) {
 		return;
 	}
 
-	// 2. Fetch the document properties (after both Phase 1 and Phase 2 have completed)
+	// 2. Fetch document properties (after both Phase 1 and Phase 2)
 	/** @type {Record<string, any>} */
 	let docProperties;
 
@@ -235,31 +205,162 @@ export async function showResult(request, response) {
 		return;
 	}
 
-	logger.info(`[POC] Document properties: ${JSON.stringify(docProperties)}`);
+	// 3. Fetch folder info to infer what Phase 1 should have set
+	/** @type {any} */
+	let folderDetails = null;
+	/** @type {any[]} */
+	let folderParents = [];
 
-	// 3. Check which metadata fields are null (wiped by Phase 2)
-	const wipedFields = METADATA_FIELDS_SET_IN_PHASE1.filter(
-		(field) => docProperties[field] === null || docProperties[field] === undefined
+	try {
+		folderDetails = await pocService.getFolderDetails(caseIdStr, folderIdStr);
+	} catch (/** @type {any} */ e) {
+		logger.warn(`[POC] Could not fetch folder details: ${e.message}`);
+	}
+
+	try {
+		folderParents = /** @type {any[]} */ (
+			await pocService.getFolderParents(caseIdStr, folderIdStr)
+		);
+	} catch (/** @type {any} */ e) {
+		logger.warn(`[POC] Could not fetch folder parents: ${e.message}`);
+	}
+
+	// 4. Determine folder path and whether it's an "Application Documents" folder
+	const folderPath = [
+		...(folderParents || []).map((/** @type {any} */ f) => f.displayNameEn),
+		folderDetails?.displayNameEn
+	].filter(Boolean);
+
+	const folderPathStr = folderPath.join(' > ');
+	const isAppDocsFolder = folderPath.some(
+		(/** @type {string} */ name) => name === 'Project documentation'
 	);
 
-	const survivedFields = FIELDS_THAT_SURVIVE.filter(
-		(field) => docProperties[field] !== null && docProperties[field] !== undefined
+	// 5. Build comparison: Phase 1 expected vs actual (after Phase 2)
+	// Phase 1 sets these from the upload payload (always):
+	// Phase 1 sets filter1/author only for Application Documents folders via attachMetadataToDocuments
+	const comparison = [
+		{
+			field: 'mime',
+			label: 'MIME type',
+			phase1: '(from uploaded file)',
+			actual: docProperties.mime,
+			survivesPhase2: true
+		},
+		{
+			field: 'size',
+			label: 'File size',
+			phase1: '(from uploaded file)',
+			actual: docProperties.size,
+			survivesPhase2: true
+		},
+		{
+			field: 'originalFilename',
+			label: 'Original filename',
+			phase1: '(from uploaded file)',
+			actual: docProperties.originalFilename,
+			survivesPhase2: true
+		},
+		{
+			field: 'fileName',
+			label: 'File name (no ext)',
+			phase1: '(from uploaded file)',
+			actual: docProperties.fileName,
+			survivesPhase2: true
+		},
+		{
+			field: 'sourceSystem',
+			label: 'Source system',
+			phase1: 'back-office-applications',
+			actual: docProperties.sourceSystem,
+			survivesPhase2: true
+		},
+		{
+			field: 'owner',
+			label: 'Owner',
+			phase1: '(logged-in user)',
+			actual: docProperties.owner,
+			survivesPhase2: true
+		},
+		{
+			field: 'stage',
+			label: 'Stage',
+			phase1: folderDetails?.stage || '(from folder-to-stage mapping)',
+			actual: docProperties.stage,
+			survivesPhase2: false
+		},
+		{
+			field: 'filter1',
+			label: 'Filter 1 (webfilter)',
+			phase1: isAppDocsFolder
+				? `(from folder: "${folderDetails?.displayNameEn}")`
+				: '(not set for this folder)',
+			actual: docProperties.filter1,
+			survivesPhase2: false
+		},
+		{
+			field: 'author',
+			label: 'Author',
+			phase1: isAppDocsFolder ? '(from case applicant)' : '(not set for this folder)',
+			actual: docProperties.author,
+			survivesPhase2: false
+		},
+		{
+			field: 'description',
+			label: 'Description',
+			phase1: null,
+			actual: docProperties.description,
+			survivesPhase2: false
+		},
+		{
+			field: 'documentType',
+			label: 'Document type',
+			phase1: null,
+			actual: docProperties.documentType,
+			survivesPhase2: false
+		},
+		{
+			field: 'privateBlobPath',
+			label: 'Blob path',
+			phase1: null,
+			actual: docProperties.privateBlobPath,
+			survivesPhase2: true,
+			setByPhase2: true
+		},
+		{
+			field: 'privateBlobContainer',
+			label: 'Blob container',
+			phase1: null,
+			actual: docProperties.privateBlobContainer,
+			survivesPhase2: true,
+			setByPhase2: true
+		}
+	];
+
+	// Mark which fields are wiped (expected to have value from Phase 1 but are null after Phase 2)
+	const wipedFields = comparison.filter(
+		(f) =>
+			!f.survivesPhase2 &&
+			f.phase1 &&
+			!String(f.phase1).startsWith('(not set') &&
+			(f.actual === null || f.actual === undefined || f.actual === '')
 	);
 
 	const bugReproduced = wipedFields.length > 0;
 
-	logger.info(`[POC] Bug reproduced: ${bugReproduced}. Wiped fields: ${wipedFields.join(', ')}`);
+	logger.info(
+		`[POC] Bug reproduced: ${bugReproduced}. Wiped: ${wipedFields.map((f) => f.field).join(', ')}`
+	);
 
 	response.render(TEMPLATE_PATH, {
 		page: 'result',
 		results: {
 			documentGuid: guidStr,
 			version: docProperties.version,
-			docProperties,
+			folderPath: folderPathStr,
+			isAppDocsFolder,
+			comparison,
 			wipedFields,
-			survivedFields,
-			metadataFields: METADATA_FIELDS_SET_IN_PHASE1,
-			blobFields: FIELDS_THAT_SURVIVE,
 			bugReproduced
 		}
 	});

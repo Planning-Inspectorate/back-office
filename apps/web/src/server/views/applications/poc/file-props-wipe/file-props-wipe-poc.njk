@@ -34,14 +34,13 @@
 					</summary>
 					<div class="govuk-details__text">
 						<ol class="govuk-list govuk-list--number">
-							<li><strong>Phase 1</strong>: Creates DocumentVersion with full metadata (documentType, filter1, author, stage, mime, size, etc.)</li>
+							<li><strong>Phase 1</strong>: Creates DocumentVersion with full metadata (stage, filter1, author, mime, size, etc.)</li>
 							<li><strong>Phase 2</strong>: Resolves blob storage location, then calls <code>upsert()</code> with ONLY <code>{ privateBlobContainer, documentGuid, privateBlobPath }</code></li>
 							<li>Prisma's upsert <code>update</code> clause spreads <code>...metadata</code> — since metadata only has blob fields, all other fields are reset to null</li>
 						</ol>
+						<p class="govuk-body"><strong>Tip:</strong> Upload to a folder under "Project documentation" (e.g. Acceptance) to see the full bug — those folders enrich filter1 and author in Phase 1.</p>
 					</div>
 				</details>
-
-				<p class="govuk-body">Enter a case ID and folder ID, then upload a file. After upload, the POC will fetch the document properties and show which fields were wiped.</p>
 			</div>
 		</div>
 
@@ -125,7 +124,7 @@
 			<div class="govuk-panel govuk-panel--confirmation" style="background-color: #00703c;">
 				<h2 class="govuk-panel__title">Bug NOT Reproduced</h2>
 				<div class="govuk-panel__body">
-					All metadata fields survived Phase 2. This may mean the bug has been fixed, or the folder doesn't enrich metadata in Phase 1.
+					No metadata fields were wiped. Try uploading to a folder under "Project documentation" to see the full bug.
 				</div>
 			</div>
 		{% endif %}
@@ -133,62 +132,52 @@
 		<hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
 
 		<h2 class="govuk-heading-m">Document: {{ results.documentGuid }} (version {{ results.version }})</h2>
+		<p class="govuk-body">Folder path: <strong>{{ results.folderPath }}</strong></p>
 
-		<p class="govuk-body">These are the document properties <strong>immediately after upload</strong> (both Phase 1 and Phase 2 have completed).</p>
+		{% if not results.isAppDocsFolder %}
+			<div class="govuk-warning-text">
+				<span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+				<strong class="govuk-warning-text__text">
+					This folder is not under "Project documentation" — Phase 1 does not enrich filter1/author for this folder. Try a folder under Project documentation to see the full bug.
+				</strong>
+			</div>
+		{% endif %}
 
-		{# Metadata fields (expected to be wiped by Phase 2) #}
-		<h3 class="govuk-heading-s">Metadata Fields (set by Phase 1, expected to be wiped by Phase 2)</h3>
+		<h3 class="govuk-heading-s">Field Comparison: Phase 1 (expected) vs Actual (after Phase 2)</h3>
 		<table class="govuk-table">
 			<thead class="govuk-table__head">
 				<tr class="govuk-table__row">
 					<th class="govuk-table__header" scope="col">Field</th>
-					<th class="govuk-table__header" scope="col">Value</th>
+					<th class="govuk-table__header" scope="col">Phase 1 (expected)</th>
+					<th class="govuk-table__header" scope="col">Actual (after Phase 2)</th>
 					<th class="govuk-table__header" scope="col">Status</th>
 				</tr>
 			</thead>
 			<tbody class="govuk-table__body">
-				{% for field in results.metadataFields %}
-					{% set isWiped = field in results.wipedFields %}
+				{% for row in results.comparison %}
+					{% set isWiped = false %}
+					{% for w in results.wipedFields %}
+						{% if w.field == row.field %}
+							{% set isWiped = true %}
+						{% endif %}
+					{% endfor %}
 					<tr class="govuk-table__row">
-						<th class="govuk-table__header" scope="row">{{ field }}</th>
+						<th class="govuk-table__header" scope="row">{{ row.label }}</th>
+						<td class="govuk-table__cell">{{ row.phase1 if row.phase1 else "—" }}</td>
 						<td class="govuk-table__cell" {% if isWiped %}style="background-color: #f3e1e1;"{% endif %}>
-							{{ results.docProperties[field] if results.docProperties[field] !== null else "null" }}
+							{{ row.actual if row.actual !== null and row.actual !== undefined else "null" }}
 						</td>
 						<td class="govuk-table__cell">
-							{% if isWiped %}
-								<strong class="govuk-tag govuk-tag--red">WIPED</strong>
-							{% else %}
-								<strong class="govuk-tag govuk-tag--green">OK</strong>
-							{% endif %}
-						</td>
-					</tr>
-				{% endfor %}
-			</tbody>
-		</table>
-
-		{# Blob/file fields (expected to survive) #}
-		<h3 class="govuk-heading-s">Blob/File Fields (set by Phase 2, expected to survive)</h3>
-		<table class="govuk-table">
-			<thead class="govuk-table__head">
-				<tr class="govuk-table__row">
-					<th class="govuk-table__header" scope="col">Field</th>
-					<th class="govuk-table__header" scope="col">Value</th>
-					<th class="govuk-table__header" scope="col">Status</th>
-				</tr>
-			</thead>
-			<tbody class="govuk-table__body">
-				{% for field in results.blobFields %}
-					{% set hasValue = results.docProperties[field] !== null and results.docProperties[field] !== undefined %}
-					<tr class="govuk-table__row">
-						<th class="govuk-table__header" scope="row">{{ field }}</th>
-						<td class="govuk-table__cell">
-							{{ results.docProperties[field] if results.docProperties[field] !== null else "null" }}
-						</td>
-						<td class="govuk-table__cell">
-							{% if hasValue %}
+							{% if row.setByPhase2 %}
+								<strong class="govuk-tag govuk-tag--blue">SET BY PHASE 2</strong>
+							{% elif isWiped %}
+								<strong class="govuk-tag govuk-tag--red">WIPED BY PHASE 2</strong>
+							{% elif row.survivesPhase2 %}
+								<strong class="govuk-tag govuk-tag--green">SURVIVED</strong>
+							{% elif row.actual !== null and row.actual !== undefined and row.actual !== '' %}
 								<strong class="govuk-tag govuk-tag--green">OK</strong>
 							{% else %}
-								<strong class="govuk-tag govuk-tag--yellow">EMPTY</strong>
+								<strong class="govuk-tag govuk-tag--grey">NOT SET</strong>
 							{% endif %}
 						</td>
 					</tr>

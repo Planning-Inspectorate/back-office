@@ -25,6 +25,28 @@ export async function getFolderDocuments(caseId, folderId) {
 }
 
 /**
+ * Fetch folder details (name, stage, etc.)
+ *
+ * @param {string} caseId
+ * @param {string} folderId
+ * @returns {Promise<object>}
+ */
+export async function getFolderDetails(caseId, folderId) {
+	return get(`applications/${caseId}/folders/${folderId}`);
+}
+
+/**
+ * Fetch the parent folder path for a folder.
+ *
+ * @param {string} caseId
+ * @param {string} folderId
+ * @returns {Promise<Array<{id: number, displayNameEn: string}>>}
+ */
+export async function getFolderParents(caseId, folderId) {
+	return get(`applications/${caseId}/folders/${folderId}/parent-folders`);
+}
+
+/**
  * Delete a document by GUID.
  *
  * @param {string} caseId
