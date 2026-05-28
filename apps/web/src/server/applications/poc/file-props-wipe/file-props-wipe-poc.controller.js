@@ -123,6 +123,18 @@ export async function deleteAndRetry(request, response) {
 			});
 			return;
 		}
+	} else {
+		response.render(TEMPLATE_PATH, {
+			page: 'file-upload',
+			caseId,
+			folderId,
+			apiError: {
+				step: 'delete',
+				message:
+					'No documents found in folder to delete. The duplicate check may include previously deleted files — try using a different filename.'
+			}
+		});
+		return;
 	}
 
 	response.render(TEMPLATE_PATH, {
@@ -237,34 +249,34 @@ export async function showResult(request, response) {
 	);
 
 	// 5. Build comparison: Phase 1 expected vs actual (after Phase 2)
-	// Phase 1 sets these from the upload payload (always):
-	// Phase 1 sets filter1/author only for Application Documents folders via attachMetadataToDocuments
+	// For fields that survive Phase 2, the actual value IS what Phase 1 set.
+	// For fields wiped by Phase 2, we infer what Phase 1 would have set.
 	const comparison = [
 		{
 			field: 'mime',
 			label: 'MIME type',
-			phase1: '(from uploaded file)',
+			phase1: docProperties.mime,
 			actual: docProperties.mime,
 			survivesPhase2: true
 		},
 		{
 			field: 'size',
 			label: 'File size',
-			phase1: '(from uploaded file)',
+			phase1: docProperties.size,
 			actual: docProperties.size,
 			survivesPhase2: true
 		},
 		{
 			field: 'originalFilename',
 			label: 'Original filename',
-			phase1: '(from uploaded file)',
+			phase1: docProperties.originalFilename,
 			actual: docProperties.originalFilename,
 			survivesPhase2: true
 		},
 		{
 			field: 'fileName',
 			label: 'File name (no ext)',
-			phase1: '(from uploaded file)',
+			phase1: docProperties.fileName,
 			actual: docProperties.fileName,
 			survivesPhase2: true
 		},
@@ -278,30 +290,28 @@ export async function showResult(request, response) {
 		{
 			field: 'owner',
 			label: 'Owner',
-			phase1: '(logged-in user)',
+			phase1: docProperties.owner,
 			actual: docProperties.owner,
 			survivesPhase2: true
 		},
 		{
 			field: 'stage',
 			label: 'Stage',
-			phase1: folderDetails?.stage || '(from folder-to-stage mapping)',
+			phase1: folderDetails?.stage || '(could not resolve)',
 			actual: docProperties.stage,
 			survivesPhase2: false
 		},
 		{
 			field: 'filter1',
 			label: 'Filter 1 (webfilter)',
-			phase1: isAppDocsFolder
-				? `(from folder: "${folderDetails?.displayNameEn}")`
-				: '(not set for this folder)',
+			phase1: isAppDocsFolder ? `derived from folder "${folderDetails?.displayNameEn}"` : null,
 			actual: docProperties.filter1,
 			survivesPhase2: false
 		},
 		{
 			field: 'author',
 			label: 'Author',
-			phase1: isAppDocsFolder ? '(from case applicant)' : '(not set for this folder)',
+			phase1: isAppDocsFolder ? 'derived from case applicant' : null,
 			actual: docProperties.author,
 			survivesPhase2: false
 		},

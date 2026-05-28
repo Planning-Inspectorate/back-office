@@ -82,12 +82,13 @@
 						<span class="govuk-details__summary-text">Duplicate file error?</span>
 					</summary>
 					<div class="govuk-details__text">
-						<p class="govuk-body">Delete the existing file first, then retry.</p>
+						<p class="govuk-body"><strong>Note:</strong> The API rejects filenames that have been used before on this case, even after deletion. You must use a different filename each time.</p>
+						<p class="govuk-body">The button below deletes the most recent document in the folder (useful for cleanup):</p>
 						<form method="POST" action="/applications-service/poc/file-props-wipe/file-upload">
 							<input type="hidden" name="caseId" value="{{ caseId }}">
 							<input type="hidden" name="folderId" value="{{ folderId }}">
 							{{ govukButton({
-								text: "Delete existing file and retry",
+								text: "Delete most recent file in folder",
 								classes: "govuk-button--warning"
 							}) }}
 						</form>
