@@ -126,103 +126,13 @@
 	{% endif %}
 
 	{% if results %}
-		<hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
-
-		<h2 class="govuk-heading-m">Document: {{ results.documentGuid }} (version {{ results.version }})</h2>
-
 		{% set blobFields = ["privateBlobPath", "privateBlobContainer", "size", "mime", "originalFilename"] %}
 		{% set diffFieldNames = [] %}
 		{% for diff in results.diffs %}
 			{% set diffFieldNames = diffFieldNames | concat([diff.field]) %}
 		{% endfor %}
 
-		{# Before Update Section #}
-		<h3 class="govuk-heading-s">Before Update</h3>
-		<table class="govuk-table">
-			<caption class="govuk-table__caption govuk-table__caption--s">Blob Fields</caption>
-			<thead class="govuk-table__head">
-				<tr class="govuk-table__row">
-					<th class="govuk-table__header" scope="col">Field</th>
-					<th class="govuk-table__header" scope="col">Value</th>
-				</tr>
-			</thead>
-			<tbody class="govuk-table__body">
-				{% for field in blobFields %}
-					<tr class="govuk-table__row">
-						<th class="govuk-table__header" scope="row">{{ field }}</th>
-						<td class="govuk-table__cell">{{ results.beforeState[field] if results.beforeState[field] !== null else "null" }}</td>
-					</tr>
-				{% endfor %}
-			</tbody>
-		</table>
-
-		<table class="govuk-table">
-			<caption class="govuk-table__caption govuk-table__caption--s">Metadata Fields</caption>
-			<thead class="govuk-table__head">
-				<tr class="govuk-table__row">
-					<th class="govuk-table__header" scope="col">Field</th>
-					<th class="govuk-table__header" scope="col">Value</th>
-				</tr>
-			</thead>
-			<tbody class="govuk-table__body">
-				{% for key, value in results.beforeState %}
-					{% if key not in blobFields %}
-						<tr class="govuk-table__row">
-							<th class="govuk-table__header" scope="row">{{ key }}</th>
-							<td class="govuk-table__cell">{{ value if value !== null else "null" }}</td>
-						</tr>
-					{% endif %}
-				{% endfor %}
-			</tbody>
-		</table>
-
-		{# After Update Section #}
-		<h3 class="govuk-heading-s">After Update</h3>
-		<table class="govuk-table">
-			<caption class="govuk-table__caption govuk-table__caption--s">Blob Fields</caption>
-			<thead class="govuk-table__head">
-				<tr class="govuk-table__row">
-					<th class="govuk-table__header" scope="col">Field</th>
-					<th class="govuk-table__header" scope="col">Value</th>
-				</tr>
-			</thead>
-			<tbody class="govuk-table__body">
-				{% for field in blobFields %}
-					{% set isDiff = field in diffFieldNames %}
-					<tr class="govuk-table__row">
-						<th class="govuk-table__header" scope="row">{{ field }}</th>
-						<td class="govuk-table__cell" {% if isDiff %}style="background-color: #f3e1e1;"{% endif %}>
-							{{ results.afterState[field] if results.afterState[field] !== null else "null" }}
-							{% if isDiff %}
-								<strong class="govuk-tag govuk-tag--red">CHANGED</strong>
-							{% endif %}
-						</td>
-					</tr>
-				{% endfor %}
-			</tbody>
-		</table>
-
-		<table class="govuk-table">
-			<caption class="govuk-table__caption govuk-table__caption--s">Metadata Fields</caption>
-			<thead class="govuk-table__head">
-				<tr class="govuk-table__row">
-					<th class="govuk-table__header" scope="col">Field</th>
-					<th class="govuk-table__header" scope="col">Value</th>
-				</tr>
-			</thead>
-			<tbody class="govuk-table__body">
-				{% for key, value in results.afterState %}
-					{% if key not in blobFields %}
-						<tr class="govuk-table__row">
-							<th class="govuk-table__header" scope="row">{{ key }}</th>
-							<td class="govuk-table__cell">{{ value if value !== null else "null" }}</td>
-						</tr>
-					{% endif %}
-				{% endfor %}
-			</tbody>
-		</table>
-
-		{# Verdict Banner #}
+		{# Verdict Banner - shown first #}
 		{% if results.bugReproduced %}
 			<div class="govuk-panel govuk-panel--confirmation" style="background-color: #d4351c;">
 				<h2 class="govuk-panel__title">Bug Reproduced</h2>
@@ -239,6 +149,60 @@
 				</div>
 			</div>
 		{% endif %}
+
+		<hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible">
+
+		<h2 class="govuk-heading-m">Document: {{ results.documentGuid }} (version {{ results.version }})</h2>
+
+		{# Combined Blob Fields table #}
+		<h3 class="govuk-heading-s">Blob Fields</h3>
+		<table class="govuk-table">
+			<thead class="govuk-table__head">
+				<tr class="govuk-table__row">
+					<th class="govuk-table__header" scope="col">Field</th>
+					<th class="govuk-table__header" scope="col">Before Update</th>
+					<th class="govuk-table__header" scope="col">After Update</th>
+				</tr>
+			</thead>
+			<tbody class="govuk-table__body">
+				{% for field in blobFields %}
+					{% set isDiff = field in diffFieldNames %}
+					<tr class="govuk-table__row">
+						<th class="govuk-table__header" scope="row">{{ field }}</th>
+						<td class="govuk-table__cell">{{ results.beforeState[field] if results.beforeState[field] !== null else "null" }}</td>
+						<td class="govuk-table__cell" {% if isDiff %}style="background-color: #f3e1e1;"{% endif %}>
+							{{ results.afterState[field] if results.afterState[field] !== null else "null" }}
+							{% if isDiff %}
+								<strong class="govuk-tag govuk-tag--red">CHANGED</strong>
+							{% endif %}
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+
+		{# Combined Metadata Fields table #}
+		<h3 class="govuk-heading-s">Metadata Fields</h3>
+		<table class="govuk-table">
+			<thead class="govuk-table__head">
+				<tr class="govuk-table__row">
+					<th class="govuk-table__header" scope="col">Field</th>
+					<th class="govuk-table__header" scope="col">Before Update</th>
+					<th class="govuk-table__header" scope="col">After Update</th>
+				</tr>
+			</thead>
+			<tbody class="govuk-table__body">
+				{% for key, value in results.beforeState %}
+					{% if key not in blobFields %}
+						<tr class="govuk-table__row">
+							<th class="govuk-table__header" scope="row">{{ key }}</th>
+							<td class="govuk-table__cell">{{ value if value !== null else "null" }}</td>
+							<td class="govuk-table__cell">{{ results.afterState[key] if results.afterState[key] !== null else "null" }}</td>
+						</tr>
+					{% endif %}
+				{% endfor %}
+			</tbody>
+		</table>
 
 	{% endif %}
 
