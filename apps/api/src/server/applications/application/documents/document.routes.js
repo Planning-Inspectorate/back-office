@@ -507,6 +507,18 @@ router.get(
             description: 'Document properties',
             schema: { $ref: '#/definitions/DocumentProperties' }
         }
+		#swagger.parameters['x-service-name'] = {
+			in: 'header',
+			type: 'string',
+			description: 'Service name header',
+			default: 'swagger'
+		}
+		#swagger.parameters['x-api-key'] = {
+			in: 'header',
+			type: 'string',
+			description: 'API key header',
+			default: '123'
+		}
     */
 	asyncHandler(getDocumentProperties)
 );

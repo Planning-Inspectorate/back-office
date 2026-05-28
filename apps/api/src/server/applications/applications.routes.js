@@ -7,6 +7,7 @@ import { fileFoldersRoutes } from './application/file-folders/folders.routes.js'
 import { projectUpdateRoutes } from './application/project-updates/project-updates.routes.js';
 import { updateDocumentStatus, processHTMLForYouTube } from './documents/documents.controller.js';
 import { validateDocumentGUID, validateMachineAction } from './documents/documents.validators.js';
+import { processShapefile } from './application/documents/shapefile-processing.controller.js';
 import { examinationTimetableRoutes } from './examination-timetable/examination-timetable.routes.js';
 import { examinationTimetableItemRoutes } from './examination-timetable-items/examination-timetable-items.routes.js';
 import { examinationTimetableTypeRoutes } from './examination-timetable-type/examination-timetable-type.routes.js';
@@ -76,7 +77,11 @@ router.patch(
         }
         #swagger.responses[200] = {
             description: 'Document status updated',
-            schema: { caseId: 1, guid: 'a1b2c4d4-7ce5-410c-937e-28926dd7ab24', status: 'awaiting_virus_check'}
+            schema: {
+                caseId: 1,
+                guid: 'a1b2c4d4-7ce5-410c-937e-28926dd7ab24',
+                status: 'awaiting_virus_check'
+            }
         }
 		#swagger.parameters['x-service-name'] = {
 			in: 'header',
@@ -95,6 +100,26 @@ router.patch(
 	validateMachineAction,
 	trimUnexpectedRequestParameters,
 	asyncHandler(updateDocumentStatus)
+);
+
+router.post(
+	'/documents/:guid/process-shapefile',
+	/*
+		#swagger.tags = ['Applications']
+		#swagger.path = '/applications/documents/{guid}/process-shapefile'
+		#swagger.description = 'Called by the shapefile processing Azure Function to store a GeoJSON document version or mark the ZIP as invalid'
+		#swagger.parameters['guid'] = {
+			in: 'path',
+			description: 'Document GUID of the source ZIP file',
+			required: true,
+			type: 'string'
+		}
+		#swagger.responses[200] = {
+			description: 'Processing result',
+			schema: { status: 'processed' }
+		}
+	*/
+	asyncHandler(processShapefile)
 );
 
 router.post(

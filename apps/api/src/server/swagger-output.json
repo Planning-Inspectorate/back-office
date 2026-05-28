@@ -214,6 +214,44 @@
 				}
 			}
 		},
+		"/migration/spreadsheet-case-data": {
+			"post": {
+				"tags": ["Migration"],
+				"description": "Migrate case data from an Excel spreadsheet upload",
+				"consumes": ["application/octet-stream"],
+				"parameters": [
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Excel spreadsheet file (binary)",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {}
+						}
+					},
+					{
+						"name": "x-service-name",
+						"in": "header",
+						"type": "string",
+						"description": "Service name header",
+						"default": "swagger"
+					},
+					{
+						"name": "x-api-key",
+						"in": "header",
+						"type": "string",
+						"description": "API key header",
+						"default": "123"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Migration results"
+					}
+				}
+			}
+		},
 		"/migration/{modelType}": {
 			"post": {
 				"tags": ["Migration"],
@@ -2458,6 +2496,76 @@
 				}
 			}
 		},
+		"/applications/documents/gis-boundaries/published": {
+			"get": {
+				"tags": ["Applications"],
+				"description": "Gets all published GIS shapefile GeoJSON document versions used to build the master GeoJSON FeatureCollection",
+				"parameters": [
+					{
+						"name": "x-service-name",
+						"in": "header",
+						"type": "string",
+						"description": "Service name header",
+						"default": "swagger"
+					},
+					{
+						"name": "x-api-key",
+						"in": "header",
+						"type": "string",
+						"description": "API key header",
+						"default": "123"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Published GIS boundary GeoJSON documents",
+						"schema": {
+							"type": "array",
+							"items": {
+								"type": "object",
+								"properties": {
+									"caseId": {
+										"type": "number",
+										"example": 1
+									},
+									"caseReference": {
+										"type": "string",
+										"example": "BC0110001"
+									},
+									"projectName": {
+										"type": "string",
+										"example": "Example Project"
+									},
+									"documentGuid": {
+										"type": "string",
+										"example": "0084b156-006b-48b1-a47f-e7176414db29"
+									},
+									"version": {
+										"type": "number",
+										"example": 2
+									},
+									"publishedBlobContainer": {
+										"type": "string",
+										"example": "published-documents"
+									},
+									"publishedBlobPath": {
+										"type": "string",
+										"example": "BC0110001-example.geojson"
+									},
+									"datePublished": {
+										"type": "string",
+										"example": "2026-05-05T10:00:00.000Z"
+									}
+								}
+							},
+							"xml": {
+								"name": "main"
+							}
+						}
+					}
+				}
+			}
+		},
 		"/applications/{id}/documents/{guid}/metadata": {
 			"post": {
 				"tags": ["Applications"],
@@ -3107,6 +3215,20 @@
 						"required": true,
 						"type": "string",
 						"description": "guid of the required document here"
+					},
+					{
+						"name": "x-service-name",
+						"in": "header",
+						"type": "string",
+						"description": "Service name header",
+						"default": "swagger"
+					},
+					{
+						"name": "x-api-key",
+						"in": "header",
+						"type": "string",
+						"description": "API key header",
+						"default": "123"
 					}
 				],
 				"responses": {
@@ -4675,6 +4797,38 @@
 								"status": {
 									"type": "string",
 									"example": "awaiting_virus_check"
+								}
+							},
+							"xml": {
+								"name": "main"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/applications/documents/{guid}/process-shapefile": {
+			"post": {
+				"tags": ["Applications"],
+				"description": "Called by the shapefile processing Azure Function to store a GeoJSON document version or mark the ZIP as invalid",
+				"parameters": [
+					{
+						"name": "guid",
+						"in": "path",
+						"required": true,
+						"type": "string",
+						"description": "Document GUID of the source ZIP file"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Processing result",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"status": {
+									"type": "string",
+									"example": "processed"
 								}
 							},
 							"xml": {
