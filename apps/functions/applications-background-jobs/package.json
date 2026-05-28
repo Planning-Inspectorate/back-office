@@ -14,6 +14,7 @@
     },
     "dependencies": {
         "@azure/functions": "*",
+        "@azure/service-bus": "*",
         "@pins/add-auth-headers-for-backend": "*",
         "@pins/applications": "*",
         "@pins/blob-storage-client": "*",
@@ -21,8 +22,10 @@
         "docopt": "*",
         "got": "*",
         "joi": "*",
+        "jszip": "*",
         "jsdom": "*",
         "notifications-node-client": "*",
+        "shpjs": "*",
         "turndown": "*"
     },
     "devDependencies": {

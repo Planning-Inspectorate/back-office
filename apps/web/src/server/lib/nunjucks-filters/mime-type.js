@@ -23,7 +23,8 @@ export const MIMEs = {
 	dbf: 'application/x-dbf',
 	shp: 'application/vnd.shp',
 	shx: 'application/vnd.shx',
-	zip: 'application/zip'
+	zip: 'application/zip',
+	geojson: 'application/geo+json'
 };
 
 /** @type {Record<string, string>} */
