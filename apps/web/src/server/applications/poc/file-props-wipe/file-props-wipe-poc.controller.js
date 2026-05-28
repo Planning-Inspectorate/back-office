@@ -26,59 +26,6 @@ export function validateInputs(caseId, folderId) {
 }
 
 /**
- * Builds the metadata-only update payload, explicitly excluding all blob fields.
- * Only includes fields accepted by the POST /documents/:guid/metadata endpoint.
- *
- * @param {Record<string, any>} currentVersion - The current document version record
- * @returns {Record<string, any>} - Payload containing only metadata fields
- */
-export function buildMetadataOnlyPayload(currentVersion) {
-	// Fields accepted by the metadata endpoint (from document.validators.js schema)
-	const ALLOWED_FIELDS = [
-		'version',
-		'documentType',
-		'documentName',
-		'fileName',
-		'sourceSystem',
-		'origin',
-		'representative',
-		'interestedPartyNumber',
-		'description',
-		'descriptionWelsh',
-		'documentGuid',
-		'owner',
-		'author',
-		'authorWelsh',
-		'securityClassification',
-		'horizonDataID',
-		'fileMD5',
-		'path',
-		'redactedStatus',
-		'publishedStatus',
-		'filter1',
-		'filter1Welsh',
-		'filter2',
-		'examinationRefNo'
-	];
-
-	/** @type {Record<string, any>} */
-	const payload = {};
-
-	for (const key of ALLOWED_FIELDS) {
-		if (key in currentVersion && currentVersion[key] !== null && currentVersion[key] !== '') {
-			payload[key] = currentVersion[key];
-		}
-	}
-
-	// Set a test description to trigger the update
-	payload.description = payload.description
-		? `${payload.description} [POC test update]`
-		: '[POC test update]';
-
-	return payload;
-}
-
-/**
  * Compares two document version records and returns the fields that differ.
  *
  * @param {Record<string, any>} before - Document version record before update
@@ -129,7 +76,6 @@ export async function showUploadPage(request, response) {
 		return;
 	}
 
-	// If user wants to use an existing file in the folder, skip upload
 	if (action === 'use-existing') {
 		response.redirect(
 			`/applications-service/poc/file-props-wipe/results?caseId=${caseId}&folderId=${folderId}`
@@ -145,8 +91,7 @@ export async function showUploadPage(request, response) {
 }
 
 /**
- * GET handler — runs the metadata update workflow after file upload completes.
- * The fileUploader component redirects here after a successful upload.
+ * GET handler — fetches document, calls metadata update (same way the UI does), compares before/after.
  *
  * @param {import('express').Request} request
  * @param {import('express').Response} response
@@ -209,11 +154,11 @@ export async function runFilePropsWipePoc(request, response) {
 		return;
 	}
 
-	// 3. Build metadata-only payload and call update
-	const metadataPayload = buildMetadataOnlyPayload(beforeState);
-
+	// 3. Call metadata update with just a description change — same as the existing UI does
 	try {
-		await pocService.updateDocumentProperties(caseIdStr, guidStr, metadataPayload);
+		await pocService.updateDocumentProperties(caseIdStr, guidStr, {
+			description: '[POC test update]'
+		});
 	} catch (/** @type {any} */ error) {
 		response.render(TEMPLATE_PATH, {
 			apiError: { step: 'update', message: error.message || 'Failed to update document properties' }
@@ -239,11 +184,10 @@ export async function runFilePropsWipePoc(request, response) {
 		return;
 	}
 
-	// 5. Compare blob fields
+	// 5. Compare blob fields and render results
 	const diffs = compareFields(beforeState, afterState, BLOB_FIELDS);
 	const bugReproduced = diffs.length > 0;
 
-	// 6. Render results
 	response.render(TEMPLATE_PATH, {
 		results: {
 			documentGuid: guidStr,
@@ -257,7 +201,7 @@ export async function runFilePropsWipePoc(request, response) {
 }
 
 /**
- * POST handler — deletes the most recent document in the folder and redirects back to upload.
+ * POST handler — deletes the most recent document in the folder and shows upload page again.
  *
  * @param {import('express').Request} request
  * @param {import('express').Response} response
@@ -273,7 +217,6 @@ export async function deleteAndRetry(request, response) {
 		return;
 	}
 
-	// Fetch the most recent document in the folder
 	/** @type {any} */
 	let folderDocuments;
 
@@ -289,27 +232,17 @@ export async function deleteAndRetry(request, response) {
 	const latestDoc = folderDocuments?.items?.[0];
 	const guidStr = latestDoc?.documentGuid;
 
-	if (!guidStr) {
-		// No document to delete — redirect to upload
-		response.render(TEMPLATE_PATH, {
-			showUploader: true,
-			caseId,
-			folderId
-		});
-		return;
+	if (guidStr) {
+		try {
+			await pocService.deleteDocument(caseId, guidStr);
+		} catch (/** @type {any} */ error) {
+			response.render(TEMPLATE_PATH, {
+				apiError: { step: 'delete', message: error.message || 'Failed to delete document' }
+			});
+			return;
+		}
 	}
 
-	// Delete the document
-	try {
-		await pocService.deleteDocument(caseId, guidStr);
-	} catch (/** @type {any} */ error) {
-		response.render(TEMPLATE_PATH, {
-			apiError: { step: 'delete', message: error.message || 'Failed to delete document' }
-		});
-		return;
-	}
-
-	// Show the upload page again
 	response.render(TEMPLATE_PATH, {
 		showUploader: true,
 		caseId,
