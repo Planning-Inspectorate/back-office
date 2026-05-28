@@ -25,20 +25,6 @@ export async function getFolderDocuments(caseId, folderId) {
 }
 
 /**
- * Update document metadata (triggers the bug when blob fields are omitted).
- *
- * @param {string} caseId
- * @param {string} documentGuid
- * @param {object} metadataPayload
- * @returns {Promise<object>}
- */
-export async function updateDocumentProperties(caseId, documentGuid, metadataPayload) {
-	return post(`applications/${caseId}/documents/${documentGuid}/metadata`, {
-		json: metadataPayload
-	});
-}
-
-/**
  * Delete a document by GUID.
  *
  * @param {string} caseId

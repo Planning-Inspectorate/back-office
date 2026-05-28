@@ -1,7 +1,38 @@
 import * as pocService from './file-props-wipe-poc.service.js';
+import logger from '../../../lib/logger.js';
 
-const BLOB_FIELDS = ['privateBlobPath', 'privateBlobContainer', 'size', 'mime', 'originalFilename'];
+/**
+ * Fields that Phase 1 (attemptInsertDocuments) sets via attachMetadataToDocuments,
+ * but Phase 2 (upsertDocumentVersionsMetadataToDatabase) wipes because it only
+ * sends { privateBlobContainer, documentGuid, privateBlobPath } to the upsert.
+ */
+const METADATA_FIELDS_SET_IN_PHASE1 = [
+	'documentType',
+	'filter1',
+	'filter1Welsh',
+	'author',
+	'authorWelsh',
+	'description',
+	'descriptionWelsh',
+	'stage',
+	'sourceSystem',
+	'owner'
+];
 
+/**
+ * Fields that should survive because they're on the DocumentVersion record
+ * from Phase 1's create path (not the update path).
+ */
+const FIELDS_THAT_SURVIVE = [
+	'privateBlobPath',
+	'privateBlobContainer',
+	'mime',
+	'size',
+	'originalFilename',
+	'fileName'
+];
+
+const BASE_URL = '/applications-service/poc/file-props-wipe';
 const TEMPLATE_PATH = 'applications/poc/file-props-wipe/file-props-wipe-poc';
 
 /**
@@ -25,193 +56,71 @@ export function validateInputs(caseId, folderId) {
 	return Object.keys(errors).length > 0 ? errors : null;
 }
 
-/**
- * Compares two document version records and returns the fields that differ.
- *
- * @param {Record<string, any>} before - Document version record before update
- * @param {Record<string, any>} after - Document version record after update
- * @param {string[]} fieldsToCompare - List of field names to compare
- * @returns {Array<{ field: string, before: any, after: any }>}
- */
-export function compareFields(before, after, fieldsToCompare) {
-	const diffs = [];
-
-	for (const field of fieldsToCompare) {
-		const beforeVal = before[field] ?? null;
-		const afterVal = after[field] ?? null;
-
-		if (beforeVal !== afterVal) {
-			diffs.push({ field, before: beforeVal, after: afterVal });
-		}
-	}
-
-	return diffs;
-}
+// ─── PAGE 1: Main form (collect caseId + folderId) ───────────────────────────
 
 /**
- * GET handler — renders the POC form page.
+ * GET / — renders the main form page.
  *
  * @param {import('express').Request} request
  * @param {import('express').Response} response
- * @returns {Promise<void>}
  */
-export async function viewFilePropsWipePoc(request, response) {
-	response.render(TEMPLATE_PATH, {});
+export async function viewMainPage(request, response) {
+	response.render(TEMPLATE_PATH, { page: 'main' });
 }
 
 /**
- * POST handler — validates inputs and either shows upload page or redirects to results.
+ * POST / — validates inputs and redirects to file-upload.
  *
  * @param {import('express').Request} request
  * @param {import('express').Response} response
- * @returns {Promise<void>}
  */
-export async function showUploadPage(request, response) {
-	const { caseId, folderId, action } = request.body;
+export async function handleMainForm(request, response) {
+	const { caseId, folderId } = request.body;
 
 	const errors = validateInputs(caseId, folderId);
 
 	if (errors) {
-		response.render(TEMPLATE_PATH, { errors });
+		response.render(TEMPLATE_PATH, { page: 'main', errors });
 		return;
 	}
 
-	if (action === 'use-existing') {
-		response.redirect(
-			`/applications-service/poc/file-props-wipe/results?caseId=${caseId}&folderId=${folderId}`
-		);
-		return;
-	}
-
-	response.render(TEMPLATE_PATH, {
-		showUploader: true,
-		caseId,
-		folderId
-	});
+	response.redirect(`${BASE_URL}/file-upload?caseId=${caseId}&folderId=${folderId}`);
 }
 
+// ─── PAGE 2: File upload ─────────────────────────────────────────────────────
+
 /**
- * GET handler — fetches document, calls metadata update (same way the UI does), compares before/after.
+ * GET /file-upload — renders the file uploader page.
  *
  * @param {import('express').Request} request
  * @param {import('express').Response} response
- * @returns {Promise<void>}
  */
-export async function runFilePropsWipePoc(request, response) {
+export async function viewFileUpload(request, response) {
 	const { caseId, folderId } = request.query;
 
 	if (!caseId || !folderId) {
-		response.redirect('/applications-service/poc/file-props-wipe');
+		response.redirect(BASE_URL);
 		return;
 	}
-
-	const caseIdStr = String(caseId);
-	const folderIdStr = String(folderId);
-
-	// 1. Fetch the most recently uploaded document from the folder
-	/** @type {any} */
-	let folderDocuments;
-
-	try {
-		folderDocuments = await pocService.getFolderDocuments(caseIdStr, folderIdStr);
-	} catch (/** @type {any} */ error) {
-		response.render(TEMPLATE_PATH, {
-			apiError: {
-				step: 'fetch-folder',
-				message: error.message || 'Failed to fetch folder documents'
-			}
-		});
-		return;
-	}
-
-	const latestDoc = folderDocuments?.items?.[0];
-	const guidStr = latestDoc?.documentGuid;
-
-	if (!guidStr) {
-		response.render(TEMPLATE_PATH, {
-			apiError: { step: 'fetch-folder', message: 'No documents found in folder after upload' }
-		});
-		return;
-	}
-
-	// 2. Fetch pre-update state
-	/** @type {Record<string, any>} */
-	let beforeState;
-
-	try {
-		beforeState = /** @type {Record<string, any>} */ (
-			await pocService.getDocumentProperties(caseIdStr, guidStr)
-		);
-	} catch (/** @type {any} */ error) {
-		response.render(TEMPLATE_PATH, {
-			apiError: {
-				step: 'fetch-before',
-				message: error.message || 'Failed to fetch document properties'
-			}
-		});
-		return;
-	}
-
-	// 3. Call metadata update with just a description change — same as the existing UI does
-	try {
-		await pocService.updateDocumentProperties(caseIdStr, guidStr, {
-			description: '[POC test update]'
-		});
-	} catch (/** @type {any} */ error) {
-		response.render(TEMPLATE_PATH, {
-			apiError: { step: 'update', message: error.message || 'Failed to update document properties' }
-		});
-		return;
-	}
-
-	// 4. Fetch post-update state
-	/** @type {Record<string, any>} */
-	let afterState;
-
-	try {
-		afterState = /** @type {Record<string, any>} */ (
-			await pocService.getDocumentProperties(caseIdStr, guidStr)
-		);
-	} catch (/** @type {any} */ error) {
-		response.render(TEMPLATE_PATH, {
-			apiError: {
-				step: 'fetch-after',
-				message: error.message || 'Failed to fetch document properties after update'
-			}
-		});
-		return;
-	}
-
-	// 5. Compare blob fields and render results
-	const diffs = compareFields(beforeState, afterState, BLOB_FIELDS);
-	const bugReproduced = diffs.length > 0;
 
 	response.render(TEMPLATE_PATH, {
-		results: {
-			documentGuid: guidStr,
-			version: beforeState.version,
-			beforeState,
-			afterState,
-			diffs,
-			bugReproduced
-		}
+		page: 'file-upload',
+		caseId: String(caseId),
+		folderId: String(folderId)
 	});
 }
 
 /**
- * POST handler — deletes the most recent document in the folder and shows upload page again.
+ * POST /file-upload — deletes existing file and re-renders uploader.
  *
  * @param {import('express').Request} request
  * @param {import('express').Response} response
- * @returns {Promise<void>}
  */
 export async function deleteAndRetry(request, response) {
 	const { caseId, folderId } = request.body;
 
 	if (!caseId || !folderId) {
-		response.render(TEMPLATE_PATH, {
-			apiError: { step: 'delete', message: 'Missing caseId or folderId' }
-		});
+		response.redirect(BASE_URL);
 		return;
 	}
 
@@ -222,6 +131,9 @@ export async function deleteAndRetry(request, response) {
 		folderDocuments = await pocService.getFolderDocuments(caseId, folderId);
 	} catch (/** @type {any} */ error) {
 		response.render(TEMPLATE_PATH, {
+			page: 'file-upload',
+			caseId,
+			folderId,
 			apiError: { step: 'delete', message: error.message || 'Failed to fetch folder documents' }
 		});
 		return;
@@ -235,6 +147,9 @@ export async function deleteAndRetry(request, response) {
 			await pocService.deleteDocument(caseId, guidStr);
 		} catch (/** @type {any} */ error) {
 			response.render(TEMPLATE_PATH, {
+				page: 'file-upload',
+				caseId,
+				folderId,
 				apiError: { step: 'delete', message: error.message || 'Failed to delete document' }
 			});
 			return;
@@ -242,8 +157,110 @@ export async function deleteAndRetry(request, response) {
 	}
 
 	response.render(TEMPLATE_PATH, {
-		showUploader: true,
+		page: 'file-upload',
 		caseId,
 		folderId
+	});
+}
+
+// ─── PAGE 3: Result ──────────────────────────────────────────────────────────
+
+/**
+ * GET /result — fetches the most recent document in the folder and shows
+ * which metadata fields were wiped by Phase 2 of the upload process.
+ *
+ * @param {import('express').Request} request
+ * @param {import('express').Response} response
+ */
+export async function showResult(request, response) {
+	const { caseId, folderId } = request.query;
+
+	if (!caseId || !folderId) {
+		response.redirect(BASE_URL);
+		return;
+	}
+
+	const caseIdStr = String(caseId);
+	const folderIdStr = String(folderId);
+
+	logger.info(`[POC] Checking Phase 2 wipe for case=${caseIdStr}, folder=${folderIdStr}`);
+
+	// 1. Fetch the most recently uploaded document from the folder
+	/** @type {any} */
+	let folderDocuments;
+
+	try {
+		folderDocuments = await pocService.getFolderDocuments(caseIdStr, folderIdStr);
+	} catch (/** @type {any} */ error) {
+		response.render(TEMPLATE_PATH, {
+			page: 'result',
+			apiError: {
+				step: 'fetch-folder',
+				message: error.message || 'Failed to fetch folder documents'
+			}
+		});
+		return;
+	}
+
+	const latestDoc = folderDocuments?.items?.[0];
+	const guidStr = latestDoc?.documentGuid;
+
+	if (!guidStr) {
+		response.render(TEMPLATE_PATH, {
+			page: 'result',
+			apiError: {
+				step: 'fetch-folder',
+				message: 'No documents found in folder. Upload a file first.'
+			}
+		});
+		return;
+	}
+
+	// 2. Fetch the document properties (after both Phase 1 and Phase 2 have completed)
+	/** @type {Record<string, any>} */
+	let docProperties;
+
+	try {
+		docProperties = /** @type {Record<string, any>} */ (
+			await pocService.getDocumentProperties(caseIdStr, guidStr)
+		);
+	} catch (/** @type {any} */ error) {
+		response.render(TEMPLATE_PATH, {
+			page: 'result',
+			apiError: {
+				step: 'fetch-properties',
+				message: error.message || 'Failed to fetch document properties'
+			}
+		});
+		return;
+	}
+
+	logger.info(`[POC] Document properties: ${JSON.stringify(docProperties)}`);
+
+	// 3. Check which metadata fields are null (wiped by Phase 2)
+	const wipedFields = METADATA_FIELDS_SET_IN_PHASE1.filter(
+		(field) => docProperties[field] === null || docProperties[field] === undefined
+	);
+
+	const survivedFields = FIELDS_THAT_SURVIVE.filter(
+		(field) => docProperties[field] !== null && docProperties[field] !== undefined
+	);
+
+	const bugReproduced = wipedFields.length > 0;
+
+	logger.info(`[POC] Bug reproduced: ${bugReproduced}. Wiped fields: ${wipedFields.join(', ')}`);
+
+	response.render(TEMPLATE_PATH, {
+		page: 'result',
+		results: {
+			documentGuid: guidStr,
+			version: docProperties.version,
+			docProperties,
+			wipedFields,
+			survivedFields,
+			metadataFields: METADATA_FIELDS_SET_IN_PHASE1,
+			blobFields: FIELDS_THAT_SURVIVE,
+			bugReproduced
+		}
 	});
 }

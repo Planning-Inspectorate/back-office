@@ -5,7 +5,7 @@
 {% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
 {% from 'app/components/file-uploader.component.njk' import fileUploader %}
 
-{% set pageTitle = "File Properties Wipe — POC" %}
+{% set pageTitle = "Phase 2 Upsert Bug — POC" %}
 
 {% block pageHeading %}
 	<h1 class="govuk-heading-l">{{ pageTitle }}</h1>
@@ -22,18 +22,26 @@
 		</div>
 	{% endif %}
 
-	{% if not showUploader and not results %}
-		{# Step 1: Enter case ID and folder ID #}
+	{# ─── PAGE 1: Main form ─── #}
+	{% if page == 'main' %}
 		<div class="govuk-grid-row">
 			<div class="govuk-grid-column-two-thirds">
-				<p class="govuk-body">This page demonstrates the blob-field-wipe bug. It will:</p>
-				<ol class="govuk-list govuk-list--number">
-					<li>Upload a file to the specified folder</li>
-					<li>Fetch the document properties (confirming blob fields are populated)</li>
-					<li>Send a metadata-only update (omitting blob fields)</li>
-					<li>Fetch the document properties again and compare</li>
-				</ol>
-				<p class="govuk-body">Enter the case ID and folder ID to target, then upload a file on the next step.</p>
+				<p class="govuk-body">This POC demonstrates that <strong>Phase 2</strong> of the document upload process (<code>upsertDocumentVersionsMetadataToDatabase</code>) silently wipes metadata fields set by <strong>Phase 1</strong> (<code>attemptInsertDocuments</code>).</p>
+
+				<details class="govuk-details">
+					<summary class="govuk-details__summary">
+						<span class="govuk-details__summary-text">How the bug works</span>
+					</summary>
+					<div class="govuk-details__text">
+						<ol class="govuk-list govuk-list--number">
+							<li><strong>Phase 1</strong>: Creates DocumentVersion with full metadata (documentType, filter1, author, stage, mime, size, etc.)</li>
+							<li><strong>Phase 2</strong>: Resolves blob storage location, then calls <code>upsert()</code> with ONLY <code>{ privateBlobContainer, documentGuid, privateBlobPath }</code></li>
+							<li>Prisma's upsert <code>update</code> clause spreads <code>...metadata</code> — since metadata only has blob fields, all other fields are reset to null</li>
+						</ol>
+					</div>
+				</details>
+
+				<p class="govuk-body">Enter a case ID and folder ID, then upload a file. After upload, the POC will fetch the document properties and show which fields were wiped.</p>
 			</div>
 		</div>
 
@@ -42,64 +50,41 @@
 				<div class="govuk-grid-column-two-thirds">
 
 					{{ govukInput({
-						label: {
-							text: "Case ID",
-							classes: "govuk-label--m"
-						},
-						hint: {
-							text: "e.g. 100000086"
-						},
+						label: { text: "Case ID", classes: "govuk-label--m" },
+						hint: { text: "e.g. 100000085" },
 						id: "caseId",
 						name: "caseId",
-						errorMessage: errors.caseId and {
-							text: errors.caseId
-						}
+						errorMessage: errors.caseId and { text: errors.caseId }
 					}) }}
 
 					{{ govukInput({
-						label: {
-							text: "Folder ID",
-							classes: "govuk-label--m"
-						},
-						hint: {
-							text: "e.g. 100011130"
-						},
+						label: { text: "Folder ID", classes: "govuk-label--m" },
+						hint: { text: "e.g. 100011268" },
 						id: "folderId",
 						name: "folderId",
-						errorMessage: errors.folderId and {
-							text: errors.folderId
-						}
+						errorMessage: errors.folderId and { text: errors.folderId }
 					}) }}
 
-					{{ govukButton({
-						text: "Continue to file upload"
-					}) }}
-
-					<p class="govuk-body govuk-!-margin-top-4">Or, if a file already exists in the folder:</p>
-
-					{{ govukButton({
-						text: "Use existing file in folder",
-						classes: "govuk-button--secondary",
-						name: "action",
-						value: "use-existing"
-					}) }}
+					{{ govukButton({ text: "Continue" }) }}
 
 				</div>
 			</div>
 		</form>
 	{% endif %}
 
-	{% if showUploader %}
-		{# Step 2: Upload a file using the existing file uploader component #}
+	{# ─── PAGE 2: File upload ─── #}
+	{% if page == 'file-upload' %}
+		<a href="/applications-service/poc/file-props-wipe" class="govuk-back-link">Back</a>
+
 		<div class="govuk-grid-row govuk-!-margin-bottom-6">
 			<div class="govuk-grid-column-two-thirds">
 				<details class="govuk-details">
 					<summary class="govuk-details__summary">
-						<span class="govuk-details__summary-text">File already exists in folder?</span>
+						<span class="govuk-details__summary-text">Duplicate file error?</span>
 					</summary>
 					<div class="govuk-details__text">
-						<p class="govuk-body">If you get a duplicate file error, delete the existing file first.</p>
-						<form method="POST" action="/applications-service/poc/file-props-wipe/delete">
+						<p class="govuk-body">Delete the existing file first, then retry.</p>
+						<form method="POST" action="/applications-service/poc/file-props-wipe/file-upload">
 							<input type="hidden" name="caseId" value="{{ caseId }}">
 							<input type="hidden" name="folderId" value="{{ folderId }}">
 							{{ govukButton({
@@ -113,39 +98,34 @@
 		</div>
 
 		{{ fileUploader({
-			text: 'Upload and compare properties',
+			text: 'Upload file',
 			formId: 'poc-wipe',
 			caseId: caseId,
 			folderId: folderId,
-			formTitle: 'Upload a file to test with (use a unique filename — previously uploaded names are rejected even if deleted)',
-			nextPageUrl: '/applications-service/poc/file-props-wipe/results?caseId=' + caseId + '&folderId=' + folderId,
+			formTitle: 'Upload any file (use a unique filename)',
+			nextPageUrl: '/applications-service/poc/file-props-wipe/result?caseId=' + caseId + '&folderId=' + folderId,
 			allowedTypes: ['dbf','doc','docx','html','jpeg','jpg','mov','mp3','mp4','mpeg','msg','pdf','png','ppt','pptx','prj','shp','shx','tif','tiff','xls','xlsm','xlsx','zip'],
 			showUploadLabel: true,
 			multiple: false
 		}) }}
 	{% endif %}
 
-	{% if results %}
-		{% set blobFields = ["privateBlobPath", "privateBlobContainer", "size", "mime", "originalFilename"] %}
-		{% set diffFieldNames = [] %}
-		{% for diff in results.diffs %}
-			{% set diffFieldNames = diffFieldNames | concat([diff.field]) %}
-		{% endfor %}
+	{# ─── PAGE 3: Results ─── #}
+	{% if page == 'result' and results %}
 
-		{# Verdict Banner - shown first #}
+		{# Verdict Banner #}
 		{% if results.bugReproduced %}
 			<div class="govuk-panel govuk-panel--confirmation" style="background-color: #d4351c;">
-				<h2 class="govuk-panel__title">Bug Reproduced</h2>
+				<h2 class="govuk-panel__title">Bug Confirmed</h2>
 				<div class="govuk-panel__body">
-					Blob fields were wiped after the metadata-only update.
-					{{ results.diffs | length }} field(s) changed: {{ diffFieldNames | join(", ") }}
+					Phase 2 wiped {{ results.wipedFields | length }} metadata field(s) that Phase 1 set.
 				</div>
 			</div>
 		{% else %}
-			<div class="govuk-panel govuk-panel--confirmation">
+			<div class="govuk-panel govuk-panel--confirmation" style="background-color: #00703c;">
 				<h2 class="govuk-panel__title">Bug NOT Reproduced</h2>
 				<div class="govuk-panel__body">
-					All blob fields remained unchanged after the metadata-only update.
+					All metadata fields survived Phase 2. This may mean the bug has been fixed, or the folder doesn't enrich metadata in Phase 1.
 				</div>
 			</div>
 		{% endif %}
@@ -154,26 +134,31 @@
 
 		<h2 class="govuk-heading-m">Document: {{ results.documentGuid }} (version {{ results.version }})</h2>
 
-		{# Combined Blob Fields table #}
-		<h3 class="govuk-heading-s">Blob Fields</h3>
+		<p class="govuk-body">These are the document properties <strong>immediately after upload</strong> (both Phase 1 and Phase 2 have completed).</p>
+
+		{# Metadata fields (expected to be wiped by Phase 2) #}
+		<h3 class="govuk-heading-s">Metadata Fields (set by Phase 1, expected to be wiped by Phase 2)</h3>
 		<table class="govuk-table">
 			<thead class="govuk-table__head">
 				<tr class="govuk-table__row">
 					<th class="govuk-table__header" scope="col">Field</th>
-					<th class="govuk-table__header" scope="col">Before Update</th>
-					<th class="govuk-table__header" scope="col">After Update</th>
+					<th class="govuk-table__header" scope="col">Value</th>
+					<th class="govuk-table__header" scope="col">Status</th>
 				</tr>
 			</thead>
 			<tbody class="govuk-table__body">
-				{% for field in blobFields %}
-					{% set isDiff = field in diffFieldNames %}
+				{% for field in results.metadataFields %}
+					{% set isWiped = field in results.wipedFields %}
 					<tr class="govuk-table__row">
 						<th class="govuk-table__header" scope="row">{{ field }}</th>
-						<td class="govuk-table__cell">{{ results.beforeState[field] if results.beforeState[field] !== null else "null" }}</td>
-						<td class="govuk-table__cell" {% if isDiff %}style="background-color: #f3e1e1;"{% endif %}>
-							{{ results.afterState[field] if results.afterState[field] !== null else "null" }}
-							{% if isDiff %}
-								<strong class="govuk-tag govuk-tag--red">CHANGED</strong>
+						<td class="govuk-table__cell" {% if isWiped %}style="background-color: #f3e1e1;"{% endif %}>
+							{{ results.docProperties[field] if results.docProperties[field] !== null else "null" }}
+						</td>
+						<td class="govuk-table__cell">
+							{% if isWiped %}
+								<strong class="govuk-tag govuk-tag--red">WIPED</strong>
+							{% else %}
+								<strong class="govuk-tag govuk-tag--green">OK</strong>
 							{% endif %}
 						</td>
 					</tr>
@@ -181,29 +166,47 @@
 			</tbody>
 		</table>
 
-		{# Combined Metadata Fields table #}
-		<h3 class="govuk-heading-s">Metadata Fields</h3>
+		{# Blob/file fields (expected to survive) #}
+		<h3 class="govuk-heading-s">Blob/File Fields (set by Phase 2, expected to survive)</h3>
 		<table class="govuk-table">
 			<thead class="govuk-table__head">
 				<tr class="govuk-table__row">
 					<th class="govuk-table__header" scope="col">Field</th>
-					<th class="govuk-table__header" scope="col">Before Update</th>
-					<th class="govuk-table__header" scope="col">After Update</th>
+					<th class="govuk-table__header" scope="col">Value</th>
+					<th class="govuk-table__header" scope="col">Status</th>
 				</tr>
 			</thead>
 			<tbody class="govuk-table__body">
-				{% for key, value in results.beforeState %}
-					{% if key not in blobFields %}
-						<tr class="govuk-table__row">
-							<th class="govuk-table__header" scope="row">{{ key }}</th>
-							<td class="govuk-table__cell">{{ value if value !== null else "null" }}</td>
-							<td class="govuk-table__cell">{{ results.afterState[key] if results.afterState[key] !== null else "null" }}</td>
-						</tr>
-					{% endif %}
+				{% for field in results.blobFields %}
+					{% set hasValue = results.docProperties[field] !== null and results.docProperties[field] !== undefined %}
+					<tr class="govuk-table__row">
+						<th class="govuk-table__header" scope="row">{{ field }}</th>
+						<td class="govuk-table__cell">
+							{{ results.docProperties[field] if results.docProperties[field] !== null else "null" }}
+						</td>
+						<td class="govuk-table__cell">
+							{% if hasValue %}
+								<strong class="govuk-tag govuk-tag--green">OK</strong>
+							{% else %}
+								<strong class="govuk-tag govuk-tag--yellow">EMPTY</strong>
+							{% endif %}
+						</td>
+					</tr>
 				{% endfor %}
 			</tbody>
 		</table>
 
+		{# Explanation #}
+		{% if results.bugReproduced %}
+			<div class="govuk-inset-text">
+				<h3 class="govuk-heading-s">Root Cause</h3>
+				<p class="govuk-body"><code>upsertDocumentVersionsMetadataToDatabase()</code> in <code>document.service.js</code> calls <code>documentVersionRepository.upsert()</code> with only <code>{ privateBlobContainer, documentGuid, privateBlobPath }</code>. The Prisma upsert's <code>update</code> clause spreads this partial payload, resetting all other fields to null.</p>
+				<h3 class="govuk-heading-s">Fix</h3>
+				<p class="govuk-body">Replace the Phase 2 <code>upsert()</code> with a targeted <code>update()</code> that only writes <code>privateBlobContainer</code> and <code>privateBlobPath</code>.</p>
+			</div>
+		{% endif %}
+
+		<a href="/applications-service/poc/file-props-wipe" class="govuk-link govuk-!-margin-top-6">Start again</a>
 	{% endif %}
 
 {% endblock %}
