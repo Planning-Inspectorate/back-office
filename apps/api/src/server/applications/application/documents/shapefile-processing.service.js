@@ -119,7 +119,7 @@ export const createGeoJsonDocumentVersion = async ({
 		documentGuid,
 		version: newVersion,
 		fileName: geoJsonFileName,
-		originalFilename: currentVersionData?.originalFilename ?? geoJsonFileName,
+		originalFilename: geoJsonFileName,
 		description: caseRecord.description ?? '',
 		mime: 'application/geo+json',
 		size: geoJsonSizeBytes,
