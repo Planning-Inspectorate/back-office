@@ -1,6 +1,9 @@
 import XlsxPopulate from 'xlsx-populate';
+import { EventType } from '@pins/event-client';
 import { databaseConnector } from '#utils/database-connector.js';
 import logger from '#utils/logger.js';
+import { broadcastNsipProjectEvent } from '#infrastructure/event-broadcasters.js';
+import { getById } from '#repositories/case.repository.js';
 
 /**
  * POST /migration/spreadsheet-case-data
@@ -45,6 +48,13 @@ export const spreadsheetCaseDataMigration = async (req, res) => {
 		logger.info(
 			`Migration complete. Success: ${results.success}, Skipped: ${results.skipped}, Failed: ${results.failed}`
 		);
+
+		if (results.successfulCaseIds.length > 0) {
+			logger.info(
+				`Broadcasting ${results.successfulCaseIds.length} successfully updated case(s) to ODW`
+			);
+			await broadcastUpdatedCases(results.successfulCaseIds);
+		}
 
 		res.status(200).json({
 			message: 'Migration complete',
@@ -211,10 +221,10 @@ const parseDateValue = (value) => {
  * @param {string[]} headers
  * @param {Record<string, any>[]} rows
  * @param {string[]} dateColumns
- * @returns {Promise<{success: number, skipped: number, failed: number, failedRows: Array<{row: number, caseReference: string, reason: string}>}>}
+ * @returns {Promise<{success: number, skipped: number, failed: number, failedRows: Array<{row: number, caseReference: string, reason: string}>, successfulCaseIds: number[]}>}
  */
 const processRows = async (tableName, headers, rows, dateColumns) => {
-	const results = { success: 0, skipped: 0, failed: 0, failedRows: [] };
+	const results = { success: 0, skipped: 0, failed: 0, failedRows: [], successfulCaseIds: [] };
 	const columnsToWrite = headers.filter((h) => h !== 'caseReference');
 
 	for (const [index, row] of rows.entries()) {
@@ -252,10 +262,15 @@ const processRows = async (tableName, headers, rows, dateColumns) => {
 			const values = [];
 
 			for (const column of columnsToWrite) {
-				const value = row[column];
+				let value = row[column];
 
 				if (value === null || value === undefined || value === '') {
 					continue;
+				}
+
+				if (typeof value === 'string') {
+					value = value.trim();
+					if (value === '') continue;
 				}
 
 				setClauses.push(`[${column}] = @p${values.length + 1}`);
@@ -283,6 +298,7 @@ const processRows = async (tableName, headers, rows, dateColumns) => {
 
 			logger.info(`Row ${rowNumber}: Successfully updated case ${caseReference}`);
 			results.success++;
+			results.successfulCaseIds.push(caseId);
 		} catch (/** @type {any} */ error) {
 			const reason = error.message || 'Unknown error';
 			logger.error(`Row ${rowNumber}: Failed to update case ${caseReference} — ${reason}`);
@@ -292,4 +308,38 @@ const processRows = async (tableName, headers, rows, dateColumns) => {
 	}
 
 	return results;
+};
+
+/**
+ * @param {number[]} caseIds
+ * @returns {Promise<void>}
+ */
+const broadcastUpdatedCases = async (caseIds) => {
+	for (const caseId of caseIds) {
+		try {
+			const caseDetails = await getById(caseId, {
+				subSector: true,
+				sector: true,
+				applicationDetails: true,
+				zoomLevel: true,
+				regions: true,
+				caseStatus: true,
+				casePublishedState: true,
+				applicant: true,
+				gridReference: true
+			});
+
+			if (!caseDetails) {
+				logger.warn(`broadcastUpdatedCases: case with ID ${caseId} not found, skipping broadcast`);
+				continue;
+			}
+
+			await broadcastNsipProjectEvent(caseDetails, EventType.Update);
+			logger.info(`broadcastUpdatedCases: broadcast complete for case ID ${caseId}`);
+		} catch (/** @type {any} */ error) {
+			logger.error(
+				`broadcastUpdatedCases: failed to broadcast case ID ${caseId} — ${error.message}`
+			);
+		}
+	}
 };
