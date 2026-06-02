@@ -231,12 +231,12 @@ const mapInvoices = (projectEntity) => {
 		return {
 			invoiceStage: invoice.invoiceStage,
 			invoiceNumber: invoice.invoiceNumber,
-			amountDue: Number(invoice?.amountDue) ?? null,
+			amountDue: invoice?.amountDue != null ? Number(invoice.amountDue) : null,
 			paymentDueDate: invoice?.paymentDueDate?.toISOString() ?? null,
 			invoicedDate: invoice?.invoicedDate?.toISOString() ?? null,
 			paymentDate: invoice?.paymentDate?.toISOString() ?? null,
 			refundCreditNoteNumber: invoice?.refundCreditNoteNumber ?? null,
-			refundAmount: invoice?.refundAmount ?? null,
+			refundAmount: invoice?.refundAmount != null ? Number(invoice.refundAmount) : null,
 			refundIssueDate: invoice?.refundIssueDate?.toISOString() ?? null
 		};
 	});
