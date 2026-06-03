@@ -3,7 +3,11 @@
  * @returns {string}
  */
 export const extractBlobNameFromUri = (uri) => {
-	return new URL(uri).pathname.split('/').slice(2).join('/');
+	return new URL(uri).pathname
+		.split('/')
+		.slice(2)
+		.map((segment) => decodeURIComponent(segment))
+		.join('/');
 };
 
 /**
