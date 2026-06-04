@@ -61,7 +61,6 @@
 		"@pins/key-vault-secrets-client": "^0.0.0",
 		"@pins/platform": "^0.0.0",
 		"@pins/redis": "^0.0.0",
-		"@planning-inspectorate/address-lookup": "^1.0.6",
 		"@planning-inspectorate/data-model": "~2.38.0",
 		"@prisma/adapter-mssql": "^7.0.1",
 		"@prisma/client": "^7.0.1",

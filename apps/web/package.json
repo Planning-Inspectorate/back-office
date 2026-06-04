@@ -39,7 +39,6 @@
     "@pins/examination-timetable-utils": "*",
     "@pins/platform": "*",
     "@pins/redis": "*",
-    "@planning-inspectorate/address-lookup": "*",
     "@toast-ui/editor": "*",
     "accessible-autocomplete": "*",
     "axios": "*",
