@@ -10978,6 +10978,11 @@
 							"description": "Unix timestamp date",
 							"example": 1646822600
 						},
+						"estimatedPrelimMeetingDate": {
+							"type": "number",
+							"description": "Unix timestamp date",
+							"example": 1646822600
+						},
 						"preliminaryMeetingStartDate": {
 							"type": "number",
 							"description": "Unix timestamp date",
@@ -11433,6 +11438,11 @@
 					"example": "2026-01-09T00:00:00.000Z"
 				},
 				"programmeDocumentReviewedByEstDate": {
+					"type": "string",
+					"format": "date-time",
+					"example": "2026-01-09T00:00:00.000Z"
+				},
+				"estimatedPrelimMeetingDate": {
 					"type": "string",
 					"format": "date-time",
 					"example": "2026-01-09T00:00:00.000Z"

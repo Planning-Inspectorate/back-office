@@ -116,6 +116,19 @@
 
 {{ dateInput({
   layout: {
+    fieldName: "estimatedPrelimMeetingDate",
+    label: "estimatedPrelimMeetingDate" | keyDatesProperty,
+    classes: 'govuk-grid-column-one-third',
+    hint: {
+      html: getDatesHint("estimatedPrelimMeetingDate")
+    }
+  },
+  errors: errors,
+  values: sectionValues
+}) }}
+
+{{ dateInput({
+  layout: {
     fieldName: "preliminaryMeetingStartDate",
     label: "preliminaryMeetingStartDate" | keyDatesProperty,
     classes: 'govuk-grid-column-one-third',

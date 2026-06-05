@@ -117,6 +117,7 @@ function splitPreExaminationSection(sections) {
 	const otherDatesFields = [
 		'dateIAPIDue',
 		'rule6LetterPublishDate',
+		'estimatedPrelimMeetingDate',
 		'preliminaryMeetingStartDate',
 		'notificationDateForPMAndEventsDirectlyFollowingPM',
 		'notificationDateForEventsApplicant'
