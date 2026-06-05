@@ -87,6 +87,8 @@ const propertyToName = {
 	dateIAPIDue_label: 'Date that the ExA must have completed their IAPI.',
 	rule6LetterPublishDate: 'Rule 6 letter publication',
 	rule6LetterPublishDate_label: 'Date when Rule 6 letter is published on website.',
+	estimatedPrelimMeetingDate: 'Estimated preliminary meeting',
+	estimatedPrelimMeetingDate_label: 'Estimated start date of preliminary meeting.',
 	preliminaryMeetingStartDate: 'Preliminary meeting',
 	preliminaryMeetingStartDate_label: 'Start date of the Preliminary Meeting.',
 	notificationDateForPMAndEventsDirectlyFollowingPM:

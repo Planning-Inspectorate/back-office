@@ -111,6 +111,7 @@ const getApplicationDetails = ({ regions = true, mapZoomLevel = true, subSector 
 		dateRRepAppearOnWebsite: null,
 		dateIAPIDue: null,
 		rule6LetterPublishDate: null,
+		estimatedPrelimMeetingDate: null,
 		preliminaryMeetingStartDate: null,
 		notificationDateForPMAndEventsDirectlyFollowingPM: null,
 		notificationDateForEventsApplicant: null,
