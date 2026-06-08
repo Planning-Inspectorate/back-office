@@ -109,6 +109,56 @@ describe('process-shapefile function', () => {
 		);
 	});
 
+	test('should derive GeoJSON name from multi-dot ZIP name (file.jpg.zip)', async () => {
+		const zipBuffer = Buffer.from('zip-content');
+		downloadZipBuffer.mockResolvedValue(zipBuffer);
+		validateShapefileContents.mockResolvedValue({
+			valid: true,
+			missingExtensions: [],
+			fileNames: ['test.shp', 'test.shx', 'test.dbf'],
+			parseError: null
+		});
+		shpZipToGeoJson.mockResolvedValue({ type: 'FeatureCollection', features: [] });
+		applyGeoJsonMetadata.mockReturnValue({ type: 'FeatureCollection', features: [], metadata: {} });
+
+		await index(context, {
+			...message,
+			originalFilename: 'file.jpg.zip'
+		});
+
+		expect(notifyShapefileProcessingResult).toHaveBeenCalledWith(
+			documentId,
+			expect.objectContaining({
+				geoJsonFileName: 'file.jpg.geojson'
+			})
+		);
+	});
+
+	test('should process double-zip suffix names (file2.zip.zip)', async () => {
+		const zipBuffer = Buffer.from('zip-content');
+		downloadZipBuffer.mockResolvedValue(zipBuffer);
+		validateShapefileContents.mockResolvedValue({
+			valid: true,
+			missingExtensions: [],
+			fileNames: ['test.shp', 'test.shx', 'test.dbf'],
+			parseError: null
+		});
+		shpZipToGeoJson.mockResolvedValue({ type: 'FeatureCollection', features: [] });
+		applyGeoJsonMetadata.mockReturnValue({ type: 'FeatureCollection', features: [], metadata: {} });
+
+		await index(context, {
+			...message,
+			originalFilename: 'file2.zip.zip'
+		});
+
+		expect(notifyShapefileProcessingResult).toHaveBeenCalledWith(
+			documentId,
+			expect.objectContaining({
+				geoJsonFileName: 'file2.zip.geojson'
+			})
+		);
+	});
+
 	test('should mark as invalid and NOT re-throw on validation error', async () => {
 		// GIVEN
 		downloadZipBuffer.mockResolvedValue(Buffer.from('zip'));
