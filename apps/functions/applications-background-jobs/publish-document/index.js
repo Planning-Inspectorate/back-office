@@ -54,6 +54,10 @@ export const index = async (
 		originalFilename
 	});
 
+	// Normalise and encode source URL (e.g. spaces in generated GeoJSON filenames)
+	// so Storage SDK copy operations receive a valid URL.
+	documentURI = new URL(documentURI).toString();
+
 	context.log(
 		`Deploying source blob ${documentURI} to destination ${publishFileName} for caseId ${caseId}`
 	);
@@ -100,10 +104,9 @@ export const index = async (
 		try {
 			await rebuildMasterGeoJson(context.log);
 		} catch (error) {
-			context.log,
-				error(
-					`Failed to rebuild master GeoJson after publishing GIS boundary ${documentId}: ${error}`
-				);
+			context.log(
+				`Failed to rebuild master GeoJson after publishing GIS boundary ${documentId}: ${error}`
+			);
 		}
 	}
 };
