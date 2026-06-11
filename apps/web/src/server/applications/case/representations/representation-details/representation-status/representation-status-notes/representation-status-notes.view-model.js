@@ -2,6 +2,7 @@ import {
 	getRepresentationDetailsPageUrl,
 	getChangeStatusPageUrl
 } from '../representation-status.utils.js';
+import { NOTES_CHARACTER_LIMIT } from './representation-status-notes.constants.js';
 
 /**
  * @typedef {import('../../../relevant-representation.types.js').Representation} Representation
@@ -106,6 +107,11 @@ export const getRepresentationStatusNotesViewModel = (
 	representationDetails,
 	newStatus
 ) => {
+	const latestReferralAction = (representationDetails?.representationActions ?? []).find(
+		(action) => action.status === 'REFERRED'
+	);
+	const latestReferralNote = latestReferralAction?.notes ?? null;
+
 	return {
 		caseId,
 		repId,
@@ -113,6 +119,8 @@ export const getRepresentationStatusNotesViewModel = (
 		pageHeading: getPageContentByStatus(newStatus).pageHeading,
 		radioItems: getPageContentByStatus(newStatus).radioItems,
 		summaryPageLinkUrl: getRepresentationDetailsPageUrl(caseId, repId),
-		backLinkUrl: `${getChangeStatusPageUrl(caseId, repId)}?changeStatus=${newStatus}`
+		backLinkUrl: `${getChangeStatusPageUrl(caseId, repId)}?changeStatus=${newStatus}`,
+		latestReferralNote,
+		notesCharacterLimit: NOTES_CHARACTER_LIMIT
 	};
 };
