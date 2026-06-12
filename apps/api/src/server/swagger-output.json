@@ -252,6 +252,50 @@
 				}
 			}
 		},
+		"/migration/historical-gis-boundaries": {
+			"post": {
+				"tags": ["Migration"],
+				"description": "Imports historical GIS boundary GeoPackages from a ZIP file and uploads them as GIS shapefile documents",
+				"consumes": ["application/octet-stream"],
+				"parameters": [
+					{
+						"name": "body",
+						"in": "body",
+						"description": "ZIP file containing GeoPackage files and spreadsheet",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {}
+						}
+					},
+					{
+						"name": "x-service-name",
+						"in": "header",
+						"type": "string",
+						"description": "Service name header",
+						"default": "swagger"
+					},
+					{
+						"name": "x-api-key",
+						"in": "header",
+						"type": "string",
+						"description": "API key header",
+						"default": "123"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Migration completed"
+					},
+					"400": {
+						"description": "Invalid ZIP file"
+					},
+					"500": {
+						"description": "Migration failed"
+					}
+				}
+			}
+		},
 		"/migration/{modelType}": {
 			"post": {
 				"tags": ["Migration"],
