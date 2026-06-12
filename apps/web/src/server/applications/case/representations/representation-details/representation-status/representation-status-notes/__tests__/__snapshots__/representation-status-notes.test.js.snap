@@ -11,10 +11,12 @@ exports[`Change representation status page GET /applications-service/case/1/rele
                         <div class="govuk-radios" data-module="govuk-radios"></div>
                     </fieldset>
                 </div>
-                <div class="govuk-form-group">
+                <div class="govuk-form-group govuk-character-count" data-module="govuk-character-count"
+                data-maxlength="6000">
                     <div id="notes-hint" class="govuk-hint">Use this space to provide more details.</div>
-                    <textarea class="govuk-textarea"
-                    id="notes" name="notes" rows="5" aria-describedby="notes-hint"></textarea>
+                    <textarea class="govuk-textarea govuk-js-character-count"
+                    id="notes" name="notes" rows="5" aria-describedby="notes-info notes-hint">Some notes</textarea>
+                    <div id="notes-info" class="govuk-hint govuk-character-count__message">You can enter up to 6000 characters</div>
                 </div>
                 <button type="submit" class="govuk-button govuk-!-margin-top-3" data-module="govuk-button">Save changes</button>
             </form>
