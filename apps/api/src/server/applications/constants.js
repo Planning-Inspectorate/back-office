@@ -16,12 +16,14 @@ export const GIS_SHAPEFILES_FOLDER_NAME = 'GIS Shapefiles';
 export const GIS_SHAPEFILE_DOCUMENT_TYPE = 'GIS shapefile';
 export const GIS_SHAPEFILE_WEBFILTER = 'GIS shapefile';
 export const GIS_SHAPEFILE_REDACTED_STATUS = 'no_redaction_required';
+export const GIS_SHAPEFILE_DESCRIPTION = 'GIS boundary data';
 // Stage value that prevents display in FO (same pattern as S51 advice)
 export const GIS_SHAPEFILE_STAGE = '0';
 
 export const DocumentPublishedStatus = {
 	NOT_CHECKED: 'not_checked',
-	INVALID: 'invalid'
+	INVALID: 'invalid',
+	READY_TO_PUBLISH: 'ready_to_publish'
 };
 
 /**

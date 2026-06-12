@@ -57,6 +57,10 @@ const buildApp = (
 		'/migration/spreadsheet-case-data',
 		bodyParser.raw({ type: 'application/octet-stream', limit: '100mb' })
 	);
+	app.use(
+		'/migration/historical-gis-boundaries',
+		bodyParser.raw({ type: 'application/octet-stream', limit: '100mb' })
+	);
 	app.use('/migration', bodyParser.json({ limit: '100mb' }));
 	app.use(bodyParser.json());
 

@@ -33,6 +33,7 @@
   },
   "dependencies": {
     "@azure/monitor-opentelemetry-exporter": "*",
+    "@ngageoint/geopackage": "*",
     "@opentelemetry/instrumentation": "*",
     "@opentelemetry/resources": "*",
     "@opentelemetry/sdk-trace-base": "*",
