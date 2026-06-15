@@ -105,12 +105,13 @@ export const getRepresentationStatusNotesViewModel = (
 	caseId,
 	repId,
 	representationDetails,
-	newStatus
+	newStatus,
+	submittedNotes = undefined
 ) => {
 	const latestReferralAction = (representationDetails?.representationActions ?? []).find(
 		(action) => action.status === 'REFERRED'
 	);
-	const latestReferralNote = latestReferralAction?.notes ?? null;
+	const latestReferralNote = submittedNotes ?? latestReferralAction?.notes ?? null;
 
 	return {
 		caseId,
