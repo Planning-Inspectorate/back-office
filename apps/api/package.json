@@ -53,6 +53,7 @@
     "ajv": "*",
     "ajv-formats": "*",
     "applicationinsights": "*",
+    "better-sqlite3": "*",
     "body-parser": "*",
     "compression": "*",
     "csv-stringify": "*",
