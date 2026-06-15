@@ -43,12 +43,14 @@ export const postRepresentationStatusNotesController = async (req, res) => {
 	const { status: oldStatus } = representationDetails;
 
 	if (errors) {
+		const submittedNotes = /** @type {Record<string, any>} */ (body)['notes'];
 		return res.render(view, {
 			...getRepresentationStatusNotesViewModel(
 				caseId,
 				representationId,
 				representationDetails,
-				newStatus
+				newStatus,
+				submittedNotes
 			),
 			errors,
 			errorSummary: getFormattedErrorSummary(errors)
