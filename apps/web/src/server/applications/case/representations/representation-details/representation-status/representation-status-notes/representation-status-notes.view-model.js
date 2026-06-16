@@ -98,6 +98,7 @@ const getPageContentByStatus = (newStatus) => {
  * @param {string} repId
  * @param {Representation} representationDetails
  * @param {string} newStatus
+ * @param {string} [submittedNotes]
  * @returns {object}
  */
 
@@ -111,7 +112,7 @@ export const getRepresentationStatusNotesViewModel = (
 	const latestReferralAction = (representationDetails?.representationActions ?? []).find(
 		(action) => action.status === 'REFERRED'
 	);
-	const latestReferralNote = submittedNotes ?? latestReferralAction?.notes ?? null;
+	const latestReferralNote = submittedNotes ?? latestReferralAction?.notes ?? '';
 
 	return {
 		caseId,
