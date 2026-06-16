@@ -1,8 +1,5 @@
 import JSZip from 'jszip';
 import XlsxPopulate from 'xlsx-populate';
-import fs from 'node:fs';
-import { createRequire } from 'node:module';
-import { pathToFileURL } from 'node:url';
 
 import config from '#config/config.js';
 
@@ -10,7 +7,10 @@ import { BlobStorageClient } from '@pins/blob-storage-client';
 import { getByRef } from '#repositories/case.repository.js';
 import { getFolderByNameAndCaseId } from '#repositories/folder.repository.js';
 import { updateDocumentVersion } from '#repositories/document-metadata.repository.js';
-import { getLatestDocReferenceByCaseIdExcludingMigrated } from '#repositories/document.repository.js';
+import {
+	getInFolderByName,
+	getLatestDocReferenceByCaseIdExcludingMigrated
+} from '#repositories/document.repository.js';
 import {
 	createDocuments,
 	makeDocumentReference,
@@ -24,8 +24,7 @@ import {
 	GIS_SHAPEFILE_STAGE,
 	GIS_SHAPEFILE_WEBFILTER,
 	GIS_SHAPEFILES_FOLDER_NAME,
-	SYSTEM_USER_NAME,
-	DocumentPublishedStatus
+	SYSTEM_USER_NAME
 } from '#api-constants';
 import logger from '#utils/logger.js';
 
@@ -41,6 +40,13 @@ const parseSpreadsheet = async (spreadsheetBuffer) => {
 	for (let row = 2; row <= maxRow; row++) {
 		const id = sheet.cell(row, 1).value()?.toString()?.trim();
 
+		const rawReceivedDate = sheet.cell(row, 10).value();
+
+		const receivedDate =
+			typeof rawReceivedDate === 'number'
+				? XlsxPopulate.numberToDate(rawReceivedDate).toISOString().split('T')[0]
+				: rawReceivedDate?.toString()?.trim();
+
 		if (!id) {
 			continue;
 		}
@@ -50,7 +56,7 @@ const parseSpreadsheet = async (spreadsheetBuffer) => {
 			caseReference: sheet.cell(row, 2).value()?.toString()?.trim(),
 			projectName: sheet.cell(row, 3).value()?.toString()?.trim(),
 			applicantName: sheet.cell(row, 4).value()?.toString()?.trim(),
-			receivedDate: sheet.cell(row, 10).value()?.toString()?.trim()
+			receivedDate
 		});
 	}
 
@@ -88,7 +94,6 @@ const buildGeoJson = (feature, metadata) => ({
 			properties: {
 				caseReference: metadata.caseReference,
 				projectName: metadata.projectName,
-				// projectDescription: metadata.projectDescription,
 				fileName: `${metadata.caseReference}.geojson`,
 				receivedDate: metadata.receivedDate
 			}
@@ -97,27 +102,6 @@ const buildGeoJson = (feature, metadata) => ({
 });
 
 const convertGeoPackage = async (gpkgBuffer, metadata) => {
-	const require = createRequire(import.meta.url);
-
-	const wasmPath = require.resolve('rtree-sql.js/dist/sql-wasm.wasm');
-
-	logger.info(`[GIS migration] resolved wasm path: ${wasmPath}`);
-	logger.info(`[GIS migration] wasm exists: ${fs.existsSync(wasmPath)}`);
-
-	const { SqljsAdapter } = await import('@ngageoint/geopackage/dist/lib/db/sqljsAdapter.js');
-
-	SqljsAdapter.setSqljsWasmLocateFile((filename) => {
-		const resolvedPath = require.resolve(`rtree-sql.js/dist/${filename}`);
-
-		logger.info(`[GIS migration] resolving ${filename} -> ${resolvedPath}`);
-
-		const fileUrl = pathToFileURL(resolvedPath).href;
-
-		logger.info(`[GIS migration] resolving ${resolvedPath} -> ${fileUrl}`);
-
-		return fileUrl;
-	});
-
 	const { GeoPackageAPI } = await import('@ngageoint/geopackage');
 
 	const gpkg = await GeoPackageAPI.open(gpkgBuffer);
@@ -208,8 +192,7 @@ const applyGisMetadata = async (documentGuid) => {
 		filter1: GIS_SHAPEFILE_WEBFILTER,
 		documentType: GIS_SHAPEFILE_DOCUMENT_TYPE,
 		stage: GIS_SHAPEFILE_STAGE,
-		redactedStatus: GIS_SHAPEFILE_REDACTED_STATUS,
-		publishedStatus: DocumentPublishedStatus.READY_TO_PUBLISH
+		redactedStatus: GIS_SHAPEFILE_REDACTED_STATUS
 	});
 };
 
@@ -222,77 +205,108 @@ export const processHistoricalBoundaries = async (zipBuffer) => {
 
 	const processedFiles = [];
 	const skippedFiles = [];
+	const failedFiles = [];
 
 	for (const gpkgFile of gpkgFiles) {
 		const documentId = extractDocumentIdFromFileName(gpkgFile);
 
-		const metadata = metadataLookup.get(documentId);
+		try {
+			const metadata = metadataLookup.get(documentId);
 
-		if (!metadata) {
-			skippedFiles.push({
-				fileName: gpkgFile,
-				reason: 'No matching spreadsheet row'
+			if (!metadata) {
+				skippedFiles.push({
+					fileName: gpkgFile,
+					reason: 'No matching spreadsheet row'
+				});
+
+				continue;
+			}
+
+			const gpkgBuffer = await zipArchive.file(gpkgFile).async('nodebuffer');
+
+			const geoJson = await convertGeoPackage(gpkgBuffer, metadata);
+
+			const caseData = await getByRef(metadata.caseReference);
+
+			if (!caseData) {
+				skippedFiles.push({
+					fileName: gpkgFile,
+					reason: `Case not found: ${metadata.caseReference}`
+				});
+
+				continue;
+			}
+
+			const gisFolder = await getGisFolder(caseData.id);
+
+			const existingBoundary = await getInFolderByName(
+				gisFolder.id,
+				`${metadata.caseReference}.geojson`
+			);
+
+			if (existingBoundary) {
+				logger.info(`[GIS migration] Skipping ${metadata.caseReference} - GeoJSON already exists`);
+
+				skippedFiles.push({
+					fileName: gpkgFile,
+					reason: `GeoJSON document already exists for case ${metadata.caseReference}`
+				});
+
+				continue;
+			}
+
+			const documentReference = await createDocumentReference(caseData.id, caseData.reference);
+
+			const documentCreation = await createGeoJsonDocument({
+				caseData,
+				gisFolder,
+				metadata,
+				geoJson,
+				documentReference
 			});
 
-			continue;
-		}
+			const documentInfo = documentCreation.response.documents[0];
 
-		const gpkgBuffer = await zipArchive.file(gpkgFile).async('nodebuffer');
+			logger.info(
+				`[GIS migration] Uploading ${metadata.caseReference} to ${documentInfo.blobStoreUrl}`
+			);
 
-		const geoJson = await convertGeoPackage(gpkgBuffer, metadata);
-
-		const caseData = await getByRef(metadata.caseReference);
-
-		if (!caseData) {
-			skippedFiles.push({
-				fileName: gpkgFile,
-				reason: `Case not found: ${metadata.caseReference}`
+			await uploadGeoJson({
+				geoJson,
+				privateBlobContainer: documentCreation.response.privateBlobContainer,
+				blobStoreUrl: documentInfo.blobStoreUrl
 			});
 
-			continue;
+			logger.info(`[GIS migration] Uploaded ${metadata.caseReference}`);
+
+			await applyGisMetadata(documentInfo.GUID);
+
+			processedFiles.push({
+				documentId,
+				gisFolderId: gisFolder.id,
+				gisFolderName: gisFolder.displayNameEn,
+				caseReference: metadata.caseReference,
+				caseId: caseData.id,
+				documentCreation
+			});
+		} catch (error) {
+			logger.error(`[GIS migration] Error processing ${gpkgFile}`, error);
+
+			failedFiles.push({
+				fileName: gpkgFile,
+				documentId,
+				reason: error.message
+			});
 		}
-
-		const gisFolder = await getGisFolder(caseData.id);
-
-		const documentReference = await createDocumentReference(caseData.id, caseData.reference);
-
-		const documentCreation = await createGeoJsonDocument({
-			caseData,
-			gisFolder,
-			metadata,
-			geoJson,
-			documentReference
-		});
-
-		const documentInfo = documentCreation.response.documents[0];
-
-		logger.info(
-			`[GIS migration] Uploading ${metadata.caseReference} to ${documentInfo.blobStoreUrl}`
-		);
-
-		await uploadGeoJson({
-			geoJson,
-			privateBlobContainer: documentCreation.response.privateBlobContainer,
-			blobStoreUrl: documentInfo.blobStoreUrl
-		});
-
-		logger.info(`[GIS migration] Uploaded ${metadata.caseReference}`);
-
-		await applyGisMetadata(documentInfo.GUID);
-
-		processedFiles.push({
-			documentId,
-			gisFolderId: gisFolder.id,
-			gisFolderName: gisFolder.displayNameEn,
-			caseReference: metadata.caseReference,
-			caseId: caseData.id,
-			documentCreation
-		});
 	}
 
 	return {
 		spreadsheet,
+		skippedCount: skippedFiles.length,
 		skippedFiles,
-		processedFiles
+		processedCount: processedFiles.length,
+		processedFiles,
+		failedCount: failedFiles.length,
+		failedFiles
 	};
 };
