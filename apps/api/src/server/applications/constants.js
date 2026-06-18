@@ -23,7 +23,8 @@ export const GIS_SHAPEFILE_STAGE = '0';
 export const DocumentPublishedStatus = {
 	NOT_CHECKED: 'not_checked',
 	INVALID: 'invalid',
-	READY_TO_PUBLISH: 'ready_to_publish'
+	READY_TO_PUBLISH: 'ready_to_publish',
+	PUBLISHED: 'published'
 };
 
 /**

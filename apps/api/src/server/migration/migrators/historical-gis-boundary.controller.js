@@ -1,6 +1,9 @@
-import { processHistoricalBoundaries } from './historical-gis-boundary.service.js';
+import {
+	processHistoricalBoundaries,
+	publishHistoricalBoundaries
+} from './historical-gis-boundary.service.js';
 
-export const historicalGisBoundaryMigration = async (req, res) => {
+export const historicalGisBoundaryMigrationInsert = async (req, res) => {
 	const zipBuffer = req.body;
 
 	if (!Buffer.isBuffer(zipBuffer) || zipBuffer.length === 0) {
@@ -10,6 +13,12 @@ export const historicalGisBoundaryMigration = async (req, res) => {
 	}
 
 	const result = await processHistoricalBoundaries(zipBuffer);
+
+	return res.status(200).json(result);
+};
+
+export const historicalGisBoundaryMigrationPublish = async (req, res) => {
+	const result = await publishHistoricalBoundaries();
 
 	return res.status(200).json(result);
 };
