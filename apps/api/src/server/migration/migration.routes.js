@@ -9,7 +9,10 @@ import {
 	deleteGisShapefilesFoldersController
 } from './migrators/gis-shapefiles-folder.controller.js';
 import { spreadsheetCaseDataMigration } from './migrators/spreadsheet-case-data.controller.js';
-import { historicalGisBoundaryMigration } from './migrators/historical-gis-boundary.controller.js';
+import {
+	historicalGisBoundaryMigrationInsert,
+	historicalGisBoundaryMigrationPublish
+} from './migrators/historical-gis-boundary.controller.js';
 
 const router = createRouter();
 
@@ -179,10 +182,10 @@ router.post(
 );
 
 router.post(
-	'/historical-gis-boundaries',
+	'/historical-gis-boundaries-insert',
 	/*
 		#swagger.tags = ['Migration']
-		#swagger.path = '/migration/historical-gis-boundaries'
+		#swagger.path = '/migration/historical-gis-boundaries-insert'
 		#swagger.description = 'Imports historical GIS boundary GeoPackages from a ZIP file and uploads them as GIS shapefile documents'
 		#swagger.consumes = ['application/octet-stream']
 		#swagger.parameters['body'] = {
@@ -216,7 +219,39 @@ router.post(
 			description: 'Migration failed'
 		}
 	*/
-	asyncHandler(historicalGisBoundaryMigration)
+	asyncHandler(historicalGisBoundaryMigrationInsert)
+);
+
+router.post(
+	'/historical-gis-boundaries-publish',
+	/*
+		#swagger.tags = ['Migration']
+		#swagger.path = '/migration/historical-gis-boundaries-publish'
+		#swagger.description = 'Publishes previously migrated GIS boundary documents'
+
+		#swagger.parameters['x-service-name'] = {
+			in: 'header',
+			type: 'string',
+			description: 'Service name header',
+			default: 'swagger'
+		}
+
+		#swagger.parameters['x-api-key'] = {
+			in: 'header',
+			type: 'string',
+			description: 'API key header',
+			default: '123'
+		}
+
+		#swagger.responses[200] = {
+			description: 'Publishing completed'
+		}
+
+		#swagger.responses[500] = {
+			description: 'Publishing failed'
+		}
+	*/
+	asyncHandler(historicalGisBoundaryMigrationPublish)
 );
 
 router.post(

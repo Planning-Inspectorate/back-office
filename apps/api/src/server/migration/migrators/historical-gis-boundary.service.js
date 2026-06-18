@@ -9,15 +9,18 @@ import { getFolderByNameAndCaseId } from '#repositories/folder.repository.js';
 import { updateDocumentVersion } from '#repositories/document-metadata.repository.js';
 import {
 	getInFolderByName,
-	getLatestDocReferenceByCaseIdExcludingMigrated
+	getLatestDocReferenceByCaseIdExcludingMigrated,
+	getUnpublishedGisBoundaryDocuments
 } from '#repositories/document.repository.js';
 import {
 	createDocuments,
 	makeDocumentReference,
-	getIndexFromReference
+	getIndexFromReference,
+	publishDocuments
 } from '../../applications/application/documents/document.service.js';
 
 import {
+	DocumentPublishedStatus,
 	GIS_SHAPEFILE_DESCRIPTION,
 	GIS_SHAPEFILE_DOCUMENT_TYPE,
 	GIS_SHAPEFILE_REDACTED_STATUS,
@@ -308,5 +311,51 @@ export const processHistoricalBoundaries = async (zipBuffer) => {
 		processedFiles,
 		failedCount: failedFiles.length,
 		failedFiles
+	};
+};
+
+export const publishHistoricalBoundaries = async () => {
+	const documents = await getUnpublishedGisBoundaryDocuments();
+
+	logger.info(`[GIS migration] Found ${documents.length} GIS boundary documents to publish`);
+
+	const readyToPublish = [];
+	const failedFiles = [];
+
+	for (const document of documents) {
+		try {
+			await updateDocumentVersion(document.guid, document.latestVersionId, {
+				publishedStatus: DocumentPublishedStatus.READY_TO_PUBLISH
+			});
+
+			readyToPublish.push(document.guid);
+		} catch (error) {
+			logger.error(`[GIS migration] Failed setting READY_TO_PUBLISH for ${document.guid}`, error);
+
+			failedFiles.push({
+				documentGuid: document.guid,
+				reason: error.message
+			});
+		}
+	}
+
+	const publishResult =
+		readyToPublish.length > 0
+			? await publishDocuments(readyToPublish, SYSTEM_USER_NAME)
+			: { successful: [], failed: [] };
+
+	logger.info(
+		`[GIS migration] Published ${publishResult.successful.length} GIS boundary documents`
+	);
+
+	return {
+		foundCount: documents.length,
+		readyToPublishCount: readyToPublish.length,
+		publishedCount: publishResult.successful.length,
+		publishedDocuments: publishResult.successful,
+		failedPublishCount: publishResult.failed.length,
+		failedPublishDocuments: publishResult.failed,
+		failedMetadataCount: failedFiles.length,
+		failedMetadataUpdates: failedFiles
 	};
 };
