@@ -208,7 +208,7 @@
 		"swagger-autogen": "^2.21.4",
 		"swagger-typescript-api": "^13.0.3",
 		"terser": "^5.13.1",
-		"turbo": "^2.8.15",
+		"turbo": "^2.9.14",
 		"type-fest": "^2.12.2",
 		"typescript": "^5.9.3"
 	},
