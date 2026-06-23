@@ -1,6 +1,6 @@
 import { Readable } from 'node:stream';
 import { blobClient } from '../common/blob-client.js';
-import { notifyShapefileProcessingResult } from './src/back-office-api-client.js';
+import { getProjectName, notifyShapefileProcessingResult } from './src/back-office-api-client.js';
 import { validateShapefileContents } from './src/validate-shapefile.js';
 import { shpZipToGeoJson } from './src/convert-shapefile.js';
 import { validateConvertedGeoJson } from './src/validate-geojson.js';
@@ -37,6 +37,7 @@ import { ShapefileValidationError } from './src/errors.js';
 export const index = async (context, documentShapefileProcess) => {
 	const {
 		documentId,
+		caseId,
 		caseRef,
 		privateBlobContainer,
 		privateBlobPath,
@@ -53,9 +54,10 @@ export const index = async (context, documentShapefileProcess) => {
 	});
 
 	// Defensive guard: all fields must be present. Should not happen if malware-detected is correct.
-	if (!documentId || !privateBlobContainer || !privateBlobPath || !normalizedCaseRef) {
+	if (!documentId || !caseId || !privateBlobContainer || !privateBlobPath || !normalizedCaseRef) {
 		context.log.warn(`[SHAPEFILE] Missing one or more of the required fields, skipping`, {
 			documentId,
+			caseId,
 			caseRef,
 			privateBlobContainer,
 			privateBlobPath
@@ -105,10 +107,12 @@ export const index = async (context, documentShapefileProcess) => {
 		// Derive GeoJSON filename from the original ZIP filename
 		const baseFileName = (originalFilename ?? documentId).replace(/\.zip$/i, '');
 		const geoJsonFileName = `${baseFileName}.geojson`;
+		const projectName = await getProjectName(caseId);
 
 		const receivedDate = dateCreated ? new Date(dateCreated) : new Date();
 		const geoJsonWithMetadata = applyGeoJsonMetadata(geoJson, {
 			caseReference: normalizedCaseRef,
+			projectName,
 			fileName: geoJsonFileName,
 			receivedDate
 		});
