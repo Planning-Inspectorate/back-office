@@ -9,6 +9,53 @@ import { downloadZipBuffer } from './src/download-zip.js';
 import { ShapefileValidationError } from './src/errors.js';
 
 /**
+ * Convert incoming `dateCreated` to a safe Date.
+ *
+ * This flow receives unix seconds from `/applications/documents/:guid/properties`.
+ * `new Date(seconds)` is wrong (treated as milliseconds) and produces 1970 dates,
+ * so we convert seconds to milliseconds first.
+ *
+ * Also accepts Date/ISO/numeric-string values defensively and falls back to `new Date()`.
+ *
+ * TODO(IDAS-662): replace with Temporal when available in this runtime.
+ *
+ * @param {unknown} dateCreated
+ * @returns {Date}
+ */
+const normalizeReceivedDate = (dateCreated) => {
+	if (dateCreated instanceof Date && !Number.isNaN(dateCreated.getTime())) {
+		return dateCreated;
+	}
+
+	if (typeof dateCreated === 'number' && Number.isFinite(dateCreated)) {
+		// Heuristic: values below 1e12 are unix seconds; Date expects milliseconds.
+		const ms = dateCreated < 1_000_000_000_000 ? dateCreated * 1000 : dateCreated;
+		const parsed = new Date(ms);
+		return Number.isNaN(parsed.getTime()) ? new Date() : parsed;
+	}
+
+	if (typeof dateCreated === 'string') {
+		const trimmed = dateCreated.trim();
+		if (!trimmed) {
+			return new Date();
+		}
+
+		const asNumber = Number(trimmed);
+		if (Number.isFinite(asNumber)) {
+			// Numeric strings may be epoch seconds/milliseconds from API payloads.
+			const ms = asNumber < 1_000_000_000_000 ? asNumber * 1000 : asNumber;
+			const parsedFromNumber = new Date(ms);
+			return Number.isNaN(parsedFromNumber.getTime()) ? new Date() : parsedFromNumber;
+		}
+
+		const parsedFromString = new Date(trimmed);
+		return Number.isNaN(parsedFromString.getTime()) ? new Date() : parsedFromString;
+	}
+
+	return new Date();
+};
+
+/**
  * Azure Function triggered by the `shapefile-processing-queue` Service Bus queue.
  *
  * Messages are placed on this queue by the `malware-detected` function after a virus
@@ -109,7 +156,7 @@ export const index = async (context, documentShapefileProcess) => {
 		const geoJsonFileName = `${baseFileName}.geojson`;
 		const projectName = await getProjectName(caseId);
 
-		const receivedDate = dateCreated ? new Date(dateCreated) : new Date();
+		const receivedDate = normalizeReceivedDate(dateCreated);
 		const geoJsonWithMetadata = applyGeoJsonMetadata(geoJson, {
 			caseReference: normalizedCaseRef,
 			projectName,
