@@ -172,6 +172,34 @@ describe('process-shapefile function', () => {
 		);
 	});
 
+	test('should normalize unix-seconds dateCreated for receivedDate metadata', async () => {
+		const zipBuffer = Buffer.from('zip-content');
+		downloadZipBuffer.mockResolvedValue(zipBuffer);
+		validateShapefileContents.mockResolvedValue({
+			valid: true,
+			missingExtensions: [],
+			fileNames: ['test.shp', 'test.shx', 'test.dbf'],
+			parseError: null
+		});
+		shpZipToGeoJson.mockResolvedValue({ type: 'FeatureCollection', features: [] });
+		applyGeoJsonMetadata.mockReturnValue({ type: 'FeatureCollection', features: [], metadata: {} });
+
+		await index(context, {
+			...message,
+			dateCreated: 1706710706
+		});
+
+		expect(applyGeoJsonMetadata).toHaveBeenCalledWith(
+			expect.anything(),
+			expect.objectContaining({
+				receivedDate: expect.any(Date)
+			})
+		);
+
+		const receivedDate = applyGeoJsonMetadata.mock.calls[0][1].receivedDate;
+		expect(receivedDate.toISOString()).toBe('2024-01-31T14:18:26.000Z');
+	});
+
 	test('should mark as invalid and NOT re-throw on validation error', async () => {
 		// GIVEN
 		downloadZipBuffer.mockResolvedValue(Buffer.from('zip'));
