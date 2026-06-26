@@ -24,6 +24,11 @@ export const DCO_STATUS_VIEW = {
 	[DCO_STATUS.WITHDRAWN]: {
 		displayNameEn: 'Withdrawn',
 		tagClasses: 'govuk-tag--orange'
+	},
+	[DCO_STATUS.REVOKED]: {
+		displayNameEn: 'Revoked',
+		tagDisplayNameEn: 'Revoked',
+		tagClasses: 'govuk-tag--pink'
 	}
 };
 
@@ -49,7 +54,7 @@ export const getDcoStatusDisplayName = (dcoStatus) => {
 		return '';
 	}
 	const statusEntry = DCO_STATUS_VIEW[dcoStatus];
-	return statusEntry.displayNameEn;
+	return statusEntry?.tagDisplayNameEn || statusEntry?.displayNameEn || '';
 };
 
 /**

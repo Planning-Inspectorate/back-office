@@ -28,5 +28,6 @@ export const DCO_STATUS = {
 	PARTIALLY_CONSENTED: 'partially_consented',
 	QUASHED: 'quashed',
 	REDETERMINATION: 'redetermination',
-	WITHDRAWN: 'withdrawn'
+	WITHDRAWN: 'withdrawn',
+	REVOKED: 'revoked'
 };

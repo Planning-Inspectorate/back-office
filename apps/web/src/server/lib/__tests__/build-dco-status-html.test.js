@@ -20,7 +20,8 @@ describe('apps/web/src/server/lib/utils/build-dco-status-html', () => {
 					[DCO_STATUS.PARTIALLY_CONSENTED, 'Partially consented', 'govuk-tag--turquoise'],
 					[DCO_STATUS.QUASHED, 'Quashed', 'govuk-tag--pink'],
 					[DCO_STATUS.REDETERMINATION, 'Redetermination', 'govuk-tag--yellow'],
-					[DCO_STATUS.WITHDRAWN, 'Withdrawn', 'govuk-tag--orange']
+					[DCO_STATUS.WITHDRAWN, 'Withdrawn', 'govuk-tag--orange'],
+					[DCO_STATUS.REVOKED, 'Revoked', 'govuk-tag--pink']
 				])('should apply %s class and %s label', (status, expectedLabel, expectedClass) => {
 					const html = buildDcoStatusHtml({ additionalDetails: { dcoStatus: status } });
 
