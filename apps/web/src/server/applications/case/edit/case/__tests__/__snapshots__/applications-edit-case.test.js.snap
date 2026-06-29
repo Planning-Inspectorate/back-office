@@ -39,6 +39,11 @@ exports[`applications edit DCO status GET should render the DCO status page 1`] 
                         value="withdrawn">
                         <label class="govuk-label govuk-radios__label" for="dcoStatus-6">Withdrawn</label>
                     </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="dcoStatus-7" name="dcoStatus" type="radio"
+                        value="revoked">
+                        <label class="govuk-label govuk-radios__label" for="dcoStatus-7">Revoked</label>
+                    </div>
                 </div>
             </fieldset>
         </div>
