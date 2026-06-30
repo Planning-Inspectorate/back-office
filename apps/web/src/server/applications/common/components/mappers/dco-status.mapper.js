@@ -27,7 +27,6 @@ export const DCO_STATUS_VIEW = {
 	},
 	[DCO_STATUS.REVOKED]: {
 		displayNameEn: 'Revoked',
-		tagDisplayNameEn: 'Revoked',
 		tagClasses: 'govuk-tag--pink'
 	}
 };
@@ -54,7 +53,7 @@ export const getDcoStatusDisplayName = (dcoStatus) => {
 		return '';
 	}
 	const statusEntry = DCO_STATUS_VIEW[dcoStatus];
-	return statusEntry?.tagDisplayNameEn || statusEntry?.displayNameEn || '';
+	return statusEntry.displayNameEn;
 };
 
 /**
