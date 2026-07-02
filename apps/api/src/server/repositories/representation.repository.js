@@ -663,48 +663,59 @@ export const updateApplicationRepresentationStatusById = async (
  * @returns {Promise<void>}
  */
 export const setRepresentationsAsPublished = async (representations, actionBy) => {
-	const transactionItems = [];
-	representations
-		.filter((rep) => rep.status === RELEVANT_REPRESENTATION_STATUS_MAP.VALID)
-		.forEach((representation) => {
-			transactionItems.push(
-				databaseConnector.representation.update({
-					where: { id: representation.id },
-					data: {
-						status: RELEVANT_REPRESENTATION_STATUS_MAP.PUBLISHED
-					}
-				})
-			);
-			transactionItems.push(
-				databaseConnector.representationAction.create({
-					data: {
-						representationId: representation.id,
-						previousStatus: representation.status,
-						type: 'STATUS',
-						status: RELEVANT_REPRESENTATION_STATUS_MAP.PUBLISHED,
-						actionBy: actionBy,
-						actionDate: new Date()
-					}
-				})
-			);
-		});
-
-	transactionItems.push(
-		databaseConnector.representation.updateMany({
-			where: {
-				id: {
-					in: representations
-						.filter((rep) => rep.status === RELEVANT_REPRESENTATION_STATUS_MAP.PUBLISHED)
-						.map((rep) => rep.id)
-				}
-			},
-			data: {
-				unpublishedUpdates: false
-			}
-		})
+	const validRepresentations = representations.filter(
+		(rep) => rep.status === RELEVANT_REPRESENTATION_STATUS_MAP.VALID
 	);
+	const previouslyPublishedRepresentationIds = representations
+		.filter((rep) => rep.status === RELEVANT_REPRESENTATION_STATUS_MAP.PUBLISHED)
+		.map((rep) => rep.id);
 
-	await databaseConnector.$transaction(transactionItems);
+	if (!validRepresentations.length && !previouslyPublishedRepresentationIds.length) {
+		return;
+	}
+
+	await databaseConnector.$transaction(async (tx) => {
+		if (validRepresentations.length) {
+			const validRepresentationIds = validRepresentations.map(
+				(representation) => representation.id
+			);
+
+			await tx.representation.updateMany({
+				where: {
+					id: {
+						in: validRepresentationIds
+					}
+				},
+				data: {
+					status: RELEVANT_REPRESENTATION_STATUS_MAP.PUBLISHED
+				}
+			});
+
+			await tx.representationAction.createMany({
+				data: validRepresentations.map((representation) => ({
+					representationId: representation.id,
+					previousStatus: representation.status,
+					type: 'STATUS',
+					status: RELEVANT_REPRESENTATION_STATUS_MAP.PUBLISHED,
+					actionBy,
+					actionDate: new Date()
+				}))
+			});
+		}
+
+		if (previouslyPublishedRepresentationIds.length) {
+			await tx.representation.updateMany({
+				where: {
+					id: {
+						in: previouslyPublishedRepresentationIds
+					}
+				},
+				data: {
+					unpublishedUpdates: false
+				}
+			});
+		}
+	});
 };
 
 /**
@@ -730,33 +741,41 @@ export const setRepresentationsAsPublishedBatch = async (representations, action
  * @returns {Promise<void>}
  */
 export const setRepresentationsAsUnpublished = async (representations, actionBy) => {
-	const transactionItems = [];
-	representations
-		.filter((rep) => rep.status === RELEVANT_REPRESENTATION_STATUS_MAP.PUBLISHED)
-		.forEach((representation) => {
-			transactionItems.push(
-				databaseConnector.representation.update({
-					where: { id: representation.id },
-					data: {
-						status: RELEVANT_REPRESENTATION_STATUS_MAP.UNPUBLISHED
-					}
-				})
-			);
-			transactionItems.push(
-				databaseConnector.representationAction.create({
-					data: {
-						representationId: representation.id,
-						previousStatus: representation.status,
-						type: 'STATUS',
-						status: RELEVANT_REPRESENTATION_STATUS_MAP.UNPUBLISHED,
-						actionBy: actionBy,
-						actionDate: new Date()
-					}
-				})
-			);
+	const publishedRepresentations = representations.filter(
+		(rep) => rep.status === RELEVANT_REPRESENTATION_STATUS_MAP.PUBLISHED
+	);
+
+	if (!publishedRepresentations.length) {
+		return;
+	}
+
+	await databaseConnector.$transaction(async (tx) => {
+		const publishedRepresentationIds = publishedRepresentations.map(
+			(representation) => representation.id
+		);
+
+		await tx.representation.updateMany({
+			where: {
+				id: {
+					in: publishedRepresentationIds
+				}
+			},
+			data: {
+				status: RELEVANT_REPRESENTATION_STATUS_MAP.UNPUBLISHED
+			}
 		});
 
-	await databaseConnector.$transaction(transactionItems);
+		await tx.representationAction.createMany({
+			data: publishedRepresentations.map((representation) => ({
+				representationId: representation.id,
+				previousStatus: representation.status,
+				type: 'STATUS',
+				status: RELEVANT_REPRESENTATION_STATUS_MAP.UNPUBLISHED,
+				actionBy,
+				actionDate: new Date()
+			}))
+		});
+	});
 };
 
 /**

@@ -774,59 +774,43 @@ describe('Representation repository', () => {
 				{ id: 4, status: 'DRAFT' }
 			];
 
-			databaseConnector.$transaction.mockResolvedValue([]);
+			databaseConnector.$transaction.mockImplementation(async (transactionCallback) =>
+				transactionCallback(databaseConnector)
+			);
 
 			await representationRepository.setRepresentationsAsUnpublished(representations, mockActionBy);
 
-			// Verify transaction was called with the correct operations
-			const transactionCalls = databaseConnector.$transaction.mock.calls[0][0];
-
-			// Should have 4 operations: 2 updates + 2 actions for the 2 PUBLISHED representations
-			expect(transactionCalls).toHaveLength(4);
-
-			// Check first representation update
-			expect(databaseConnector.representation.update).toHaveBeenCalledWith({
-				where: { id: 1 },
+			expect(databaseConnector.$transaction).toHaveBeenCalledTimes(1);
+			expect(databaseConnector.representation.updateMany).toHaveBeenCalledWith({
+				where: { id: { in: [1, 3] } },
 				data: { status: 'UNPUBLISHED' }
 			});
-
-			// Check first representation action
-			expect(databaseConnector.representationAction.create).toHaveBeenCalledWith({
-				data: {
-					representationId: 1,
-					previousStatus: 'PUBLISHED',
-					type: 'STATUS',
-					status: 'UNPUBLISHED',
-					actionBy: mockActionBy,
-					actionDate: mockDate
-				}
-			});
-
-			// Check second representation update
-			expect(databaseConnector.representation.update).toHaveBeenCalledWith({
-				where: { id: 3 },
-				data: { status: 'UNPUBLISHED' }
-			});
-
-			// Check second representation action
-			expect(databaseConnector.representationAction.create).toHaveBeenCalledWith({
-				data: {
-					representationId: 3,
-					previousStatus: 'PUBLISHED',
-					type: 'STATUS',
-					status: 'UNPUBLISHED',
-					actionBy: mockActionBy,
-					actionDate: mockDate
-				}
+			expect(databaseConnector.representationAction.createMany).toHaveBeenCalledWith({
+				data: [
+					{
+						representationId: 1,
+						previousStatus: 'PUBLISHED',
+						type: 'STATUS',
+						status: 'UNPUBLISHED',
+						actionBy: mockActionBy,
+						actionDate: mockDate
+					},
+					{
+						representationId: 3,
+						previousStatus: 'PUBLISHED',
+						type: 'STATUS',
+						status: 'UNPUBLISHED',
+						actionBy: mockActionBy,
+						actionDate: mockDate
+					}
+				]
 			});
 		});
 
 		it('should handle empty representations array', async () => {
-			databaseConnector.$transaction.mockResolvedValue([]);
-
 			await representationRepository.setRepresentationsAsUnpublished([], mockActionBy);
 
-			expect(databaseConnector.$transaction).toHaveBeenCalledWith([]);
+			expect(databaseConnector.$transaction).not.toHaveBeenCalled();
 		});
 
 		it('should handle representations with no PUBLISHED status', async () => {
@@ -836,38 +820,37 @@ describe('Representation repository', () => {
 				{ id: 3, status: 'INVALID' }
 			];
 
-			databaseConnector.$transaction.mockResolvedValue([]);
-
 			await representationRepository.setRepresentationsAsUnpublished(representations, mockActionBy);
 
-			expect(databaseConnector.$transaction).toHaveBeenCalledWith([]);
+			expect(databaseConnector.$transaction).not.toHaveBeenCalled();
 		});
 
 		it('should handle single PUBLISHED representation', async () => {
 			const representations = [{ id: 1, status: 'PUBLISHED' }];
 
-			databaseConnector.$transaction.mockResolvedValue([]);
+			databaseConnector.$transaction.mockImplementation(async (transactionCallback) =>
+				transactionCallback(databaseConnector)
+			);
 
 			await representationRepository.setRepresentationsAsUnpublished(representations, mockActionBy);
 
-			// Should have 2 operations: 1 update + 1 action
-			const transactionCalls = databaseConnector.$transaction.mock.calls[0][0];
-			expect(transactionCalls).toHaveLength(2);
-
-			expect(databaseConnector.representation.update).toHaveBeenCalledWith({
-				where: { id: 1 },
+			expect(databaseConnector.$transaction).toHaveBeenCalledTimes(1);
+			expect(databaseConnector.representation.updateMany).toHaveBeenCalledWith({
+				where: { id: { in: [1] } },
 				data: { status: 'UNPUBLISHED' }
 			});
 
-			expect(databaseConnector.representationAction.create).toHaveBeenCalledWith({
-				data: {
-					representationId: 1,
-					previousStatus: 'PUBLISHED',
-					type: 'STATUS',
-					status: 'UNPUBLISHED',
-					actionBy: mockActionBy,
-					actionDate: mockDate
-				}
+			expect(databaseConnector.representationAction.createMany).toHaveBeenCalledWith({
+				data: [
+					{
+						representationId: 1,
+						previousStatus: 'PUBLISHED',
+						type: 'STATUS',
+						status: 'UNPUBLISHED',
+						actionBy: mockActionBy,
+						actionDate: mockDate
+					}
+				]
 			});
 		});
 	});
@@ -890,7 +873,9 @@ describe('Representation repository', () => {
 				status: 'PUBLISHED'
 			}));
 
-			databaseConnector.$transaction.mockResolvedValue([]);
+			databaseConnector.$transaction.mockImplementation(async (transactionCallback) =>
+				transactionCallback(databaseConnector)
+			);
 
 			await representationRepository.setRepresentationsAsUnpublishedBatch(
 				representations,
@@ -912,7 +897,9 @@ describe('Representation repository', () => {
 				status: 'PUBLISHED'
 			}));
 
-			databaseConnector.$transaction.mockResolvedValue([]);
+			databaseConnector.$transaction.mockImplementation(async (transactionCallback) =>
+				transactionCallback(databaseConnector)
+			);
 
 			await representationRepository.setRepresentationsAsUnpublishedBatch(
 				representations,
@@ -936,7 +923,9 @@ describe('Representation repository', () => {
 				status: 'PUBLISHED'
 			}));
 
-			databaseConnector.$transaction.mockResolvedValue([]);
+			databaseConnector.$transaction.mockImplementation(async (transactionCallback) =>
+				transactionCallback(databaseConnector)
+			);
 
 			await representationRepository.setRepresentationsAsUnpublishedBatch(
 				representations,
