@@ -100,9 +100,12 @@ export const getDocumentVersionsByCaseId = async (caseId) => {
 
 /**
  * Get latest document reference (excluding ones from migration (with -M-)
- * Includes deleted docs, and orders by documentReference descending
+ * (Migration created doc references are `${document.caseRef}-M-${documentId}`, so we want to exclude that when finding latest one)
+ * Includes deleted docs, and orders by documentReference descending.
+ * Uses UPDLOCK + HOLDLOCK table hints to acquire an exclusive lock on the row,
+ * preventing concurrent transactions from reading the same reference until this transaction commits.
  *
- * @param {{ caseId: number, skipValue?: number, pageSize?: number }} params
+ * @param {{ caseId: number }} params
  * @param {import('@prisma/client').Prisma.TransactionClient} [tx] - Optional transaction client or default to databaseConnector
  * @returns {Promise<string | null>}
  */
@@ -110,24 +113,23 @@ export const getLatestDocReferenceByCaseIdExcludingMigrated = async (
 	{ caseId },
 	tx = databaseConnector
 ) => {
-	const latestDoc = await tx.document.findMany({
-		where: {
-			caseId,
-			NOT: { documentReference: { contains: '-M-' } } // Migration created doc references are `${document.caseRef}-M-${documentId}`, so we want to exclude that when finding latest one
-		},
-		take: 1,
-		orderBy: [
-			{
-				documentReference: 'desc'
-			}
-		]
-	});
-	return latestDoc.length > 0 ? latestDoc[0]?.documentReference : null;
+	/** @type {{ documentReference: string }[]} */
+	const result = await tx.$queryRaw`
+		SELECT TOP 1 documentReference
+		FROM [Document] WITH (UPDLOCK, HOLDLOCK)
+		WHERE caseId = ${caseId}
+		  AND documentReference NOT LIKE '%-M-%'
+		ORDER BY documentReference DESC
+	`;
+
+	return result.length > 0 ? result[0].documentReference : null;
 };
 
 /**
- * Transaction wrapper to execute multiple database operations atomically with isolation
- * The transaction itself is wrapped with a retry logic handling transient Prisma errors
+ * Transaction wrapper to execute multiple database operations atomically with isolation.
+ * Uses Serializable isolation level combined with explicit lock hints in queries
+ * to prevent concurrent transactions from generating duplicate document references.
+ * The transaction itself is wrapped with retry logic handling transient Prisma errors (including deadlocks).
  *
  * @template T
  * @param {(tx: import('@prisma/client').Prisma.TransactionClient) => Promise<T>} cb
@@ -136,7 +138,7 @@ export const getLatestDocReferenceByCaseIdExcludingMigrated = async (
 export const executeInTransaction = async (cb) => {
 	return withRetry(() =>
 		databaseConnector.$transaction(cb, {
-			isolationLevel: 'RepeatableRead',
+			isolationLevel: 'Serializable',
 			maxWait: 60000,
 			timeout: 30000
 		})
