@@ -283,23 +283,27 @@ describe('Publish Representations', () => {
 				entityType: 'RepresentationContact'
 			}
 		);
-		expect(databaseConnector.representation.update).toHaveBeenCalledWith({
+		expect(databaseConnector.representation.updateMany).toHaveBeenCalledWith({
 			where: {
-				id: 6409
+				id: {
+					in: [6409]
+				}
 			},
 			data: {
 				status: 'PUBLISHED'
 			}
 		});
-		expect(databaseConnector.representationAction.create).toHaveBeenCalledWith({
-			data: {
-				representationId: 6409,
-				previousStatus: 'VALID',
-				status: 'PUBLISHED',
-				actionBy: 'Joe Bloggs',
-				actionDate: new Date(1_649_319_144_000),
-				type: 'STATUS'
-			}
+		expect(databaseConnector.representationAction.createMany).toHaveBeenCalledWith({
+			data: [
+				{
+					representationId: 6409,
+					previousStatus: 'VALID',
+					status: 'PUBLISHED',
+					actionBy: 'Joe Bloggs',
+					actionDate: new Date(1_649_319_144_000),
+					type: 'STATUS'
+				}
+			]
 		});
 		expect(databaseConnector.representation.updateMany).toHaveBeenCalledWith({
 			where: { id: { in: [6579] } },
@@ -321,9 +325,8 @@ describe('Publish Representations', () => {
 		expect(response.body).toEqual({ errors: { message: 'unable to publish representations' } });
 
 		expect(batchSendEvents).not.toHaveBeenCalled();
-		expect(databaseConnector.representation.update).not.toHaveBeenCalled();
-		expect(databaseConnector.representationAction.create).not.toHaveBeenCalled();
 		expect(databaseConnector.representation.updateMany).not.toHaveBeenCalled();
+		expect(databaseConnector.representationAction.createMany).not.toHaveBeenCalled();
 	});
 
 	it.each([

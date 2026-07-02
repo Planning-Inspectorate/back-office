@@ -72,6 +72,7 @@ const mockRepresentationContactUpdate = jest.fn().mockResolvedValue({});
 const mockRepresentationContactFindFirst = jest.fn().mockResolvedValue({});
 const mockRepresentationContactDelete = jest.fn().mockResolvedValue({});
 const mockRepresentationActionCreate = jest.fn().mockResolvedValue({});
+const mockRepresentationActionCreateMany = jest.fn().mockResolvedValue({});
 const mockRepresentationAttachmentCreate = jest.fn().mockResolvedValue({});
 const mockRepresentationAttachmentFindFirst = jest.fn().mockResolvedValue({});
 const mockRepresentationAttachmentDelete = jest.fn().mockResolvedValue({});
@@ -331,7 +332,8 @@ class MockPrismaClient {
 
 	get representationAction() {
 		return {
-			create: mockRepresentationActionCreate
+			create: mockRepresentationActionCreate,
+			createMany: mockRepresentationActionCreateMany
 		};
 	}
 
@@ -383,7 +385,7 @@ class MockPrismaClient {
 	$transaction = jest.fn().mockImplementation(async (queries = []) => {
 		if (typeof queries === 'function') {
 			// transactions can be a function, run with an instance of the client
-			return queries(this);
+			return await queries(this);
 		} else {
 			// or just an array of queries to run
 			// For getByCaseId tests, we need to handle the specific case where
