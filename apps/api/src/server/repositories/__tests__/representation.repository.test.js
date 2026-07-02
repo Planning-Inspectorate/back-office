@@ -883,9 +883,9 @@ describe('Representation repository', () => {
 			console.info.mockRestore();
 		});
 
-		it('should process representations in batches of 1000', async () => {
-			// Create 2500 representations to test batching
-			const representations = Array.from({ length: 2500 }, (_, i) => ({
+		it('should process representations in batches of 100', async () => {
+			// Create 250 representations to test batching
+			const representations = Array.from({ length: 250 }, (_, i) => ({
 				id: i + 1,
 				status: 'PUBLISHED'
 			}));
@@ -901,13 +901,13 @@ describe('Representation repository', () => {
 			expect(databaseConnector.$transaction).toHaveBeenCalledTimes(3);
 
 			// Should log progress for each batch
-			expect(console.info).toHaveBeenCalledWith('updated representations from range 0 - 1000');
-			expect(console.info).toHaveBeenCalledWith('updated representations from range 1000 - 2000');
-			expect(console.info).toHaveBeenCalledWith('updated representations from range 2000 - 2500');
+			expect(console.info).toHaveBeenCalledWith('updated representations from range 0 - 100');
+			expect(console.info).toHaveBeenCalledWith('updated representations from range 100 - 200');
+			expect(console.info).toHaveBeenCalledWith('updated representations from range 200 - 250');
 		});
 
 		it('should handle single batch when representations count is less than batch size', async () => {
-			const representations = Array.from({ length: 500 }, (_, i) => ({
+			const representations = Array.from({ length: 50 }, (_, i) => ({
 				id: i + 1,
 				status: 'PUBLISHED'
 			}));
@@ -920,7 +920,7 @@ describe('Representation repository', () => {
 			);
 
 			expect(databaseConnector.$transaction).toHaveBeenCalledTimes(1);
-			expect(console.info).toHaveBeenCalledWith('updated representations from range 0 - 500');
+			expect(console.info).toHaveBeenCalledWith('updated representations from range 0 - 50');
 		});
 
 		it('should handle empty representations array', async () => {
@@ -930,8 +930,8 @@ describe('Representation repository', () => {
 			expect(console.info).not.toHaveBeenCalled();
 		});
 
-		it('should handle exactly one batch size (1000 representations)', async () => {
-			const representations = Array.from({ length: 1000 }, (_, i) => ({
+		it('should handle exactly one batch size (100 representations)', async () => {
+			const representations = Array.from({ length: 100 }, (_, i) => ({
 				id: i + 1,
 				status: 'PUBLISHED'
 			}));
@@ -944,7 +944,7 @@ describe('Representation repository', () => {
 			);
 
 			expect(databaseConnector.$transaction).toHaveBeenCalledTimes(1);
-			expect(console.info).toHaveBeenCalledWith('updated representations from range 0 - 1000');
+			expect(console.info).toHaveBeenCalledWith('updated representations from range 0 - 100');
 		});
 	});
 });

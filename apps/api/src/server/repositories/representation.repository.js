@@ -2,6 +2,8 @@ import { isEmpty } from 'lodash-es';
 import { databaseConnector } from '#utils/database-connector.js';
 import { RELEVANT_REPRESENTATION_STATUS_MAP } from '#utils/mapping/map-relevant-representation-status.js';
 
+const REPRESENTATION_STATUS_UPDATE_BATCH_SIZE = 100;
+
 /**
  * @typedef {{
  *  representationDetails: { caseId: number, status: string, originalRepresentation?: string | null, editedRepresentation?: string | null, editNotes?: string | null, redacted: boolean, received: Date },
@@ -713,7 +715,7 @@ export const setRepresentationsAsPublished = async (representations, actionBy) =
  * @returns {Promise<void>}
  */
 export const setRepresentationsAsPublishedBatch = async (representations, actionBy) => {
-	const batchSize = 1000;
+	const batchSize = REPRESENTATION_STATUS_UPDATE_BATCH_SIZE;
 	for (let i = 0; i < representations.length; i += batchSize) {
 		const batch = representations.slice(i, i + batchSize);
 		await setRepresentationsAsPublished(batch, actionBy);
@@ -765,7 +767,7 @@ export const setRepresentationsAsUnpublished = async (representations, actionBy)
  * @returns {Promise<void>}
  */
 export const setRepresentationsAsUnpublishedBatch = async (representations, actionBy) => {
-	const batchSize = 1000;
+	const batchSize = REPRESENTATION_STATUS_UPDATE_BATCH_SIZE;
 	for (let i = 0; i < representations.length; i += batchSize) {
 		const batch = representations.slice(i, i + batchSize);
 		await setRepresentationsAsUnpublished(batch, actionBy);
