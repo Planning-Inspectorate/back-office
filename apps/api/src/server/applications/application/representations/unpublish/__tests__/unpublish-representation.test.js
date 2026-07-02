@@ -283,41 +283,35 @@ describe('Unpublish Representations', () => {
 				entityType: 'RepresentationContact'
 			}
 		);
-		expect(databaseConnector.representation.update).toHaveBeenCalledWith({
+		expect(databaseConnector.representation.updateMany).toHaveBeenCalledWith({
 			where: {
-				id: 6409
+				id: {
+					in: [6409, 6579]
+				}
 			},
 			data: {
 				status: 'UNPUBLISHED'
 			}
 		});
-		expect(databaseConnector.representationAction.create).toHaveBeenCalledWith({
-			data: {
-				representationId: 6409,
-				previousStatus: 'PUBLISHED',
-				status: 'UNPUBLISHED',
-				actionBy: 'Joe Bloggs',
-				actionDate: new Date(1_649_319_144_000),
-				type: 'STATUS'
-			}
-		});
-		expect(databaseConnector.representation.update).toHaveBeenCalledWith({
-			where: {
-				id: 6579
-			},
-			data: {
-				status: 'UNPUBLISHED'
-			}
-		});
-		expect(databaseConnector.representationAction.create).toHaveBeenCalledWith({
-			data: {
-				representationId: 6579,
-				previousStatus: 'PUBLISHED',
-				status: 'UNPUBLISHED',
-				actionBy: 'Joe Bloggs',
-				actionDate: new Date(1_649_319_144_000),
-				type: 'STATUS'
-			}
+		expect(databaseConnector.representationAction.createMany).toHaveBeenCalledWith({
+			data: [
+				{
+					representationId: 6409,
+					previousStatus: 'PUBLISHED',
+					status: 'UNPUBLISHED',
+					actionBy: 'Joe Bloggs',
+					actionDate: new Date(1_649_319_144_000),
+					type: 'STATUS'
+				},
+				{
+					representationId: 6579,
+					previousStatus: 'PUBLISHED',
+					status: 'UNPUBLISHED',
+					actionBy: 'Joe Bloggs',
+					actionDate: new Date(1_649_319_144_000),
+					type: 'STATUS'
+				}
+			]
 		});
 	});
 
