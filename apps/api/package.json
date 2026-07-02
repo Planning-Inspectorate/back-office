@@ -59,7 +59,6 @@
     "csv-stringify": "*",
     "date-fns": "*",
     "date-fns-tz": "*",
-    "dotenv": "*",
     "express": "*",
     "express-pino-logger": "*",
     "express-validator": "*",
