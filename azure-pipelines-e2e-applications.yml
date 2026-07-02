@@ -1,165 +1,136 @@
 parameters:
-  - name: Environment
+  - name: manualSuite
+    displayName: Manual suite
     type: string
-    default: 'test'
+    default: smoke
     values:
-      - 'dev'
-      - 'test'
+      - smoke
+      - regression
+      - both
 
-variables:
-  - name: APP
-    value: 'applications'
-  - group: e2e-${{ parameters.Environment }}
-
-pr: none
+name: applications-e2e-$(Date:yyyyMMdd)$(Rev:.r)
 
 trigger: none
 
+pr:
+  autoCancel: true
+  branches:
+    include:
+      - '*'
+  paths:
+    include:
+      - azure-pipelines-e2e-applications.yml
+      - docker-compose.e2e.yml
+      - pipelines/templates/e2e-local-compose-steps.yml
+      - package.json
+      - package-lock.json
+      - apps/e2e/**
+      - apps/api/**
+      - apps/web/**
+      - packages/**
+
+schedules:
+  - cron: "0 2 * * 1-5"
+    displayName: Weekday early regression
+    branches:
+      include:
+        - main
+    always: true
+  - cron: "0 14 * * 1-5"
+    displayName: Weekday afternoon regression
+    branches:
+      include:
+        - main
+    always: true
+
+variables:
+  - name: NodeVersion
+    value: '22.x'
+  - name: NpmCacheDir
+    value: '$(Pipeline.Workspace)/.npm'
+  - name: CypressCacheDir
+    value: '$(Pipeline.Workspace)/.cache/Cypress'
+  - name: CypressBrowser
+    value: 'chrome'
+  - name: CypressRetries
+    value: '2'
+  - name: StaticFeatureFlagOverrides
+    value: 'applics-1036-training-sector=true'
+  - name: LocalSqlPassword
+    value: 'P@ssw0rdPINS2026!'
+  - name: ComposeFile
+    value: 'docker-compose.e2e.yml'
+
 jobs:
-  - job: E2E_Tests_Group_1
-    timeoutInMinutes: 60
-    pool: pins-odt-agent-pool-tests
+  - job: Smoke_E2E
+    displayName: Smoke E2E (PR)
+    condition: >-
+      or(
+        and(
+          eq(variables['Build.Reason'], 'PullRequest'),
+          not(startsWith(variables['System.PullRequest.SourceBranch'], 'refs/heads/dependabot/'))
+        ),
+        and(
+          eq(variables['Build.Reason'], 'Manual'),
+          or(
+            eq('${{ parameters.manualSuite }}', 'smoke'),
+            eq('${{ parameters.manualSuite }}', 'both')
+          )
+        )
+      )
+    timeoutInMinutes: 50
+    pool:
+      name: pins-odt-agent-pool-tests
+      demands:
+        - Agent.OS -equals Linux
+    variables:
+      ComposeProject: applications_e2e_smoke_$(Build.BuildId)
+
     steps:
-      - task: NodeTool@0
-        inputs:
-          versionSpec: "20.x"
-        displayName: "Install Node.js"
+      - template: pipelines/templates/e2e-local-compose-steps.yml
+        parameters:
+          runDisplayName: Run smoke E2E suite
+          runName: smoke
+          cypressSpec: cypress/e2e/back-office-applications/smokeTests.spec.js
+          screenshotsArtifact: cypress-screenshots-smoke
+          logsArtifact: cypress-supporting-logs-smoke
 
-      - task: Npm@1
-        inputs:
-          command: "install"
-          workingDir: $(System.DefaultWorkingDirectory)/apps/e2e
-        displayName: "Install Dependencies"
+  - job: Regression_E2E
+    displayName: Regression E2E
+    condition: >-
+      or(
+        eq(variables['Build.Reason'], 'Schedule'),
+        and(
+          eq(variables['Build.Reason'], 'Manual'),
+          or(
+            eq('${{ parameters.manualSuite }}', 'regression'),
+            eq('${{ parameters.manualSuite }}', 'both')
+          )
+        )
+      )
+    timeoutInMinutes: 75
+    pool:
+      name: pins-odt-agent-pool-tests
+      demands:
+        - Agent.OS -equals Linux
+    strategy:
+      matrix:
+        shard_1_of_2:
+          SHARD_INDEX: '1'
+          SHARD_COUNT: '2'
+        shard_2_of_2:
+          SHARD_INDEX: '2'
+          SHARD_COUNT: '2'
+      maxParallel: 2
+    variables:
+      ComposeProject: applications_e2e_regression_$(Build.BuildId)_$(SHARD_INDEX)
 
-      - task: Bash@3
-        inputs:
-          targetType: 'inline'
-          script: npx cypress run --spec "cypress/e2e/back-office-applications/addRepresentation.spec.js,cypress/e2e/back-office-applications/addTeam.spec.js,cypress/e2e/back-office-applications/createCase.spec.js,cypress/e2e/back-office-applications/documentProperties.spec.js,cypress/e2e/back-office-applications/documentPropertiesWelsh.spec.js,cypress/e2e/back-office-applications/documentUpload.spec.js"
-          workingDirectory: 'apps/e2e'
-
-        env:
-          BASE_URL: $(BASE_URL)
-          CASE_TEAM_EMAIL: $(CASE_TEAM_EMAIL)
-          CASE_ADMIN_EMAIL: $(CASE_ADMIN_EMAIL)
-          INSPECTOR_EMAIL: $(INSPECTOR_EMAIL)
-          USER_PASSWORD: $(USER_PASSWORD)
-          FEATURE_FLAG_CONNECTION_STRING: $(FEATURE_FLAG_CONNECTION_STRING)
-        displayName: "Run Cypress Tests Group 1"
-
-      - task: PublishBuildArtifacts@1
-        inputs:
-          pathToPublish: 'apps/e2e/cypress/screenshots'
-          artifactName: 'FailedTests'
-        displayName: "Publish Failed Tests Artifacts"
-        condition: failed()
-
-  - job: E2E_Tests_Group_2
-    timeoutInMinutes: 60
-    pool: pins-odt-agent-pool-tests
     steps:
-      - task: NodeTool@0
-        inputs:
-          versionSpec: "20.x"
-        displayName: "Install Node.js"
-
-      - task: Npm@1
-        inputs:
-          command: "install"
-          workingDir: $(System.DefaultWorkingDirectory)/apps/e2e
-        displayName: "Install Dependencies"
-
-      - task: Bash@3
-        inputs:
-          targetType: 'inline'
-          script: npx cypress run --spec "cypress/e2e/back-office-applications/documentVersioning.spec.js,cypress/e2e/back-office-applications/editCase.spec.js,cypress/e2e/back-office-applications/examTimetable.spec.js"
-          workingDirectory: 'apps/e2e'
-
-        env:
-          BASE_URL: $(BASE_URL)
-          CASE_TEAM_EMAIL: $(CASE_TEAM_EMAIL)
-          CASE_ADMIN_EMAIL: $(CASE_ADMIN_EMAIL)
-          INSPECTOR_EMAIL: $(INSPECTOR_EMAIL)
-          USER_PASSWORD: $(USER_PASSWORD)
-          FEATURE_FLAG_CONNECTION_STRING: $(FEATURE_FLAG_CONNECTION_STRING)
-        displayName: "Run Cypress Tests Group 2"
-
-      - task: PublishBuildArtifacts@1
-        inputs:
-          pathToPublish: 'apps/e2e/cypress/screenshots'
-          artifactName: 'FailedTests'
-        displayName: "Publish Failed Tests Artifacts"
-        condition: failed()
-
-  - job: E2E_Tests_Group_3
-    timeoutInMinutes: 60
-    pool: pins-odt-agent-pool-tests
-    steps:
-      - task: NodeTool@0
-        inputs:
-          versionSpec: "20.x"
-        displayName: "Install Node.js"
-
-      - task: Npm@1
-        inputs:
-          command: "install"
-          workingDir: $(System.DefaultWorkingDirectory)/apps/e2e
-        displayName: "Install Dependencies"
-
-      - task: Bash@3
-        inputs:
-          targetType: 'inline'
-          script: npx cypress run --spec "cypress/e2e/back-office-applications/publishDocuments.spec.js,cypress/e2e/back-office-applications/s51Advice.spec.js,cypress/e2e/back-office-applications/search.spec.js,cypress/e2e/back-office-applications/searchDocuments.spec.js,cypress/e2e/back-office-applications/sectorAsTraing.spec.js,cypress/e2e/back-office-applications/smokeTests.spec.js"
-          workingDirectory: 'apps/e2e'
-
-        env:
-          BASE_URL: $(BASE_URL)
-          CASE_TEAM_EMAIL: $(CASE_TEAM_EMAIL)
-          CASE_ADMIN_EMAIL: $(CASE_ADMIN_EMAIL)
-          INSPECTOR_EMAIL: $(INSPECTOR_EMAIL)
-          USER_PASSWORD: $(USER_PASSWORD)
-          FEATURE_FLAG_CONNECTION_STRING: $(FEATURE_FLAG_CONNECTION_STRING)
-        displayName: "Run Cypress Tests Group 3"
-
-      - task: PublishBuildArtifacts@1
-        inputs:
-          pathToPublish: 'apps/e2e/cypress/screenshots'
-          artifactName: 'FailedTests'
-        displayName: "Publish Failed Tests Artifacts"
-        condition: failed()
-
-  - job: E2E_Tests_Group_4
-    timeoutInMinutes: 60
-    pool: pins-odt-agent-pool-tests
-    steps:
-      - task: NodeTool@0
-        inputs:
-          versionSpec: "20.x"
-        displayName: "Install Node.js"
-
-      - task: Npm@1
-        inputs:
-          command: "install"
-          workingDir: $(System.DefaultWorkingDirectory)/apps/e2e
-        displayName: "Install Dependencies"
-
-      - task: Bash@3
-        inputs:
-          targetType: 'inline'
-          script: DEBUG=cypress:* npx cypress run --headed --browser chrome --spec "cypress/e2e/back-office-applications/publishDocuments.spec.js,cypress/e2e/back-office-applications/s51Advice.spec.js,cypress/e2e/back-office-applications/search.spec.js,cypress/e2e/back-office-applications/searchDocuments.spec.js,cypress/e2e/back-office-applications/sectorAsTraing.spec.js,cypress/e2e/back-office-applications/smokeTests.spec.js"
-          workingDirectory: 'apps/e2e'
-
-        env:
-          BASE_URL: $(BASE_URL)
-          CASE_TEAM_EMAIL: $(CASE_TEAM_EMAIL)
-          CASE_ADMIN_EMAIL: $(CASE_ADMIN_EMAIL)
-          INSPECTOR_EMAIL: $(INSPECTOR_EMAIL)
-          USER_PASSWORD: $(USER_PASSWORD)
-          FEATURE_FLAG_CONNECTION_STRING: $(FEATURE_FLAG_CONNECTION_STRING)
-        displayName: "Run Cypress Tests Group 4"
-
-      - task: PublishBuildArtifacts@1
-        inputs:
-          pathToPublish: 'apps/e2e/cypress/screenshots'
-          artifactName: 'FailedTests'
-        displayName: "Publish Failed Tests Artifacts"
-        condition: failed()
+      - template: pipelines/templates/e2e-local-compose-steps.yml
+        parameters:
+          runDisplayName: Run regression E2E shard
+          runName: regression-$(SHARD_INDEX)
+          shardIndex: $(SHARD_INDEX)
+          shardCount: $(SHARD_COUNT)
+          screenshotsArtifact: cypress-screenshots-regression-$(SHARD_INDEX)
+          logsArtifact: cypress-supporting-logs-regression-$(SHARD_INDEX)

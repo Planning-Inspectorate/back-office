@@ -19,7 +19,7 @@ const { applications: applicationsUsers } = users;
 describe('Document Versioning', () => {
 	let projectInfo;
 
-	before(() => {
+	beforeEach(() => {
 		projectInfo = projectInformation();
 		cy.login(applicationsUsers.caseAdmin);
 		createCasePage.createCase(projectInfo);

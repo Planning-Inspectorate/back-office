@@ -21,10 +21,17 @@ const { applications: applicationsUsers } = users;
 
 describe('Update Project Information', () => {
 	context('As a user', () => {
-		const projectInfo = projectInformation({ excludeWales: true });
-		const projectInfoNew = projectInformation({ excludeWales: true });
+		let projectInfo;
+		let projectInfoNew;
 
-		before(() => {
+		beforeEach(() => {
+			projectInfo = projectInformation({ excludeWales: true });
+			projectInfoNew = projectInformation({
+				excludeWales: true,
+				sector: projectInfo.sector,
+				subsector: projectInfo.subsector,
+				projectType: projectInfo.projectType
+			});
 			cy.login(applicationsUsers.caseAdmin);
 			createCasePage.createCase(projectInfo, true);
 		});

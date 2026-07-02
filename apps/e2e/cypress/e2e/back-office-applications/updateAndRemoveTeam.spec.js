@@ -17,7 +17,7 @@ describe('Update and remove team related scenarios ', () => {
 	let projectInfo;
 	let email;
 
-	before(() => {
+	beforeEach(() => {
 		projectInfo = projectInformation();
 		cy.login(applicationUsers.caseAdmin);
 		createCasePage.createCase(projectInfo);
@@ -35,12 +35,18 @@ describe('Update and remove team related scenarios ', () => {
 	it('As a user able to update the inspector team member role from CaseManager to Operations Manager', () => {
 		applicationsHomePage.loadCurrentCase();
 		searchResultsPage.clickLinkByText('Project team');
+		searchResultsPage.clickButtonByText('Add team member');
+		email = Cypress.env('INSPECTOR_EMAIL');
+		projectTeamPage.addTeamMember(email);
 		projectTeamPage.verifyRoleChangedToOperationsManager();
 	});
 
 	it('As a user able remove the team role from project team section', () => {
 		applicationsHomePage.loadCurrentCase();
-		projectTeamPage.clickOnProjectTeamLink();
-		//projectTeamPage.verifyTeamRoleIsRemoved();
+		searchResultsPage.clickLinkByText('Project team');
+		searchResultsPage.clickButtonByText('Add team member');
+		email = Cypress.env('INSPECTOR_EMAIL');
+		projectTeamPage.addTeamMember(email);
+		projectTeamPage.verifyTeamRoleIsRemoved();
 	});
 });

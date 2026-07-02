@@ -37,6 +37,7 @@ export class CreateCasePage extends Page {
 			projectInformation.subsector
 		);
 		this.clickSaveAndContinue();
+		this.chooseProjectTypeIfRequired(projectInformation);
 		this.sections.geographicalInformation.fillLocation(projectInformation.projectLocation);
 		this.sections.geographicalInformation.fillEastingGridRef(projectInformation.gridRefEasting);
 		this.sections.geographicalInformation.fillNorthingGridRef(projectInformation.gridRefNorthing);
@@ -80,5 +81,25 @@ export class CreateCasePage extends Page {
 		this.sections.checkYourAnswers.checkAllAnswers(projectInformation, mandatoryOnly);
 		this.clickButtonByText('I accept - confirm creation of a new case');
 		this.sections.caseCreated.validateCaseCreated();
+	}
+
+	chooseProjectTypeIfRequired(projectInformation) {
+		cy.get('h1').should(($heading) => {
+			const headingText = $heading.text();
+			expect(headingText).to.match(/Choose a project type|Enter geographical information/);
+		});
+
+		cy.get('h1').then(($heading) => {
+			if (!$heading.text().includes('Choose a project type')) {
+				return;
+			}
+
+			if (!projectInformation.projectType) {
+				throw new Error('Project type is required for this sector/subsector');
+			}
+
+			cy.contains('.govuk-radios__item', projectInformation.projectType).find('input').check();
+			this.clickSaveAndContinue();
+		});
 	}
 }

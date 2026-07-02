@@ -38,10 +38,11 @@ describe('Document Properties including welsh fields', () => {
 		return `${day}/${month}/${received ? year - 1 : year}`;
 	};
 
-	let projectInfo = projectInformation({ includeWales: true });
+	let projectInfo;
 
-	before(() => {
+	beforeEach(() => {
 		if (Cypress.env('featureFlags')['applic-55-welsh-translation']) {
+			projectInfo = projectInformation({ includeWales: true });
 			cy.login(applicationsUsers.caseAdmin);
 			createCasePage.createCase(projectInfo, true);
 		}
