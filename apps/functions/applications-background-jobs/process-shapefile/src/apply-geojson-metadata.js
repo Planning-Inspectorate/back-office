@@ -1,15 +1,19 @@
 /**
- * Applies case metadata to a GeoJSON FeatureCollection as top-level properties.
+ * Applies case metadata to each feature in a GeoJSON FeatureCollection.
  *
- * @param {object} geoJson - A GeoJSON FeatureCollection object
- * @param {{ caseReference: string, fileName: string, receivedDate: Date | null }} metadata
- * @returns {any} The GeoJSON object decorated with a top-level `properties` block
+ * @param {{ type: 'FeatureCollection', features: Array<{ type: 'Feature', properties?: Record<string, unknown>, geometry: unknown }> }} geoJson - A GeoJSON FeatureCollection object
+ * @param {{ caseReference: string, projectName: string, fileName: string, receivedDate: Date | null }} metadata
+ * @returns {any} The GeoJSON object with metadata stored on each feature's properties
  */
 export const applyGeoJsonMetadata = (geoJson, metadata) => ({
 	...geoJson,
-	properties: {
-		caseReference: metadata.caseReference,
-		fileName: metadata.fileName,
-		receivedDate: metadata.receivedDate?.toISOString() ?? null
-	}
+	features: geoJson.features.map((feature) => ({
+		...feature,
+		properties: {
+			caseReference: metadata.caseReference,
+			projectName: metadata.projectName,
+			fileName: metadata.fileName,
+			receivedDate: metadata.receivedDate?.toISOString() ?? null
+		}
+	}))
 });

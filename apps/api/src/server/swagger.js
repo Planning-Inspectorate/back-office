@@ -2943,6 +2943,11 @@ export const spec = {
 							description: 'Unix timestamp date',
 							example: 1_646_822_600
 						},
+						estimatedPrelimMeetingDate: {
+							type: 'number',
+							description: 'Unix timestamp date',
+							example: 1_646_822_600
+						},
 						preliminaryMeetingStartDate: {
 							type: 'number',
 							description: 'Unix timestamp date',
@@ -3394,6 +3399,11 @@ export const spec = {
 					example: '2026-01-09T00:00:00.000Z'
 				},
 				programmeDocumentReviewedByEstDate: {
+					type: 'string',
+					format: 'date-time',
+					example: '2026-01-09T00:00:00.000Z'
+				},
+				estimatedPrelimMeetingDate: {
 					type: 'string',
 					format: 'date-time',
 					example: '2026-01-09T00:00:00.000Z'

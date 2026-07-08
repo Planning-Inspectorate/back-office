@@ -7,6 +7,7 @@ const blobClient = {
 
 const downloadZipBuffer = jest.fn();
 const notifyShapefileProcessingResult = jest.fn();
+const getProjectName = jest.fn();
 const validateShapefileContents = jest.fn();
 const shpZipToGeoJson = jest.fn();
 const validateConvertedGeoJson = jest.fn();
@@ -26,7 +27,8 @@ await jest.unstable_mockModule(blobClientModulePath, () => ({
 	blobClient
 }));
 await jest.unstable_mockModule(apiClientModulePath, () => ({
-	notifyShapefileProcessingResult
+	notifyShapefileProcessingResult,
+	getProjectName
 }));
 await jest.unstable_mockModule(validateShapefileModulePath, () => ({
 	validateShapefileContents
@@ -58,6 +60,7 @@ describe('process-shapefile function', () => {
 	const documentId = 'guid';
 	const message = {
 		documentId,
+		caseId: 123,
 		caseRef: 'BC0110001',
 		privateBlobContainer: 'document-service-uploads',
 		privateBlobPath: '/application/BC0110001/guid/1',
@@ -73,6 +76,7 @@ describe('process-shapefile function', () => {
 			})()
 		});
 		blobClient.uploadStream.mockResolvedValue(undefined);
+		getProjectName.mockResolvedValue('Example Project');
 		validateConvertedGeoJson.mockReturnValue({ valid: true, reason: null });
 	});
 
@@ -100,6 +104,15 @@ describe('process-shapefile function', () => {
 		);
 		expect(validateShapefileContents).toHaveBeenCalledWith(zipBuffer);
 		expect(shpZipToGeoJson).toHaveBeenCalledWith(zipBuffer);
+		expect(getProjectName).toHaveBeenCalledWith(123);
+		expect(applyGeoJsonMetadata).toHaveBeenCalledWith(
+			expect.anything(),
+			expect.objectContaining({
+				caseReference: 'BC0110001',
+				projectName: 'Example Project',
+				fileName: 'test.geojson'
+			})
+		);
 		expect(blobClient.uploadStream).toHaveBeenCalled();
 		expect(notifyShapefileProcessingResult).toHaveBeenCalledWith(
 			documentId,
@@ -157,6 +170,34 @@ describe('process-shapefile function', () => {
 				geoJsonFileName: 'file2.zip.geojson'
 			})
 		);
+	});
+
+	test('should normalize unix-seconds dateCreated for receivedDate metadata', async () => {
+		const zipBuffer = Buffer.from('zip-content');
+		downloadZipBuffer.mockResolvedValue(zipBuffer);
+		validateShapefileContents.mockResolvedValue({
+			valid: true,
+			missingExtensions: [],
+			fileNames: ['test.shp', 'test.shx', 'test.dbf'],
+			parseError: null
+		});
+		shpZipToGeoJson.mockResolvedValue({ type: 'FeatureCollection', features: [] });
+		applyGeoJsonMetadata.mockReturnValue({ type: 'FeatureCollection', features: [], metadata: {} });
+
+		await index(context, {
+			...message,
+			dateCreated: 1706710706
+		});
+
+		expect(applyGeoJsonMetadata).toHaveBeenCalledWith(
+			expect.anything(),
+			expect.objectContaining({
+				receivedDate: expect.any(Date)
+			})
+		);
+
+		const receivedDate = applyGeoJsonMetadata.mock.calls[0][1].receivedDate;
+		expect(receivedDate.toISOString()).toBe('2024-01-31T14:18:26.000Z');
 	});
 
 	test('should mark as invalid and NOT re-throw on validation error', async () => {
@@ -230,11 +271,12 @@ describe('process-shapefile function', () => {
 	});
 
 	test('should skip if required fields are missing in message', async () => {
-		const invalidMessage = { documentId: 'guid' }; // missing caseRef, privateBlobContainer, privateBlobPath
+		const invalidMessage = { documentId: 'guid' }; // missing caseId, caseRef, privateBlobContainer, privateBlobPath
 
 		await index(context, invalidMessage);
 
 		expect(downloadZipBuffer).not.toHaveBeenCalled();
+		expect(getProjectName).not.toHaveBeenCalled();
 		expect(context.log.warn).toHaveBeenCalledWith(
 			expect.stringContaining('Missing'),
 			expect.anything()

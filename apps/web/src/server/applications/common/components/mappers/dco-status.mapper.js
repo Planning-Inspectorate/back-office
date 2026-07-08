@@ -24,6 +24,10 @@ export const DCO_STATUS_VIEW = {
 	[DCO_STATUS.WITHDRAWN]: {
 		displayNameEn: 'Withdrawn',
 		tagClasses: 'govuk-tag--orange'
+	},
+	[DCO_STATUS.REVOKED]: {
+		displayNameEn: 'Revoked',
+		tagClasses: 'govuk-tag--pink'
 	}
 };
 

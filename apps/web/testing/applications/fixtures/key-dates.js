@@ -38,6 +38,7 @@ const fixtureKeyDates = {
 		dateRRepAppearOnWebsite: randomDateOrNull(),
 		dateIAPIDue: randomDateOrNull(),
 		rule6LetterPublishDate: randomDateOrNull(),
+		estimatedPrelimMeetingDate: randomDateOrNull(),
 		preliminaryMeetingStartDate: randomDateOrNull(),
 		notificationDateForPMAndEventsDirectlyFollowingPM: randomDateOrNull(),
 		notificationDateForEventsApplicant: randomDateOrNull()

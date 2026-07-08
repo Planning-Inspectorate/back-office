@@ -109,7 +109,7 @@ const mapApplicationDetails = (projectEntity) => {
 		essentialFastTrackComponents: appDetails?.essentialFastTrackComponents,
 		planProcessEvidence: appDetails?.planProcessEvidence,
 		decision: null,
-		estimatedPrelimMeetingDate: null
+		estimatedPrelimMeetingDate: appDetails?.estimatedPrelimMeetingDate?.toISOString() ?? null
 	};
 };
 

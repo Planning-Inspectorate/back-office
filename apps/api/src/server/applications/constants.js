@@ -128,7 +128,8 @@ export const VALIDATE_APPLICATION_ENUMS = {
 		'partially_consented',
 		'quashed',
 		'redetermination',
-		'withdrawn'
+		'withdrawn',
+		'revoked'
 	],
 	DOCUMENT_STATUS: ['submitted_by_applicant', 'awaiting_submission', 'not_applicable']
 };

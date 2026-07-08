@@ -65,6 +65,7 @@ export const preExaminationDateNames = [
 	'dateRRepAppearOnWebsite',
 	'dateIAPIDue',
 	'rule6LetterPublishDate',
+	'estimatedPrelimMeetingDate',
 	'preliminaryMeetingStartDate',
 	'notificationDateForPMAndEventsDirectlyFollowingPM',
 	'notificationDateForEventsApplicant'

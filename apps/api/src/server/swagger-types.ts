@@ -2862,6 +2862,11 @@ export interface ApplicationKeyDates {
 		 * Unix timestamp date
 		 * @example 1646822600
 		 */
+		estimatedPrelimMeetingDate?: number;
+		/**
+		 * Unix timestamp date
+		 * @example 1646822600
+		 */
 		preliminaryMeetingStartDate?: number;
 		/** @example 1646822600 */
 		notificationDateForPMAndEventsDirectlyFollowingPM?: number;
@@ -3197,6 +3202,11 @@ export interface FeesForecasting {
 	 * @example "2026-01-09T00:00:00.000Z"
 	 */
 	programmeDocumentReviewedByEstDate?: string;
+	/**
+	 * @format date-time
+	 * @example "2026-01-09T00:00:00.000Z"
+	 */
+	estimatedPrelimMeetingDate?: string;
 	/**
 	 * @format date-time
 	 * @example "2026-01-09T00:00:00.000Z"

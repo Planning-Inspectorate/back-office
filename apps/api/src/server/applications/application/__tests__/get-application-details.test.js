@@ -166,6 +166,7 @@ describe('Get Application details', () => {
 					dateOfRelevantRepresentationClose: null,
 					dateOfRepresentationPeriodOpen: null,
 					dateRRepAppearOnWebsite: null,
+					estimatedPrelimMeetingDate: null,
 					extensionToDateRelevantRepresentationsClose: null,
 					notificationDateForEventsApplicant: null,
 					notificationDateForPMAndEventsDirectlyFollowingPM: null,

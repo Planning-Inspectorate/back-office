@@ -15,3 +15,17 @@ export const notifyShapefileProcessingResult = async (documentGuid, payload) => 
 		})
 		.json();
 };
+
+/**
+ * Fetches project title for a case.
+ *
+ * @param {number} caseId
+ * @returns {Promise<string>}
+ */
+export const getProjectName = async (caseId) => {
+	const application = await requestWithApiKey
+		.get(`https://${config.API_HOST}/applications/${caseId}?title=true`)
+		.json();
+
+	return application?.title ?? '';
+};
