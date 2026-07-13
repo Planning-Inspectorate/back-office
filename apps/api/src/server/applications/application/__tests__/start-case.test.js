@@ -254,12 +254,18 @@ describe('Start case', () => {
 			sector: 'BC - Business and Commercial',
 			projectType: 'BC01 - Office Use',
 			estimatedPrelimMeetingDate: null,
-			nsipOfficerIds: [],
-			nsipAdministrationOfficerIds: [],
-			inspectorIds: [],
 			applicantId: '1',
 			meetings: [],
-			invoices: []
+			invoices: [],
+			caseManagerIds: [],
+			environmentalServicesOfficerIds: [],
+			leadInspectorIds: [],
+			legalOfficerIds: [],
+			operationsLeadIds: [],
+			operationsManagerIds: [],
+			nsipOfficerIds: [],
+			nsipAdministrationOfficerIds: [],
+			inspectorIds: []
 		});
 
 		const expectedApplicantEventPayload = [

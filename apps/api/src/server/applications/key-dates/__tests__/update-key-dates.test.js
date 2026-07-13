@@ -178,11 +178,8 @@ describe('Test Updating Key Dates', () => {
 				sourceSystem: 'back-office-applications',
 				publishStatus: 'unpublished',
 				welshLanguage: false,
-				nsipOfficerIds: [],
 				regions: ['east_midlands'],
 				secretaryOfState: null,
-				nsipAdministrationOfficerIds: [],
-				inspectorIds: [],
 				mapZoomLevel: 'country',
 				northing: 234567,
 				easting: 765432,
@@ -195,7 +192,16 @@ describe('Test Updating Key Dates', () => {
 				stage: 'draft',
 				estimatedPrelimMeetingDate: estimatedPrelimMeetingDate.toISOString(),
 				meetings: [],
-				invoices: []
+				invoices: [],
+				caseManagerIds: [],
+				environmentalServicesOfficerIds: [],
+				leadInspectorIds: [],
+				legalOfficerIds: [],
+				operationsLeadIds: [],
+				operationsManagerIds: [],
+				nsipAdministrationOfficerIds: [],
+				inspectorIds: [],
+				nsipOfficerIds: []
 			}),
 			'Update'
 		);
