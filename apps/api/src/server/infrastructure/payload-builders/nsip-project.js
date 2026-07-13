@@ -142,60 +142,103 @@ const mapSectorAndType = (projectEntity) => {
 /**
  * @param {import('@pins/applications.api').Schema.Case} projectEntity
  * @returns { {
- * operationsLeadId: number | null,
- * operationsManagerId: number | null,
- * caseManagerId: number | null,
- * nsipOfficerIds: number[],
- * nsipAdministrationOfficerIds: number[],
- * leadInspectorId: number | null,
- * inspectorIds: number[],
- * environmentalServicesOfficerId: number | null,
- * legalOfficerId: number | null } }
+ * operationsLeadId: string | null,
+ * operationsLeadIds: string[],
+ * operationsManagerId: string | null,
+ * operationsManagerIds: string[],
+ * caseManagerId: string | null,
+ * caseManagerIds: string[],
+ * nsipOfficerIds: string[],
+ * nsipAdministrationOfficerIds: string[],
+ * leadInspectorId: string | null,
+ * leadInspectorIds: string[],
+ * inspectorIds: string[],
+ * environmentalServicesOfficerId: string | null,
+ * environmentalServicesOfficerIds: string[],
+ * legalOfficerId: string | null,
+ * legalOfficerIds: string[]
+ * } }
  */
 const mapProjectTeam = (projectEntity) => {
 	const projectTeam = projectEntity?.ProjectTeam;
 
+	// Currently sends both singular and arrays of role type IDs
+	// while the data-model schema requires the singular field.
+	// Once CBOS and ODW are using the new array field the
+	// singular field can be safely removed
 	const teamMembers = {
 		operationsLeadId: null,
+		operationsLeadIds: [],
 		operationsManagerId: null,
+		operationsManagerIds: [],
 		caseManagerId: null,
+		caseManagerIds: [],
 		nsipOfficerIds: [],
 		nsipAdministrationOfficerIds: [],
 		leadInspectorId: null,
+		leadInspectorIds: [],
 		inspectorIds: [],
 		environmentalServicesOfficerId: null,
-		legalOfficerId: null
+		environmentalServicesOfficerIds: [],
+		legalOfficerId: null,
+		legalOfficerIds: []
 	};
 
 	if (projectTeam) {
 		projectTeam.forEach((member) => {
 			switch (member.role) {
 				case 'operations_lead':
-					teamMembers.operationsLeadId = member.userId;
+					if (teamMembers.operationsLeadId === null) {
+						teamMembers.operationsLeadId = member.userId;
+					}
+					teamMembers.operationsLeadIds.push(member.userId);
 					break;
+
 				case 'operations_manager':
-					teamMembers.operationsManagerId = member.userId;
+					if (teamMembers.operationsManagerId === null) {
+						teamMembers.operationsManagerId = member.userId;
+					}
+					teamMembers.operationsManagerIds.push(member.userId);
 					break;
+
 				case 'case_manager':
-					teamMembers.caseManagerId = member.userId;
+					if (teamMembers.caseManagerId === null) {
+						teamMembers.caseManagerId = member.userId;
+					}
+					teamMembers.caseManagerIds.push(member.userId);
 					break;
+
 				case 'NSIP_officer':
 					teamMembers.nsipOfficerIds.push(member.userId);
 					break;
+
 				case 'NSIP_administration_officer':
 					teamMembers.nsipAdministrationOfficerIds.push(member.userId);
 					break;
+
 				case 'lead_inspector':
-					teamMembers.leadInspectorId = member.userId;
+					if (teamMembers.leadInspectorId === null) {
+						teamMembers.leadInspectorId = member.userId;
+					}
+					teamMembers.leadInspectorIds.push(member.userId);
 					break;
+
 				case 'inspector':
 					teamMembers.inspectorIds.push(member.userId);
 					break;
+
 				case 'environmental_services':
-					teamMembers.environmentalServicesOfficerId = member.userId;
+					if (teamMembers.environmentalServicesOfficerId === null) {
+						teamMembers.environmentalServicesOfficerId = member.userId;
+					}
+					teamMembers.environmentalServicesOfficerIds.push(member.userId);
 					break;
+
 				case 'legal_officer':
-					teamMembers.legalOfficerId = member.userId;
+					if (teamMembers.legalOfficerId === null) {
+						teamMembers.legalOfficerId = member.userId;
+					}
+					teamMembers.legalOfficerIds.push(member.userId);
 					break;
 			}
 		});
