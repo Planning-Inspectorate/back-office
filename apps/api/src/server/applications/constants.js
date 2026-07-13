@@ -111,13 +111,17 @@ export const REPRESENTATION_FROM_TYPE = {
 export const VALIDATE_APPLICATION_ENUMS = {
 	TIER: ['basic', 'standard', 'enhanced'],
 	SUB_PROJECT_TYPE: [
+		'biomass',
+		'coal_power_station',
 		'energy_from_waste',
 		'gas_power_station',
+		'hydro_electric',
 		'hydrogen_power_station',
 		'nuclear',
 		'offshore_wind',
 		'onshore_wind',
-		'solar'
+		'solar',
+		'tidal_barrage'
 	],
 	NEW_MATURITY: ['A', 'B', 'C', 'D', 'E', 'F', 'G'],
 	RECOMMENDATION: ['recommend_consent', 'recommend_partial_consent', 'recommend_refusal'],

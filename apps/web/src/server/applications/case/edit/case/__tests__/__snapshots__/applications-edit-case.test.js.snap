@@ -245,38 +245,58 @@ exports[`applications edit Project type GET should render the Project type page 
                 <div class="govuk-radios" data-module="govuk-radios">
                     <div class="govuk-radios__item">
                         <input class="govuk-radios__input" id="subProjectType" name="subProjectType"
-                        type="radio" value="energy_from_waste">
-                        <label class="govuk-label govuk-radios__label" for="subProjectType">Energy from waste</label>
+                        type="radio" value="biomass">
+                        <label class="govuk-label govuk-radios__label" for="subProjectType">Biomass</label>
                     </div>
                     <div class="govuk-radios__item">
                         <input class="govuk-radios__input" id="subProjectType-2" name="subProjectType"
-                        type="radio" value="gas_power_station">
-                        <label class="govuk-label govuk-radios__label" for="subProjectType-2">Gas power station</label>
+                        type="radio" value="coal_power_station">
+                        <label class="govuk-label govuk-radios__label" for="subProjectType-2">Coal power station</label>
                     </div>
                     <div class="govuk-radios__item">
                         <input class="govuk-radios__input" id="subProjectType-3" name="subProjectType"
-                        type="radio" value="hydrogen_power_station">
-                        <label class="govuk-label govuk-radios__label" for="subProjectType-3">Hydrogen power station</label>
+                        type="radio" value="energy_from_waste">
+                        <label class="govuk-label govuk-radios__label" for="subProjectType-3">Energy from waste</label>
                     </div>
                     <div class="govuk-radios__item">
                         <input class="govuk-radios__input" id="subProjectType-4" name="subProjectType"
-                        type="radio" value="nuclear">
-                        <label class="govuk-label govuk-radios__label" for="subProjectType-4">Nuclear</label>
+                        type="radio" value="gas_power_station">
+                        <label class="govuk-label govuk-radios__label" for="subProjectType-4">Gas power station</label>
                     </div>
                     <div class="govuk-radios__item">
                         <input class="govuk-radios__input" id="subProjectType-5" name="subProjectType"
-                        type="radio" value="offshore_wind">
-                        <label class="govuk-label govuk-radios__label" for="subProjectType-5">Offshore wind</label>
+                        type="radio" value="hydro_electric">
+                        <label class="govuk-label govuk-radios__label" for="subProjectType-5">Hydro-electric</label>
                     </div>
                     <div class="govuk-radios__item">
                         <input class="govuk-radios__input" id="subProjectType-6" name="subProjectType"
-                        type="radio" value="onshore_wind">
-                        <label class="govuk-label govuk-radios__label" for="subProjectType-6">Onshore wind</label>
+                        type="radio" value="hydrogen_power_station">
+                        <label class="govuk-label govuk-radios__label" for="subProjectType-6">Hydrogen power station</label>
                     </div>
                     <div class="govuk-radios__item">
                         <input class="govuk-radios__input" id="subProjectType-7" name="subProjectType"
+                        type="radio" value="nuclear">
+                        <label class="govuk-label govuk-radios__label" for="subProjectType-7">Nuclear</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="subProjectType-8" name="subProjectType"
+                        type="radio" value="offshore_wind">
+                        <label class="govuk-label govuk-radios__label" for="subProjectType-8">Offshore wind</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="subProjectType-9" name="subProjectType"
+                        type="radio" value="onshore_wind">
+                        <label class="govuk-label govuk-radios__label" for="subProjectType-9">Onshore wind</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="subProjectType-10" name="subProjectType"
                         type="radio" value="solar">
-                        <label class="govuk-label govuk-radios__label" for="subProjectType-7">Solar</label>
+                        <label class="govuk-label govuk-radios__label" for="subProjectType-10">Solar</label>
+                    </div>
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="subProjectType-11" name="subProjectType"
+                        type="radio" value="tidal_barrage">
+                        <label class="govuk-label govuk-radios__label" for="subProjectType-11">Tidal barrage</label>
                     </div>
                 </div>
             </fieldset>
