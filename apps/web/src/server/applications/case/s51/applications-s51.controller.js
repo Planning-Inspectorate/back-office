@@ -593,9 +593,11 @@ export async function viewUnpublishAdvice({ params }, response) {
 /**
  * Show page for editing s51 advice item
  *
+ * @param {*} request
+ * @param {*} response
  * @type {import('@pins/express').RenderHandler<{}, {}, {}, {success: string}, {caseId: string, adviceId: string, step: string, folderId: string}>}
  */
-export async function postUnpublishAdvice({ params }, response) {
+export async function postUnpublishAdvice({ params, session }, response) {
 	const { caseId, adviceId } = params;
 
 	const s51Advice = await getS51Advice(Number(caseId), Number(adviceId));
@@ -606,7 +608,7 @@ export async function postUnpublishAdvice({ params }, response) {
 		});
 	}
 
-	await unpublishS51Advice(Number(caseId), Number(adviceId));
+	await unpublishS51Advice(Number(caseId), Number(adviceId), session.account?.name || '');
 	response.render('applications/case-s51/s51-successfully-unpublished', {
 		gs51CaseReference: BO_GENERAL_S51_CASE_REF
 	});

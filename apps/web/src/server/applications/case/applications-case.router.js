@@ -14,6 +14,7 @@ import applicationsProjectTeamRouter from './project-team/applications-project-t
 import * as validators from '../create-new-case/case/applications-create-case.validators.js';
 import applicationsFeesForecastingRouter from './fees-forecasting/applications-fees-forecasting.router.js';
 import { checkProjectTypeBeforePublish } from './applications-case.middleware.js';
+import applicationsExamLibraryRouter from './examination-library/applications-examination-library.router.js';
 
 const applicationsCaseRouter = createRouter();
 const applicationsCaseSummaryRouter = createRouter({ mergeParams: true });
@@ -36,6 +37,13 @@ applicationsCaseRouter.use('/:caseId/project-team', applicationsProjectTeamRoute
 applicationsCaseRouter.use('/:caseId/fees-forecasting', (req, res, next) => {
 	if (featureFlagClient.isFeatureActive('applics-1845-fees-forecasting')) {
 		return applicationsFeesForecastingRouter(req, res, next);
+	}
+	next();
+});
+
+applicationsCaseRouter.use('/:caseId/examination-library', (req, res, next) => {
+	if (featureFlagClient.isFeatureActive('idas-607-examination-library')) {
+		return applicationsExamLibraryRouter(req, res, next);
 	}
 	next();
 });

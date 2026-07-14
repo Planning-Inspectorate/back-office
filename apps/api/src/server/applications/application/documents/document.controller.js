@@ -30,7 +30,8 @@ import {
 	deleteDocument,
 	revertDocumentStatusToPrevious,
 	updateDocumentsFolderId,
-	attachMetadataToDocuments
+	attachMetadataToDocuments,
+	getPublishedGisBoundaryDocuments as getPublishedGisBoundaryDocumentsService
 } from './document.service.js';
 import { validateDocumentVersionMetadataBody } from './document.validators.js';
 
@@ -246,7 +247,7 @@ export const moveDocumentsToAnotherFolder = async ({ body }, response) => {
  * @type {import('express').RequestHandler<{id: number}, any, { documents: { guid: string }[] }, any>}
  * */
 export const unpublishDocuments = async ({ body }, response) => {
-	const { documents } = body;
+	const { documents, username } = body;
 
 	const guids = documents.map(({ guid }) => guid);
 
@@ -257,7 +258,7 @@ export const unpublishDocuments = async ({ body }, response) => {
 	}));
 
 	const publishedGuids = guids.filter((guid) => !nonPublishedDocuments.includes(guid));
-	const results = await unpublishDocumentGuids(publishedGuids);
+	const results = await unpublishDocumentGuids(publishedGuids, username);
 	const updateErrors = publishedGuids
 		.filter((guid) => !results.includes(guid))
 		.map((guid) => ({ guid, msg: 'Something went wrong.' }));
@@ -683,4 +684,13 @@ export const searchDocuments = async ({ params, query }, response) => {
 
 	const paginatedDocuments = await getDocumentsInCase(caseId, criteria, page, pageSize);
 	response.send(paginatedDocuments);
+};
+
+/**
+ * @type {import('express').RequestHandler}
+ */
+export const getPublishedGisBoundaryDocuments = async (_request, response) => {
+	const documents = await getPublishedGisBoundaryDocumentsService();
+
+	response.status(200).send(documents);
 };

@@ -260,12 +260,15 @@ export const publishS51AdviceItems = async (caseId, { publishAll, ids }) => {
  *
  * @param {number} caseId
  * @param {number} adviceId
+ * @param {string} username
  * @returns {Promise<{newS51Advice?: S51Advice, errors?: ValidationErrors}>}
  * */
-export const unpublishS51Advice = async (caseId, adviceId) => {
+export const unpublishS51Advice = async (caseId, adviceId, username) => {
 	let response;
 	try {
-		response = await patch(`applications/${caseId}/s51-advice/${adviceId}/unpublish`, { json: {} });
+		response = await patch(`applications/${caseId}/s51-advice/${adviceId}/unpublish`, {
+			json: { username }
+		});
 	} catch (/** @type {*} */ error) {
 		pino.error(`[API] ${error?.response?.body?.errors?.message || 'Unknown error'}`);
 

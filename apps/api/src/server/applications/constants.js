@@ -12,6 +12,21 @@ export const DOCUMENT_TYPES = {
 	RelevantRepresentation: 'relevant-representation'
 };
 
+export const GIS_SHAPEFILES_FOLDER_NAME = 'GIS Shapefiles';
+export const GIS_SHAPEFILE_DOCUMENT_TYPE = 'GIS shapefile';
+export const GIS_SHAPEFILE_WEBFILTER = 'GIS shapefile';
+export const GIS_SHAPEFILE_REDACTED_STATUS = 'no_redaction_required';
+export const GIS_SHAPEFILE_DESCRIPTION = 'GIS boundary data';
+// Stage value that prevents display in FO (same pattern as S51 advice)
+export const GIS_SHAPEFILE_STAGE = '0';
+
+export const DocumentPublishedStatus = {
+	NOT_CHECKED: 'not_checked',
+	INVALID: 'invalid',
+	READY_TO_PUBLISH: 'ready_to_publish',
+	PUBLISHED: 'published'
+};
+
 /**
  * These are used in documentType in the DocumentVersion table
  */
@@ -96,13 +111,17 @@ export const REPRESENTATION_FROM_TYPE = {
 export const VALIDATE_APPLICATION_ENUMS = {
 	TIER: ['basic', 'standard', 'enhanced'],
 	SUB_PROJECT_TYPE: [
+		'biomass',
+		'coal_power_station',
 		'energy_from_waste',
 		'gas_power_station',
+		'hydro_electric',
 		'hydrogen_power_station',
 		'nuclear',
 		'offshore_wind',
 		'onshore_wind',
-		'solar'
+		'solar',
+		'tidal_barrage'
 	],
 	NEW_MATURITY: ['A', 'B', 'C', 'D', 'E', 'F', 'G'],
 	RECOMMENDATION: ['recommend_consent', 'recommend_partial_consent', 'recommend_refusal'],
@@ -113,7 +132,8 @@ export const VALIDATE_APPLICATION_ENUMS = {
 		'partially_consented',
 		'quashed',
 		'redetermination',
-		'withdrawn'
+		'withdrawn',
+		'revoked'
 	],
 	DOCUMENT_STATUS: ['submitted_by_applicant', 'awaiting_submission', 'not_applicable']
 };

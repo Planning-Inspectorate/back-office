@@ -252,6 +252,36 @@ describe('auth', () => {
 				expect(element.querySelector('h1')?.innerHTML).toContain('Applications');
 			});
 		});
+
+		describe('invalid redirect attempts', () => {
+			const redirectAttempts = [
+				'//example.com',
+				'/\\\\example.com',
+				'/\\example.com',
+				'https://somewhereelse.com',
+				'/a/url/../../etc',
+				'/..',
+				'/a/..'
+			];
+			for (const redirectAttempt of redirectAttempts) {
+				it(`should return 400 for invalid redirect parameter ${redirectAttempt}`, async () => {
+					const res = await request.get(
+						`/auth/signin?redirect_to=${encodeURIComponent(redirectAttempt)}`
+					);
+					expect(res.status).toEqual(400);
+				});
+			}
+			it('should not allow multiple params', async () => {
+				const res = await request.get(`/auth/signin?redirect_to=/1&redirect_to=/2`);
+
+				expect(res.status).toEqual(400);
+			});
+			it('should allow relative redirects', async () => {
+				const res = await request.get(`/auth/signin?redirect_to=/home`);
+
+				expect(res.status).toEqual(302);
+			});
+		});
 	});
 });
 

@@ -6,6 +6,8 @@ import { requestWithApiKey } from '../common/backend-api-request.js';
 import { blobClient } from '../common/blob-client.js';
 import config from '../common/config.js';
 import { extractPublishedBlobName } from './src/util.js';
+import { isGisBoundaryGeoJsonDocument } from '../common/util.js';
+import { rebuildMasterGeoJson } from '../common/master-geojson.js';
 
 /**
  * @type {import('@azure/functions').AzureFunction}
@@ -40,5 +42,17 @@ export const index = async (context, { caseId, documentId, version, publishedDoc
 
 	context.log(`Making POST request to ${requestUri} for caseId ${caseId}`);
 
-	await requestWithApiKey.post(requestUri);
+	const unpublishedDocument = await requestWithApiKey.post(requestUri).json();
+
+	if (isGisBoundaryGeoJsonDocument(unpublishedDocument)) {
+		context.log(`Rebuilding master GeoJson after unpublishing GIS boundary ${documentId}`);
+
+		try {
+			await rebuildMasterGeoJson(context.log);
+		} catch (error) {
+			context.log.error(
+				`Failed to rebuild master GeoJson after unpublishing GIS boundary ${documentId}: ${error}`
+			);
+		}
+	}
 };

@@ -152,6 +152,15 @@ export const subSectors = [
 	},
 	{
 		subSector: {
+			name: 'data_centres',
+			abbreviation: 'BC10',
+			displayNameEn: 'Data Centres',
+			displayNameCy: 'Data Centres'
+		},
+		sectorName: 'business_and_commercial'
+	},
+	{
+		subSector: {
 			name: 'generating_stations',
 			abbreviation: 'EN01',
 			displayNameEn: 'Generating Stations',

@@ -1,6 +1,12 @@
 import { databaseConnector } from '#utils/database-connector.js';
 import { getFileNameWithoutSuffix } from '../applications/application/documents/document.service.js';
 import { withRetry } from '#utils/query-with-retry.js';
+import {
+	DocumentPublishedStatus,
+	GIS_SHAPEFILE_DOCUMENT_TYPE,
+	GIS_SHAPEFILE_WEBFILTER,
+	GIS_SHAPEFILES_FOLDER_NAME
+} from '#api-constants';
 
 /**
  * @typedef {import('#database-client').Document} Document
@@ -702,6 +708,86 @@ export const getInFolderByName = (folderId, fileName, includeDeleted) => {
 			folderId,
 			latestDocumentVersion: { fileName: fileNameWithoutSuffix },
 			...(includeDeleted ? {} : { isDeleted: false })
+		}
+	});
+};
+
+/**
+ * Returns all published GIS boundary documents
+ *
+ * @returns {import('#database-client').PrismaPromise<Document[]>}
+ */
+export const getPublishedGisBoundaryDocuments = () => {
+	return databaseConnector.document.findMany({
+		where: {
+			isDeleted: false,
+			documentVersion: {
+				some: {
+					publishedStatus: 'published',
+					documentType: 'GIS shapefile',
+					isDeleted: false,
+					publishedBlobContainer: { not: null },
+					publishedBlobPath: { not: null },
+					mime: 'application/geo+json'
+				}
+			}
+		},
+		include: {
+			case: {
+				select: {
+					id: true,
+					reference: true,
+					title: true
+				}
+			},
+			documentVersion: {
+				where: {
+					publishedStatus: 'published',
+					documentType: GIS_SHAPEFILE_DOCUMENT_TYPE,
+					isDeleted: false,
+					publishedBlobContainer: { not: null },
+					publishedBlobPath: { not: null },
+					mime: 'application/geo+json'
+				},
+				orderBy: {
+					version: 'desc'
+				},
+				take: 1
+			}
+		}
+	});
+};
+
+/**
+ * Returns all unpublished GIS boundary documents
+ *
+ * @returns {import('#database-client').PrismaPromise<Document[]>}
+ */
+export const getUnpublishedGisBoundaryDocuments = () => {
+	return databaseConnector.document.findMany({
+		where: {
+			isDeleted: false,
+			folder: {
+				displayNameEn: GIS_SHAPEFILES_FOLDER_NAME
+			},
+			latestDocumentVersion: {
+				documentType: GIS_SHAPEFILE_DOCUMENT_TYPE,
+				filter1: GIS_SHAPEFILE_WEBFILTER,
+				publishedStatus: {
+					not: DocumentPublishedStatus.PUBLISHED
+				}
+			}
+		},
+		select: {
+			guid: true,
+			latestVersionId: true,
+			latestDocumentVersion: {
+				select: {
+					publishedStatus: true,
+					documentType: true,
+					filter1: true
+				}
+			}
 		}
 	});
 };

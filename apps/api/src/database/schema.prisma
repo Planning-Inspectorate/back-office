@@ -134,6 +134,7 @@ model ApplicationDetails {
   dateRRepAppearOnWebsite                           DateTime?
   dateIAPIDue                                       DateTime?
   rule6LetterPublishDate                            DateTime?
+  estimatedPrelimMeetingDate                        DateTime?
   preliminaryMeetingStartDate                       DateTime?
   notificationDateForPMAndEventsDirectlyFollowingPM DateTime?
   notificationDateForEventsApplicant                DateTime?

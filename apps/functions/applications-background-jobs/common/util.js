@@ -3,7 +3,11 @@
  * @returns {string}
  */
 export const extractBlobNameFromUri = (uri) => {
-	return new URL(uri).pathname.split('/').slice(2).join('/');
+	return new URL(uri).pathname
+		.split('/')
+		.slice(2)
+		.map((segment) => decodeURIComponent(segment))
+		.join('/');
 };
 
 /**
@@ -25,4 +29,12 @@ export const ensureTrailingSlash = (str) => {
 		return str + '/';
 	}
 	return str;
+};
+
+/**
+ * @param {{ documentType?: string, mime?: string } | undefined} document
+ * @returns {boolean}
+ */
+export const isGisBoundaryGeoJsonDocument = (document) => {
+	return document?.documentType === 'GIS shapefile' && document?.mime === 'application/geo+json';
 };

@@ -205,12 +205,17 @@ const clientActions = (uploadForm) => {
 				reject(new Error('NO_FILE'));
 			}
 
+			const isMultipleUploadAllowed = uploadForm.dataset.multiple === 'true';
+
 			// i.e. 1GB in bytes
 			if (filesSize > 1_073_741_824) {
 				const sizeInGb = `${Math.round(filesSize * 1e-8) / 10} GB`;
 
 				// eslint-disable-next-line no-throw-literal
-				throw { message: 'SIZE_EXCEEDED', details: [{ message: sizeInGb }] };
+				throw {
+					message: isMultipleUploadAllowed ? 'SIZE_EXCEEDED' : 'SIZE_EXCEEDED_SINGLE',
+					details: [{ message: sizeInGb }]
+				};
 			}
 			resolve(filesToUpload);
 		});

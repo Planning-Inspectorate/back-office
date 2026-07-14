@@ -2,6 +2,7 @@ import {
 	getRepresentationDetailsPageUrl,
 	getChangeStatusPageUrl
 } from '../representation-status.utils.js';
+import { NOTES_CHARACTER_LIMIT } from './representation-status-notes.constants.js';
 
 /**
  * @typedef {import('../../../relevant-representation.types.js').Representation} Representation
@@ -97,6 +98,7 @@ const getPageContentByStatus = (newStatus) => {
  * @param {string} repId
  * @param {Representation} representationDetails
  * @param {string} newStatus
+ * @param {string} [submittedNotes]
  * @returns {object}
  */
 
@@ -104,8 +106,14 @@ export const getRepresentationStatusNotesViewModel = (
 	caseId,
 	repId,
 	representationDetails,
-	newStatus
+	newStatus,
+	submittedNotes = undefined
 ) => {
+	const latestReferralAction = (representationDetails?.representationActions ?? []).find(
+		(action) => action.status === 'REFERRED'
+	);
+	const latestReferralNote = submittedNotes ?? latestReferralAction?.notes ?? '';
+
 	return {
 		caseId,
 		repId,
@@ -113,6 +121,8 @@ export const getRepresentationStatusNotesViewModel = (
 		pageHeading: getPageContentByStatus(newStatus).pageHeading,
 		radioItems: getPageContentByStatus(newStatus).radioItems,
 		summaryPageLinkUrl: getRepresentationDetailsPageUrl(caseId, repId),
-		backLinkUrl: `${getChangeStatusPageUrl(caseId, repId)}?changeStatus=${newStatus}`
+		backLinkUrl: `${getChangeStatusPageUrl(caseId, repId)}?changeStatus=${newStatus}`,
+		latestReferralNote,
+		notesCharacterLimit: NOTES_CHARACTER_LIMIT
 	};
 };

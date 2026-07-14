@@ -1,11 +1,20 @@
 import { PROJECT_TYPES } from '../../constants.js';
 
 export const PROJECT_TYPES_VIEW = {
+	[PROJECT_TYPES.BIOMASS]: {
+		displayNameEn: 'Biomass'
+	},
+	[PROJECT_TYPES.COAL_POWER_STATION]: {
+		displayNameEn: 'Coal power station'
+	},
 	[PROJECT_TYPES.ENERGY_FROM_WASTE]: {
 		displayNameEn: 'Energy from waste'
 	},
 	[PROJECT_TYPES.GAS_POWER_STATION]: {
 		displayNameEn: 'Gas power station'
+	},
+	[PROJECT_TYPES.HYDRO_ELECTRIC]: {
+		displayNameEn: 'Hydro-electric'
 	},
 	[PROJECT_TYPES.HYDROGEN_POWER_STATION]: {
 		displayNameEn: 'Hydrogen power station'
@@ -21,6 +30,9 @@ export const PROJECT_TYPES_VIEW = {
 	},
 	[PROJECT_TYPES.SOLAR]: {
 		displayNameEn: 'Solar'
+	},
+	[PROJECT_TYPES.TIDAL_BARRAGE]: {
+		displayNameEn: 'Tidal barrage'
 	}
 };
 

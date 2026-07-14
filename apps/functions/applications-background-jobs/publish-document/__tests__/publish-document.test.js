@@ -108,6 +108,19 @@ describe('Publishing document', () => {
 			...baseTestCaseProperties,
 			blobName: `${TEST_CASE_REFERENCE}/horizonweb:${TEST_BLOB_GUID}:${TEST_BLOB_VERSION}`,
 			expectedDestinationName: `${TEST_CASE_REFERENCE}-001-${TEST_BLOB_FILE_NAME}.jpeg`
+		},
+		{
+			name: 'Source URL with spaces is encoded before copy',
+			document: {
+				...baseDocumentProperties,
+				documentURI: `https://${TEST_BLOB_ACCOUNT}.blob.core.windows.net/${TEST_BLOB_SOURCE_CONTAINER}/application/${TEST_CASE_REFERENCE}/${TEST_BLOB_GUID}/my boundary.geojson`,
+				filename: 'my boundary.geojson',
+				originalFilename: 'my boundary.geojson',
+				mime: 'application/geo+json'
+			},
+			...baseTestCaseProperties,
+			blobName: `application/${TEST_CASE_REFERENCE}/${TEST_BLOB_GUID}/my boundary.geojson`,
+			expectedDestinationName: `${TEST_CASE_REFERENCE}-001-my boundary.geojson`
 		}
 	];
 
@@ -136,12 +149,13 @@ describe('Publishing document', () => {
 			expect(mockGetBlobProperties).toHaveBeenCalledTimes(1);
 			expect(mockGetBlobProperties).toHaveBeenCalledWith(TEST_BLOB_SOURCE_CONTAINER, blobName);
 			expect(mockDownloadStream).toHaveBeenCalledTimes(Number(isHtml)); // true = 1 | false = 0
+			const expectedSourceUrl = new URL(document.documentURI).toString();
 			expect(mockCopyFile).toHaveBeenCalledTimes(1);
 			expect(mockCopyFile).toHaveBeenCalledWith({
-				sourceUrl: document.documentURI,
+				sourceUrl: expectedSourceUrl,
 				destinationContainerName: TEST_BLOB_PUBLISH_CONTAINER,
 				destinationBlobName: expectedDestinationName,
-				newContentType: baseDocumentProperties.mime
+				newContentType: document.mime
 			});
 			expect(mockGotPost).toHaveBeenCalledTimes(1);
 			expect(mockGotPost).toHaveBeenCalledWith(

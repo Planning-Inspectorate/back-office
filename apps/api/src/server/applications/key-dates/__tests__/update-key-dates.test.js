@@ -6,10 +6,12 @@ import { mockApplicationGet } from '#utils/application-factory-for-tests.js';
 const { eventClient } = await import('../../../infrastructure/event-client.js');
 
 const { databaseConnector } = await import('#utils/database-connector.js');
+const estimatedPrelimMeetingDate = new Date(Date.UTC(2023, 6, 27));
 
 const updatedDateFromDatabase = {
 	datePINSFirstNotifiedOfProject: new Date(2023, 1, 1),
-	dateProjectAppearsOnWebsite: new Date(2023, 1, 1)
+	dateProjectAppearsOnWebsite: new Date(2023, 1, 1),
+	estimatedPrelimMeetingDate
 };
 
 const updatedDateResponse = {
@@ -18,7 +20,9 @@ const updatedDateResponse = {
 		datePINSFirstNotifiedOfProject: 1_675_209_600,
 		dateProjectAppearsOnWebsite: 1_675_209_600
 	},
-	preExamination: {},
+	preExamination: {
+		estimatedPrelimMeetingDate: 1_690_416_000
+	},
 	examination: {},
 	recommendation: {},
 	decision: {},
@@ -43,6 +47,9 @@ describe('Test Updating Key Dates', () => {
 				nonExistentKeyDate: 1_675_209_600,
 				submissionAtPublished: 'Q3 2025',
 				submissionAtInternal: null
+			},
+			preExamination: {
+				estimatedPrelimMeetingDate: 1_690_416_000
 			}
 		};
 
@@ -107,6 +114,7 @@ describe('Test Updating Key Dates', () => {
 						deadlineForSubmissionOfRecommendation: null,
 						extensionToDateRelevantRepresentationsClose: null,
 						notificationDateForPMAndEventsDirectlyFollowingPM: null,
+						estimatedPrelimMeetingDate,
 						preliminaryMeetingStartDate: null,
 						jRPeriodEndDate: null,
 						subSectorId: 1,
@@ -147,7 +155,8 @@ describe('Test Updating Key Dates', () => {
 						datePINSFirstNotifiedOfProject: new Date(2023, 1, 1),
 						dateProjectAppearsOnWebsite: new Date(2023, 1, 1),
 						submissionAtPublished: 'Q3 2025',
-						submissionAtInternal: null
+						submissionAtInternal: null,
+						estimatedPrelimMeetingDate
 					}
 				}
 			},
@@ -184,7 +193,7 @@ describe('Test Updating Key Dates', () => {
 				projectType: 'BC01 - Office Use',
 				sector: 'BC - Business and Commercial',
 				stage: 'draft',
-				estimatedPrelimMeetingDate: null,
+				estimatedPrelimMeetingDate: estimatedPrelimMeetingDate.toISOString(),
 				meetings: [],
 				invoices: []
 			}),

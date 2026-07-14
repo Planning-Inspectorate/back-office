@@ -44,6 +44,10 @@ resource "azurerm_cdn_frontdoor_custom_domain" "wfe" {
   tls {
     certificate_type = "ManagedCertificate"
     # minimum_tls_version = "TLS12"
+
+    cipher_suite {
+      type = "TLS12_2023"
+    }
   }
 }
 

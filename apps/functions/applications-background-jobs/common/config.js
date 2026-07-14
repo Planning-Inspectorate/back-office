@@ -10,7 +10,8 @@ const schema = joi.object({
 	log: joi.object({
 		levelStdOut: joi.string()
 	}),
-	NODE_ENV: joi.string().valid('development', 'production', 'test')
+	NODE_ENV: joi.string().valid('development', 'production', 'test'),
+	SERVICE_BUS_HOST_NAME: joi.string().allow('', null)
 });
 
 const environment = loadEnvironment(process.env.NODE_ENV);
@@ -24,7 +25,8 @@ const { value, error } = schema.validate({
 	log: {
 		levelStdOut: environment.LOG_LEVEL_STDOUT || 'debug'
 	},
-	NODE_ENV: environment.NODE_ENV
+	NODE_ENV: environment.NODE_ENV,
+	SERVICE_BUS_HOST_NAME: environment.ServiceBusConnection__fullyQualifiedNamespace
 });
 
 if (error) {

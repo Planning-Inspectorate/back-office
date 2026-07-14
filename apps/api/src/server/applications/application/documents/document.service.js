@@ -444,6 +444,9 @@ export const createDocumentVersion = async (
 	newDocumentVersion.datePublished = isMigrationPublish
 		? previousDocumentVersion.publishedDate
 		: null;
+	newDocumentVersion.publishedStatus = isMigrationPublish
+		? previousDocumentVersion.publishedStatus
+		: 'not_checked';
 	newDocumentVersion.publishedBlobPath = null;
 	newDocumentVersion.publishedBlobContainer = null;
 	newDocumentVersion.publishedStatusPrev = null;
@@ -1012,9 +1015,10 @@ export const separateNonPublishedDocuments = async (guids) => {
  * Unpublish a list of documents
  *
  * @param {string[]} guids
+ * @param {string} username
  * @returns {Promise<string[]>} // array of unpublished doc guids
  * */
-export const unpublishDocuments = async (guids) => {
+export const unpublishDocuments = async (guids, username) => {
 	const versionPromises = guids.map(documentVersionRepository.getPublished);
 	const versions = await Promise.all(versionPromises);
 
@@ -1032,7 +1036,7 @@ export const unpublishDocuments = async (guids) => {
 			documentActivityLogRepository.create({
 				documentGuid: version.documentGuid,
 				version: version.version,
-				user: version.owner ?? '',
+				user: username || version.owner || 'System',
 				status: 'unpublished'
 			})
 		)
@@ -1196,4 +1200,23 @@ export const buildDocumentFolderPath = async (folderId, caseRef, filename) => {
 	folderPath = `${folderPath}/${filename}`;
 
 	return folderPath;
+};
+
+export const getPublishedGisBoundaryDocuments = async () => {
+	const documents = await documentRepository.getPublishedGisBoundaryDocuments();
+
+	return documents.map((document) => {
+		const publishedVersion = document.documentVersion[0];
+
+		return {
+			caseId: document.caseId,
+			caseReference: document.case.reference,
+			projectName: document.case.title,
+			documentGuid: document.guid,
+			version: publishedVersion.version,
+			publishedBlobContainer: publishedVersion.publishedBlobContainer,
+			publishedBlobPath: publishedVersion.publishedBlobPath,
+			datePublished: publishedVersion.datePublished
+		};
+	});
 };

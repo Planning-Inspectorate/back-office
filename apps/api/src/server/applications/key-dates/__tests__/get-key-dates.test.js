@@ -2,6 +2,7 @@ import { jest } from '@jest/globals';
 import { request } from '../../../app-test.js';
 
 const { databaseConnector } = await import('#utils/database-connector.js');
+const estimatedPrelimMeetingDate = new Date(Date.UTC(2023, 6, 27));
 
 describe('Test Retrieval of Key Dates', () => {
 	afterEach(() => {
@@ -13,7 +14,8 @@ describe('Test Retrieval of Key Dates', () => {
 		const keyDatesInDatabase = {
 			datePINSFirstNotifiedOfProject: new Date(2023, 1, 1),
 			dateProjectAppearsOnWebsite: new Date(2023, 1, 1),
-			submissionAtPublished: 'Q3 2025'
+			submissionAtPublished: 'Q3 2025',
+			estimatedPrelimMeetingDate
 		};
 
 		databaseConnector.applicationDetails.findUnique.mockResolvedValue(keyDatesInDatabase);
@@ -30,7 +32,9 @@ describe('Test Retrieval of Key Dates', () => {
 				dateProjectAppearsOnWebsite: 1_675_209_600,
 				submissionAtPublished: 'Q3 2025'
 			},
-			preExamination: {},
+			preExamination: {
+				estimatedPrelimMeetingDate: 1_690_416_000
+			},
 			examination: {},
 			recommendation: {},
 			decision: {},

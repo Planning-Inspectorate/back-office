@@ -1,5 +1,6 @@
 import { body } from 'express-validator';
 import { createValidator } from '@pins/express';
+import { NOTES_CHARACTER_LIMIT } from './representation-status-notes.constants.js';
 
 const validateStatusChange = createValidator(
 	body('statusResult').custom((value, { req: { query } }) => {
@@ -20,4 +21,11 @@ const validateStatusChange = createValidator(
 	})
 );
 
-export const representationStatusNotesValidation = [validateStatusChange];
+const validateNotes = createValidator(
+	body('notes')
+		.optional({ checkFalsy: true })
+		.isLength({ max: NOTES_CHARACTER_LIMIT })
+		.withMessage(`Notes must be ${NOTES_CHARACTER_LIMIT} characters or fewer`)
+);
+
+export const representationStatusNotesValidation = [validateStatusChange, validateNotes];

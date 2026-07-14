@@ -6,6 +6,8 @@ import {
 } from './src/util.js';
 import { isScannedFileHtml, isUploadedHtmlValid } from '../common/html-validation.js';
 import { handleHtmlValidityFail } from './src/handle-html-validity-fail.js';
+import { isGisBoundaryGeoJsonDocument } from '../common/util.js';
+import { rebuildMasterGeoJson } from '../common/master-geojson.js';
 import config from '../common/config.js';
 import { blobClient } from '../common/blob-client.js';
 
@@ -52,6 +54,10 @@ export const index = async (
 		originalFilename
 	});
 
+	// Normalise and encode source URL (e.g. spaces in generated GeoJSON filenames)
+	// so Storage SDK copy operations receive a valid URL.
+	documentURI = new URL(documentURI).toString();
+
 	context.log(
 		`Deploying source blob ${documentURI} to destination ${publishFileName} for caseId ${caseId}`
 	);
@@ -67,10 +73,12 @@ export const index = async (
 
 	context.log(`Making POST request to ${requestUri}`);
 
+	let publishedDocument;
+
 	// Check is to maintain original publishing date when migrating docs from ODW
 	// - remove after migration is done, just keep contents of 'else' statement
 	if (context.bindingData?.applicationProperties?.migrationPublishing) {
-		await requestWithApiKey
+		publishedDocument = await requestWithApiKey
 			.post(requestUri, {
 				json: {
 					publishedBlobContainer: config.BLOB_PUBLISH_CONTAINER,
@@ -79,7 +87,7 @@ export const index = async (
 			})
 			.json();
 	} else {
-		await requestWithApiKey
+		publishedDocument = await requestWithApiKey
 			.post(requestUri, {
 				json: {
 					publishedBlobContainer: config.BLOB_PUBLISH_CONTAINER,
@@ -88,5 +96,17 @@ export const index = async (
 				}
 			})
 			.json();
+	}
+
+	if (isGisBoundaryGeoJsonDocument(publishedDocument)) {
+		context.log(`Rebuilding master GeoJson after publishing GIS boundary ${documentId}`);
+
+		try {
+			await rebuildMasterGeoJson(context.log);
+		} catch (error) {
+			context.log(
+				`Failed to rebuild master GeoJson after publishing GIS boundary ${documentId}: ${error}`
+			);
+		}
 	}
 };

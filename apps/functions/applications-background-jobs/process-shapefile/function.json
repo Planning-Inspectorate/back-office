@@ -1,0 +1,11 @@
+{
+	"bindings": [
+		{
+			"name": "documentShapefileProcess",
+			"type": "serviceBusTrigger",
+			"direction": "in",
+			"queueName": "shapefile-processing-queue",
+			"connection": "ServiceBusConnection"
+		}
+	]
+}

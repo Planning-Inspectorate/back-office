@@ -1,0 +1,1 @@
+export const NOTES_CHARACTER_LIMIT = 6000;

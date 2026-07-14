@@ -1,7 +1,7 @@
 {% extends "applications/layouts/applications.layout.njk" %}
 
 {% from "govuk/components/radios/macro.njk" import govukRadios %}
-{% from "govuk/components/textarea/macro.njk" import govukTextarea %}
+{% from "govuk/components/character-count/macro.njk" import govukCharacterCount %}
 {% from "govuk/components/fieldset/macro.njk" import govukFieldset %}
 {% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/error-summary/macro.njk" import govukErrorSummary %}
@@ -34,9 +34,11 @@
 						}
 					}) }}
 
-                    {{ govukTextarea({
+                    {{ govukCharacterCount({
                     name: "notes",
                     id: "notes",
+                    value: latestReferralNote,
+                    maxlength: notesCharacterLimit,
                     label: {
                         text: radioItems|length and "Notes (optional)",
                         classes: "govuk-label--m",
@@ -44,6 +46,9 @@
                     },
                     hint: {
                         text: "Use this space to provide more details."
+                    },
+                    errorMessage: errors["notes"] and {
+                        text: errors["notes"].msg
                     }
                     }) }}
 

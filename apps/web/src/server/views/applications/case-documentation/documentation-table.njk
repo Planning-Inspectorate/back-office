@@ -88,11 +88,12 @@
 						{% if item.error %}
 							<span class='govuk-body-s govuk-!-font-weight-bold colour--red'>{{item.error}}</span>{% endif %}
 						{% set isPreviewActive = downloadNotDisabled and(item.mime === 'application/pdf' or item.mime === 'image/jpeg' or item.mime === 'image/png') %}
+						{% set displayFileName = item.originalFilename if item.originalFilename else item.fileName %}
 						{{ createOptionalLink(
 												{
 													classes: 'govuk-body-s govuk-!-font-weight-bold',
 													href: 'document-download'|url({caseId: caseId, documentGuid: item.documentGuid, version: item.version, isPreviewActive: isPreviewActive}),
-													text:item.fileName
+													text: displayFileName
 												},
 												isPreviewActive
 											) }}
@@ -131,7 +132,7 @@
 													classes: 'govuk-body-s',
 													href: 'document'|url({caseId: caseId, folderId: folderId, documentGuid: item.documentGuid, step: 'properties'}),
 													text:'View/Edit properties',
-													visuallyHiddenText: item.fileName
+													visuallyHiddenText: displayFileName
 												},
 												true
 											) }}
@@ -142,7 +143,7 @@
 													data: ['download-', item.documentGuid]|join,
 													href: 'document-download'|url({caseId: caseId, documentGuid: item.documentGuid, version: item.version}),
 													text:'Download',
-													visuallyHiddenText: item.fileName
+													visuallyHiddenText: displayFileName
 												},
 												downloadNotDisabled
 											) }}
