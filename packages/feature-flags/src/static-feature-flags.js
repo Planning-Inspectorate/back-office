@@ -8,7 +8,8 @@ export default {
 	'applics-1036-training-sector': false,
 	'applics-1845-fees-forecasting': false,
 	[AZURE_AI_LANGUAGE_REDACTION]: false,
-	'idas-340-redaction-service': false
+	'idas-340-redaction-service': false,
+	'idas-607-examination-library': false
 };
 
 export const flagsByReference = {
