@@ -13,33 +13,34 @@ datasource db {
 /// For Applications, the case reference is generated once the case passes Draft state
 /// This model is intended to contain records for all Applications, Appeals and any other Case Type
 model Case {
-  id                    Int                   @id @default(autoincrement())
-  reference             String?
-  modifiedAt            DateTime              @default(now())
-  createdAt             DateTime              @default(now())
-  description           String?               @db.VarChar(2000)
-  descriptionWelsh      String?               @db.VarChar(2000)
-  title                 String?
-  titleWelsh            String?
-  hasUnpublishedChanges Boolean               @default(false)
-  isMaterialChange      Boolean               @default(false)
-  applicantId           Int?
-  ApplicationDetails    ApplicationDetails?
-  applicant             ServiceUser?          @relation(fields: [applicantId], references: [id])
-  CaseStatus            CaseStatus[]
-  CasePublishedState    CasePublishedState[]
-  folder                Folder[]
-  gridReference         GridReference?
-  Representation        Representation[]
-  document              Document[]
-  Subscriptions         Subscription[]
-  ExaminationTimetable  ExaminationTimetable?
-  ProjectUpdate         ProjectUpdate[]
-  S51Advice             S51Advice[]
-  ProjectTeam           ProjectTeam[]
-  migrationStatus       Boolean?
-  meeting               Meeting[]
-  invoice               Invoice[]
+  id                           Int                          @id @default(autoincrement())
+  reference                    String?
+  modifiedAt                   DateTime                     @default(now())
+  createdAt                    DateTime                     @default(now())
+  description                  String?                      @db.VarChar(2000)
+  descriptionWelsh             String?                      @db.VarChar(2000)
+  title                        String?
+  titleWelsh                   String?
+  hasUnpublishedChanges        Boolean                      @default(false)
+  isMaterialChange             Boolean                      @default(false)
+  applicantId                  Int?
+  ApplicationDetails           ApplicationDetails?
+  applicant                    ServiceUser?                 @relation(fields: [applicantId], references: [id])
+  CaseStatus                   CaseStatus[]
+  CasePublishedState           CasePublishedState[]
+  folder                       Folder[]
+  gridReference                GridReference?
+  Representation               Representation[]
+  document                     Document[]
+  Subscriptions                Subscription[]
+  ExaminationTimetable         ExaminationTimetable?
+  ProjectUpdate                ProjectUpdate[]
+  S51Advice                    S51Advice[]
+  ProjectTeam                  ProjectTeam[]
+  migrationStatus              Boolean?
+  meeting                      Meeting[]
+  invoice                      Invoice[]
+  ExaminationLibraryCategories ExaminationLibraryCategory[]
 }
 
 // ServiceUser model which represents a person or oranisation who can have some role in a case
@@ -335,53 +336,59 @@ model Document {
 /// Versions are stored against the `version` value (starting with 1).
 /// The physical location of these documents should be stored here.
 model DocumentVersion {
-  documentGuid           String
-  version                Int
-  lastModified           DateTime?
-  documentType           String?
-  published              Boolean               @default(false)
-  sourceSystem           String                @default("back-office-applications")
-  origin                 String?
-  originalFilename       String?
-  fileName               String?
-  representative         String?
-  description            String?
-  descriptionWelsh       String?
-  owner                  String?
-  author                 String?
-  authorWelsh            String?
-  securityClassification String?
-  mime                   String?
-  horizonDataID          String?
-  fileMD5                String?
-  virusCheckStatus       String?
-  size                   Int?
-  stage                  String?
-  filter1                String?
-  filter1Welsh           String?
-  privateBlobContainer   String?
-  privateBlobPath        String?
-  publishedBlobContainer String?
-  publishedBlobPath      String?
-  dateCreated            DateTime?             @default(now())
-  datePublished          DateTime?
-  isDeleted              Boolean               @default(false)
-  examinationRefNo       String?
-  filter2                String?
-  publishedStatus        String?               @default("awaiting_upload")
-  publishedStatusPrev    String?
-  redactedStatus         String?
-  redacted               Boolean               @default(false)
-  Document               Document?             @relation("VersionHistory", fields: [documentGuid], references: [guid])
-  latestVersionDocument  Document?             @relation("LatestVersion")
-  transcript             Document?             @relation("TranscriptedDocuments", fields: [transcriptGuid], references: [guid], onUpdate: NoAction, onDelete: NoAction)
-  transcriptGuid         String?
-  DocumentActivityLog    DocumentActivityLog[]
-  interestedPartyNumber  String?
+  documentGuid                 String
+  version                      Int
+  lastModified                 DateTime?
+  documentType                 String?
+  published                    Boolean                     @default(false)
+  sourceSystem                 String                      @default("back-office-applications")
+  origin                       String?
+  originalFilename             String?
+  fileName                     String?
+  representative               String?
+  description                  String?
+  descriptionWelsh             String?
+  owner                        String?
+  author                       String?
+  authorWelsh                  String?
+  securityClassification       String?
+  mime                         String?
+  horizonDataID                String?
+  fileMD5                      String?
+  virusCheckStatus             String?
+  size                         Int?
+  stage                        String?
+  filter1                      String?
+  filter1Welsh                 String?
+  privateBlobContainer         String?
+  privateBlobPath              String?
+  publishedBlobContainer       String?
+  publishedBlobPath            String?
+  dateCreated                  DateTime?                   @default(now())
+  datePublished                DateTime?
+  isDeleted                    Boolean                     @default(false)
+  examinationRefNo             String?
+  filter2                      String?
+  publishedStatus              String?                     @default("awaiting_upload")
+  publishedStatusPrev          String?
+  redactedStatus               String?
+  redacted                     Boolean                     @default(false)
+  Document                     Document?                   @relation("VersionHistory", fields: [documentGuid], references: [guid])
+  latestVersionDocument        Document?                   @relation("LatestVersion")
+  transcript                   Document?                   @relation("TranscriptedDocuments", fields: [transcriptGuid], references: [guid], onUpdate: NoAction, onDelete: NoAction)
+  transcriptGuid               String?
+  DocumentActivityLog          DocumentActivityLog[]
+  interestedPartyNumber        String?
+  typeOfParty                  String? // Type of party for Exam Library (Applicant, Local council, etc.)
+  examinationLibraryIndex      Int? // Numeric sort index for Exam Library display (implements "reference override")
+  examinationLibraryCategoryId Int? // Link to the Exam Library category this version belongs to
+  ExaminationLibraryCategory   ExaminationLibraryCategory? @relation(fields: [examinationLibraryCategoryId], references: [id], onUpdate: NoAction, onDelete: NoAction)
 
   @@id([documentGuid, version])
   @@index([filter1], map: "filter1")
   @@index([documentGuid], map: "documentGuid")
+  @@index([examinationLibraryCategoryId])
+  @@index([examinationLibraryIndex])
 }
 
 /// Representation model
@@ -448,20 +455,21 @@ model ExaminationTimetableType {
 }
 
 model ExaminationTimetableItem {
-  id                       Int                      @id @default(autoincrement())
-  examinationTimetableId   Int
-  examinationTypeId        Int
-  name                     String
-  nameWelsh                String?
-  description              String?                  @db.NText
-  descriptionWelsh         String?                  @db.NText
-  date                     DateTime
-  startDate                DateTime?
-  folderId                 Int
-  ExaminationTimetableType ExaminationTimetableType @relation(fields: [examinationTypeId], references: [id])
-  ExaminationTimetable     ExaminationTimetable     @relation(fields: [examinationTimetableId], references: [id])
-  Folder                   Folder                   @relation(fields: [folderId], references: [id], onUpdate: NoAction)
-  createdAt                DateTime                 @default(now())
+  id                         Int                         @id @default(autoincrement())
+  examinationTimetableId     Int
+  examinationTypeId          Int
+  name                       String
+  nameWelsh                  String?
+  description                String?                     @db.NText
+  descriptionWelsh           String?                     @db.NText
+  date                       DateTime
+  startDate                  DateTime?
+  folderId                   Int
+  ExaminationTimetableType   ExaminationTimetableType    @relation(fields: [examinationTypeId], references: [id])
+  ExaminationTimetable       ExaminationTimetable        @relation(fields: [examinationTimetableId], references: [id])
+  Folder                     Folder                      @relation(fields: [folderId], references: [id], onUpdate: NoAction)
+  createdAt                  DateTime                    @default(now())
+  ExaminationLibraryCategory ExaminationLibraryCategory? @relation("TimetableItemCategory")
 }
 
 // Subscription represents a subscriber interested in project updates for a case
@@ -637,4 +645,21 @@ model Invoice {
   refundIssueDate        DateTime?
   createdAt              DateTime  @default(now())
   case                   Case      @relation(fields: [caseId], references: [id])
+}
+
+model ExaminationLibraryCategory {
+  id                         Int                       @id @default(autoincrement())
+  caseId                     Int
+  categoryCode               String /// Stable code (e.g. APPLICATION_DOCUMENTS, ADEQUACY_OF_CONSULTATION)
+  categoryName               String /// Category name in English
+  publishedStatus            String                    @default("unpublished") /// Library published status for this category: "published" | "unpublished" | "inprogress"
+  source                     String /// "STATIC" = fixed categories (application docs, adequacy of consultation, etc.) "TIMETABLE" = categories created from ExaminationTimetableItem
+  examinationTimetableItemId Int?                      @unique /// For TIMETABLE-derived categories, link back to the timetable item
+  createdAt                  DateTime                  @default(now())
+  updatedAt                  DateTime                  @default(now())
+  Case                       Case                      @relation(fields: [caseId], references: [id], onUpdate: NoAction, onDelete: NoAction)
+  ExaminationTimetableItem   ExaminationTimetableItem? @relation("TimetableItemCategory", fields: [examinationTimetableItemId], references: [id])
+  DocumentVersions           DocumentVersion[]
+
+  @@unique([caseId, categoryCode])
 }
