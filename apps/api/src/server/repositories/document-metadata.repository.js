@@ -65,7 +65,7 @@ const includeClauseDocVersionFullWithSector = {
  * @returns {import('#database-client').PrismaPromise<DocumentVersionWithDocumentAndFolder>}
  */
 export const upsert = (
-	{ documentGuid, version = 1, transcriptGuid, ...metadata },
+	{ documentGuid, version = 1, transcriptGuid, examinationLibraryCategoryId, ...metadata },
 	tx = databaseConnector
 ) => {
 	return tx.documentVersion.upsert({
@@ -73,6 +73,9 @@ export const upsert = (
 			...metadata,
 			version,
 			...(transcriptGuid ? { transcript: { connect: { guid: transcriptGuid } } } : {}),
+			...(examinationLibraryCategoryId
+				? { ExaminationLibraryCategory: { connect: { id: examinationLibraryCategoryId } } }
+				: {}),
 			Document: { connect: { guid: documentGuid } }
 		},
 
@@ -81,6 +84,7 @@ export const upsert = (
 		update: {
 			...metadata,
 			transcriptGuid,
+			examinationLibraryCategoryId,
 			version
 		},
 
