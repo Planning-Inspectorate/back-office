@@ -16,7 +16,6 @@
   },
   "dependencies": {
     "date-fns": "*",
-    "dotenv": "*",
     "got": "*",
     "html": "*",
     "lodash-es": "*",

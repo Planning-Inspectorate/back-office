@@ -13,7 +13,8 @@ const {
 } = require('./cypress/support/cypressUtils');
 const { getSpecPattern } = require('./cypress/support/utils/getSpecPattern');
 
-require('dotenv').config();
+// prettier-ignore
+try { require('node:process').loadEnvFile(); } catch {/* ignore errors*/}
 
 const app = process.env.APP;
 
