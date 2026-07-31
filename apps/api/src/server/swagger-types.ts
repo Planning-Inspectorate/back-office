@@ -1415,6 +1415,8 @@ export interface DocumentVersionUpsertRequestBody {
 	representative?: string;
 	/** @example "IP1234" */
 	interestedPartyNumber?: string;
+	/** @example "Applicant" */
+	typeOfParty?: string;
 	/** @example "some filter value" */
 	filter1?: string;
 	/** @example "some filter value" */

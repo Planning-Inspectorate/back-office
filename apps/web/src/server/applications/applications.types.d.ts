@@ -142,6 +142,7 @@ export interface DocumentationFile {
 	authorWelsh?: string;
 	owner?: string;
 	interestedPartyNumber?: string;
+	typeOfParty?: string;
 	examinationRefNo?: string;
 }
 

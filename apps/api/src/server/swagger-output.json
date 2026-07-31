@@ -9110,6 +9110,11 @@
 					"description": "",
 					"example": "IP1234"
 				},
+				"typeOfParty": {
+					"type": "string",
+					"description": "",
+					"example": "Applicant"
+				},
 				"filter1": {
 					"type": "string",
 					"description": "",

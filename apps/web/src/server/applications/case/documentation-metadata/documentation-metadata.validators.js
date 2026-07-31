@@ -28,6 +28,7 @@ export const validatorsDispatcher = async (request, response, next) => {
 		author: validateDocumentationMetaAuthor,
 		authorWelsh: validateDocumentationMetaAuthorWelsh,
 		redaction: validateDocumentationMetaRedacted,
+		'party-type': validateDocumentationMetaTypeOfParty,
 		'receipt-date': validateDocumentationMetaDateCreated,
 		'published-date': validateDocumentationMetaDatePublished
 	};
@@ -118,6 +119,10 @@ export const validateDocumentationMetaRedacted = createValidator(
 		.trim()
 		.isLength({ min: 1 })
 		.withMessage('You must select a redaction status')
+);
+
+export const validateDocumentationMetaTypeOfParty = createValidator(
+	body('typeOfParty').trim().isLength({ min: 1 }).withMessage('Select the type of party')
 );
 
 /**
