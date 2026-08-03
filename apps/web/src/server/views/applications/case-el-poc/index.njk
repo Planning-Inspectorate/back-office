@@ -1,0 +1,60 @@
+{% extends "../case/layouts/applications-case-layout.njk" %}
+
+{% from "govuk/components/table/macro.njk" import govukTable %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+
+
+
+{% set pageTitle = 'Examination Library' %}
+
+{% set queryLegend %}
+
+	<p class="govuk-body">Active query parameters: </p>
+	<ul class="govuk-list govuk-list--bullet">
+		<li><b> sampleDataCount (default 100):</b> {{ queryLegend.sampleDataCount }}</li>
+		<li><b>sampleDataPrefixes (default: Rep):</b> {{ queryLegend.sampleDataPrefixes }}</li>
+		<li><b>sampleDataOrder (default: asc):</b> {{ queryLegend.sampleDataOrder }}</li>
+		<li><b>fetchDataFrom (default:</b> generate): {{ queryLegend.fetchDataFrom }}</li>
+	</ul>
+
+	<p class="govuk-body">E.g:
+		`/applications-service/case/100000000/examination-library/doc-ref-poc?sampleDataPrefixes=DOC&sampleDataPrefixes=APP`</p>
+{% endset %}
+
+{% block sectionContent %}
+
+
+	<h2 class="govuk-heading-m"> {{ mainPageTitle }}</h2>
+	<p class="govuk-body">The examination library lists all the documents submitted about the project from the point of
+		application to the close of the examination phase. Any deadlines or meetings added to the examination timetable
+		will appear here as new sections.</p>
+
+
+	{{ govukInsetText({
+		html: queryLegend
+	}) }}
+
+
+	{{ govukTable({
+		caption: "Dates and amounts",
+		captionClasses: "govuk-table__caption--m",
+		firstCellIsHeader: true,
+		head: [
+			{
+				text: "Ref Code"
+			}
+		],
+		rows: orderedSampleRows
+	}) }}
+
+
+	{% for section in sections %}
+		{% if section.items and section.items.length > 0 %}
+			<h3 class="govuk-heading-m govuk-!-margin-top-5">{{ section.heading }}</h3>
+			{{ govukTaskList({
+				idPrefix: section.slug,
+				items: section.items
+			}) }}
+		{% endif %}
+	{% endfor %}
+{% endblock %}

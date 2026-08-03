@@ -6,10 +6,10 @@ export default {
 	'applic-625-custom-folders': true,
 	'applics-861-fo-submissions': true,
 	'applics-1036-training-sector': false,
-	'applics-1845-fees-forecasting': false,
+	'applics-1845-fees-forecasting': true,
 	[AZURE_AI_LANGUAGE_REDACTION]: false,
 	'idas-340-redaction-service': false,
-	'idas-607-examination-library': false
+	'idas-607-examination-library': true
 };
 
 export const flagsByReference = {

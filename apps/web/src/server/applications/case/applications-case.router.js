@@ -35,6 +35,7 @@ applicationsCaseRouter.use('/:caseId/key-dates', applicationsKeyDateRouter);
 applicationsCaseRouter.use('/:caseId/project-team', applicationsProjectTeamRouter);
 
 applicationsCaseRouter.use('/:caseId/fees-forecasting', (req, res, next) => {
+	console.log('FF flag: ', featureFlagClient.isFeatureActive('applics-1845-fees-forecasting'));
 	if (featureFlagClient.isFeatureActive('applics-1845-fees-forecasting')) {
 		return applicationsFeesForecastingRouter(req, res, next);
 	}
@@ -42,6 +43,7 @@ applicationsCaseRouter.use('/:caseId/fees-forecasting', (req, res, next) => {
 });
 
 applicationsCaseRouter.use('/:caseId/examination-library', (req, res, next) => {
+	console.log('EL flag: ', featureFlagClient.isFeatureActive('idas-607-examination-library'));
 	if (featureFlagClient.isFeatureActive('idas-607-examination-library')) {
 		return applicationsExamLibraryRouter(req, res, next);
 	}
