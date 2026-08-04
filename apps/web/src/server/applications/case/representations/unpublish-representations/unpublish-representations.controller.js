@@ -1,10 +1,11 @@
 // @ts-nocheck
 import {
-	unpublishRepresentationsBatch,
+	unpublishRepresentations,
 	getUnpublishableRepresentations
 } from './unpublish-representations.service.js';
 import logger from '../../../../lib/logger.js';
 import { unpublishRepresentationsErrorUrl } from '../config.js';
+import * as authSession from '../../../../app/auth/auth-session.service.js';
 
 const view = 'applications/representations/unpublish-representations.njk';
 
@@ -35,20 +36,14 @@ export async function getUnpublishRepresentationsController(req, res) {
 
 	const projectName = caseDetails.title || '';
 
-	let representations;
+	let publishedRepsCount = 0;
 	try {
-		representations = await getUnpublishableRepresentations(caseId);
+		const result = await getUnpublishableRepresentations(caseId);
+		publishedRepsCount = result?.count;
 	} catch (error) {
-		logger.error('[getUnpublishRepresentationsController] Error fetching representations:', error);
+		logger.error(error);
 		return res.redirect(unpublishRepresentationsErrorUrl);
 	}
-
-	if (!representations || !representations.items) {
-		logger.error('[getUnpublishRepresentationsController] Representations not found');
-		return res.redirect(unpublishRepresentationsErrorUrl);
-	}
-
-	const publishedRepsCount = representations.itemCount || representations.items.length;
 
 	return res.render(view, {
 		caseId,
@@ -66,20 +61,12 @@ export async function getUnpublishRepresentationsController(req, res) {
 export async function postUnpublishRepresentationsController(req, res) {
 	try {
 		const { caseId } = res.locals;
-		const representations = await getUnpublishableRepresentations(caseId);
-		const publishedRepIds = representations.items?.map((item) => item.id) || [];
 
-		if (!publishedRepIds.length) {
-			return res.redirect(`/applications-service/case/${caseId}/relevant-representations`);
-		}
-
-		const actionBy = req.user?.name || res.locals.user?.name || 'SYSTEM';
-
-		const result = await unpublishRepresentationsBatch(caseId, publishedRepIds, actionBy);
-		logger.info('[postUnpublishRepresentationsController] result:', result);
+		const actionBy = authSession.getAccount(req.session)?.name || 'SYSTEM';
+		const result = await unpublishRepresentations(caseId, actionBy);
 
 		return res.redirect(
-			`/applications-service/case/${caseId}/relevant-representations?unpublished=${publishedRepIds.length}`
+			`/applications-service/case/${caseId}/relevant-representations?unpublished=${result.count}`
 		);
 	} catch (error) {
 		logger.error(

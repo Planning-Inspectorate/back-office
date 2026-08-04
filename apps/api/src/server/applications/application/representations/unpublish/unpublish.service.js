@@ -2,7 +2,7 @@
 import * as representationsRepository from '#repositories/representation.repository.js';
 import { EventType } from '@pins/event-client';
 import { broadcastNsipRepresentationUnpublishEventBatch } from '#infrastructure/event-broadcasters.js';
-import { getAllPublishedRepresentationsById } from '#repositories/representation.repository.js';
+import { getAllPublishedRepresentationsByCaseId } from '#repositories/representation.repository.js';
 
 /**
  * Unpublishes representations for a given case and list of representation IDs.
@@ -13,12 +13,9 @@ import { getAllPublishedRepresentationsById } from '#repositories/representation
  * @param {string} actionBy - The user performing the unpublish action
  * @returns {Promise<Array>} - The representations that were unpublished
  */
-export const unpublishCaseRepresentations = async (caseId, representationIds, actionBy) => {
+export const unpublishCaseRepresentations = async (caseId, actionBy) => {
 	// Fetch all representations matching the IDs for the case
-	const publishedRepresentations = await getAllPublishedRepresentationsById(
-		caseId,
-		representationIds
-	);
+	const publishedRepresentations = await getAllPublishedRepresentationsByCaseId(caseId);
 
 	// Only proceed if there are representations to unpublish
 	if (publishedRepresentations.length > 0) {
@@ -39,11 +36,3 @@ export const unpublishCaseRepresentations = async (caseId, representationIds, ac
 	// Return the representations that were actually unpublished
 	return publishedRepresentations;
 };
-
-/**
- * Gets all representations for a case that are eligible to be unpublished.
- * @param {number} caseId - The case ID
- * @returns {Promise<Array>} - The unpublishable representations
- */
-export const getUnpublishableCaseRepresentations = async (caseId) =>
-	representationsRepository.getUnpublishableRepresentations(caseId);
