@@ -13,6 +13,7 @@ import {
 	GIS_SHAPEFILE_REDACTED_STATUS,
 	GIS_SHAPEFILE_STAGE,
 	SYSTEM_USER_NAME,
+	GIS_SHAPEFILE_DESCRIPTION,
 	DocumentPublishedStatus
 } from '../../constants.js';
 
@@ -120,7 +121,7 @@ export const createGeoJsonDocumentVersion = async ({
 		version: newVersion,
 		fileName: geoJsonFileName,
 		originalFilename: geoJsonFileName,
-		description: caseRecord.description ?? '',
+		description: GIS_SHAPEFILE_DESCRIPTION,
 		mime: 'application/geo+json',
 		size: geoJsonSizeBytes,
 		sourceSystem: 'back-office-applications',

@@ -206,6 +206,17 @@ export const index = async (context, documentShapefileProcess) => {
 		context.log.error(
 			`[SHAPEFILE] Infrastructure error processing document ${documentId}: ${error.message}`
 		);
+
+		if (error.response?.statusCode) {
+			context.log.error(`[SHAPEFILE] HTTP status: ${error.response.statusCode}`);
+		}
+
+		if (error.response?.body) {
+			context.log.error(`[SHAPEFILE] HTTP response body: ${JSON.stringify(error.response.body)}`);
+		}
+
+		context.log.error(error);
+
 		throw error;
 	}
 };
