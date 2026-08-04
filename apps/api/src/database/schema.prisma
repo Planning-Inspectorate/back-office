@@ -417,6 +417,8 @@ model Representation {
   editNotes              String?                    @db.NText
 
   @@index([reference], name: "reference")
+  @@index([status], name: "status")
+  @@index([caseId, status], name: "caseId_status")
 }
 
 // RepresentationAction model
@@ -434,6 +436,8 @@ model RepresentationAction {
   actionDate           DateTime
   notes                String?        @db.NText
   Representation       Representation @relation(fields: [representationId], references: [id])
+
+  @@index([representationId], name: "representationAction_representationId")
 }
 
 //  RepresentationAttachment model
@@ -443,6 +447,8 @@ model RepresentationAttachment {
   documentGuid     String         @unique
   Representation   Representation @relation(fields: [representationId], references: [id], onUpdate: NoAction)
   Document         Document       @relation("AttachmentDocument", fields: [documentGuid], references: [guid])
+
+  @@index([representationId], name: "representationAttachment_representationId")
 }
 
 model ExaminationTimetableType {

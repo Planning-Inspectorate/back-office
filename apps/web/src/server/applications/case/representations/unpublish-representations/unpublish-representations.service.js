@@ -11,14 +11,13 @@ export const getUnpublishableRepresentations = async (caseId) =>
 /**
  * Unpublishes a batch of representations for a given case.
  * @param {string} caseId
- * @param {string[]} representationIds
  * @param {string} actionBy
  * @returns {Promise<any>}
  */
-export const unpublishRepresentationsBatch = async (caseId, representationIds, actionBy) => {
+export const unpublishRepresentations = async (caseId, actionBy) => {
 	try {
 		return await patch(`applications/${caseId}/representations/unpublish`, {
-			json: { representationIds, actionBy }
+			json: { actionBy }
 		});
 	} catch (error) {
 		throw new Error(`[unpublishRepresentationsBatch]: ${error} `);
