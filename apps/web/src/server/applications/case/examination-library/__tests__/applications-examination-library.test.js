@@ -43,7 +43,7 @@ describe('Examination Library', () => {
 			const element = parseHtml(response.text);
 
 			expect(response.status).toBe(200);
-			expect(element.innerHTML).toContain('Examination Library');
+			expect(element.innerHTML).toContain('Examination library');
 			expect(element.innerHTML).toContain(
 				'The examination library lists all the documents submitted about the project'
 			);
