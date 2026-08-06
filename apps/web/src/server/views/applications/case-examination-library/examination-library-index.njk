@@ -1,10 +1,10 @@
 {% extends "../case/layouts/applications-case-layout.njk" %}
 {% from "govuk/components/task-list/macro.njk" import govukTaskList %}
 
-{% set pageTitle = 'Examination Library' %}
+{% set pageTitle = 'Examination library' %}
 
 {% block sectionContent %}
-	<h2 class="govuk-heading-m">Examination Library</h2>
+	<h2 class="govuk-heading-m">Examination library</h2>
 	<p class="govuk-body">The examination library lists all the documents submitted about the project from the point of application to the close of the examination phase. Any deadlines or meetings added to the examination timetable will appear here as new sections.</p>
 
 	{% for section in sections %}
