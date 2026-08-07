@@ -322,7 +322,7 @@ export async function viewApplicationsCaseDocumentationUnpublishSinglePage(reque
 /**
  * View the documentation properties page
  *
- * @type {import('@pins/express').RenderHandler<{documentationFile: DocumentationFile, documentVersions: DocumentVersion[], updateBannerText: string|undefined, showSuccessBanner: boolean|undefined, caseIsWelsh: boolean, showAiRedactionButton: boolean, showReviewRedactionsButton: boolean, aiRedactionBanner: {}|undefined}, {}>}
+ * @type {import('@pins/express').RenderHandler<{documentationFile: DocumentationFile, documentVersions: DocumentVersion[], updateBannerText: string|undefined, showSuccessBanner: boolean|undefined, caseIsWelsh: boolean, showAiRedactionButton: boolean, showReviewRedactionsButton: boolean, aiRedactionBanner: {}|undefined, examinationLibraryEnabled: boolean},  {}>}
  */
 export async function viewApplicationsCaseDocumentationProperties({ session }, response) {
 	const { caseId, folderId, caseIsWelsh, documentGuid } = response.locals;
@@ -362,6 +362,10 @@ export async function viewApplicationsCaseDocumentationProperties({ session }, r
 	deleteSessionBanner(session);
 	destroySuccessBanner(session);
 
+	const examinationLibraryEnabled = await featureFlagClient.isFeatureActive(
+		'idas-607-examination-library'
+	);
+
 	response.render(`applications/case-documentation/properties/documentation-properties`, {
 		documentationFile,
 		documentVersions,
@@ -370,7 +374,8 @@ export async function viewApplicationsCaseDocumentationProperties({ session }, r
 		caseIsWelsh,
 		showAiRedactionButton,
 		showReviewRedactionsButton,
-		aiRedactionBanner
+		aiRedactionBanner,
+		examinationLibraryEnabled
 	});
 }
 

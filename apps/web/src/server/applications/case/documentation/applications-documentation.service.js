@@ -156,6 +156,15 @@ export const unpublishCaseDocumentationFiles = async (caseId, documentGuids, use
 export const getCaseDocumentationFileInfo = async (caseId, fileGuid) => {
 	return get(`applications/${caseId}/documents/${fileGuid}/properties`);
 };
+
+/**
+ * Get examination library categories for a case.
+ *
+ * @param {number} caseId
+ */
+export const getCaseExaminationLibraryCategories = async (caseId) => {
+	return get(`applications/${caseId}/examination-library-categories`);
+};
 /**
  * Get the blob storage info for the file with the given GUID
  *

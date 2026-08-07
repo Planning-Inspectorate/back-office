@@ -1,10 +1,11 @@
 import { url } from '../../../lib/nunjucks-filters/url.js';
 import { updateDocumentMetaData } from './documentation-metadata.service.js';
 import { setSessionBanner } from '../../common/services/session.service.js';
+import { featureFlagClient } from '../../../../common/feature-flags.js';
 
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
-/** @typedef {"name" | "description" | "descriptionWelsh" | "published-date" | "receipt-date"| "redaction" | "published-status" | "type"|"webfilter" | "webfilterWelsh" | "agent"| "author" | "authorWelsh" | "transcript" | "interestedPartyNumber" | "party-type"} MetaDataNames */
-/** @typedef {{label?: string, metaDataName: string, metaDataType?: string, hint?: string, pageTitle?: string, backLink?: string, maxLength?: number, template?: string, englishLabel?: string, metaDataEnglishName?: string, items?: {value: boolean|string, text: string, checked?: boolean, hint?: {text: string}}[]}} MetaDataLayoutParams */
+/** @typedef {"name" | "description" | "descriptionWelsh" | "published-date" | "receipt-date"| "redaction" | "published-status" | "type"|"webfilter" | "webfilterWelsh" | "agent"| "author" | "authorWelsh" | "transcript" | "interestedPartyNumber" | "party-type" | "examination-library-category" | "examination-library-reference"} MetaDataNames */
+/** @typedef {{label?: string, metaDataName: string, metaDataType?: string, hint?: string, pageTitle?: string, backLink?: string, maxLength?: number, template?: string, englishLabel?: string, metaDataEnglishName?: string, items?: {value: boolean|string|number, text: string, checked?: boolean, hint?: {text: string}}[]}} MetaDataLayoutParams */
 /** @typedef {{documentGuid: string, metaDataName: MetaDataNames}} RequestParams */
 /** @typedef {import('../../applications.types').DocumentationFile} DocumentationFile */
 /** @typedef {{case: {isMaterialChange: boolean}, caseId: number, folderId: number, documentMetaData: DocumentationFile, documentGuid: string}} ResponseLocals */
@@ -32,27 +33,6 @@ const layouts = {
 		label: 'Interested Party number (optional)',
 		metaDataName: 'interestedPartyNumber',
 		template: 'documentation-edit-textinput.njk'
-	},
-	'party-type': {
-		items: [
-			{ value: 'Applicant', text: 'Applicant' },
-			{ value: 'Local authority', text: 'Local authority' },
-			{
-				value: 'Other council',
-				text: 'Other council',
-				hint: {
-					text: 'For example, parish council, community council or town council'
-				}
-			},
-			{ value: 'Statutory body', text: 'Statutory body' },
-			{ value: 'Interested organisation', text: 'Interested organisation' },
-			{ value: 'Individual', text: 'Individual' },
-			{ value: 'Planning Inspectorate', text: 'Planning Inspectorate' }
-		],
-		pageTitle: 'Type of party',
-		label: 'Type of party',
-		metaDataName: 'typeOfParty',
-		metaDataType: 'radios'
 	},
 	webfilter: {
 		label: 'Webfilter',
@@ -82,6 +62,27 @@ const layouts = {
 		metaDataName: 'authorWelsh',
 		metaDataEnglishName: 'author',
 		template: 'documentation-edit-textarea.njk'
+	},
+	'party-type': {
+		items: [
+			{ value: 'Applicant', text: 'Applicant' },
+			{ value: 'Local authority', text: 'Local authority' },
+			{
+				value: 'Other council',
+				text: 'Other council',
+				hint: {
+					text: 'For example, parish council, community council or town council'
+				}
+			},
+			{ value: 'Statutory body', text: 'Statutory body' },
+			{ value: 'Interested organisation', text: 'Interested organisation' },
+			{ value: 'Individual', text: 'Individual' },
+			{ value: 'Planning Inspectorate', text: 'Planning Inspectorate' }
+		],
+		pageTitle: 'Type of party',
+		label: 'Type of party',
+		metaDataName: 'typeOfParty',
+		metaDataType: 'radios'
 	},
 	'published-date': {
 		label: 'Date document published',
@@ -124,6 +125,19 @@ const layouts = {
 		label: 'Transcript (optional)',
 		hint: 'E.g. TR010060-000110',
 		metaDataName: 'transcript',
+		template: 'documentation-edit-textinput.njk'
+	},
+	'examination-library-category': {
+		items: [],
+		pageTitle: 'Select the examination library category',
+		label: 'Examination library category',
+		metaDataName: 'examinationLibraryCategoryId',
+		metaDataType: 'radios'
+	},
+	'examination-library-reference': {
+		label: 'Examination library reference',
+		hint: 'For example, EXM-456',
+		metaDataName: 'examinationRefNo',
 		template: 'documentation-edit-textinput.njk'
 	},
 	type: {
@@ -174,7 +188,7 @@ const layouts = {
  * @type {import('@pins/express').RenderHandler<{}, {}, {}, {}, RequestParams, ResponseLocals>}
  */
 export async function viewDocumentationMetaData({ params }, response, next) {
-	const layout = getLayoutParameters(params, response.locals);
+	const layout = await getLayoutParameters(params, response.locals);
 	if (!layout) {
 		return next();
 	}
@@ -204,6 +218,17 @@ export async function updateDocumentationMetaData(request, response) {
 	const { caseId, documentGuid } = response.locals;
 	const { metaDataName } = params;
 
+	const examinationLibraryNames = [
+		'party-type',
+		'examination-library-category',
+		'examination-library-reference'
+	];
+	if (examinationLibraryNames.includes(metaDataName)) {
+		if (!(await featureFlagClient.isFeatureActive('idas-607-examination-library'))) {
+			return response.redirect('../properties');
+		}
+	}
+
 	let newMetaData = body;
 
 	if (metaDataName === 'published-date' || metaDataName === 'receipt-date') {
@@ -219,6 +244,17 @@ export async function updateDocumentationMetaData(request, response) {
 			newMetaData = { [fieldName]: new Date(`${year}-${month}-${day}`) };
 		}
 	}
+
+	if (metaDataName === 'examination-library-category') {
+		if (newMetaData.examinationLibraryCategoryId === 'none') {
+			newMetaData = {
+				examinationLibraryCategoryId: null,
+				examinationRefNo: ''
+			};
+		} else {
+			newMetaData.examinationLibraryCategoryId = Number(newMetaData.examinationLibraryCategoryId);
+		}
+	}
 	// special case for documentType "No document type" - we need to send null to the api
 	if (metaDataName === 'type' && newMetaData.documentType === '') {
 		newMetaData.documentType = null;
@@ -229,7 +265,7 @@ export async function updateDocumentationMetaData(request, response) {
 		: await updateDocumentMetaData(caseId, documentGuid, newMetaData);
 
 	if (validationErrors || apiErrors) {
-		const layout = getLayoutParameters(params, response.locals);
+		const layout = await getLayoutParameters(params, response.locals);
 
 		// @ts-ignore
 		const errors = Object.entries(validationErrors || apiErrors).reduce((result, [key, value]) => {
@@ -256,11 +292,22 @@ export async function updateDocumentationMetaData(request, response) {
  *
  * @param {RequestParams} requestParameters
  * @param {ResponseLocals} responseLocals
- * @returns {MetaDataLayoutParams | null}
+ * @returns {Promise<MetaDataLayoutParams | null>}
  */
-const getLayoutParameters = (requestParameters, responseLocals) => {
+const getLayoutParameters = async (requestParameters, responseLocals) => {
 	const { documentGuid, metaDataName } = requestParameters;
 	const { caseId, folderId, case: caseData } = responseLocals;
+
+	const examinationLibraryNames = [
+		'party-type',
+		'examination-library-category',
+		'examination-library-reference'
+	];
+	if (examinationLibraryNames.includes(metaDataName)) {
+		if (!(await featureFlagClient.isFeatureActive('idas-607-examination-library'))) {
+			return null;
+		}
+	}
 
 	const backLink = url('document', {
 		caseId,
@@ -269,7 +316,12 @@ const getLayoutParameters = (requestParameters, responseLocals) => {
 		step: 'properties'
 	});
 
-	const layout = layouts[metaDataName];
+	const layout = layouts[metaDataName]
+		? {
+				...layouts[metaDataName],
+				...(layouts[metaDataName].items ? { items: [...layouts[metaDataName].items] } : {})
+		  }
+		: null;
 	if (!layout) {
 		return null;
 	}

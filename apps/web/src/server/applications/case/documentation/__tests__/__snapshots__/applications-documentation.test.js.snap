@@ -7348,10 +7348,8 @@ exports[`applications documentation Document properties page page should render 
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/agent">Change<span class="govuk-visually-hidden"> Agent (optional)</span></a>
                             </dd>
                         </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Document case stage</dt>
+                        <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Document case stage</dt>
                             <dd class="govuk-summary-list__value">pre-examination</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href=""></a>
-                            </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Webfilter</dt>
                             <dd class="govuk-summary-list__value">Consectetur</dd>
@@ -7363,15 +7361,23 @@ exports[`applications documentation Document properties page page should render 
                                 <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/type">Change<span class="govuk-visually-hidden"> Document type (optional)</span></a>
                                 </dd>
                         </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Examination library category</dt>
+                            <dd                             class="govuk-summary-list__value"></dd>
+                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/examination-library-category">Change<span class="govuk-visually-hidden"> Examination library category</span></a>
+                                </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Examination library reference</dt>
+                            <dd                             class="govuk-summary-list__value"></dd>
+                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/examination-library-reference">Change<span class="govuk-visually-hidden"> Examination library reference</span></a>
+                                </dd>
+                        </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Date received</dt>
                             <dd class="govuk-summary-list__value">01/12/2022</dd>
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/receipt-date">Change<span class="govuk-visually-hidden"> Date received</span></a>
                             </dd>
                         </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Published date</dt>
+                        <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Published date</dt>
                             <dd class="govuk-summary-list__value"></dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href=""></a>
-                            </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Redaction</dt>
                             <dd class="govuk-summary-list__value">Redacted</dd>
@@ -7516,10 +7522,8 @@ exports[`applications documentation Document properties page page should render 
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/11/edit/agent">Change<span class="govuk-visually-hidden"> Agent (optional)</span></a>
                             </dd>
                         </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Document case stage</dt>
+                        <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Document case stage</dt>
                             <dd class="govuk-summary-list__value">withdrawn</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href=""></a>
-                            </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Webfilter</dt>
                             <dd class="govuk-summary-list__value">Ut</dd>
@@ -7529,6 +7533,16 @@ exports[`applications documentation Document properties page page should render 
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Document type (optional)</dt>
                             <dd                             class="govuk-summary-list__value"></dd>
                                 <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/11/edit/type">Change<span class="govuk-visually-hidden"> Document type (optional)</span></a>
+                                </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Examination library category</dt>
+                            <dd                             class="govuk-summary-list__value"></dd>
+                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/11/edit/examination-library-category">Change<span class="govuk-visually-hidden"> Examination library category</span></a>
+                                </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Examination library reference</dt>
+                            <dd                             class="govuk-summary-list__value"></dd>
+                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/11/edit/examination-library-reference">Change<span class="govuk-visually-hidden"> Examination library reference</span></a>
                                 </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Transcript (optional)</dt>
@@ -7549,10 +7563,8 @@ exports[`applications documentation Document properties page page should render 
                         <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Redaction</dt>
                             <dd class="govuk-summary-list__value">Unredacted</dd>
                         </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Status</dt>
+                        <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Status</dt>
                             <dd class="govuk-summary-list__value">Published</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href=""></a>
-                            </dd>
                         </div>
                     </dl>
                 </div>
@@ -7693,10 +7705,8 @@ exports[`applications documentation Document properties page should NOT show red
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/153/edit/agent">Change<span class="govuk-visually-hidden"> Agent (optional)</span></a>
                             </dd>
                         </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Document case stage</dt>
+                        <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Document case stage</dt>
                             <dd class="govuk-summary-list__value">decision</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href=""></a>
-                            </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Webfilter</dt>
                             <dd class="govuk-summary-list__value">Eiusmod</dd>
@@ -7708,23 +7718,29 @@ exports[`applications documentation Document properties page should NOT show red
                                 <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/153/edit/type">Change<span class="govuk-visually-hidden"> Document type (optional)</span></a>
                                 </dd>
                         </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Examination library category</dt>
+                            <dd                             class="govuk-summary-list__value"></dd>
+                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/153/edit/examination-library-category">Change<span class="govuk-visually-hidden"> Examination library category</span></a>
+                                </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Examination library reference</dt>
+                            <dd                             class="govuk-summary-list__value"></dd>
+                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/153/edit/examination-library-reference">Change<span class="govuk-visually-hidden"> Examination library reference</span></a>
+                                </dd>
+                        </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Date received</dt>
                             <dd class="govuk-summary-list__value">01/12/2022</dd>
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/153/edit/receipt-date">Change<span class="govuk-visually-hidden"> Date received</span></a>
                             </dd>
                         </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Published date</dt>
+                        <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Published date</dt>
                             <dd class="govuk-summary-list__value"></dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href=""></a>
-                            </dd>
                         </div>
                         <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Redaction</dt>
                             <dd class="govuk-summary-list__value">Redaction in progress</dd>
                         </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Status</dt>
+                        <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Status</dt>
                             <dd class="govuk-summary-list__value">Awaiting virus check</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href=""></a>
-                            </dd>
                         </div>
                     </dl>
                 </div>
@@ -7856,10 +7872,8 @@ exports[`applications documentation Document properties page should NOT show red
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/152/edit/agent">Change<span class="govuk-visually-hidden"> Agent (optional)</span></a>
                             </dd>
                         </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Document case stage</dt>
+                        <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Document case stage</dt>
                             <dd class="govuk-summary-list__value">decision</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href=""></a>
-                            </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Webfilter</dt>
                             <dd class="govuk-summary-list__value">Eiusmod</dd>
@@ -7871,23 +7885,29 @@ exports[`applications documentation Document properties page should NOT show red
                                 <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/152/edit/type">Change<span class="govuk-visually-hidden"> Document type (optional)</span></a>
                                 </dd>
                         </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Examination library category</dt>
+                            <dd                             class="govuk-summary-list__value"></dd>
+                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/152/edit/examination-library-category">Change<span class="govuk-visually-hidden"> Examination library category</span></a>
+                                </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Examination library reference</dt>
+                            <dd                             class="govuk-summary-list__value"></dd>
+                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/152/edit/examination-library-reference">Change<span class="govuk-visually-hidden"> Examination library reference</span></a>
+                                </dd>
+                        </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Date received</dt>
                             <dd class="govuk-summary-list__value">01/12/2022</dd>
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/152/edit/receipt-date">Change<span class="govuk-visually-hidden"> Date received</span></a>
                             </dd>
                         </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Published date</dt>
+                        <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Published date</dt>
                             <dd class="govuk-summary-list__value"></dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href=""></a>
-                            </dd>
                         </div>
                         <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Redaction</dt>
                             <dd class="govuk-summary-list__value">Suggestions reviewed</dd>
                         </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Status</dt>
+                        <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Status</dt>
                             <dd class="govuk-summary-list__value">Awaiting virus check</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href=""></a>
-                            </dd>
                         </div>
                     </dl>
                 </div>
@@ -8028,10 +8048,8 @@ exports[`applications documentation Document properties page should NOT show red
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/151/edit/agent">Change<span class="govuk-visually-hidden"> Agent (optional)</span></a>
                             </dd>
                         </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Document case stage</dt>
+                        <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Document case stage</dt>
                             <dd class="govuk-summary-list__value">decision</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href=""></a>
-                            </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Webfilter</dt>
                             <dd class="govuk-summary-list__value">Eiusmod</dd>
@@ -8043,23 +8061,29 @@ exports[`applications documentation Document properties page should NOT show red
                                 <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/151/edit/type">Change<span class="govuk-visually-hidden"> Document type (optional)</span></a>
                                 </dd>
                         </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Examination library category</dt>
+                            <dd                             class="govuk-summary-list__value"></dd>
+                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/151/edit/examination-library-category">Change<span class="govuk-visually-hidden"> Examination library category</span></a>
+                                </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Examination library reference</dt>
+                            <dd                             class="govuk-summary-list__value"></dd>
+                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/151/edit/examination-library-reference">Change<span class="govuk-visually-hidden"> Examination library reference</span></a>
+                                </dd>
+                        </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Date received</dt>
                             <dd class="govuk-summary-list__value">01/12/2022</dd>
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/151/edit/receipt-date">Change<span class="govuk-visually-hidden"> Date received</span></a>
                             </dd>
                         </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Published date</dt>
+                        <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Published date</dt>
                             <dd class="govuk-summary-list__value"></dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href=""></a>
-                            </dd>
                         </div>
                         <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Redaction</dt>
                             <dd class="govuk-summary-list__value">Redactions suggested</dd>
                         </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Status</dt>
+                        <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Status</dt>
                             <dd class="govuk-summary-list__value">Awaiting virus check</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href=""></a>
-                            </dd>
                         </div>
                     </dl>
                 </div>
@@ -8200,10 +8224,8 @@ exports[`applications documentation Document properties page should NOT show red
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/150/edit/agent">Change<span class="govuk-visually-hidden"> Agent (optional)</span></a>
                             </dd>
                         </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Document case stage</dt>
+                        <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Document case stage</dt>
                             <dd class="govuk-summary-list__value">decision</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href=""></a>
-                            </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Webfilter</dt>
                             <dd class="govuk-summary-list__value">Eiusmod</dd>
@@ -8215,23 +8237,29 @@ exports[`applications documentation Document properties page should NOT show red
                                 <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/150/edit/type">Change<span class="govuk-visually-hidden"> Document type (optional)</span></a>
                                 </dd>
                         </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Examination library category</dt>
+                            <dd                             class="govuk-summary-list__value"></dd>
+                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/150/edit/examination-library-category">Change<span class="govuk-visually-hidden"> Examination library category</span></a>
+                                </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Examination library reference</dt>
+                            <dd                             class="govuk-summary-list__value"></dd>
+                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/150/edit/examination-library-reference">Change<span class="govuk-visually-hidden"> Examination library reference</span></a>
+                                </dd>
+                        </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Date received</dt>
                             <dd class="govuk-summary-list__value">01/12/2022</dd>
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/150/edit/receipt-date">Change<span class="govuk-visually-hidden"> Date received</span></a>
                             </dd>
                         </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Published date</dt>
+                        <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Published date</dt>
                             <dd class="govuk-summary-list__value"></dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href=""></a>
-                            </dd>
                         </div>
                         <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Redaction</dt>
                             <dd class="govuk-summary-list__value">Suggestions in progress</dd>
                         </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Status</dt>
+                        <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Status</dt>
                             <dd class="govuk-summary-list__value">Awaiting virus check</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href=""></a>
-                            </dd>
                         </div>
                     </dl>
                 </div>
@@ -8366,10 +8394,8 @@ exports[`applications documentation Document properties page should NOT show red
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/11/edit/agent">Change<span class="govuk-visually-hidden"> Agent (optional)</span></a>
                             </dd>
                         </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Document case stage</dt>
+                        <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Document case stage</dt>
                             <dd class="govuk-summary-list__value">withdrawn</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href=""></a>
-                            </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Webfilter</dt>
                             <dd class="govuk-summary-list__value">Ut</dd>
@@ -8379,6 +8405,16 @@ exports[`applications documentation Document properties page should NOT show red
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Document type (optional)</dt>
                             <dd                             class="govuk-summary-list__value"></dd>
                                 <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/11/edit/type">Change<span class="govuk-visually-hidden"> Document type (optional)</span></a>
+                                </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Examination library category</dt>
+                            <dd                             class="govuk-summary-list__value"></dd>
+                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/11/edit/examination-library-category">Change<span class="govuk-visually-hidden"> Examination library category</span></a>
+                                </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Examination library reference</dt>
+                            <dd                             class="govuk-summary-list__value"></dd>
+                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/11/edit/examination-library-reference">Change<span class="govuk-visually-hidden"> Examination library reference</span></a>
                                 </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Transcript (optional)</dt>
@@ -8399,10 +8435,8 @@ exports[`applications documentation Document properties page should NOT show red
                         <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Redaction</dt>
                             <dd class="govuk-summary-list__value">Unredacted</dd>
                         </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Status</dt>
+                        <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Status</dt>
                             <dd class="govuk-summary-list__value">Published</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href=""></a>
-                            </dd>
                         </div>
                     </dl>
                 </div>
@@ -8540,10 +8574,8 @@ exports[`applications documentation Document properties page should not show pub
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/agent">Change<span class="govuk-visually-hidden"> Agent (optional)</span></a>
                             </dd>
                         </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Document case stage</dt>
+                        <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Document case stage</dt>
                             <dd class="govuk-summary-list__value">pre-examination</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href=""></a>
-                            </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Webfilter</dt>
                             <dd class="govuk-summary-list__value">Consectetur</dd>
@@ -8555,15 +8587,23 @@ exports[`applications documentation Document properties page should not show pub
                                 <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/type">Change<span class="govuk-visually-hidden"> Document type (optional)</span></a>
                                 </dd>
                         </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Examination library category</dt>
+                            <dd                             class="govuk-summary-list__value"></dd>
+                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/examination-library-category">Change<span class="govuk-visually-hidden"> Examination library category</span></a>
+                                </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Examination library reference</dt>
+                            <dd                             class="govuk-summary-list__value"></dd>
+                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/examination-library-reference">Change<span class="govuk-visually-hidden"> Examination library reference</span></a>
+                                </dd>
+                        </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Date received</dt>
                             <dd class="govuk-summary-list__value">01/12/2022</dd>
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/receipt-date">Change<span class="govuk-visually-hidden"> Date received</span></a>
                             </dd>
                         </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Published date</dt>
+                        <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Published date</dt>
                             <dd class="govuk-summary-list__value"></dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href=""></a>
-                            </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Redaction</dt>
                             <dd class="govuk-summary-list__value">Redacted</dd>
@@ -8708,10 +8748,8 @@ exports[`applications documentation Document properties page should not show pub
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/11/edit/agent">Change<span class="govuk-visually-hidden"> Agent (optional)</span></a>
                             </dd>
                         </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Document case stage</dt>
+                        <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Document case stage</dt>
                             <dd class="govuk-summary-list__value">withdrawn</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href=""></a>
-                            </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Webfilter</dt>
                             <dd class="govuk-summary-list__value">Ut</dd>
@@ -8721,6 +8759,16 @@ exports[`applications documentation Document properties page should not show pub
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Document type (optional)</dt>
                             <dd                             class="govuk-summary-list__value"></dd>
                                 <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/11/edit/type">Change<span class="govuk-visually-hidden"> Document type (optional)</span></a>
+                                </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Examination library category</dt>
+                            <dd                             class="govuk-summary-list__value"></dd>
+                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/11/edit/examination-library-category">Change<span class="govuk-visually-hidden"> Examination library category</span></a>
+                                </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Examination library reference</dt>
+                            <dd                             class="govuk-summary-list__value"></dd>
+                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/11/edit/examination-library-reference">Change<span class="govuk-visually-hidden"> Examination library reference</span></a>
                                 </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Transcript (optional)</dt>
@@ -8741,10 +8789,8 @@ exports[`applications documentation Document properties page should not show pub
                         <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Redaction</dt>
                             <dd class="govuk-summary-list__value">Unredacted</dd>
                         </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Status</dt>
+                        <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Status</dt>
                             <dd class="govuk-summary-list__value">Published</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href=""></a>
-                            </dd>
                         </div>
                     </dl>
                 </div>
@@ -8882,10 +8928,8 @@ exports[`applications documentation Document properties page should show publish
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/agent">Change<span class="govuk-visually-hidden"> Agent (optional)</span></a>
                             </dd>
                         </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Document case stage</dt>
+                        <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Document case stage</dt>
                             <dd class="govuk-summary-list__value">pre-examination</dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href=""></a>
-                            </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Webfilter</dt>
                             <dd class="govuk-summary-list__value">Consectetur</dd>
@@ -8897,15 +8941,23 @@ exports[`applications documentation Document properties page should show publish
                                 <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/type">Change<span class="govuk-visually-hidden"> Document type (optional)</span></a>
                                 </dd>
                         </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Examination library category</dt>
+                            <dd                             class="govuk-summary-list__value"></dd>
+                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/examination-library-category">Change<span class="govuk-visually-hidden"> Examination library category</span></a>
+                                </dd>
+                        </div>
+                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Examination library reference</dt>
+                            <dd                             class="govuk-summary-list__value"></dd>
+                                <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/examination-library-reference">Change<span class="govuk-visually-hidden"> Examination library reference</span></a>
+                                </dd>
+                        </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Date received</dt>
                             <dd class="govuk-summary-list__value">01/12/2022</dd>
                             <dd class="govuk-summary-list__actions"><a class="govuk-link" href="/applications-service/case/123/project-documentation/21/document/3/edit/receipt-date">Change<span class="govuk-visually-hidden"> Date received</span></a>
                             </dd>
                         </div>
-                        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Published date</dt>
+                        <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"><dt class="govuk-summary-list__key"> Published date</dt>
                             <dd class="govuk-summary-list__value"></dd>
-                            <dd class="govuk-summary-list__actions"><a class="govuk-link" href=""></a>
-                            </dd>
                         </div>
                         <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> Redaction</dt>
                             <dd class="govuk-summary-list__value">Redacted</dd>
