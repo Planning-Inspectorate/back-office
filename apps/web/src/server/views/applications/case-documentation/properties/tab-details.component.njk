@@ -42,6 +42,29 @@
 	{% set publishedDate = (documentationFile.datePublished|datestamp({format: 'dd/MM/yyyy'})) if documentationFile.publishedStatus === 'published' else null %}
 	{% set statusCanBeChanged = not documentationFile.publishedStatus in ['published', 'awaiting_upload', 'awaiting_virus_check', 'failed_virus_check', 'invalid'] %}
 
+{% if 'idas-607-examination-library' | isFeatureActive %}
+    {% set typeOfPartyRow = {
+        label: 'Type of party',
+        value: documentationFile.typeOfParty,
+        link: 'party-type'
+    } %}
+    {% set examinationLibraryCategoryRow = {
+        label: 'Examination library category',
+        value: documentationFile.examinationLibraryCategoryName,
+        link: 'examination-library-category'
+    } %}
+    {% set examinationLibraryReferenceRow = {
+        label: 'Examination library reference',
+        value: documentationFile.examinationRefNo,
+        link: 'examination-library-reference'
+    } %}
+	{% else %}
+	{% set typeOfPartyRow = null %}
+    {% set examinationLibraryCategoryRow = null %}
+    {% set examinationLibraryReferenceRow = null %}
+{% endif %}
+
+
 	{% set properties = [
 						{label: 'File name', value: documentationFile.fileName, link: 'name'},
 						{label: 'Description', value: documentationFile.description, link: 'description'},
@@ -49,11 +72,13 @@
             			{label: 'IP number (optional)', value: documentationFile.interestedPartyNumber, link: 'interestedPartyNumber'},
 						{label: 'Who the document is from', value: documentationFile.author, link: 'author'},
 						welshFromRow,
-						{label: 'Type of party', value: documentationFile.typeOfParty, link: 'party-type'},
+						typeOfPartyRow,
 						{label: 'Agent (optional)', value: documentationFile.representative, link: 'agent'},
 						{label: 'Document case stage', value: documentationFile.stage},
 						{label: 'Webfilter', value: documentationFile.filter1, link: 'webfilter'},
 						welshWebfilterRow,
+						examinationLibraryCategoryRow,
+						examinationLibraryReferenceRow,
 						{label: 'Document type (optional)', value: documentationFile.documentType, link: 'type'},
 						transcriptRow,
 						{label: 'Date received', value: (documentationFile.dateCreated|datestamp({format: 'dd/MM/yyyy'})), link: 'receipt-date'},
