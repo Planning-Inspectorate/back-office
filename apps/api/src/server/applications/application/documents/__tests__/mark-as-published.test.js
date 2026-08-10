@@ -3,133 +3,133 @@ const { databaseConnector } = await import('#utils/database-connector.js');
 const { eventClient } = await import('#infrastructure/event-client.js');
 
 describe('Mark-as-published', () => {
-	test('Marks a document as published', async () => {
-		// Arrange
+	const caseId = 1;
+	const documentGuid = '1111-2222-3333';
 
-		const caseId = 1;
-		const documentGuid = '1111-2222-3333';
+	const documentFolder = {
+		displayNameEn: 'Project documentation',
+		case: {
+			id: 1,
+			reference: 'TR010001',
+			CaseStatus: [{ id: 1, status: 'pre-application' }]
+		}
+	};
 
-		const documentFolder = {
-			displayNameEn: 'Project documentation',
-			case: {
-				id: 1,
-				reference: 'TR010001',
-				CaseStatus: [{ id: 1, status: 'pre-application' }]
-			}
-		};
-
-		const updatedDocument = {
-			Document: {
-				guid: documentGuid,
-				documentReference: 'TR0110001-000017',
-				caseId: 1,
-				folderId: 1111,
-				folder: documentFolder
-			},
-			version: 1,
-			description: 'file to be published',
-			originalFilename: 'original_filename.pdf',
-			fileName: 'filename.pdf',
-			size: 23452,
-			mime: 'application/pdf',
-			fileMD5: 'b1946ac92492d2347c6235b4d2611184',
-			virusCheckStatus: 'scanned',
-			dateCreated: new Date('2023-03-26T00:00:00.000Z'),
-			lastModified: null,
-			privateBlobContainer: 'document-uploads',
-			privateBlobPath: 'published/en010120-filename.pdf',
-			publishedBlobContainer: 'document-uploads',
-			publishedBlobPath: 'published/en010120-filename.pdf',
-			publishedStatus: 'published',
-			redactedStatus: 'not_redacted',
-			horizonDataID: null,
-			transcriptGuid: null,
-			examinationRefNo: null,
-			documentType: 'Rule 8 letter',
-			securityClassification: 'public',
-			sourceSystem: 'back-office-applications',
-			origin: 'pins',
-			owner: 'owner1',
-			author: 'author1',
-			representative: 'ZZZ Agency',
-			filter1: 'Deadline 2',
-			filter2: 'Scoping Option Report'
-		};
-
-		const documentWithVersions = {
+	const updatedDocument = {
+		Document: {
 			guid: documentGuid,
-			reference: 'BC0110001-000003',
-			documentName: 'test',
+			documentReference: 'TR0110001-000017',
+			caseId: 1,
 			folderId: 1111,
-			caseId: caseId,
-			documentSize: 1111,
-			documentType: 'test',
-			latestVersionId: 1,
-			fromFrontOffice: false,
-			documentVersion: [
-				{
-					documentGuid: documentGuid,
-					version: 1,
-					author: 'test',
-					publishedStatus: 'published',
-					fileName: 'Small',
-					mime: 'application/pdf',
-					size: 7945,
-					owner: 'William Wordsworth'
-				}
-			]
-		};
+			folder: documentFolder
+		},
+		version: 1,
+		description: 'file to be published',
+		originalFilename: 'original_filename.pdf',
+		fileName: 'filename.pdf',
+		size: 23452,
+		mime: 'application/pdf',
+		fileMD5: 'b1946ac92492d2347c6235b4d2611184',
+		virusCheckStatus: 'scanned',
+		dateCreated: new Date('2023-03-26T00:00:00.000Z'),
+		lastModified: null,
+		privateBlobContainer: 'document-uploads',
+		privateBlobPath: 'published/en010120-filename.pdf',
+		publishedBlobContainer: 'document-uploads',
+		publishedBlobPath: 'published/en010120-filename.pdf',
+		publishedStatus: 'published',
+		redactedStatus: 'not_redacted',
+		horizonDataID: null,
+		transcriptGuid: null,
+		examinationRefNo: null,
+		documentType: 'Rule 8 letter',
+		securityClassification: 'public',
+		sourceSystem: 'back-office-applications',
+		origin: 'pins',
+		owner: 'owner1',
+		author: 'author1',
+		representative: 'ZZZ Agency',
+		filter1: 'Deadline 2',
+		filter2: 'Scoping Option Report'
+	};
 
-		const application1 = {
-			id: caseId,
-			reference: 'BC0110001',
-			modifiedAt: '2024-01-17T14:32:37.530Z',
-			createdAt: '2024-01-16T16:44:26.710Z',
-			description:
-				'A description of test case 1 which is a case of subsector type Office Use. A David case',
-			title: 'Office Use Test Application 1',
-			hasUnpublishedChanges: true,
-			applicantId: 100000000,
-			ApplicationDetails: {
-				id: 100000000,
-				caseId: caseId,
-				subSectorId: 1,
-				locationDescription: null,
-				zoomLevelId: 4,
-				caseEmail: null,
-				subSector: {
+	const documentWithVersions = {
+		guid: documentGuid,
+		reference: 'BC0110001-000003',
+		documentName: 'test',
+		folderId: 1111,
+		caseId: caseId,
+		documentSize: 1111,
+		documentType: 'test',
+		latestVersionId: 1,
+		fromFrontOffice: false,
+		documentVersion: [
+			{
+				documentGuid: documentGuid,
+				version: 1,
+				author: 'test',
+				publishedStatus: 'published',
+				fileName: 'Small',
+				mime: 'application/pdf',
+				size: 7945,
+				owner: 'William Wordsworth'
+			}
+		]
+	};
+
+	const application1 = {
+		id: caseId,
+		reference: 'BC0110001',
+		modifiedAt: '2024-01-17T14:32:37.530Z',
+		createdAt: '2024-01-16T16:44:26.710Z',
+		description:
+			'A description of test case 1 which is a case of subsector type Office Use. A David case',
+		title: 'Office Use Test Application 1',
+		hasUnpublishedChanges: true,
+		applicantId: 100000000,
+		ApplicationDetails: {
+			id: 100000000,
+			caseId: caseId,
+			subSectorId: 1,
+			locationDescription: null,
+			zoomLevelId: 4,
+			caseEmail: null,
+			subSector: {
+				id: 1,
+				abbreviation: 'BC01',
+				name: 'office_use',
+				displayNameEn: 'Office Use',
+				displayNameCy: 'Office Use',
+				sectorId: 1,
+				sector: {
 					id: 1,
-					abbreviation: 'BC01',
-					name: 'office_use',
-					displayNameEn: 'Office Use',
-					displayNameCy: 'Office Use',
-					sectorId: 1,
-					sector: {
-						id: 1,
-						abbreviation: 'BC',
-						name: 'business_and_commercial',
-						displayNameEn: 'Business and Commercial',
-						displayNameCy: 'Business and Commercial'
-					}
+					abbreviation: 'BC',
+					name: 'business_and_commercial',
+					displayNameEn: 'Business and Commercial',
+					displayNameCy: 'Business and Commercial'
 				}
 			}
-		};
+		}
+	};
 
-		const includeFullDocument = {
-			Document: {
-				include: {
-					folder: {
-						include: {
-							case: {
-								include: {
-									CaseStatus: true
-								}
+	const includeFullDocument = {
+		Document: {
+			include: {
+				folder: {
+					include: {
+						case: {
+							include: {
+								CaseStatus: true
 							}
 						}
 					}
 				}
 			}
-		};
+		}
+	};
+
+	test('Marks a document as published', async () => {
+		// Arrange
 
 		databaseConnector.case.findUnique.mockResolvedValue(application1);
 		databaseConnector.document.findUnique.mockResolvedValue(documentWithVersions);
@@ -211,5 +211,113 @@ describe('Mark-as-published', () => {
 			'Publish',
 			{}
 		);
+	});
+
+	test('preserves the existing published date when republishing a document', async () => {
+		// Arrange
+
+		const existingPublishedDate = new Date('2026-01-01T00:00:00Z');
+
+		databaseConnector.case.findUnique.mockResolvedValue(application1);
+		databaseConnector.document.findUnique.mockResolvedValue(documentWithVersions);
+		databaseConnector.folder.findUnique.mockResolvedValue(documentFolder);
+
+		databaseConnector.documentVersion.findUnique.mockResolvedValue({
+			...updatedDocument,
+			datePublished: existingPublishedDate
+		});
+
+		databaseConnector.documentVersion.update.mockResolvedValue({
+			...updatedDocument,
+			datePublished: existingPublishedDate
+		});
+
+		// Act
+
+		await request
+			.post('/applications/1/documents/1111-2222-3333/version/1/mark-as-published')
+			.send({
+				publishedBlobPath: 'published/en010120-filename.pdf',
+				publishedBlobContainer: 'published-documents',
+				publishedDate: new Date('2024-01-01T00:00:00Z')
+			});
+
+		// Assert
+
+		expect(databaseConnector.documentVersion.update).toHaveBeenCalledWith({
+			data: {
+				datePublished: existingPublishedDate,
+				publishedBlobContainer: 'published-documents',
+				publishedBlobPath: 'published/en010120-filename.pdf',
+				publishedStatus: 'published',
+				publishedStatusPrev: 'publishing'
+			},
+			include: includeFullDocument,
+			where: {
+				documentGuid_version: {
+					documentGuid,
+					version: 1
+				}
+			}
+		});
+	});
+
+	test('uses the original published date when publishing a new version', async () => {
+		// Arrange
+
+		const originalPublishedDate = new Date('2026-01-01T00:00:00Z');
+
+		databaseConnector.case.findUnique.mockResolvedValue(application1);
+		databaseConnector.document.findUnique.mockResolvedValue(documentWithVersions);
+		databaseConnector.folder.findUnique.mockResolvedValue(documentFolder);
+
+		// Current version has never been published
+		databaseConnector.documentVersion.findUnique.mockResolvedValue({
+			...updatedDocument,
+			version: 3,
+			datePublished: null
+		});
+
+		// Original published version
+		databaseConnector.documentVersion.findFirst.mockResolvedValue({
+			documentGuid,
+			version: 1,
+			datePublished: originalPublishedDate
+		});
+
+		databaseConnector.documentVersion.update.mockResolvedValue({
+			...updatedDocument,
+			version: 3,
+			datePublished: originalPublishedDate
+		});
+
+		// Act
+
+		await request
+			.post('/applications/1/documents/1111-2222-3333/version/3/mark-as-published')
+			.send({
+				publishedBlobPath: 'published/en010120-filename.pdf',
+				publishedBlobContainer: 'published-documents',
+				publishedDate: new Date('2027-01-01T00:00:00Z')
+			});
+
+		// Assert
+
+		expect(databaseConnector.documentVersion.update).toHaveBeenCalledWith({
+			data: {
+				datePublished: originalPublishedDate,
+				publishedBlobContainer: 'published-documents',
+				publishedBlobPath: 'published/en010120-filename.pdf',
+				publishedStatus: 'published',
+				publishedStatusPrev: 'publishing'
+			},
+			include: includeFullDocument,
+			where: {
+				documentGuid_version: {
+					documentGuid,
+					version: 3
+				}
+			}
+		});
 	});
 });

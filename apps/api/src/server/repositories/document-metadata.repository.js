@@ -347,3 +347,29 @@ export const unpublishMany = async (documentVersionIds) => {
 
 	return results;
 };
+
+/**
+ * Get the original published date for a document
+ *
+ * @param {string} documentGuid
+ * @returns {Promise<Date | null>}
+ */
+export const getOriginalPublishedDate = async (documentGuid) => {
+	const result = await databaseConnector.documentVersion.findFirst({
+		where: {
+			documentGuid,
+			datePublished: {
+				not: null
+			},
+			isDeleted: false
+		},
+		orderBy: {
+			datePublished: 'asc'
+		},
+		select: {
+			datePublished: true
+		}
+	});
+
+	return result?.datePublished ?? null;
+};

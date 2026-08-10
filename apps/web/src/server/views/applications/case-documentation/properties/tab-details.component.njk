@@ -39,7 +39,10 @@
 		} %}
 	{% endif %}
 
-	{% set publishedDate = (documentationFile.datePublished|datestamp({format: 'dd/MM/yyyy'})) if documentationFile.publishedStatus === 'published' else null %}
+	{% set publishedDate = (documentationFile.datePublished|datestamp({format: 'dd/MM/yyyy'}))
+		if documentationFile.datePublished
+		else null
+	%}
 	{% set statusCanBeChanged = not documentationFile.publishedStatus in ['published', 'awaiting_upload', 'awaiting_virus_check', 'failed_virus_check', 'invalid'] %}
 
 {% if 'idas-607-examination-library' | isFeatureActive %}

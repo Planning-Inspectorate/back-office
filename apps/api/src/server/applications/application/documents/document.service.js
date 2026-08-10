@@ -810,11 +810,22 @@ export const markDocumentVersionAsPublished = async ({
 	publishedBlobContainer,
 	publishedDate
 }) => {
+	/** @type {DocumentVersion} */
+	const currentVersion = await documentVersionRepository.getById(guid, version);
+
+	let documentDatePublished = currentVersion?.datePublished;
+
+	if (!documentDatePublished) {
+		const originalPublishedDate = await documentVersionRepository.getOriginalPublishedDate(guid);
+
+		documentDatePublished = originalPublishedDate ?? publishedDate;
+	}
+
 	const publishedDocument = await documentVersionRepository.update(guid, {
 		version,
 		publishedBlobPath,
 		publishedBlobContainer,
-		datePublished: publishedDate,
+		datePublished: documentDatePublished,
 		publishedStatus: 'published',
 		publishedStatusPrev: 'publishing'
 	});
