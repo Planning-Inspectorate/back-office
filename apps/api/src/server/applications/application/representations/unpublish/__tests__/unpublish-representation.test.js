@@ -158,6 +158,7 @@ const expectedNsipRepresentationPayload = buildPayloadEventsForSchema(NSIP_REPRE
 		referenceId: 'BC0110001-55',
 		representedId: '10105',
 		status: 'unpublished',
+		useOfAI: null,
 		registerFor: null,
 		representationFrom: 'ORGANISATION',
 		representationType: 'Members of the Public/Businesses'
@@ -177,6 +178,7 @@ const expectedNsipRepresentationPayload = buildPayloadEventsForSchema(NSIP_REPRE
 		representativeId: '10382',
 		representedId: '10381',
 		status: 'unpublished',
+		useOfAI: null,
 		registerFor: null,
 		representationFrom: 'AGENT',
 		representationType: 'Members of the Public/Businesses'

@@ -7,6 +7,13 @@ import { getRepModePageURLs } from './utils/get-rep-mode-page-urls.js';
 import { getRepresentationExcerpts } from './utils/get-representation-excerpts.js';
 import { getRelevantRepFolder } from './applications-relevant-rep-details.service.js';
 
+/** @type {Record<string, string>} */
+const aiDeclarationText = {
+	YES: 'AI used',
+	NO: 'AI not used',
+	UNKNOWN: 'Unknown'
+};
+
 /**
  * @param {object|*} params
  * @param {object|*} locals
@@ -28,5 +35,6 @@ export const getRepresentationDetailsViewModel = async (
 	relevantRepDocumentFolder: await getRelevantRepFolder(Number(caseId)),
 	organisationOrFullname: getOrganisationOrFullname(representation.represented),
 	repModePageURLs: getRepModePageURLs(representation),
-	depublishedRepresentation: depublished === 'true'
+	depublishedRepresentation: depublished === 'true',
+	aiDeclarationText: aiDeclarationText[representation.useOfAI] || 'Unknown'
 });

@@ -299,6 +299,7 @@ describe('Representation repository', () => {
 			originalRepresentation: true,
 			editedRepresentation: true,
 			editNotes: true,
+			useOfAI: true,
 			redactedRepresentation: true,
 			type: true,
 			user: {
