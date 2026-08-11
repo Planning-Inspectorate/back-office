@@ -415,6 +415,7 @@ model Representation {
   represented            ServiceUser?               @relation("Represented", fields: [representedId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   editedRepresentation   String?                    @db.NText
   editNotes              String?                    @db.NText
+  useOfAI                String?                    @default("UNKNOWN") @db.NVarChar(20)
 
   @@index([reference], name: "reference")
   @@index([status], name: "status")

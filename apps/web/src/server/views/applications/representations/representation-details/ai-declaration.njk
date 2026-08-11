@@ -1,0 +1,48 @@
+{% extends "applications/layouts/applications.layout.njk" %}
+
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+
+{% set pageTitle = 'AI declaration' %}
+
+{% block pageHeading %}
+{% endblock %}
+
+{% block backLink %}
+	<a href="{{ backLinkUrl }}" class="govuk-back-link">Back</a>
+{% endblock %}
+
+{% block pageContent %}
+
+	<h1 class="govuk-heading-l govuk-!-margin-bottom-2">AI declaration</h1>
+
+	<div class="govuk-grid-row">
+		<div class="govuk-grid-column-one-half">
+			<form method="post" novalidate>
+				{% include 'app/includes/csrf.njk' %}
+
+					{{ govukRadios({
+						name: "useOfAI",
+						fieldset: {
+							legend: {
+								isPageHeading: false
+							}
+						},
+						items: radioItems,
+						errorMessage: errors["useOfAI"] and {
+							text: errors["useOfAI"].msg
+						}
+					}) }}
+
+					{{ govukButton({
+						text: "Save and return",
+						type: "submit",
+						classes: "govuk-!-margin-top-3"
+					}) }}
+
+			</form>
+
+		</div>
+	</div>
+
+{% endblock %}

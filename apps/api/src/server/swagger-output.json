@@ -252,7 +252,7 @@
 				}
 			}
 		},
-		"/migration/historical-gis-boundaries": {
+		"/migration/historical-gis-boundaries-insert": {
 			"post": {
 				"tags": ["Migration"],
 				"description": "Imports historical GIS boundary GeoPackages from a ZIP file and uploads them as GIS shapefile documents",
@@ -292,6 +292,36 @@
 					},
 					"500": {
 						"description": "Migration failed"
+					}
+				}
+			}
+		},
+		"/migration/historical-gis-boundaries-publish": {
+			"post": {
+				"tags": ["Migration"],
+				"description": "Publishes previously migrated GIS boundary documents",
+				"parameters": [
+					{
+						"name": "x-service-name",
+						"in": "header",
+						"type": "string",
+						"description": "Service name header",
+						"default": "swagger"
+					},
+					{
+						"name": "x-api-key",
+						"in": "header",
+						"type": "string",
+						"description": "API key header",
+						"default": "123"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Publishing completed"
+					},
+					"500": {
+						"description": "Publishing failed"
 					}
 				}
 			}
@@ -1068,6 +1098,10 @@
 									"type": "string",
 									"example": "These are the edit notes"
 								},
+								"useOfAI": {
+									"type": "string",
+									"example": "YES"
+								},
 								"reference": {
 									"type": "string",
 									"example": "BC0110001-2"
@@ -1259,6 +1293,10 @@
 									"type": "string",
 									"example": ""
 								},
+								"useOfAI": {
+									"type": "string",
+									"example": "YES"
+								},
 								"redactedRepresentation": {
 									"type": "string",
 									"example": ""
@@ -1343,6 +1381,10 @@
 								"editNotes": {
 									"type": "string",
 									"example": "These are the edit notes"
+								},
+								"useOfAI": {
+									"type": "string",
+									"example": "YES"
 								},
 								"representedType": {
 									"type": "string",
@@ -1722,18 +1764,11 @@
 					{
 						"name": "body",
 						"in": "body",
-						"description": "Representation IDs to unpublish, and user performing action",
+						"description": "User performing the action",
 						"required": true,
 						"schema": {
 							"type": "object",
 							"properties": {
-								"representationIds": {
-									"type": "array",
-									"example": [123, 124, 125],
-									"items": {
-										"type": "number"
-									}
-								},
 								"actionBy": {
 									"type": "string",
 									"example": "Joe Bloggs"
@@ -1849,6 +1884,14 @@
 									"type": "number",
 									"example": 1
 								},
+								"editedRepresentation": {
+									"type": "string",
+									"example": "This is the edited representation"
+								},
+								"useOfAI": {
+									"type": "string",
+									"example": "YES"
+								},
 								"status": {
 									"type": "string",
 									"example": "DRAFT"
@@ -1858,9 +1901,6 @@
 								"name": "main"
 							}
 						}
-					},
-					"default": {
-						"description": ""
 					}
 				}
 			}
