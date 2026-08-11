@@ -21,9 +21,10 @@ const { applications: applicationsUsers } = users;
 
 describe('Update Key Dates', () => {
 	context('As Case Team Admin', () => {
-		let projectInfo = projectInformation();
+		let projectInfo;
 
-		before(() => {
+		beforeEach(() => {
+			projectInfo = projectInformation();
 			cy.login(applicationsUsers.caseAdmin);
 			createCasePage.createCase(projectInfo, true);
 		});
@@ -31,27 +32,27 @@ describe('Update Key Dates', () => {
 		it('As a  user able to update the case information', () => {
 			const expectedBefore = {
 				'Date first notified of project': '',
+				'Date of inception meeting': '',
+				'Programme document submission date': '',
+				'Section 46 notification': '',
+				'Statutory consultation period end date': '',
+				'Date for submission of draft documents': '',
 				'Project published on website': '',
 				'Anticipated submission date published': projectInfo.publishedDate,
-				'Anticipated submission date internal': projectInfo.internalDateFullFormatted,
-				'Screening opinion sought': '',
-				'Screening opinion issued': '',
-				'Scoping opinion sought': '',
-				'Scoping opinion issued': '',
-				'Section 46 notification': ''
+				'Anticipated submission date internal': projectInfo.internalDateFullFormatted
 			};
 
 			const generateData = () => {
 				const data = {
 					'Date first notified of project': getRandomFormattedDate(),
+					'Date of inception meeting': getRandomFormattedDate(),
+					'Programme document submission date': getRandomFormattedDate(),
+					'Section 46 notification': getRandomFormattedDate(),
+					'Statutory consultation period end date': getRandomFormattedDate(),
+					'Date for submission of draft documents': getRandomFormattedDate(),
 					'Project published on website': getRandomFormattedDate(),
 					'Anticipated submission date published': getRandomQuarterDate(),
-					'Anticipated submission date internal': getRandomFormattedDate(),
-					'Screening opinion sought': getRandomFormattedDate(),
-					'Screening opinion issued': getRandomFormattedDate(),
-					'Scoping opinion sought': getRandomFormattedDate(),
-					'Scoping opinion issued': getRandomFormattedDate(),
-					'Section 46 notification': getRandomFormattedDate()
+					'Anticipated submission date internal': getRandomFormattedDate()
 				};
 
 				return data;

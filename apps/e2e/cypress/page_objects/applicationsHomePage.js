@@ -31,8 +31,12 @@ export class ApplicationsHomePage extends Page {
 	loadCurrentCase() {
 		cy.login(users.applications.caseAdmin);
 		cy.visit('/');
-		this.searchFor(Cypress.env('currentCreatedCase'));
-		searchResultsPage.clickTopSearchResult();
+		cy.then(() => {
+			const caseRef = Cypress.env('currentCreatedCase');
+			expect(caseRef, 'currentCreatedCase').to.be.a('string').and.not.be.empty;
+			this.searchFor(caseRef);
+			searchResultsPage.clickTopSearchResult();
+		});
 	}
 
 	// A S S E R T I O N S

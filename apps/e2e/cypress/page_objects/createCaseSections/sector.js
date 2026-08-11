@@ -17,9 +17,9 @@ export class SectorSection extends SectionBase {
 	}
 
 	selectTrainingAsSectorSubsector() {
-		cy.get('#sectorName-7').click();
+		cy.contains('.govuk-radios__item', 'Training').find('input').check();
 		cy.get('.govuk-button').click();
-		cy.get('#subSectorName').click();
+		cy.contains('.govuk-radios__item', 'Training').find('input').check();
 		cy.get('.govuk-button').click();
 	}
 }

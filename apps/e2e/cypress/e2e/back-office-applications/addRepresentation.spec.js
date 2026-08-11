@@ -16,7 +16,7 @@ const { applications: applicationsUsers } = users;
 describe('Add representation scenarios', () => {
 	let projectInfo;
 
-	before(() => {
+	beforeEach(() => {
 		projectInfo = projectInformation();
 		cy.login(applicationsUsers.caseAdmin);
 		createCasePage.createCase(projectInfo);

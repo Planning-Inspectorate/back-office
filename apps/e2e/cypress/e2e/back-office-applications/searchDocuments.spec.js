@@ -18,7 +18,7 @@ const { applications: applicationUsers } = users;
 describe('Search Documents for various file types', () => {
 	let projectInfo;
 
-	before(() => {
+	beforeEach(() => {
 		projectInfo = projectInformation();
 		cy.login(applicationUsers.caseAdmin);
 		createCasePage.createCase(projectInfo);
@@ -30,10 +30,7 @@ describe('Search Documents for various file types', () => {
 	});
 
 	function fileUpload(filename) {
-		fileUploadPage.verifyUploadButtonIsVisible();
-		fileUploadPage.uploadFile(filename);
-		searchResultsPage.clickButtonByText('Save and continue');
-		fileUploadPage.verifyFileIsUploaded();
+		return fileUploadPage.fileUpload(filename, 1);
 	}
 
 	it('As a user able to search and verify the documents count after uploading the .dbf file type to case', () => {
@@ -63,7 +60,10 @@ describe('Search Documents for various file types', () => {
 	});
 
 	it('As a user able to verify documents search page contains view link next to document filename', () => {
-		searchResultsPage.verifyDocumentSearchResults('map');
+		searchResultsPage.clickLinkByText('Project management');
+		fileUpload('dmap.dbf');
+		fileUploadPage.backToProjectDocumentationPage();
+		searchResultsPage.verifyDocumentSearchResults('dmap');
 		searchResultsPage.clickButtonByText('Search');
 		searchResultsPage.clickDocumentViewLink();
 		documentPropertiesPage.verifyDocumentPropertiesHeading();

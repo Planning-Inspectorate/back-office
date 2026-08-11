@@ -7,8 +7,9 @@ export class SearchResultsPage extends Page {
 		searchApplicationsError: () => cy.get('#searchApplications-error'),
 		searchResultsCount: () => cy.get('#main-content > div:nth-child(3) > p'),
 		searchResultsTableCount: () => cy.get('#document-search-results'),
+		searchResultsRows: () => cy.get('#document-search-results tbody .govuk-table__row'),
 		invalidSearchCount: () => cy.get('#main-content > div:nth-child(3) > p:nth-child(1)'),
-		verifyViewLink: () => cy.get('tbody tr:nth-child(1) td:nth-child(3) a:nth-child(1)')
+		verifyViewLink: () => cy.contains('#document-search-results tbody a.govuk-link', 'View')
 	};
 
 	// U S E R  A C T I O N S
@@ -40,15 +41,16 @@ export class SearchResultsPage extends Page {
 			.should('contain.text', caseName);
 	}
 	verifyDocumentSearchResults(documentName) {
-		cy.get('#searchDocuments').type(documentName);
+		cy.get('#searchDocuments').clear().type(documentName);
 	}
 	verifyDocumentsCount() {
-		this.elements.searchResultsTableCount().should('have.length.greaterThan', 0);
+		this.elements.searchResultsTableCount().should('exist');
+		this.elements.searchResultsRows().should('have.length.greaterThan', 0);
 	}
 	verifyInvalidSearchResultsCount() {
 		this.elements.invalidSearchCount().contains('0 results');
 	}
 	clickDocumentViewLink() {
-		this.elements.verifyViewLink().click();
+		this.elements.verifyViewLink().first().click();
 	}
 }

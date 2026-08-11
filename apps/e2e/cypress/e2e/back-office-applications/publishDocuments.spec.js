@@ -23,7 +23,7 @@ describe('Publish Documents', () => {
 	let projectInfo;
 	let caseRef;
 
-	before(() => {
+	beforeEach(() => {
 		projectInfo = projectInformation();
 		cy.login(applicationsUsers.caseAdmin);
 		createCasePage.createCase(projectInfo);
@@ -37,11 +37,7 @@ describe('Publish Documents', () => {
 	});
 
 	it('As a user able to set "Ready to publish" before setting all mandatory properties for document', () => {
-		fileUploadPage.verifyUploadButtonIsVisible();
-		fileUploadPage.uploadFile('sample-doc.pdf');
-		searchResultsPage.clickButtonByText('Save and continue');
-		fileUploadPage.verifyFolderDocuments(1);
-		fileUploadPage.verifyUploadIsComplete();
+		fileUploadPage.fileUpload('sample-doc.pdf', 1);
 		folderPage.markAllReadyToPublish();
 		folderPage.validateErrorMessageIsInSummary(
 			'You must fill in all mandatory document properties to publish a document'
@@ -49,6 +45,7 @@ describe('Publish Documents', () => {
 	});
 
 	it('As a user able to set document for "Ready to publish" and see it in the publishing queue', () => {
+		fileUploadPage.fileUpload('sample-doc.pdf', 1);
 		fileUploadPage.clickLinkByText('View/Edit properties');
 		cy.get('div.govuk-summary-list__row:nth-child(3) > dt').then(($elem) => {
 			const text = $elem.text().trim();

@@ -11,6 +11,10 @@ export class RegionsSection extends SectionBase {
 	};
 
 	chooseRegions(regions) {
+		if (!regions?.length) {
+			throw new Error('At least one region is required to create a case');
+		}
+
 		const allRegions = REGIONS;
 		regions.map((region) => {
 			if (allRegions.includes(region)) {

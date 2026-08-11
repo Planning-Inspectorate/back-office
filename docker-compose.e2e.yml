@@ -1,0 +1,8 @@
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      ACCEPT_EULA: 'Y'
+      MSSQL_SA_PASSWORD: ${LOCAL_SQL_PASSWORD:-P@ssw0rdPINS2026!}
+    ports:
+      - '${E2E_SQL_PORT:-14330}:1433'

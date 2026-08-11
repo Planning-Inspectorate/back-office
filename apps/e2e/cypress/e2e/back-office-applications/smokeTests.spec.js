@@ -37,7 +37,7 @@ const itemOptions = ['Accompanied Site Inspection', 'Compulsory Acquisition Hear
 describe('Smoke tests', { browser: '!electron' }, () => {
 	let projectInfo;
 
-	before(() => {
+	beforeEach(() => {
 		projectInfo = projectInformation({ excludeWales: true });
 		cy.login(applicationsUsers.caseAdmin);
 		createCasePage.createCase(projectInfo);

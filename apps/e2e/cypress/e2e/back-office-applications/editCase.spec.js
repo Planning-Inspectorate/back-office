@@ -18,13 +18,21 @@ const { applications: applicationsUsers } = users;
 describe('Edit a case', () => {
 	let projectInfo;
 
-	before(() => {
+	const createCaseForSpec = () => {
 		projectInfo = projectInformation();
 		cy.login(applicationsUsers.caseAdmin);
 		createCasePage.createCase(projectInfo);
+	};
+
+	before(() => {
+		createCaseForSpec();
 	});
 
-	beforeEach(() => {
+	beforeEach(function () {
+		if (this.currentTest.currentRetry() > 0) {
+			createCaseForSpec();
+		}
+
 		cy.login(applicationsUsers.caseAdmin);
 		cy.visit('/');
 
