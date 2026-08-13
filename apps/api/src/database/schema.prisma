@@ -145,6 +145,7 @@ model ApplicationDetails {
   deadlineForCloseOfExamination                     DateTime?
   dateTimeExaminationEnds                           DateTime?
   stage4ExtensionToExamCloseDate                    DateTime?
+  exAAnticipatedRecommendationDate                  DateTime?
   deadlineForSubmissionOfRecommendation             DateTime?
   dateOfRecommendations                             DateTime?
   stage5ExtensionToRecommendationDeadline           DateTime?
