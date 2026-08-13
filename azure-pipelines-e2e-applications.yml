@@ -15,37 +15,39 @@ pr: none
 
 trigger: none
 
+resources:
+  repositories:
+    - repository: templates
+      type: github
+      endpoint: Planning-Inspectorate
+      name: Planning-Inspectorate/common-pipeline-templates
+      ref: refs/tags/release/3.29.0
+
 jobs:
   - job: E2E_Tests_Group_1
     timeoutInMinutes: 60
     pool: pins-odt-agent-pool-tests
     steps:
-      - task: NodeTool@0
-        inputs:
-          versionSpec: "20.x"
-        displayName: "Install Node.js"
-
-      - task: Npm@1
-        inputs:
-          command: "install"
-          workingDir: $(System.DefaultWorkingDirectory)/apps/e2e
-        displayName: "Install Dependencies"
-
-      - task: Bash@3
-        inputs:
-          targetType: 'inline'
-          script: npx cypress run --spec "cypress/e2e/back-office-applications/addRepresentation.spec.js,cypress/e2e/back-office-applications/addTeam.spec.js,cypress/e2e/back-office-applications/createCase.spec.js,cypress/e2e/back-office-applications/documentProperties.spec.js,cypress/e2e/back-office-applications/documentPropertiesWelsh.spec.js,cypress/e2e/back-office-applications/documentUpload.spec.js"
+      - template: steps/node_script.yml@templates
+        parameters:
+          nodeVersion: 22
+          script: npm ci
           workingDirectory: 'apps/e2e'
-
-        env:
-          BASE_URL: $(BASE_URL)
-          CASE_TEAM_EMAIL: $(CASE_TEAM_EMAIL)
-          CASE_ADMIN_EMAIL: $(CASE_ADMIN_EMAIL)
-          INSPECTOR_EMAIL: $(INSPECTOR_EMAIL)
-          USER_PASSWORD: $(USER_PASSWORD)
-          FEATURE_FLAG_CONNECTION_STRING: $(FEATURE_FLAG_CONNECTION_STRING)
-        displayName: "Run Cypress Tests Group 1"
-
+          environmentVariables:
+            npm_config_cache: $(npm_config_cache)
+      - template: steps/node_script.yml@templates
+        parameters:
+          nodeVersion: 22
+          script: |
+            npx cypress run --spec "cypress/e2e/back-office-applications/addRepresentation.spec.js,cypress/e2e/back-office-applications/addTeam.spec.js,cypress/e2e/back-office-applications/createCase.spec.js,cypress/e2e/back-office-applications/documentProperties.spec.js,cypress/e2e/back-office-applications/documentPropertiesWelsh.spec.js,cypress/e2e/back-office-applications/documentUpload.spec.js"
+          workingDirectory: 'apps/e2e'
+          environmentVariables:
+            BASE_URL: $(BASE_URL)
+            CASE_TEAM_EMAIL: $(CASE_TEAM_EMAIL)
+            CASE_ADMIN_EMAIL: $(CASE_ADMIN_EMAIL)
+            INSPECTOR_EMAIL: $(INSPECTOR_EMAIL)
+            USER_PASSWORD: $(USER_PASSWORD)
+            FEATURE_FLAG_CONNECTION_STRING: $(FEATURE_FLAG_CONNECTION_STRING)
       - task: PublishBuildArtifacts@1
         inputs:
           pathToPublish: 'apps/e2e/cypress/screenshots'
@@ -57,32 +59,26 @@ jobs:
     timeoutInMinutes: 60
     pool: pins-odt-agent-pool-tests
     steps:
-      - task: NodeTool@0
-        inputs:
-          versionSpec: "20.x"
-        displayName: "Install Node.js"
-
-      - task: Npm@1
-        inputs:
-          command: "install"
-          workingDir: $(System.DefaultWorkingDirectory)/apps/e2e
-        displayName: "Install Dependencies"
-
-      - task: Bash@3
-        inputs:
-          targetType: 'inline'
-          script: npx cypress run --spec "cypress/e2e/back-office-applications/documentVersioning.spec.js,cypress/e2e/back-office-applications/editCase.spec.js,cypress/e2e/back-office-applications/examTimetable.spec.js"
+      - template: steps/node_script.yml@templates
+        parameters:
+          nodeVersion: 22
+          script: npm ci
           workingDirectory: 'apps/e2e'
-
-        env:
-          BASE_URL: $(BASE_URL)
-          CASE_TEAM_EMAIL: $(CASE_TEAM_EMAIL)
-          CASE_ADMIN_EMAIL: $(CASE_ADMIN_EMAIL)
-          INSPECTOR_EMAIL: $(INSPECTOR_EMAIL)
-          USER_PASSWORD: $(USER_PASSWORD)
-          FEATURE_FLAG_CONNECTION_STRING: $(FEATURE_FLAG_CONNECTION_STRING)
-        displayName: "Run Cypress Tests Group 2"
-
+          environmentVariables:
+            npm_config_cache: $(npm_config_cache)
+      - template: steps/node_script.yml@templates
+        parameters:
+          nodeVersion: 22
+          script: |
+            npx cypress run --spec "cypress/e2e/back-office-applications/documentVersioning.spec.js,cypress/e2e/back-office-applications/editCase.spec.js,cypress/e2e/back-office-applications/examTimetable.spec.js"
+          workingDirectory: 'apps/e2e'
+          environmentVariables:
+            BASE_URL: $(BASE_URL)
+            CASE_TEAM_EMAIL: $(CASE_TEAM_EMAIL)
+            CASE_ADMIN_EMAIL: $(CASE_ADMIN_EMAIL)
+            INSPECTOR_EMAIL: $(INSPECTOR_EMAIL)
+            USER_PASSWORD: $(USER_PASSWORD)
+            FEATURE_FLAG_CONNECTION_STRING: $(FEATURE_FLAG_CONNECTION_STRING)
       - task: PublishBuildArtifacts@1
         inputs:
           pathToPublish: 'apps/e2e/cypress/screenshots'
@@ -94,32 +90,26 @@ jobs:
     timeoutInMinutes: 60
     pool: pins-odt-agent-pool-tests
     steps:
-      - task: NodeTool@0
-        inputs:
-          versionSpec: "20.x"
-        displayName: "Install Node.js"
-
-      - task: Npm@1
-        inputs:
-          command: "install"
-          workingDir: $(System.DefaultWorkingDirectory)/apps/e2e
-        displayName: "Install Dependencies"
-
-      - task: Bash@3
-        inputs:
-          targetType: 'inline'
-          script: npx cypress run --spec "cypress/e2e/back-office-applications/publishDocuments.spec.js,cypress/e2e/back-office-applications/s51Advice.spec.js,cypress/e2e/back-office-applications/search.spec.js,cypress/e2e/back-office-applications/searchDocuments.spec.js,cypress/e2e/back-office-applications/sectorAsTraing.spec.js,cypress/e2e/back-office-applications/smokeTests.spec.js"
+      - template: steps/node_script.yml@templates
+        parameters:
+          nodeVersion: 22
+          script: npm ci
           workingDirectory: 'apps/e2e'
-
-        env:
-          BASE_URL: $(BASE_URL)
-          CASE_TEAM_EMAIL: $(CASE_TEAM_EMAIL)
-          CASE_ADMIN_EMAIL: $(CASE_ADMIN_EMAIL)
-          INSPECTOR_EMAIL: $(INSPECTOR_EMAIL)
-          USER_PASSWORD: $(USER_PASSWORD)
-          FEATURE_FLAG_CONNECTION_STRING: $(FEATURE_FLAG_CONNECTION_STRING)
-        displayName: "Run Cypress Tests Group 3"
-
+          environmentVariables:
+            npm_config_cache: $(npm_config_cache)
+      - template: steps/node_script.yml@templates
+        parameters:
+          nodeVersion: 22
+          script: |
+            npx cypress run --spec "cypress/e2e/back-office-applications/publishDocuments.spec.js,cypress/e2e/back-office-applications/s51Advice.spec.js,cypress/e2e/back-office-applications/search.spec.js,cypress/e2e/back-office-applications/searchDocuments.spec.js,cypress/e2e/back-office-applications/sectorAsTraing.spec.js,cypress/e2e/back-office-applications/smokeTests.spec.js"
+          workingDirectory: 'apps/e2e'
+          environmentVariables:
+            BASE_URL: $(BASE_URL)
+            CASE_TEAM_EMAIL: $(CASE_TEAM_EMAIL)
+            CASE_ADMIN_EMAIL: $(CASE_ADMIN_EMAIL)
+            INSPECTOR_EMAIL: $(INSPECTOR_EMAIL)
+            USER_PASSWORD: $(USER_PASSWORD)
+            FEATURE_FLAG_CONNECTION_STRING: $(FEATURE_FLAG_CONNECTION_STRING)
       - task: PublishBuildArtifacts@1
         inputs:
           pathToPublish: 'apps/e2e/cypress/screenshots'
@@ -131,32 +121,26 @@ jobs:
     timeoutInMinutes: 60
     pool: pins-odt-agent-pool-tests
     steps:
-      - task: NodeTool@0
-        inputs:
-          versionSpec: "20.x"
-        displayName: "Install Node.js"
-
-      - task: Npm@1
-        inputs:
-          command: "install"
-          workingDir: $(System.DefaultWorkingDirectory)/apps/e2e
-        displayName: "Install Dependencies"
-
-      - task: Bash@3
-        inputs:
-          targetType: 'inline'
-          script: DEBUG=cypress:* npx cypress run --headed --browser chrome --spec "cypress/e2e/back-office-applications/publishDocuments.spec.js,cypress/e2e/back-office-applications/s51Advice.spec.js,cypress/e2e/back-office-applications/search.spec.js,cypress/e2e/back-office-applications/searchDocuments.spec.js,cypress/e2e/back-office-applications/sectorAsTraing.spec.js,cypress/e2e/back-office-applications/smokeTests.spec.js"
+      - template: steps/node_script.yml@templates
+        parameters:
+          nodeVersion: 22
+          script: npm ci
           workingDirectory: 'apps/e2e'
-
-        env:
-          BASE_URL: $(BASE_URL)
-          CASE_TEAM_EMAIL: $(CASE_TEAM_EMAIL)
-          CASE_ADMIN_EMAIL: $(CASE_ADMIN_EMAIL)
-          INSPECTOR_EMAIL: $(INSPECTOR_EMAIL)
-          USER_PASSWORD: $(USER_PASSWORD)
-          FEATURE_FLAG_CONNECTION_STRING: $(FEATURE_FLAG_CONNECTION_STRING)
-        displayName: "Run Cypress Tests Group 4"
-
+          environmentVariables:
+            npm_config_cache: $(npm_config_cache)
+      - template: steps/node_script.yml@templates
+        parameters:
+          nodeVersion: 22
+          script: |
+            DEBUG=cypress:* npx cypress run --headed --browser chrome --spec "cypress/e2e/back-office-applications/publishDocuments.spec.js,cypress/e2e/back-office-applications/s51Advice.spec.js,cypress/e2e/back-office-applications/search.spec.js,cypress/e2e/back-office-applications/searchDocuments.spec.js,cypress/e2e/back-office-applications/sectorAsTraing.spec.js,cypress/e2e/back-office-applications/smokeTests.spec.js"
+          workingDirectory: 'apps/e2e'
+          environmentVariables:
+            BASE_URL: $(BASE_URL)
+            CASE_TEAM_EMAIL: $(CASE_TEAM_EMAIL)
+            CASE_ADMIN_EMAIL: $(CASE_ADMIN_EMAIL)
+            INSPECTOR_EMAIL: $(INSPECTOR_EMAIL)
+            USER_PASSWORD: $(USER_PASSWORD)
+            FEATURE_FLAG_CONNECTION_STRING: $(FEATURE_FLAG_CONNECTION_STRING)
       - task: PublishBuildArtifacts@1
         inputs:
           pathToPublish: 'apps/e2e/cypress/screenshots'
