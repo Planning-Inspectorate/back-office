@@ -3,8 +3,8 @@ import { updateDocumentMetaData } from './documentation-metadata.service.js';
 import { setSessionBanner } from '../../common/services/session.service.js';
 
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
-/** @typedef {"name" | "description" | "descriptionWelsh" | "published-date" | "receipt-date"| "redaction" | "published-status" | "type"|"webfilter" | "webfilterWelsh" | "agent"| "author" | "authorWelsh" | "transcript" | "interestedPartyNumber"} MetaDataNames */
-/** @typedef {{label?: string, metaDataName: string, metaDataType?: string, hint?: string, pageTitle?: string, backLink?: string, maxLength?: number, template?: string, englishLabel?: string, metaDataEnglishName?: string, items?: {value: boolean|string, text: string, checked?: boolean}[]}} MetaDataLayoutParams */
+/** @typedef {"name" | "description" | "descriptionWelsh" | "published-date" | "receipt-date"| "redaction" | "published-status" | "type"|"webfilter" | "webfilterWelsh" | "agent"| "author" | "authorWelsh" | "transcript" | "interestedPartyNumber" | "party-type"} MetaDataNames */
+/** @typedef {{label?: string, metaDataName: string, metaDataType?: string, hint?: string, pageTitle?: string, backLink?: string, maxLength?: number, template?: string, englishLabel?: string, metaDataEnglishName?: string, items?: {value: boolean|string, text: string, checked?: boolean, hint?: {text: string}}[]}} MetaDataLayoutParams */
 /** @typedef {{documentGuid: string, metaDataName: MetaDataNames}} RequestParams */
 /** @typedef {import('../../applications.types').DocumentationFile} DocumentationFile */
 /** @typedef {{case: {isMaterialChange: boolean}, caseId: number, folderId: number, documentMetaData: DocumentationFile, documentGuid: string}} ResponseLocals */
@@ -32,6 +32,27 @@ const layouts = {
 		label: 'Interested Party number (optional)',
 		metaDataName: 'interestedPartyNumber',
 		template: 'documentation-edit-textinput.njk'
+	},
+	'party-type': {
+		items: [
+			{ value: 'Applicant', text: 'Applicant' },
+			{ value: 'Local authority', text: 'Local authority' },
+			{
+				value: 'Other council',
+				text: 'Other council',
+				hint: {
+					text: 'For example, parish council, community council or town council'
+				}
+			},
+			{ value: 'Statutory body', text: 'Statutory body' },
+			{ value: 'Interested organisation', text: 'Interested organisation' },
+			{ value: 'Individual', text: 'Individual' },
+			{ value: 'Planning Inspectorate', text: 'Planning Inspectorate' }
+		],
+		pageTitle: 'Type of party',
+		label: 'Type of party',
+		metaDataName: 'typeOfParty',
+		metaDataType: 'radios'
 	},
 	webfilter: {
 		label: 'Webfilter',

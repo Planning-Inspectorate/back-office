@@ -124,6 +124,7 @@ const rep1UpdatePayload = buildPayloadEventsForSchema(NSIP_REPRESENTATION, {
 	representationType: 'Parish Councils',
 	representationId: 1,
 	status: 'valid',
+	useOfAI: null,
 	representationFrom: 'AGENT',
 	representativeId: '10382',
 	representedId: '10381'

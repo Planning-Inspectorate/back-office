@@ -21,6 +21,12 @@
 			{% set statusTagColor = 'yellow' %}
 		{% case 'Withdrawn' %}
 			{% set statusTagColor = 'orange' %}
+		{% case 'Published' %}
+			{% set statusTagColor = 'green' %}
+		{% case 'Unpublished' %}
+			{% set statusTagColor = 'grey' %}
+		{% case 'In progress' %}
+			{% set statusTagColor = 'blue' %}
 	{% endswitch %}
 
 	<strong class="govuk-tag govuk-tag--{{statusTagColor}} pins-tag--no-max-width">{{ statusLabel }}</strong>

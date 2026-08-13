@@ -57,7 +57,8 @@ export default async function (context, msg) {
 		represented: mapContactDetails(msg.represented),
 		representative: mapContactDetails(msg.representative),
 		representedType: isEmpty(msg.representative) ? msg.representationFrom : 'AGENT',
-		received: msg.dateReceived || new Date()
+		received: msg.dateReceived || new Date(),
+		useOfAI: msg.useOfAI?.toUpperCase() || 'UNKNOWN'
 	};
 
 	await api.postRepresentation(caseId, representation);

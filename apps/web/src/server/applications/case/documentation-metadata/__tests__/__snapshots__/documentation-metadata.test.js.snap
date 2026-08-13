@@ -1515,6 +1515,144 @@ exports[`Edit applications documentation metadata Edit redaction status POST /ca
 </main>"
 `;
 
+exports[`Edit applications documentation metadata Edit type of party GET /case/123/project-documentation/18/document/456/edit/party-type should render the page with the party type options 1`] = `
+"<main class="govuk-main-wrapper" id="main-content">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
+                <div class="govuk-form-group">
+                    <fieldset class="govuk-fieldset">
+                        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                            <h1 class="govuk-fieldset__heading"> Type of party</h1>
+                        </legend>
+                        <div class="govuk-radios" data-module="govuk-radios">
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="typeOfParty" name="typeOfParty"
+                                type="radio" value="Applicant">
+                                <label class="govuk-label govuk-radios__label" for="typeOfParty">Applicant</label>
+                            </div>
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="typeOfParty-2" name="typeOfParty"
+                                type="radio" value="Local authority">
+                                <label class="govuk-label govuk-radios__label" for="typeOfParty-2">Local authority</label>
+                            </div>
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="typeOfParty-3" name="typeOfParty"
+                                type="radio" value="Other council" aria-describedby="typeOfParty-3-item-hint">
+                                <label class="govuk-label govuk-radios__label" for="typeOfParty-3">Other council</label>
+                                <div id="typeOfParty-3-item-hint" class="govuk-hint govuk-radios__hint">For example, parish council, community council or town council</div>
+                            </div>
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="typeOfParty-4" name="typeOfParty"
+                                type="radio" value="Statutory body">
+                                <label class="govuk-label govuk-radios__label" for="typeOfParty-4">Statutory body</label>
+                            </div>
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="typeOfParty-5" name="typeOfParty"
+                                type="radio" value="Interested organisation">
+                                <label class="govuk-label govuk-radios__label" for="typeOfParty-5">Interested organisation</label>
+                            </div>
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="typeOfParty-6" name="typeOfParty"
+                                type="radio" value="Individual">
+                                <label class="govuk-label govuk-radios__label" for="typeOfParty-6">Individual</label>
+                            </div>
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="typeOfParty-7" name="typeOfParty"
+                                type="radio" value="Planning Inspectorate">
+                                <label class="govuk-label govuk-radios__label" for="typeOfParty-7">Planning Inspectorate</label>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="govuk-grid-row">
+                    <div class="govuk-button-group pins-button-group govuk-grid-column-one-half">
+                        <button type="submit" class="govuk-button" data-module="govuk-button">Save and return</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>"
+`;
+
+exports[`Edit applications documentation metadata Edit type of party POST /case/123/project-documentation/18/document/456/edit/party-type should return an error if no party type is selected 1`] = `
+"<main class="govuk-main-wrapper" id="main-content">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-full">
+            <div class="govuk-error-summary" data-module="govuk-error-summary">
+                <div role="alert">
+                    <h2 class="govuk-error-summary__title"> There is a problem</h2>
+                    <div class="govuk-error-summary__body">
+                        <ul class="govuk-list govuk-error-summary__list">
+                            <li><a href="#typeOfParty">Select the type of party</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <form method="post" action="" novalidate="novalidate" class="pins-applications-create">
+                <div class="govuk-form-group govuk-form-group--error">
+                    <fieldset class="govuk-fieldset" aria-describedby="typeOfParty-error">
+                        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                            <h1 class="govuk-fieldset__heading"> Type of party</h1>
+                        </legend>
+                        <p id="typeOfParty-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> Select the type of party</p>
+                        <div                         class="govuk-radios" data-module="govuk-radios">
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="typeOfParty" name="typeOfParty"
+                                type="radio" value="Applicant">
+                                <label class="govuk-label govuk-radios__label" for="typeOfParty">Applicant</label>
+                            </div>
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="typeOfParty-2" name="typeOfParty"
+                                type="radio" value="Local authority">
+                                <label class="govuk-label govuk-radios__label" for="typeOfParty-2">Local authority</label>
+                            </div>
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="typeOfParty-3" name="typeOfParty"
+                                type="radio" value="Other council" aria-describedby="typeOfParty-3-item-hint">
+                                <label class="govuk-label govuk-radios__label" for="typeOfParty-3">Other council</label>
+                                <div id="typeOfParty-3-item-hint" class="govuk-hint govuk-radios__hint">For example, parish council, community council or town council</div>
+                            </div>
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="typeOfParty-4" name="typeOfParty"
+                                type="radio" value="Statutory body">
+                                <label class="govuk-label govuk-radios__label" for="typeOfParty-4">Statutory body</label>
+                            </div>
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="typeOfParty-5" name="typeOfParty"
+                                type="radio" value="Interested organisation">
+                                <label class="govuk-label govuk-radios__label" for="typeOfParty-5">Interested organisation</label>
+                            </div>
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="typeOfParty-6" name="typeOfParty"
+                                type="radio" value="Individual">
+                                <label class="govuk-label govuk-radios__label" for="typeOfParty-6">Individual</label>
+                            </div>
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="typeOfParty-7" name="typeOfParty"
+                                type="radio" value="Planning Inspectorate">
+                                <label class="govuk-label govuk-radios__label" for="typeOfParty-7">Planning Inspectorate</label>
+                            </div>
+                </div>
+                </fieldset>
+        </div>
+        <div class="govuk-grid-row">
+            <div class="govuk-button-group pins-button-group govuk-grid-column-one-half">
+                <button type="submit" class="govuk-button" data-module="govuk-button">Save and return</button>
+            </div>
+        </div>
+        </form>
+    </div>
+    </div>
+</main>"
+`;
+
 exports[`Edit applications documentation metadata Edit webfilter (filter1) GET /case/123/project-documentation/18/document/456/edit/webfilter should render the page with values 1`] = `
 "<main class="govuk-main-wrapper" id="main-content">
     <div class="govuk-grid-row">

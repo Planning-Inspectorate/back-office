@@ -3,20 +3,21 @@ import slugify from 'slugify';
 /** @typedef {import('../../applications/applications.types').DocumentationCategory} DocumentationCategory */
 
 /**
- * @typedef {object} urlFilterArguments
- * @property {number=} caseId
- * @property {number=} folderId
- * @property {string=} folderName
- * @property {number=} representationId
- * @property {number=} projectUpdateId
- * @property {string=} documentGuid
- * @property {string=} step
- * @property {string=} query
- * @property {number=} feeId
- * @property {number=} meetingId
- * @property {Partial<DocumentationCategory>=} documentationCategory
- */
-
+ /**
+  * @typedef {object} urlFilterArguments
+  * @property {number=} caseId
+  * @property {number=} folderId
+  * @property {string=} folderName
+  * @property {number=} representationId
+  * @property {number=} projectUpdateId
+  * @property {string=} documentGuid
+  * @property {string=} step
+  * @property {string=} query
+  * @property {number=} feeId
+  * @property {number=} meetingId
+  * @property {Partial<DocumentationCategory>=} documentationCategory
+ *  @property {string=} slug
+  */
 /**
  *
  * @param {string} argumentName
@@ -69,6 +70,7 @@ export const url = (key, filterArguments = {}) => {
 	const projectUpdateId = getArgument('projectUpdateId', filterArguments);
 	const feeId = getArgument('feeId', filterArguments);
 	const meetingId = getArgument('meetingId', filterArguments);
+	const slug = getArgument('slug', filterArguments);
 
 	switch (key) {
 		case 'base-url':
@@ -165,6 +167,10 @@ export const url = (key, filterArguments = {}) => {
 			return `${domainUrl}/case/${caseId}/fees-forecasting/section/manage-project-meeting/id/${meetingId}`;
 		case 'fees-forecasting-evidence-plan-meeting':
 			return `${domainUrl}/case/${caseId}/fees-forecasting/section/manage-evidence-plan-meeting/id/${meetingId}`;
+		case 'examination-library':
+			return `${domainUrl}/case/${caseId}/examination-library`;
+		case 'examination-library-section':
+			return `${domainUrl}/case/${caseId}/examination-library/${slug}`;
 		default:
 			return 'app/404';
 	}

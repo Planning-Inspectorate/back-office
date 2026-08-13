@@ -336,53 +336,55 @@ model Document {
 /// Versions are stored against the `version` value (starting with 1).
 /// The physical location of these documents should be stored here.
 model DocumentVersion {
-  documentGuid                 String
-  version                      Int
-  lastModified                 DateTime?
-  documentType                 String?
-  published                    Boolean                     @default(false)
-  sourceSystem                 String                      @default("back-office-applications")
-  origin                       String?
-  originalFilename             String?
-  fileName                     String?
-  representative               String?
-  description                  String?
-  descriptionWelsh             String?
-  owner                        String?
-  author                       String?
-  authorWelsh                  String?
-  securityClassification       String?
-  mime                         String?
-  horizonDataID                String?
-  fileMD5                      String?
-  virusCheckStatus             String?
-  size                         Int?
-  stage                        String?
-  filter1                      String?
-  filter1Welsh                 String?
-  privateBlobContainer         String?
-  privateBlobPath              String?
-  publishedBlobContainer       String?
-  publishedBlobPath            String?
-  dateCreated                  DateTime?                   @default(now())
-  datePublished                DateTime?
-  isDeleted                    Boolean                     @default(false)
-  examinationRefNo             String?
-  filter2                      String?
-  publishedStatus              String?                     @default("awaiting_upload")
-  publishedStatusPrev          String?
-  redactedStatus               String?
-  redacted                     Boolean                     @default(false)
-  Document                     Document?                   @relation("VersionHistory", fields: [documentGuid], references: [guid])
-  latestVersionDocument        Document?                   @relation("LatestVersion")
-  transcript                   Document?                   @relation("TranscriptedDocuments", fields: [transcriptGuid], references: [guid], onUpdate: NoAction, onDelete: NoAction)
-  transcriptGuid               String?
-  DocumentActivityLog          DocumentActivityLog[]
-  interestedPartyNumber        String?
-  typeOfParty                  String? // Type of party for Exam Library (Applicant, Local council, etc.)
-  examinationLibraryIndex      Int? // Numeric sort index for Exam Library display (implements "reference override")
-  examinationLibraryCategoryId Int? // Link to the Exam Library category this version belongs to
-  ExaminationLibraryCategory   ExaminationLibraryCategory? @relation(fields: [examinationLibraryCategoryId], references: [id], onUpdate: NoAction, onDelete: NoAction)
+  documentGuid                      String
+  version                           Int
+  lastModified                      DateTime?
+  documentType                      String?
+  published                         Boolean                     @default(false)
+  sourceSystem                      String                      @default("back-office-applications")
+  origin                            String?
+  originalFilename                  String?
+  fileName                          String?
+  representative                    String?
+  description                       String?
+  descriptionWelsh                  String?
+  owner                             String?
+  author                            String?
+  authorWelsh                       String?
+  securityClassification            String?
+  mime                              String?
+  horizonDataID                     String?
+  fileMD5                           String?
+  virusCheckStatus                  String?
+  size                              Int?
+  stage                             String?
+  filter1                           String?
+  filter1Welsh                      String?
+  privateBlobContainer              String?
+  privateBlobPath                   String?
+  publishedBlobContainer            String?
+  publishedBlobPath                 String?
+  dateCreated                       DateTime?                   @default(now())
+  datePublished                     DateTime?
+  isDeleted                         Boolean                     @default(false)
+  examinationRefNo                  String?
+  filter2                           String?
+  publishedStatus                   String?                     @default("awaiting_upload")
+  publishedStatusPrev               String?
+  redactedStatus                    String?
+  redacted                          Boolean                     @default(false)
+  Document                          Document?                   @relation("VersionHistory", fields: [documentGuid], references: [guid])
+  latestVersionDocument             Document?                   @relation("LatestVersion")
+  transcript                        Document?                   @relation("TranscriptedDocuments", fields: [transcriptGuid], references: [guid], onUpdate: NoAction, onDelete: NoAction)
+  transcriptGuid                    String?
+  DocumentActivityLog               DocumentActivityLog[]
+  interestedPartyNumber             String?
+  typeOfParty                       String? // Type of party for Exam Library (Applicant, Local council, etc.)
+  // Keep this bounded because the field is indexed; oversized NVARCHAR keys can fail on SQL Server.
+  examinationLibraryIndex           String?                     @db.NVarChar(255) /// Alphanumeric sort index for Exam Library display (implements "reference override")
+  examinationLibraryReferenceLocked Boolean                     @default(false)
+  examinationLibraryCategoryId      Int? // Link to the Exam Library category this version belongs to
+  ExaminationLibraryCategory        ExaminationLibraryCategory? @relation(fields: [examinationLibraryCategoryId], references: [id], onUpdate: NoAction, onDelete: NoAction)
 
   @@id([documentGuid, version])
   @@index([filter1], map: "filter1")
@@ -415,8 +417,11 @@ model Representation {
   represented            ServiceUser?               @relation("Represented", fields: [representedId], references: [id], onDelete: NoAction, onUpdate: NoAction)
   editedRepresentation   String?                    @db.NText
   editNotes              String?                    @db.NText
+  useOfAI                String?                    @default("UNKNOWN") @db.NVarChar(20)
 
   @@index([reference], name: "reference")
+  @@index([status], name: "status")
+  @@index([caseId, status], name: "caseId_status")
 }
 
 // RepresentationAction model
@@ -434,6 +439,8 @@ model RepresentationAction {
   actionDate           DateTime
   notes                String?        @db.NText
   Representation       Representation @relation(fields: [representationId], references: [id])
+
+  @@index([representationId], name: "representationAction_representationId")
 }
 
 //  RepresentationAttachment model
@@ -443,6 +450,8 @@ model RepresentationAttachment {
   documentGuid     String         @unique
   Representation   Representation @relation(fields: [representationId], references: [id], onUpdate: NoAction)
   Document         Document       @relation("AttachmentDocument", fields: [documentGuid], references: [guid])
+
+  @@index([representationId], name: "representationAttachment_representationId")
 }
 
 model ExaminationTimetableType {
@@ -650,9 +659,10 @@ model Invoice {
 model ExaminationLibraryCategory {
   id                         Int                       @id @default(autoincrement())
   caseId                     Int
-  categoryCode               String /// Stable code (e.g. APPLICATION_DOCUMENTS, ADEQUACY_OF_CONSULTATION)
+  categoryCode               String /// Category code, e.g REP, AS, APP
   categoryName               String /// Category name in English
-  publishedStatus            String                    @default("unpublished") /// Library published status for this category: "published" | "unpublished" | "inprogress"
+  // Use the spaced literal to match the agreed status vocabulary.
+  publishedStatus            String                    @default("in progress") /// Library published status for this category: "published" | "unpublished" | "in progress"
   source                     String /// "STATIC" = fixed categories (application docs, adequacy of consultation, etc.) "TIMETABLE" = categories created from ExaminationTimetableItem
   examinationTimetableItemId Int?                      @unique /// For TIMETABLE-derived categories, link back to the timetable item
   createdAt                  DateTime                  @default(now())
@@ -661,5 +671,5 @@ model ExaminationLibraryCategory {
   ExaminationTimetableItem   ExaminationTimetableItem? @relation("TimetableItemCategory", fields: [examinationTimetableItemId], references: [id])
   DocumentVersions           DocumentVersion[]
 
-  @@unique([caseId, categoryCode])
+  @@unique([caseId, categoryCode, categoryName])
 }
