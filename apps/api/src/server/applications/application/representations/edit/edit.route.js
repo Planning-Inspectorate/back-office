@@ -44,7 +44,8 @@ router.patch(
 			description: 'Representation',
 			schema: {
 				id: 1,
-				editedRepresentation: 'This is the edited representation,
+				editedRepresentation: 'This is the edited representation',
+				useOfAI: 'YES'
 			}
 		}
 	*/

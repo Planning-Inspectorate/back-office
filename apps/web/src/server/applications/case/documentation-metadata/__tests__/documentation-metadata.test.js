@@ -410,6 +410,44 @@ describe('Edit applications documentation metadata', () => {
 		});
 	});
 
+	describe('Edit type of party', () => {
+		describe('GET /case/123/project-documentation/18/document/456/edit/party-type', () => {
+			it('should render the page with the party type options', async () => {
+				const response = await request.get(`${baseUrl}/party-type`);
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('Type of party');
+				expect(element.innerHTML).toContain('Applicant');
+				expect(element.innerHTML).toContain('Local authority');
+				expect(element.innerHTML).toContain('Other council');
+				expect(element.innerHTML).toContain('Statutory body');
+				expect(element.innerHTML).toContain('Interested organisation');
+				expect(element.innerHTML).toContain('Individual');
+				expect(element.innerHTML).toContain('Planning Inspectorate');
+			});
+		});
+
+		describe('POST /case/123/project-documentation/18/document/456/edit/party-type', () => {
+			it('should return an error if no party type is selected', async () => {
+				const response = await request.post(`${baseUrl}/party-type`);
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('There is a problem');
+				expect(element.innerHTML).toContain('Select the type of party');
+			});
+
+			it('should redirect to document properties page if there is no error', async () => {
+				const response = await request.post(`${baseUrl}/party-type`).send({
+					typeOfParty: 'Applicant'
+				});
+
+				expect(response?.headers?.location).toEqual('../properties');
+			});
+		});
+	});
+
 	describe('Edit receipt date', () => {
 		describe('GET /case/123/project-documentation/18/document/456/edit/receipt-date', () => {
 			it('should render the page with values', async () => {

@@ -77,6 +77,10 @@ export const representationPatchValidator = composeMiddleware(
 	body('editNotes').optional().isString(),
 	body('reference').optional().isString(),
 	body('type').optional().isIn(repTypes).withMessage(`Must be a valid type: ${repTypes}`),
+	body('useOfAI')
+		.optional({ nullable: true })
+		.isIn(['NO', 'YES', 'UNKNOWN'])
+		.withMessage('Must be a valid AI declaration: NO, YES, UNKNOWN'),
 	representedValidations(),
 	validationErrorHandler
 );

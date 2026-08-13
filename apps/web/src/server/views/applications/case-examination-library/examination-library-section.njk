@@ -1,0 +1,14 @@
+{% extends "../case/layouts/applications-case-layout.njk" %}
+
+{% set pageTitle = sectionHeading %}
+
+{% block sectionContent %}
+	{{ govukBackLink({
+		href: 'examination-library'|url({ caseId: caseId })
+	}) }}
+
+	<h2 class="govuk-heading-m">{{ sectionHeading }}</h2>
+
+	<p class="govuk-body">There are no documents in this section.</p>
+
+{% endblock %}

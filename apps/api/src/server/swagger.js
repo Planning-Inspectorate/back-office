@@ -1293,6 +1293,7 @@ export const spec = {
 				description: { type: 'string', description: 'This is a sample document', example: null },
 				representative: { type: 'string', description: '', example: 'Jane Doe' },
 				interestedPartyNumber: { type: 'string', description: '', example: 'IP1234' },
+				typeOfParty: { type: 'string', description: '', example: 'Applicant' },
 				filter1: { type: 'string', description: '', example: 'some filter value' },
 				filter2: { type: 'string', description: '', example: 'some filter value' },
 				documentType: { type: 'string', description: '', example: 'contract' },

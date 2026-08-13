@@ -79,6 +79,7 @@ export const getById = async (id) =>
 			originalRepresentation: true,
 			editedRepresentation: true,
 			editNotes: true,
+			useOfAI: true,
 			redactedRepresentation: true,
 			type: true,
 			user: {
@@ -741,18 +742,13 @@ export const setRepresentationsAsPublishedBatch = async (representations, action
  * @returns {Promise<void>}
  */
 export const setRepresentationsAsUnpublished = async (representations, actionBy) => {
-	const publishedRepresentations = representations.filter(
-		(rep) => rep.status === RELEVANT_REPRESENTATION_STATUS_MAP.PUBLISHED
-	);
-
-	if (!publishedRepresentations.length) {
+	if (!representations.length) {
+		console.info(`No representation to unpublish.`);
 		return;
 	}
 
 	await databaseConnector.$transaction(async (tx) => {
-		const publishedRepresentationIds = publishedRepresentations.map(
-			(representation) => representation.id
-		);
+		const publishedRepresentationIds = representations.map((representation) => representation.id);
 
 		await tx.representation.updateMany({
 			where: {
@@ -766,7 +762,7 @@ export const setRepresentationsAsUnpublished = async (representations, actionBy)
 		});
 
 		await tx.representationAction.createMany({
-			data: publishedRepresentations.map((representation) => ({
+			data: representations.map((representation) => ({
 				representationId: representation.id,
 				previousStatus: representation.status,
 				type: 'STATUS',
@@ -878,6 +874,7 @@ export const getApplicationValidRepresentationForDownload = async (caseId, skip,
 			status: true,
 			originalRepresentation: true,
 			editedRepresentation: true,
+			useOfAI: true,
 			represented: {
 				select: {
 					firstName: true,
@@ -1070,134 +1067,106 @@ export const getPublishableRepresentationsById = async (caseId, representationId
 };
 
 /**
- * Returns representations with the given representation ids that are 'publishable' - those where status
- * is PUBLISHED
+ * Returns all representations for the given case id that have status PUBLISHED.
+ * Uses batched fetching and an extended timeout to handle large result sets.
  * @param {number} caseId
- * @param {number[]} representationIds
- * @returns {PrismaPromise<GetFindResult<Prisma.RepresentationSelect>[]>}
+ * @param {{ countOnly?: boolean }} [options={}]
+ * @returns {Promise<number | any[]>} The total count if countOnly is true, otherwise the full list of published representations
  */
-export const getAllPublishedRepresentationsById = async (caseId, representationIds) => {
-	const batchSize = 2000;
-	const publishableRepsPromises = [];
+export const getAllPublishedRepresentationsByCaseId = async (caseId, options = {}) => {
+	const BATCH_SIZE = 2000;
+	const { countOnly } = options;
 
-	for (let i = 0; i < representationIds.length; i += batchSize) {
-		const batchIds = representationIds.slice(i, i + batchSize);
+	const whereStatement = {
+		caseId,
+		status: RELEVANT_REPRESENTATION_STATUS_MAP.PUBLISHED
+	};
 
-		publishableRepsPromises.push(
-			databaseConnector.representation.findMany({
-				where: {
-					caseId,
-					id: { in: batchIds },
-					status: RELEVANT_REPRESENTATION_STATUS_MAP.PUBLISHED
-				},
-				include: {
-					user: true,
-					attachments: true,
-					case: true,
-					represented: {
-						select: {
-							id: true,
-							firstName: true,
-							lastName: true,
-							organisationName: true,
-							jobTitle: true,
-							under18: true,
-							email: true,
-							contactMethod: true,
-							phoneNumber: true,
-							address: {
-								select: {
-									addressLine1: true,
-									addressLine2: true,
-									town: true,
-									county: true,
-									postcode: true,
-									country: true
-								}
-							}
-						}
-					},
-					representative: {
-						select: {
-							id: true,
-							firstName: true,
-							lastName: true,
-							organisationName: true,
-							jobTitle: true,
-							under18: true,
-							email: true,
-							contactMethod: true,
-							phoneNumber: true,
-							address: {
-								select: {
-									addressLine1: true,
-									addressLine2: true,
-									town: true,
-									county: true,
-									postcode: true,
-									country: true
-								}
-							}
-						}
-					},
-					representationActions: true
-				}
-			})
-		);
-	}
-
-	const publishableReps = await Promise.all(publishableRepsPromises);
-
-	return publishableReps.flat();
-};
-
-/**
- * Returns representations for the given case id that are 'unpublishable' - those where status is PUBLISHED
- * @param {number} caseId
- * @returns {PrismaPromise<GetFindResult<Prisma.RepresentationSelect>[]>}
- */
-export const getUnpublishableRepresentations = async (caseId) => {
-	const totalUnpublishableRepsCount = await databaseConnector.representation.count({
-		where: {
-			caseId,
-			status: RELEVANT_REPRESENTATION_STATUS_MAP.PUBLISHED
-		}
-	});
-
-	const batchSize = 2000;
-	const unpublishableRepsPromises = [];
-
-	for (let i = 0; i < totalUnpublishableRepsCount; i += batchSize) {
-		unpublishableRepsPromises.push(
-			databaseConnector.representation.findMany({
-				select: {
-					id: true,
-					reference: true,
-					status: true,
-					redacted: true,
-					received: true,
-					represented: {
-						select: {
-							firstName: true,
-							lastName: true,
-							organisationName: true
-						}
+	const includeStatement = {
+		user: true,
+		attachments: true,
+		case: {
+			select: {
+				reference: true
+			}
+		},
+		represented: {
+			select: {
+				id: true,
+				firstName: true,
+				lastName: true,
+				organisationName: true,
+				jobTitle: true,
+				under18: true,
+				email: true,
+				contactMethod: true,
+				phoneNumber: true,
+				address: {
+					select: {
+						addressLine1: true,
+						addressLine2: true,
+						town: true,
+						county: true,
+						postcode: true,
+						country: true
 					}
-				},
-				where: {
-					caseId,
-					status: RELEVANT_REPRESENTATION_STATUS_MAP.PUBLISHED
-				},
-				orderBy: [{ status: 'desc' }, { reference: 'asc' }],
-				take: batchSize,
-				skip: i
-			})
+				}
+			}
+		},
+		representative: {
+			select: {
+				id: true,
+				firstName: true,
+				lastName: true,
+				organisationName: true,
+				jobTitle: true,
+				under18: true,
+				email: true,
+				contactMethod: true,
+				phoneNumber: true,
+				address: {
+					select: {
+						addressLine1: true,
+						addressLine2: true,
+						town: true,
+						county: true,
+						postcode: true,
+						country: true
+					}
+				}
+			}
+		},
+		representationActions: true
+	};
+
+	const totalCount = await databaseConnector.representation.count({ where: whereStatement });
+
+	if (countOnly) return totalCount;
+
+	const publishedRepresentations = [];
+
+	//batching the query for potentially large requests where thousands of reps are requested
+	//each batch runs in its own transaction with an individual timeout
+	for (let skip = 0; skip < totalCount; skip += BATCH_SIZE) {
+		const batch = await databaseConnector.$transaction(
+			async (tx) => {
+				return tx.representation.findMany({
+					where: whereStatement,
+					include: includeStatement,
+					orderBy: { id: 'asc' },
+					skip,
+					take: BATCH_SIZE
+				});
+			},
+			{
+				timeout: 30000
+			}
 		);
+
+		publishedRepresentations.push(...batch);
 	}
 
-	const unpublishableReps = await Promise.all(unpublishableRepsPromises);
-
-	return unpublishableReps.flat();
+	return publishedRepresentations;
 };
 
 /*
