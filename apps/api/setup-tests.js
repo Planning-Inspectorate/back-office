@@ -124,7 +124,17 @@ const mockInvoiceCreate = jest.fn().mockResolvedValue({});
 const mockInvoiceUpdate = jest.fn().mockResolvedValue({});
 const mockInvoiceDelete = jest.fn().mockResolvedValue({});
 
+const mockExaminationLibraryCategoryFindMany = jest.fn().mockResolvedValue([]);
+const mockExaminationLibraryCategoryCreateMany = jest.fn().mockResolvedValue({});
+
 class MockPrismaClient {
+	get examinationLibraryCategory() {
+		return {
+			findMany: mockExaminationLibraryCategoryFindMany,
+			createMany: mockExaminationLibraryCategoryCreateMany
+		};
+	}
+
 	get address() {
 		return {
 			delete: mockAddressDelete
