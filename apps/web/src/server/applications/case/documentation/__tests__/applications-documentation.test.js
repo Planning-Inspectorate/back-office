@@ -725,6 +725,31 @@ describe('applications documentation', () => {
 				expect(response.headers.location).toContain('/properties');
 			});
 		});
+
+		describe('Review redactions', () => {
+			it('renders the review page with the new not-needed option', async () => {
+				const response = await request.get(
+					`${baseUrl}/project-documentation/21/document/151/review-redactions`
+				);
+				const element = parseHtml(response.text);
+
+				expect(element.textContent).toContain("Review the document's redaction suggestions");
+				expect(element.innerHTML).toContain('Redaction not needed, remove suggestions');
+				expect(element.innerHTML).toContain('divider');
+				expect(element.innerHTML).toContain('or');
+			});
+
+			it('sends the document to sanitise when redactions are not needed', async () => {
+				const response = await request
+					.post(`${baseUrl}/project-documentation/21/document/151/review-redactions`)
+					.send({
+						reviewDecision: 'not-needed'
+					});
+
+				expect(response.status).toBe(302);
+				expect(response.headers.location).toContain('/properties');
+			});
+		});
 	});
 });
 

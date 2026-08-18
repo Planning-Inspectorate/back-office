@@ -17,6 +17,7 @@ export const index = async (context, message) => {
 				break;
 
 			case 'REDACT':
+			case 'SANITISE':
 				await handleFinalRedaction(context, message);
 				break;
 
