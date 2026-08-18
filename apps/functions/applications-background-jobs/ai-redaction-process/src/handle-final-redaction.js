@@ -5,6 +5,7 @@ import { buildFilenameSuffix } from './build-filename-suffix.js';
 export const handleFinalRedaction = async (context, message) => {
 	const { status, parameters } = message;
 	const metadata = parameters?.metadata;
+	const tryApplyProvisionalRedactions = parameters?.tryApplyProvisionalRedactions ?? true;
 
 	if (!metadata) {
 		throw new Error('Missing metadata in redaction message');
@@ -39,6 +40,7 @@ export const handleFinalRedaction = async (context, message) => {
 
 	const privateBlobPath = `/${writeDetails.blobPath}`;
 	const newFilename = buildFilenameSuffix(originalFilename, 'redact');
+	const finalRedactedStatus = tryApplyProvisionalRedactions ? 'redacted' : 'no_redaction_required';
 
 	// Step 1:  Mark previous version as reviewed
 	context.log(`Marking previous version as ai_suggestions_reviewed`);
@@ -69,13 +71,13 @@ export const handleFinalRedaction = async (context, message) => {
 	context.log(`Final redacted version created for ${newFilename}`);
 
 	// Step 3: Update latest version status to 'redacted'
-	context.log(`Updating new version status to redacted`);
+	context.log(`Updating new version status to ${finalRedactedStatus}`);
 
 	await requestWithApiKey.post(metadataUri, {
 		json: {
-			redactedStatus: 'redacted'
+			redactedStatus: finalRedactedStatus
 		}
 	});
 
-	context.log(`Document ${documentGuid} marked as redacted`);
+	context.log(`Document ${documentGuid} marked as ${finalRedactedStatus}`);
 };
