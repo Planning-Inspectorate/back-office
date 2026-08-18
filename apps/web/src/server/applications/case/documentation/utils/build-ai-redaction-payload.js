@@ -14,8 +14,9 @@ const getContainerName = (privateBlobContainer) => {
 /**
  * @param {import('../../../applications.types').DocumentationFile} document
  * @param {string} caseId
+ * @param {boolean} [tryApplyProvisionalRedactions=true]
  */
-export const buildAiRedactionPayload = (document, caseId) => {
+export const buildAiRedactionPayload = (document, caseId, tryApplyProvisionalRedactions = true) => {
 	if (!document.privateBlobPath || !document.privateBlobContainer) {
 		throw new Error('Document is missing required blob information for AI redaction.');
 	}
@@ -25,7 +26,7 @@ export const buildAiRedactionPayload = (document, caseId) => {
 	const containerName = getContainerName(document.privateBlobContainer);
 
 	return {
-		tryApplyProvisionalRedactions: true,
+		tryApplyProvisionalRedactions,
 		ruleName: 'default',
 		fileKind: 'pdf',
 		pinsService: 'CBOS',
