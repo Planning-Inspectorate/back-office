@@ -465,21 +465,24 @@ model ExaminationTimetableType {
 }
 
 model ExaminationTimetableItem {
-  id                         Int                         @id @default(autoincrement())
-  examinationTimetableId     Int
-  examinationTypeId          Int
-  name                       String
-  nameWelsh                  String?
-  description                String?                     @db.NText
-  descriptionWelsh           String?                     @db.NText
-  date                       DateTime
-  startDate                  DateTime?
-  folderId                   Int
-  ExaminationTimetableType   ExaminationTimetableType    @relation(fields: [examinationTypeId], references: [id])
-  ExaminationTimetable       ExaminationTimetable        @relation(fields: [examinationTimetableId], references: [id])
-  Folder                     Folder                      @relation(fields: [folderId], references: [id], onUpdate: NoAction)
-  createdAt                  DateTime                    @default(now())
-  ExaminationLibraryCategory ExaminationLibraryCategory? @relation("TimetableItemCategory")
+  id                           Int                          @id @default(autoincrement())
+  examinationTimetableId       Int
+  examinationTypeId            Int
+  name                         String
+  nameWelsh                    String?
+  description                  String?                      @db.NText
+  descriptionWelsh             String?                      @db.NText
+  date                         DateTime
+  startDate                    DateTime?
+  folderId                     Int
+  ExaminationTimetableType     ExaminationTimetableType     @relation(fields: [examinationTypeId], references: [id])
+  ExaminationTimetable         ExaminationTimetable         @relation(fields: [examinationTimetableId], references: [id])
+  Folder                       Folder                       @relation(fields: [folderId], references: [id], onUpdate: NoAction)
+  createdAt                    DateTime                     @default(now())
+  // Modeled as 1-to-Many to bypass SQL Server's NULL unique constraint limitation. 
+  // Conceptually this is a 1-to-1 relationship.
+  // Using @unique here causes: "Unique constraint failed on the constraint: dbo.ExaminationLibraryCategory"
+  ExaminationLibraryCategories ExaminationLibraryCategory[] @relation("TimetableItemCategory")
 }
 
 // Subscription represents a subscriber interested in project updates for a case
@@ -665,7 +668,7 @@ model ExaminationLibraryCategory {
   // Use the spaced literal to match the agreed status vocabulary.
   publishedStatus            String                    @default("in progress") /// Library published status for this category: "published" | "unpublished" | "in progress"
   source                     String /// "STATIC" = fixed categories (application docs, adequacy of consultation, etc.) "TIMETABLE" = categories created from ExaminationTimetableItem
-  examinationTimetableItemId Int?                      @unique /// For TIMETABLE-derived categories, link back to the timetable item
+  examinationTimetableItemId Int? /// For TIMETABLE-derived categories, link back to the timetable item
   createdAt                  DateTime                  @default(now())
   updatedAt                  DateTime                  @default(now())
   Case                       Case                      @relation(fields: [caseId], references: [id], onUpdate: NoAction, onDelete: NoAction)
