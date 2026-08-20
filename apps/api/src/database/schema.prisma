@@ -2,6 +2,7 @@ generator client {
   provider            = "prisma-client"
   output              = "./client"
   importFileExtension = "js"
+  previewFeatures     = ["partialIndexes"]
 }
 
 datasource db {
@@ -479,6 +480,8 @@ model ExaminationTimetableItem {
   ExaminationTimetable       ExaminationTimetable        @relation(fields: [examinationTimetableId], references: [id])
   Folder                     Folder                      @relation(fields: [folderId], references: [id], onUpdate: NoAction)
   createdAt                  DateTime                    @default(now())
+  // Using Prisma 7 partial unique constraint, we can enforce a strict 1-to-1 relationship 
+  // without SQL Server blocking multiple NULL values.
   ExaminationLibraryCategory ExaminationLibraryCategory? @relation("TimetableItemCategory")
 }
 
@@ -665,12 +668,14 @@ model ExaminationLibraryCategory {
   // Use the spaced literal to match the agreed status vocabulary.
   publishedStatus            String                    @default("in progress") /// Library published status for this category: "published" | "unpublished" | "in progress"
   source                     String /// "STATIC" = fixed categories (application docs, adequacy of consultation, etc.) "TIMETABLE" = categories created from ExaminationTimetableItem
-  examinationTimetableItemId Int?                      @unique /// For TIMETABLE-derived categories, link back to the timetable item
+  examinationTimetableItemId Int? /// For TIMETABLE-derived categories, link back to the timetable item
   createdAt                  DateTime                  @default(now())
   updatedAt                  DateTime                  @default(now())
   Case                       Case                      @relation(fields: [caseId], references: [id], onUpdate: NoAction, onDelete: NoAction)
   ExaminationTimetableItem   ExaminationTimetableItem? @relation("TimetableItemCategory", fields: [examinationTimetableItemId], references: [id])
   DocumentVersions           DocumentVersion[]
+  // Enforce 1-to-1 strictly on SQL Server while allowing multiple NULLs
+  @@unique([examinationTimetableItemId], where: { examinationTimetableItemId: { not: null } })
 
   @@unique([caseId, categoryCode, categoryName])
 }

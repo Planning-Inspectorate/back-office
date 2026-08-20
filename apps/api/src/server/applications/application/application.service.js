@@ -2,6 +2,7 @@ import { EventType } from '@pins/event-client';
 import { isArray, isEmpty, pick, pickBy } from 'lodash-es';
 import * as caseRepository from '#repositories/case.repository.js';
 import * as folderRepository from '#repositories/folder.repository.js';
+import * as examinationLibraryRepository from '#repositories/examination-library.repository.js';
 import { breakUpCompoundStatus } from '#utils/break-up-compound-status.js';
 import { buildAppealCompundStatus } from '#utils/build-appeal-compound-status.js';
 import { mapApplicationDetails } from '#utils/mapping/map-case-details.js';
@@ -102,6 +103,11 @@ export const startApplication = async (id) => {
 		caseDetails.id.toString()
 	);
 
+	const additionalTransactions = [
+		...folderRepository.createFolders(caseDetails.id),
+		examinationLibraryRepository.createStaticCategories(caseDetails.id)
+	];
+
 	const updatedCase = await caseRepository.updateApplicationStatusAndDataById(
 		caseDetails.id,
 		caseDetails.ApplicationDetails?.id,
@@ -111,7 +117,7 @@ export const startApplication = async (id) => {
 			currentStatuses: caseDetails.CaseStatus,
 			setReference: true
 		},
-		folderRepository.createFolders(caseDetails.id)
+		additionalTransactions
 	);
 
 	if (!updatedCase) {
