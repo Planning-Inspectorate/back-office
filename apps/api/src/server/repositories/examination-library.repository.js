@@ -1,4 +1,5 @@
 import { databaseConnector } from '#utils/database-connector.js';
+import { EXAM_LIBRARY_STATIC_CATEGORIES } from '../applications/constants.js';
 
 /**
  * @typedef {import('#database-client').ExaminationLibraryCategory} ExaminationLibraryCategory
@@ -46,9 +47,11 @@ export const createCategories = (caseId, categoriesData) => {
 		caseId
 	}));
 
+	// Note: We cannot use `skipDuplicates: true` here because Prisma does not support it
+	// on Microsoft SQL Server. If used, it throws the following error during transaction execution:
+	// "Unknown argument skipDuplicates. Available options are marked with ?"
 	return databaseConnector.examinationLibraryCategory.createMany({
-		data: dataToInsert,
-		skipDuplicates: true
+		data: dataToInsert
 	});
 };
 
@@ -97,4 +100,14 @@ export const getDocuments = (caseId, filters = {}) => {
 			createdAt: 'desc' // initial sort order to be confirmed
 		}
 	});
+};
+
+/**
+ * Creates the static initial Examination Library Categories for a newly started case.
+ *
+ * @param {number} caseId
+ * @returns {import('#database-client').PrismaPromise<import('#database-client').Prisma.BatchPayload>}
+ */
+export const createStaticCategories = (caseId) => {
+	return createCategories(caseId, EXAM_LIBRARY_STATIC_CATEGORIES);
 };
