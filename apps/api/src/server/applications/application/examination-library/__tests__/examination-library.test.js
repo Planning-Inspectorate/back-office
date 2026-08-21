@@ -39,8 +39,7 @@ describe('Examination Library Routes', () => {
 			expect(response.status).toBe(200);
 			expect(response.body).toEqual({ count: 1 });
 			expect(databaseConnector.examinationLibraryCategory.createMany).toHaveBeenCalledWith({
-				data: [{ categoryCode: 'APP', categoryName: 'Application', caseId }],
-				skipDuplicates: true
+				data: [{ categoryCode: 'APP', categoryName: 'Application', caseId }]
 			});
 		});
 	});

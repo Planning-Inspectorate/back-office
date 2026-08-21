@@ -66,7 +66,7 @@ export async function deleteAllRecords(databaseConnector) {
 	// truncate / delete tables
 	await truncateTable('RegionsOnApplicationDetails');
 	await deleteExaminationLibraryCategory;
-	await truncateTable('ExaminationTimetableItem');
+	await databaseConnector.$queryRawUnsafe(`DELETE FROM "ExaminationTimetableItem";`);
 
 	await truncateTable('Subscription');
 	await deleteExaminationTimetableItem;
