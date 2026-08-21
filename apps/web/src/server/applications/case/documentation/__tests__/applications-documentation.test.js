@@ -739,15 +739,63 @@ describe('applications documentation', () => {
 				expect(element.innerHTML).toContain('or');
 			});
 
-			it('sends the document to sanitise when redactions are not needed', async () => {
-				const response = await request
-					.post(`${baseUrl}/project-documentation/21/document/151/review-redactions`)
-					.send({
-						reviewDecision: 'not-needed'
-					});
+			describe('POST /review-redactions', () => {
+				it('rejects request with missing reviewDecision', async () => {
+					const response = await request
+						.post(`${baseUrl}/project-documentation/21/document/151/review-redactions`)
+						.send({});
+					const element = parseHtml(response.text);
 
-				expect(response.status).toBe(302);
-				expect(response.headers.location).toContain('/properties');
+					expect(response.status).toBe(200);
+					expect(element.innerHTML).toContain('Review decision is required');
+				});
+
+				it('rejects request with invalid reviewDecision value', async () => {
+					const response = await request
+						.post(`${baseUrl}/project-documentation/21/document/151/review-redactions`)
+						.send({
+							reviewDecision: 'invalid-value'
+						});
+					const element = parseHtml(response.text);
+
+					expect(response.status).toBe(200);
+					expect(element.innerHTML).toContain(
+						'Review decision must be one of: upload-new, ready, not-needed'
+					);
+				});
+
+				it('redirects to upload-amends page when reviewDecision is upload-new', async () => {
+					const response = await request
+						.post(`${baseUrl}/project-documentation/21/document/151/review-redactions`)
+						.send({
+							reviewDecision: 'upload-new'
+						});
+
+					expect(response.status).toBe(302);
+					expect(response.headers.location).toContain('/upload-amends');
+				});
+
+				it('sends the document to sanitise when redactions are not needed', async () => {
+					const response = await request
+						.post(`${baseUrl}/project-documentation/21/document/151/review-redactions`)
+						.send({
+							reviewDecision: 'not-needed'
+						});
+
+					expect(response.status).toBe(302);
+					expect(response.headers.location).toContain('/properties');
+				});
+
+				it('accepts reviewDecision value "ready"', async () => {
+					const response = await request
+						.post(`${baseUrl}/project-documentation/21/document/151/review-redactions`)
+						.send({
+							reviewDecision: 'ready'
+						});
+
+					expect(response.status).toBe(302);
+					expect(response.headers.location).toContain('/properties');
+				});
 			});
 		});
 	});
