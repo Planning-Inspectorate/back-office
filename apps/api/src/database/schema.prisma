@@ -2,6 +2,7 @@ generator client {
   provider            = "prisma-client"
   output              = "./client"
   importFileExtension = "js"
+  previewFeatures     = ["partialIndexes"]
 }
 
 datasource db {
@@ -465,24 +466,23 @@ model ExaminationTimetableType {
 }
 
 model ExaminationTimetableItem {
-  id                           Int                          @id @default(autoincrement())
-  examinationTimetableId       Int
-  examinationTypeId            Int
-  name                         String
-  nameWelsh                    String?
-  description                  String?                      @db.NText
-  descriptionWelsh             String?                      @db.NText
-  date                         DateTime
-  startDate                    DateTime?
-  folderId                     Int
-  ExaminationTimetableType     ExaminationTimetableType     @relation(fields: [examinationTypeId], references: [id])
-  ExaminationTimetable         ExaminationTimetable         @relation(fields: [examinationTimetableId], references: [id])
-  Folder                       Folder                       @relation(fields: [folderId], references: [id], onUpdate: NoAction)
-  createdAt                    DateTime                     @default(now())
-  // Modeled as 1-to-Many to bypass SQL Server's NULL unique constraint limitation. 
-  // Conceptually this is a 1-to-1 relationship.
-  // Using @unique here causes: "Unique constraint failed on the constraint: dbo.ExaminationLibraryCategory"
-  ExaminationLibraryCategories ExaminationLibraryCategory[] @relation("TimetableItemCategory")
+  id                         Int                         @id @default(autoincrement())
+  examinationTimetableId     Int
+  examinationTypeId          Int
+  name                       String
+  nameWelsh                  String?
+  description                String?                     @db.NText
+  descriptionWelsh           String?                     @db.NText
+  date                       DateTime
+  startDate                  DateTime?
+  folderId                   Int
+  ExaminationTimetableType   ExaminationTimetableType    @relation(fields: [examinationTypeId], references: [id])
+  ExaminationTimetable       ExaminationTimetable        @relation(fields: [examinationTimetableId], references: [id])
+  Folder                     Folder                      @relation(fields: [folderId], references: [id], onUpdate: NoAction)
+  createdAt                  DateTime                    @default(now())
+  // Using Prisma 7 partial unique constraint, we can enforce a strict 1-to-1 relationship 
+  // without SQL Server blocking multiple NULL values.
+  ExaminationLibraryCategory ExaminationLibraryCategory? @relation("TimetableItemCategory")
 }
 
 // Subscription represents a subscriber interested in project updates for a case
@@ -674,6 +674,8 @@ model ExaminationLibraryCategory {
   Case                       Case                      @relation(fields: [caseId], references: [id], onUpdate: NoAction, onDelete: NoAction)
   ExaminationTimetableItem   ExaminationTimetableItem? @relation("TimetableItemCategory", fields: [examinationTimetableItemId], references: [id])
   DocumentVersions           DocumentVersion[]
+  // Enforce 1-to-1 strictly on SQL Server while allowing multiple NULLs
+  @@unique([examinationTimetableItemId], where: { examinationTimetableItemId: { not: null } })
 
   @@unique([caseId, categoryCode, categoryName])
 }
