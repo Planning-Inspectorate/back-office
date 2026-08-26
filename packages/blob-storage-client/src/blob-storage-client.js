@@ -148,13 +148,14 @@ export class BlobStorageClient {
 	uploadStream = async (container, fileStream, filePath, fileType) => {
 		const blockBlobClient = this.#getBlockBlobClient(container, filePath);
 
-		let bufferSize;
-		let maxConcurrency;
-		let defaultOptions;
+		const options = fileType ? this.#getFileUploadOptions(fileType) : undefined;
 
-		const options = fileType ? this.#getFileUploadOptions(fileType) : defaultOptions;
-
-		await blockBlobClient.uploadStream(fileStream, bufferSize, maxConcurrency, options);
+		await blockBlobClient.uploadStream(
+			fileStream,
+			undefined,
+			undefined,
+			options
+		);
 	};
 
 	/**

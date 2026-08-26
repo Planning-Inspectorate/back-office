@@ -53,9 +53,7 @@ const getNumberOfBankHolidaysBetweenDates = (dateFrom, dateWithBusinessDaysAdded
 const getDateWithBusinessDaysAdded = (dateFrom, businessDaysToAdd, bankHolidays) => {
 	let dateWithBusinessDaysAdded = addBusinessDays(dateFrom, businessDaysToAdd);
 
-	let bankHolidayCount = 0;
-
-	bankHolidayCount = getNumberOfBankHolidaysBetweenDates(
+	let bankHolidayCount = getNumberOfBankHolidaysBetweenDates(
 		dateFrom,
 		dateWithBusinessDaysAdded,
 		bankHolidays

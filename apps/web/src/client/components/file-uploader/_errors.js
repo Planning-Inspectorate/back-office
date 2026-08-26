@@ -48,7 +48,7 @@ export const showErrors = (error, uploadForm) => {
 	buildProgressMessage({ show: false }, uploadForm);
 	formContainer.classList.remove('error');
 
-	let topErrorsMarkup = '';
+	let topErrorsMarkup;
 	let middleErrorsMarkup = '';
 
 	if (error.message === 'FILE_SPECIFIC_ERRORS' && error.details) {
