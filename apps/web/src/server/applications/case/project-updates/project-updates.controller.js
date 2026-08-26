@@ -444,7 +444,7 @@ export async function projectUpdatesDeletePost(req, res) {
 	try {
 		await deleteProjectUpdate(caseId, projectUpdateId);
 		setSessionBanner(req.session, `Project update deleted`);
-	} catch (e) {
+	} catch {
 		res.locals.error = { error: 'The project update could not be deleted' };
 		return projectUpdatesDeleteGet(req, res);
 	}

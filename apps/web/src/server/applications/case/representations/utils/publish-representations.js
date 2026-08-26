@@ -60,7 +60,7 @@ export function getPublishedRepIdsAndCount(items) {
 	let publishedRepsCount;
 	try {
 		publishedRepsCount = getNumberOfRepresentationsPublished({ publishedRepIds });
-	} catch (e) {
+	} catch {
 		publishedRepsCount = 0;
 	}
 	return { publishedRepIds, publishedRepsCount };
