@@ -198,7 +198,7 @@ export const verifyAllS51DocumentsAreVirusChecked = async (adviceId) => {
  */
 export const hasPublishedAdvice = async (adviceIds) => {
 	const publishedAdvices = await s51AdviceRepository.getPublishedAdvicesByIds(adviceIds);
-	return publishedAdvices?.length > 0 ?? false;
+	return publishedAdvices?.length > 0;
 };
 
 /**
@@ -211,7 +211,7 @@ export const hasPublishedDocument = async (adviceIds) => {
 		adviceIds
 	);
 
-	return publishedAdvices?.length > 0 ?? false;
+	return publishedAdvices?.length > 0;
 };
 
 /**
