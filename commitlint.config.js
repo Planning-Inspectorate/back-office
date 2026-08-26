@@ -1,4 +1,5 @@
-const { isRegExp } = require('lodash');
+import { commitlintConfig } from '@planning-inspectorate/coding-standards';
+import lodash from 'lodash';
 
 const scopes = [
 	'api',
@@ -16,14 +17,8 @@ const scopes = [
 const dependabotScopes = ['deps', 'deps-dev'];
 
 /** @type {import('@commitlint/types').UserConfig} */
-module.exports = {
-	extends: ['@commitlint/config-conventional'],
-	ignores: [
-		// ignore commits from dependabot
-		(commit) =>
-			(commit.startsWith('chore(deps)') || commit.startsWith('chore(deps-dev)')) &&
-			commit.includes('dependabot')
-	],
+export default {
+	...commitlintConfig,
 	rules: {
 		'body-max-line-length': [2, 'always', 120], // dependabot needs longer lines, the value is somewhat arbitrary
 		'scope-enums': [
@@ -78,7 +73,7 @@ module.exports = {
 					// or a regular expression
 					if (
 						allowedScopes.some((allowedScope) => {
-							if (isRegExp(allowedScope)) {
+							if (lodash.isRegExp(allowedScope)) {
 								if (scope == null) {
 									return false;
 								}
