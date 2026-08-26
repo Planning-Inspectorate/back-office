@@ -1,4 +1,3 @@
-/* eslint-disable unicorn/prefer-module */
 require('dotenv').config();
 
 module.exports = {
