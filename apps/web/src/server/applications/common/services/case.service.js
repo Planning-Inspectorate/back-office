@@ -31,7 +31,7 @@ export const getCase = async (id, query = null) => {
 		pino.error(
 			`[WEB] GET /applications-service/case/${id} (Response code: ${error?.response?.statusCode})`
 		);
-		throw new Error(error?.response?.statusCode ?? 500);
+		throw new Error(error?.response?.statusCode ?? 500, { cause: error });
 	}
 };
 
