@@ -110,7 +110,7 @@ export const mapS51DocumentsToUI = (documentsWithDocumentVersion) => {
  * @returns {S51AdviceSchemaStatus}
  */
 export const mapS51AdviceStatusToSchemaStatus = (status) => {
-	let schemaStatus = undefined;
+	let schemaStatus;
 	switch (status) {
 		case 'checked':
 			schemaStatus = 'checked';

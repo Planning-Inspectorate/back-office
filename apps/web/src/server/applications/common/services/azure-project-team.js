@@ -82,7 +82,7 @@ const getUsersByGroupId = async (ADToken, groupId) => {
 		pino.info(`ADUsers: Returned ${page.value?.length} results in page ${numberOfPagesReturned}`);
 
 		if (++numberOfPagesReturned > maximumNumberOfPages) {
-			gotAllPages = true;
+			// maximum pages reached, so break out of the loop
 			break;
 		}
 
