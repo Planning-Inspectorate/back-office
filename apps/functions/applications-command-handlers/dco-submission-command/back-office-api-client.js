@@ -13,7 +13,8 @@ async function getCaseID(caseReference) {
 		return result.id;
 	} catch (err) {
 		throw new Error(
-			`getCaseID failed for reference ${caseReference}. Host: ${config.API_HOST}, with error: ${err}`
+			`getCaseID failed for reference ${caseReference}. Host: ${config.API_HOST}, with error: ${err}`,
+			{ cause: err }
 		);
 	}
 }
@@ -26,7 +27,10 @@ async function getAllFoldersOnCase(caseId) {
 
 		return result;
 	} catch (err) {
-		throw new Error(`getAllFoldersOnCase failed for caseId ${caseId} with error: ${err}`);
+		throw new Error(
+			`getAllFoldersOnCase failed for caseId ${caseId} with error: ${err}`,
+			{ cause: err }
+		);
 	}
 }
 
@@ -39,7 +43,10 @@ async function postDocuments(caseId, documents) {
 			}
 		);
 	} catch (err) {
-		throw new Error(`postDocuments failed for caseId ${caseId} with error: ${err}`);
+		throw new Error(
+			`postDocuments failed for caseId ${caseId} with error: ${err}`,
+			{ cause: err }
+		);
 	}
 }
 

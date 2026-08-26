@@ -24,7 +24,8 @@ const getApplicationDocumentsFolders = async (caseId) => {
 		return acceptanceChildFolders;
 	} catch (err) {
 		throw new Error(
-			`getApplicationDocumentsFolders failed for caseId ${caseId} with error: ${err}`
+			`getApplicationDocumentsFolders failed for caseId ${caseId} with error: ${err}`,
+			{ cause: err }
 		);
 	}
 };

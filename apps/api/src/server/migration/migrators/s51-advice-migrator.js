@@ -59,7 +59,7 @@ export const migrateS51Advice = async (s51AdviceList) => {
 					})
 				);
 			} catch (error) {
-				throw Error(`Failed to process S51Advice with ID ${s51Advice.adviceId}: ${error.message}`);
+				throw Error(`Failed to process S51Advice with ID ${s51Advice.adviceId}: ${error.message}`, {cause: error});
 			}
 		})
 	);
