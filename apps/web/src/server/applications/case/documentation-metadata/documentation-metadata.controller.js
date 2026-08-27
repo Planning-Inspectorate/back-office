@@ -1,172 +1,12 @@
-import { url } from '../../../lib/nunjucks-filters/url.js';
 import { updateDocumentMetaData } from './documentation-metadata.service.js';
 import { setSessionBanner } from '../../common/services/session.service.js';
+import { getMetadataViewModel, viewModels } from './documentation-metadata.view-model.js';
+import { mapMetadataFormToApi } from './documentation-metadata.mappers.js';
 
-/** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
-/** @typedef {"name" | "description" | "descriptionWelsh" | "published-date" | "receipt-date"| "redaction" | "published-status" | "type"|"webfilter" | "webfilterWelsh" | "agent"| "author" | "authorWelsh" | "transcript" | "interestedPartyNumber" | "party-type"} MetaDataNames */
-/** @typedef {{label?: string, metaDataName: string, metaDataType?: string, hint?: string, pageTitle?: string, backLink?: string, maxLength?: number, template?: string, englishLabel?: string, metaDataEnglishName?: string, items?: {value: boolean|string, text: string, checked?: boolean, hint?: {text: string}}[]}} MetaDataLayoutParams */
+/** @typedef {"name" | "description" | "descriptionWelsh" | "published-date" | "receipt-date"| "redaction" | "published-status" | "type"|"webfilter" | "webfilterWelsh" | "agent"| "author" | "authorWelsh" | "transcript" | "interestedPartyNumber" | "party-type"|"examination-library-category"} MetaDataNames */
 /** @typedef {{documentGuid: string, metaDataName: MetaDataNames}} RequestParams */
 /** @typedef {import('../../applications.types').DocumentationFile} DocumentationFile */
 /** @typedef {{case: {isMaterialChange: boolean}, caseId: number, folderId: number, documentMetaData: DocumentationFile, documentGuid: string}} ResponseLocals */
-
-/** @type {Record<MetaDataNames, MetaDataLayoutParams>} */
-const layouts = {
-	name: {
-		label: 'Document file name',
-		metaDataName: 'fileName',
-		template: 'documentation-edit-textinput.njk'
-	},
-	description: {
-		label: 'Document description',
-		metaDataName: 'description',
-		template: 'documentation-edit-textarea.njk'
-	},
-	descriptionWelsh: {
-		label: 'Document description in Welsh',
-		metaDataName: 'descriptionWelsh',
-		englishLabel: 'Document description in English',
-		metaDataEnglishName: 'description',
-		template: 'documentation-edit-textarea.njk'
-	},
-	interestedPartyNumber: {
-		label: 'Interested Party number (optional)',
-		metaDataName: 'interestedPartyNumber',
-		template: 'documentation-edit-textinput.njk'
-	},
-	'party-type': {
-		items: [
-			{ value: 'Applicant', text: 'Applicant' },
-			{ value: 'Local authority', text: 'Local authority' },
-			{
-				value: 'Other council',
-				text: 'Other council',
-				hint: {
-					text: 'For example, parish council, community council or town council'
-				}
-			},
-			{ value: 'Statutory body', text: 'Statutory body' },
-			{ value: 'Interested organisation', text: 'Interested organisation' },
-			{ value: 'Individual', text: 'Individual' },
-			{ value: 'Planning Inspectorate', text: 'Planning Inspectorate' }
-		],
-		pageTitle: 'Type of party',
-		label: 'Type of party',
-		metaDataName: 'typeOfParty',
-		metaDataType: 'radios'
-	},
-	webfilter: {
-		label: 'Webfilter',
-		metaDataName: 'filter1',
-		template: 'documentation-edit-textarea.njk'
-	},
-	webfilterWelsh: {
-		label: 'Webfilter in Welsh',
-		metaDataName: 'filter1Welsh',
-		englishLabel: 'Webfilter in English',
-		metaDataEnglishName: 'filter1',
-		template: 'documentation-edit-textarea.njk'
-	},
-	agent: {
-		label: 'Agent name (optional)',
-		metaDataName: 'representative',
-		template: 'documentation-edit-textinput.njk'
-	},
-	author: {
-		label: 'Who the document is from',
-		metaDataName: 'author',
-		template: 'documentation-edit-textarea.njk'
-	},
-	authorWelsh: {
-		label: 'Who the document is from in Welsh',
-		englishLabel: 'Who the document is from in English',
-		metaDataName: 'authorWelsh',
-		metaDataEnglishName: 'author',
-		template: 'documentation-edit-textarea.njk'
-	},
-	'published-date': {
-		label: 'Date document published',
-		hint: 'for example, 27 03 2023',
-		pageTitle: 'Enter the document published date',
-		metaDataName: 'datePublished',
-		metaDataType: 'date'
-	},
-	'receipt-date': {
-		label: 'Date received',
-		hint: 'for example, 27 03 2023',
-		pageTitle: 'Enter date received',
-		metaDataName: 'dateCreated',
-		metaDataType: 'date'
-	},
-	redaction: {
-		items: [
-			{ value: 'redacted', text: 'Redacted' },
-			{ value: 'not_redacted', text: 'Unredacted', checked: true },
-			{ value: 'no_redaction_required', text: 'Redaction not needed' }
-		],
-		pageTitle: 'Select the redaction status',
-		label: 'Redaction',
-		metaDataName: 'redactedStatus',
-		metaDataType: 'radios'
-	},
-	'published-status': {
-		items: [
-			{ value: 'not_checked', text: 'Not checked' },
-			{ value: 'checked', text: 'Checked' },
-			{ value: 'ready_to_publish', text: 'Ready to publish' },
-			{ value: 'do_not_publish', text: 'Do not publish' }
-		],
-		pageTitle: 'Select the document status',
-		label: 'Status',
-		metaDataName: 'publishedStatus',
-		metaDataType: 'radios'
-	},
-	transcript: {
-		label: 'Transcript (optional)',
-		hint: 'E.g. TR010060-000110',
-		metaDataName: 'transcript',
-		template: 'documentation-edit-textinput.njk'
-	},
-	type: {
-		items: [
-			{
-				value: 'DCO decision letter (SoS)(approve)',
-				text: 'DCO decision letter (SoS)(approve)'
-			},
-			{
-				value: 'DCO decision letter (SoS)(refuse)',
-				text: 'DCO decision letter (SoS)(refuse)'
-			},
-			{
-				value: 'Event recording',
-				text: 'Event recording'
-			},
-			{
-				value: 'Event recording transcript',
-				text: 'Event recording transcript'
-			},
-			{
-				value: 'Exam library',
-				text: 'Exam library'
-			},
-			{
-				value: 'Rule 6 letter',
-				text: 'Rule 6 letter'
-			},
-			{
-				value: 'Rule 8 letter',
-				text: 'Rule 8 letter'
-			},
-			{
-				value: '',
-				text: 'No document type'
-			}
-		],
-		pageTitle: 'Select the document type',
-		label: 'Document type',
-		metaDataName: 'documentType',
-		metaDataType: 'radios'
-	}
-};
 
 /**
  * View the page for editing/creating documentation metadata
@@ -174,8 +14,8 @@ const layouts = {
  * @type {import('@pins/express').RenderHandler<{}, {}, {}, {}, RequestParams, ResponseLocals>}
  */
 export async function viewDocumentationMetaData({ params }, response, next) {
-	const layout = getLayoutParameters(params, response.locals);
-	if (!layout) {
+	const viewModel = await getMetadataViewModel(params, response.locals);
+	if (!viewModel) {
 		return next();
 	}
 
@@ -184,13 +24,13 @@ export async function viewDocumentationMetaData({ params }, response, next) {
 	);
 	if (noPublish && params.metaDataName === 'published-status') {
 		// deny status update if document hasn't passed virus check yet
-		layout.items = [];
+		viewModel.items = [];
 		return response.status(403).redirect('/app/403');
 	}
 
-	const template = layout.template ?? 'documentation-edit.njk';
+	const template = viewModel.template ?? 'documentation-edit.njk';
 
-	response.render(`applications/case-documentation/${template}`, { layout, noPublish });
+	response.render(`applications/case-documentation/${template}`, { layout: viewModel, noPublish });
 }
 
 /**
@@ -204,10 +44,10 @@ export async function updateDocumentationMetaData(request, response) {
 	const { caseId, documentGuid } = response.locals;
 	const { metaDataName } = params;
 
-	let newMetaData = body;
+	let newMetaData = mapMetadataFormToApi(metaDataName, body);
 
 	if (metaDataName === 'published-date' || metaDataName === 'receipt-date') {
-		const fieldName = layouts[metaDataName].metaDataName;
+		const fieldName = viewModels[metaDataName].metaDataName;
 
 		const day = body[`${fieldName}.day`];
 		const month = body[`${fieldName}.month`];
@@ -229,7 +69,7 @@ export async function updateDocumentationMetaData(request, response) {
 		: await updateDocumentMetaData(caseId, documentGuid, newMetaData);
 
 	if (validationErrors || apiErrors) {
-		const layout = getLayoutParameters(params, response.locals);
+		const viewModel = await getMetadataViewModel(params, response.locals);
 
 		// @ts-ignore
 		const errors = Object.entries(validationErrors || apiErrors).reduce((result, [key, value]) => {
@@ -241,56 +81,12 @@ export async function updateDocumentationMetaData(request, response) {
 		}, {});
 
 		return response.render(
-			`applications/case-documentation/${layout?.template ?? 'documentation-edit.njk'}`,
-			{ errors, layout }
+			`applications/case-documentation/${viewModel?.template ?? 'documentation-edit.njk'}`,
+			{ errors, layout: viewModel }
 		);
 	}
 
-	setSessionBanner(session, `${layouts[metaDataName].label} updated`);
+	setSessionBanner(session, `${viewModels[metaDataName].label} updated`);
 
 	response.redirect('../properties');
 }
-
-/**
- * Create layout parameters for metadata pages
- *
- * @param {RequestParams} requestParameters
- * @param {ResponseLocals} responseLocals
- * @returns {MetaDataLayoutParams | null}
- */
-const getLayoutParameters = (requestParameters, responseLocals) => {
-	const { documentGuid, metaDataName } = requestParameters;
-	const { caseId, folderId, case: caseData } = responseLocals;
-
-	const backLink = url('document', {
-		caseId,
-		folderId,
-		documentGuid,
-		step: 'properties'
-	});
-
-	const layout = layouts[metaDataName];
-	if (!layout) {
-		return null;
-	}
-
-	if (layout.metaDataName === 'documentType' && layout.items) {
-		layout.items = layout.items.map((item) => {
-			if (item.value === 'Rule 6 letter') {
-				return {
-					...item,
-					text: caseData.isMaterialChange ? 'Regulation 27 and 28 letter' : 'Rule 6 letter'
-				};
-			} else if (item.value === 'Rule 8 letter') {
-				return {
-					...item,
-					text: caseData.isMaterialChange ? 'Regulation 30 letter' : 'Rule 8 letter'
-				};
-			}
-
-			return item;
-		});
-	}
-
-	return { ...layout, backLink };
-};

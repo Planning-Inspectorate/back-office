@@ -67,7 +67,13 @@ export const mapSingleDocumentDetailsFromVersion = ({
 
 		examinationRefNo: documentVersion.examinationRefNo ?? '',
 		fromFrontOffice: Document?.fromFrontOffice ?? false,
-		transcript: documentVersion?.transcript?.documentReference ?? ''
+		transcript: documentVersion?.transcript?.documentReference ?? '',
+
+		examinationLibraryCategoryId: documentVersion?.examinationLibraryCategoryId ?? null,
+		examinationLibraryCategoryCode:
+			documentVersion?.ExaminationLibraryCategory?.categoryCode ?? null,
+		examinationLibraryCategoryName:
+			documentVersion?.ExaminationLibraryCategory?.categoryName ?? null
 	};
 };
 

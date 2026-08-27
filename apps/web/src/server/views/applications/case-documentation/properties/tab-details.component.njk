@@ -53,7 +53,8 @@
     } %}
     {% set examinationLibraryCategoryRow = {
         label: 'Examination library category',
-        value: documentationFile.examinationLibraryCategoryName,
+        value: documentationFile.examinationLibraryCategoryDisplayName,
+		valueLink: documentationFile.examinationLibraryCategoryDisplayHref,
         link: 'examination-library-category'
     } %}
     {% set examinationLibraryReferenceRow = {
@@ -105,6 +106,21 @@
 			} %}
 		{% endif %}
 
+
+		{% if property.valueLink %}
+			{% set propertyValueHtml %}
+				<a class="govuk-link" href="{{ property.valueLink }}">{{ property.value }}</a>
+			{% endset %}
+
+			{% set rowValue = {
+				html: propertyValueHtml
+			} %}
+		{% else %}
+			{% set rowValue = {
+				text: property.value
+			} %}
+		{% endif %}
+
 		{% set noChangeLinkRequired =
 			(property.label === 'Redaction' and documentationFile.publishedStatus === 'published')
 			or property.value === 'Redaction in progress'
@@ -119,9 +135,7 @@
 					text: property.label,
 					classes: property.classes
 				},
-				value: {
-					text: property.value
-				}
+				value: rowValue
 			} %}
 		{% else %}
 			{% set row = {
@@ -129,9 +143,7 @@
 					text: property.label,
 					classes: property.classes
 				},
-				value: {
-					text: property.value
-				},
+				value: rowValue,
 				actions: {
 					items: [rowActions]
 				}

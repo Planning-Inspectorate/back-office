@@ -153,6 +153,12 @@ export const getById = (documentGuid, version = 1) => {
 				select: {
 					documentReference: true
 				}
+			},
+			ExaminationLibraryCategory: {
+				select: {
+					categoryCode: true,
+					categoryName: true
+				}
 			}
 		}
 	});

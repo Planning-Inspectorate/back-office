@@ -30,7 +30,8 @@ export const validatorsDispatcher = async (request, response, next) => {
 		redaction: validateDocumentationMetaRedacted,
 		'party-type': validateDocumentationMetaTypeOfParty,
 		'receipt-date': validateDocumentationMetaDateCreated,
-		'published-date': validateDocumentationMetaDatePublished
+		'published-date': validateDocumentationMetaDatePublished,
+		'examination-library-category': validateDocumentationMetaELCategory
 	};
 
 	if (Object.keys(validators).includes(metaDataName)) {
@@ -123,6 +124,13 @@ export const validateDocumentationMetaRedacted = createValidator(
 
 export const validateDocumentationMetaTypeOfParty = createValidator(
 	body('typeOfParty').trim().isLength({ min: 1 }).withMessage('Select the type of party')
+);
+
+export const validateDocumentationMetaELCategory = createValidator(
+	body('examinationLibraryCategoryId')
+		.trim()
+		.isLength({ min: 1 })
+		.withMessage('Select an examination library category')
 );
 
 /**

@@ -54,6 +54,7 @@ import { buildAiRedactionPayload } from './utils/build-ai-redaction-payload.js';
 import { getAiRedactionBannerFromStatus } from './utils/get-ai-redaction-banner-from-status.js';
 import { isGisShapefilesFolder } from './utils/is-gis-shapefiles-folder.js';
 import { getUploadConfigForFolder } from './applications-documentation.config.js';
+import { getExaminationLibraryCategoryDisplay } from './utils/examination-library-category-display.js';
 
 /**
  * Redirects to the folder view if the folder is the GIS Shapefiles folder.
@@ -331,12 +332,20 @@ export async function viewApplicationsCaseDocumentationProperties({ session }, r
 	let documentationFile = await getCaseDocumentationFileInfo(caseId, documentGuid);
 	let documentVersions = await getCaseDocumentationFileVersions(documentGuid);
 
+	const examinationLibraryCategoryDisplay = getExaminationLibraryCategoryDisplay(
+		documentationFile?.examinationLibraryCategoryCode,
+		documentationFile?.examinationLibraryCategoryName,
+		caseId
+	);
+
 	documentationFile = {
 		...documentationFile,
 		redactionStatusForDisplay: getDisplayValue(
 			redactionStatusDisplayValues,
 			documentationFile.redactedStatus
-		)
+		),
+		examinationLibraryCategoryDisplayName: examinationLibraryCategoryDisplay.name,
+		examinationLibraryCategoryDisplayHref: examinationLibraryCategoryDisplay.href
 	};
 
 	documentVersions = documentVersions.map((documentVersion) => ({
