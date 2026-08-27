@@ -113,7 +113,8 @@ export const validateDocumentVersionMetadataBody = (documentVersionEventBody) =>
 		filter1Welsh: joi.string().optional(),
 		filter2: joi.string().optional(),
 		examinationRefNo: joi.string().optional(),
-		transcript: joi.string().allow('').optional()
+		transcript: joi.string().allow('').optional(),
+		examinationLibraryCategoryId: joi.number().integer().allow(null)
 	});
 
 	// Validate the document version event body using the schema

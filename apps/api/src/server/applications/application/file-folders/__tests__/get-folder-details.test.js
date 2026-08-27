@@ -302,7 +302,10 @@ describe('Get folder details', () => {
 					filter2: null,
 					examinationRefNo: '',
 					fromFrontOffice: false,
-					transcript: ''
+					transcript: '',
+					examinationLibraryCategoryId: null,
+					examinationLibraryCategoryCode: null,
+					examinationLibraryCategoryName: null
 				}
 			]
 		});

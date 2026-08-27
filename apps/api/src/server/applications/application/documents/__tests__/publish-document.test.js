@@ -191,7 +191,10 @@ describe('Ready-to-publish-documents', () => {
 					filter2: null,
 					examinationRefNo: '',
 					fromFrontOffice: false,
-					transcript: ''
+					transcript: '',
+					examinationLibraryCategoryId: null,
+					examinationLibraryCategoryCode: null,
+					examinationLibraryCategoryName: null
 				}
 			]
 		});

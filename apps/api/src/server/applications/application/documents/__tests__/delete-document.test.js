@@ -199,6 +199,12 @@ describe('delete Document', () => {
 					select: {
 						documentReference: true
 					}
+				},
+				ExaminationLibraryCategory: {
+					select: {
+						categoryCode: true,
+						categoryName: true
+					}
 				}
 			},
 			where: {
