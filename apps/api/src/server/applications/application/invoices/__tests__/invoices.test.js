@@ -9,6 +9,7 @@ import {
 	mockProjectOtherOptions,
 	mockProjectPayloadData
 } from '../../../fees-forecasting/__fixtures__/fees-forecasting-project.js';
+import { Decimal } from '@prisma/client/runtime/client';
 
 const caseId = 100000000;
 
@@ -18,7 +19,7 @@ const invoices = [
 		invoiceNumber: '234920001',
 		caseId,
 		invoiceStage: 'pre_acceptance',
-		amountDue: '1500.00',
+		amountDue: new Decimal('1500.0000000000000000'),
 		paymentDueDate: new Date('2025-11-15T00:00:00.000Z'),
 		invoicedDate: new Date('2025-10-20T00:00:00.000Z'),
 		paymentDate: null,
@@ -32,12 +33,12 @@ const invoices = [
 		invoiceNumber: '234920002',
 		caseId,
 		invoiceStage: 'acceptance',
-		amountDue: '2750.50',
+		amountDue: new Decimal('2750.5000000000000000'),
 		paymentDueDate: new Date('2025-12-01T00:00:00.000Z'),
 		invoicedDate: new Date('2025-10-28T00:00:00.000Z'),
 		paymentDate: new Date('2025-11-05T00:00:00.000Z'),
 		refundCreditNoteNumber: 'CN-001',
-		refundAmount: '100.00',
+		refundAmount: new Decimal('100.0000000000000000'),
 		refundIssueDate: '2025-11-10T00:00:00.000Z',
 		createdAt: '2025-10-30T13:46:44.260Z'
 	}
@@ -184,22 +185,22 @@ describe('Invoices API', () => {
 		};
 
 		it('200 updates an invoice', async () => {
-			databaseConnector.invoice.update.mockResolvedValueOnce({ ...invoices[1], ...updatePayload });
+			databaseConnector.invoice.update.mockResolvedValueOnce({ ...invoices[0], ...updatePayload });
 
 			databaseConnector.case.findUnique.mockImplementation(
 				mockApplicationGet(mockProjectFactoryOptions, mockProjectOtherOptions)
 			);
 
 			const res = await request
-				.patch(`/applications/${caseId}/invoices/${invoices[1].id}`)
-				.send({ ...invoices[1], updatePayload });
+				.patch(`/applications/${caseId}/invoices/${invoices[0].id}`)
+				.send({ ...invoices[0], ...updatePayload });
 
 			expect(res.status).toBe(200);
 			expect(res.body).toMatchObject({
-				id: invoices[1].id,
-				invoiceNumber: invoices[1].invoiceNumber,
-				caseId: invoices[1].caseId,
-				invoiceStage: invoices[1].invoiceStage,
+				id: invoices[0].id,
+				invoiceNumber: invoices[0].invoiceNumber,
+				caseId: invoices[0].caseId,
+				invoiceStage: invoices[0].invoiceStage,
 				amountDue: updatePayload.amountDue
 			});
 
@@ -221,7 +222,7 @@ describe('Invoices API', () => {
 
 			const res = await request
 				.patch(`/applications/${caseId}/invoices/${missingId}`)
-				.send({ ...invoices[1], amountDue: '10.00' });
+				.send({ ...invoices[0], amountDue: '10.00' });
 
 			expect(res.status).toBe(404);
 			expect(res.body).toEqual({
