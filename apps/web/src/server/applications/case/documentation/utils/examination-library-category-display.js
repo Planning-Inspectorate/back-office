@@ -1,3 +1,5 @@
+import { url } from '../../../../lib/nunjucks-filters/url.js';
+
 /** @type {Record<string, {name: string, slug: string}>} */
 const examinationLibraryCategoryDisplay = {
 	APP: {
@@ -55,6 +57,6 @@ export const getExaminationLibraryCategoryDisplay = (categoryCode, categoryName,
 
 	return {
 		name: category.name,
-		href: `/applications-service/case/${caseId}/examination-library/${category.slug}`
+		href: url('examination-library-section', { caseId, slug: category.slug })
 	};
 };

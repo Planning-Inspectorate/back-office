@@ -153,6 +153,34 @@ export const getById = (documentGuid, version = 1) => {
 				select: {
 					documentReference: true
 				}
+			}
+		}
+	});
+};
+
+/**
+
+ * Get a document metadata by documentGuid
+ *
+ * @param {string} documentGuid
+ * @param {number} version
+ * @returns {import('#database-client').PrismaPromise<DocumentVersion |null>}
+ */
+export const getByIdForProperties = (documentGuid, version = 1) => {
+	return databaseConnector.documentVersion.findUnique({
+		where: { documentGuid_version: { documentGuid, version } },
+
+		include: {
+			...includeClauseDocVersionFull,
+			DocumentActivityLog: {
+				orderBy: {
+					createdAt: 'desc'
+				}
+			},
+			transcript: {
+				select: {
+					documentReference: true
+				}
 			},
 			ExaminationLibraryCategory: {
 				select: {

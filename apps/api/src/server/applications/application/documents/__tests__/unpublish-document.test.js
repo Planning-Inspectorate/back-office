@@ -191,10 +191,7 @@ describe('Unpublishing documents', () => {
 				size: 4375,
 				sourceSystem: 'back-office-applications',
 				stage: null,
-				version: 1,
-				examinationLibraryCategoryId: null,
-				examinationLibraryCategoryCode: null,
-				examinationLibraryCategoryName: null
+				version: 1
 			}
 		]);
 	});
@@ -256,10 +253,7 @@ describe('Unpublishing documents', () => {
 				size: 4375,
 				sourceSystem: 'back-office-applications',
 				stage: null,
-				version: 1,
-				examinationLibraryCategoryId: null,
-				examinationLibraryCategoryCode: null,
-				examinationLibraryCategoryName: null
+				version: 1
 			}
 		]);
 	});
