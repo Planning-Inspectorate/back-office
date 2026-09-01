@@ -10,7 +10,8 @@ import logger from '#utils/logger.js';
 import { mapDateStringToUnixTimestamp } from '#utils/mapping/map-date-string-to-unix-timestamp.js';
 import {
 	mapDocumentVersionDetails,
-	mapSingleDocumentDetailsFromVersion
+	mapSingleDocumentDetailsFromVersion,
+	mapExaminationLibraryDetails
 } from '#utils/mapping/map-document-details.js';
 import {
 	getDocumentsInCase,
@@ -308,7 +309,7 @@ export const getDocumentProperties = async ({ params: { guid } }, response) => {
 		throw new BackOfficeAppError(`Unknown document guid ${guid}`, 404);
 	}
 
-	const documentVersion = await documentVersionRepository.getById(
+	const documentVersion = await documentVersionRepository.getByIdForProperties(
 		document.guid,
 		document.latestVersionId ?? 1
 	);
@@ -319,7 +320,10 @@ export const getDocumentProperties = async ({ params: { guid } }, response) => {
 
 	const documentDetails = mapSingleDocumentDetailsFromVersion(documentVersion);
 
-	response.status(200).send(documentDetails);
+	response.status(200).send({
+		...documentDetails,
+		...mapExaminationLibraryDetails(documentVersion)
+	});
 };
 
 /**

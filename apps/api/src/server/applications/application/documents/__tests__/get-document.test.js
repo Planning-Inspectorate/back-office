@@ -202,10 +202,7 @@ describe('GET search for non S51 Advice documents in a case', () => {
 					filter2: null,
 					examinationRefNo: '',
 					fromFrontOffice: false,
-					transcript: '',
-					examinationLibraryCategoryId: null,
-					examinationLibraryCategoryCode: null,
-					examinationLibraryCategoryName: null
+					transcript: ''
 				}
 			]
 		});
