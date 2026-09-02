@@ -44,6 +44,7 @@ export const getCategories = (caseId, filters = {}) => {
 export const createCategories = (caseId, categoriesData) => {
 	const dataToInsert = categoriesData.map((category) => ({
 		...category,
+		source: category.source ?? 'STATIC',
 		caseId
 	}));
 

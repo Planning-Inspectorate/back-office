@@ -20,13 +20,37 @@ export const validateGetCategories = composeMiddleware(
 );
 
 export const validateCreateCategories = composeMiddleware(
-	body().isArray().withMessage('Body must be an array of categories'),
-	body('*.categoryCode')
+	body().custom((value) => {
+		if (!value || typeof value !== 'object') {
+			throw new Error('Body must be a category object or array of categories');
+		}
+		if (Array.isArray(value) && value.length === 0) {
+			throw new Error('Categories array cannot be empty');
+		}
+		return true;
+	}),
+	body('categoryCode')
+		.if(body().isObject().not().isArray())
 		.isString()
+		.withMessage('Category code is required and must be a string')
+		.notEmpty()
+		.withMessage('Category code is required and must be a string'),
+	body('categoryName')
+		.if(body().isObject().not().isArray())
+		.isString()
+		.withMessage('Category name is required and must be a string')
+		.notEmpty()
+		.withMessage('Category name is required and must be a string'),
+	body('*.categoryCode')
+		.if(body().isArray())
+		.isString()
+		.withMessage('Category code is required and must be a string')
 		.notEmpty()
 		.withMessage('Category code is required and must be a string'),
 	body('*.categoryName')
+		.if(body().isArray())
 		.isString()
+		.withMessage('Category name is required and must be a string')
 		.notEmpty()
 		.withMessage('Category name is required and must be a string'),
 	validationErrorHandler

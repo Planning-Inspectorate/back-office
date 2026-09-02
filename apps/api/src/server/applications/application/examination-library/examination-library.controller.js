@@ -1,3 +1,4 @@
+import BackOfficeAppError from '#utils/app-error.js';
 import {
 	getExaminationLibraryCategories,
 	createExaminationLibraryCategories,
@@ -26,8 +27,18 @@ export const createExaminationLibraryCategoriesHandler = async (req, res) => {
 	const caseId = Number(req.params.id);
 	const categoriesData = Array.isArray(req.body) ? req.body : [req.body];
 
-	const result = await createExaminationLibraryCategories(caseId, categoriesData);
-	res.send(result);
+	try {
+		const result = await createExaminationLibraryCategories(caseId, categoriesData);
+		res.send(result);
+	} catch (/** @type {*} */ error) {
+		if (error?.code === 'P2002') {
+			throw new BackOfficeAppError(
+				'An examination library category with this code and name already exists for this case',
+				400
+			);
+		}
+		throw error;
+	}
 };
 
 /**
