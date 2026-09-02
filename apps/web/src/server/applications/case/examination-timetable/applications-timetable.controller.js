@@ -117,6 +117,13 @@ export const timetableTemplatesSchema = {
 		name: true,
 		date: true,
 		description: false
+	},
+	'unaccompanied-site-inspection': {
+		name: true,
+		date: true,
+		startTime: false,
+		endTime: false,
+		description: false
 	}
 };
 

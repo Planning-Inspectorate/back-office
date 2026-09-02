@@ -183,7 +183,11 @@ describe('Create examination timetable page', () => {
 				templateType: 'procedural-decision',
 				mandatory: ['item name', 'item date']
 			},
-			{ templateType: 'publication-of', mandatory: ['item name', 'item date'] }
+			{ templateType: 'publication-of', mandatory: ['item name', 'item date'] },
+			{
+				templateType: 'unaccompanied-site-inspection',
+				mandatory: ['item name', 'item date']
+			}
 		];
 
 		templateTypes.forEach(({ templateType, mandatory }) => {

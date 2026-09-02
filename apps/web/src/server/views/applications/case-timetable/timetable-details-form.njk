@@ -145,6 +145,12 @@
 					}) }}
 				{% endif %}
 
+				{% if selectedItemType.templateType == 'unaccompanied-site-inspection' %}
+					{{ govukInsetText({
+						text: "You should only add an unaccompanied site inspection to the examination timetable after the event has taken place."
+					}) }}
+				{% endif %}
+
 				{% if not isUndefined(templateFields.description) %}
 					{{ govukTextarea({
   							name: "description",
