@@ -31,7 +31,7 @@ const mapContactDetails = (entity) => {
 						'postcode',
 						'country'
 					])
-			  }
+				}
 			: undefined)
 	};
 };

@@ -27,10 +27,9 @@ async function getAllFoldersOnCase(caseId) {
 
 		return result;
 	} catch (err) {
-		throw new Error(
-			`getAllFoldersOnCase failed for caseId ${caseId} with error: ${err}`,
-			{ cause: err }
-		);
+		throw new Error(`getAllFoldersOnCase failed for caseId ${caseId} with error: ${err}`, {
+			cause: err
+		});
 	}
 }
 
@@ -43,10 +42,7 @@ async function postDocuments(caseId, documents) {
 			}
 		);
 	} catch (err) {
-		throw new Error(
-			`postDocuments failed for caseId ${caseId} with error: ${err}`,
-			{ cause: err }
-		);
+		throw new Error(`postDocuments failed for caseId ${caseId} with error: ${err}`, { cause: err });
 	}
 }
 

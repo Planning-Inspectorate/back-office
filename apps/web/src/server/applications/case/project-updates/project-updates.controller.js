@@ -277,8 +277,8 @@ export async function projectUpdatesCheckAnswersGet(req, res) {
 	let warningText = projectUpdate.datePublished
 		? 'If you edit this project update, the publication date will change. Subscribers will not be notified. If you need to make a change, you must create a new update so subscribers will be informed.'
 		: projectUpdate.status === ProjectUpdate.Status.draft
-		? undefined
-		: 'Check all the information in your project update is correct. When you publish your update an email will be sent to subscribers.';
+			? undefined
+			: 'Check all the information in your project update is correct. When you publish your update an email will be sent to subscribers.';
 	let form;
 	switch (projectUpdate.status) {
 		case ProjectUpdate.Status.draft:

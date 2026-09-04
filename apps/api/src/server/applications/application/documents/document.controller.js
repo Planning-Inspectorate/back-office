@@ -200,9 +200,8 @@ export const moveDocumentsToAnotherFolder = async ({ body }, response) => {
 	const { documents, destinationFolderId, destinationFolderStage } = body;
 
 	const documentNamesToMove = documents.map((document) => document.fileName);
-	const destinationFolderDocuments = await documentRepository.getDocumentsInFolder(
-		destinationFolderId
-	);
+	const destinationFolderDocuments =
+		await documentRepository.getDocumentsInFolder(destinationFolderId);
 	const duplicateDocuments = documentNamesToMove.filter((documentToMoveName) =>
 		destinationFolderDocuments.some(
 			(destinationFolderDocument) =>
@@ -381,7 +380,7 @@ export const getManyDocumentsProperties = async ({ query: { guids, published } }
 	const filteredDocuments = onlyPublished
 		? documents.filter((doc) =>
 				doc.documentVersion.some((version) => version.publishedStatus === 'published')
-		  )
+			)
 		: documents;
 
 	const results = filteredDocuments.map((doc) =>

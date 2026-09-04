@@ -15,10 +15,9 @@ async function getCaseID(caseReference) {
 
 		return result.id;
 	} catch (err) {
-		throw new Error(
-			`getCaseID failed for reference ${caseReference} with error: ${err}`,
-			{ cause: err }
-		);
+		throw new Error(`getCaseID failed for reference ${caseReference} with error: ${err}`, {
+			cause: err
+		});
 	}
 }
 
@@ -35,10 +34,9 @@ async function postRepresentation(caseId, representation) {
 			}
 		);
 	} catch (err) {
-		throw new Error(
-			`postRepresentation failed for caseId ${caseId} with error: ${err}`,
-			{ cause: err }
-		);
+		throw new Error(`postRepresentation failed for caseId ${caseId} with error: ${err}`, {
+			cause: err
+		});
 	}
 }
 

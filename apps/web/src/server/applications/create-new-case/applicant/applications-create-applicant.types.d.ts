@@ -12,50 +12,49 @@ export type ApplicationsCreateApplicantTypesBody = {
 };
 
 // org name
-export interface ApplicationsCreateApplicantOrganisationNameBody
-	extends Record<string, string | undefined> {
+export interface ApplicationsCreateApplicantOrganisationNameBody extends Record<
+	string,
+	string | undefined
+> {
 	'applicant.organisationName'?: string;
 }
-export interface ApplicationsCreateApplicantOrganisationNameProps
-	extends CaseCreateProps<ApplicationsCreateApplicantOrganisationNameBody> {}
+export interface ApplicationsCreateApplicantOrganisationNameProps extends CaseCreateProps<ApplicationsCreateApplicantOrganisationNameBody> {}
 
 // full name
-export interface ApplicationsCreateApplicantFullNameBody
-	extends Record<string, string | undefined> {
+export interface ApplicationsCreateApplicantFullNameBody extends Record<
+	string,
+	string | undefined
+> {
 	'applicant.firstName'?: string;
 	'applicant.middleName'?: string;
 	'applicant.lastName'?: string;
 }
-export interface ApplicationsCreateApplicantFullNameProps
-	extends CaseCreateProps<ApplicationsCreateApplicantFullNameBody> {}
+export interface ApplicationsCreateApplicantFullNameProps extends CaseCreateProps<ApplicationsCreateApplicantFullNameBody> {}
 
 //website
 export interface ApplicationsCreateApplicantWebsiteBody extends Record<string, string | undefined> {
 	'applicant.website'?: string;
 }
-export interface ApplicationsCreateApplicantWebsiteProps
-	extends CaseCreateProps<ApplicationsCreateApplicantWebsiteBody> {}
+export interface ApplicationsCreateApplicantWebsiteProps extends CaseCreateProps<ApplicationsCreateApplicantWebsiteBody> {}
 
 //email
 export interface ApplicationsCreateApplicantEmailBody extends Record<string, string | undefined> {
 	'applicant.email'?: string;
 }
-export interface ApplicationsCreateApplicantEmailProps
-	extends CaseCreateProps<ApplicationsCreateApplicantEmailBody> {}
+export interface ApplicationsCreateApplicantEmailProps extends CaseCreateProps<ApplicationsCreateApplicantEmailBody> {}
 
 // phone
-export interface ApplicationsCreateApplicantTelephoneNumberBody
-	extends Record<string, string | undefined> {
+export interface ApplicationsCreateApplicantTelephoneNumberBody extends Record<
+	string,
+	string | undefined
+> {
 	'applicant.phoneNumber'?: string;
 }
-export interface ApplicationsCreateApplicantTelephoneNumberProps
-	extends CaseCreateProps<ApplicationsCreateApplicantTelephoneNumberBody> {}
+export interface ApplicationsCreateApplicantTelephoneNumberProps extends CaseCreateProps<ApplicationsCreateApplicantTelephoneNumberBody> {}
 
 // address
 export type ApplicationCreateApplicantAddressStage =
-	| 'searchPostcode'
-	| 'selectAddress'
-	| 'manualAddress';
+	'searchPostcode' | 'selectAddress' | 'manualAddress';
 export type ApplicationsCreateApplicantAddressProps = {
 	formStage: ApplicationCreateApplicantAddressStage;
 	errors?: Record<string, { msg: string }> | ValidationErrors;

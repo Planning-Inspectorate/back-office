@@ -46,7 +46,7 @@ const decorator = {
 							? {
 									stack: arg.stack,
 									message: arg.message
-							  }
+								}
 							: arg
 					);
 					if (

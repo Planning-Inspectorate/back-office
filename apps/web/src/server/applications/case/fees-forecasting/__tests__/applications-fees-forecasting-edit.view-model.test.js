@@ -34,9 +34,8 @@ describe('applications fees forecasting edit view model', () => {
 
 			const projectName = 'Test case';
 
-			const { getFeesForecastingEditViewModel } = await import(
-				'../applications-fees-forecasting-edit.view-model.js'
-			);
+			const { getFeesForecastingEditViewModel } =
+				await import('../applications-fees-forecasting-edit.view-model.js');
 
 			const result = getFeesForecastingEditViewModel(projectName, sectionName);
 
@@ -69,9 +68,8 @@ describe('applications fees forecasting edit view model', () => {
 
 			const projectName = null;
 
-			const { getFeesForecastingEditViewModel } = await import(
-				'../applications-fees-forecasting-edit.view-model.js'
-			);
+			const { getFeesForecastingEditViewModel } =
+				await import('../applications-fees-forecasting-edit.view-model.js');
 
 			const result = getFeesForecastingEditViewModel(projectName, sectionName);
 
@@ -108,9 +106,8 @@ describe('applications fees forecasting edit view model', () => {
 
 			const projectName = 'Test case';
 
-			const { getFeesForecastingEditViewModel } = await import(
-				'../applications-fees-forecasting-edit.view-model.js'
-			);
+			const { getFeesForecastingEditViewModel } =
+				await import('../applications-fees-forecasting-edit.view-model.js');
 
 			const result = getFeesForecastingEditViewModel(projectName, 'disagreement-summary-statement');
 
@@ -155,9 +152,8 @@ describe('applications fees forecasting edit view model', () => {
 
 			const projectName = 'Test case';
 
-			const { getFeesForecastingEditViewModel } = await import(
-				'../applications-fees-forecasting-edit.view-model.js'
-			);
+			const { getFeesForecastingEditViewModel } =
+				await import('../applications-fees-forecasting-edit.view-model.js');
 
 			const result = getFeesForecastingEditViewModel(projectName, 'project-maturity');
 
@@ -202,9 +198,8 @@ describe('applications fees forecasting edit view model', () => {
 
 			const projectName = 'Test case';
 
-			const { getFeesForecastingEditViewModel } = await import(
-				'../applications-fees-forecasting-edit.view-model.js'
-			);
+			const { getFeesForecastingEditViewModel } =
+				await import('../applications-fees-forecasting-edit.view-model.js');
 
 			const result = getFeesForecastingEditViewModel(projectName, sectionName);
 

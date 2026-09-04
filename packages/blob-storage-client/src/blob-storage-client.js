@@ -150,12 +150,7 @@ export class BlobStorageClient {
 
 		const options = fileType ? this.#getFileUploadOptions(fileType) : undefined;
 
-		await blockBlobClient.uploadStream(
-			fileStream,
-			undefined,
-			undefined,
-			options
-		);
+		await blockBlobClient.uploadStream(fileStream, undefined, undefined, options);
 	};
 
 	/**

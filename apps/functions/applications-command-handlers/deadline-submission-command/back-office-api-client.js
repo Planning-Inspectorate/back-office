@@ -17,10 +17,9 @@ async function getCaseID(caseReference) {
 
 		return result.id;
 	} catch (err) {
-		throw new Error(
-			`getCaseID failed for reference ${caseReference} with error: ${err}`,
-			{ cause: err }
-		);
+		throw new Error(`getCaseID failed for reference ${caseReference} with error: ${err}`, {
+			cause: err
+		});
 	}
 }
 
@@ -74,10 +73,9 @@ async function submitDocument({
 			})
 			.json();
 	} catch (err) {
-		throw new Error(
-			`submitDocument failed for case ID ${caseID} with error: ${err}`,
-			{ cause: err }
-		);
+		throw new Error(`submitDocument failed for case ID ${caseID} with error: ${err}`, {
+			cause: err
+		});
 	}
 }
 
@@ -271,10 +269,9 @@ async function getTimetableIdByCaseId(caseId) {
 
 		return timetable.id;
 	} catch (err) {
-		throw new Error(
-			`Fetch for examination timetable failed for case ID ${caseId}: ${err}`,
-			{ cause: err }
-		);
+		throw new Error(`Fetch for examination timetable failed for case ID ${caseId}: ${err}`, {
+			cause: err
+		});
 	}
 }
 

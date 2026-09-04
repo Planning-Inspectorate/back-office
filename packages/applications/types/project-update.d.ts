@@ -26,11 +26,7 @@ export type ProjectUpdateStatus =
 	| string;
 
 export type ProjectUpdateType =
-	| 'general'
-	| 'applicationSubmitted'
-	| 'applicationDecided'
-	| 'registrationOpen'
-	| string;
+	'general' | 'applicationSubmitted' | 'applicationDecided' | 'registrationOpen' | string;
 
 /**
  * Project update notification log type returned by the API

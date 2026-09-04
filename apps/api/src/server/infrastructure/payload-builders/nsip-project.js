@@ -65,8 +65,8 @@ const mapApplicationDetails = (projectEntity) => {
 
 	const isWelshLanguage = Boolean(
 		projectEntity?.titleWelsh ||
-			projectEntity?.descriptionWelsh ||
-			appDetails?.locationDescriptionWelsh
+		projectEntity?.descriptionWelsh ||
+		appDetails?.locationDescriptionWelsh
 	);
 
 	return {
