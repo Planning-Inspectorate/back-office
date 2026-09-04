@@ -248,7 +248,7 @@ export const publishS51AdviceItems = async (caseId, { publishAll, ids }) => {
 		return await post(`applications/${caseId}/s51-advice/publish-queue-items`, {
 			json: { publishAll, ids }
 		});
-	} catch (err) {
+	} catch {
 		return new Promise((resolve) => {
 			resolve({ errors: { msg: 'An error occurred, please try again later' } });
 		});

@@ -35,7 +35,7 @@ export const index = async (context, { caseId, documentId, version, publishedDoc
 	} catch (err) {
 		const errMsg = `encountered error while unpublishing document ID ${documentId} for caseId ${caseId}: ${err}`;
 		context.log.error(errMsg);
-		throw new Error(errMsg);
+		throw new Error(errMsg, { cause: err });
 	}
 
 	const requestUri = `https://${config.API_HOST}/applications/${caseId}/documents/${documentId}/version/${version}/mark-as-unpublished`;

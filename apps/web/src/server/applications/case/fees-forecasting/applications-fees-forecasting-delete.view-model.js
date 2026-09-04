@@ -50,7 +50,7 @@ export const getFeesForecastingDeleteViewModel = (projectName, sectionName, tabl
 						getStatusTag,
 						formatDateForDisplay,
 						invoiceStageDisplayValues
-				  })
+					})
 				: []
 	});
 

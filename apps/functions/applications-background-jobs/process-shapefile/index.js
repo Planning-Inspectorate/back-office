@@ -124,9 +124,8 @@ export const index = async (context, documentShapefileProcess) => {
 		const zipBuffer = await downloadZipBuffer(privateBlobContainer, blobName, context);
 
 		// Validate required shapefile components — throws ShapefileValidationError on failure
-		const { valid, missingExtensions, fileNames, parseError } = await validateShapefileContents(
-			zipBuffer
-		);
+		const { valid, missingExtensions, fileNames, parseError } =
+			await validateShapefileContents(zipBuffer);
 
 		if (!valid) {
 			if (fileNames.length > 0) {
