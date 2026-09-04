@@ -562,9 +562,8 @@ export const addApplicationRepresentationAttachment = async (representationId, d
 			})
 		);
 
-	const [representationAttachmentCreateResult] = await databaseConnector.$transaction(
-		transactionItems
-	);
+	const [representationAttachmentCreateResult] =
+		await databaseConnector.$transaction(transactionItems);
 
 	return representationAttachmentCreateResult;
 };
@@ -615,9 +614,8 @@ export const deleteApplicationRepresentationAttachment = async (repId, attachmen
 			})
 		);
 
-	const [representationAttachmentDeleteResult] = await databaseConnector.$transaction(
-		transactionItems
-	);
+	const [representationAttachmentDeleteResult] =
+		await databaseConnector.$transaction(transactionItems);
 
 	return representationAttachmentDeleteResult;
 };

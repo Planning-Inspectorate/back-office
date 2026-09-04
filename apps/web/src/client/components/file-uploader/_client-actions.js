@@ -105,9 +105,10 @@ const clientActions = (uploadForm) => {
 				return extensionMatch[1];
 			})();
 
-		if (
-			!(type && (allowedMimeTypes.includes(type) || (isZip && allowedMimeTypes.includes('.zip'))))
-		) {
+		if (!(
+			type &&
+			(allowedMimeTypes.includes(type) || (isZip && allowedMimeTypes.includes('.zip')))
+		)) {
 			return { message: 'TYPE_SINGLE_FILE' };
 		}
 

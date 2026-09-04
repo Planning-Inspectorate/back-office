@@ -59,7 +59,9 @@ export const migrateS51Advice = async (s51AdviceList) => {
 					})
 				);
 			} catch (error) {
-				throw Error(`Failed to process S51Advice with ID ${s51Advice.adviceId}: ${error.message}`, {cause: error});
+				throw Error(`Failed to process S51Advice with ID ${s51Advice.adviceId}: ${error.message}`, {
+					cause: error
+				});
 			}
 		})
 	);
@@ -208,7 +210,7 @@ const mapStatus = (status) =>
 		// TODO remove these values below once ODW has mapped them in curated layer (ODW-1122)
 		depublished: 'not_checked',
 		notchecked: 'not_checked'
-	}[status?.replaceAll(' ', '')]);
+	})[status?.replaceAll(' ', '')];
 
 const generateNamesFromFromField = (from) => {
 	let firstName, lastName, otherNames;
