@@ -1,7 +1,7 @@
 // @ts-nocheck
-import get from '../../schemas/applications-subscriptions-get.json' assert { type: 'json' };
-import put from '../../schemas/applications-subscriptions-put.json' assert { type: 'json' };
-import patch from '../../schemas/applications-subscriptions-{id}-patch.json' assert { type: 'json' };
+import get from '../../schemas/applications-subscriptions-get.json' with { type: 'json' };
+import put from '../../schemas/applications-subscriptions-put.json' with { type: 'json' };
+import patch from '../../schemas/applications-subscriptions-{id}-patch.json' with { type: 'json' };
 
 import { TestService } from '../../services/test-service.js';
 
