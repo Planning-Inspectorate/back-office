@@ -1030,10 +1030,10 @@ export const separateNonPublishedDocuments = async (guids) => {
  * @returns {Promise<string[]>} // array of unpublished doc guids
  * */
 export const unpublishDocuments = async (guids, username) => {
-	const versionPromises = guids.map(documentVersionRepository.getPublished);
+	const versionPromises = guids.map(documentVersionRepository.getCurrentPublishedVersion);
 	const versions = await Promise.all(versionPromises);
 
-	const allVersions = versions.flatMap((docVersions) => docVersions?.filter(Boolean) ?? []);
+	const allVersions = versions.filter(Boolean);
 
 	const unpublishedDocuments = await documentVersionRepository.unpublishMany(
 		allVersions.map((version) => ({

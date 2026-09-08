@@ -15,34 +15,48 @@ import { rebuildMasterGeoJson } from '../common/master-geojson.js';
 export const index = async (context, { caseId, documentId, version, publishedDocumentURI }) => {
 	context.log(`Unpublishing document ID ${documentId} at URI ${publishedDocumentURI}`);
 
-	if (!caseId || !documentId || !version || !publishedDocumentURI) {
-		throw Error('One or more required properties are missing.');
+	if (!caseId || !documentId || !version) {
+		const errMsg = `One or more required properties are missing for document ID ${documentId}, caseId ${caseId}, version ${version}.`;
+		context.log.error(errMsg);
+		throw Error(errMsg);
 	}
 
-	// replace PINs domain with primary blob domain to ensure copy operation works
-	publishedDocumentURI = replaceCustomDomainWithBlobDomain(publishedDocumentURI);
+	if (publishedDocumentURI) {
+		try {
+			// replace PINs domain with primary blob domain to ensure copy operation works
+			publishedDocumentURI = replaceCustomDomainWithBlobDomain(publishedDocumentURI);
 
-	validateStorageAccount(publishedDocumentURI);
+			validateStorageAccount(publishedDocumentURI);
 
-	// extract the published file name
-	const publishedBlobName = extractPublishedBlobName(publishedDocumentURI);
+			// extract the published file name
+			const publishedBlobName = extractPublishedBlobName(publishedDocumentURI);
 
-	try {
-		context.log(
-			`deleting blob (if exists) in container "${config.BLOB_PUBLISH_CONTAINER}" with name "${publishedBlobName}" for caseId ${caseId}`
-		);
-		await blobClient.deleteBlobIfExists(config.BLOB_PUBLISH_CONTAINER, publishedBlobName);
-	} catch (err) {
-		const errMsg = `encountered error while unpublishing document ID ${documentId} for caseId ${caseId}: ${err}`;
-		context.log.error(errMsg);
-		throw new Error(errMsg);
+			context.log(
+				`deleting blob (if exists) in container "${config.BLOB_PUBLISH_CONTAINER}" with name "${publishedBlobName}" for caseId ${caseId}`
+			);
+			await blobClient.deleteBlobIfExists(config.BLOB_PUBLISH_CONTAINER, publishedBlobName);
+		} catch (err) {
+			const errMsg = `encountered error while unpublishing document ID ${documentId} for caseId ${caseId}: ${err}`;
+			context.log.error(errMsg);
+			throw new Error(errMsg);
+		}
+	} else {
+		// document has no published blob (e.g. content migrated directly from Horizon) - nothing to delete
+		context.log(`No published blob URI for document ID ${documentId}; skipping blob deletion`);
 	}
 
 	const requestUri = `https://${config.API_HOST}/applications/${caseId}/documents/${documentId}/version/${version}/mark-as-unpublished`;
 
 	context.log(`Making POST request to ${requestUri} for caseId ${caseId}`);
 
-	const unpublishedDocument = await requestWithApiKey.post(requestUri).json();
+	let unpublishedDocument;
+	try {
+		unpublishedDocument = await requestWithApiKey.post(requestUri).json();
+	} catch (err) {
+		const errMsg = `encountered error while calling mark-as-unpublished for document ID ${documentId}, caseId ${caseId}: ${err}`;
+		context.log.error(errMsg);
+		throw new Error(errMsg);
+	}
 
 	if (isGisBoundaryGeoJsonDocument(unpublishedDocument)) {
 		context.log(`Rebuilding master GeoJson after unpublishing GIS boundary ${documentId}`);

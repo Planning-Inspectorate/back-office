@@ -234,6 +234,37 @@ export const getPublished = (documentGuid) => {
 };
 
 /**
+ * Get only the current/latest published version of a document.
+ *
+ * Unlike getPublished(), this excludes stale superseded versions that may still be
+ * marked as 'published' in the database (e.g. documents migrated from Horizon, where
+ * older versions never transitioned off 'published' and never had a real blob copy).
+ * Used by the unpublish flow, where only the current version should ever be targeted.
+ *
+ * @param {string} documentGuid
+ * @returns {Promise<import('@pins/applications.api').Schema.DocumentVersion | null>}
+ */
+export const getCurrentPublishedVersion = async (documentGuid) => {
+	const document = await databaseConnector.document.findUnique({
+		where: { guid: documentGuid },
+		select: { latestVersionId: true }
+	});
+
+	if (!document?.latestVersionId) {
+		return null;
+	}
+
+	return databaseConnector.documentVersion.findFirst({
+		where: {
+			documentGuid,
+			version: document.latestVersionId,
+			publishedStatus: 'published',
+			isDeleted: false
+		}
+	});
+};
+
+/**
  * Get all document metadata
  *
  * @param {string} guid
