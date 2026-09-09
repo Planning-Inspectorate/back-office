@@ -33,7 +33,9 @@ export const index = async (
 		!documentReference ||
 		!mime
 	) {
-		throw Error('One or more required properties are missing.');
+		const errMsg = `One or more required properties are missing for document ID ${documentId}, caseId ${caseId}, version ${version}.`;
+		context.log.error(errMsg);
+		throw Error(errMsg);
 	}
 
 	if (await isScannedFileHtml(documentURI)) {
@@ -41,9 +43,9 @@ export const index = async (
 		const isValidHtml = await isUploadedHtmlValid(documentURI, context.log);
 		if (!isValidHtml) {
 			await handleHtmlValidityFail(documentURI, context.log);
-			throw Error(
-				`Publishing failed for caseId ${caseId} due to HTML file failing validity check. File marked as malicious`
-			);
+			const errMsg = `Publishing failed for caseId ${caseId} due to HTML file failing validity check. File marked as malicious`;
+			context.log.error(errMsg);
+			throw Error(errMsg);
 		}
 	}
 
@@ -62,12 +64,31 @@ export const index = async (
 		`Deploying source blob ${documentURI} to destination ${publishFileName} for caseId ${caseId}`
 	);
 
-	await blobClient.copyFileFromUrl({
-		sourceUrl: documentURI,
-		destinationContainerName: config.BLOB_PUBLISH_CONTAINER,
-		destinationBlobName: publishFileName,
-		newContentType: mime
-	});
+	let copyStatus;
+	try {
+		copyStatus = await blobClient.copyFileFromUrl({
+			sourceUrl: documentURI,
+			destinationContainerName: config.BLOB_PUBLISH_CONTAINER,
+			destinationBlobName: publishFileName,
+			newContentType: mime
+		});
+	} catch (err) {
+		// capture whatever the SDK managed to populate before failing - its own error
+		// deserialisation can itself throw and discard the real status code/body
+		const errMsg = `encountered error while copying blob for document ID ${documentId}, caseId ${caseId}: ${
+			err.name ?? ''
+		} ${err.message ?? err} (statusCode=${err.statusCode ?? 'unknown'}, code=${
+			err.code ?? 'unknown'
+		})`;
+		context.log.error(errMsg);
+		throw new Error(errMsg);
+	}
+
+	if (copyStatus !== 'success') {
+		const errMsg = `blob copy did not succeed for document ID ${documentId}, caseId ${caseId}: copyStatus was "${copyStatus}"`;
+		context.log.error(errMsg);
+		throw new Error(errMsg);
+	}
 
 	const requestUri = `https://${config.API_HOST}/applications/${caseId}/documents/${documentId}/version/${version}/mark-as-published`;
 
@@ -75,27 +96,33 @@ export const index = async (
 
 	let publishedDocument;
 
-	// Check is to maintain original publishing date when migrating docs from ODW
-	// - remove after migration is done, just keep contents of 'else' statement
-	if (context.bindingData?.applicationProperties?.migrationPublishing) {
-		publishedDocument = await requestWithApiKey
-			.post(requestUri, {
-				json: {
-					publishedBlobContainer: config.BLOB_PUBLISH_CONTAINER,
-					publishedBlobPath: publishFileName
-				}
-			})
-			.json();
-	} else {
-		publishedDocument = await requestWithApiKey
-			.post(requestUri, {
-				json: {
-					publishedBlobContainer: config.BLOB_PUBLISH_CONTAINER,
-					publishedBlobPath: publishFileName,
-					publishedDate: new Date()
-				}
-			})
-			.json();
+	try {
+		// Check is to maintain original publishing date when migrating docs from ODW
+		// - remove after migration is done, just keep contents of 'else' statement
+		if (context.bindingData?.applicationProperties?.migrationPublishing) {
+			publishedDocument = await requestWithApiKey
+				.post(requestUri, {
+					json: {
+						publishedBlobContainer: config.BLOB_PUBLISH_CONTAINER,
+						publishedBlobPath: publishFileName
+					}
+				})
+				.json();
+		} else {
+			publishedDocument = await requestWithApiKey
+				.post(requestUri, {
+					json: {
+						publishedBlobContainer: config.BLOB_PUBLISH_CONTAINER,
+						publishedBlobPath: publishFileName,
+						publishedDate: new Date()
+					}
+				})
+				.json();
+		}
+	} catch (err) {
+		const errMsg = `encountered error while calling mark-as-published for document ID ${documentId}, caseId ${caseId}: ${err}`;
+		context.log.error(errMsg);
+		throw new Error(errMsg);
 	}
 
 	if (isGisBoundaryGeoJsonDocument(publishedDocument)) {
@@ -104,7 +131,7 @@ export const index = async (
 		try {
 			await rebuildMasterGeoJson(context.log);
 		} catch (error) {
-			context.log(
+			context.log.error(
 				`Failed to rebuild master GeoJson after publishing GIS boundary ${documentId}: ${error}`
 			);
 		}

@@ -22,6 +22,7 @@ const mockContext = {
 	log: jest.fn()
 };
 mockContext.log.info = jest.fn();
+mockContext.log.error = jest.fn();
 const mockSystemTime = new Date('2023-01-01T00:00:00.000Z');
 
 beforeEach(() => {
@@ -134,7 +135,7 @@ describe('Publishing document', () => {
 			const mockGetBlobProperties = jest.spyOn(blobClient, 'getBlobProperties');
 
 			mockGotPost.mockReturnValue(mock200Response);
-			mockCopyFile.mockImplementation();
+			mockCopyFile.mockResolvedValue('success');
 			mockGetBlobProperties.mockResolvedValue({ contentType: blobPropertiesContentType });
 			mockDownloadStream.mockResolvedValue({
 				readableStreamBody: stringToStream(createTestYoutubeTemplate())
@@ -170,4 +171,74 @@ describe('Publishing document', () => {
 			);
 		}
 	);
+
+	it('throws and logs an error when a required property is missing', async () => {
+		const document = { ...baseDocumentProperties, caseId: undefined };
+
+		await expect(index(mockContext, document)).rejects.toThrow(
+			'One or more required properties are missing'
+		);
+		expect(mockContext.log.error).toHaveBeenCalledWith(
+			expect.stringContaining('One or more required properties are missing')
+		);
+	});
+
+	it('throws and logs an error when the blob copy fails', async () => {
+		const mockGotPost = jest.spyOn(requestWithApiKey, 'post');
+		const mockCopyFile = jest.spyOn(blobClient, 'copyFileFromUrl');
+		const mockGetBlobProperties = jest.spyOn(blobClient, 'getBlobProperties');
+
+		mockGotPost.mockReturnValue(mock200Response);
+		mockGetBlobProperties.mockResolvedValue({ contentType: 'image/png' });
+		const copyError = Object.assign(new Error('deserialisation failed'), {
+			name: 'RestError',
+			statusCode: 500
+		});
+		mockCopyFile.mockRejectedValue(copyError);
+
+		await expect(index(mockContext, baseDocumentProperties)).rejects.toThrow(
+			'encountered error while copying blob'
+		);
+		expect(mockContext.log.error).toHaveBeenCalledWith(
+			expect.stringContaining('encountered error while copying blob')
+		);
+		expect(mockGotPost).not.toHaveBeenCalled();
+	});
+
+	it('throws and logs an error when the blob copy resolves with a non-success status', async () => {
+		const mockGotPost = jest.spyOn(requestWithApiKey, 'post');
+		const mockCopyFile = jest.spyOn(blobClient, 'copyFileFromUrl');
+		const mockGetBlobProperties = jest.spyOn(blobClient, 'getBlobProperties');
+
+		mockGotPost.mockReturnValue(mock200Response);
+		mockGetBlobProperties.mockResolvedValue({ contentType: 'image/png' });
+		mockCopyFile.mockResolvedValue('failed');
+
+		await expect(index(mockContext, baseDocumentProperties)).rejects.toThrow(
+			'blob copy did not succeed'
+		);
+		expect(mockContext.log.error).toHaveBeenCalledWith(
+			expect.stringContaining('copyStatus was "failed"')
+		);
+		expect(mockGotPost).not.toHaveBeenCalled();
+	});
+
+	it('throws and logs an error when the mark-as-published call fails', async () => {
+		const mockGotPost = jest.spyOn(requestWithApiKey, 'post');
+		const mockCopyFile = jest.spyOn(blobClient, 'copyFileFromUrl');
+		const mockGetBlobProperties = jest.spyOn(blobClient, 'getBlobProperties');
+
+		mockCopyFile.mockResolvedValue('success');
+		mockGetBlobProperties.mockResolvedValue({ contentType: 'image/png' });
+		mockGotPost.mockImplementation(() => {
+			throw new Error('request failed');
+		});
+
+		await expect(index(mockContext, baseDocumentProperties)).rejects.toThrow(
+			'encountered error while calling mark-as-published'
+		);
+		expect(mockContext.log.error).toHaveBeenCalledWith(
+			expect.stringContaining('encountered error while calling mark-as-published')
+		);
+	});
 });
