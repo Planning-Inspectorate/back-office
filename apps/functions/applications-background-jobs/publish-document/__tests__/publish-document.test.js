@@ -5,7 +5,11 @@ import { requestWithApiKey } from '../../common/backend-api-request.js';
 import { index } from '../index.js';
 import { blobClient } from '../../common/blob-client.js';
 import { stringToStream } from '../../common/__tests__/test-utils/string-to-stream.js';
-import { createTestYoutubeTemplate } from '../../common/__tests__/test-utils/test-html.js';
+import {
+	createTestYoutubeTemplate,
+	INVALID_HTML_STRING
+} from '../../common/__tests__/test-utils/test-html.js';
+import { createMockContext } from '../../common/__tests__/test-utils/mock-context.js';
 import {
 	TEST_API_HOST,
 	TEST_BLOB_ACCOUNT,
@@ -18,11 +22,7 @@ import {
 } from '../../common/__tests__/test-utils/test-constants.js';
 
 const mock200Response = { json: jest.fn().mockResolvedValue({}) };
-const mockContext = {
-	log: jest.fn()
-};
-mockContext.log.info = jest.fn();
-mockContext.log.error = jest.fn();
+const mockContext = createMockContext();
 const mockSystemTime = new Date('2023-01-01T00:00:00.000Z');
 
 beforeEach(() => {
@@ -37,6 +37,28 @@ beforeAll(() => {
 afterAll(() => {
 	jest.useRealTimers();
 });
+
+/**
+ * Arranges the blobClient/requestWithApiKey spies with sensible happy-path defaults;
+ * individual tests override whichever return value they need to exercise a different branch.
+ */
+const arrangeMocks = ({
+	copyResult = 'success',
+	blobPropertiesContentType = 'image/png',
+	downloadStreamBody = createTestYoutubeTemplate()
+} = {}) => {
+	const mockGotPost = jest.spyOn(requestWithApiKey, 'post').mockReturnValue(mock200Response);
+	const mockGotPatch = jest.spyOn(requestWithApiKey, 'patch').mockReturnValue(mock200Response);
+	const mockCopyFile = jest.spyOn(blobClient, 'copyFileFromUrl').mockResolvedValue(copyResult);
+	const mockDownloadStream = jest.spyOn(blobClient, 'downloadStream').mockResolvedValue({
+		readableStreamBody: stringToStream(downloadStreamBody)
+	});
+	const mockGetBlobProperties = jest
+		.spyOn(blobClient, 'getBlobProperties')
+		.mockResolvedValue({ contentType: blobPropertiesContentType });
+
+	return { mockGotPost, mockGotPatch, mockCopyFile, mockDownloadStream, mockGetBlobProperties };
+};
 
 describe('Publishing document', () => {
 	const baseDocumentProperties = {
@@ -125,120 +147,144 @@ describe('Publishing document', () => {
 		}
 	];
 
-	it.each(testCases)(
-		'$name',
-		async ({ document, blobName, blobPropertiesContentType, expectedDestinationName, isHtml }) => {
-			// Arrange
-			const mockGotPost = jest.spyOn(requestWithApiKey, 'post');
-			const mockCopyFile = jest.spyOn(blobClient, 'copyFileFromUrl');
-			const mockDownloadStream = jest.spyOn(blobClient, 'downloadStream');
-			const mockGetBlobProperties = jest.spyOn(blobClient, 'getBlobProperties');
+	describe('when publishing succeeds', () => {
+		it.each(testCases)(
+			'$name',
+			async ({
+				document,
+				blobName,
+				blobPropertiesContentType,
+				expectedDestinationName,
+				isHtml
+			}) => {
+				// Arrange
+				const { mockGotPost, mockCopyFile, mockDownloadStream, mockGetBlobProperties } =
+					arrangeMocks({ blobPropertiesContentType });
 
-			mockGotPost.mockReturnValue(mock200Response);
-			mockCopyFile.mockResolvedValue('success');
-			mockGetBlobProperties.mockResolvedValue({ contentType: blobPropertiesContentType });
-			mockDownloadStream.mockResolvedValue({
-				readableStreamBody: stringToStream(createTestYoutubeTemplate())
-			});
+				// Act
+				await index(mockContext, document);
 
-			jest.spyOn(Date, 'now').mockReturnValueOnce(1000);
-
-			// Act
-			await index(mockContext, document);
-
-			// Assert
-			expect(mockGetBlobProperties).toHaveBeenCalledTimes(1);
-			expect(mockGetBlobProperties).toHaveBeenCalledWith(TEST_BLOB_SOURCE_CONTAINER, blobName);
-			expect(mockDownloadStream).toHaveBeenCalledTimes(Number(isHtml)); // true = 1 | false = 0
-			const expectedSourceUrl = new URL(document.documentURI).toString();
-			expect(mockCopyFile).toHaveBeenCalledTimes(1);
-			expect(mockCopyFile).toHaveBeenCalledWith({
-				sourceUrl: expectedSourceUrl,
-				destinationContainerName: TEST_BLOB_PUBLISH_CONTAINER,
-				destinationBlobName: expectedDestinationName,
-				newContentType: document.mime
-			});
-			expect(mockGotPost).toHaveBeenCalledTimes(1);
-			expect(mockGotPost).toHaveBeenCalledWith(
-				`https://${TEST_API_HOST}/applications/${document.caseId}/documents/${document.documentId}/version/${document.version}/mark-as-published`,
-				{
-					json: {
-						publishedBlobPath: expectedDestinationName,
-						publishedBlobContainer: TEST_BLOB_PUBLISH_CONTAINER,
-						publishedDate: mockSystemTime
+				// Assert
+				expect(mockGetBlobProperties).toHaveBeenCalledTimes(1);
+				expect(mockGetBlobProperties).toHaveBeenCalledWith(TEST_BLOB_SOURCE_CONTAINER, blobName);
+				expect(mockDownloadStream).toHaveBeenCalledTimes(Number(isHtml)); // true = 1 | false = 0
+				const expectedSourceUrl = new URL(document.documentURI).toString();
+				expect(mockCopyFile).toHaveBeenCalledTimes(1);
+				expect(mockCopyFile).toHaveBeenCalledWith({
+					sourceUrl: expectedSourceUrl,
+					destinationContainerName: TEST_BLOB_PUBLISH_CONTAINER,
+					destinationBlobName: expectedDestinationName,
+					newContentType: document.mime
+				});
+				expect(mockGotPost).toHaveBeenCalledTimes(1);
+				expect(mockGotPost).toHaveBeenCalledWith(
+					`https://${TEST_API_HOST}/applications/${document.caseId}/documents/${document.documentId}/version/${document.version}/mark-as-published`,
+					{
+						json: {
+							publishedBlobPath: expectedDestinationName,
+							publishedBlobContainer: TEST_BLOB_PUBLISH_CONTAINER,
+							publishedDate: mockSystemTime
+						}
 					}
+				);
+			}
+		);
+
+		it('omits publishedDate when migrationPublishing binding data is set', async () => {
+			const { mockGotPost } = arrangeMocks();
+			const migrationContext = {
+				...mockContext,
+				bindingData: { applicationProperties: { migrationPublishing: true } }
+			};
+
+			await index(migrationContext, baseDocumentProperties);
+
+			expect(mockGotPost).toHaveBeenCalledWith(expect.any(String), {
+				json: {
+					publishedBlobContainer: TEST_BLOB_PUBLISH_CONTAINER,
+					publishedBlobPath: `${TEST_CASE_REFERENCE}-001-${TEST_BLOB_FILE_NAME}.jpeg`
 				}
+			});
+		});
+	});
+
+	describe('required properties and HTML validity checks', () => {
+		it('throws and logs an error when a required property is missing', async () => {
+			const document = { ...baseDocumentProperties, caseId: undefined };
+
+			await expect(index(mockContext, document)).rejects.toThrow(
+				'One or more required properties are missing'
 			);
-		}
-	);
-
-	it('throws and logs an error when a required property is missing', async () => {
-		const document = { ...baseDocumentProperties, caseId: undefined };
-
-		await expect(index(mockContext, document)).rejects.toThrow(
-			'One or more required properties are missing'
-		);
-		expect(mockContext.log.error).toHaveBeenCalledWith(
-			expect.stringContaining('One or more required properties are missing')
-		);
-	});
-
-	it('throws and logs an error when the blob copy fails', async () => {
-		const mockGotPost = jest.spyOn(requestWithApiKey, 'post');
-		const mockCopyFile = jest.spyOn(blobClient, 'copyFileFromUrl');
-		const mockGetBlobProperties = jest.spyOn(blobClient, 'getBlobProperties');
-
-		mockGotPost.mockReturnValue(mock200Response);
-		mockGetBlobProperties.mockResolvedValue({ contentType: 'image/png' });
-		const copyError = Object.assign(new Error('deserialisation failed'), {
-			name: 'RestError',
-			statusCode: 500
-		});
-		mockCopyFile.mockRejectedValue(copyError);
-
-		await expect(index(mockContext, baseDocumentProperties)).rejects.toThrow(
-			'encountered error while copying blob'
-		);
-		expect(mockContext.log.error).toHaveBeenCalledWith(
-			expect.stringContaining('encountered error while copying blob')
-		);
-		expect(mockGotPost).not.toHaveBeenCalled();
-	});
-
-	it('throws and logs an error when the blob copy resolves with a non-success status', async () => {
-		const mockGotPost = jest.spyOn(requestWithApiKey, 'post');
-		const mockCopyFile = jest.spyOn(blobClient, 'copyFileFromUrl');
-		const mockGetBlobProperties = jest.spyOn(blobClient, 'getBlobProperties');
-
-		mockGotPost.mockReturnValue(mock200Response);
-		mockGetBlobProperties.mockResolvedValue({ contentType: 'image/png' });
-		mockCopyFile.mockResolvedValue('failed');
-
-		await expect(index(mockContext, baseDocumentProperties)).rejects.toThrow(
-			'blob copy did not succeed'
-		);
-		expect(mockContext.log.error).toHaveBeenCalledWith(
-			expect.stringContaining('copyStatus was "failed"')
-		);
-		expect(mockGotPost).not.toHaveBeenCalled();
-	});
-
-	it('throws and logs an error when the mark-as-published call fails', async () => {
-		const mockGotPost = jest.spyOn(requestWithApiKey, 'post');
-		const mockCopyFile = jest.spyOn(blobClient, 'copyFileFromUrl');
-		const mockGetBlobProperties = jest.spyOn(blobClient, 'getBlobProperties');
-
-		mockCopyFile.mockResolvedValue('success');
-		mockGetBlobProperties.mockResolvedValue({ contentType: 'image/png' });
-		mockGotPost.mockImplementation(() => {
-			throw new Error('request failed');
+			expect(mockContext.log.error).toHaveBeenCalledWith(
+				expect.stringContaining('One or more required properties are missing')
+			);
 		});
 
-		await expect(index(mockContext, baseDocumentProperties)).rejects.toThrow(
-			'encountered error while calling mark-as-published'
-		);
-		expect(mockContext.log.error).toHaveBeenCalledWith(
-			expect.stringContaining('encountered error while calling mark-as-published')
-		);
+		it('throws and logs an error when the HTML validity check fails', async () => {
+			arrangeMocks({
+				blobPropertiesContentType: 'text/html',
+				downloadStreamBody: INVALID_HTML_STRING
+			});
+
+			const document = {
+				...baseDocumentProperties,
+				// needs a document-service-uploads path so handleHtmlValidityFail can extract a guid
+				documentURI: `https://${TEST_BLOB_ACCOUNT}.blob.core.windows.net/${TEST_BLOB_SOURCE_CONTAINER}/document-service-uploads/application/${TEST_CASE_REFERENCE}/${TEST_BLOB_GUID}/${TEST_BLOB_VERSION}`,
+				filename: `${TEST_BLOB_FILE_NAME}.html`,
+				originalFilename: `${TEST_BLOB_FILE_NAME}.html`
+			};
+
+			await expect(index(mockContext, document)).rejects.toThrow('failing validity check');
+			expect(mockContext.log.error).toHaveBeenCalledWith(
+				expect.stringContaining('failing validity check')
+			);
+		});
+	});
+
+	describe('when copying the file to the publish container fails', () => {
+		it('throws and logs an error when the blob copy fails', async () => {
+			const { mockGotPost, mockCopyFile } = arrangeMocks();
+			const copyError = Object.assign(new Error('deserialisation failed'), {
+				name: 'RestError',
+				statusCode: 500
+			});
+			mockCopyFile.mockRejectedValue(copyError);
+
+			await expect(index(mockContext, baseDocumentProperties)).rejects.toThrow(
+				'encountered error while copying blob'
+			);
+			expect(mockContext.log.error).toHaveBeenCalledWith(
+				expect.stringContaining('encountered error while copying blob')
+			);
+			expect(mockGotPost).not.toHaveBeenCalled();
+		});
+
+		it('throws and logs an error when the blob copy resolves with a non-success status', async () => {
+			const { mockGotPost } = arrangeMocks({ copyResult: 'failed' });
+
+			await expect(index(mockContext, baseDocumentProperties)).rejects.toThrow(
+				'blob copy did not succeed'
+			);
+			expect(mockContext.log.error).toHaveBeenCalledWith(
+				expect.stringContaining('copyStatus was "failed"')
+			);
+			expect(mockGotPost).not.toHaveBeenCalled();
+		});
+	});
+
+	describe('when the mark-as-published API call fails', () => {
+		it('throws and logs an error when the mark-as-published call fails', async () => {
+			const { mockGotPost } = arrangeMocks();
+			mockGotPost.mockImplementation(() => {
+				throw new Error('request failed');
+			});
+
+			await expect(index(mockContext, baseDocumentProperties)).rejects.toThrow(
+				'encountered error while calling mark-as-published'
+			);
+			expect(mockContext.log.error).toHaveBeenCalledWith(
+				expect.stringContaining('encountered error while calling mark-as-published')
+			);
+		});
 	});
 });
