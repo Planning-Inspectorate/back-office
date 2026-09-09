@@ -157,14 +157,11 @@ describe('Publishing document', () => {
 				expectedDestinationName,
 				isHtml
 			}) => {
-				// Arrange
 				const { mockGotPost, mockCopyFile, mockDownloadStream, mockGetBlobProperties } =
 					arrangeMocks({ blobPropertiesContentType });
 
-				// Act
 				await index(mockContext, document);
 
-				// Assert
 				expect(mockGetBlobProperties).toHaveBeenCalledTimes(1);
 				expect(mockGetBlobProperties).toHaveBeenCalledWith(TEST_BLOB_SOURCE_CONTAINER, blobName);
 				expect(mockDownloadStream).toHaveBeenCalledTimes(Number(isHtml)); // true = 1 | false = 0

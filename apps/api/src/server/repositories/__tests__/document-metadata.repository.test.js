@@ -9,9 +9,7 @@ describe('Document Metadata Repository', () => {
 
 	describe('getCurrentPublishedVersion', () => {
 		it('returns only the current/latest published version, excluding stale superseded versions', async () => {
-			// document has 2 versions; version 1 is a stale superseded version still marked
-			// 'published' (e.g. migrated from Horizon, never had a real blob copy), version 2
-			// is the current published version with a real blob
+			// version 1 is a stale superseded 'published' row with no real blob copy (e.g. migrated from Horizon); version 2 is the current published version
 			databaseConnector.document.findUnique.mockResolvedValue({ latestVersionId: 2 });
 
 			const currentVersion = {
