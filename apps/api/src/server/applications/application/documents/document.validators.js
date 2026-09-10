@@ -250,17 +250,21 @@ export const verifyAllDocumentsHaveRequiredPropertiesForPublishing = async (
 	const completeDocumentsIds = new Set(completeDocuments.map((pDoc) => pDoc.guid));
 
 	// remove all email documents and, if not s51 advice attachments, remove unredacted documents
+	// also exclude documents already mid-publish, so a second publish click doesn't resubmit them (idas-679)
 	let publishableDocuments;
 	if (skipRequiredPropertyChecks) {
 		publishableDocuments = completeDocuments.filter(
-			(doc) => doc.latestDocumentVersion?.mime !== 'application/vnd.ms-outlook'
+			(doc) =>
+				doc.latestDocumentVersion?.mime !== 'application/vnd.ms-outlook' &&
+				doc.latestDocumentVersion?.publishedStatus !== 'publishing'
 		);
 	} else {
 		publishableDocuments = completeDocuments.filter(
 			(doc) =>
 				doc.latestDocumentVersion?.mime !== 'application/vnd.ms-outlook' &&
 				(doc.latestDocumentVersion?.redactedStatus === 'redacted' ||
-					doc.latestDocumentVersion?.redactedStatus === 'no_redaction_required')
+					doc.latestDocumentVersion?.redactedStatus === 'no_redaction_required') &&
+				doc.latestDocumentVersion?.publishedStatus !== 'publishing'
 		);
 	}
 
@@ -306,6 +310,12 @@ export const verifyAllDocumentsHaveRequiredPropertiesForPublishing = async (
 		(doc) => doc.latestDocumentVersion?.redactedStatus === 'ai_redaction_failed'
 	);
 
+	// complete documents already mid-publish (idas-679: prevents resubmitting a document that's
+	// already being processed by the background publish job, e.g. from repeated user clicks)
+	const documentsAlreadyPublishing = completeDocuments.filter(
+		(doc) => doc.latestDocumentVersion?.publishedStatus === 'publishing'
+	);
+
 	// incomplete documents
 	const incompleteDocuments = documentIds.filter((id) => !completeDocumentsIds.has(id));
 
@@ -317,6 +327,11 @@ export const verifyAllDocumentsHaveRequiredPropertiesForPublishing = async (
 				guid: doc.guid,
 				msg: "The file type .msg cannot be set to 'Ready for publish'",
 				type: 'invalid-filetype'
+			})),
+			...documentsAlreadyPublishing.map((doc) => ({
+				guid: doc.guid,
+				msg: 'This document is already being published - please wait for that to finish before trying again',
+				type: 'already-publishing'
 			}))
 		];
 	} else {
@@ -325,6 +340,11 @@ export const verifyAllDocumentsHaveRequiredPropertiesForPublishing = async (
 				guid: doc.guid,
 				msg: "The file type .msg cannot be set to 'Ready for publish'",
 				type: 'invalid-filetype'
+			})),
+			...documentsAlreadyPublishing.map((doc) => ({
+				guid: doc.guid,
+				msg: 'This document is already being published - please wait for that to finish before trying again',
+				type: 'already-publishing'
 			})),
 			...unredactedDocuments.map((doc) => ({
 				guid: doc.guid,

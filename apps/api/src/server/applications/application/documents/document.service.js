@@ -1030,10 +1030,12 @@ export const separateNonPublishedDocuments = async (guids) => {
  * @returns {Promise<string[]>} // array of unpublished doc guids
  * */
 export const unpublishDocuments = async (guids, username) => {
-	const versionPromises = guids.map(documentVersionRepository.getPublished);
+	// use getCurrentPublishedVersion (not getPublished) - it scopes to the latest version only, so
+	// stale superseded versions with no real blob (e.g. Horizon-migrated) aren't swept in and DLQ'd (idas-679)
+	const versionPromises = guids.map(documentVersionRepository.getCurrentPublishedVersion);
 	const versions = await Promise.all(versionPromises);
 
-	const allVersions = versions.flatMap((docVersions) => docVersions?.filter(Boolean) ?? []);
+	const allVersions = versions.filter(Boolean);
 
 	const unpublishedDocuments = await documentVersionRepository.unpublishMany(
 		allVersions.map((version) => ({

@@ -259,6 +259,7 @@ export const getPublishableDocuments = (documentIds) => {
 					authorWelsh: true,
 					descriptionWelsh: true,
 					redactedStatus: true,
+					publishedStatus: true,
 					Document: {
 						select: {
 							case: {
@@ -321,7 +322,8 @@ export const getPublishableDocumentsWithoutRequiredPropertiesCheck = (documentId
 			latestVersionId: true,
 			latestDocumentVersion: {
 				select: {
-					mime: true
+					mime: true,
+					publishedStatus: true
 				}
 			}
 		}

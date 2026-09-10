@@ -289,6 +289,9 @@ describe('Unpublishing documents', () => {
 		databaseConnector.documentVersion.findMany.mockResolvedValue([
 			docVersionWithDocumentBeforeUpdate
 		]);
+		databaseConnector.documentVersion.findFirst.mockResolvedValue(
+			docVersionWithDocumentBeforeUpdate
+		);
 		databaseConnector.documentVersion.update.mockResolvedValue(
 			documentVersionWithDocumentAfterUpdate
 		);
