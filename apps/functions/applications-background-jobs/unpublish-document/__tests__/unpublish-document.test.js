@@ -1,7 +1,6 @@
 // @ts-nocheck
 import { jest } from '@jest/globals';
 import { requestWithApiKey } from '../../common/backend-api-request.js';
-import { index } from '../index.js';
 import { blobClient } from '../../common/blob-client.js';
 import { createMockContext } from '../../common/__tests__/test-utils/mock-context.js';
 import {
@@ -9,6 +8,12 @@ import {
 	TEST_BLOB_ACCOUNT,
 	TEST_BLOB_PUBLISH_CONTAINER
 } from '../../common/__tests__/test-utils/test-constants.js';
+
+const rebuildMasterGeoJson = jest.fn();
+const masterGeojsonModulePath = new URL('../../common/master-geojson.js', import.meta.url).pathname;
+await jest.unstable_mockModule(masterGeojsonModulePath, () => ({ rebuildMasterGeoJson }));
+
+const { index } = await import('../index.js');
 
 const mockContext = createMockContext();
 
@@ -116,6 +121,38 @@ describe('Unpublishing document', () => {
 			await expect(index(mockContext, document)).rejects.toThrow('network error');
 			expect(mockContext.log.error).toHaveBeenCalledWith(
 				expect.stringContaining('encountered error while calling mark-as-unpublished')
+			);
+		});
+	});
+
+	describe('GIS boundary rebuild', () => {
+		const gisMockResponse = {
+			json: jest
+				.fn()
+				.mockResolvedValue({ documentType: 'GIS shapefile', mime: 'application/geo+json' })
+		};
+
+		it('rebuilds the master GeoJson after unpublishing a GIS boundary document', async () => {
+			const mockGotPost = jest.spyOn(requestWithApiKey, 'post');
+			mockGotPost.mockReturnValue(gisMockResponse);
+
+			const document = { ...baseDocumentProperties, publishedDocumentURI: null };
+
+			await index(mockContext, document);
+
+			expect(rebuildMasterGeoJson).toHaveBeenCalledTimes(1);
+		});
+
+		it('logs an error and does not rethrow when rebuilding the master GeoJson fails', async () => {
+			const mockGotPost = jest.spyOn(requestWithApiKey, 'post');
+			mockGotPost.mockReturnValue(gisMockResponse);
+			rebuildMasterGeoJson.mockRejectedValueOnce(new Error('rebuild failed'));
+
+			const document = { ...baseDocumentProperties, publishedDocumentURI: null };
+
+			await expect(index(mockContext, document)).resolves.toBeUndefined();
+			expect(mockContext.log.error).toHaveBeenCalledWith(
+				expect.stringContaining('Failed to rebuild master GeoJson')
 			);
 		});
 	});
