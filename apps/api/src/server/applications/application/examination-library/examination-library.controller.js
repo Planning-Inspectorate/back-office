@@ -13,7 +13,9 @@ export const getExaminationLibraryCategoriesHandler = async (req, res) => {
 	const { id, categoryCode } = req.query;
 
 	const filters = {};
-	if (id) filters.id = Number(id);
+	if (id !== undefined && id !== null && id !== '') {
+		filters.id = Number(id);
+	}
 	if (categoryCode) filters.categoryCode = String(categoryCode);
 
 	const categories = await getExaminationLibraryCategories(caseId, filters);
