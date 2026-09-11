@@ -1,5 +1,8 @@
 import { getExaminationLibraryIndexViewModel } from './applications-examination-library-index.view-model.js';
-import { placeholderSectionStatuses } from './examination-library.constants.js';
+import {
+	placeholderSectionStatuses,
+	placeHolderDynamicSections
+} from './examination-library.constants.js';
 
 /**
  * Get Examination Library index page
@@ -12,6 +15,7 @@ export async function getExaminationLibraryIndex(request, response) {
 
 	const indexViewModel = getExaminationLibraryIndexViewModel({
 		caseId: Number(caseId),
+		dynamicSections: placeHolderDynamicSections,
 		sectionStatuses: placeholderSectionStatuses
 	});
 

@@ -13,3 +13,14 @@ import { get } from '../../../lib/request.js';
 export async function getExaminationLibrarySectionStatuses(caseId) {
 	return get(`applications/${caseId}/examination-library/section-statuses`);
 }
+
+/**
+ * Get documents for a given case and examination library category code
+ *
+ * @param { string} caseId
+ * @param {string} categoryCode
+ * @returns {Promise<any>}
+ */
+export async function getExaminationLibraryDocumentsByCategory(caseId, categoryCode) {
+	return get(`applications/${caseId}/examination-library/documents?categoryCode=${categoryCode}`);
+}

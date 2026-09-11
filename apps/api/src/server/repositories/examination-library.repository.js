@@ -67,11 +67,11 @@ export const createCategories = (caseId, categoriesData) => {
 export const getDocuments = (caseId, filters = {}) => {
 	// The frontend requires documents linked to a category for this case.
 	// Since documents are linked to categories via their latestDocumentVersion
+	// Deleted files are included as they need to be displayed on category subpages
 
 	/** @type {Record<string, any>} */
 	const versionWhere = {
-		examinationLibraryCategoryId: { not: null },
-		isDeleted: false
+		examinationLibraryCategoryId: { not: null }
 	};
 
 	if (filters.categoryCode) {
@@ -87,7 +87,6 @@ export const getDocuments = (caseId, filters = {}) => {
 	return databaseConnector.document.findMany({
 		where: {
 			caseId,
-			isDeleted: false,
 			latestDocumentVersion: versionWhere
 		},
 		include: {
