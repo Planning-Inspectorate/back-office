@@ -52,6 +52,10 @@ export const getExaminationLibrarySectionViewModel = ({
 	const sectionTableData = buildTable({
 		headers: section.tableHeaders,
 		rows: sectionDocuments.map((sectionDocument) => {
+			if (!sectionDocument?.latestDocumentVersion) {
+				return [{ text: '' }, { text: '' }, { text: '' }, { text: '' }];
+			}
+
 			const includeAuthor = section.tableHeaders.includes('From');
 			const documentIsDeleted = sectionDocument.isDeleted;
 			const documentDescriptionHTML = getDocumentDescriptionHTML(sectionDocument);

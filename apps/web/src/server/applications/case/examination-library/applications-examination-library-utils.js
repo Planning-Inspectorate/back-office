@@ -18,13 +18,30 @@ import { url } from '../../../lib/nunjucks-filters/index.js';
  *
  * @param {ExaminationLibrarySection[]} staticSections
  * @param {ExaminationLibraryDynamicSection[]} dynamicSections
- * @param { string} itemSlug
+ * @param {string} itemSlug
  * @returns {ExaminationLibrarySection|null}
  */
 export const getSectionByItemSlug = (staticSections, dynamicSections, itemSlug) => {
 	const sections = mergeSections(staticSections, dynamicSections);
 	const section = sections.find((section) => section.items.some((item) => item.href === itemSlug));
 	return section ? section : null;
+};
+
+/**
+ * Get Examination Library category code
+ *
+ * @param {ExaminationLibrarySection} section
+ * @param {object} categoryCodes
+ * @returns {string}
+ */
+export const getCategoryCode = (section, categoryCodes) => {
+	const sectionSlug = section.slug;
+	const categoryCodeKeys = /** @type {Array<keyof typeof categoryCodes>} */ (
+		Object.keys(categoryCodes)
+	);
+	const sectionCategoryCode = categoryCodeKeys.find((key) => categoryCodes[key] === sectionSlug);
+
+	return sectionCategoryCode ? sectionCategoryCode : '';
 };
 
 /**
@@ -50,6 +67,10 @@ export const getSectionByItemSlug = (staticSections, dynamicSections, itemSlug) 
  */
 
 export const getDocumentDescriptionHTML = (sectionDocument) => {
+	if (!sectionDocument?.latestDocumentVersion) {
+		return '';
+	}
+
 	const isNotDisabled =
 		sectionDocument.latestDocumentVersion.publishedStatus !== 'awaiting_upload' &&
 		sectionDocument.latestDocumentVersion.publishedStatus !== 'awaiting_virus_check' &&

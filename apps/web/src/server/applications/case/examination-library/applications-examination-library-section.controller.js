@@ -6,7 +6,7 @@ import {
 	placeHolderDynamicSections,
 	placeholderSectionStatus
 } from './examination-library.constants.js';
-import { getSectionByItemSlug } from './applications-examination-library-utils.js';
+import { getSectionByItemSlug, getCategoryCode } from './applications-examination-library-utils.js';
 
 /**
  * Get Examination Library section detail page.
@@ -26,20 +26,14 @@ export async function getExaminationLibrarySection(request, response) {
 		return response.status(404).render('app/404');
 	}
 
-	const sectionSlug = section.slug;
-	const categoryCodeKeys = /** @type {Array<keyof typeof categoryCodes>} */ (
-		Object.keys(categoryCodes)
-	);
-	const sectionCategoryCode = categoryCodeKeys.find((key) => categoryCodes[key] === sectionSlug);
+	const sectionCategoryCode = getCategoryCode(section, categoryCodes);
 
-	if (!sectionCategoryCode) {
-		return response.status(404).render('app/404');
+	let sectionDocuments = [];
+
+	if (sectionCategoryCode) {
+		sectionDocuments = await getExaminationLibraryDocumentsByCategory(caseId, sectionCategoryCode);
 	}
 
-	const sectionDocuments = await getExaminationLibraryDocumentsByCategory(
-		caseId,
-		sectionCategoryCode
-	);
 	const sectionStatus =
 		/** @type {import('@pins/applications/lib/status-utils.js').ApplicationStatus} */ (
 			placeholderSectionStatus
