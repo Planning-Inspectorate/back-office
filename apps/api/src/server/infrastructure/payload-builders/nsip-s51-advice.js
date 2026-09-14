@@ -50,7 +50,7 @@ export const buildNsipS51AdvicePayload = async (s51Advice) => {
 		// @ts-ignore
 		attachmentIds: s51Advice.S51AdviceDocument
 			? // @ts-ignore
-			  s51Advice.S51AdviceDocument.map((doc) => doc.documentGuid)
+				s51Advice.S51AdviceDocument.map((doc) => doc.documentGuid)
 			: []
 	};
 };

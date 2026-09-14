@@ -82,7 +82,7 @@ const descriptionValidationChain = (data, isMandatory) =>
 						}
 						return true;
 					})
-		  ]
+			]
 		: [];
 
 /** @type {Record<string, ValidationChainsCallback>} */

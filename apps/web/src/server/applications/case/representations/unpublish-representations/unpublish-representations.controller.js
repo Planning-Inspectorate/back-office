@@ -36,7 +36,7 @@ export async function getUnpublishRepresentationsController(req, res) {
 
 	const projectName = caseDetails.title || '';
 
-	let publishedRepsCount = 0;
+	let publishedRepsCount;
 	try {
 		const result = await getUnpublishableRepresentations(caseId);
 		publishedRepsCount = result?.count;

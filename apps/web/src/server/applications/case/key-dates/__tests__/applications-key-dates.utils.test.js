@@ -15,9 +15,8 @@ describe('apps/web/src/server/applications/case/key-dates/applications-key-dates
 		describe(`When the 're-open closes date' is set to yesterday's date`, () => {
 			const reOpenClosesDate = dateYesterdayTimeStamp;
 			it('should return false', async () => {
-				const { isRelevantRepresentationsReOpened } = await import(
-					'../applications-key-dates.utils.js'
-				);
+				const { isRelevantRepresentationsReOpened } =
+					await import('../applications-key-dates.utils.js');
 
 				expect(isRelevantRepresentationsReOpened(reOpenClosesDate)).toEqual(false);
 			});
@@ -26,9 +25,8 @@ describe('apps/web/src/server/applications/case/key-dates/applications-key-dates
 		describe(`When the 're-open closes date' is set to today's date`, () => {
 			const reOpenClosesDate = dateTodayTimeStamp;
 			it('should return true', async () => {
-				const { isRelevantRepresentationsReOpened } = await import(
-					'../applications-key-dates.utils.js'
-				);
+				const { isRelevantRepresentationsReOpened } =
+					await import('../applications-key-dates.utils.js');
 
 				expect(isRelevantRepresentationsReOpened(reOpenClosesDate)).toEqual(true);
 			});
@@ -37,9 +35,8 @@ describe('apps/web/src/server/applications/case/key-dates/applications-key-dates
 		describe(`When the 're-open closes date' is set to tomorrow's date`, () => {
 			const reOpenClosesDate = dateTomorrowTimeStamp;
 			it('should return true', async () => {
-				const { isRelevantRepresentationsReOpened } = await import(
-					'../applications-key-dates.utils.js'
-				);
+				const { isRelevantRepresentationsReOpened } =
+					await import('../applications-key-dates.utils.js');
 
 				expect(isRelevantRepresentationsReOpened(reOpenClosesDate)).toEqual(true);
 			});

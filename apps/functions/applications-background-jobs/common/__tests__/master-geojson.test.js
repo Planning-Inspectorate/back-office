@@ -22,9 +22,8 @@ jest.unstable_mockModule('../../config.js', () => ({
 	}
 }));
 
-const { assertValidGeoJsonFeatureCollection, rebuildMasterGeoJson } = await import(
-	'../master-geojson.js'
-);
+const { assertValidGeoJsonFeatureCollection, rebuildMasterGeoJson } =
+	await import('../master-geojson.js');
 
 describe('master-geojson', () => {
 	beforeEach(() => {

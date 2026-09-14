@@ -28,8 +28,8 @@ describe('Examination Library Routes', () => {
 	});
 
 	describe('POST /applications/:id/examination-library', () => {
-		it('should create categories from array payload in the database', async () => {
-			const payload = [{ categoryCode: 'APP', categoryName: 'Application' }];
+		it('should create category from single object payload in the database', async () => {
+			const payload = { categoryCode: 'APP', categoryName: 'Application' };
 			databaseConnector.examinationLibraryCategory.createMany.mockResolvedValue({ count: 1 });
 
 			const response = await request
@@ -43,18 +43,24 @@ describe('Examination Library Routes', () => {
 			});
 		});
 
-		it('should create category from single object payload in the database', async () => {
-			const payload = { categoryCode: 'APP', categoryName: 'Application' };
-			databaseConnector.examinationLibraryCategory.createMany.mockResolvedValue({ count: 1 });
+		it('should create categories from an array payload in the database', async () => {
+			const payload = [
+				{ categoryCode: 'APP', categoryName: 'Application' },
+				{ categoryCode: 'PLN', categoryName: 'Plans' }
+			];
+			databaseConnector.examinationLibraryCategory.createMany.mockResolvedValue({ count: 2 });
 
 			const response = await request
 				.post(`/applications/${caseId}/examination-library`)
 				.send(payload);
 
 			expect(response.status).toBe(200);
-			expect(response.body).toEqual({ count: 1 });
+			expect(response.body).toEqual({ count: 2 });
 			expect(databaseConnector.examinationLibraryCategory.createMany).toHaveBeenCalledWith({
-				data: [{ categoryCode: 'APP', categoryName: 'Application', source: 'STATIC', caseId }]
+				data: [
+					{ categoryCode: 'APP', categoryName: 'Application', source: 'STATIC', caseId },
+					{ categoryCode: 'PLN', categoryName: 'Plans', source: 'STATIC', caseId }
+				]
 			});
 		});
 

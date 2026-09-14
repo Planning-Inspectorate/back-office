@@ -21,8 +21,8 @@ export const fetchApiKey = async (azureKeyVaultEnabled, apiKeyName) => {
 	} catch (error) {
 		// the check is to stop JSON.parse function error leaking key contents
 		if (error instanceof SyntaxError) {
-			throw new Error('Failed to parse API key object');
+			throw new Error('Failed to parse API key object', { cause: error });
 		}
-		throw Error(`Fetching API key failure: ${error}`);
+		throw Error(`Fetching API key failure: ${error}`, { cause: error });
 	}
 };

@@ -17,7 +17,9 @@ async function getCaseID(caseReference) {
 
 		return result.id;
 	} catch (err) {
-		throw new Error(`getCaseID failed for reference ${caseReference} with error: ${err}`);
+		throw new Error(`getCaseID failed for reference ${caseReference} with error: ${err}`, {
+			cause: err
+		});
 	}
 }
 
@@ -71,7 +73,9 @@ async function submitDocument({
 			})
 			.json();
 	} catch (err) {
-		throw new Error(`submitDocument failed for case ID ${caseID} with error: ${err}`);
+		throw new Error(`submitDocument failed for case ID ${caseID} with error: ${err}`, {
+			cause: err
+		});
 	}
 }
 
@@ -92,7 +96,8 @@ async function examTimetableItemFolderExists(caseID, examItemFolderId, timetable
 				.json();
 		} catch (err) {
 			throw new Error(
-				`fetching matching deadline folder failed for case ID ${caseID} and folder ID ${examItemFolderId} with error: ${err}`
+				`fetching matching deadline folder failed for case ID ${caseID} and folder ID ${examItemFolderId} with error: ${err}`,
+				{ cause: err }
 			);
 		}
 	})();
@@ -129,7 +134,8 @@ async function getExamTimetableLineItemFolderID(caseID, timetableItemFolderId, l
 				.json();
 		} catch (err) {
 			throw new Error(
-				`fetching subfolders failed for folder ID ${timetableItemFolderId} with error: ${err}`
+				`fetching subfolders failed for folder ID ${timetableItemFolderId} with error: ${err}`,
+				{ cause: err }
 			);
 		}
 	})();
@@ -162,7 +168,8 @@ async function getUnassignedFolderId(caseID, timetableItemFolderId, context) {
 				.json();
 		} catch (err) {
 			throw new Error(
-				`Unassigned folder: fetching subfolders failed for folder ID ${timetableItemFolderId} with error: ${err}`
+				`Unassigned folder: fetching subfolders failed for folder ID ${timetableItemFolderId} with error: ${err}`,
+				{ cause: err }
 			);
 		}
 	})();
@@ -214,7 +221,8 @@ async function getOrCreateUnassignedFolderId(caseID, timetableItemFolderId, cont
 			} else {
 				context.log(`Unassigned folder not found after creation attempt`);
 				throw new Error(
-					`Unassigned folder: Failed to create Unassigned folder in parent folder ID ${timetableItemFolderId}: Error: ${err}`
+					`Unassigned folder: Failed to create Unassigned folder in parent folder ID ${timetableItemFolderId}: Error: ${err}`,
+					{ cause: err }
 				);
 			}
 		}
@@ -241,7 +249,8 @@ async function getTimetableItem(timetableID, timetableItemName) {
 			.json();
 	} catch (err) {
 		throw new Error(
-			`Fetch for examination timetable item failed for template ID ${timetableID} and item name ${timetableItemName}: ${err}`
+			`Fetch for examination timetable item failed for template ID ${timetableID} and item name ${timetableItemName}: ${err}`,
+			{ cause: err }
 		);
 	}
 }
@@ -260,7 +269,9 @@ async function getTimetableIdByCaseId(caseId) {
 
 		return timetable.id;
 	} catch (err) {
-		throw new Error(`Fetch for examination timetable failed for case ID ${caseId}: ${err}`);
+		throw new Error(`Fetch for examination timetable failed for case ID ${caseId}: ${err}`, {
+			cause: err
+		});
 	}
 }
 

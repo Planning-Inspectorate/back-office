@@ -80,8 +80,8 @@ export const getRedactRepresentationViewModel = (
 		redactedRepresentation: redactedRepresentation
 			? redactedRepresentation
 			: editedRepresentation
-			? editedRepresentation
-			: originalRepresentation,
+				? editedRepresentation
+				: originalRepresentation,
 		organisationOrFullname: `${firstName || ''} ${lastName || ''}`.trim() || organisationName,
 		notes: redactedNotes,
 		redactedBy,

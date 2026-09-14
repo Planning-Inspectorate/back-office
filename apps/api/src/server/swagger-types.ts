@@ -987,11 +987,7 @@ export interface DocumentPropertiesWithVersionWithCase {
 	 * @example "not_checked"
 	 */
 	publishedStatusPrev?:
-		| 'not_checked'
-		| 'checked'
-		| 'ready_to_publish'
-		| 'published'
-		| 'not_published';
+		'not_checked' | 'checked' | 'ready_to_publish' | 'published' | 'not_published';
 	Document?: {
 		/**
 		 * Document guid
@@ -1199,11 +1195,7 @@ export interface DocumentPropertiesWithAuditHistory {
 	 * @example "not_checked"
 	 */
 	publishedStatusPrev?:
-		| 'not_checked'
-		| 'checked'
-		| 'ready_to_publish'
-		| 'published'
-		| 'not_published';
+		'not_checked' | 'checked' | 'ready_to_publish' | 'published' | 'not_published';
 	DocumentActivityLog?: DocumentActivityLog[];
 	history?: {
 		uploaded?: {
@@ -2597,10 +2589,7 @@ export interface SubscriptionCreateRequest {
 	emailAddress: string;
 	/** which updates does the subscriber wants to get notified of */
 	subscriptionTypes?: (
-		| 'allUpdates'
-		| 'applicationSubmitted'
-		| 'applicationDecided'
-		| 'registrationOpen'
+		'allUpdates' | 'applicationSubmitted' | 'applicationDecided' | 'registrationOpen'
 	)[];
 	/**
 	 * The date to start getting updates
@@ -2682,10 +2671,7 @@ export interface Subscription {
 	emailAddress: string;
 	/** which updates does the subscriber wants to get notified of */
 	subscriptionTypes?: (
-		| 'allUpdates'
-		| 'applicationSubmitted'
-		| 'applicationDecided'
-		| 'registrationOpen'
+		'allUpdates' | 'applicationSubmitted' | 'applicationDecided' | 'registrationOpen'
 	)[];
 	/**
 	 * The date to start getting updates
@@ -3129,9 +3115,7 @@ export interface FeesForecasting {
 	essentialFastTrackComponents?: boolean;
 	/** @example "submitted_by_applicant" */
 	principalAreaDisagreementSummaryStmt?:
-		| 'submitted_by_applicant'
-		| 'awaiting_submission'
-		| 'not_applicable';
+		'submitted_by_applicant' | 'awaiting_submission' | 'not_applicable';
 	/**
 	 * @format date-time
 	 * @example "2026-01-09T00:00:00.000Z"
@@ -3153,9 +3137,7 @@ export interface FeesForecasting {
 	designApproachDocumentSubmittedDate?: string;
 	/** @example "submitted_by_applicant" */
 	matureOutlineControlDocument?:
-		| 'submitted_by_applicant'
-		| 'awaiting_submission'
-		| 'not_applicable';
+		'submitted_by_applicant' | 'awaiting_submission' | 'not_applicable';
 	/**
 	 * @format date-time
 	 * @example "2026-01-09T00:00:00.000Z"
@@ -3184,9 +3166,7 @@ export interface FeesForecasting {
 	fastTrackAdmissionDocumentSubmittedDate?: string;
 	/** @example "submitted_by_applicant" */
 	multipartyApplicationCheckDocument?:
-		| 'submitted_by_applicant'
-		| 'awaiting_submission'
-		| 'not_applicable';
+		'submitted_by_applicant' | 'awaiting_submission' | 'not_applicable';
 	/**
 	 * @format date-time
 	 * @example "2026-01-09T00:00:00.000Z"

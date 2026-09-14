@@ -941,9 +941,8 @@ export const handleUpdateDocuments = async (guids, publishedStatus, redactedStat
 
 		// TODO: Let's refactor this so that the front-end provides the explicitly verson numbers
 		// @ts-ignore
-		const { latestDocumentVersion: documentVersion } = await documentRepository.getByDocumentGUID(
-			guid
-		);
+		const { latestDocumentVersion: documentVersion } =
+			await documentRepository.getByDocumentGUID(guid);
 
 		if (publishedStatus && documentVersion.publishedStatus === 'published') {
 			errors.push({

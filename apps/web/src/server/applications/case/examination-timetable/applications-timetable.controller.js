@@ -545,9 +545,8 @@ export async function postApplicationsCaseTimetableItemNameWelsh(
  */
 export async function viewApplicationsCaseTimetableItemDescriptionWelsh({ params }, response) {
 	const timetableId = parseInt(params.timetableId);
-	const { description, descriptionWelsh, submissions } = await getCaseTimetableItemById(
-		timetableId
-	);
+	const { description, descriptionWelsh, submissions } =
+		await getCaseTimetableItemById(timetableId);
 
 	// if there are submissions against timetable item, we shouldn't edit it
 	if (submissions) {
@@ -572,9 +571,8 @@ export async function postApplicationsCaseTimetableItemDescriptionWelsh(
 	response
 ) {
 	const timetableId = parseInt(params.timetableId);
-	const { description, submissions, ExaminationTimetableType } = await getCaseTimetableItemById(
-		timetableId
-	);
+	const { description, submissions, ExaminationTimetableType } =
+		await getCaseTimetableItemById(timetableId);
 
 	const timetableItemType = ExaminationTimetableType.templateType;
 
@@ -729,7 +727,7 @@ const getCheckYourAnswersRows = async (body, caseId) => {
 						key: 'Timetable item description in Welsh',
 						html: descriptionWelshHtml ?? ''
 					}
-			  ]
+				]
 			: [])
 	];
 

@@ -19,16 +19,17 @@ router.get(
 	'/',
 	/*
 		#swagger.tags = ['Applications']
-		#swagger.path = '/applications/{id}/examination-library'
+		#swagger.path = '/applications/{caseId}/examination-library'
 		#swagger.description = 'Gets all examination library categories for an application, optionally filtered by category id or code'
-		#swagger.parameters['id'] = {
+		#swagger.parameters['caseId'] = {
 			in: 'path',
 			description: 'Application ID',
 			required: true,
 			type: 'integer'
 		}
-		#swagger.parameters['id'] = {
+		#swagger.parameters['categoryId'] = {
 			in: 'query',
+			name: 'id',
 			description: 'Filter by category ID',
 			required: false,
 			type: 'integer'
@@ -76,9 +77,9 @@ router.post(
 	'/',
 	/*
 		#swagger.tags = ['Applications']
-		#swagger.path = '/applications/{id}/examination-library'
+		#swagger.path = '/applications/{caseId}/examination-library'
 		#swagger.description = 'Creates one or multiple examination library categories for an application'
-		#swagger.parameters['id'] = {
+		#swagger.parameters['caseId'] = {
 			in: 'path',
 			description: 'Application ID',
 			required: true,
@@ -124,9 +125,9 @@ router.get(
 	'/documents',
 	/*
 		#swagger.tags = ['Applications']
-		#swagger.path = '/applications/{id}/examination-library/documents'
+		#swagger.path = '/applications/{caseId}/examination-library/documents'
 		#swagger.description = 'Gets documents for an application that have an examination library category assigned'
-		#swagger.parameters['id'] = {
+		#swagger.parameters['caseId'] = {
 			in: 'path',
 			description: 'Application ID',
 			required: true,

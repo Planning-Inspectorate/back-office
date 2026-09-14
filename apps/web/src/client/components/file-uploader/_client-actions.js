@@ -105,9 +105,10 @@ const clientActions = (uploadForm) => {
 				return extensionMatch[1];
 			})();
 
-		if (
-			!(type && (allowedMimeTypes.includes(type) || (isZip && allowedMimeTypes.includes('.zip'))))
-		) {
+		if (!(
+			type &&
+			(allowedMimeTypes.includes(type) || (isZip && allowedMimeTypes.includes('.zip')))
+		)) {
 			return { message: 'TYPE_SINGLE_FILE' };
 		}
 
@@ -211,7 +212,6 @@ const clientActions = (uploadForm) => {
 			if (filesSize > 1_073_741_824) {
 				const sizeInGb = `${Math.round(filesSize * 1e-8) / 10} GB`;
 
-				// eslint-disable-next-line no-throw-literal
 				throw {
 					message: isMultipleUploadAllowed ? 'SIZE_EXCEEDED' : 'SIZE_EXCEEDED_SINGLE',
 					details: [{ message: sizeInGb }]
@@ -241,7 +241,6 @@ const clientActions = (uploadForm) => {
 				}
 			}
 
-			// eslint-disable-next-line no-throw-literal
 			throw { message: 'FILE_SPECIFIC_ERRORS', details: errors };
 		} else {
 			window.location.href = uploadForm.dataset.nextPageUrl || '';

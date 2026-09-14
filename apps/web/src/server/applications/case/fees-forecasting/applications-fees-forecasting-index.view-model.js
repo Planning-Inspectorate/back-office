@@ -211,8 +211,8 @@ export const getFeesForecastingIndexViewModel = ({ caseData, invoices, meetings 
 				caseData.additionalDetails.planProcessEvidence === true
 					? 'Required'
 					: caseData.additionalDetails.planProcessEvidence === false
-					? 'Not required'
-					: '',
+						? 'Not required'
+						: '',
 			actions: [
 				{
 					href: getEditPageURL(urlSectionNames.evidencePlanProcess, caseData.id),
@@ -356,8 +356,8 @@ export const getFeesForecastingIndexViewModel = ({ caseData, invoices, meetings 
 				caseData.additionalDetails.essentialFastTrackComponents === true
 					? 'Yes'
 					: caseData.additionalDetails.essentialFastTrackComponents === false
-					? 'No'
-					: '',
+						? 'No'
+						: '',
 			actions: [
 				{
 					href: getEditPageURL(urlSectionNames.fastTrack, caseData.id),

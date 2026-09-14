@@ -18,7 +18,7 @@ export const patchRepresentationStatus = async ({ params, body }, response) => {
 		await broadcastNsipRepresentationEvent({ id: repId }, EventType.Update);
 
 		return response.send({ repId: repId, status: data?.status });
-	} catch (error) {
+	} catch {
 		return response.status(500).json({
 			errors: {
 				contact: `Error updating the representation status and creating a representation action`
