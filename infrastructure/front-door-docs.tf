@@ -91,21 +91,21 @@ resource "azurerm_cdn_frontdoor_rule" "robot_header_tags_book_reference" {
   name                      = "RobotsHeaderTagsBookReference"
   cdn_frontdoor_rule_set_id = azurerm_cdn_frontdoor_rule_set.robot_header_tags.id
   order                     = 1
-  behavior_on_match         = "Continue"
+  behaviour_on_match        = "Continue"
 
   actions {
-    response_header_action {
-      header_action = "Append"
-      header_name   = "X-Robots-Tag"
-      value         = "noindex,nofollow"
+    modify_response_header {
+      operator     = "Append"
+      header_name  = "X-Robots-Tag"
+      header_value = "noindex,nofollow"
     }
   }
 
   conditions {
-    url_filename_condition {
-      operator     = "Contains"
-      match_values = ["book"]
-      transforms   = ["Lowercase"]
+    request_filename {
+      operator   = "Contains"
+      values     = ["book"]
+      transforms = ["Lowercase"]
     }
   }
 }
