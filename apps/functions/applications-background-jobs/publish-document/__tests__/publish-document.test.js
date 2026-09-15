@@ -45,6 +45,7 @@ describe('Publishing document', () => {
 		documentReference: `${TEST_CASE_REFERENCE}-001`,
 		filename: TEST_BLOB_FILE_NAME,
 		originalFilename: `${TEST_BLOB_FILE_NAME}.jpeg`,
+		sourceSystem: 'back-office-applications',
 		documentURI: `https://${TEST_BLOB_ACCOUNT}.blob.core.windows.net/${TEST_BLOB_SOURCE_CONTAINER}/application/${TEST_CASE_REFERENCE}/${TEST_BLOB_GUID}/${TEST_BLOB_VERSION}`,
 		mime: 'image/jpeg'
 	};
