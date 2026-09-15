@@ -8,6 +8,7 @@ import { isScannedFileHtml, isUploadedHtmlValid } from '../common/html-validatio
 import { handleHtmlValidityFail } from './src/handle-html-validity-fail.js';
 import { isGisBoundaryGeoJsonDocument } from '../common/util.js';
 import { rebuildMasterGeoJson } from '../common/master-geojson.js';
+import { logError } from '../common/log-error.js';
 import config from '../common/config.js';
 import { blobClient } from '../common/blob-client.js';
 
@@ -16,12 +17,25 @@ import { blobClient } from '../common/blob-client.js';
  */
 export const index = async (
 	context,
-	{ caseId, documentId, version, documentURI, documentReference, filename, originalFilename, mime }
+	{
+		caseId,
+		documentId,
+		version,
+		documentURI,
+		documentReference,
+		filename,
+		originalFilename,
+		mime,
+		sourceSystem
+	}
 ) => {
-	context.log(`Publishing document ID ${documentId} at URI ${documentURI}`);
-
-	// replace PINs domain with primary blob domain to ensure copy operation works
-	documentURI = replaceCustomDomainWithBlobDomain(documentURI);
+	if (
+		typeof sourceSystem !== 'string' ||
+		sourceSystem.trim() === '' ||
+		sourceSystem.toLowerCase() === 'horizon'
+	) {
+		return;
+	}
 
 	if (
 		!caseId ||
@@ -33,41 +47,57 @@ export const index = async (
 		!documentReference ||
 		!mime
 	) {
-		throw Error('One or more required properties are missing.');
+		const message = 'One or more required properties are missing.';
+		context.log.error(message, { documentId, caseId, version });
+		throw Error(message);
 	}
 
-	if (await isScannedFileHtml(documentURI)) {
-		context.log('Scanned file is HTML, performing validity check');
-		const isValidHtml = await isUploadedHtmlValid(documentURI, context.log);
-		if (!isValidHtml) {
-			await handleHtmlValidityFail(documentURI, context.log);
-			throw Error(
-				`Publishing failed for caseId ${caseId} due to HTML file failing validity check. File marked as malicious`
-			);
+	context.log(`Publishing document ID ${documentId} at URI ${documentURI}`);
+
+	let publishFileName;
+	try {
+		// replace PINs domain with primary blob domain to ensure copy operation works
+		documentURI = replaceCustomDomainWithBlobDomain(documentURI);
+
+		if (await isScannedFileHtml(documentURI)) {
+			context.log('Scanned file is HTML, performing validity check');
+			const isValidHtml = await isUploadedHtmlValid(documentURI, context.log);
+			if (!isValidHtml) {
+				await handleHtmlValidityFail(documentURI, context.log);
+				throw Error(
+					`Publishing failed for caseId ${caseId} due to HTML file failing validity check. File marked as malicious`
+				);
+			}
 		}
+
+		validateStorageAccount(documentURI);
+		publishFileName = buildPublishedFileName({
+			documentReference,
+			filename,
+			originalFilename
+		});
+
+		// Normalise and encode source URL (e.g. spaces in generated GeoJSON filenames)
+		// so Storage SDK copy operations receive a valid URL.
+		documentURI = new URL(documentURI).toString();
+
+		context.log(
+			`Deploying source blob ${documentURI} to destination ${publishFileName} for caseId ${caseId}`
+		);
+
+		await blobClient.copyFileFromUrl({
+			sourceUrl: documentURI,
+			destinationContainerName: config.BLOB_PUBLISH_CONTAINER,
+			destinationBlobName: publishFileName,
+			newContentType: mime
+		});
+	} catch (error) {
+		throw logError(context, 'Failed during publish preparation or blob copy', error, {
+			documentId,
+			caseId,
+			version
+		});
 	}
-
-	validateStorageAccount(documentURI);
-	const publishFileName = buildPublishedFileName({
-		documentReference,
-		filename,
-		originalFilename
-	});
-
-	// Normalise and encode source URL (e.g. spaces in generated GeoJSON filenames)
-	// so Storage SDK copy operations receive a valid URL.
-	documentURI = new URL(documentURI).toString();
-
-	context.log(
-		`Deploying source blob ${documentURI} to destination ${publishFileName} for caseId ${caseId}`
-	);
-
-	await blobClient.copyFileFromUrl({
-		sourceUrl: documentURI,
-		destinationContainerName: config.BLOB_PUBLISH_CONTAINER,
-		destinationBlobName: publishFileName,
-		newContentType: mime
-	});
 
 	const requestUri = `https://${config.API_HOST}/applications/${caseId}/documents/${documentId}/version/${version}/mark-as-published`;
 
@@ -77,25 +107,34 @@ export const index = async (
 
 	// Check is to maintain original publishing date when migrating docs from ODW
 	// - remove after migration is done, just keep contents of 'else' statement
-	if (context.bindingData?.applicationProperties?.migrationPublishing) {
-		publishedDocument = await requestWithApiKey
-			.post(requestUri, {
-				json: {
-					publishedBlobContainer: config.BLOB_PUBLISH_CONTAINER,
-					publishedBlobPath: publishFileName
-				}
-			})
-			.json();
-	} else {
-		publishedDocument = await requestWithApiKey
-			.post(requestUri, {
-				json: {
-					publishedBlobContainer: config.BLOB_PUBLISH_CONTAINER,
-					publishedBlobPath: publishFileName,
-					publishedDate: new Date()
-				}
-			})
-			.json();
+	try {
+		if (context.bindingData?.applicationProperties?.migrationPublishing) {
+			publishedDocument = await requestWithApiKey
+				.post(requestUri, {
+					json: {
+						publishedBlobContainer: config.BLOB_PUBLISH_CONTAINER,
+						publishedBlobPath: publishFileName
+					}
+				})
+				.json();
+		} else {
+			publishedDocument = await requestWithApiKey
+				.post(requestUri, {
+					json: {
+						publishedBlobContainer: config.BLOB_PUBLISH_CONTAINER,
+						publishedBlobPath: publishFileName,
+						publishedDate: new Date()
+					}
+				})
+				.json();
+		}
+	} catch (error) {
+		throw logError(context, 'Failed to mark document as published', error, {
+			documentId,
+			caseId,
+			version,
+			requestUri
+		});
 	}
 
 	if (isGisBoundaryGeoJsonDocument(publishedDocument)) {
@@ -104,9 +143,11 @@ export const index = async (
 		try {
 			await rebuildMasterGeoJson(context.log);
 		} catch (error) {
-			context.log(
-				`Failed to rebuild master GeoJson after publishing GIS boundary ${documentId}: ${error}`
-			);
+			logError(context, 'Failed to rebuild master GeoJson after publishing GIS boundary', error, {
+				documentId,
+				caseId,
+				version
+			});
 		}
 	}
 };
