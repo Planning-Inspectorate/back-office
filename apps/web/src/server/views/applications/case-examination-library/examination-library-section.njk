@@ -23,15 +23,13 @@
 {% endblock %}
 
 {% block pageContent %}
-	<div>
-		<p class="govuk-body">
-			Once an examination library category has been published, the examination library references are final and cannot be changed.
-		</p>
-	</div>
+	<p class="govuk-body">
+		Once an examination library category has been published, the examination library references are final and cannot be changed.
+	</p>
 
 	{{ uiPageSizeInformation(pagination) }}
 
-	{{ govukTable(sectionTable)}}
+	{{ govukTable(sectionTable) }}
 
 	{{ uiPaginationLinks(pagination) }}
 {% endblock %}
