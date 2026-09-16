@@ -52,13 +52,15 @@ export const getExaminationLibrarySectionViewModel = ({
 	const sectionTableData = buildTable({
 		headers: section.tableHeaders,
 		rows: sectionDocuments.map((sectionDocument) => {
-			if (!sectionDocument?.latestDocumentVersion) {
-				return [{ text: '' }, { text: '' }, { text: '' }, { text: '' }];
+			if (
+				!sectionDocument?.latestDocumentVersion ||
+				!Object.keys(sectionDocument.latestDocumentVersion).length
+			) {
+				return [];
 			}
 
 			const includeAuthor = section.tableHeaders.includes('From');
 			const documentIsDeleted = sectionDocument.isDeleted;
-			const documentDescriptionHTML = getDocumentDescriptionHTML(sectionDocument);
 
 			const documentPropertiesURL = url('document', {
 				caseId: sectionDocument.caseId,
@@ -68,9 +70,9 @@ export const getExaminationLibrarySectionViewModel = ({
 			});
 
 			// Reference column is not populated as references cannot be assigned yet
-			const tableRows = [
+			const tableRow = [
 				{ text: '' },
-				{ html: documentDescriptionHTML },
+				{ html: getDocumentDescriptionHTML(sectionDocument) },
 				...(includeAuthor ? [{ text: sectionDocument.latestDocumentVersion.author }] : []),
 				{ text: statusName(sectionDocument.latestDocumentVersion.publishedStatus) },
 				{ html: `<a href="${documentPropertiesURL}" class="govuk-link">Review</a>` }
@@ -84,7 +86,7 @@ export const getExaminationLibrarySectionViewModel = ({
 				];
 			}
 
-			return tableRows;
+			return tableRow;
 		}),
 		caption: 'Items in the examination library'
 	});

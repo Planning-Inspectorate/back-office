@@ -24,6 +24,7 @@ import {
 } from '../../../../../../testing/applications/fixtures/options-item.js';
 import { createTestEnvironment } from '../../../../../../testing/index.js';
 import { featureFlagClient } from '../../../../../common/feature-flags.js';
+import staticFlags from '@pins/feature-flags/src/static-feature-flags.js';
 
 const { app, installMockApi, teardown } = createTestEnvironment();
 const request = supertest(app);
@@ -130,6 +131,10 @@ const nocks = () => {
 		.times(2)
 		.reply(200, { isDeleted: true });
 };
+
+// Disable examination library flag so associated fields are not visible in HTML for document properties page
+const flags = staticFlags;
+flags['idas-607-examination-library'] = false;
 
 const mockDate = new Date('2023-11-01T00:00:00Z');
 

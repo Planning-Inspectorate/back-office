@@ -67,7 +67,10 @@ export const getCategoryCode = (section, categoryCodes) => {
  */
 
 export const getDocumentDescriptionHTML = (sectionDocument) => {
-	if (!sectionDocument?.latestDocumentVersion) {
+	if (
+		!sectionDocument?.latestDocumentVersion ||
+		!Object.keys(sectionDocument.latestDocumentVersion).length
+	) {
 		return '';
 	}
 
@@ -92,7 +95,7 @@ export const getDocumentDescriptionHTML = (sectionDocument) => {
 	let documentDescriptionHTML;
 
 	if (isPreviewActive) {
-		documentDescriptionHTML = `<a href=${documentPreviewURL} class="govuk-link">${sectionDocument.latestDocumentVersion.fileName}</a>`;
+		documentDescriptionHTML = `<a href="${documentPreviewURL}" class="govuk-link">${sectionDocument.latestDocumentVersion.fileName}</a>`;
 	} else {
 		documentDescriptionHTML = sectionDocument.latestDocumentVersion.fileName;
 	}
