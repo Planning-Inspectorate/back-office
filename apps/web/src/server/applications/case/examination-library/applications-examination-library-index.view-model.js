@@ -1,5 +1,6 @@
 import { url } from '../../../lib/nunjucks-filters/url.js';
 import { getStatusTagClass, getStatusDisplayName } from '@pins/applications/lib/status-utils.js';
+import { examinationLibrarySections } from './examination-library.constants.js';
 
 /**
  * @typedef {object} ExaminationLibraryItem
@@ -14,6 +15,7 @@ import { getStatusTagClass, getStatusDisplayName } from '@pins/applications/lib/
  * @property {string} heading
  * @property {string} slug
  * @property {ExaminationLibraryItem[]} items
+ * @property {string[]} tableHeaders
  */
 
 /**
@@ -27,104 +29,6 @@ import { getStatusTagClass, getStatusDisplayName } from '@pins/applications/lib/
  * @property {string} slug
  * @property {import('@pins/applications/lib/status-utils.js').ApplicationStatus} status
  */
-
-/** @type {ExaminationLibrarySection[]} */
-export const examinationLibrarySections = [
-	{
-		index: 1,
-		heading: 'Application documents',
-		slug: 'application-documents',
-		items: [
-			{
-				title: 'Application documents',
-				hint: 'Any amended versions accepted before or at the Preliminary Meeting should be saved as Additional Submissions.',
-				href: 'application-documents'
-			}
-		]
-	},
-	{
-		index: 2,
-		heading: 'Adequacy of consultation responses',
-		slug: 'adequacy-of-consultation-responses',
-		items: [
-			{
-				title: 'Adequacy of consultation responses',
-				href: 'adequacy-of-consultation-responses'
-			}
-		]
-	},
-	{
-		index: 3,
-		heading: 'Relevant representations (registration comments)',
-		slug: 'relevant-representations',
-		items: [
-			{
-				title: 'Relevant representations',
-				href: 'relevant-representations'
-			}
-		]
-	},
-	{
-		index: 4,
-		heading: 'Procedural decisions and notifications from Examining Authority',
-		slug: 'procedural-decisions',
-		items: [
-			{
-				title: 'Procedural decisions and notifications from Examining Authority',
-				hint: "Includes Examining Authority's written questions, event notifications and procedural decisions on the examination.",
-				href: 'procedural-decisions'
-			}
-		]
-	},
-	{
-		index: 5,
-		heading: 'Change requests',
-		slug: 'change-requests',
-		items: []
-	},
-	{
-		index: 6,
-		heading: 'Additional submissions',
-		slug: 'additional-submissions',
-		items: [
-			{
-				title: 'Additional submissions',
-				hint: 'Includes anything accepted at the discretion of the Examining Authority outside of a formal deadline.',
-				href: 'additional-submissions'
-			}
-		]
-	},
-	{
-		index: 7,
-		heading: 'Events and hearings',
-		slug: 'events-and-hearings',
-		items: []
-	},
-	{
-		index: 8,
-		heading: 'Procedural deadlines',
-		slug: 'procedural-deadlines',
-		items: []
-	},
-	{
-		index: 9,
-		heading: 'Deadlines',
-		slug: 'deadlines',
-		items: []
-	},
-	{
-		index: 10,
-		heading: 'Other documents',
-		slug: 'other-documents',
-		items: [
-			{
-				title: 'Other documents',
-				hint: 'Includes s127/131/138 information, s56, s58 and s59 certificates, and transboundary documents.',
-				href: 'other-documents'
-			}
-		]
-	}
-];
 
 /**
  * Merge static sections with any dynamic overrides, then sort by index

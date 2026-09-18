@@ -123,10 +123,8 @@ describe('Examination Library Routes', () => {
 			expect(databaseConnector.document.findMany).toHaveBeenCalledWith({
 				where: {
 					caseId,
-					isDeleted: false,
 					latestDocumentVersion: {
 						examinationLibraryCategoryId: { not: null },
-						isDeleted: false,
 						publishedStatus: 'published'
 					}
 				},

@@ -18,9 +18,10 @@ const nocks = () => {
 	nock('http://test/').get('/applications/123/key-dates').times(2).reply(200, fixtureKeyDates);
 };
 
-// Disable fees and forecasting flag so the page link does not display in the nav menu HTML for other pages
+// Disable fees and forecasting flag and examination library flag so the page links do not display in the nav menu HTML for other pages
 const flags = staticFlags;
 flags['applics-1845-fees-forecasting'] = false;
+flags['idas-607-examination-library'] = false;
 
 describe('S51 Advice', () => {
 	beforeEach(installMockApi);
