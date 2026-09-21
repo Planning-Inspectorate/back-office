@@ -15,6 +15,10 @@ const nocks = () => {
 	nock('http://test/')
 		.get('/applications/123/examination-library/section-statuses')
 		.reply(200, placeholderSectionStatuses);
+	nock('http://test/')
+		.get('/applications/123/examination-library/documents')
+		.query(true)
+		.reply(200, []);
 	nock('http://test/').get('/applications-service/').reply(200, {});
 };
 
@@ -49,14 +53,14 @@ describe('Examination Library', () => {
 			);
 		});
 
-		it('should render 6 static sections as separate task lists with headings', async () => {
+		it('should render 10 static and dynamic sections as separate task lists with headings', async () => {
 			const response = await request.get(`${baseUrl}`);
 			const element = parseHtml(response.text);
 
 			expect(response.status).toBe(200);
 
 			const taskLists = element.querySelectorAll('.govuk-task-list');
-			expect(taskLists.length).toBe(6);
+			expect(taskLists.length).toBe(10);
 
 			expect(element.innerHTML).toContain('Application documents');
 			expect(element.innerHTML).toContain('Adequacy of consultation responses');
@@ -65,21 +69,14 @@ describe('Examination Library', () => {
 				'Procedural decisions and notifications from Examining Authority'
 			);
 			expect(element.innerHTML).toContain('Additional submissions');
+			expect(element.innerHTML).toContain('Change requests');
+			expect(element.innerHTML).toContain('Events and hearings');
+			expect(element.innerHTML).toContain('Procedural deadlines');
+			expect(element.innerHTML).toContain('Deadlines');
 			expect(element.innerHTML).toContain('Other documents');
 		});
 
-		it('should not render empty dynamic sections', async () => {
-			const response = await request.get(`${baseUrl}`);
-			const element = parseHtml(response.text);
-
-			expect(response.status).toBe(200);
-			expect(element.innerHTML).not.toContain('Change requests');
-			expect(element.innerHTML).not.toContain('Events and hearings');
-			expect(element.innerHTML).not.toContain('Procedural deadlines');
-			expect(element.innerHTML).not.toContain('Deadlines');
-		});
-
-		it('should display status tags from the API with correct colour classes', async () => {
+		it('should display status tags from the API with correct colour classes for static sections', async () => {
 			const response = await request.get(`${baseUrl}`);
 			const element = parseHtml(response.text);
 
@@ -115,22 +112,22 @@ describe('Examination Library', () => {
 
 			expect(response.status).toBe(200);
 			expect(element.innerHTML).toContain(
-				'href="/applications-service/case/123/examination-library/application-documents"'
+				'href="/applications-service/case/123/examination-library/category/application-documents"'
 			);
 			expect(element.innerHTML).toContain(
-				'href="/applications-service/case/123/examination-library/adequacy-of-consultation-responses"'
+				'href="/applications-service/case/123/examination-library/category/adequacy-of-consultation-responses"'
 			);
 			expect(element.innerHTML).toContain(
-				'href="/applications-service/case/123/examination-library/relevant-representations"'
+				'href="/applications-service/case/123/examination-library/category/relevant-representations"'
 			);
 			expect(element.innerHTML).toContain(
-				'href="/applications-service/case/123/examination-library/procedural-decisions"'
+				'href="/applications-service/case/123/examination-library/category/procedural-decisions"'
 			);
 			expect(element.innerHTML).toContain(
-				'href="/applications-service/case/123/examination-library/additional-submissions"'
+				'href="/applications-service/case/123/examination-library/category/additional-submissions"'
 			);
 			expect(element.innerHTML).toContain(
-				'href="/applications-service/case/123/examination-library/other-documents"'
+				'href="/applications-service/case/123/examination-library/category/other-documents"'
 			);
 		});
 
@@ -140,7 +137,7 @@ describe('Examination Library', () => {
 
 			expect(response.status).toBe(200);
 			const taskLinks = element.querySelectorAll('.govuk-task-list__link');
-			expect(taskLinks.length).toBe(6);
+			expect(taskLinks.length).toBe(14);
 		});
 
 		it('should NOT render the page when feature flag is OFF', async () => {
@@ -153,39 +150,32 @@ describe('Examination Library', () => {
 		});
 	});
 
-	describe('GET /:slug', () => {
-		const slugs = [
-			{ code: 'application-documents', name: 'Application documents' },
-			{ code: 'adequacy-of-consultation-responses', name: 'Adequacy of consultation responses' },
-			{
-				code: 'relevant-representations',
-				name: 'Relevant representations (registration comments)'
-			},
-			{
-				code: 'procedural-decisions',
-				name: 'Procedural decisions and notifications from Examining Authority'
-			},
-			{ code: 'additional-submissions', name: 'Additional submissions' },
-			{ code: 'other-documents', name: 'Other documents' }
-		];
-
+	describe('GET /category/:slug', () => {
 		beforeEach(() => {
 			const flags = staticFlags;
 			flags['idas-607-examination-library'] = true;
 		});
 
-		it.each(slugs)('should render section page for $code', async ({ code, name }) => {
-			const response = await request.get(`${baseUrl}/${code}`);
+		it('should display static category subpages', async () => {
+			const response = await request.get(`${baseUrl}/category/application-documents`);
 			const element = parseHtml(response.text);
 
 			expect(response.status).toBe(200);
-			expect(element.innerHTML).toContain(name);
-			expect(element.innerHTML).toContain('There are no documents in this section');
-			expect(element.innerHTML).toContain('Back');
+			expect(element.innerHTML).toContain('Application documents');
+			expect(element.innerHTML).toContain('Items in the examination library');
+		});
+
+		it('should display dynamic category subpages', async () => {
+			const response = await request.get(`${baseUrl}/category/procedural-deadlines-1`);
+			const element = parseHtml(response.text);
+
+			expect(response.status).toBe(200);
+			expect(element.innerHTML).toContain('Procedural deadlines 1');
+			expect(element.innerHTML).toContain('Items in the examination library');
 		});
 
 		it('should return 404 for an invalid section code', async () => {
-			const response = await request.get(`${baseUrl}/invalid-section`);
+			const response = await request.get(`${baseUrl}/category/invalid-section`);
 
 			expect(response.status).toBe(404);
 		});
@@ -194,7 +184,7 @@ describe('Examination Library', () => {
 			const flags = staticFlags;
 			flags['idas-607-examination-library'] = false;
 
-			const response = await request.get(`${baseUrl}/application-documents`);
+			const response = await request.get(`${baseUrl}/category/application-documents`);
 
 			expect(response.status).toBe(404);
 		});

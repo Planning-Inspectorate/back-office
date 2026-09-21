@@ -7,7 +7,7 @@ const applicationsExamLibraryRouter = createRouter({ mergeParams: true });
 
 applicationsExamLibraryRouter.route('/').get(asyncHandler(controller.getExaminationLibraryIndex));
 applicationsExamLibraryRouter
-	.route('/:slug')
+	.route('/category/:slug')
 	.get(asyncHandler(sectionController.getExaminationLibrarySection));
 
 export default applicationsExamLibraryRouter;
