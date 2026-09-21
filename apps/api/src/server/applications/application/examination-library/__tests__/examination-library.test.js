@@ -110,21 +110,50 @@ describe('Examination Library Routes', () => {
 	});
 
 	describe('GET /applications/:id/examination-library/documents', () => {
-		it('should fetch documents from the database', async () => {
-			const mockDocuments = [{ guid: 'doc-1', name: 'Test Doc' }];
+		it('should fetch and paginate documents from the database', async () => {
+			const mockDocuments = [
+				{
+					guid: 'doc-1',
+					latestDocumentVersion: {
+						typeOfParty: 'Applicant',
+						author: 'Applicant A',
+						description: 'Document A'
+					}
+				},
+				{
+					guid: 'doc-2',
+					latestDocumentVersion: {
+						typeOfParty: 'Applicant',
+						author: 'Applicant B',
+						description: 'Document B'
+					}
+				}
+			];
+
 			databaseConnector.document.findMany.mockResolvedValue(mockDocuments);
 
 			const response = await request.get(
-				`/applications/${caseId}/examination-library/documents?publishedStatus=published`
+				`/applications/${caseId}/examination-library/documents?categoryCode=APP&publishedStatus=published`
 			);
 
 			expect(response.status).toBe(200);
-			expect(response.body).toEqual(mockDocuments);
+
+			expect(response.body).toEqual({
+				page: 1,
+				pageSize: 25,
+				pageCount: 1,
+				itemCount: 2,
+				items: mockDocuments
+			});
+
 			expect(databaseConnector.document.findMany).toHaveBeenCalledWith({
 				where: {
 					caseId,
 					latestDocumentVersion: {
 						examinationLibraryCategoryId: { not: null },
+						ExaminationLibraryCategory: {
+							categoryCode: 'APP'
+						},
 						publishedStatus: 'published'
 					}
 				},
@@ -134,8 +163,117 @@ describe('Examination Library Routes', () => {
 							ExaminationLibraryCategory: true
 						}
 					}
+				}
+			});
+		});
+		it('should apply the default Examination Library sort when sortBy is not provided', async () => {
+			const mockDocuments = [
+				{
+					guid: 'individual',
+					latestDocumentVersion: {
+						typeOfParty: 'Individual',
+						author: 'Alpha',
+						description: 'Document'
+					}
 				},
-				orderBy: { createdAt: 'desc' }
+				{
+					guid: 'local-authority',
+					latestDocumentVersion: {
+						typeOfParty: 'Local authority',
+						author: 'Alpha',
+						description: 'Document'
+					}
+				},
+				{
+					guid: 'applicant',
+					latestDocumentVersion: {
+						typeOfParty: 'Applicant',
+						author: 'Alpha',
+						description: 'Document'
+					}
+				}
+			];
+
+			databaseConnector.document.findMany.mockResolvedValue(mockDocuments);
+
+			const response = await request.get(`/applications/${caseId}/examination-library/documents`);
+
+			expect(response.body.items.map(({ guid }) => guid)).toEqual([
+				'applicant',
+				'local-authority',
+				'individual'
+			]);
+		});
+
+		it('should apply selected sort before pagination', async () => {
+			const mockDocuments = [
+				{
+					guid: 'doc-6',
+					latestDocumentVersion: {
+						typeOfParty: 'Applicant',
+						author: 'Applicant',
+						description: 'Foxtrot'
+					}
+				},
+				{
+					guid: 'doc-5',
+					latestDocumentVersion: {
+						typeOfParty: 'Applicant',
+						author: 'Applicant',
+						description: 'Echo'
+					}
+				},
+				{
+					guid: 'doc-4',
+					latestDocumentVersion: {
+						typeOfParty: 'Applicant',
+						author: 'Applicant',
+						description: 'Delta'
+					}
+				},
+				{
+					guid: 'doc-3',
+					latestDocumentVersion: {
+						typeOfParty: 'Applicant',
+						author: 'Applicant',
+						description: 'Charlie'
+					}
+				},
+				{
+					guid: 'doc-2',
+					latestDocumentVersion: {
+						typeOfParty: 'Applicant',
+						author: 'Applicant',
+						description: 'Bravo'
+					}
+				},
+				{
+					guid: 'doc-1',
+					latestDocumentVersion: {
+						typeOfParty: 'Applicant',
+						author: 'Applicant',
+						description: 'Alpha'
+					}
+				}
+			];
+
+			databaseConnector.document.findMany.mockResolvedValue(mockDocuments);
+
+			const response = await request.get(
+				`/applications/${caseId}/examination-library/documents?sortBy=%2Bdescription&page=2&pageSize=2`
+			);
+
+			expect(response.status).toBe(200);
+
+			expect(response.body).toEqual({
+				page: 2,
+				pageSize: 2,
+				pageCount: 3,
+				itemCount: 6,
+				items: [
+					expect.objectContaining({ guid: 'doc-3' }),
+					expect.objectContaining({ guid: 'doc-4' })
+				]
 			});
 		});
 	});

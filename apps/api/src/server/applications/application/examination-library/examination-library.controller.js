@@ -4,6 +4,7 @@ import {
 	createExaminationLibraryCategories,
 	getExaminationLibraryDocuments
 } from './examination-library.service.js';
+import { sortByFromQuery } from '#utils/query/sort-by.js';
 
 /**
  * @type {import('express').RequestHandler}
@@ -48,12 +49,32 @@ export const createExaminationLibraryCategoriesHandler = async (req, res) => {
  */
 export const getExaminationLibraryDocumentsHandler = async (req, res) => {
 	const caseId = Number(req.params.id);
-	const { categoryCode, publishedStatus } = req.query;
+	const { categoryCode, publishedStatus, page = '1', pageSize = '25', sortBy } = req.query;
 
 	const filters = {};
-	if (categoryCode) filters.categoryCode = String(categoryCode);
-	if (publishedStatus) filters.publishedStatus = String(publishedStatus);
 
-	const documents = await getExaminationLibraryDocuments(caseId, filters);
-	res.send(documents);
+	if (categoryCode) {
+		filters.categoryCode = String(categoryCode);
+	}
+
+	if (publishedStatus) {
+		filters.publishedStatus = String(publishedStatus);
+	}
+
+	const pagination = {
+		page: Number(page),
+		pageSize: Number(pageSize)
+	};
+
+	const sort = sortByFromQuery(sortBy);
+
+	const { count, items } = await getExaminationLibraryDocuments(caseId, filters, pagination, sort);
+
+	res.send({
+		page: pagination.page,
+		pageSize: pagination.pageSize,
+		pageCount: Math.ceil(Math.max(1, count) / pageSize),
+		itemCount: count,
+		items
+	});
 };
