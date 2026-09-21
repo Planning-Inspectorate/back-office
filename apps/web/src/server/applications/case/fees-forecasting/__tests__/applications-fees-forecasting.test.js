@@ -49,6 +49,10 @@ const nocks = () => {
 	nock('http://test/').get('/applications-service/').reply(200, {});
 };
 
+// Disable examination library flag so the page links does not display in the nav menu HTML for other pages
+const flags = staticFlags;
+flags['idas-607-examination-library'] = false;
+
 describe('Fees and Forecasting', () => {
 	beforeEach(installMockApi);
 	afterEach(teardown);

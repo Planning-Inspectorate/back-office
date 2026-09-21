@@ -6,7 +6,7 @@ describe('getExaminationLibraryCategoryDisplay', () => {
 	it('maps an APP category to the Application documents parent category', () => {
 		expect(getExaminationLibraryCategoryDisplay('APP', 'Reports', caseId)).toEqual({
 			name: 'Application documents (APP)',
-			href: `/applications-service/case/${caseId}/examination-library/application-documents`
+			href: `/applications-service/case/${caseId}/examination-library/category/application-documents`
 		});
 	});
 
@@ -15,7 +15,7 @@ describe('getExaminationLibraryCategoryDisplay', () => {
 			getExaminationLibraryCategoryDisplay('AoC', 'Adequacy of consultation responses', caseId)
 		).toEqual({
 			name: 'Adequacy of consultation responses (AoC)',
-			href: `/applications-service/case/${caseId}/examination-library/adequacy-of-consultation-responses`
+			href: `/applications-service/case/${caseId}/examination-library/category/adequacy-of-consultation-responses`
 		});
 	});
 
