@@ -95,9 +95,6 @@ export const getDocuments = (caseId, filters = {}) => {
 					ExaminationLibraryCategory: true
 				}
 			}
-		},
-		orderBy: {
-			createdAt: 'desc' // initial sort order to be confirmed
 		}
 	});
 };

@@ -1,4 +1,5 @@
 import * as examinationLibraryRepository from '#repositories/examination-library.repository.js';
+import { sortExaminationLibraryDocuments } from './examination-library.utils.js';
 
 /**
  * @typedef {import('#database-client').ExaminationLibraryCategory} ExaminationLibraryCategory
@@ -31,11 +32,27 @@ export const createExaminationLibraryCategories = async (caseId, categoriesData)
 /**
  * Get all Examination Library documents with their assigned category for a given case.
  * Optionally filter by categoryCode and/or publishedStatus.
+ * Documents are sorted before pagination is applied.
  *
  * @param {number} caseId
- * @param {{categoryCode?: string, publishedStatus?: string}} [filters]
- * @returns {Promise<import('#database-client').Document[]>}
+ * @param {{categoryCode?: string, publishedStatus?: string}} filters
+ * @param {{page: number, pageSize: number}} pagination
+ * @param {Object<string, string>[] | undefined} sort
+ * @returns {Promise<{
+ *   count: number,
+ *   items: import('#database-client').Document[]
+ * }>}
  */
-export const getExaminationLibraryDocuments = async (caseId, filters) => {
-	return examinationLibraryRepository.getDocuments(caseId, filters);
+export const getExaminationLibraryDocuments = async (caseId, filters, pagination, sort) => {
+	const documents = await examinationLibraryRepository.getDocuments(caseId, filters);
+
+	const sortedDocuments = sortExaminationLibraryDocuments(documents, sort);
+
+	const startIndex = (pagination.page - 1) * pagination.pageSize;
+	const endIndex = startIndex + pagination.pageSize;
+
+	return {
+		count: sortedDocuments.length,
+		items: sortedDocuments.slice(startIndex, endIndex)
+	};
 };
