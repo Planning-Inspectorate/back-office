@@ -1,3 +1,4 @@
+//@ts-nocheck
 import { parseHtml } from '@pins/platform';
 import nock from 'nock';
 import supertest from 'supertest';
@@ -9,16 +10,26 @@ import staticFlags from '@pins/feature-flags/src/static-feature-flags.js';
 const { app, installMockApi, teardown } = createTestEnvironment();
 const request = supertest(app);
 
-const nocks = () => {
+const nocks = ({ includeDocuments = true } = {}) => {
 	nock('http://test/').get('/applications').reply(200, []);
 	nock('http://test/').get('/applications/123').reply(200, fixtureExaminationLibraryIndex.caseData);
 	nock('http://test/')
 		.get('/applications/123/examination-library/section-statuses')
 		.reply(200, placeholderSectionStatuses);
-	nock('http://test/')
-		.get('/applications/123/examination-library/documents')
-		.query(true)
-		.reply(200, []);
+
+	if (includeDocuments) {
+		nock('http://test/')
+			.get('/applications/123/examination-library/documents')
+			.query(true)
+			.reply(200, {
+				page: 1,
+				pageSize: 25,
+				pageCount: 1,
+				itemCount: 0,
+				items: []
+			});
+	}
+
 	nock('http://test/').get('/applications-service/').reply(200, {});
 };
 
@@ -188,5 +199,58 @@ describe('Examination Library', () => {
 
 			expect(response.status).toBe(404);
 		});
+
+		it('should display sortable column headers', async () => {
+			const response = await request.get(`${baseUrl}/category/application-documents`);
+			const element = parseHtml(response.text);
+
+			expect(response.status).toBe(200);
+
+			const sortLinks = element.querySelectorAll('.sort-table__link');
+
+			expect(sortLinks.length).toBe(2);
+
+			expect(element.innerHTML).toContain('sortBy=description');
+			expect(element.innerHTML).toContain('sortBy=publishedStatus');
+		});
+
+		it('should display the active column with descending sort link', async () => {
+			const response = await request.get(
+				`${baseUrl}/category/application-documents?sortBy=description`
+			);
+			const element = parseHtml(response.text);
+
+			expect(response.status).toBe(200);
+
+			const descriptionSortLink = element
+				.querySelectorAll('.sort-table__link')
+				.find((link) => link.textContent.includes('Document description'));
+
+			expect(descriptionSortLink.getAttribute('href')).toContain('sortBy=-description');
+		});
+	});
+
+	it('should pass sorting and pagination query parameters to the documents API', async () => {
+		nock('http://test/')
+			.get('/applications/123/examination-library/documents')
+			.query({
+				categoryCode: 'APP',
+				sortBy: 'description',
+				pageSize: '50',
+				page: '2'
+			})
+			.reply(200, {
+				page: 2,
+				pageSize: 50,
+				pageCount: 2,
+				itemCount: 60,
+				items: []
+			});
+
+		const response = await request.get(
+			`${baseUrl}/category/application-documents?sortBy=description&page=2&pageSize=50`
+		);
+
+		expect(response.status).toBe(200);
 	});
 });

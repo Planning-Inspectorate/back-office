@@ -7,6 +7,7 @@ import {
 	getDocumentDescriptionHTML,
 	getSectionByItemSlug
 } from './applications-examination-library-utils.js';
+import { tableSortLinks } from './applications-examination-library-utils.js';
 
 /**
  * @typedef {import('./applications-examination-library-index.view-model.js').ExaminationLibraryItem} ExaminationLibraryItem
@@ -28,20 +29,31 @@ import {
  *   sectionDocuments: Array<any>,
  *   sectionStatus: import('@pins/applications/lib/status-utils.js').ApplicationStatus,
  *   itemSlug: string
+ *   query: object
+ *   sectionUrl: string
  * }} params
- * @returns {{ selectedPageType: string, sectionHeading: string, sectionStatus: string, sectionTable: object } | null}
+ * @returns {{ selectedPageType: string, sectionHeading: string, sectionStatus: string, sectionTable: object, sortLinks: object } | null}
  */
 export const getExaminationLibrarySectionViewModel = ({
 	dynamicSections = [],
 	sectionDocuments,
 	sectionStatus,
-	itemSlug
+	itemSlug,
+	query,
+	sectionUrl
 }) => {
 	const section = getSectionByItemSlug(examinationLibrarySections, dynamicSections, itemSlug);
 
 	if (!section) {
 		return null;
 	}
+
+	const sortLinks = tableSortLinks(
+		query,
+		section.tableHeaders,
+		sectionUrl,
+		sectionStatus === 'published'
+	);
 
 	const item = section.items.find((item) => item.href === itemSlug);
 
@@ -100,6 +112,7 @@ export const getExaminationLibrarySectionViewModel = ({
 		selectedPageType: 'examination-library',
 		sectionHeading: item.title,
 		sectionStatus: getStatusDisplayName(sectionStatus),
-		sectionTable: sectionTable
+		sectionTable: sectionTable,
+		sortLinks: sortLinks
 	};
 };

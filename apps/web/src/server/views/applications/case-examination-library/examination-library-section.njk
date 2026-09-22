@@ -1,7 +1,8 @@
 {% extends "../layouts/applications.layout.njk" %}
 {% from "../components/status-tag.component.njk" import statusTag %}
 {% from "applications/components/pagination/results-per-page.component.njk" import uiPageSizeInformation, uiPaginationLinks %}
-{% from "govuk/components/table/macro.njk" import govukTable %}
+{% from "applications/case-examination-library/components/table/examination-library-table.component.njk" import examinationLibraryTable %}
+
 
 {% set pageTitle = sectionHeading + " - " + projectName %}
 
@@ -29,7 +30,7 @@
 
 	{{ uiPageSizeInformation(pagination) }}
 
-	{{ govukTable(sectionTable) }}
+	{{ examinationLibraryTable(sectionTable, sortLinks) }}
 
 	{{ uiPaginationLinks(pagination) }}
 {% endblock %}

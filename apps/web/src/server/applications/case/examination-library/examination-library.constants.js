@@ -172,7 +172,7 @@ export const placeholderSectionStatuses = [
  *
  * @type {string}
  */
-export const placeholderSectionStatus = 'published';
+export const placeholderSectionStatus = 'in-progress';
 
 /**
  * Placeholder data for dynamic Examination Library categories

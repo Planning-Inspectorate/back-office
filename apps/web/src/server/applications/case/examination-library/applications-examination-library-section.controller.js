@@ -6,7 +6,17 @@ import {
 	placeHolderDynamicSections,
 	placeholderSectionStatus
 } from './examination-library.constants.js';
-import { getSectionByItemSlug, getCategoryCode } from './applications-examination-library-utils.js';
+import {
+	getSectionByItemSlug,
+	getCategoryCode,
+	getExaminationLibraryPagination
+} from './applications-examination-library-utils.js';
+import { buildQueryString } from '../../common/components/build-query-string.js';
+import { url } from '../../../lib/nunjucks-filters/index.js';
+
+/**
+ * @typedef {import('./applications-examination-library-utils.js').ExaminationLibraryDocumentVersion} ExaminationLibraryDocumentVersion
+ */
 
 /**
  * Get Examination Library section detail page.
@@ -17,6 +27,11 @@ import { getSectionByItemSlug, getCategoryCode } from './applications-examinatio
  */
 export async function getExaminationLibrarySection(request, response) {
 	const { caseId, slug: itemSlug } = request.params;
+	const { sortBy, pageSize = 25, page = 1 } = request.query;
+	const caseIdNumber = Number(caseId);
+	const pageNumber = Number(page) || 1;
+	const pageSizeNumber = Number(pageSize) || 25;
+
 	const projectName = response.locals.case.title;
 	const dynamicSections = placeHolderDynamicSections;
 
@@ -28,10 +43,30 @@ export async function getExaminationLibrarySection(request, response) {
 
 	const sectionCategoryCode = getCategoryCode(section, categoryCodes);
 
+	/** @type {ExaminationLibraryDocumentVersion[]} */
 	let sectionDocuments = [];
+	let documentsResponse = {
+		page: pageNumber,
+		pageSize: pageSizeNumber,
+		pageCount: 1,
+		itemCount: 0,
+		items: []
+	};
 
 	if (sectionCategoryCode) {
-		sectionDocuments = await getExaminationLibraryDocumentsByCategory(caseId, sectionCategoryCode);
+		const queryString = buildQueryString({
+			sortBy,
+			pageSize,
+			page
+		});
+
+		documentsResponse = await getExaminationLibraryDocumentsByCategory(
+			caseId,
+			sectionCategoryCode,
+			queryString
+		);
+
+		sectionDocuments = documentsResponse.items;
 	}
 
 	const sectionStatus =
@@ -39,20 +74,25 @@ export async function getExaminationLibrarySection(request, response) {
 			placeholderSectionStatus
 		);
 
+	const sectionUrl = url('examination-library-section', { caseId: caseIdNumber, slug: itemSlug });
+
 	const sectionViewModel = getExaminationLibrarySectionViewModel({
 		dynamicSections,
 		sectionDocuments,
 		sectionStatus,
-		itemSlug
+		itemSlug,
+		query: request.query,
+		sectionUrl
 	});
 
 	if (!sectionViewModel) {
 		return response.status(404).render('app/404');
 	}
 
-	return response.render(`applications/case-examination-library/examination-library-section.njk`, {
+	return response.render('applications/case-examination-library/examination-library-section.njk', {
 		...sectionViewModel,
 		caseId,
-		projectName
+		projectName,
+		pagination: getExaminationLibraryPagination(request.query, documentsResponse, sectionUrl)
 	});
 }

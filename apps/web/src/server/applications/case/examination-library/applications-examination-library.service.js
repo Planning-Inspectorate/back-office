@@ -19,8 +19,11 @@ export async function getExaminationLibrarySectionStatuses(caseId) {
  *
  * @param { string} caseId
  * @param {string} categoryCode
+ * @param {string} queryString
  * @returns {Promise<any>}
  */
-export async function getExaminationLibraryDocumentsByCategory(caseId, categoryCode) {
-	return get(`applications/${caseId}/examination-library/documents?categoryCode=${categoryCode}`);
+export async function getExaminationLibraryDocumentsByCategory(caseId, categoryCode, queryString) {
+	return get(
+		`applications/${caseId}/examination-library/documents?categoryCode=${categoryCode}&${queryString}`
+	);
 }
