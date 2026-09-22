@@ -3,7 +3,8 @@ import { jest } from '@jest/globals';
 import {
 	getSectionByItemSlug,
 	getCategoryCode,
-	getDocumentDescriptionHTML
+	getDocumentDescriptionHTML,
+	tableSortLinks
 } from '../applications-examination-library-utils.js';
 import { categoryCodes, examinationLibrarySections } from '../examination-library.constants.js';
 import { fixtureDynamicSections } from '../../../../../../testing/applications/fixtures/examination-library.js';
@@ -85,6 +86,7 @@ describe('applications examination library utils', () => {
 			latestDocumentVersion: {
 				documentGuid: 'test-guid',
 				fileName: 'doc-1',
+				description: 'doc-1',
 				version: 1
 			}
 		};
@@ -155,6 +157,88 @@ describe('applications examination library utils', () => {
 
 				expect(result).toEqual('doc-1');
 			});
+		});
+	});
+
+	describe('#tableSortLinks', () => {
+		const sectionUrl = '/applications-service/case/123/examination-library/application-documents';
+
+		it('should create the correct sort links for a published section', () => {
+			const headers = ['Reference', 'Document description', 'From', 'Status', 'Actions'];
+
+			const result = tableSortLinks({}, headers, sectionUrl, true);
+
+			expect(result).toEqual([
+				expect.objectContaining({
+					text: 'Reference',
+					value: 'examinationRefNo'
+				}),
+				expect.objectContaining({
+					text: 'Document description',
+					value: 'description'
+				}),
+				expect.objectContaining({
+					text: 'From',
+					value: 'author'
+				}),
+				expect.objectContaining({
+					text: 'Status',
+					value: 'publishedStatus'
+				}),
+				expect.objectContaining({
+					text: 'Actions',
+					value: ''
+				})
+			]);
+		});
+
+		it('should not make the reference sortable if the section is not published', () => {
+			const headers = ['Reference', 'Document description', 'Status', 'Actions'];
+
+			const result = tableSortLinks({}, headers, sectionUrl, false);
+
+			expect(result[0]).toEqual(
+				expect.objectContaining({
+					text: 'Reference',
+					value: ''
+				})
+			);
+		});
+
+		it('should only include headers configured for the section', () => {
+			const headers = ['Reference', 'Document description', 'Status', 'Actions'];
+
+			const result = tableSortLinks({}, headers, sectionUrl, true);
+
+			expect(result.map(({ text }) => text)).toEqual([
+				'Reference',
+				'Document description',
+				'Status',
+				'Actions'
+			]);
+		});
+
+		it('should toggle the active sort to descending and reset the page', () => {
+			const query = {
+				sortBy: 'description',
+				page: '3',
+				pageSize: '50'
+			};
+
+			const result = tableSortLinks(query, ['Document description'], sectionUrl, true);
+
+			expect(result[0]).toEqual(
+				expect.objectContaining({
+					text: 'Document description',
+					value: 'description',
+					active: true,
+					isDescending: false
+				})
+			);
+
+			expect(result[0].link).toContain('sortBy=-description');
+			expect(result[0].link).toContain('page=1');
+			expect(result[0].link).toContain('pageSize=50');
 		});
 	});
 });

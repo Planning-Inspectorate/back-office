@@ -1,5 +1,11 @@
 import { mergeSections } from './applications-examination-library-index.view-model.js';
 import { url } from '../../../lib/nunjucks-filters/index.js';
+import {
+	getResultsPerPage,
+	showingPage
+} from '../../common/components/pagination/pagination-results-per-page.js';
+import { getPaginationLinks } from '../../common/components/pagination/pagination-links.js';
+import { tableSortingHeaderLinks } from '../../common/components/table/table-sorting-header-links.js';
 
 /**
  * @typedef {import('./applications-examination-library-index.view-model.js').ExaminationLibraryItem} ExaminationLibraryItem
@@ -51,6 +57,7 @@ export const getCategoryCode = (section, categoryCodes) => {
  * @property {string} documentGuid
  * @property {number} version
  * @property {string} fileName
+ * @property {string} description
  */
 
 /**
@@ -95,10 +102,62 @@ export const getDocumentDescriptionHTML = (sectionDocument) => {
 	let documentDescriptionHTML;
 
 	if (isPreviewActive) {
-		documentDescriptionHTML = `<a href="${documentPreviewURL}" class="govuk-link">${sectionDocument.latestDocumentVersion.fileName}</a>`;
+		documentDescriptionHTML = `<a href="${documentPreviewURL}" class="govuk-link">${sectionDocument.latestDocumentVersion.description}</a>`;
 	} else {
-		documentDescriptionHTML = sectionDocument.latestDocumentVersion.fileName;
+		documentDescriptionHTML = sectionDocument.latestDocumentVersion.description;
 	}
 
 	return documentDescriptionHTML;
 };
+
+/**
+ * @param {any} query
+ * @param {object} documents
+ * @param {number} documents.page
+ * @param {number} documents.pageSize
+ * @param {number} documents.pageCount
+ * @param {number} documents.itemCount
+ * @param {string} examinationLibraryUrl
+ * @returns {import('../../../views/applications/components/pagination/pagination.js').Pagination.Info}
+ */
+export const getExaminationLibraryPagination = (
+	query,
+	{ page, pageSize, pageCount, itemCount },
+	examinationLibraryUrl
+) => ({
+	showing: showingPage(page, pageSize, pageCount, itemCount),
+	resultsPerPage: getResultsPerPage(query, examinationLibraryUrl),
+	paginationLinks: getPaginationLinks(page, pageCount, query, examinationLibraryUrl)
+});
+
+/**
+ * @param {object} query
+ * @param {string[]} headers
+ * @param {string} sectionUrl
+ * @param {boolean} isPublished
+ * @returns {import('../../common/components/table/table-sorting-header-links.js').TableHeaderLink[]}
+ */
+export const tableSortLinks = (query, headers, sectionUrl, isPublished) =>
+	headers.map((header) => {
+		switch (header) {
+			case 'Reference':
+				return tableSortingHeaderLinks(
+					query,
+					header,
+					isPublished ? 'examinationRefNo' : '',
+					sectionUrl
+				);
+
+			case 'Document description':
+				return tableSortingHeaderLinks(query, header, 'description', sectionUrl);
+
+			case 'From':
+				return tableSortingHeaderLinks(query, header, 'author', sectionUrl);
+
+			case 'Status':
+				return tableSortingHeaderLinks(query, header, 'publishedStatus', sectionUrl);
+
+			default:
+				return tableSortingHeaderLinks(query, header, '', sectionUrl);
+		}
+	});
