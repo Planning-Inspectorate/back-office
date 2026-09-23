@@ -16,6 +16,8 @@ export const index = async (
 	context,
 	{ caseId, documentId, version, publishedDocumentURI, sourceSystem }
 ) => {
+	// If a document was migrated from Horizon without a published blob, it will have no publishedDocumentURI.
+	// We can skip unpublishing because there is no physical file to delete, avoiding a crash when trying to parse the URI.
 	if (
 		!publishedDocumentURI &&
 		(typeof sourceSystem !== 'string' ||
@@ -23,47 +25,43 @@ export const index = async (
 			sourceSystem.toLowerCase() === 'horizon')
 	) {
 		context.log(
-			`Skipping unpublish execution: Document originating from source "${sourceSystem}" lacks a publishedDocumentURI.`
+			`Skipping unpublish execution: Document originating from source "${
+				!sourceSystem || sourceSystem.trim() === '' ? 'unknown source' : sourceSystem
+			}" lacks a publishedDocumentURI.`
 		);
 		return;
 	}
 
-	context.log(
-		`Initiating unpublish execution for document ID ${documentId} at URI ${publishedDocumentURI}`
-	);
+	context.log(`Unpublishing document ID ${documentId} at URI ${publishedDocumentURI}`);
 
 	if (!caseId || !documentId || !version || !publishedDocumentURI) {
 		const message = 'Unpublish execution aborted: One or more required properties are missing.';
-		context.log.error(message, { documentId, caseId, version });
+		context.log.error(message, { documentId, caseId, version, publishedDocumentURI });
 		throw new Error(message);
 	}
 
-	let publishedBlobName;
+	// replace PINs domain with primary blob domain to ensure copy operation works
+	publishedDocumentURI = replaceCustomDomainWithBlobDomain(publishedDocumentURI);
+
+	validateStorageAccount(publishedDocumentURI);
+
+	// extract the published file name
+	const publishedBlobName = extractPublishedBlobName(publishedDocumentURI);
+
 	try {
-		// replace PINs domain with primary blob domain to ensure copy operation works
-		publishedDocumentURI = replaceCustomDomainWithBlobDomain(publishedDocumentURI);
-
-		validateStorageAccount(publishedDocumentURI);
-
-		// extract the published file name
-		publishedBlobName = extractPublishedBlobName(publishedDocumentURI);
-
 		context.log(
-			`Attempting deletion of blob "${publishedBlobName}" (if exists) in container "${config.BLOB_PUBLISH_CONTAINER}" for caseId ${caseId}`
+			`deleting blob (if exists) in container "${config.BLOB_PUBLISH_CONTAINER}" with name "${publishedBlobName}" for caseId ${caseId}`
 		);
 		await blobClient.deleteBlobIfExists(config.BLOB_PUBLISH_CONTAINER, publishedBlobName);
 	} catch (err) {
-		const message =
-			'Unpublish execution failed: Encountered error while attempting to delete published blob.';
-		context.log.error(message, { err, documentId, caseId, version, publishedBlobName });
-		throw new Error(message, { cause: err });
+		const errMsg = `encountered error while unpublishing document ID ${documentId} for caseId ${caseId}: ${err}`;
+		context.log.error(errMsg, { err, documentId, caseId, version, publishedBlobName });
+		throw new Error(errMsg, { cause: err });
 	}
 
 	const requestUri = `https://${config.API_HOST}/applications/${caseId}/documents/${documentId}/version/${version}/mark-as-unpublished`;
 
-	context.log(
-		`Initiating POST request to ${requestUri} for caseId ${caseId}, documentId ${documentId}, version ${version}`
-	);
+	context.log(`Unpublishing version ${version} of document ${documentId} for case ${caseId}`);
 
 	let unpublishedDocument;
 	try {
@@ -75,21 +73,14 @@ export const index = async (
 	}
 
 	if (isGisBoundaryGeoJsonDocument(unpublishedDocument)) {
-		context.log(
-			`Initiating master GeoJSON rebuild following unpublication of GIS boundary document ${documentId}`
-		);
+		context.log(`Rebuilding master GeoJson after unpublishing GIS boundary ${documentId}`);
 
 		try {
 			await rebuildMasterGeoJson(context.log);
 		} catch (error) {
 			context.log.error(
-				'GeoJSON Rebuild failed: Encountered error while rebuilding master GeoJSON following GIS boundary unpublication',
-				{
-					error,
-					documentId,
-					caseId,
-					version
-				}
+				`Failed to rebuild master GeoJson after unpublishing GIS boundary ${documentId}`,
+				{ error, documentId, caseId, version }
 			);
 		}
 	}
