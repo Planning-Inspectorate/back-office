@@ -55,16 +55,8 @@ const getDocumentsDownload = async ({ params, session }, response) => {
 
 	if (!preview) {
 		const downloadFileName = buildFileName({ fileName, originalFilename });
-		const encodedFilename = encodeURIComponent(downloadFileName);
 
-		//we use `filename*` and URI encoding to ensure that the filename is correctly handling special characters
-		//that will be passed as filenames into the header
-		//and use `filename` as a fallback for clients that don't support `filename*`
-		// https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Content-Disposition
-		response.setHeader(
-			'content-disposition',
-			`attachment; filename="${downloadFileName}"; filename*=UTF-8''${encodedFilename}`
-		);
+		response.setHeader('content-disposition', buildContentDispositionHeader(downloadFileName));
 	}
 
 	const blobStream = await client.downloadStream(privateBlobContainer, documentKey);
@@ -92,6 +84,24 @@ const buildFileName = ({ fileName, originalFilename }) => {
 };
 
 /**
+ * Build a content-disposition header value for a file download, ensuring that the filename is correctly encoded for special characters
+ *
+ * @param {string} fileName
+ * @returns {string}
+ */
+export const buildContentDispositionHeader = (fileName) => {
+	const encodedFilename = encodeURIComponent(fileName);
+
+	const fallbackFilename = fileName.replace(/[^\x20-\x7E\xA0-\xFF]/g, '-'); // Replace non-ASCII characters with hyphens
+
+	//we use `filename*` and URI encoding to ensure that the filename is correctly handling special characters
+	//that will be passed as filenames into the header
+	//and use `filename` as a fallback for clients that don't support `filename*`
+	// https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Content-Disposition
+	return `attachment; filename="${fallbackFilename}"; filename*=UTF-8''${encodedFilename}`;
+};
+
+/**
  * Simulate download when auth is disabled
  *
  * This is useful both when developing and running e2e locally to skip having to set up any blob storage configuration
@@ -102,21 +112,13 @@ const buildFileName = ({ fileName, originalFilename }) => {
  * @param {string} originalFilename
  * @returns {*}
  */
-const getSimulatedDocumentsDownload = (response, preview, fileName, originalFilename) => {
+export const getSimulatedDocumentsDownload = (response, preview, fileName, originalFilename) => {
 	if (preview) {
 		response.setHeader('Content-type', 'text/plain');
 	} else {
 		const downloadFileName = buildFileName({ fileName, originalFilename });
-		const encodedFilename = encodeURIComponent(downloadFileName);
 
-		//we use `filename*` and URI encoding to ensure that the filename is correctly handling special characters
-		//that will be passed as filenames into the header
-		//and use `filename` as a fallback for clients that don't support `filename*`
-		// https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Content-Disposition
-		response.setHeader(
-			'content-disposition',
-			`attachment; filename="${downloadFileName}"; filename*=UTF-8''${encodedFilename}`
-		);
+		response.setHeader('content-disposition', buildContentDispositionHeader(downloadFileName));
 	}
 	response.charset = 'UTF-8';
 	response.write('DUMMY DATA');
