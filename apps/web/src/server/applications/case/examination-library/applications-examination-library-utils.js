@@ -6,6 +6,41 @@ import {
 } from '../../common/components/pagination/pagination-results-per-page.js';
 import { getPaginationLinks } from '../../common/components/pagination/pagination-links.js';
 import { tableSortingHeaderLinks } from '../../common/components/table/table-sorting-header-links.js';
+import slugify from 'slugify';
+import { dynamicSectionSlugByTemplateType } from './examination-library.constants.js';
+
+/** @typedef {import('../examination-timetable/applications-timetable.types.d.ts').ApplicationExaminationTimetableItem} ApplicationExaminationTimetableItem */
+
+/**
+ * Group qualifying examination timetable items into Examination Library sections.
+ *
+ * @param {ApplicationExaminationTimetableItem[]} timetableItems
+ * @returns {ExaminationLibraryDynamicSection[]}
+ */
+export const getDynamicSectionsFromTimetable = (timetableItems = []) => {
+	/** @type {Record<string, ExaminationLibraryDynamicSection>} */
+	const sections = {
+		'events-and-hearings': { slug: 'events-and-hearings', items: [] },
+		'procedural-deadlines': { slug: 'procedural-deadlines', items: [] },
+		deadlines: { slug: 'deadlines', items: [] }
+	};
+
+	for (const timetableItem of timetableItems) {
+		const sectionSlug =
+			dynamicSectionSlugByTemplateType[timetableItem.ExaminationTimetableType?.templateType];
+		if (!sectionSlug || !timetableItem.id) {
+			continue;
+		}
+
+		sections[sectionSlug].items.push({
+			title: timetableItem.name,
+			href: slugify(timetableItem.name, { lower: true, strict: true }),
+			examinationTimetableItemId: timetableItem.id
+		});
+	}
+
+	return Object.values(sections);
+};
 
 /**
  * @typedef {import('./applications-examination-library-index.view-model.js').ExaminationLibraryItem} ExaminationLibraryItem

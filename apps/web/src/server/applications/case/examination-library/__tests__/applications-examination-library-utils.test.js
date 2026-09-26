@@ -4,12 +4,57 @@ import {
 	getSectionByItemSlug,
 	getCategoryCode,
 	getDocumentDescriptionHTML,
+	getDynamicSectionsFromTimetable,
 	tableSortLinks
 } from '../applications-examination-library-utils.js';
 import { categoryCodes, examinationLibrarySections } from '../examination-library.constants.js';
 import { fixtureDynamicSections } from '../../../../../../testing/applications/fixtures/examination-library.js';
 
 describe('applications examination library utils', () => {
+	describe('#getDynamicSectionsFromTimetable', () => {
+		it('groups every supported timetable type and preserves the timetable item ID', () => {
+			const timetableItems = [
+				'accompanied-site-inspection',
+				'compulsory-acquisition-hearing',
+				'issue-specific-hearing',
+				'open-floor-hearing',
+				'other-meeting',
+				'preliminary-meeting',
+				'unaccompanied-site-inspection',
+				'procedural-deadline',
+				'deadline',
+				'deadline-for-close-of-examination',
+				'other'
+			].map((templateType, index) => ({
+				id: index + 20,
+				name: `Item ${index + 1}'s name`,
+				ExaminationTimetableType: { templateType }
+			}));
+
+			const result = getDynamicSectionsFromTimetable(timetableItems);
+
+			expect(result.map(({ slug, items }) => [slug, items.length])).toEqual([
+				['events-and-hearings', 7],
+				['procedural-deadlines', 1],
+				['deadlines', 2]
+			]);
+			expect(result[1].items[0]).toEqual({
+				title: "Item 8's name",
+				href: 'item-8s-name',
+				examinationTimetableItemId: 27
+			});
+			expect(result.flatMap(({ items }) => items)).toHaveLength(10);
+		});
+
+		it('returns empty dynamic sections when there are no timetable items', () => {
+			expect(getDynamicSectionsFromTimetable()).toEqual([
+				{ slug: 'events-and-hearings', items: [] },
+				{ slug: 'procedural-deadlines', items: [] },
+				{ slug: 'deadlines', items: [] }
+			]);
+		});
+	});
+
 	describe('#getSectionByItemSlug', () => {
 		const staticSections = examinationLibrarySections;
 		const dynamicSections = fixtureDynamicSections;

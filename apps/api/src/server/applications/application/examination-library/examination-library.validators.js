@@ -58,6 +58,11 @@ export const validateCreateCategories = composeMiddleware(
 
 export const validateGetDocuments = composeMiddleware(
 	query('categoryCode').optional().isString().withMessage('Category code must be a string'),
+	query('examinationTimetableItemId')
+		.optional()
+		.isInt({ min: 1 })
+		.withMessage('Examination timetable item id must be a positive integer')
+		.toInt(),
 	query('publishedStatus').optional().isString().withMessage('Published status must be a string'),
 	validationErrorHandler
 );

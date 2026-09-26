@@ -1,6 +1,6 @@
 /**
  * Application status types used across the applications system
- * @typedef {'draft' | 'ready-to-publish' | 'published' | 'ready-to-unpublish' | 'unpublished' | 'archived'} ApplicationStatus
+ * @typedef {'draft' | 'in-progress' | 'ready-to-publish' | 'published' | 'ready-to-unpublish' | 'unpublished' | 'archived'} ApplicationStatus
  */
 
 /**
@@ -14,6 +14,7 @@
  */
 export const STATUS_TAG_CLASSES = {
 	draft: 'govuk-tag--grey',
+	'in-progress': 'govuk-tag--blue',
 	'ready-to-publish': 'govuk-tag--blue',
 	published: 'govuk-tag--green',
 	'ready-to-unpublish': 'govuk-tag--yellow',
@@ -38,6 +39,7 @@ export const getStatusTagClass = (status) => {
 export const getStatusDisplayName = (status) => {
 	const displayNames = {
 		draft: 'Draft',
+		'in-progress': 'In progress',
 		'ready-to-publish': 'Ready to publish',
 		published: 'Published',
 		'ready-to-unpublish': 'Ready to unpublish',

@@ -4,7 +4,9 @@
 {% from "applications/case-examination-library/components/table/examination-library-table.component.njk" import examinationLibraryTable %}
 
 
-{% set pageTitle = sectionHeading + " - " + projectName %}
+{% set pageTitle = sectionHeading + " - " + projectName + " - NSIP applications" %}
+
+{% block pageTitle %}{{ pageTitle }}{% endblock %}
 
 {% block beforeContent %}
 	<aside>
