@@ -49,12 +49,23 @@ export const createExaminationLibraryCategoriesHandler = async (req, res) => {
  */
 export const getExaminationLibraryDocumentsHandler = async (req, res) => {
 	const caseId = Number(req.params.id);
-	const { categoryCode, publishedStatus, page = '1', pageSize = '25', sortBy } = req.query;
+	const {
+		categoryCode,
+		examinationTimetableItemId,
+		publishedStatus,
+		page = '1',
+		pageSize = '25',
+		sortBy
+	} = req.query;
 
 	const filters = {};
 
 	if (categoryCode) {
 		filters.categoryCode = String(categoryCode);
+	}
+
+	if (examinationTimetableItemId) {
+		filters.examinationTimetableItemId = Number(examinationTimetableItemId);
 	}
 
 	if (publishedStatus) {

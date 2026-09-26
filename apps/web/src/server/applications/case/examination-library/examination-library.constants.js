@@ -23,6 +23,20 @@ export const categoryCodes = {
 	OD: 'other-documents'
 };
 
+/** @type {Record<string, string>} */
+export const dynamicSectionSlugByTemplateType = {
+	'accompanied-site-inspection': 'events-and-hearings',
+	'compulsory-acquisition-hearing': 'events-and-hearings',
+	'issue-specific-hearing': 'events-and-hearings',
+	'open-floor-hearing': 'events-and-hearings',
+	'other-meeting': 'events-and-hearings',
+	'preliminary-meeting': 'events-and-hearings',
+	'unaccompanied-site-inspection': 'events-and-hearings',
+	'procedural-deadline': 'procedural-deadlines',
+	deadline: 'deadlines',
+	'deadline-for-close-of-examination': 'deadlines'
+};
+
 /**
  * Table headers for Examination Library category subpages where document author is displayed
  *
@@ -162,7 +176,10 @@ export const placeholderSectionStatuses = [
 	{ slug: 'relevant-representations', status: 'published' },
 	{ slug: 'procedural-decisions', status: 'published' },
 	{ slug: 'additional-submissions', status: 'published' },
-	{ slug: 'other-documents', status: 'published' }
+	{ slug: 'other-documents', status: 'published' },
+	{ slug: 'events-and-hearings', status: 'in-progress' },
+	{ slug: 'procedural-deadlines', status: 'in-progress' },
+	{ slug: 'deadlines', status: 'in-progress' }
 ];
 
 /**
@@ -173,65 +190,3 @@ export const placeholderSectionStatuses = [
  * @type {string}
  */
 export const placeholderSectionStatus = 'in-progress';
-
-/**
- * Placeholder data for dynamic Examination Library categories
- *
- * This temporary static data is in use until dynamic category data can be fetched from the database
- *
- * @type {ExaminationLibraryDynamicSection[]}
- */
-export const placeHolderDynamicSections = [
-	{
-		slug: 'change-requests',
-		items: [
-			{
-				title: 'Change request 1',
-				href: 'change-request-1'
-			},
-			{
-				title: 'Change request 2',
-				href: 'change-request-2'
-			}
-		]
-	},
-	{
-		slug: 'events-and-hearings',
-		items: [
-			{
-				title: 'Events and hearings 1',
-				href: 'events-and-hearings-1'
-			},
-			{
-				title: 'Events and hearings 2',
-				href: 'events-and-hearings-2'
-			}
-		]
-	},
-	{
-		slug: 'procedural-deadlines',
-		items: [
-			{
-				title: 'Procedural deadlines 1',
-				href: 'procedural-deadlines-1'
-			},
-			{
-				title: 'Procedural deadlines 2',
-				href: 'procedural-deadlines-2'
-			}
-		]
-	},
-	{
-		slug: 'deadlines',
-		items: [
-			{
-				title: 'Deadlines 1',
-				href: 'deadlines-1'
-			},
-			{
-				title: 'Deadlines 2',
-				href: 'deadlines-2'
-			}
-		]
-	}
-];

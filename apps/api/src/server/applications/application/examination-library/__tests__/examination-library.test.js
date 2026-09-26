@@ -166,6 +166,44 @@ describe('Examination Library Routes', () => {
 				}
 			});
 		});
+
+		it('should filter documents by examination timetable item ID', async () => {
+			databaseConnector.document.findMany.mockResolvedValue([]);
+
+			const response = await request.get(
+				`/applications/${caseId}/examination-library/documents?examinationTimetableItemId=37`
+			);
+
+			expect(response.status).toBe(200);
+			expect(databaseConnector.document.findMany).toHaveBeenCalledWith({
+				where: {
+					caseId,
+					latestDocumentVersion: {
+						examinationLibraryCategoryId: { not: null },
+						ExaminationLibraryCategory: {
+							examinationTimetableItemId: 37
+						}
+					}
+				},
+				include: {
+					latestDocumentVersion: {
+						include: {
+							ExaminationLibraryCategory: true
+						}
+					}
+				}
+			});
+		});
+
+		it('should reject an invalid examination timetable item ID', async () => {
+			const response = await request.get(
+				`/applications/${caseId}/examination-library/documents?examinationTimetableItemId=invalid`
+			);
+
+			expect(response.status).toBe(400);
+			expect(databaseConnector.document.findMany).not.toHaveBeenCalled();
+		});
+
 		it('should apply the default Examination Library sort when sortBy is not provided', async () => {
 			const mockDocuments = [
 				{
