@@ -1,7 +1,7 @@
-import config from '@pins/applications.web/environment/config.js';
-import { intersection } from 'lodash-es';
-import pino from '../lib/logger.js';
-import * as authSession from './auth/auth-session.service.js';
+import config from "@pins/applications.web/environment/config.js";
+import { intersection } from "lodash-es";
+import pino from "../lib/logger.js";
+import * as authSession from "./auth/auth-session.service.js";
 
 /** @typedef {import('./auth/auth.service').AccountInfo} AccountInfo */
 
@@ -17,7 +17,9 @@ import * as authSession from './auth/auth-session.service.js';
  * @type {import('@pins/express').RenderHandler<ViewHomepageRenderOptions>}
  */
 export function viewHomepage(request, response, next) {
-	const account = /** @type {AccountInfo} */ (authSession.getAccount(request.session));
+	const account = /** @type {AccountInfo} */ (
+		authSession.getAccount(request.session)
+	);
 	const userGroups = account?.idTokenClaims?.groups ?? [];
 
 	// Determine those group ids the user belongs to for the applications domain
@@ -26,17 +28,25 @@ export function viewHomepage(request, response, next) {
 		userGroups
 	);
 
+	console.log("this is a test");
+
 	// The user belongs to an allowed group in the applications service
 
 	if (applicationGroupIds.length > 0) {
 		const { caseAdminOfficerGroupId, caseTeamGroupId, inspectorGroupId } =
 			config.referenceData.applications;
-		const allowedGroupIds = [caseAdminOfficerGroupId, caseTeamGroupId, inspectorGroupId];
+		const allowedGroupIds = [
+			caseAdminOfficerGroupId,
+			caseTeamGroupId,
+			inspectorGroupId,
+		];
 
 		if (allowedGroupIds.some((id) => applicationGroupIds.includes(id))) {
-			return response.redirect('/applications-service/');
+			return response.redirect("/applications-service/");
 		} else {
-			const error = new Error('User logged in successfully but the user group is not valid.');
+			const error = new Error(
+				"User logged in successfully but the user group is not valid."
+			);
 
 			pino.error(error);
 			return next(error);
@@ -45,21 +55,21 @@ export function viewHomepage(request, response, next) {
 
 	// the user does not belong to any group (i.e. is unauthenticated)
 	// show 403 page
-	return response.render('app/403');
+	return response.render("app/403");
 }
 
 /** @type {import('express').RequestHandler} */
 export function handleHealthCheck(_, response) {
 	response.status(200).send({
-		status: 'OK',
+		status: "OK",
 		uptime: process.uptime(),
-		commit: config.gitSha
+		commit: config.gitSha,
 	});
 }
 
 /** @type {import('express').RequestHandler} */
 export function handleAlwaysOn(request, response, next) {
-	if (request.headers['user-agent'] === 'AlwaysOn') {
+	if (request.headers["user-agent"] === "AlwaysOn") {
 		response.status(204).end();
 	} else {
 		next();
@@ -68,5 +78,5 @@ export function handleAlwaysOn(request, response, next) {
 
 /** @type {import('express').RequestHandler} */
 export function viewUnauthenticatedError(_, response) {
-	response.status(200).render('app/401');
+	response.status(200).render("app/401");
 }

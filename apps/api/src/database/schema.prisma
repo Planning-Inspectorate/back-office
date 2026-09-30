@@ -313,25 +313,22 @@ model Folder {
 /// This model is a central space for each document which might have several
 /// versions and can store shared metadata.
 model Document {
-  guid                               String                    @id @default(uuid())
-  documentReference                  String?
-  folderId                           Int
-  createdAt                          DateTime                  @default(now())
-  isDeleted                          Boolean                   @default(false)
-  latestVersionId                    Int?
-  caseId                             Int
-  documentType                       String
-  examinationCategoryCode            String?
-  examinationCategoryName            String?
-  examinationCategoryPublishedStatus String?
-  folder                             Folder                    @relation(fields: [folderId], references: [id])
-  documentVersion                    DocumentVersion[]         @relation("VersionHistory")
-  representationAttachment           RepresentationAttachment? @relation("AttachmentDocument")
-  s51AdviceDocument                  S51AdviceDocument?        @relation("S51AdviceDocument")
-  latestDocumentVersion              DocumentVersion?          @relation("LatestVersion", fields: [guid, latestVersionId], references: [documentGuid, version], onUpdate: NoAction, onDelete: NoAction)
-  transcriptedDocuments              DocumentVersion[]         @relation("TranscriptedDocuments")
-  case                               Case                      @relation(fields: [caseId], references: [id], onUpdate: NoAction, onDelete: NoAction)
-  fromFrontOffice                    Boolean                   @default(false)
+  guid                     String                    @id @default(uuid())
+  documentReference        String?
+  folderId                 Int
+  createdAt                DateTime                  @default(now())
+  isDeleted                Boolean                   @default(false)
+  latestVersionId          Int?
+  caseId                   Int
+  documentType             String
+  folder                   Folder                    @relation(fields: [folderId], references: [id])
+  documentVersion          DocumentVersion[]         @relation("VersionHistory")
+  representationAttachment RepresentationAttachment? @relation("AttachmentDocument")
+  s51AdviceDocument        S51AdviceDocument?        @relation("S51AdviceDocument")
+  latestDocumentVersion    DocumentVersion?          @relation("LatestVersion", fields: [guid, latestVersionId], references: [documentGuid, version], onUpdate: NoAction, onDelete: NoAction)
+  transcriptedDocuments    DocumentVersion[]         @relation("TranscriptedDocuments")
+  case                     Case                      @relation(fields: [caseId], references: [id], onUpdate: NoAction, onDelete: NoAction)
+  fromFrontOffice          Boolean                   @default(false)
 
   @@unique([guid, latestVersionId])
 }
@@ -483,7 +480,7 @@ model ExaminationTimetableItem {
   ExaminationTimetable       ExaminationTimetable        @relation(fields: [examinationTimetableId], references: [id])
   Folder                     Folder                      @relation(fields: [folderId], references: [id], onUpdate: NoAction)
   createdAt                  DateTime                    @default(now())
-  // Using Prisma 7 partial unique constraint, we can enforce a strict 1-to-1 relationship
+  // Using Prisma 7 partial unique constraint, we can enforce a strict 1-to-1 relationship 
   // without SQL Server blocking multiple NULL values.
   ExaminationLibraryCategory ExaminationLibraryCategory? @relation("TimetableItemCategory")
 }
