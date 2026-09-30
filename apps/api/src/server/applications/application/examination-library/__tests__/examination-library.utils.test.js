@@ -1,4 +1,7 @@
-import { sortExaminationLibraryDocuments } from '../examination-library.utils.js';
+import {
+	generateDraftExaminationLibraryReferences,
+	sortExaminationLibraryDocuments
+} from '../examination-library.utils.js';
 
 const createDocument = ({
 	guid,
@@ -336,5 +339,59 @@ describe('user-selected sort', () => {
 		const result = sortExaminationLibraryDocuments(documents, [{ description: 'desc' }]);
 
 		expect(result.map(({ guid }) => guid)).toEqual(['charlie', 'bravo', 'alpha']);
+	});
+});
+
+describe('generateDraftExaminationLibraryReferences', () => {
+	it('should generate draft examination library references in document order', () => {
+		const documents = [
+			{
+				guid: 'doc-1',
+				latestDocumentVersion: {
+					ExaminationLibraryCategory: {
+						categoryCode: 'REP2'
+					}
+				}
+			},
+			{
+				guid: 'doc-2',
+				latestDocumentVersion: {
+					ExaminationLibraryCategory: {
+						categoryCode: 'REP2'
+					}
+				}
+			},
+			{
+				guid: 'doc-3',
+				latestDocumentVersion: {
+					ExaminationLibraryCategory: {
+						categoryCode: 'REP2'
+					}
+				}
+			}
+		];
+
+		const result = generateDraftExaminationLibraryReferences(documents);
+
+		expect(
+			result.map((document) => document.latestDocumentVersion.draftExaminationLibraryReference)
+		).toEqual(['REP2-001', 'REP2-002', 'REP2-003']);
+	});
+
+	it('should pad reference numbers to three digits', () => {
+		const documents = Array.from({ length: 10 }, (_, index) => ({
+			guid: `doc-${index + 1}`,
+			latestDocumentVersion: {
+				ExaminationLibraryCategory: {
+					categoryCode: 'APP'
+				}
+			}
+		}));
+
+		const result = generateDraftExaminationLibraryReferences(documents);
+
+		expect(result[0].latestDocumentVersion.draftExaminationLibraryReference).toBe('APP-001');
+
+		expect(result[9].latestDocumentVersion.draftExaminationLibraryReference).toBe('APP-010');
 	});
 });
