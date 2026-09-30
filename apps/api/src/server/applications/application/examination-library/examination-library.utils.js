@@ -158,3 +158,23 @@ export const sortExaminationLibraryDocuments = (documents, sort = null) => {
 		return compareBySelectedSort(firstDocument, secondDocument, validSort);
 	});
 };
+
+/**
+ * Generate draft Examination Library references for documents.
+ *
+ * @param {ExaminationLibraryDocument[]} documents
+ * @returns {ExaminationLibraryDocument[]}
+ */
+export const generateDraftExaminationLibraryReferences = (documents) => {
+	return documents.map((document, index) => {
+		const categoryCode = document.latestDocumentVersion?.ExaminationLibraryCategory?.categoryCode;
+
+		return {
+			...document,
+			latestDocumentVersion: {
+				...document.latestDocumentVersion,
+				draftExaminationLibraryReference: `${categoryCode}-${String(index + 1).padStart(3, '0')}`
+			}
+		};
+	});
+};

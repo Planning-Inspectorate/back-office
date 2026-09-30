@@ -1,5 +1,8 @@
 import * as examinationLibraryRepository from '#repositories/examination-library.repository.js';
-import { sortExaminationLibraryDocuments } from './examination-library.utils.js';
+import {
+	sortExaminationLibraryDocuments,
+	generateDraftExaminationLibraryReferences
+} from './examination-library.utils.js';
 
 /**
  * @typedef {import('#database-client').ExaminationLibraryCategory} ExaminationLibraryCategory
@@ -46,7 +49,12 @@ export const createExaminationLibraryCategories = async (caseId, categoriesData)
 export const getExaminationLibraryDocuments = async (caseId, filters, pagination, sort) => {
 	const documents = await examinationLibraryRepository.getDocuments(caseId, filters);
 
-	const sortedDocuments = sortExaminationLibraryDocuments(documents, sort);
+	const documentsInDefaultOrder = sortExaminationLibraryDocuments(documents);
+
+	const documentsWithDraftReferences =
+		generateDraftExaminationLibraryReferences(documentsInDefaultOrder);
+
+	const sortedDocuments = sortExaminationLibraryDocuments(documentsWithDraftReferences, sort);
 
 	const startIndex = (pagination.page - 1) * pagination.pageSize;
 	const endIndex = startIndex + pagination.pageSize;
