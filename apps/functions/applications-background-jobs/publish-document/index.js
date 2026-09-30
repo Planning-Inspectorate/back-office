@@ -28,93 +28,110 @@ export const index = async (
 		sourceSystem
 	}
 ) => {
-	// If a document was migrated from Horizon without a source blob, it will have no documentURI.
-	// We can skip publishing because there is no physical file to copy, avoiding a crash when trying to parse the URI.
-	if (
-		!documentURI &&
-		(typeof sourceSystem !== 'string' ||
-			sourceSystem.trim() === '' ||
-			sourceSystem.toLowerCase() === 'horizon')
-	) {
-		context.log(
-			`Skipping publish execution: Document originating from source "${
-				!sourceSystem || sourceSystem.trim() === '' ? 'unknown source' : sourceSystem
-			}" lacks a documentURI.`
-		);
-		return;
-	}
-
 	context.log(`Publishing document ID ${documentId} at URI ${documentURI}`);
 
-	// replace PINs domain with primary blob domain to ensure copy operation works
-	documentURI = replaceCustomDomainWithBlobDomain(documentURI);
-
-	if (
-		!caseId ||
-		!documentId ||
-		!version ||
-		!documentURI ||
-		!filename ||
-		!originalFilename ||
-		!documentReference ||
-		!mime
-	) {
+	if (!caseId || !documentId || !version) {
 		const message = 'Publish execution aborted: One or more required properties are missing.';
 		context.log.error(message, { documentId, caseId, version, documentURI });
 		throw new Error(message);
 	}
 
-	try {
-		if (await isScannedFileHtml(documentURI)) {
-			context.log('Scanned file is HTML, performing validity check');
-			const isValidHtml = await isUploadedHtmlValid(documentURI, context.log);
-			if (!isValidHtml) {
-				await handleHtmlValidityFail(documentURI, context.log);
-				throw Error(
-					`Publishing failed for caseId ${caseId} due to HTML file failing validity check. File marked as malicious`
-				);
-			}
+	// `publishFileName` and `publishedBlobContainer` are only available in non-Horizon migrated
+	// documents. They will be `null` for Horizon migrated documents as they were copied to the
+	// published container during migration.
+	let publishFileName = null;
+	let publishedBlobContainer = null;
+
+	// Handle missing documentURI
+	if (!documentURI) {
+		if (
+			typeof sourceSystem !== 'string' ||
+			sourceSystem.trim() === '' ||
+			sourceSystem.toLowerCase() === 'horizon'
+		) {
+			// If a document was migrated from Horizon without a source blob, it will have no documentURI.
+			// We skip the blob copy step as there is no physical file to copy (avoiding URI parse and storage errors),
+			// but proceed to mark the document as published so it does not get stuck in the 'publishing' state.
+			context.log(
+				`No source blob URI for document ID ${documentId} originating from source "${
+					!sourceSystem || sourceSystem.trim() === '' ? 'unknown/blank' : sourceSystem
+				}"; skipping blob copy.`
+			);
+		} else {
+			// Non-Horizon documents missing a `documentURI` are invalid - this is an unexpected error
+			const message = `Publish execution aborted: Missing documentURI for non-Horizon document (sourceSystem: "${sourceSystem}").`;
+			context.log.error(message, { documentId, caseId, version, sourceSystem });
+			throw new Error(message);
 		}
-	} catch (error) {
-		const message = 'Publish execution failed: Encountered error during HTML validity check.';
-		context.log.error(message, { error, documentId, caseId, version, documentURI });
-		throw new Error(message, { cause: error });
-	}
+	} else {
+		// Non-Horizon documents must have a `documentURI` to be copied to the publish container
+		if (!filename || !originalFilename || !documentReference || !mime) {
+			const message = 'Publish execution aborted: One or more required properties are missing.';
+			context.log.error(message, { documentId, caseId, version, documentURI });
+			throw new Error(message);
+		}
 
-	validateStorageAccount(documentURI);
-	const publishFileName = buildPublishedFileName({
-		documentReference,
-		filename,
-		originalFilename
-	});
+		// Replace PINs domain with primary blob domain to ensure copy operation works
+		documentURI = replaceCustomDomainWithBlobDomain(documentURI);
 
-	// Normalise and encode source URL (e.g. spaces in generated GeoJSON filenames)
-	// so Storage SDK copy operations receive a valid URL.
-	documentURI = new URL(documentURI).toString();
+		try {
+			if (await isScannedFileHtml(documentURI)) {
+				context.log('Scanned file is HTML, performing validity check');
+				const isValidHtml = await isUploadedHtmlValid(documentURI, context.log);
+				if (!isValidHtml) {
+					await handleHtmlValidityFail(documentURI, context.log);
+					throw Error(
+						`Publishing failed for caseId ${caseId} due to HTML file failing validity check. File marked as malicious`
+					);
+				}
+			}
+		} catch (error) {
+			const message = 'Publish execution failed: Encountered error during HTML validity check.';
+			context.log.error(message, { error, documentId, caseId, version, documentURI });
+			throw new Error(message, { cause: error });
+		}
 
-	context.log(
-		`Deploying source blob ${documentURI} to destination ${publishFileName} for caseId ${caseId}`
-	);
-
-	let copyStatus;
-	try {
-		copyStatus = await blobClient.copyFileFromUrl({
-			sourceUrl: documentURI,
-			destinationContainerName: config.BLOB_PUBLISH_CONTAINER,
-			destinationBlobName: publishFileName,
-			newContentType: mime
+		validateStorageAccount(documentURI);
+		publishFileName = buildPublishedFileName({
+			documentReference,
+			filename,
+			originalFilename
 		});
 
-		if (copyStatus === 'failed' || copyStatus === 'aborted') {
-			throw new Error(`Blob copy operation did not succeed. Status: ${copyStatus}`);
+		// Normalise and encode source URL (e.g. spaces in generated GeoJSON filenames)
+		// so Storage SDK copy operations receive a valid URL.
+		documentURI = new URL(documentURI).toString();
+
+		context.log(
+			`Deploying source blob ${documentURI} to destination ${publishFileName} for caseId ${caseId}`
+		);
+
+		let copyStatus;
+		try {
+			copyStatus = await blobClient.copyFileFromUrl({
+				sourceUrl: documentURI,
+				destinationContainerName: config.BLOB_PUBLISH_CONTAINER,
+				destinationBlobName: publishFileName,
+				newContentType: mime
+			});
+
+			if (copyStatus === 'failed' || copyStatus === 'aborted') {
+				throw new Error(`Blob copy operation did not succeed. Status: ${copyStatus}`);
+			}
+		} catch (error) {
+			const message =
+				'Publish execution failed: Encountered error during preparation or blob copy operation.';
+			context.log.error(message, { error, documentId, caseId, version });
+			throw new Error(message, { cause: error });
 		}
-	} catch (error) {
-		const message =
-			'Publish execution failed: Encountered error during preparation or blob copy operation.';
-		context.log.error(message, { error, documentId, caseId, version });
-		throw new Error(message, { cause: error });
+
+		publishedBlobContainer = config.BLOB_PUBLISH_CONTAINER;
 	}
 
+	// Mark document as published via API.
+	// Always executed — even for Horizon docs without a source blob — so the document
+	// is not left stuck in the 'publishing' state. publishedBlobPath and
+	// publishedBlobContainer will be null for those documents.
 	const requestUri = `https://${config.API_HOST}/applications/${caseId}/documents/${documentId}/version/${version}/mark-as-published`;
 
 	context.log(`Publishing version ${version} of document ${documentId} for case ${caseId}`);
@@ -128,7 +145,7 @@ export const index = async (
 			publishedDocument = await requestWithApiKey
 				.post(requestUri, {
 					json: {
-						publishedBlobContainer: config.BLOB_PUBLISH_CONTAINER,
+						publishedBlobContainer,
 						publishedBlobPath: publishFileName
 					}
 				})
@@ -137,7 +154,7 @@ export const index = async (
 			publishedDocument = await requestWithApiKey
 				.post(requestUri, {
 					json: {
-						publishedBlobContainer: config.BLOB_PUBLISH_CONTAINER,
+						publishedBlobContainer,
 						publishedBlobPath: publishFileName,
 						publishedDate: new Date()
 					}
