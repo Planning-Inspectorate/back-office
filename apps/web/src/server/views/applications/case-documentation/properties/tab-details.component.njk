@@ -46,6 +46,12 @@
 	{% set statusCanBeChanged = not documentationFile.publishedStatus in ['published', 'awaiting_upload', 'awaiting_virus_check', 'failed_virus_check', 'invalid'] %}
 
 {% if 'idas-607-examination-library' | isFeatureActive %}
+	{% set examinationLibraryReference = documentationFile.examinationRefNo %}
+
+	{% if not examinationLibraryReference and documentationFile.draftExaminationLibraryReference %}
+		{% set examinationLibraryReference = documentationFile.draftExaminationLibraryReference + ' (Draft)' %}
+	{% endif %}
+
     {% set typeOfPartyRow = {
         label: 'Type of party',
         value: documentationFile.typeOfParty,
@@ -59,7 +65,7 @@
     } %}
     {% set examinationLibraryReferenceRow = {
         label: 'Examination library reference',
-        value: documentationFile.examinationRefNo,
+        value: examinationLibraryReference,
         link: 'examination-library-reference'
     } %}
 	{% else %}

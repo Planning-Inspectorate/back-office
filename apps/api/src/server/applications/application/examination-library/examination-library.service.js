@@ -1,13 +1,19 @@
 import * as examinationLibraryRepository from '#repositories/examination-library.repository.js';
 import {
 	sortExaminationLibraryDocuments,
-	generateDraftExaminationLibraryReferences
+	generateDraftExaminationLibraryReferences,
+	addDraftExaminationLibraryReferences
 } from './examination-library.utils.js';
 
 /**
  * @typedef {import('#database-client').ExaminationLibraryCategory} ExaminationLibraryCategory
  * @typedef {import('#database-client').Prisma.ExaminationLibraryCategoryUncheckedCreateInput} ExaminationLibraryCategoryUncheckedCreateInput
  */
+
+/**
+ * @type {string}
+ */
+const NO_EXAMINATION_LIBRARY_CATEGORY_CODE = 'NELC';
 
 /**
  * Get Examination Library Categories for a case.
@@ -49,12 +55,11 @@ export const createExaminationLibraryCategories = async (caseId, categoriesData)
 export const getExaminationLibraryDocuments = async (caseId, filters, pagination, sort) => {
 	const documents = await examinationLibraryRepository.getDocuments(caseId, filters);
 
-	const documentsInDefaultOrder = sortExaminationLibraryDocuments(documents);
+	const documentsWithDraftReferences = addDraftExaminationLibraryReferences(documents);
 
-	const documentsWithDraftReferences =
-		generateDraftExaminationLibraryReferences(documentsInDefaultOrder);
-
-	const sortedDocuments = sortExaminationLibraryDocuments(documentsWithDraftReferences, sort);
+	const sortedDocuments = sort
+		? sortExaminationLibraryDocuments(documentsWithDraftReferences, sort)
+		: documentsWithDraftReferences;
 
 	const startIndex = (pagination.page - 1) * pagination.pageSize;
 	const endIndex = startIndex + pagination.pageSize;
@@ -63,4 +68,34 @@ export const getExaminationLibraryDocuments = async (caseId, filters, pagination
 		count: sortedDocuments.length,
 		items: sortedDocuments.slice(startIndex, endIndex)
 	};
+};
+
+/**
+ * Get the draft Examination Library reference for a document.
+ *
+ * @param {number} caseId
+ * @param {string} documentGuid
+ * @param {string} categoryCode
+ * @returns {Promise<string | null>}
+ */
+export const getExaminationLibraryDocumentDraftReference = async (
+	caseId,
+	documentGuid,
+	categoryCode
+) => {
+	if (categoryCode === NO_EXAMINATION_LIBRARY_CATEGORY_CODE) {
+		return null;
+	}
+
+	const documents = await examinationLibraryRepository.getDocuments(caseId, {
+		categoryCode
+	});
+
+	const sortedDocuments = sortExaminationLibraryDocuments(documents);
+
+	const documentsWithDraftReferences = generateDraftExaminationLibraryReferences(sortedDocuments);
+
+	const document = documentsWithDraftReferences.find((document) => document.guid === documentGuid);
+
+	return document?.latestDocumentVersion?.draftExaminationLibraryReference ?? null;
 };

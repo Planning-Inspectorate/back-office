@@ -431,6 +431,101 @@ describe('applications documentation', () => {
 			expect(element.innerHTML).toMatchSnapshot();
 			expect(element.innerHTML).not.toContain('/edit/redaction');
 		});
+
+		describe('Examination library reference', () => {
+			it('should request a draft examination library reference when the document has an examination library category', async () => {
+				const documentationFile = {
+					...fixturePublishedDocumentationFile,
+					examinationLibraryCategoryCode: 'APP',
+					examinationLibraryCategoryName: 'Application',
+					examinationRefNo: null
+				};
+
+				nock('http://test/')
+					.get('/applications/123/documents/200/properties')
+					.reply(200, documentationFile);
+
+				nock('http://test/')
+					.get('/applications/document/200/versions')
+					.reply(200, fixtureDocumentFileVersions);
+
+				const draftReferenceRequest = nock('http://test/')
+					.get('/applications/123/examination-library/documents/200/draft-reference')
+					.query({ categoryCode: 'APP' })
+					.reply(200, {
+						draftExaminationLibraryReference: 'APP-001'
+					});
+
+				const response = await request.get(
+					`${baseUrl}/project-documentation/21/document/200/properties`
+				);
+
+				expect(response.status).toBe(200);
+				expect(draftReferenceRequest.isDone()).toBe(true);
+			});
+
+			it('should not request a draft examination library reference when the category is NELC', async () => {
+				const documentationFile = {
+					...fixturePublishedDocumentationFile,
+					examinationLibraryCategoryCode: 'NELC',
+					examinationLibraryCategoryName: 'No examination library category',
+					examinationRefNo: null
+				};
+
+				nock('http://test/')
+					.get('/applications/123/documents/201/properties')
+					.reply(200, documentationFile);
+
+				nock('http://test/')
+					.get('/applications/document/201/versions')
+					.reply(200, fixtureDocumentFileVersions);
+
+				const draftReferenceRequest = nock('http://test/')
+					.get('/applications/123/examination-library/documents/201/draft-reference')
+					.query({ categoryCode: 'NELC' })
+					.reply(200, {
+						draftExaminationLibraryReference: null
+					});
+
+				const response = await request.get(
+					`${baseUrl}/project-documentation/21/document/201/properties`
+				);
+
+				expect(response.status).toBe(200);
+				expect(draftReferenceRequest.isDone()).toBe(false);
+			});
+
+			it('should not request a draft examination library reference when the document has a persisted reference', async () => {
+				const documentationFile = {
+					...fixturePublishedDocumentationFile,
+					examinationLibraryCategoryCode: 'APP',
+					examinationLibraryCategoryName: 'Application',
+					examinationRefNo: 'APP-001'
+				};
+
+				nock('http://test/')
+					.get('/applications/123/documents/202/properties')
+					.reply(200, documentationFile);
+
+				nock('http://test/')
+					.get('/applications/document/202/versions')
+					.reply(200, fixtureDocumentFileVersions);
+
+				const draftReferenceRequest = nock('http://test/')
+					.get('/applications/123/examination-library/documents/202/draft-reference')
+					.query({ categoryCode: 'APP' })
+					.reply(200, {
+						draftExaminationLibraryReference: 'APP-001'
+					});
+
+				const response = await request.get(
+					`${baseUrl}/project-documentation/21/document/202/properties`
+				);
+
+				expect(response.status).toBe(200);
+				expect(draftReferenceRequest.isDone()).toBe(false);
+			});
+		});
 	});
 
 	describe('Document upload new version', () => {

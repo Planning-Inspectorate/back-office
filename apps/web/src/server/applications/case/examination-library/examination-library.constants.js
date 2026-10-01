@@ -24,6 +24,11 @@ export const categoryCodes = {
 };
 
 /**
+ * @type {string}
+ */
+export const NO_EXAMINATION_LIBRARY_CATEGORY_CODE = 'NELC';
+
+/**
  * Table headers for Examination Library category subpages where document author is displayed
  *
  * @type {string[]}
