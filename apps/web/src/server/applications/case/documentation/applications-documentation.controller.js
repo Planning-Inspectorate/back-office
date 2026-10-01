@@ -34,7 +34,8 @@ import {
 	updateDocumentsFolderId,
 	postDocumentForAiRedaction,
 	postDocumentForAiRedactionApply,
-	postDocumentForAiRedactionSanitise
+	postDocumentForAiRedactionSanitise,
+	getExaminationLibraryDocumentDraftReference
 } from './applications-documentation.service.js';
 import documentationSessionHandlers from './applications-documentation.session.js';
 import { paginationParams } from '../../../lib/pagination-params.js';
@@ -55,6 +56,7 @@ import { getAiRedactionBannerFromStatus } from './utils/get-ai-redaction-banner-
 import { isGisShapefilesFolder } from './utils/is-gis-shapefiles-folder.js';
 import { getUploadConfigForFolder } from './applications-documentation.config.js';
 import { getExaminationLibraryCategoryDisplay } from './utils/examination-library-category-display.js';
+import { NO_EXAMINATION_LIBRARY_CATEGORY_CODE } from '../examination-library/examination-library.constants.js';
 
 /**
  * Redirects to the folder view if the folder is the GIS Shapefiles folder.
@@ -332,6 +334,22 @@ export async function viewApplicationsCaseDocumentationProperties({ session }, r
 	let documentationFile = await getCaseDocumentationFileInfo(caseId, documentGuid);
 	let documentVersions = await getCaseDocumentationFileVersions(documentGuid);
 
+	let draftExaminationLibraryReference;
+
+	if (
+		documentationFile.examinationLibraryCategoryCode &&
+		documentationFile.examinationLibraryCategoryCode !== NO_EXAMINATION_LIBRARY_CATEGORY_CODE &&
+		!documentationFile.examinationRefNo
+	) {
+		const draftReference = await getExaminationLibraryDocumentDraftReference(
+			caseId,
+			documentGuid,
+			documentationFile.examinationLibraryCategoryCode
+		);
+
+		draftExaminationLibraryReference = draftReference.draftExaminationLibraryReference;
+	}
+
 	const examinationLibraryCategoryDisplay = getExaminationLibraryCategoryDisplay(
 		documentationFile?.examinationLibraryCategoryCode,
 		documentationFile?.examinationLibraryCategoryName,
@@ -345,7 +363,8 @@ export async function viewApplicationsCaseDocumentationProperties({ session }, r
 			documentationFile.redactedStatus
 		),
 		examinationLibraryCategoryDisplayName: examinationLibraryCategoryDisplay.name,
-		examinationLibraryCategoryDisplayHref: examinationLibraryCategoryDisplay.href
+		examinationLibraryCategoryDisplayHref: examinationLibraryCategoryDisplay.href,
+		draftExaminationLibraryReference
 	};
 
 	documentVersions = documentVersions.map((documentVersion) => ({

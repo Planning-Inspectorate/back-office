@@ -473,3 +473,20 @@ export const postDocumentForAiRedactionSanitise = async (payload) => {
 		return { errors: { msg: 'AI redaction sanitise failed - try again' } };
 	}
 };
+
+/**
+ *
+ * @param {number} caseId
+ * @param {string} documentGuid
+ * @param {string} categoryCode
+ * @returns {Promise<DocumentationFile>}
+ */
+export const getExaminationLibraryDocumentDraftReference = async (
+	caseId,
+	documentGuid,
+	categoryCode
+) => {
+	return get(
+		`applications/${caseId}/examination-library/documents/${documentGuid}/draft-reference?categoryCode=${categoryCode}`
+	);
+};

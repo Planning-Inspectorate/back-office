@@ -2,7 +2,8 @@ import BackOfficeAppError from '#utils/app-error.js';
 import {
 	getExaminationLibraryCategories,
 	createExaminationLibraryCategories,
-	getExaminationLibraryDocuments
+	getExaminationLibraryDocuments,
+	getExaminationLibraryDocumentDraftReference
 } from './examination-library.service.js';
 import { sortByFromQuery } from '#utils/query/sort-by.js';
 
@@ -77,4 +78,21 @@ export const getExaminationLibraryDocumentsHandler = async (req, res) => {
 		itemCount: count,
 		items
 	});
+};
+
+/**
+ * @type {import('express').RequestHandler}
+ */
+export const getExaminationLibraryDocumentDraftReferenceHandler = async (req, res) => {
+	const caseId = Number(req.params.id);
+	const { documentGuid } = req.params;
+	const { categoryCode } = req.query;
+
+	const draftExaminationLibraryReference = await getExaminationLibraryDocumentDraftReference(
+		caseId,
+		documentGuid,
+		categoryCode
+	);
+
+	res.send({ draftExaminationLibraryReference });
 };

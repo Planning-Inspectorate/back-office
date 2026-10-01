@@ -178,3 +178,14 @@ export const generateDraftExaminationLibraryReferences = (documents) => {
 		};
 	});
 };
+
+/**
+ *
+ * @param {ExaminationLibraryDocument[]} documents
+ * @returns {ExaminationLibraryDocument[]}}
+ */
+export const addDraftExaminationLibraryReferences = (documents) => {
+	const sortedDocuments = sortExaminationLibraryDocuments(documents);
+
+	return generateDraftExaminationLibraryReferences(sortedDocuments);
+};

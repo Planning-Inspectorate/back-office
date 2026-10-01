@@ -117,7 +117,10 @@ describe('Examination Library Routes', () => {
 					latestDocumentVersion: {
 						typeOfParty: 'Applicant',
 						author: 'Applicant A',
-						description: 'Document A'
+						description: 'Document A',
+						ExaminationLibraryCategory: {
+							categoryCode: 'APP'
+						}
 					}
 				},
 				{
@@ -125,7 +128,10 @@ describe('Examination Library Routes', () => {
 					latestDocumentVersion: {
 						typeOfParty: 'Applicant',
 						author: 'Applicant B',
-						description: 'Document B'
+						description: 'Document B',
+						ExaminationLibraryCategory: {
+							categoryCode: 'APP'
+						}
 					}
 				}
 			];
@@ -143,7 +149,22 @@ describe('Examination Library Routes', () => {
 				pageSize: 25,
 				pageCount: 1,
 				itemCount: 2,
-				items: mockDocuments
+				items: [
+					{
+						...mockDocuments[0],
+						latestDocumentVersion: {
+							...mockDocuments[0].latestDocumentVersion,
+							draftExaminationLibraryReference: 'APP-001'
+						}
+					},
+					{
+						...mockDocuments[1],
+						latestDocumentVersion: {
+							...mockDocuments[1].latestDocumentVersion,
+							draftExaminationLibraryReference: 'APP-002'
+						}
+					}
+				]
 			});
 
 			expect(databaseConnector.document.findMany).toHaveBeenCalledWith({
@@ -275,6 +296,21 @@ describe('Examination Library Routes', () => {
 					expect.objectContaining({ guid: 'doc-4' })
 				]
 			});
+		});
+	});
+
+	describe('GET /applications/:id/examination-library/documents/:documentGuid/draft-reference', () => {
+		it('should not generate a draft reference for no examination library category', async () => {
+			const response = await request.get(
+				`/applications/${caseId}/examination-library/documents/doc-1/draft-reference?categoryCode=NELC`
+			);
+
+			expect(response.status).toBe(200);
+			expect(response.body).toEqual({
+				draftExaminationLibraryReference: null
+			});
+
+			expect(databaseConnector.document.findMany).not.toHaveBeenCalled();
 		});
 	});
 });
