@@ -7,6 +7,7 @@ import { examinationLibrarySections } from './examination-library.constants.js';
  * @property {string} title
  * @property {string} [hint]
  * @property {string} href
+ * @property {number} [examinationTimetableItemId]
  */
 
 /**
