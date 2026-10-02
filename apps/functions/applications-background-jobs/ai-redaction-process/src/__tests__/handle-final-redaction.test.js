@@ -134,4 +134,28 @@ describe('handleFinalRedaction', () => {
 			}
 		);
 	});
+
+	it('marks the final version as no_redaction_required when provisional redactions are skipped', async () => {
+		const message = {
+			...baseMessage,
+			parameters: {
+				...baseMessage.parameters,
+				tryApplyProvisionalRedactions: false
+			}
+		};
+
+		await handleFinalRedaction(mockContext, message);
+
+		expect(requestWithApiKey.post).toHaveBeenCalledTimes(3);
+
+		expect(requestWithApiKey.post).toHaveBeenNthCalledWith(
+			3,
+			expect.stringContaining('/metadata'),
+			{
+				json: {
+					redactedStatus: 'no_redaction_required'
+				}
+			}
+		);
+	});
 });

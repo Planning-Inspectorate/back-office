@@ -19,10 +19,11 @@ export const getAiRedactionBannerFromStatus = (
 	documentVersions = []
 ) => {
 	const latestVersion = documentVersions?.[0];
+	const isProcessedByRedactionTool = latestVersion?.history?.uploaded?.name === 'Redaction tool';
 
 	const isAiRedacted =
-		documentationFile.redactedStatus === 'redacted' &&
-		latestVersion?.history?.uploaded?.name === 'Redaction tool';
+		['redacted', 'no_redaction_required'].includes(documentationFile.redactedStatus) &&
+		isProcessedByRedactionTool;
 
 	if (isAiRedacted) {
 		return {

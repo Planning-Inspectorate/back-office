@@ -160,6 +160,40 @@ export const getById = (documentGuid, version = 1) => {
 
 /**
 
+ * Get a document metadata by documentGuid
+ *
+ * @param {string} documentGuid
+ * @param {number} version
+ * @returns {import('#database-client').PrismaPromise<DocumentVersion |null>}
+ */
+export const getByIdForProperties = (documentGuid, version = 1) => {
+	return databaseConnector.documentVersion.findUnique({
+		where: { documentGuid_version: { documentGuid, version } },
+
+		include: {
+			...includeClauseDocVersionFull,
+			DocumentActivityLog: {
+				orderBy: {
+					createdAt: 'desc'
+				}
+			},
+			transcript: {
+				select: {
+					documentReference: true
+				}
+			},
+			ExaminationLibraryCategory: {
+				select: {
+					categoryCode: true,
+					categoryName: true
+				}
+			}
+		}
+	});
+};
+
+/**
+
  * Get info for many documents by documentGuid and published status
  *
  * @param {string[]} documentGuids
@@ -346,4 +380,30 @@ export const unpublishMany = async (documentVersionIds) => {
 	}
 
 	return results;
+};
+
+/**
+ * Get the original published date for a document
+ *
+ * @param {string} documentGuid
+ * @returns {Promise<Date | null>}
+ */
+export const getOriginalPublishedDate = async (documentGuid) => {
+	const result = await databaseConnector.documentVersion.findFirst({
+		where: {
+			documentGuid,
+			datePublished: {
+				not: null
+			},
+			isDeleted: false
+		},
+		orderBy: {
+			datePublished: 'asc'
+		},
+		select: {
+			datePublished: true
+		}
+	});
+
+	return result?.datePublished ?? null;
 };

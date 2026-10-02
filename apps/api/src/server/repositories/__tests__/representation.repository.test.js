@@ -299,6 +299,7 @@ describe('Representation repository', () => {
 			originalRepresentation: true,
 			editedRepresentation: true,
 			editNotes: true,
+			useOfAI: true,
 			redactedRepresentation: true,
 			type: true,
 			user: {
@@ -544,9 +545,8 @@ describe('Representation repository', () => {
 			databaseConnector.representation.update.mockResolvedValue(updatedRepresentation);
 
 			// WHEN
-			const representation = await representationRepository.createApplicationRepresentation(
-				mappedData
-			);
+			const representation =
+				await representationRepository.createApplicationRepresentation(mappedData);
 
 			// THEN
 			expect(representation).toEqual({
@@ -637,9 +637,8 @@ describe('Representation repository', () => {
 			databaseConnector.representation.create.mockResolvedValue(createdRepresentationWithReference);
 
 			// WHEN
-			const representation = await representationRepository.createApplicationRepresentation(
-				mappedData
-			);
+			const representation =
+				await representationRepository.createApplicationRepresentation(mappedData);
 
 			// THEN
 			expect(representation).toEqual({

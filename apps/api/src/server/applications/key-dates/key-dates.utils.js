@@ -79,6 +79,7 @@ export const examinationDateNames = [
 	'stage4ExtensionToExamCloseDate'
 ];
 export const recommendationDateNames = [
+	'exAAnticipatedRecommendationDate',
 	'deadlineForSubmissionOfRecommendation',
 	'dateOfRecommendations',
 	'stage5ExtensionToRecommendationDeadline'

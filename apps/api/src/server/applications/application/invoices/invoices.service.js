@@ -1,4 +1,9 @@
 import * as invoicesRepository from '#repositories/invoice.repository.js';
+import { formatInvoiceAmounts, formatInvoicesAmounts } from './invoices.utils.js';
+
+// Invoice amounts are stored in the database as decimal values e.g. 4500.5000000000000000
+// When retrieved by Prisma they are converted to decimal objects and sometimes contain a small precision error e.g. 4500.5000000002
+// We convert invoice amounts to strings in pounds and pence format here e.g. '4500.50' to allow monetary calcuations to be performed in the controller as required
 
 /**
  * Get all invoices for a case by case Id
@@ -6,7 +11,8 @@ import * as invoicesRepository from '#repositories/invoice.repository.js';
  * @returns {Promise<import('@pins/applications.api').Schema.Invoice[]>}
  */
 export const getInvoicesForCase = async (caseId) => {
-	return invoicesRepository.getInvoicesByCaseId(Number(caseId));
+	const invoices = await invoicesRepository.getInvoicesByCaseId(Number(caseId));
+	return formatInvoicesAmounts(invoices);
 };
 
 /**
@@ -15,7 +21,8 @@ export const getInvoicesForCase = async (caseId) => {
  * @returns {Promise<import('@pins/applications.api').Schema.Invoice|null>}
  */
 export const getInvoiceForCaseById = async (invoiceId) => {
-	return invoicesRepository.getInvoiceById(Number(invoiceId));
+	const invoice = await invoicesRepository.getInvoiceById(Number(invoiceId));
+	return formatInvoiceAmounts(invoice);
 };
 
 /**
@@ -23,7 +30,8 @@ export const getInvoiceForCaseById = async (invoiceId) => {
  * @returns {Promise<import('@pins/applications.api').Schema.Invoice|null>}
  */
 export const getInvoicesWithCreditNoteNumber = async (refundCreditNoteNumber) => {
-	return invoicesRepository.getInvoiceByCreditNoteNumber(refundCreditNoteNumber);
+	const invoice = await invoicesRepository.getInvoiceByCreditNoteNumber(refundCreditNoteNumber);
+	return formatInvoiceAmounts(invoice);
 };
 
 /**

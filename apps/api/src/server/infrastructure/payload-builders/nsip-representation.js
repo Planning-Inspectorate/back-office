@@ -42,6 +42,7 @@ export const buildNsipRepresentationPayload = (representation) => {
 		representationFrom: representation.representedType ?? null,
 		registerFor: null, // unused in CBOS - used in FO journey only
 		dateReceived: representation.received?.toISOString() ?? '',
+		useOfAI: representation.useOfAI?.toLowerCase() ?? null,
 		attachmentIds: representation.attachments?.map((attachment) => attachment.documentGuid)
 	};
 

@@ -20,6 +20,7 @@ import { representationsRouter as representationsRouter } from './representation
 import { invoicesRouter as invoicesRouter } from './invoices/invoices.routes.js';
 import { getAllApplications } from '../all-applications/get-all-applications.controller.js';
 import { meetingsRouter } from './meetings/meetings.routes.js';
+import { examinationLibraryRouter } from './examination-library/examination-library.routes.js';
 
 const router = createRouter();
 
@@ -299,5 +300,7 @@ router.use('/:id/representations', representationsRouter);
 router.use('/:id/invoices', invoicesRouter);
 
 router.use('/:id/meetings', meetingsRouter);
+
+router.use('/:id/examination-library', examinationLibraryRouter);
 
 export { router as applicationRoutes };

@@ -34,6 +34,7 @@ export const updateFeesForecasting = async ({ body, params }, res) => {
 		zoomLevel: true,
 		regions: true,
 		caseStatus: true,
+		casePublishedState: true,
 		projectTeam: true,
 		gridReference: true,
 		invoice: true,

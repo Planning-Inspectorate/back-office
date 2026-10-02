@@ -32,6 +32,7 @@ export default baseSchema
 		azureAiDocRedactionBlobStorageName: joi.string().optional(),
 		azureAiDocRedactionRedactKey: joi.string().optional(),
 		azureAiDocRedactionApplyKey: joi.string().optional(),
+		azureAiDocRedactionSanitiseKey: joi.string().optional(),
 		azureKeyVaultEnabled: joi.boolean().optional(),
 		blobStorageUrl: joi.string(),
 		cacheControl: joi.object({ maxAge: joi.string() }).options({ presence: 'required' }),

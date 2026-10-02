@@ -39,8 +39,35 @@
 		} %}
 	{% endif %}
 
-	{% set publishedDate = (documentationFile.datePublished|datestamp({format: 'dd/MM/yyyy'})) if documentationFile.publishedStatus === 'published' else null %}
+	{% set publishedDate = (documentationFile.datePublished|datestamp({format: 'dd/MM/yyyy'}))
+		if documentationFile.datePublished
+		else null
+	%}
 	{% set statusCanBeChanged = not documentationFile.publishedStatus in ['published', 'awaiting_upload', 'awaiting_virus_check', 'failed_virus_check', 'invalid'] %}
+
+{% if 'idas-607-examination-library' | isFeatureActive %}
+    {% set typeOfPartyRow = {
+        label: 'Type of party',
+        value: documentationFile.typeOfParty,
+        link: 'party-type'
+    } %}
+    {% set examinationLibraryCategoryRow = {
+        label: 'Examination library category',
+        value: documentationFile.examinationLibraryCategoryDisplayName,
+		valueLink: documentationFile.examinationLibraryCategoryDisplayHref,
+        link: 'examination-library-category'
+    } %}
+    {% set examinationLibraryReferenceRow = {
+        label: 'Examination library reference',
+        value: documentationFile.examinationRefNo,
+        link: 'examination-library-reference'
+    } %}
+	{% else %}
+	{% set typeOfPartyRow = null %}
+    {% set examinationLibraryCategoryRow = null %}
+    {% set examinationLibraryReferenceRow = null %}
+{% endif %}
+
 
 	{% set properties = [
 						{label: 'File name', value: documentationFile.fileName, link: 'name'},
@@ -49,10 +76,13 @@
             			{label: 'IP number (optional)', value: documentationFile.interestedPartyNumber, link: 'interestedPartyNumber'},
 						{label: 'Who the document is from', value: documentationFile.author, link: 'author'},
 						welshFromRow,
+						typeOfPartyRow,
 						{label: 'Agent (optional)', value: documentationFile.representative, link: 'agent'},
 						{label: 'Document case stage', value: documentationFile.stage},
 						{label: 'Webfilter', value: documentationFile.filter1, link: 'webfilter'},
 						welshWebfilterRow,
+						examinationLibraryCategoryRow,
+						examinationLibraryReferenceRow,
 						{label: 'Document type (optional)', value: documentationFile.documentType, link: 'type'},
 						transcriptRow,
 						{label: 'Date received', value: (documentationFile.dateCreated|datestamp({format: 'dd/MM/yyyy'})), link: 'receipt-date'},
@@ -76,6 +106,21 @@
 			} %}
 		{% endif %}
 
+
+		{% if property.valueLink %}
+			{% set propertyValueHtml %}
+				<a class="govuk-link" href="{{ property.valueLink }}">{{ property.value }}</a>
+			{% endset %}
+
+			{% set rowValue = {
+				html: propertyValueHtml
+			} %}
+		{% else %}
+			{% set rowValue = {
+				text: property.value
+			} %}
+		{% endif %}
+
 		{% set noChangeLinkRequired =
 			(property.label === 'Redaction' and documentationFile.publishedStatus === 'published')
 			or property.value === 'Redaction in progress'
@@ -90,9 +135,7 @@
 					text: property.label,
 					classes: property.classes
 				},
-				value: {
-					text: property.value
-				}
+				value: rowValue
 			} %}
 		{% else %}
 			{% set row = {
@@ -100,9 +143,7 @@
 					text: property.label,
 					classes: property.classes
 				},
-				value: {
-					text: property.value
-				},
+				value: rowValue,
 				actions: {
 					items: [rowActions]
 				}

@@ -72,7 +72,19 @@ describe('register-representation-command', () => {
 			represented: message.represented,
 			representative: message.representative,
 			representedType: 'AGENT',
-			received: '2023-02-01T00:00:00.000Z'
+			received: '2023-02-01T00:00:00.000Z',
+			useOfAI: 'UNKNOWN'
 		});
+	});
+
+	test('useOfAI is uppercased when provided in lowercase', async () => {
+		await fn(mockContext, { ...message, useOfAI: 'yes' });
+
+		expect(api.postRepresentation).toHaveBeenCalledWith(
+			1,
+			expect.objectContaining({
+				useOfAI: 'YES'
+			})
+		);
 	});
 });

@@ -54,6 +54,29 @@ describe('getAiRedactionBannerFromStatus', () => {
 		});
 	});
 
+	it('returns success banner when status is no_redaction_required', () => {
+		const documentationFile = {
+			documentGuid: 'doc-123',
+			redactedStatus: 'no_redaction_required'
+		};
+
+		const result = getAiRedactionBannerFromStatus(documentationFile, caseId, folderId, [
+			{
+				history: {
+					uploaded: {
+						name: 'Redaction tool'
+					}
+				}
+			}
+		]);
+
+		expect(result).toEqual({
+			type: 'success',
+			header: 'Document redactions finalised',
+			message: ''
+		});
+	});
+
 	it('returns undefined for unknown status', () => {
 		const documentationFile = {
 			documentGuid: 'doc-123',

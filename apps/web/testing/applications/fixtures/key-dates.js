@@ -52,6 +52,7 @@ const fixtureKeyDates = {
 		stage4ExtensionToExamCloseDate: randomDateOrNull()
 	},
 	recommendation: {
+		exAAnticipatedRecommendationDate: randomDateOrNull(),
 		deadlineForSubmissionOfRecommendation: randomDateOrNull(),
 		dateOfRecommendations: randomDateOrNull(),
 		stage5ExtensionToRecommendationDeadline: randomDateOrNull()

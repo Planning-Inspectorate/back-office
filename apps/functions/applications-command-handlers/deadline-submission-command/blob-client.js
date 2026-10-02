@@ -61,7 +61,8 @@ const copyFile = async (context, source, destination) => {
 		context.log('Full error details:', JSON.stringify(err, null, 2));
 		throw new Error(
 			`copyFile failed for sourceUrl: ${sourceUrl}, source: (container: ${source.containerName}, blob: ${source.blobName}) ` +
-				`and destination (container: ${destination.containerName}, blob: ${destination.blobName}): ${err}`
+				`and destination (container: ${destination.containerName}, blob: ${destination.blobName}): ${err}`,
+			{ cause: err }
 		);
 	}
 };

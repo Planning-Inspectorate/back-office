@@ -1,0 +1,45 @@
+{% macro examinationLibraryTable(sectionTable, sortLinks) %}
+	<table class="govuk-table">
+		{% if sectionTable.caption %}
+			<caption class="{{ sectionTable.captionClasses }}">
+				{{ sectionTable.caption }}
+			</caption>
+		{% endif %}
+
+		<thead class="govuk-table__head">
+		<tr class="govuk-table__row">
+			{% for sortItem in sortLinks %}
+				<th scope="col" class="govuk-table__header">
+					{% if sortItem.value %}
+						<a
+							href="{{ sortItem.link }}"
+							class="sort-table__link {% if sortItem.isDescending %}sort-table__link--descending{% endif %}"
+						>
+							{{ sortItem.text }}
+							<span class="sort-table__link-icon {% if sortItem.active or sortItem.isDescending %}sort-table__link-icon--big{% else %}sort-table__link-icon--small{% endif %}"></span>
+						</a>
+					{% else %}
+						{{ sortItem.text }}
+					{% endif %}
+				</th>
+			{% endfor %}
+		</tr>
+		</thead>
+
+		<tbody class="govuk-table__body">
+		{% for row in sectionTable.rows %}
+			<tr class="govuk-table__row">
+				{% for cell in row %}
+					<td class="govuk-table__cell">
+						{% if cell.html %}
+							{{ cell.html | safe }}
+						{% else %}
+							{{ cell.text }}
+						{% endif %}
+					</td>
+				{% endfor %}
+			</tr>
+		{% endfor %}
+		</tbody>
+	</table>
+{% endmacro %}

@@ -53,9 +53,10 @@ const nocks = () => {
 
 const projectName = 'Title CASE/04';
 
-// Disable fees and forecasting flag so the page link does not display in the nav menu HTML for other pages
+// Disable fees and forecasting flag and examination library flag so the page links do not display in the nav menu HTML for other pages
 const flags = staticFlags;
 flags['applics-1845-fees-forecasting'] = false;
+flags['idas-607-examination-library'] = false;
 
 describe('Examination timetable page', () => {
 	describe('GET /case/123/examination-timetable', () => {
@@ -183,7 +184,11 @@ describe('Create examination timetable page', () => {
 				templateType: 'procedural-decision',
 				mandatory: ['item name', 'item date']
 			},
-			{ templateType: 'publication-of', mandatory: ['item name', 'item date'] }
+			{ templateType: 'publication-of', mandatory: ['item name', 'item date'] },
+			{
+				templateType: 'unaccompanied-site-inspection',
+				mandatory: ['item name', 'item date']
+			}
 		];
 
 		templateTypes.forEach(({ templateType, mandatory }) => {

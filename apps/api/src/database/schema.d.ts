@@ -71,7 +71,7 @@ export interface DocumentDetails {
 	documentId: number | null;
 	sourceSystem: string;
 	documentGuid: string | null;
-	fileName: String;
+	fileName: string;
 	originalFilename: string;
 	version;
 	datePublished: number | null;
@@ -86,6 +86,7 @@ export interface DocumentDetails {
 	description: string | null;
 	version: number | null;
 	representative: string | null;
+	typeOfParty: string | null;
 	stage: string | null;
 	filter1: string | null;
 	filter2: string | null;

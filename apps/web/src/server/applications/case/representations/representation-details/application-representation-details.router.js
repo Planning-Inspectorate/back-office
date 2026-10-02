@@ -21,6 +21,11 @@ import {
 import { representationChangeRedactionValidation } from './change-redaction/change-redaction.validator.js';
 import { getRepresentationDetailsTaskLogController } from './task-log/task-log.controller.js';
 import {
+	getAiDeclarationController,
+	postAiDeclarationController
+} from './ai-declaration/ai-declaration.controller.js';
+import { aiDeclarationValidation } from './ai-declaration/ai-declaration.validators.js';
+import {
 	getRepresentationStatusController,
 	postRepresentationStatus
 } from './representation-status/representation-status.controller.js';
@@ -89,5 +94,10 @@ representationDetailsRouter
 		registerRepsParams,
 		asyncHandler(postRepresentationStatusNotesController)
 	);
+
+representationDetailsRouter
+	.route('/ai-declaration')
+	.get(registerRepsParams, asyncHandler(getAiDeclarationController))
+	.post(aiDeclarationValidation, registerRepsParams, asyncHandler(postAiDeclarationController));
 
 export default representationDetailsRouter;

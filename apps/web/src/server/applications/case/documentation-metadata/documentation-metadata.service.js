@@ -1,8 +1,9 @@
-import { post, patch } from '../../../lib/request.js';
+import { get, post, patch } from '../../../lib/request.js';
 import pino from '../../../lib/logger.js';
 
 /** @typedef {import('../../applications.types.js').DocumentationFile} DocumentationFile */
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
+/** @typedef {import('../../applications.types.js').ExaminationLibraryCategory} ExaminationLibraryCategory */
 
 /**
  * Save new / updated metadata for the document
@@ -82,4 +83,21 @@ export const updatePublishedStatusMetadata = async (newStatus, documentGuid, cas
 	}
 
 	return response;
+};
+
+/**
+ * @param {number} caseId
+ * @returns {Promise<ExaminationLibraryCategory[]>}
+ */
+export const getExaminationLibraryCategories = async (caseId) => {
+	try {
+		return await get(`applications/${caseId}/examination-library`);
+	} catch (/** @type {*} */ error) {
+		pino.error(
+			{ err: error, caseId },
+			`[API] Failed to get examination library categories for caseId: ${caseId}`
+		);
+
+		throw error;
+	}
 };

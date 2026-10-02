@@ -14,8 +14,7 @@ $z-layers: (
 	"tooltip": 1110,
 	"popover": 1100,
 	// The big difference between these and the bellow (modal) is to cater for stacked modals.
-	"modal-layer":
-		(
+	"modal-layer": (
 			"modal": 1050,
 			"modal-backdrop": 1040
 		),

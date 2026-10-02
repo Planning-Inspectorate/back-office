@@ -8,4 +8,5 @@ export interface RegisterRepresentation {
 	represented: object;
 	representative: object;
 	dateReceived?: string;
+	useOfAI?: string;
 }

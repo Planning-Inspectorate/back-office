@@ -84,6 +84,7 @@ const repUpdatePayload = buildPayloadEventsForSchema(NSIP_REPRESENTATION, {
 	referenceId: 'BC0110001-2',
 	representationId: 1,
 	status: 'valid',
+	useOfAI: null,
 	registerFor: null,
 	representationFrom: 'AGENT',
 	representationType: 'Members of the Public/Businesses',

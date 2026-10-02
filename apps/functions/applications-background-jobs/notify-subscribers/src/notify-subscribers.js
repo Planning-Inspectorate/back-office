@@ -209,7 +209,7 @@ export class NotifySubscribers {
 								contentWelsh,
 								titleWelsh: `${projectNameWelsh} - Diweddariad ar Brosiect`,
 								subjectWelsh: `${projectNameWelsh} - Hysbysiad o Ddiweddariad ar Brosiect`
-						  }
+							}
 						: {}),
 					unsubscribeUrl
 				},

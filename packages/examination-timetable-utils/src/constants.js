@@ -10,5 +10,6 @@ export const examTimetableItemTypes = {
 	PRELIMINARY_MEETING: 'Preliminary Meeting',
 	PROCEDURAL_DEADLINE: 'Procedural Deadline (Pre-Examination)',
 	PROCEDURAL_DECISION: 'Procedural Decision',
-	PUBLICATION_OF: 'Publication Of'
+	PUBLICATION_OF: 'Publication Of',
+	UNACCOMPANIED_SITE_INSPECTION: 'Unaccompanied Site Inspection'
 };

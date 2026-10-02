@@ -31,8 +31,10 @@
 				height: 80px;
 
 				@include govuk-helpers-media-queries.govuk-media-query(
-					$until:
-						map-get(govuk-settings-media-queries.$govuk-breakpoints, "tablet")
+					$until: map-get(
+							govuk-settings-media-queries.$govuk-breakpoints,
+							"tablet"
+						)
 				) {
 					height: 65px;
 				}
@@ -47,8 +49,10 @@
 			@include govuk-font-size(24);
 
 			@include govuk-helpers-media-queries.govuk-media-query(
-				$until:
-					map-get(govuk-settings-media-queries.$govuk-breakpoints, "tablet")
+				$until: map-get(
+						govuk-settings-media-queries.$govuk-breakpoints,
+						"tablet"
+					)
 			) {
 				@include govuk-font-size(19);
 			}
@@ -62,8 +66,10 @@
 			}
 
 			@include govuk-helpers-media-queries.govuk-media-query(
-				$until:
-					map-get(govuk-settings-media-queries.$govuk-breakpoints, "desktop")
+				$until: map-get(
+						govuk-settings-media-queries.$govuk-breakpoints,
+						"desktop"
+					)
 			) {
 				flex-direction: column;
 			}

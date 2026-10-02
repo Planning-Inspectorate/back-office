@@ -142,7 +142,13 @@ export interface DocumentationFile {
 	authorWelsh?: string;
 	owner?: string;
 	interestedPartyNumber?: string;
+	typeOfParty?: string;
 	examinationRefNo?: string;
+	examinationLibraryCategoryId?: number | null;
+	examinationLibraryCategoryCode?: string | null;
+	examinationLibraryCategoryName?: string | null;
+	examinationLibraryCategoryDisplayName?: string;
+	examinationLibraryCategoryDisplayHref?: string | null;
 }
 
 export interface DocumentVersion {
@@ -221,4 +227,16 @@ export interface ProjectTeamMember {
 	role: string;
 	// userPrincipalName is the email
 	userPrincipalName: string;
+}
+
+export interface ExaminationLibraryCategory {
+	id: number;
+	caseId: number;
+	categoryCode: string;
+	categoryName: string;
+	publishedStatus: string;
+	source: 'STATIC' | 'TIMETABLE';
+	examinationTimetableId: number | null;
+	createdAt: number;
+	updatedAt: number;
 }

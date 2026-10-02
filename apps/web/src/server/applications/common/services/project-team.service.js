@@ -19,7 +19,7 @@ export const getProjectTeam = async (caseId) => {
 		pino.error(
 			`[WEB] GET /applications-service/case/${caseId}/project-team (Response code: ${error?.response?.statusCode})`
 		);
-		throw new Error(error?.response.statusCode);
+		throw new Error(error?.response.statusCode, { cause: error });
 	}
 };
 

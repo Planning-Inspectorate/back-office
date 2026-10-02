@@ -20,6 +20,8 @@ export const unpublishRepresentations = async (caseId, actionBy) => {
 			json: { actionBy }
 		});
 	} catch (error) {
-		throw new Error(`[unpublishRepresentationsBatch]: ${error} `);
+		throw new Error(`[unpublishRepresentationsBatch]: ${error} `, {
+			cause: error
+		});
 	}
 };

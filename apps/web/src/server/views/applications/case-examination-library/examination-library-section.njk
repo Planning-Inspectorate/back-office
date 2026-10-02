@@ -1,0 +1,36 @@
+{% extends "../layouts/applications.layout.njk" %}
+{% from "../components/status-tag.component.njk" import statusTag %}
+{% from "applications/components/pagination/results-per-page.component.njk" import uiPageSizeInformation, uiPaginationLinks %}
+{% from "applications/case-examination-library/components/table/examination-library-table.component.njk" import examinationLibraryTable %}
+
+
+{% set pageTitle = sectionHeading + " - " + projectName %}
+
+{% block beforeContent %}
+	<aside>
+		{{ govukBackLink({
+			text: "Back to Examination library",
+			href: 'examination-library'|url({caseId: caseId})
+		}) }}
+	</aside>
+{% endblock %}
+
+{% block pageHeading %}
+	<span class="govuk-caption-l">Examination library</span>
+	<div class="examination-library-heading-row">
+		<h1 class="govuk-heading-l">{{ sectionHeading }}</h1>
+		<span class="govuk-!-padding-left-5 govuk-!-padding-top-1">{{ statusTag(sectionStatus) }}</span>
+	</div>
+{% endblock %}
+
+{% block pageContent %}
+	<p class="govuk-body">
+		Once an examination library category has been published, the examination library references are final and cannot be changed.
+	</p>
+
+	{{ uiPageSizeInformation(pagination) }}
+
+	{{ examinationLibraryTable(sectionTable, sortLinks) }}
+
+	{{ uiPaginationLinks(pagination) }}
+{% endblock %}

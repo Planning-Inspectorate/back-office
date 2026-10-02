@@ -11,7 +11,8 @@ import {
 	validateApplicationsDocumentsToUnpublish,
 	validateApplicationsDocumentsToMove,
 	validateApplicationsDocumentsToMoveFolderSelection,
-	validateDocumentsToMoveToCorrespondenceNotPublished
+	validateDocumentsToMoveToCorrespondenceNotPublished,
+	validateReviewRedactionDecision
 } from './applications-documentation.validators.js';
 import applicationsS51Router from '../s51/applications-s51.router.js';
 import { assertFolderIsNotReps } from './applications-documentation.guard.js';
@@ -138,7 +139,8 @@ applicationsDocumentationRouter
 			locals.registerCase,
 			locals.registerFolder,
 			locals.registerDocumentGuid,
-			isRedactionActiveMiddleware
+			isRedactionActiveMiddleware,
+			validateReviewRedactionDecision
 		],
 		asyncHandler(controller.postReviewRedactions)
 	);

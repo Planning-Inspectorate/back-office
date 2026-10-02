@@ -94,6 +94,7 @@ const rep1UpdatePayload = buildPayloadEventsForSchema(NSIP_REPRESENTATION, {
 	referenceId: 'BC0110001-2',
 	representationId: 1,
 	status: 'valid',
+	useOfAI: null,
 	registerFor: null,
 	representationFrom: 'AGENT',
 	representationType: 'Members of the Public/Businesses',
@@ -265,7 +266,8 @@ describe('Patch Application Representation Redact', () => {
 		};
 		const prevPublishedPayload = {
 			...rep1UpdatePayload,
-			status: 'published'
+			status: 'published',
+			useOfAI: null
 		};
 		databaseConnector.representation.findFirst.mockResolvedValue(prevPublishedRep);
 		databaseConnector.representation.findUnique.mockResolvedValue(prevPublishedRep);

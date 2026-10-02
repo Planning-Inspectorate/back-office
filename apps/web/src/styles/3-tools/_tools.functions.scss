@@ -15,8 +15,7 @@
 		$scale-styles: recursive-map-merge(
 			$scale-styles,
 			(
-				#{$style}:
-					(
+				#{$style}: (
 						base: $style-props
 					)
 			)

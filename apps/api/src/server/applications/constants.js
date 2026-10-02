@@ -137,3 +137,23 @@ export const VALIDATE_APPLICATION_ENUMS = {
 	],
 	DOCUMENT_STATUS: ['submitted_by_applicant', 'awaiting_submission', 'not_applicable']
 };
+
+export const EXAM_LIBRARY_STATIC_CATEGORIES = [
+	{ categoryCode: 'APP', categoryName: 'Application form', source: 'STATIC' },
+	{ categoryCode: 'APP', categoryName: 'Plans', source: 'STATIC' },
+	{ categoryCode: 'APP', categoryName: 'DCO documents', source: 'STATIC' },
+	{ categoryCode: 'APP', categoryName: 'Compulsory acquisition information', source: 'STATIC' },
+	{ categoryCode: 'APP', categoryName: 'Reports', source: 'STATIC' },
+	{ categoryCode: 'APP', categoryName: 'Environmental statement', source: 'STATIC' },
+	{ categoryCode: 'APP', categoryName: 'Other documents', source: 'STATIC' },
+	{ categoryCode: 'AoC', categoryName: 'Adequacy of consultation responses', source: 'STATIC' },
+	{
+		categoryCode: 'PD',
+		categoryName: 'Procedural decisions and notifications from Examining Authority',
+		source: 'STATIC'
+	},
+	{ categoryCode: 'AS', categoryName: 'Additional submissions', source: 'STATIC' },
+	{ categoryCode: 'OD', categoryName: 'Other documents', source: 'STATIC' },
+	{ categoryCode: 'RR', categoryName: 'Relevant representations', source: 'STATIC' },
+	{ categoryCode: 'NELC', categoryName: 'No examination library category', source: 'STATIC' }
+];

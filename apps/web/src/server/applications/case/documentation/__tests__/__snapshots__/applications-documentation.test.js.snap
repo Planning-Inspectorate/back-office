@@ -7954,8 +7954,7 @@ exports[`applications documentation Document properties page should NOT show red
                 <li class="govuk-!-margin-top-4"><strong>Document reference number:</strong>
                 </li>
                 <li class="govuk-!-margin-top-4"><strong>File type and size:</strong> JPG, 6.5 MB</li>
-                <li class="govuk-!-margin-top-4"><strong>Version:</strong>
-                </li>
+                <li class="govuk-!-margin-top-4"><strong>Version:</strong> 1</li>
             </ul>
             <nav class="pins-nav-button-group">
                 <h3 class="govuk-heading-m govuk-!-margin-bottom-4">Document actions</h3>

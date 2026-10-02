@@ -18,6 +18,7 @@ const additionalProjectEntities = {
 	zoomLevel: true,
 	regions: true,
 	caseStatus: true,
+	casePublishedState: true,
 	projectTeam: true,
 	gridReference: true,
 	invoice: true,
@@ -66,11 +67,7 @@ export const getCaseInvoiceController = async ({ params }, res) => {
 		...invoice,
 		paymentDueDate: mapDateToUnixTimestamp(invoice.paymentDueDate),
 		invoicedDate: mapDateToUnixTimestamp(invoice.invoicedDate),
-		paymentDate: mapDateToUnixTimestamp(invoice.paymentDate),
-		amountDue: invoice.amountDue ? Number(invoice.amountDue).toFixed(2) : invoice.amountDue,
-		refundAmount: invoice.refundAmount
-			? Number(invoice.refundAmount).toFixed(2)
-			: invoice.refundAmount
+		paymentDate: mapDateToUnixTimestamp(invoice.paymentDate)
 	};
 
 	return res.send(mappedInvoice);

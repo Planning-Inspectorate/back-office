@@ -45,6 +45,9 @@ export const fixtureAwaitingAiSuggestionsDocumentationFile = {
 export const fixtureAiSuggestionsReviewRequiredDocumentationFile = {
 	...fixtureDocumentationFiles[0],
 	documentGuid: '151',
+	version: 1,
+	privateBlobPath: '/application/CASE1/guid-123/1',
+	privateBlobContainer: 'blob-container',
 	redactedStatus: 'ai_suggestions_review_required',
 	redactionStatusForDisplay: 'Redactions suggested'
 };

@@ -162,7 +162,7 @@ export const getPublishableS51Advice = (s51AdviceIds, caseIsWelsh) => {
 							{
 								enquiryDetailsWelsh: null
 							}
-					  ]
+						]
 					: orQuery
 			}
 		},

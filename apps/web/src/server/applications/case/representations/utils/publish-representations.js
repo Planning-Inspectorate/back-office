@@ -57,10 +57,10 @@ export function getPublishedRepIdsAndCount(items) {
 	const publishedRepIds = items
 		.filter((rep) => rep.status === 'PUBLISHED')
 		.map((rep) => Number(rep.id));
-	let publishedRepsCount = 0;
+	let publishedRepsCount;
 	try {
 		publishedRepsCount = getNumberOfRepresentationsPublished({ publishedRepIds });
-	} catch (e) {
+	} catch {
 		publishedRepsCount = 0;
 	}
 	return { publishedRepIds, publishedRepsCount };

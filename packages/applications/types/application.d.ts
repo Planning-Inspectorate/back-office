@@ -15,15 +15,7 @@ export interface GeographicalInformation {
 }
 
 export type MapZoomLevelType =
-	| 'Country'
-	| 'Region'
-	| 'County'
-	| 'Borough'
-	| 'District'
-	| 'City'
-	| 'Town'
-	| 'Junction'
-	| 'None';
+	'Country' | 'Region' | 'County' | 'Borough' | 'District' | 'City' | 'Town' | 'Junction' | 'None';
 
 export interface Applicant {
 	id?: number;

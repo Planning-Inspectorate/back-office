@@ -440,3 +440,36 @@ export const postDocumentForAiRedaction = async (payload) => {
 		return { errors: { msg: 'AI redaction failed - try again' } };
 	}
 };
+
+/**
+ *  Send document to AI redaction tool for sanitisation
+ * @param {object} payload
+ * @returns {Promise<{ body?: AiRedactionResponse, errors?: { msg: string } }>}
+ */
+export const postDocumentForAiRedactionSanitise = async (payload) => {
+	const sanitiseEndpoint = `${config.azureAiDocRedactionBaseUrl}/api/sanitise?code=${config.azureAiDocRedactionSanitiseKey}`;
+	try {
+		const body = await aiRedactionClientPost(sanitiseEndpoint, {
+			json: payload
+		});
+
+		logger.info({ body }, '[AI redaction sanitise] response received');
+
+		return { body };
+	} catch (/** @type {*} */ error) {
+		logger.error(
+			{
+				statusCode: error?.response?.statusCode,
+				statusMessage: error?.response?.statusMessage,
+				headers: error?.response?.headers,
+				body:
+					typeof error?.response?.body === 'string'
+						? error.response.body.slice(0, 500)
+						: error?.response?.body
+			},
+			'[AI redaction sanitise] request failed'
+		);
+
+		return { errors: { msg: 'AI redaction sanitise failed - try again' } };
+	}
+};

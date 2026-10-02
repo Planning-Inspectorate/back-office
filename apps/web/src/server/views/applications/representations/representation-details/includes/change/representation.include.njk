@@ -42,6 +42,20 @@
     </dd>
   </div>
 
+  <div class="govuk-summary-list__row">
+    <dt class="govuk-summary-list__key">
+      AI declaration
+    </dt>
+    <dd class="govuk-summary-list__value">
+      <p class="govuk-body">{{ aiDeclarationText }}</p>
+    </dd>
+    <dd class="govuk-summary-list__actions">
+        <a class="govuk-link" href="representation-details/ai-declaration">
+          Change<span class="govuk-visually-hidden"> AI declaration</span>
+        </a>
+    </dd>
+  </div>
+
   {% if representation.editedRepresentation %}
 		<div class="govuk-summary-list__row govuk-summary-list__row--no-actions" id="edited-representation-section">
 				<dt class="govuk-summary-list__key">

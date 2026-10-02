@@ -116,9 +116,10 @@ const propertyToName = {
 	stage4ExtensionToExamCloseDate_label: 'Date examination will close, if it has been extended.',
 
 	recommendation: 'Recommendation',
-	deadlineForSubmissionOfRecommendation: 'Deadline for submission of Recommendation',
+	exAAnticipatedRecommendationDate: 'Examining Authority anticipated Recommendation date',
+	deadlineForSubmissionOfRecommendation: 'Statutory deadline for Recommendation',
 	deadlineForSubmissionOfRecommendation_label:
-		'Deadline for submission of Recommendation report to the Secretary of State (SoS).',
+		'This will be within 3 months of the examination end date.',
 	dateOfRecommendations: 'Date of Recommendation submitted to SoS',
 	dateOfRecommendations_label: 'Date Recommendation report submitted to SoS.',
 	dateOfRecommendations_advisory: 'Recording this date may require you to change the case stage.',

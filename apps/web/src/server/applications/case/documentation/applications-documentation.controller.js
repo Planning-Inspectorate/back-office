@@ -33,7 +33,8 @@ import {
 	deleteFolder,
 	updateDocumentsFolderId,
 	postDocumentForAiRedaction,
-	postDocumentForAiRedactionApply
+	postDocumentForAiRedactionApply,
+	postDocumentForAiRedactionSanitise
 } from './applications-documentation.service.js';
 import documentationSessionHandlers from './applications-documentation.session.js';
 import { paginationParams } from '../../../lib/pagination-params.js';
@@ -53,6 +54,7 @@ import { buildAiRedactionPayload } from './utils/build-ai-redaction-payload.js';
 import { getAiRedactionBannerFromStatus } from './utils/get-ai-redaction-banner-from-status.js';
 import { isGisShapefilesFolder } from './utils/is-gis-shapefiles-folder.js';
 import { getUploadConfigForFolder } from './applications-documentation.config.js';
+import { getExaminationLibraryCategoryDisplay } from './utils/examination-library-category-display.js';
 
 /**
  * Redirects to the folder view if the folder is the GIS Shapefiles folder.
@@ -330,12 +332,20 @@ export async function viewApplicationsCaseDocumentationProperties({ session }, r
 	let documentationFile = await getCaseDocumentationFileInfo(caseId, documentGuid);
 	let documentVersions = await getCaseDocumentationFileVersions(documentGuid);
 
+	const examinationLibraryCategoryDisplay = getExaminationLibraryCategoryDisplay(
+		documentationFile?.examinationLibraryCategoryCode,
+		documentationFile?.examinationLibraryCategoryName,
+		caseId
+	);
+
 	documentationFile = {
 		...documentationFile,
 		redactionStatusForDisplay: getDisplayValue(
 			redactionStatusDisplayValues,
 			documentationFile.redactedStatus
-		)
+		),
+		examinationLibraryCategoryDisplayName: examinationLibraryCategoryDisplay.name,
+		examinationLibraryCategoryDisplayHref: examinationLibraryCategoryDisplay.href
 	};
 
 	documentVersions = documentVersions.map((documentVersion) => ({
@@ -743,9 +753,8 @@ export async function viewApplicationsCaseDocumentationSearchPage(
 export async function viewFolderCreationPage(request, response) {
 	const { caseId } = response.locals;
 	const { folderId } = request.params;
-	let parentFolder = null;
 	if (folderId) {
-		parentFolder = await getCaseFolder(caseId, parseInt(folderId));
+		const parentFolder = await getCaseFolder(caseId, parseInt(folderId));
 		if (redirectIfGisShapefilesFolder(response, caseId, parentFolder)) return;
 	}
 	const backLink =
@@ -942,7 +951,7 @@ export async function viewAndPostApplicationsCaseDocumentationMove(request, resp
 		});
 	}
 
-	let documentationFilesToMove = [];
+	let documentationFilesToMove;
 
 	if (documentationSessionHandlers.getSessionMoveDocumentsFilesToMove(session).length) {
 		documentationFilesToMove =
@@ -1088,38 +1097,53 @@ export async function viewReviewRedactions(_, response) {
 export async function postReviewRedactions(request, response) {
 	const { caseId, folderId, documentGuid } = response.locals;
 	const { reviewDecision } = request.body;
-	if (reviewDecision === 'ready') {
-		const document = await getCaseDocumentationFileInfo(caseId, documentGuid);
-		const payload = buildAiRedactionPayload(document, caseId);
+	const { errors: validationErrors } = request;
 
-		const result = await postDocumentForAiRedactionApply(payload);
+	const document = await getCaseDocumentationFileInfo(caseId, documentGuid);
 
-		if (result.errors) {
-			await updateDocumentMetaData(caseId, documentGuid, {
-				redactedStatus: 'ai_redaction_failed'
-			});
-		} else {
-			await updateDocumentMetaData(caseId, documentGuid, {
-				redactedStatus: 'awaiting_ai_redaction'
-			});
-		}
-
-		return response.redirect(
-			url('document', {
-				caseId,
-				folderId,
-				documentGuid,
-				step: 'properties'
-			})
-		);
+	if (validationErrors) {
+		return response.render('applications/case-documentation/review-redactions/review-redactions', {
+			document,
+			reviewDecision,
+			errors: validationErrors
+		});
 	}
 
-	// Handle 'upload-new' case - redirect to upload amends page
+	let result;
+
+	// Handle the review decision
+	if (reviewDecision === 'upload-new') {
+		// Redirect to the upload redaction amends page
+		return response.redirect(
+			url('upload-redaction-amends', {
+				caseId,
+				folderId,
+				documentGuid
+			})
+		);
+	} else if (reviewDecision === 'ready') {
+		// Send the document for AI redaction application
+		const payload = buildAiRedactionPayload(document, caseId);
+		result = await postDocumentForAiRedactionApply(payload);
+	} else if (reviewDecision === 'not-needed') {
+		// Send the document for AI redaction sanitisation
+		const payload = buildAiRedactionPayload(document, caseId, false);
+		result = await postDocumentForAiRedactionSanitise(payload);
+	} else {
+		throw new Error(`Unexpected reviewDecision: ${reviewDecision}`);
+	}
+
+	const redactedStatus = result?.errors ? 'ai_redaction_failed' : 'awaiting_ai_redaction';
+
+	await updateDocumentMetaData(caseId, documentGuid, { redactedStatus });
+
+	// Redirect to properties page after review decision
 	return response.redirect(
-		url('upload-redaction-amends', {
+		url('document', {
 			caseId,
 			folderId,
-			documentGuid
+			documentGuid,
+			step: 'properties'
 		})
 	);
 }

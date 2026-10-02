@@ -54,7 +54,7 @@ export const buildCaseInformation = (params, isWelsh) => {
 						html: buildDcoStatusHtml(params.case),
 						classes: 'project-details__dco-status'
 					}
-			  ]
+				]
 			: []),
 
 		...(params.case.status === 'Post-Decision'
@@ -66,7 +66,7 @@ export const buildCaseInformation = (params, isWelsh) => {
 						),
 						url: 'recommendation'
 					}
-			  ]
+				]
 			: []),
 
 		{
@@ -94,7 +94,7 @@ export const buildCaseInformation = (params, isWelsh) => {
 						url: 'project-type',
 						classes: 'project-details__project-type'
 					}
-			  ]
+				]
 			: []),
 
 		{
@@ -130,7 +130,7 @@ export const buildCaseInformation = (params, isWelsh) => {
 						classes: 'project-details__name',
 						html: params.case.titleWelsh
 					}
-			  ]
+				]
 			: []),
 		{
 			title: 'Project description',
@@ -146,7 +146,7 @@ export const buildCaseInformation = (params, isWelsh) => {
 						id: 'descriptionWelsh',
 						html: params.case.descriptionWelsh
 					}
-			  ]
+				]
 			: []),
 		{
 			title: 'Project location',
@@ -162,7 +162,7 @@ export const buildCaseInformation = (params, isWelsh) => {
 						id: 'geographicalInformation.locationDescriptionWelsh',
 						html: params.case.geographicalInformation?.locationDescriptionWelsh
 					}
-			  ]
+				]
 			: []),
 		{
 			title: 'Project email address',

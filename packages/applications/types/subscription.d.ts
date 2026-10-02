@@ -12,8 +12,4 @@ export interface Subscription {
 }
 
 export type SubscriptionType =
-	| 'allUpdates'
-	| 'applicationSubmitted'
-	| 'applicationDecided'
-	| 'registrationOpen'
-	| string;
+	'allUpdates' | 'applicationSubmitted' | 'applicationDecided' | 'registrationOpen' | string;

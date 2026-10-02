@@ -79,6 +79,7 @@ export const getById = async (id) =>
 			originalRepresentation: true,
 			editedRepresentation: true,
 			editNotes: true,
+			useOfAI: true,
 			redactedRepresentation: true,
 			type: true,
 			user: {
@@ -561,9 +562,8 @@ export const addApplicationRepresentationAttachment = async (representationId, d
 			})
 		);
 
-	const [representationAttachmentCreateResult] = await databaseConnector.$transaction(
-		transactionItems
-	);
+	const [representationAttachmentCreateResult] =
+		await databaseConnector.$transaction(transactionItems);
 
 	return representationAttachmentCreateResult;
 };
@@ -614,9 +614,8 @@ export const deleteApplicationRepresentationAttachment = async (repId, attachmen
 			})
 		);
 
-	const [representationAttachmentDeleteResult] = await databaseConnector.$transaction(
-		transactionItems
-	);
+	const [representationAttachmentDeleteResult] =
+		await databaseConnector.$transaction(transactionItems);
 
 	return representationAttachmentDeleteResult;
 };
@@ -873,6 +872,7 @@ export const getApplicationValidRepresentationForDownload = async (caseId, skip,
 			status: true,
 			originalRepresentation: true,
 			editedRepresentation: true,
+			useOfAI: true,
 			represented: {
 				select: {
 					firstName: true,

@@ -45,6 +45,21 @@ describe('ai-redaction-process index', () => {
 		await expect(index(mockContext, message)).resolves.not.toThrow();
 	});
 
+	it('routes SANITISE stage to handler without throwing', async () => {
+		const message = {
+			stage: 'SANITISE',
+			status: 'FAILED',
+			parameters: {
+				metadata: {
+					caseId: 1,
+					documentGuid: '123'
+				}
+			}
+		};
+
+		await expect(index(mockContext, message)).resolves.not.toThrow();
+	});
+
 	it('ignores unknown stages', async () => {
 		const message = { stage: 'OTHER_STAGE' };
 
