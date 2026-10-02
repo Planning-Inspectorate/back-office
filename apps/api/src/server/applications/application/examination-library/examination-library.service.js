@@ -4,16 +4,12 @@ import {
 	generateDraftExaminationLibraryReferences,
 	addDraftExaminationLibraryReferences
 } from './examination-library.utils.js';
+import { NO_EXAMINATION_LIBRARY_CATEGORY_CODE } from './examination-library.constants.js';
 
 /**
  * @typedef {import('#database-client').ExaminationLibraryCategory} ExaminationLibraryCategory
  * @typedef {import('#database-client').Prisma.ExaminationLibraryCategoryUncheckedCreateInput} ExaminationLibraryCategoryUncheckedCreateInput
  */
-
-/**
- * @type {string}
- */
-const NO_EXAMINATION_LIBRARY_CATEGORY_CODE = 'NELC';
 
 /**
  * Get Examination Library Categories for a case.
