@@ -27,3 +27,21 @@ export async function getExaminationLibraryDocumentsByCategory(caseId, categoryC
 		`applications/${caseId}/examination-library/documents?categoryCode=${categoryCode}&${queryString}`
 	);
 }
+
+/**
+ * Get documents assigned to a dynamic category created from an examination timetable item.
+ *
+ * @param {string} caseId
+ * @param {number} examinationTimetableItemId
+ * @param {string} queryString
+ * @returns {Promise<any>}
+ */
+export async function getExaminationLibraryDocumentsByTimetableItem(
+	caseId,
+	examinationTimetableItemId,
+	queryString
+) {
+	return get(
+		`applications/${caseId}/examination-library/documents?examinationTimetableItemId=${examinationTimetableItemId}&${queryString}`
+	);
+}
