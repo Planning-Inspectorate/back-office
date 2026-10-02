@@ -58,6 +58,7 @@ export const getCategoryCode = (section, categoryCodes) => {
  * @property {number} version
  * @property {string} fileName
  * @property {string} description
+ * @property {string} author
  */
 
 /**
@@ -81,33 +82,33 @@ export const getDocumentDescriptionHTML = (sectionDocument) => {
 		return '';
 	}
 
+	const { publishedStatus, mime, documentGuid, version, description, author } =
+		sectionDocument.latestDocumentVersion;
+
+	if (!description || !author) {
+		return 'Missing property';
+	}
+
 	const isNotDisabled =
-		sectionDocument.latestDocumentVersion.publishedStatus !== 'awaiting_upload' &&
-		sectionDocument.latestDocumentVersion.publishedStatus !== 'awaiting_virus_check' &&
-		sectionDocument.latestDocumentVersion.publishedStatus !== 'failed_virus_check';
+		publishedStatus !== 'awaiting_upload' &&
+		publishedStatus !== 'awaiting_virus_check' &&
+		publishedStatus !== 'failed_virus_check';
 
 	const isPreviewActive =
-		isNotDisabled &&
-		(sectionDocument.latestDocumentVersion.mime === 'application/pdf' ||
-			sectionDocument.latestDocumentVersion.mime === 'image/jpeg' ||
-			sectionDocument.latestDocumentVersion.mime === 'image/png');
+		isNotDisabled && (mime === 'application/pdf' || mime === 'image/jpeg' || mime === 'image/png');
+
+	if (!isPreviewActive) {
+		return description;
+	}
 
 	const documentPreviewURL = url('document-download', {
 		caseId: sectionDocument.caseId,
-		documentGuid: sectionDocument.latestDocumentVersion.documentGuid,
-		version: sectionDocument.latestDocumentVersion.version,
-		isPreviewActive: isPreviewActive
+		documentGuid,
+		version,
+		isPreviewActive
 	});
 
-	let documentDescriptionHTML;
-
-	if (isPreviewActive) {
-		documentDescriptionHTML = `<a href="${documentPreviewURL}" class="govuk-link">${sectionDocument.latestDocumentVersion.description}</a>`;
-	} else {
-		documentDescriptionHTML = sectionDocument.latestDocumentVersion.description;
-	}
-
-	return documentDescriptionHTML;
+	return `<a href="${documentPreviewURL}" class="govuk-link">${description}</a>`;
 };
 
 /**
@@ -141,6 +142,7 @@ export const tableSortLinks = (query, headers, sectionUrl, isPublished) =>
 	headers.map((header) => {
 		switch (header) {
 			case 'Reference':
+			case 'Draft reference':
 				return tableSortingHeaderLinks(
 					query,
 					header,
