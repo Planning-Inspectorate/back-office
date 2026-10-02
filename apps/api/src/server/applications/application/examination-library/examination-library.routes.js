@@ -3,7 +3,8 @@ import { asyncHandler } from '@pins/express';
 import {
 	getExaminationLibraryCategoriesHandler,
 	createExaminationLibraryCategoriesHandler,
-	getExaminationLibraryDocumentsHandler
+	getExaminationLibraryDocumentsHandler,
+	getExaminationLibraryDocumentDraftReferenceHandler
 } from './examination-library.controller.js';
 
 import {
@@ -183,6 +184,50 @@ router.get(
 	validateApplicationId,
 	validateGetDocuments,
 	asyncHandler(getExaminationLibraryDocumentsHandler)
+);
+
+router.get(
+	'/documents/:documentGuid/draft-reference',
+	/*
+	 #swagger.tags = ['Applications']
+	 #swagger.path = '/applications/{caseId}/examination-library/documents/{documentGuid}/draft-reference'
+	 #swagger.description = 'Gets the draft examination library reference for a document'
+	 #swagger.parameters['caseId'] = {
+	 in: 'path',
+	 description: 'Application ID',
+	 required: true,
+	 type: 'integer'
+	 }
+	 #swagger.parameters['documentGuid'] = {
+	 in: 'path',
+	 description: 'Document GUID',
+	 required: true,
+	 type: 'string'
+	 }
+	 #swagger.parameters['x-service-name'] = {
+	 in: 'header',
+	 type: 'string',
+	 description: 'Service name header',
+	 default: 'swagger'
+	 }
+	 #swagger.parameters['x-api-key'] = {
+	 in: 'header',
+	 type: 'string',
+	 description: 'API key header',
+	 default: '123'
+	 }
+	 #swagger.responses[200] = {
+	 description: 'Draft examination library reference for the document',
+	 schema: {
+		draftExaminationLibraryReference: 'APP-001'
+	 }
+	 }
+	 #swagger.responses[404] = {
+	 description: 'Application or document not found'
+	 }
+	*/
+	validateApplicationId,
+	asyncHandler(getExaminationLibraryDocumentDraftReferenceHandler)
 );
 
 export { router as examinationLibraryRouter };

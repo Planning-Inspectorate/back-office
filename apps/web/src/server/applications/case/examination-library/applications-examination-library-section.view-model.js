@@ -48,12 +48,11 @@ export const getExaminationLibrarySectionViewModel = ({
 		return null;
 	}
 
-	const sortLinks = tableSortLinks(
-		query,
-		section.tableHeaders,
-		sectionUrl,
-		sectionStatus === 'published'
+	const tableHeaders = section.tableHeaders.map((header) =>
+		header === 'Reference' && sectionStatus !== 'published' ? 'Draft reference' : header
 	);
+
+	const sortLinks = tableSortLinks(query, tableHeaders, sectionUrl, sectionStatus === 'published');
 
 	const item = section.items.find((item) => item.href === itemSlug);
 
@@ -62,7 +61,7 @@ export const getExaminationLibrarySectionViewModel = ({
 	}
 
 	const sectionTableData = buildTable({
-		headers: section.tableHeaders,
+		headers: tableHeaders,
 		rows: sectionDocuments.map((sectionDocument) => {
 			if (
 				!sectionDocument?.latestDocumentVersion ||
@@ -71,7 +70,7 @@ export const getExaminationLibrarySectionViewModel = ({
 				return [];
 			}
 
-			const includeAuthor = section.tableHeaders.includes('From');
+			const includeAuthor = tableHeaders.includes('From');
 			const documentIsDeleted = sectionDocument.isDeleted;
 
 			const documentPropertiesURL = url('document', {
@@ -81,9 +80,8 @@ export const getExaminationLibrarySectionViewModel = ({
 				step: 'properties'
 			});
 
-			// Reference column is not populated as references cannot be assigned yet
 			const tableRow = [
-				{ text: '' },
+				{ text: sectionDocument.latestDocumentVersion.draftExaminationLibraryReference }, //TODO: This should be the published reference if the document is published, but we don't have that functionality yet
 				{ html: getDocumentDescriptionHTML(sectionDocument) },
 				...(includeAuthor ? [{ text: sectionDocument.latestDocumentVersion.author }] : []),
 				{ text: statusName(sectionDocument.latestDocumentVersion.publishedStatus) },
@@ -94,7 +92,7 @@ export const getExaminationLibrarySectionViewModel = ({
 				return [
 					{ text: '' },
 					{ text: 'Document has been deleted' },
-					...Array(section.tableHeaders.length - 2).fill({ text: '' })
+					...Array(tableHeaders.length - 2).fill({ text: '' })
 				];
 			}
 

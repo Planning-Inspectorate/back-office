@@ -1,5 +1,10 @@
 import * as examinationLibraryRepository from '#repositories/examination-library.repository.js';
-import { sortExaminationLibraryDocuments } from './examination-library.utils.js';
+import {
+	sortExaminationLibraryDocuments,
+	generateDraftExaminationLibraryReferences,
+	addDraftExaminationLibraryReferences
+} from './examination-library.utils.js';
+import { NO_EXAMINATION_LIBRARY_CATEGORY_CODE } from './examination-library.constants.js';
 
 /**
  * @typedef {import('#database-client').ExaminationLibraryCategory} ExaminationLibraryCategory
@@ -46,7 +51,11 @@ export const createExaminationLibraryCategories = async (caseId, categoriesData)
 export const getExaminationLibraryDocuments = async (caseId, filters, pagination, sort) => {
 	const documents = await examinationLibraryRepository.getDocuments(caseId, filters);
 
-	const sortedDocuments = sortExaminationLibraryDocuments(documents, sort);
+	const documentsWithDraftReferences = addDraftExaminationLibraryReferences(documents);
+
+	const sortedDocuments = sort
+		? sortExaminationLibraryDocuments(documentsWithDraftReferences, sort)
+		: documentsWithDraftReferences;
 
 	const startIndex = (pagination.page - 1) * pagination.pageSize;
 	const endIndex = startIndex + pagination.pageSize;
@@ -55,4 +64,34 @@ export const getExaminationLibraryDocuments = async (caseId, filters, pagination
 		count: sortedDocuments.length,
 		items: sortedDocuments.slice(startIndex, endIndex)
 	};
+};
+
+/**
+ * Get the draft Examination Library reference for a document.
+ *
+ * @param {number} caseId
+ * @param {string} documentGuid
+ * @param {string} categoryCode
+ * @returns {Promise<string | null>}
+ */
+export const getExaminationLibraryDocumentDraftReference = async (
+	caseId,
+	documentGuid,
+	categoryCode
+) => {
+	if (categoryCode === NO_EXAMINATION_LIBRARY_CATEGORY_CODE) {
+		return null;
+	}
+
+	const documents = await examinationLibraryRepository.getDocuments(caseId, {
+		categoryCode
+	});
+
+	const sortedDocuments = sortExaminationLibraryDocuments(documents);
+
+	const documentsWithDraftReferences = generateDraftExaminationLibraryReferences(sortedDocuments);
+
+	const document = documentsWithDraftReferences.find((document) => document.guid === documentGuid);
+
+	return document?.latestDocumentVersion?.draftExaminationLibraryReference ?? null;
 };

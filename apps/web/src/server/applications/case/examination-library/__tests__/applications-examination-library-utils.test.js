@@ -87,7 +87,8 @@ describe('applications examination library utils', () => {
 				documentGuid: 'test-guid',
 				fileName: 'doc-1',
 				description: 'doc-1',
-				version: 1
+				version: 1,
+				author: 'John Doe'
 			}
 		};
 
@@ -157,6 +158,42 @@ describe('applications examination library utils', () => {
 
 				expect(result).toEqual('doc-1');
 			});
+		});
+
+		it('should return "Missing property" if the document description is missing', () => {
+			const document = {
+				caseId: 123,
+				latestDocumentVersion: {
+					documentGuid: 'test-guid',
+					version: 1,
+					description: null,
+					author: 'Test author',
+					mime: 'application/pdf',
+					publishedStatus: 'published'
+				}
+			};
+
+			const result = getDocumentDescriptionHTML(document);
+
+			expect(result).toEqual('Missing property');
+		});
+
+		it('should return "Missing property" if the document author is missing', () => {
+			const document = {
+				caseId: 123,
+				latestDocumentVersion: {
+					documentGuid: 'test-guid',
+					version: 1,
+					description: 'doc-1',
+					author: null,
+					mime: 'application/pdf',
+					publishedStatus: 'published'
+				}
+			};
+
+			const result = getDocumentDescriptionHTML(document);
+
+			expect(result).toEqual('Missing property');
 		});
 	});
 
