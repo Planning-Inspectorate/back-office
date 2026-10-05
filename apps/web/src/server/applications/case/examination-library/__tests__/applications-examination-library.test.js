@@ -10,9 +10,37 @@ import staticFlags from '@pins/feature-flags/src/static-feature-flags.js';
 const { app, installMockApi, teardown } = createTestEnvironment();
 const request = supertest(app);
 
+const timetableItems = [
+	{
+		id: 12,
+		name: 'Open floor hearing 1',
+		ExaminationTimetableType: { templateType: 'open-floor-hearing' }
+	},
+	{
+		id: 37,
+		name: 'Procedural deadline 1',
+		ExaminationTimetableType: { templateType: 'procedural-deadline' }
+	},
+	{
+		id: 58,
+		name: 'Deadline 1',
+		ExaminationTimetableType: { templateType: 'deadline' }
+	},
+	{
+		id: 91,
+		name: 'Other timetable item',
+		ExaminationTimetableType: { templateType: 'other' }
+	}
+];
+
+let documentsQuery;
+
 const nocks = ({ includeDocuments = true } = {}) => {
 	nock('http://test/').get('/applications').reply(200, []);
 	nock('http://test/').get('/applications/123').reply(200, fixtureExaminationLibraryIndex.caseData);
+	nock('http://test/')
+		.get('/applications/examination-timetable-items/case/123')
+		.reply(200, { items: timetableItems });
 	nock('http://test/')
 		.get('/applications/123/examination-library/section-statuses')
 		.reply(200, placeholderSectionStatuses);
@@ -20,7 +48,10 @@ const nocks = ({ includeDocuments = true } = {}) => {
 	if (includeDocuments) {
 		nock('http://test/')
 			.get('/applications/123/examination-library/documents')
-			.query(true)
+			.query((query) => {
+				documentsQuery = query;
+				return true;
+			})
 			.reply(200, {
 				page: 1,
 				pageSize: 25,
@@ -38,6 +69,7 @@ describe('Examination Library', () => {
 	afterEach(teardown);
 
 	beforeEach(async () => {
+		documentsQuery = undefined;
 		nocks();
 	});
 
@@ -64,14 +96,14 @@ describe('Examination Library', () => {
 			);
 		});
 
-		it('should render 10 static and dynamic sections as separate task lists with headings', async () => {
+		it('should render populated static and dynamic sections as separate task lists with headings', async () => {
 			const response = await request.get(`${baseUrl}`);
 			const element = parseHtml(response.text);
 
 			expect(response.status).toBe(200);
 
 			const taskLists = element.querySelectorAll('.govuk-task-list');
-			expect(taskLists.length).toBe(10);
+			expect(taskLists.length).toBe(9);
 
 			expect(element.innerHTML).toContain('Application documents');
 			expect(element.innerHTML).toContain('Adequacy of consultation responses');
@@ -80,25 +112,36 @@ describe('Examination Library', () => {
 				'Procedural decisions and notifications from Examining Authority'
 			);
 			expect(element.innerHTML).toContain('Additional submissions');
-			expect(element.innerHTML).toContain('Change requests');
+			expect(element.innerHTML).not.toContain('Change requests');
 			expect(element.innerHTML).toContain('Events and hearings');
 			expect(element.innerHTML).toContain('Procedural deadlines');
 			expect(element.innerHTML).toContain('Deadlines');
 			expect(element.innerHTML).toContain('Other documents');
 		});
 
-		it('should display status tags from the API with correct colour classes for static sections', async () => {
+		it('should display published static statuses and in-progress dynamic statuses', async () => {
 			const response = await request.get(`${baseUrl}`);
 			const element = parseHtml(response.text);
 
 			expect(response.status).toBe(200);
 
 			const tags = element.querySelectorAll('.govuk-task-list .govuk-tag');
-			expect(tags.length).toBe(6);
+			expect(tags.length).toBe(9);
 
-			tags.forEach((tag) => {
+			const publishedTags = tags.filter((tag) => tag.textContent.trim() === 'Published');
+			const inProgressTags = tags.filter((tag) => tag.textContent.trim() === 'In progress');
+
+			expect(publishedTags.length).toBe(6);
+			expect(inProgressTags.length).toBe(3);
+
+			publishedTags.forEach((tag) => {
 				expect(tag.textContent.trim()).toBe('Published');
 				expect(tag.classList.contains('govuk-tag--green')).toBe(true);
+			});
+
+			inProgressTags.forEach((tag) => {
+				expect(tag.textContent.trim()).toBe('In progress');
+				expect(tag.classList.contains('govuk-tag--blue')).toBe(true);
 			});
 		});
 
@@ -142,13 +185,30 @@ describe('Examination Library', () => {
 			);
 		});
 
+		it('should link timetable items in their dynamic sections and exclude unrelated item types', async () => {
+			const response = await request.get(`${baseUrl}`);
+			const element = parseHtml(response.text);
+
+			expect(response.status).toBe(200);
+			expect(element.innerHTML).toContain(
+				'href="/applications-service/case/123/examination-library/category/open-floor-hearing-1"'
+			);
+			expect(element.innerHTML).toContain(
+				'href="/applications-service/case/123/examination-library/category/procedural-deadline-1"'
+			);
+			expect(element.innerHTML).toContain(
+				'href="/applications-service/case/123/examination-library/category/deadline-1"'
+			);
+			expect(element.innerHTML).not.toContain('Other timetable item');
+		});
+
 		it('should use task list links with correct CSS class', async () => {
 			const response = await request.get(`${baseUrl}`);
 			const element = parseHtml(response.text);
 
 			expect(response.status).toBe(200);
 			const taskLinks = element.querySelectorAll('.govuk-task-list__link');
-			expect(taskLinks.length).toBe(14);
+			expect(taskLinks.length).toBe(9);
 		});
 
 		it('should NOT render the page when feature flag is OFF', async () => {
@@ -177,12 +237,21 @@ describe('Examination Library', () => {
 		});
 
 		it('should display dynamic category subpages', async () => {
-			const response = await request.get(`${baseUrl}/category/procedural-deadlines-1`);
+			const response = await request.get(`${baseUrl}/category/procedural-deadline-1`);
 			const element = parseHtml(response.text);
 
 			expect(response.status).toBe(200);
-			expect(element.innerHTML).toContain('Procedural deadlines 1');
+			expect(element.innerHTML).toContain('Procedural deadline 1');
 			expect(element.innerHTML).toContain('Items in the examination library');
+			expect(response.text).toContain(
+				'<title>Procedural deadline 1 - Title CASE/123 - NSIP applications</title>'
+			);
+			expect(documentsQuery).toEqual({
+				examinationTimetableItemId: '37',
+				sortBy: '',
+				pageSize: '25',
+				page: '1'
+			});
 		});
 
 		it('should return 404 for an invalid section code', async () => {
@@ -231,26 +300,16 @@ describe('Examination Library', () => {
 	});
 
 	it('should pass sorting and pagination query parameters to the documents API', async () => {
-		nock('http://test/')
-			.get('/applications/123/examination-library/documents')
-			.query({
-				categoryCode: 'APP',
-				sortBy: 'description',
-				pageSize: '50',
-				page: '2'
-			})
-			.reply(200, {
-				page: 2,
-				pageSize: 50,
-				pageCount: 2,
-				itemCount: 60,
-				items: []
-			});
-
 		const response = await request.get(
 			`${baseUrl}/category/application-documents?sortBy=description&page=2&pageSize=50`
 		);
 
 		expect(response.status).toBe(200);
+		expect(documentsQuery).toEqual({
+			categoryCode: 'APP',
+			sortBy: 'description',
+			pageSize: '50',
+			page: '2'
+		});
 	});
 });
