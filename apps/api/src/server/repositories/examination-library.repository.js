@@ -113,3 +113,126 @@ export const getDocuments = (caseId, filters = {}) => {
 export const createStaticCategories = (caseId) => {
 	return createCategories(caseId, EXAM_LIBRARY_STATIC_CATEGORIES);
 };
+
+/**
+ * Marks the Examination Library category as published
+ * Sets the Examination Library reference for each category document
+ * Returns the updated Examination Library category document data for broadcast
+ *
+ * @param {number} caseId
+ * @param {string} categoryCode
+ * @param {Array} documents
+ * @returns {Promise<void>}
+ */
+export const publishCategory = async (caseId, categoryCode, documents) => {
+	const category = await databaseConnector.examinationLibraryCategory.findFirst({
+		where: {
+			caseId,
+			categoryCode
+		}
+	});
+
+	if (!category) {
+		throw new Error(`Category not found for case ${caseId} and code ${categoryCode}`);
+	}
+
+	await databaseConnector.examinationLibraryCategory.update({
+		where: { id: category.id },
+		data: { publishedStatus: 'published' }
+	});
+
+	await Promise.all(
+		documents.map(async (document) => {
+			const documentReference = document.latestDocumentVersion.draftExaminationLibraryReference;
+			if (!documentReference) return;
+
+			await databaseConnector.documentVersion.update({
+				where: {
+					documentGuid_version: {
+						documentGuid: document.guid,
+						version: document.latestDocumentVersion.version
+					}
+				},
+				data: {
+					examinationLibraryReferenceLocked: true,
+					examinationLibraryIndex: documentReference
+				}
+			});
+		})
+	);
+
+	const caseData = await databaseConnector.case.findUnique({
+		where: { id: caseId },
+		select: { reference: true }
+	});
+
+	if (!caseData) {
+		throw new Error(`Case reference not found for case ${caseId}`);
+	}
+
+	const publishedCategoryDocuments = await databaseConnector.document.findMany({
+		where: {
+			caseId,
+			latestDocumentVersion: {
+				examinationLibraryCategoryId: { not: null },
+				ExaminationLibraryCategory: { categoryCode: categoryCode }
+			}
+		},
+		include: {
+			latestDocumentVersion: {
+				include: {
+					ExaminationLibraryCategory: true
+				}
+			}
+		}
+	});
+
+	return {
+		caseReference: caseData.reference,
+		documents: publishedCategoryDocuments
+	};
+};
+
+/**
+ * Marks the Examination Library category as unpublished
+ * Returns category data for broadcast
+ *
+ * @param {number} caseId
+ * @param {string} categoryCode
+ * @returns {Promise<void>}
+ */
+export const unpublishCategory = async (caseId, categoryCode) => {
+	const category = await databaseConnector.examinationLibraryCategory.findFirst({
+		where: {
+			caseId,
+			categoryCode
+		}
+	});
+
+	if (!category) {
+		throw new Error(`Category not found for case ${caseId} and code ${categoryCode}`);
+	}
+
+	await databaseConnector.examinationLibraryCategory.update({
+		where: {
+			id: category.id
+		},
+		data: {
+			publishedStatus: 'unpublished'
+		}
+	});
+
+	const caseData = await databaseConnector.case.findUnique({
+		where: { id: caseId },
+		select: { reference: true }
+	});
+
+	if (!caseData) {
+		throw new Error(`Case reference not found for case ${caseId}`);
+	}
+
+	return {
+		caseReference: caseData.reference,
+		categories: [categoryCode]
+	};
+};

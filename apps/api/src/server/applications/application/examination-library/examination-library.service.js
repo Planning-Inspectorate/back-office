@@ -95,3 +95,52 @@ export const getExaminationLibraryDocumentDraftReference = async (
 
 	return document?.latestDocumentVersion?.draftExaminationLibraryReference ?? null;
 };
+
+/**
+ * Publishes an Examination Library category
+ * Maps Examination Library category document data for broadcast
+ *
+ * @param {number} caseId
+ * @param {string} categoryCode
+ * @returns {Promise<void>}
+ */
+export const publishExaminationLibraryCategory = async (caseId, categoryCode) => {
+	const categoryDocuments = await examinationLibraryRepository.getDocuments(caseId, {
+		categoryCode
+	});
+
+	const sortedDocuments = sortExaminationLibraryDocuments(categoryDocuments);
+
+	const documentsWithDraftReferences = generateDraftExaminationLibraryReferences(sortedDocuments);
+
+	const publishedCategory = await examinationLibraryRepository.publishCategory(
+		caseId,
+		categoryCode,
+		documentsWithDraftReferences
+	);
+
+	const mappedDocuments = publishedCategory.documents.map((document) => {
+		return {
+			documentGuid: document?.guid || '',
+			documentExaminationReference: document?.latestDocumentVersion?.examinationLibraryIndex || '',
+			categoryCode: categoryCode || '',
+			categoryName: document?.latestDocumentVersion?.ExaminationLibraryCategory?.categoryName || ''
+		};
+	});
+
+	return {
+		caseReference: publishedCategory?.caseReference || '',
+		examinationDocuments: mappedDocuments
+	};
+};
+
+/**
+ * Unpublishes an Examination Library category
+ *
+ * @param {number} caseId
+ * @param {string} categoryCode
+ * @returns {Promise<void>}
+ */
+export const unpublishExaminationLibraryCategory = async (caseId, categoryCode) => {
+	return examinationLibraryRepository.unpublishCategory(caseId, categoryCode);
+};
