@@ -3,7 +3,9 @@ import {
 	getExaminationLibraryCategories,
 	createExaminationLibraryCategories,
 	getExaminationLibraryDocuments,
-	getExaminationLibraryDocumentDraftReference
+	getExaminationLibraryDocumentDraftReference,
+	publishExaminationLibraryCategory,
+	unpublishExaminationLibraryCategory
 } from './examination-library.service.js';
 import { sortByFromQuery } from '#utils/query/sort-by.js';
 
@@ -106,4 +108,56 @@ export const getExaminationLibraryDocumentDraftReferenceHandler = async (req, re
 	);
 
 	res.send({ draftExaminationLibraryReference });
+};
+
+/**
+ * Publishes the Examination Library category
+ *
+ * @type {import('express').RequestHandler}
+ */
+export const publishExaminationLibraryCategoryHandler = async (req, res) => {
+	const caseId = Number(req.params.id);
+	const { categoryCode } = req.body;
+
+	let publishedCategory = {};
+
+	try {
+		publishedCategory = await publishExaminationLibraryCategory(caseId, categoryCode);
+	} catch (error) {
+		if (error?.code === 'P2025') {
+			throw new BackOfficeAppError(`Case ${caseId} not found`, 404);
+		}
+	}
+
+	if (!Object.keys(publishedCategory).length || !publishedCategory.examinationDocuments.length) {
+		throw new BackOfficeAppError(`Error publishing category with code ${categoryCode}`, 500);
+	}
+
+	return res.send(publishedCategory);
+};
+
+/**
+ * Unpublishes the Examination Library category
+ *
+ * @type {import('express').RequestHandler}
+ */
+export const unpublishExaminationLibraryCategoryHandler = async (req, res) => {
+	const caseId = Number(req.params.id);
+	const { categoryCode } = req.body;
+
+	let unpublishedCategory = {};
+
+	try {
+		unpublishedCategory = await unpublishExaminationLibraryCategory(caseId, categoryCode);
+	} catch (error) {
+		if (error?.code === 'P2025') {
+			throw new BackOfficeAppError(`Case ${caseId} not found`, 404);
+		}
+	}
+
+	if (!Object.keys(unpublishedCategory).length || !unpublishedCategory.categories.length) {
+		throw new BackOfficeAppError(`Error unpublishing category with code ${categoryCode}`, 404);
+	}
+
+	return res.send(unpublishedCategory);
 };

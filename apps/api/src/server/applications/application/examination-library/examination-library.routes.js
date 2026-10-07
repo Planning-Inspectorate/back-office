@@ -4,14 +4,17 @@ import {
 	getExaminationLibraryCategoriesHandler,
 	createExaminationLibraryCategoriesHandler,
 	getExaminationLibraryDocumentsHandler,
-	getExaminationLibraryDocumentDraftReferenceHandler
+	getExaminationLibraryDocumentDraftReferenceHandler,
+	publishExaminationLibraryCategoryHandler,
+	unpublishExaminationLibraryCategoryHandler
 } from './examination-library.controller.js';
 
 import {
 	validateApplicationId,
 	validateGetCategories,
 	validateCreateCategories,
-	validateGetDocuments
+	validateGetDocuments,
+	validateCategoryCode
 } from './examination-library.validators.js';
 
 const router = createRouter({ mergeParams: true });
@@ -228,6 +231,20 @@ router.get(
 	*/
 	validateApplicationId,
 	asyncHandler(getExaminationLibraryDocumentDraftReferenceHandler)
+);
+
+router.post(
+	'/publish',
+	validateApplicationId,
+	validateCategoryCode,
+	asyncHandler(publishExaminationLibraryCategoryHandler)
+);
+
+router.post(
+	'/unpublish',
+	validateApplicationId,
+	validateCategoryCode,
+	asyncHandler(unpublishExaminationLibraryCategoryHandler)
 );
 
 export { router as examinationLibraryRouter };

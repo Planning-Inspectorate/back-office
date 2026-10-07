@@ -66,3 +66,11 @@ export const validateGetDocuments = composeMiddleware(
 	query('publishedStatus').optional().isString().withMessage('Published status must be a string'),
 	validationErrorHandler
 );
+
+export const validateCategoryCode = composeMiddleware(
+	body('categoryCode')
+		.isString()
+		.withMessage('Category code is required and must be a string')
+		.notEmpty()
+		.withMessage('Category code is required and must be a string')
+);
