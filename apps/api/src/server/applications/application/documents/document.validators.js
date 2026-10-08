@@ -112,7 +112,7 @@ export const validateDocumentVersionMetadataBody = (documentVersionEventBody) =>
 		filter1: joi.string().optional(),
 		filter1Welsh: joi.string().optional(),
 		filter2: joi.string().optional(),
-		examinationRefNo: joi.string().optional(),
+		examinationRefNo: joi.string().optional().allow(null),
 		transcript: joi.string().allow('').optional(),
 		examinationLibraryCategoryId: joi.number().integer().allow(null)
 	});

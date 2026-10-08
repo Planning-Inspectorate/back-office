@@ -63,12 +63,18 @@
 		valueLink: documentationFile.examinationLibraryCategoryDisplayHref,
         link: 'examination-library-category'
     } %}
-    {% set examinationLibraryReferenceRow = {
-        label: 'Examination library reference',
-        value: examinationLibraryReference,
-        link: 'examination-library-reference'
-    } %}
+	{% if documentationFile.examinationLibraryCategoryCode and documentationFile.examinationLibraryCategoryCode !== 'NELC' %}
+		{% set examinationLibraryReferenceRow = {
+			label: 'Examination library reference',
+			value: examinationLibraryReference,
+			link: 'examination-library-reference'
+				if not documentationFile.examinationLibraryReferenceLocked
+				else null
+		} %}
 	{% else %}
+		{% set examinationLibraryReferenceRow = null %}
+	{% endif %}
+{% else %}
 	{% set typeOfPartyRow = null %}
     {% set examinationLibraryCategoryRow = null %}
     {% set examinationLibraryReferenceRow = null %}

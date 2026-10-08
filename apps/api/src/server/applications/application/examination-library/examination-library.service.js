@@ -1,7 +1,6 @@
 import * as examinationLibraryRepository from '#repositories/examination-library.repository.js';
 import {
 	sortExaminationLibraryDocuments,
-	generateDraftExaminationLibraryReferences,
 	addDraftExaminationLibraryReferences
 } from './examination-library.utils.js';
 import { NO_EXAMINATION_LIBRARY_CATEGORY_CODE } from './examination-library.constants.js';
@@ -87,11 +86,28 @@ export const getExaminationLibraryDocumentDraftReference = async (
 		categoryCode
 	});
 
-	const sortedDocuments = sortExaminationLibraryDocuments(documents);
-
-	const documentsWithDraftReferences = generateDraftExaminationLibraryReferences(sortedDocuments);
+	const documentsWithDraftReferences = addDraftExaminationLibraryReferences(documents);
 
 	const document = documentsWithDraftReferences.find((document) => document.guid === documentGuid);
 
 	return document?.latestDocumentVersion?.draftExaminationLibraryReference ?? null;
+};
+
+/**
+ *
+ * @param {number} caseId
+ * @param {string} documentGuid
+ * @param {string} examinationRefNo
+ */
+export const isExaminationLibraryReferenceLocked = async (
+	caseId,
+	documentGuid,
+	examinationRefNo
+) => {
+	const document = await examinationLibraryRepository.getLockedDocumentByExaminationReference(
+		caseId,
+		examinationRefNo
+	);
+
+	return document !== null && document.guid !== documentGuid;
 };

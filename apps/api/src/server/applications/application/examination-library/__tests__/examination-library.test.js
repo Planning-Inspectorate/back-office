@@ -335,6 +335,44 @@ describe('Examination Library Routes', () => {
 				]
 			});
 		});
+
+		it('should continue draft references after locked examination library references', async () => {
+			const mockDocuments = [
+				{
+					guid: 'locked',
+					latestDocumentVersion: {
+						examinationRefNo: 'APP-012',
+						examinationLibraryReferenceLocked: true,
+						ExaminationLibraryCategory: {
+							categoryCode: 'APP'
+						}
+					}
+				},
+				{
+					guid: 'new',
+					latestDocumentVersion: {
+						typeOfParty: 'Applicant',
+						author: 'Applicant',
+						description: 'New document',
+						examinationRefNo: null,
+						examinationLibraryReferenceLocked: false,
+						ExaminationLibraryCategory: {
+							categoryCode: 'APP'
+						}
+					}
+				}
+			];
+
+			databaseConnector.document.findMany.mockResolvedValue(mockDocuments);
+
+			const response = await request.get(
+				`/applications/${caseId}/examination-library/documents?categoryCode=APP`
+			);
+
+			const newDocument = response.body.items.find(({ guid }) => guid === 'new');
+
+			expect(newDocument.latestDocumentVersion.draftExaminationLibraryReference).toBe('APP-013');
+		});
 	});
 
 	describe('GET /applications/:id/examination-library/documents/:documentGuid/draft-reference', () => {
@@ -349,6 +387,110 @@ describe('Examination Library Routes', () => {
 			});
 
 			expect(databaseConnector.document.findMany).not.toHaveBeenCalled();
+		});
+
+		it('should return the draft reference after existing locked references', async () => {
+			const mockDocuments = [
+				{
+					guid: 'locked-1',
+					latestDocumentVersion: {
+						examinationRefNo: 'APP-011',
+						examinationLibraryReferenceLocked: true,
+						ExaminationLibraryCategory: {
+							categoryCode: 'APP'
+						}
+					}
+				},
+				{
+					guid: 'locked-2',
+					latestDocumentVersion: {
+						examinationRefNo: 'APP-012',
+						examinationLibraryReferenceLocked: true,
+						ExaminationLibraryCategory: {
+							categoryCode: 'APP'
+						}
+					}
+				},
+				{
+					guid: 'doc-1',
+					latestDocumentVersion: {
+						typeOfParty: 'Applicant',
+						author: 'Applicant',
+						description: 'New document',
+						examinationRefNo: null,
+						examinationLibraryReferenceLocked: false,
+						ExaminationLibraryCategory: {
+							categoryCode: 'APP'
+						}
+					}
+				}
+			];
+
+			databaseConnector.document.findMany.mockResolvedValue(mockDocuments);
+
+			const response = await request.get(
+				`/applications/${caseId}/examination-library/documents/doc-1/draft-reference?categoryCode=APP`
+			);
+
+			expect(response.status).toBe(200);
+			expect(response.body).toEqual({
+				draftExaminationLibraryReference: 'APP-013'
+			});
+		});
+
+		it('should return the draft reference for the requested document', async () => {
+			const mockDocuments = [
+				{
+					guid: 'doc-1',
+					latestDocumentVersion: {
+						typeOfParty: 'Applicant',
+						author: 'Alpha',
+						description: 'Document A',
+						examinationRefNo: null,
+						examinationLibraryReferenceLocked: false,
+						ExaminationLibraryCategory: {
+							categoryCode: 'APP'
+						}
+					}
+				},
+				{
+					guid: 'doc-2',
+					latestDocumentVersion: {
+						typeOfParty: 'Applicant',
+						author: 'Bravo',
+						description: 'Document B',
+						examinationRefNo: null,
+						examinationLibraryReferenceLocked: false,
+						ExaminationLibraryCategory: {
+							categoryCode: 'APP'
+						}
+					}
+				}
+			];
+
+			databaseConnector.document.findMany.mockResolvedValue(mockDocuments);
+
+			const response = await request.get(
+				`/applications/${caseId}/examination-library/documents/doc-2/draft-reference?categoryCode=APP`
+			);
+
+			expect(response.status).toBe(200);
+			expect(response.body).toEqual({
+				draftExaminationLibraryReference: 'APP-002'
+			});
+		});
+
+		it('should return null when the requested document is not found', async () => {
+			databaseConnector.document.findMany.mockResolvedValue([]);
+
+			const response = await request.get(
+				`/applications/${caseId}/examination-library/documents/missing/draft-reference?categoryCode=APP`
+			);
+
+			expect(response.status).toBe(200);
+			expect(response.body).toEqual({
+				draftExaminationLibraryReference: null
+			});
 		});
 	});
 });

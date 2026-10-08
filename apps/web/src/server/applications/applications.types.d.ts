@@ -150,6 +150,9 @@ export interface DocumentationFile {
 	examinationLibraryCategoryDisplayName?: string;
 	examinationLibraryCategoryDisplayHref?: string | null;
 	draftExaminationLibraryReference?: string | null;
+	examinationLibraryReferencePrefix?: string | null;
+	examinationLibraryReferenceNumber?: string | null;
+	examinationLibraryReferenceLocked?: boolean | null;
 }
 
 export interface DocumentVersion {
