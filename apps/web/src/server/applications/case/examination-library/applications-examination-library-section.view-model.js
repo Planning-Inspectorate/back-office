@@ -81,7 +81,11 @@ export const getExaminationLibrarySectionViewModel = ({
 			});
 
 			const tableRow = [
-				{ text: sectionDocument.latestDocumentVersion.draftExaminationLibraryReference }, //TODO: This should be the published reference if the document is published, but we don't have that functionality yet
+				{
+					text:
+						sectionDocument.latestDocumentVersion.examinationRefNo ??
+						sectionDocument.latestDocumentVersion.draftExaminationLibraryReference
+				},
 				{ html: getDocumentDescriptionHTML(sectionDocument) },
 				...(includeAuthor ? [{ text: sectionDocument.latestDocumentVersion.author }] : []),
 				{ text: statusName(sectionDocument.latestDocumentVersion.publishedStatus) },

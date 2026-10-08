@@ -31,7 +31,8 @@ export const validatorsDispatcher = async (request, response, next) => {
 		'party-type': validateDocumentationMetaTypeOfParty,
 		'receipt-date': validateDocumentationMetaDateCreated,
 		'published-date': validateDocumentationMetaDatePublished,
-		'examination-library-category': validateDocumentationMetaELCategory
+		'examination-library-category': validateDocumentationMetaELCategory,
+		'examination-library-reference': validateDocumentationMetaELReference
 	};
 
 	if (Object.keys(validators).includes(metaDataName)) {
@@ -131,6 +132,16 @@ export const validateDocumentationMetaELCategory = createValidator(
 		.trim()
 		.isLength({ min: 1 })
 		.withMessage('Select an examination library category')
+);
+
+export const validateDocumentationMetaELReference = createValidator(
+	body('examinationRefNo')
+		.if(body('examinationLibraryReferenceType').equals('manual'))
+		.trim()
+		.matches(/^\d+[a-zA-Z]?$/)
+		.withMessage(
+			'The reference must be in the correct format: a series of numbers, optionally followed by a letter, like REP1-001a'
+		)
 );
 
 /**

@@ -1,8 +1,9 @@
 import { url } from '../../../lib/nunjucks-filters/url.js';
 import { getExaminationLibraryCategories } from './documentation-metadata.service.js';
+import { getExaminationLibraryDocumentDraftReference } from '../documentation/applications-documentation.service.js';
 
-/** @typedef {"name" | "description" | "descriptionWelsh" | "published-date" | "receipt-date"| "redaction" | "published-status" | "type"|"webfilter" | "webfilterWelsh" | "agent"| "author" | "authorWelsh" | "transcript" | "interestedPartyNumber" | "party-type"|"examination-library-category"} MetaDataNames */
-/** @typedef {{label?: string, metaDataName: string, metaDataType?: string, hint?: string, pageTitle?: string, backLink?: string, maxLength?: number, template?: string, englishLabel?: string, metaDataEnglishName?: string, items?: {value: boolean|string|number, text: string, checked?: boolean, hint?: {text: string}, categoryCode?: string, children?: {value: number, text: string, selected?: boolean}[]}[]}} MetaDataLayoutParams */
+/** @typedef {"name" | "description" | "descriptionWelsh" | "published-date" | "receipt-date"| "redaction" | "published-status" | "type"|"webfilter" | "webfilterWelsh" | "agent"| "author" | "authorWelsh" | "transcript" | "interestedPartyNumber" | "party-type" | "examination-library-category" | "examination-library-reference" } MetaDataNames */
+/** @typedef {{label?: string, metaDataName: string, metaDataType?: string, hint?: string, pageTitle?: string, backLink?: string, maxLength?: number, template?: string, englishLabel?: string, metaDataEnglishName?: string, predictedReference?: string | null, referencePrefix?: string, manualReference?: string | null, examinationLibraryReferenceType?: string, items?: {value: boolean|string|number, text: string, checked?: boolean, hint?: {text: string}, categoryCode?: string, children?: {value: number, text: string, selected?: boolean}[]}[]}} MetaDataLayoutParams */
 /** @typedef {{documentGuid: string, metaDataName: MetaDataNames}} RequestParams */
 /** @typedef {import('../../applications.types').DocumentationFile} DocumentationFile */
 
@@ -187,6 +188,12 @@ export const viewModels = {
 		metaDataName: 'examinationLibraryCategoryId',
 		metaDataType: 'radios',
 		template: 'documentation-edit-examination-library-category.njk'
+	},
+	'examination-library-reference': {
+		pageTitle: 'Examination library reference',
+		label: 'Examination library reference',
+		metaDataName: 'examinationRefNo',
+		template: 'documentation-edit-examination-library-reference.njk'
 	}
 };
 
@@ -256,6 +263,30 @@ export const getMetadataViewModel = async (requestParameters, responseLocals) =>
 					categories,
 					responseLocals.documentMetaData.examinationLibraryCategoryId ?? null
 				)
+			};
+		}
+
+		case 'examination-library-reference': {
+			const { examinationLibraryCategoryCode, examinationRefNo } = responseLocals.documentMetaData;
+
+			if (!examinationLibraryCategoryCode) {
+				return null;
+			}
+
+			const { draftExaminationLibraryReference } =
+				await getExaminationLibraryDocumentDraftReference(
+					responseLocals.caseId,
+					responseLocals.documentGuid,
+					examinationLibraryCategoryCode
+				);
+
+			const referencePrefix = `${examinationLibraryCategoryCode}-`;
+
+			return {
+				...viewModel,
+				predictedReference: draftExaminationLibraryReference,
+				referencePrefix,
+				manualReference: examinationRefNo?.replace(referencePrefix, '') ?? null
 			};
 		}
 
