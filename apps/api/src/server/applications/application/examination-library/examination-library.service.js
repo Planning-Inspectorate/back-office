@@ -101,10 +101,11 @@ export const getExaminationLibraryDocumentDraftReference = async (
  * Maps Examination Library category document data for broadcast
  *
  * @param {number} caseId
- * @param {string} categoryCode
- * @returns {Promise<void>}
+ * @param {string | { categoryCode?: string }} [categoryData]
+ * @returns {Promise<any>}
  */
-export const publishExaminationLibraryCategory = async (caseId, categoryCode) => {
+export const publishExaminationLibraryCategory = async (caseId, categoryData) => {
+	const categoryCode = typeof categoryData === 'string' ? categoryData : categoryData?.categoryCode;
 	const categoryDocuments = await examinationLibraryRepository.getDocuments(caseId, {
 		categoryCode
 	});
@@ -113,13 +114,15 @@ export const publishExaminationLibraryCategory = async (caseId, categoryCode) =>
 
 	const documentsWithDraftReferences = generateDraftExaminationLibraryReferences(sortedDocuments);
 
-	const publishedCategory = await examinationLibraryRepository.publishCategory(
-		caseId,
-		categoryCode,
-		documentsWithDraftReferences
+	const publishedCategory = /** @type {*} */ (
+		await examinationLibraryRepository.publishCategory(
+			caseId,
+			/** @type {string} */ (categoryCode),
+			documentsWithDraftReferences
+		)
 	);
 
-	const mappedDocuments = publishedCategory.documents.map((document) => {
+	const mappedDocuments = publishedCategory.documents.map((/** @type {*} */ document) => {
 		return {
 			documentGuid: document?.guid || '',
 			documentExaminationReference: document?.latestDocumentVersion?.examinationLibraryIndex || '',
@@ -138,9 +141,13 @@ export const publishExaminationLibraryCategory = async (caseId, categoryCode) =>
  * Unpublishes an Examination Library category
  *
  * @param {number} caseId
- * @param {string} categoryCode
- * @returns {Promise<void>}
+ * @param {string | { categoryCode?: string }} [categoryData]
+ * @returns {Promise<any>}
  */
-export const unpublishExaminationLibraryCategory = async (caseId, categoryCode) => {
-	return examinationLibraryRepository.unpublishCategory(caseId, categoryCode);
+export const unpublishExaminationLibraryCategory = async (caseId, categoryData) => {
+	const categoryCode = typeof categoryData === 'string' ? categoryData : categoryData?.categoryCode;
+	return examinationLibraryRepository.unpublishCategory(
+		caseId,
+		/** @type {string} */ (categoryCode)
+	);
 };

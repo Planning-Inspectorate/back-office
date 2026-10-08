@@ -111,26 +111,49 @@ export const getExaminationLibraryDocumentDraftReferenceHandler = async (req, re
 };
 
 /**
+ * Handles errors for examination library category publishing and unpublishing.
+ *
+ * @param {any} error
+ * @param {number} caseId
+ */
+const handleNotFoundOrThrow = (error, caseId) => {
+	if (
+		error?.code === 'P2025' ||
+		error?.message?.includes('not found') ||
+		error?.message?.includes('Not found')
+	) {
+		throw new BackOfficeAppError(`Case ${caseId} not found`, 404);
+	}
+	throw error;
+};
+
+/**
  * Publishes the Examination Library category
  *
  * @type {import('express').RequestHandler}
  */
 export const publishExaminationLibraryCategoryHandler = async (req, res) => {
 	const caseId = Number(req.params.id);
-	const { categoryCode } = req.body;
+	const payload = req.body;
 
-	let publishedCategory = {};
+	let publishedCategory;
 
 	try {
-		publishedCategory = await publishExaminationLibraryCategory(caseId, categoryCode);
+		publishedCategory = await publishExaminationLibraryCategory(caseId, payload);
 	} catch (error) {
-		if (error?.code === 'P2025') {
-			throw new BackOfficeAppError(`Case ${caseId} not found`, 404);
-		}
+		handleNotFoundOrThrow(error, caseId);
 	}
 
-	if (!Object.keys(publishedCategory).length || !publishedCategory.examinationDocuments.length) {
-		throw new BackOfficeAppError(`Error publishing category with code ${categoryCode}`, 500);
+	if (
+		!publishedCategory ||
+		!Object.keys(publishedCategory).length ||
+		!publishedCategory.examinationDocuments?.length
+	) {
+		const categoryCode = payload?.categoryCode;
+		throw new BackOfficeAppError(
+			`Error publishing category${categoryCode ? ` with code ${categoryCode}` : ''}`,
+			500
+		);
 	}
 
 	return res.send(publishedCategory);
@@ -143,20 +166,26 @@ export const publishExaminationLibraryCategoryHandler = async (req, res) => {
  */
 export const unpublishExaminationLibraryCategoryHandler = async (req, res) => {
 	const caseId = Number(req.params.id);
-	const { categoryCode } = req.body;
+	const payload = req.body;
 
-	let unpublishedCategory = {};
+	let unpublishedCategory;
 
 	try {
-		unpublishedCategory = await unpublishExaminationLibraryCategory(caseId, categoryCode);
+		unpublishedCategory = await unpublishExaminationLibraryCategory(caseId, payload);
 	} catch (error) {
-		if (error?.code === 'P2025') {
-			throw new BackOfficeAppError(`Case ${caseId} not found`, 404);
-		}
+		handleNotFoundOrThrow(error, caseId);
 	}
 
-	if (!Object.keys(unpublishedCategory).length || !unpublishedCategory.categories.length) {
-		throw new BackOfficeAppError(`Error unpublishing category with code ${categoryCode}`, 404);
+	if (
+		!unpublishedCategory ||
+		!Object.keys(unpublishedCategory).length ||
+		!unpublishedCategory.categories?.length
+	) {
+		const categoryCode = payload?.categoryCode;
+		throw new BackOfficeAppError(
+			`Error unpublishing category${categoryCode ? ` with code ${categoryCode}` : ''}`,
+			404
+		);
 	}
 
 	return res.send(unpublishedCategory);
