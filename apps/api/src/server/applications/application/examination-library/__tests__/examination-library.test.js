@@ -388,10 +388,7 @@ describe('Examination Library Routes', () => {
 			databaseConnector.document.findMany
 				.mockResolvedValueOnce(mockCategoryDocs)
 				.mockResolvedValueOnce(mockPublishedDocs);
-			databaseConnector.examinationLibraryCategory.update.mockResolvedValue({
-				id: 10,
-				publishedStatus: 'published'
-			});
+			databaseConnector.examinationLibraryCategory.updateMany.mockResolvedValue({ count: 1 });
 			databaseConnector.documentVersion.update.mockResolvedValue({});
 			databaseConnector.case.findUnique.mockResolvedValue({ reference: 'EN010001' });
 
@@ -414,8 +411,8 @@ describe('Examination Library Routes', () => {
 			expect(databaseConnector.examinationLibraryCategory.findFirst).toHaveBeenCalledWith({
 				where: { caseId, categoryCode: 'APP' }
 			});
-			expect(databaseConnector.examinationLibraryCategory.update).toHaveBeenCalledWith({
-				where: { id: 10 },
+			expect(databaseConnector.examinationLibraryCategory.updateMany).toHaveBeenCalledWith({
+				where: { caseId, categoryCode: 'APP' },
 				data: { publishedStatus: 'published' }
 			});
 		});
@@ -466,10 +463,7 @@ describe('Examination Library Routes', () => {
 			const mockCategory = { id: 10, categoryCode: 'APP', categoryName: 'Application form' };
 
 			databaseConnector.examinationLibraryCategory.findFirst.mockResolvedValue(mockCategory);
-			databaseConnector.examinationLibraryCategory.update.mockResolvedValue({
-				id: 10,
-				publishedStatus: 'unpublished'
-			});
+			databaseConnector.examinationLibraryCategory.updateMany.mockResolvedValue({ count: 1 });
 			databaseConnector.case.findUnique.mockResolvedValue({ reference: 'EN010001' });
 
 			const response = await request
@@ -482,10 +476,35 @@ describe('Examination Library Routes', () => {
 				categories: ['APP']
 			});
 			expect(databaseConnector.examinationLibraryCategory.findFirst).toHaveBeenCalledWith({
-				where: { caseId, categoryCode: 'APP' }
+				where: { caseId, categoryCode: { in: ['APP'] } }
 			});
-			expect(databaseConnector.examinationLibraryCategory.update).toHaveBeenCalledWith({
-				where: { id: 10 },
+			expect(databaseConnector.examinationLibraryCategory.updateMany).toHaveBeenCalledWith({
+				where: { caseId, categoryCode: { in: ['APP'] } },
+				data: { publishedStatus: 'unpublished' }
+			});
+		});
+
+		it('should unpublish multiple examination library categories given categories array payload', async () => {
+			const mockCategory = { id: 10, categoryCode: 'APP', categoryName: 'Application form' };
+
+			databaseConnector.examinationLibraryCategory.findFirst.mockResolvedValue(mockCategory);
+			databaseConnector.examinationLibraryCategory.updateMany.mockResolvedValue({ count: 2 });
+			databaseConnector.case.findUnique.mockResolvedValue({ reference: 'EN010001' });
+
+			const response = await request
+				.post(`/applications/${caseId}/examination-library/unpublish`)
+				.send({ caseReference: 'EN010001', categories: ['APP', 'PLN'] });
+
+			expect(response.status).toBe(200);
+			expect(response.body).toEqual({
+				caseReference: 'EN010001',
+				categories: ['APP', 'PLN']
+			});
+			expect(databaseConnector.examinationLibraryCategory.findFirst).toHaveBeenCalledWith({
+				where: { caseId, categoryCode: { in: ['APP', 'PLN'] } }
+			});
+			expect(databaseConnector.examinationLibraryCategory.updateMany).toHaveBeenCalledWith({
+				where: { caseId, categoryCode: { in: ['APP', 'PLN'] } },
 				data: { publishedStatus: 'unpublished' }
 			});
 		});

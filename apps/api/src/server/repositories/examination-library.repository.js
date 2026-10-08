@@ -121,76 +121,81 @@ export const createStaticCategories = (caseId) => {
  *
  * @param {number} caseId
  * @param {string} categoryCode
- * @param {Array} documents
- * @returns {Promise<void>}
+ * @param {Array} [documents]
+ * @returns {Promise<{caseReference: string, documents: any[]}>}
  */
-export const publishCategory = async (caseId, categoryCode, documents) => {
-	const category = await databaseConnector.examinationLibraryCategory.findFirst({
-		where: {
-			caseId,
-			categoryCode
+export const publishCategory = async (caseId, categoryCode, documents = []) => {
+	return databaseConnector.$transaction(async (tx) => {
+		const category = await tx.examinationLibraryCategory.findFirst({
+			where: {
+				caseId,
+				categoryCode
+			}
+		});
+
+		if (!category) {
+			throw new Error(`Category not found for case ${caseId} and code ${categoryCode}`);
 		}
-	});
 
-	if (!category) {
-		throw new Error(`Category not found for case ${caseId} and code ${categoryCode}`);
-	}
+		await tx.examinationLibraryCategory.updateMany({
+			where: {
+				caseId,
+				categoryCode
+			},
+			data: { publishedStatus: 'published' }
+		});
 
-	await databaseConnector.examinationLibraryCategory.update({
-		where: { id: category.id },
-		data: { publishedStatus: 'published' }
-	});
+		await Promise.all(
+			documents.map(async (document) => {
+				const documentReference = document.latestDocumentVersion?.draftExaminationLibraryReference;
+				if (!documentReference) return;
 
-	await Promise.all(
-		documents.map(async (document) => {
-			const documentReference = document.latestDocumentVersion.draftExaminationLibraryReference;
-			if (!documentReference) return;
-
-			await databaseConnector.documentVersion.update({
-				where: {
-					documentGuid_version: {
-						documentGuid: document.guid,
-						version: document.latestDocumentVersion.version
+				await tx.documentVersion.update({
+					where: {
+						documentGuid_version: {
+							documentGuid: document.guid,
+							version: document.latestDocumentVersion.version
+						}
+					},
+					data: {
+						examinationLibraryReferenceLocked: true,
+						examinationLibraryIndex: documentReference
 					}
-				},
-				data: {
-					examinationLibraryReferenceLocked: true,
-					examinationLibraryIndex: documentReference
-				}
-			});
-		})
-	);
+				});
+			})
+		);
 
-	const caseData = await databaseConnector.case.findUnique({
-		where: { id: caseId },
-		select: { reference: true }
-	});
+		const caseData = await tx.case.findUnique({
+			where: { id: caseId },
+			select: { reference: true }
+		});
 
-	if (!caseData) {
-		throw new Error(`Case reference not found for case ${caseId}`);
-	}
-
-	const publishedCategoryDocuments = await databaseConnector.document.findMany({
-		where: {
-			caseId,
-			latestDocumentVersion: {
-				examinationLibraryCategoryId: { not: null },
-				ExaminationLibraryCategory: { categoryCode: categoryCode }
-			}
-		},
-		include: {
-			latestDocumentVersion: {
-				include: {
-					ExaminationLibraryCategory: true
-				}
-			}
+		if (!caseData) {
+			throw new Error(`Case reference not found for case ${caseId}`);
 		}
-	});
 
-	return {
-		caseReference: caseData.reference,
-		documents: publishedCategoryDocuments
-	};
+		const publishedCategoryDocuments = await tx.document.findMany({
+			where: {
+				caseId,
+				latestDocumentVersion: {
+					examinationLibraryCategoryId: { not: null },
+					ExaminationLibraryCategory: { categoryCode }
+				}
+			},
+			include: {
+				latestDocumentVersion: {
+					include: {
+						ExaminationLibraryCategory: true
+					}
+				}
+			}
+		});
+
+		return {
+			caseReference: caseData.reference,
+			documents: publishedCategoryDocuments
+		};
+	});
 };
 
 /**
@@ -198,41 +203,46 @@ export const publishCategory = async (caseId, categoryCode, documents) => {
  * Returns category data for broadcast
  *
  * @param {number} caseId
- * @param {string} categoryCode
- * @returns {Promise<void>}
+ * @param {string | string[]} categoryCode
+ * @returns {Promise<{caseReference: string, categories: string[]}>}
  */
 export const unpublishCategory = async (caseId, categoryCode) => {
-	const category = await databaseConnector.examinationLibraryCategory.findFirst({
-		where: {
-			caseId,
-			categoryCode
+	const categoryCodes = Array.isArray(categoryCode) ? categoryCode : [categoryCode];
+
+	return databaseConnector.$transaction(async (tx) => {
+		const category = await tx.examinationLibraryCategory.findFirst({
+			where: {
+				caseId,
+				categoryCode: { in: categoryCodes }
+			}
+		});
+
+		if (!category) {
+			throw new Error(`Category not found for case ${caseId} and code ${categoryCodes.join(', ')}`);
 		}
-	});
 
-	if (!category) {
-		throw new Error(`Category not found for case ${caseId} and code ${categoryCode}`);
-	}
+		await tx.examinationLibraryCategory.updateMany({
+			where: {
+				caseId,
+				categoryCode: { in: categoryCodes }
+			},
+			data: {
+				publishedStatus: 'unpublished'
+			}
+		});
 
-	await databaseConnector.examinationLibraryCategory.update({
-		where: {
-			id: category.id
-		},
-		data: {
-			publishedStatus: 'unpublished'
+		const caseData = await tx.case.findUnique({
+			where: { id: caseId },
+			select: { reference: true }
+		});
+
+		if (!caseData) {
+			throw new Error(`Case reference not found for case ${caseId}`);
 		}
+
+		return {
+			caseReference: caseData.reference,
+			categories: categoryCodes
+		};
 	});
-
-	const caseData = await databaseConnector.case.findUnique({
-		where: { id: caseId },
-		select: { reference: true }
-	});
-
-	if (!caseData) {
-		throw new Error(`Case reference not found for case ${caseId}`);
-	}
-
-	return {
-		caseReference: caseData.reference,
-		categories: [categoryCode]
-	};
 };

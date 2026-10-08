@@ -141,13 +141,16 @@ export const publishExaminationLibraryCategory = async (caseId, categoryData) =>
  * Unpublishes an Examination Library category
  *
  * @param {number} caseId
- * @param {string | { categoryCode?: string }} [categoryData]
+ * @param {string | { categoryCode?: string, categories?: string[] }} [categoryData]
  * @returns {Promise<any>}
  */
 export const unpublishExaminationLibraryCategory = async (caseId, categoryData) => {
-	const categoryCode = typeof categoryData === 'string' ? categoryData : categoryData?.categoryCode;
+	const categoryCodes =
+		typeof categoryData === 'string'
+			? categoryData
+			: (categoryData?.categories ?? categoryData?.categoryCode);
 	return examinationLibraryRepository.unpublishCategory(
 		caseId,
-		/** @type {string} */ (categoryCode)
+		/** @type {string | string[]} */ (categoryCodes)
 	);
 };
