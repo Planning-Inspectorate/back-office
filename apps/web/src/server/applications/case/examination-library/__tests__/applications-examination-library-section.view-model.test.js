@@ -273,5 +273,31 @@ describe('applications examination library section view model', () => {
 				text: 'Draft reference'
 			});
 		});
+
+		it('should display the persisted examination library reference when one exists', () => {
+			const sectionDocuments = [
+				{
+					...baseDocument,
+					latestDocumentVersion: {
+						...baseDocument.latestDocumentVersion,
+						draftExaminationLibraryReference: undefined,
+						examinationRefNo: 'APP-001a'
+					}
+				}
+			];
+
+			const result = getExaminationLibrarySectionViewModel({
+				dynamicSections,
+				sectionDocuments,
+				sectionStatus: draftSectionStatus,
+				itemSlug: 'application-documents',
+				query,
+				sectionUrl
+			});
+
+			expect(result?.sectionTable.rows[0][0]).toEqual({
+				text: 'APP-001a'
+			});
+		});
 	});
 });

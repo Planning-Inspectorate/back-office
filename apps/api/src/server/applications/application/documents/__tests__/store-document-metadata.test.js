@@ -238,4 +238,65 @@ describe('store Document metadata', () => {
 
 		expect(databaseConnector.document.findFirst).not.toHaveBeenCalled();
 	});
+
+	test('should return 400 when the examination library reference is already locked to another document', async () => {
+		databaseConnector.document.findUnique.mockResolvedValue(mockResolvedDocumentValue());
+
+		databaseConnector.document.findFirst.mockResolvedValue({
+			guid: 'another-document-guid'
+		});
+
+		const { body, statusCode } = await request
+			.post(`/applications/1/documents/${docGuid}/metadata`)
+			.send({
+				version: 1,
+				examinationRefNo: 'APP-001a'
+			});
+
+		expect(statusCode).toEqual(400);
+
+		expect(body).toEqual({
+			errors: {
+				examinationRefNo:
+					'This reference is already published, create a unique reference by adding a letter, like REP1-001a'
+			}
+		});
+
+		expect(databaseConnector.document.findFirst).toHaveBeenCalledWith({
+			where: {
+				caseId: 1,
+				latestDocumentVersion: {
+					examinationRefNo: 'APP-001a',
+					examinationLibraryReferenceLocked: true
+				}
+			}
+		});
+
+		expect(databaseConnector.documentVersion.upsert).not.toHaveBeenCalled();
+	});
+
+	test('should update the document when the examination library reference is not already locked', async () => {
+		databaseConnector.case.findUnique.mockResolvedValue(application1);
+
+		databaseConnector.document.findUnique.mockResolvedValue(mockResolvedDocumentValue());
+
+		databaseConnector.document.findFirst.mockResolvedValue(null);
+
+		databaseConnector.documentVersion.upsert.mockResolvedValue(
+			mockDocumentVersionAndDocumentAfterUpdate({
+				examinationRefNo: 'APP-001a'
+			})
+		);
+
+		const { statusCode } = await request
+			.post(`/applications/1/documents/${docGuid}/metadata`)
+			.send({
+				version: 1,
+				examinationRefNo: 'APP-001a'
+			});
+
+		expect(statusCode).toEqual(200);
+
+		expect(databaseConnector.documentVersion.upsert).toHaveBeenCalled();
+	});
 });
