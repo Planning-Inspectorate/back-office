@@ -7,6 +7,7 @@ import { mapDateToUnixTimestamp } from './map-date-to-unix-timestamp.js';
  * @typedef {import('@pins/applications.api').Schema.DocumentVersionWithDocumentAndActivityLog} DocumentVersionWithDocumentAndActivityLog
  * @typedef {DocumentVersionWithDocumentAndActivityLog & {
  *   examinationLibraryCategoryId: number | null,
+ *   examinationLibraryReferenceLocked: boolean | null,
  *   ExaminationLibraryCategory: {
  *     categoryCode: string | null,
  *     categoryName: string | null
@@ -90,7 +91,8 @@ export const mapSingleDocumentDetailsFromVersion = ({
 export const mapExaminationLibraryDetails = (documentVersion) => ({
 	examinationLibraryCategoryId: documentVersion.examinationLibraryCategoryId ?? null,
 	examinationLibraryCategoryCode: documentVersion.ExaminationLibraryCategory?.categoryCode ?? null,
-	examinationLibraryCategoryName: documentVersion.ExaminationLibraryCategory?.categoryName ?? null
+	examinationLibraryCategoryName: documentVersion.ExaminationLibraryCategory?.categoryName ?? null,
+	examinationLibraryReferenceLocked: documentVersion.examinationLibraryReferenceLocked ?? null
 });
 
 /**

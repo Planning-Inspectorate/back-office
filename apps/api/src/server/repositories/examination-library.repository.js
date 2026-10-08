@@ -113,3 +113,23 @@ export const getDocuments = (caseId, filters = {}) => {
 export const createStaticCategories = (caseId) => {
 	return createCategories(caseId, EXAM_LIBRARY_STATIC_CATEGORIES);
 };
+
+/**
+ * Get a document in a case whose latest version has the given
+ * published Examination Library reference.
+ *
+ * @param {number} caseId
+ * @param {string} examinationRefNo
+ * @returns {import('#database-client').PrismaPromise<import('#database-client').Document | null>}
+ */
+export const getLockedDocumentByExaminationReference = (caseId, examinationRefNo) => {
+	return databaseConnector.document.findFirst({
+		where: {
+			caseId,
+			latestDocumentVersion: {
+				examinationRefNo,
+				examinationLibraryReferenceLocked: true
+			}
+		}
+	});
+};
