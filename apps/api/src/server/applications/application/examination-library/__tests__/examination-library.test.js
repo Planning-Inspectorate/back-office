@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { request } from '#app-test';
 import { jest } from '@jest/globals';
 import { databaseConnector } from '#utils/database-connector.js';
@@ -349,6 +350,173 @@ describe('Examination Library Routes', () => {
 			});
 
 			expect(databaseConnector.document.findMany).not.toHaveBeenCalled();
+		});
+	});
+
+	describe('POST /applications/:id/examination-library/publish', () => {
+		const validDocGuid = '3e9b11df-5527-4a0b-9df0-7d0891d4d812';
+
+		it('should publish examination library category successfully given categoryCode', async () => {
+			const mockCategory = { id: 10, categoryCode: 'APP', categoryName: 'Application form' };
+			const mockCategoryDocs = [
+				{
+					guid: validDocGuid,
+					latestDocumentVersion: {
+						version: 1,
+						typeOfParty: 'Applicant',
+						author: 'Applicant',
+						description: 'Application document',
+						examinationLibraryCategoryId: 10,
+						ExaminationLibraryCategory: mockCategory
+					}
+				}
+			];
+			const mockPublishedDocs = [
+				{
+					guid: validDocGuid,
+					latestDocumentVersion: {
+						version: 1,
+						examinationLibraryIndex: 'APP-001',
+						ExaminationLibraryCategory: {
+							categoryName: 'Application form'
+						}
+					}
+				}
+			];
+
+			databaseConnector.examinationLibraryCategory.findFirst.mockResolvedValue(mockCategory);
+			databaseConnector.document.findMany
+				.mockResolvedValueOnce(mockCategoryDocs)
+				.mockResolvedValueOnce(mockPublishedDocs);
+			databaseConnector.examinationLibraryCategory.update.mockResolvedValue({
+				id: 10,
+				publishedStatus: 'published'
+			});
+			databaseConnector.documentVersion.update.mockResolvedValue({});
+			databaseConnector.case.findUnique.mockResolvedValue({ reference: 'EN010001' });
+
+			const response = await request
+				.post(`/applications/${caseId}/examination-library/publish`)
+				.send({ categoryCode: 'APP' });
+
+			expect(response.status).toBe(200);
+			expect(response.body).toEqual({
+				caseReference: 'EN010001',
+				examinationDocuments: [
+					{
+						documentGuid: validDocGuid,
+						documentExaminationReference: 'APP-001',
+						categoryCode: 'APP',
+						categoryName: 'Application form'
+					}
+				]
+			});
+			expect(databaseConnector.examinationLibraryCategory.findFirst).toHaveBeenCalledWith({
+				where: { caseId, categoryCode: 'APP' }
+			});
+			expect(databaseConnector.examinationLibraryCategory.update).toHaveBeenCalledWith({
+				where: { id: 10 },
+				data: { publishedStatus: 'published' }
+			});
+		});
+
+		it('should return 400 when publish request body is empty', async () => {
+			const response = await request
+				.post(`/applications/${caseId}/examination-library/publish`)
+				.send({});
+
+			expect(response.status).toBe(400);
+			expect(response.body.errors).toBeDefined();
+		});
+
+		it('should return 400 when documentGuid is not a valid UUID in examinationDocuments payload', async () => {
+			const response = await request
+				.post(`/applications/${caseId}/examination-library/publish`)
+				.send({
+					caseReference: 'EN010001',
+					examinationDocuments: [
+						{
+							documentGuid: 'invalid-guid',
+							documentExaminationReference: 'APP-001',
+							categoryCode: 'APP',
+							categoryName: 'Application form'
+						}
+					]
+				});
+
+			expect(response.status).toBe(400);
+			expect(response.body.errors).toHaveProperty(['examinationDocuments[0].documentGuid']);
+		});
+
+		it('should return 404 when category is not found to publish', async () => {
+			databaseConnector.document.findMany.mockResolvedValue([]);
+			databaseConnector.examinationLibraryCategory.findFirst.mockResolvedValue(null);
+
+			const response = await request
+				.post(`/applications/${caseId}/examination-library/publish`)
+				.send({ categoryCode: 'NONEXISTENT' });
+
+			expect(response.status).toBe(404);
+			expect(response.body).toEqual({ errors: `Case ${caseId} not found` });
+		});
+	});
+
+	describe('POST /applications/:id/examination-library/unpublish', () => {
+		it('should unpublish examination library category successfully given categoryCode', async () => {
+			const mockCategory = { id: 10, categoryCode: 'APP', categoryName: 'Application form' };
+
+			databaseConnector.examinationLibraryCategory.findFirst.mockResolvedValue(mockCategory);
+			databaseConnector.examinationLibraryCategory.update.mockResolvedValue({
+				id: 10,
+				publishedStatus: 'unpublished'
+			});
+			databaseConnector.case.findUnique.mockResolvedValue({ reference: 'EN010001' });
+
+			const response = await request
+				.post(`/applications/${caseId}/examination-library/unpublish`)
+				.send({ categoryCode: 'APP' });
+
+			expect(response.status).toBe(200);
+			expect(response.body).toEqual({
+				caseReference: 'EN010001',
+				categories: ['APP']
+			});
+			expect(databaseConnector.examinationLibraryCategory.findFirst).toHaveBeenCalledWith({
+				where: { caseId, categoryCode: 'APP' }
+			});
+			expect(databaseConnector.examinationLibraryCategory.update).toHaveBeenCalledWith({
+				where: { id: 10 },
+				data: { publishedStatus: 'unpublished' }
+			});
+		});
+
+		it('should return 400 when unpublish request body is empty', async () => {
+			const response = await request
+				.post(`/applications/${caseId}/examination-library/unpublish`)
+				.send({});
+
+			expect(response.status).toBe(400);
+			expect(response.body.errors).toBeDefined();
+		});
+
+		it('should return 400 when categories array is empty', async () => {
+			const response = await request
+				.post(`/applications/${caseId}/examination-library/unpublish`)
+				.send({ caseReference: 'EN010001', categories: [] });
+
+			expect(response.status).toBe(400);
+			expect(response.body.errors).toBeDefined();
+		});
+
+		it('should return 404 when category is not found to unpublish', async () => {
+			databaseConnector.examinationLibraryCategory.findFirst.mockResolvedValue(null);
+
+			const response = await request
+				.post(`/applications/${caseId}/examination-library/unpublish`)
+				.send({ categoryCode: 'NONEXISTENT' });
+
+			expect(response.status).toBe(404);
+			expect(response.body).toEqual({ errors: `Case ${caseId} not found` });
 		});
 	});
 });
