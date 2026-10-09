@@ -1,9 +1,20 @@
+// @ts-nocheck
 import { request } from '#app-test';
 import { jest } from '@jest/globals';
 import { databaseConnector } from '#utils/database-connector.js';
+import { eventClient } from '#infrastructure/event-client.js';
+import { EventType } from '@pins/event-client';
+import {
+	EXAMINATION_LIBRARY_PUBLISH,
+	EXAMINATION_LIBRARY_UNPUBLISH
+} from '#infrastructure/topics.js';
 
 describe('Examination Library Routes', () => {
 	const caseId = 1;
+
+	beforeEach(() => {
+		eventClient.sendEvents.mockResolvedValue([]);
+	});
 
 	afterEach(() => {
 		jest.clearAllMocks();
@@ -349,6 +360,235 @@ describe('Examination Library Routes', () => {
 			});
 
 			expect(databaseConnector.document.findMany).not.toHaveBeenCalled();
+		});
+	});
+
+	describe('POST /applications/:id/examination-library/publish', () => {
+		const validDocGuid = '3e9b11df-5527-4a0b-9df0-7d0891d4d812';
+
+		it('should publish examination library category successfully given categoryCode', async () => {
+			const mockCategory = { id: 10, categoryCode: 'APP', categoryName: 'Application form' };
+			const mockCategoryDocs = [
+				{
+					guid: validDocGuid,
+					latestDocumentVersion: {
+						version: 1,
+						typeOfParty: 'Applicant',
+						author: 'Applicant',
+						description: 'Application document',
+						examinationLibraryCategoryId: 10,
+						ExaminationLibraryCategory: mockCategory
+					}
+				}
+			];
+			const mockPublishedDocs = [
+				{
+					guid: validDocGuid,
+					latestDocumentVersion: {
+						version: 1,
+						examinationLibraryIndex: 'APP-001',
+						ExaminationLibraryCategory: {
+							categoryName: 'Application form'
+						}
+					}
+				}
+			];
+
+			databaseConnector.examinationLibraryCategory.findFirst.mockResolvedValue(mockCategory);
+			databaseConnector.document.findMany
+				.mockResolvedValueOnce(mockCategoryDocs)
+				.mockResolvedValueOnce(mockPublishedDocs);
+			databaseConnector.examinationLibraryCategory.updateMany.mockResolvedValue({ count: 1 });
+			databaseConnector.documentVersion.update.mockResolvedValue({});
+			databaseConnector.case.findUnique.mockResolvedValue({ reference: 'EN010001' });
+
+			const response = await request
+				.post(`/applications/${caseId}/examination-library/publish`)
+				.send({ categoryCode: 'APP' });
+
+			expect(response.status).toBe(200);
+			expect(response.body).toEqual({
+				caseReference: 'EN010001',
+				examinationDocuments: [
+					{
+						documentGuid: validDocGuid,
+						documentExaminationReference: 'APP-001',
+						categoryCode: 'APP',
+						categoryName: 'Application form'
+					}
+				]
+			});
+			expect(databaseConnector.examinationLibraryCategory.findFirst).toHaveBeenCalledWith({
+				where: { caseId, categoryCode: 'APP' }
+			});
+			expect(databaseConnector.examinationLibraryCategory.updateMany).toHaveBeenCalledWith({
+				where: { caseId, categoryCode: 'APP' },
+				data: { publishedStatus: 'published' }
+			});
+			expect(eventClient.sendEvents).toHaveBeenCalledWith(
+				EXAMINATION_LIBRARY_PUBLISH,
+				[
+					{
+						caseReference: 'EN010001',
+						examinationDocuments: [
+							{
+								documentGuid: validDocGuid,
+								documentExaminationReference: 'APP-001',
+								categoryCode: 'APP',
+								categoryName: 'Application form'
+							}
+						]
+					}
+				],
+				EventType.Publish
+			);
+		});
+
+		it('should return 400 when publish request body is empty', async () => {
+			const response = await request
+				.post(`/applications/${caseId}/examination-library/publish`)
+				.send({});
+
+			expect(response.status).toBe(400);
+			expect(response.body.errors).toBeDefined();
+			expect(eventClient.sendEvents).not.toHaveBeenCalled();
+		});
+
+		it('should return 400 when documentGuid is not a valid UUID in examinationDocuments payload', async () => {
+			const response = await request
+				.post(`/applications/${caseId}/examination-library/publish`)
+				.send({
+					caseReference: 'EN010001',
+					examinationDocuments: [
+						{
+							documentGuid: 'invalid-guid',
+							documentExaminationReference: 'APP-001',
+							categoryCode: 'APP',
+							categoryName: 'Application form'
+						}
+					]
+				});
+
+			expect(response.status).toBe(400);
+			expect(response.body.errors).toHaveProperty(['examinationDocuments[0].documentGuid']);
+			expect(eventClient.sendEvents).not.toHaveBeenCalled();
+		});
+
+		it('should return 404 when category is not found to publish', async () => {
+			databaseConnector.document.findMany.mockResolvedValue([]);
+			databaseConnector.examinationLibraryCategory.findFirst.mockResolvedValue(null);
+
+			const response = await request
+				.post(`/applications/${caseId}/examination-library/publish`)
+				.send({ categoryCode: 'NONEXISTENT' });
+
+			expect(response.status).toBe(404);
+			expect(response.body).toEqual({ errors: `Case ${caseId} not found` });
+			expect(eventClient.sendEvents).not.toHaveBeenCalled();
+		});
+	});
+
+	describe('POST /applications/:id/examination-library/unpublish', () => {
+		it('should unpublish examination library category successfully given categoryCode', async () => {
+			const mockCategory = { id: 10, categoryCode: 'APP', categoryName: 'Application form' };
+
+			databaseConnector.examinationLibraryCategory.findFirst.mockResolvedValue(mockCategory);
+			databaseConnector.examinationLibraryCategory.updateMany.mockResolvedValue({ count: 1 });
+			databaseConnector.case.findUnique.mockResolvedValue({ reference: 'EN010001' });
+
+			const response = await request
+				.post(`/applications/${caseId}/examination-library/unpublish`)
+				.send({ categoryCode: 'APP' });
+
+			expect(response.status).toBe(200);
+			expect(response.body).toEqual({
+				caseReference: 'EN010001',
+				categories: ['APP']
+			});
+			expect(databaseConnector.examinationLibraryCategory.findFirst).toHaveBeenCalledWith({
+				where: { caseId, categoryCode: { in: ['APP'] } }
+			});
+			expect(databaseConnector.examinationLibraryCategory.updateMany).toHaveBeenCalledWith({
+				where: { caseId, categoryCode: { in: ['APP'] } },
+				data: { publishedStatus: 'unpublished' }
+			});
+			expect(eventClient.sendEvents).toHaveBeenCalledWith(
+				EXAMINATION_LIBRARY_UNPUBLISH,
+				[
+					{
+						caseReference: 'EN010001',
+						categories: ['APP']
+					}
+				],
+				EventType.Unpublish
+			);
+		});
+
+		it('should unpublish multiple examination library categories given categories array payload', async () => {
+			const mockCategory = { id: 10, categoryCode: 'APP', categoryName: 'Application form' };
+
+			databaseConnector.examinationLibraryCategory.findFirst.mockResolvedValue(mockCategory);
+			databaseConnector.examinationLibraryCategory.updateMany.mockResolvedValue({ count: 2 });
+			databaseConnector.case.findUnique.mockResolvedValue({ reference: 'EN010001' });
+
+			const response = await request
+				.post(`/applications/${caseId}/examination-library/unpublish`)
+				.send({ caseReference: 'EN010001', categories: ['APP', 'PLN'] });
+
+			expect(response.status).toBe(200);
+			expect(response.body).toEqual({
+				caseReference: 'EN010001',
+				categories: ['APP', 'PLN']
+			});
+			expect(databaseConnector.examinationLibraryCategory.findFirst).toHaveBeenCalledWith({
+				where: { caseId, categoryCode: { in: ['APP', 'PLN'] } }
+			});
+			expect(databaseConnector.examinationLibraryCategory.updateMany).toHaveBeenCalledWith({
+				where: { caseId, categoryCode: { in: ['APP', 'PLN'] } },
+				data: { publishedStatus: 'unpublished' }
+			});
+			expect(eventClient.sendEvents).toHaveBeenCalledWith(
+				EXAMINATION_LIBRARY_UNPUBLISH,
+				[
+					{
+						caseReference: 'EN010001',
+						categories: ['APP', 'PLN']
+					}
+				],
+				EventType.Unpublish
+			);
+		});
+
+		it('should return 400 when unpublish request body is empty', async () => {
+			const response = await request
+				.post(`/applications/${caseId}/examination-library/unpublish`)
+				.send({});
+
+			expect(response.status).toBe(400);
+			expect(response.body.errors).toBeDefined();
+			expect(eventClient.sendEvents).not.toHaveBeenCalled();
+		});
+
+		it('should return 400 when categories array is empty', async () => {
+			const response = await request
+				.post(`/applications/${caseId}/examination-library/unpublish`)
+				.send({ caseReference: 'EN010001', categories: [] });
+
+			expect(response.status).toBe(400);
+			expect(response.body.errors).toBeDefined();
+			expect(eventClient.sendEvents).not.toHaveBeenCalled();
+		});
+
+		it('should return 404 when category is not found to unpublish', async () => {
+			databaseConnector.examinationLibraryCategory.findFirst.mockResolvedValue(null);
+
+			const response = await request
+				.post(`/applications/${caseId}/examination-library/unpublish`)
+				.send({ categoryCode: 'NONEXISTENT' });
+
+			expect(response.status).toBe(404);
+			expect(response.body).toEqual({ errors: `Case ${caseId} not found` });
+			expect(eventClient.sendEvents).not.toHaveBeenCalled();
 		});
 	});
 });
