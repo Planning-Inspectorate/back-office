@@ -236,6 +236,55 @@ router.get(
 
 router.post(
 	'/publish',
+	/*
+		#swagger.tags = ['Applications']
+		#swagger.path = '/applications/{caseId}/examination-library/publish'
+		#swagger.description = 'Publishes an examination library category and locks document reference numbers'
+		#swagger.parameters['caseId'] = {
+			in: 'path',
+			description: 'Application ID',
+			required: true,
+			type: 'integer'
+		}
+		#swagger.parameters['body'] = {
+			in: 'body',
+			description: 'Category code to publish or full category payload',
+			required: true,
+			schema: { categoryCode: 'APP' }
+		}
+		#swagger.parameters['x-service-name'] = {
+			in: 'header',
+			type: 'string',
+			description: 'Service name header',
+			default: 'swagger'
+		}
+		#swagger.parameters['x-api-key'] = {
+			in: 'header',
+			type: 'string',
+			description: 'API key header',
+			default: '123'
+		}
+		#swagger.responses[200] = {
+			description: 'Published examination library category details',
+			schema: {
+				caseReference: 'EN010001',
+				examinationDocuments: [{
+					documentGuid: '123e4567-e89b-12d3-a456-426614174000',
+					documentExaminationReference: 'APP-001',
+					categoryCode: 'APP',
+					categoryName: 'Application form'
+				}]
+			}
+		}
+		#swagger.responses[400] = {
+			description: 'Validation error',
+			schema: { errors: { categoryCode: 'Category code is required and must be a string' } }
+		}
+		#swagger.responses[404] = {
+			description: 'Application or category not found',
+			schema: { errors: 'Case 1 not found' }
+		}
+	*/
 	validateApplicationId,
 	validatePublishCategory,
 	asyncHandler(publishExaminationLibraryCategoryHandler)
@@ -243,6 +292,50 @@ router.post(
 
 router.post(
 	'/unpublish',
+	/*
+		#swagger.tags = ['Applications']
+		#swagger.path = '/applications/{caseId}/examination-library/unpublish'
+		#swagger.description = 'Unpublishes one or more examination library categories'
+		#swagger.parameters['caseId'] = {
+			in: 'path',
+			description: 'Application ID',
+			required: true,
+			type: 'integer'
+		}
+		#swagger.parameters['body'] = {
+			in: 'body',
+			description: 'Category code or array of categories to unpublish',
+			required: true,
+			schema: { categoryCode: 'APP' }
+		}
+		#swagger.parameters['x-service-name'] = {
+			in: 'header',
+			type: 'string',
+			description: 'Service name header',
+			default: 'swagger'
+		}
+		#swagger.parameters['x-api-key'] = {
+			in: 'header',
+			type: 'string',
+			description: 'API key header',
+			default: '123'
+		}
+		#swagger.responses[200] = {
+			description: 'Unpublished examination library category details',
+			schema: {
+				caseReference: 'EN010001',
+				categories: ['APP']
+			}
+		}
+		#swagger.responses[400] = {
+			description: 'Validation error',
+			schema: { errors: { categoryCode: 'Category code is required and must be a string' } }
+		}
+		#swagger.responses[404] = {
+			description: 'Application or category not found',
+			schema: { errors: 'Case 1 not found' }
+		}
+	*/
 	validateApplicationId,
 	validateUnpublishCategory,
 	asyncHandler(unpublishExaminationLibraryCategoryHandler)

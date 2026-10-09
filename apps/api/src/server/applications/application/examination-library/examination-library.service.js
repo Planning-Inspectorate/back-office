@@ -5,6 +5,12 @@ import {
 	addDraftExaminationLibraryReferences
 } from './examination-library.utils.js';
 import { NO_EXAMINATION_LIBRARY_CATEGORY_CODE } from './examination-library.constants.js';
+import { eventClient } from '#infrastructure/event-client.js';
+import { EventType } from '@pins/event-client';
+import {
+	EXAMINATION_LIBRARY_PUBLISH,
+	EXAMINATION_LIBRARY_UNPUBLISH
+} from '#infrastructure/topics.js';
 
 /**
  * @typedef {import('#database-client').ExaminationLibraryCategory} ExaminationLibraryCategory
@@ -131,10 +137,14 @@ export const publishExaminationLibraryCategory = async (caseId, categoryData) =>
 		};
 	});
 
-	return {
+	const publishPayload = {
 		caseReference: publishedCategory?.caseReference || '',
 		examinationDocuments: mappedDocuments
 	};
+
+	await eventClient.sendEvents(EXAMINATION_LIBRARY_PUBLISH, [publishPayload], EventType.Publish);
+
+	return publishPayload;
 };
 
 /**
@@ -149,8 +159,16 @@ export const unpublishExaminationLibraryCategory = async (caseId, categoryData) 
 		typeof categoryData === 'string'
 			? categoryData
 			: (categoryData?.categories ?? categoryData?.categoryCode);
-	return examinationLibraryRepository.unpublishCategory(
+	const unpublishedCategory = await examinationLibraryRepository.unpublishCategory(
 		caseId,
 		/** @type {string | string[]} */ (categoryCodes)
 	);
+
+	await eventClient.sendEvents(
+		EXAMINATION_LIBRARY_UNPUBLISH,
+		[unpublishedCategory],
+		EventType.Unpublish
+	);
+
+	return unpublishedCategory;
 };
