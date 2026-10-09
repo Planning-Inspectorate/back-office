@@ -7,3 +7,5 @@ export const NSIP_EXAM_TIMETABLE = 'nsip-exam-timetable';
 export const NSIP_REPRESENTATION = 'nsip-representation';
 export const NSIP_S51_ADVICE = 'nsip-s51-advice';
 export const FOLDER = 'folder';
+export const EXAMINATION_LIBRARY_PUBLISH = 'examination-library-publish';
+export const EXAMINATION_LIBRARY_UNPUBLISH = 'examination-library-unpublish';

@@ -2,9 +2,19 @@
 import { request } from '#app-test';
 import { jest } from '@jest/globals';
 import { databaseConnector } from '#utils/database-connector.js';
+import { eventClient } from '#infrastructure/event-client.js';
+import { EventType } from '@pins/event-client';
+import {
+	EXAMINATION_LIBRARY_PUBLISH,
+	EXAMINATION_LIBRARY_UNPUBLISH
+} from '#infrastructure/topics.js';
 
 describe('Examination Library Routes', () => {
 	const caseId = 1;
+
+	beforeEach(() => {
+		eventClient.sendEvents.mockResolvedValue([]);
+	});
 
 	afterEach(() => {
 		jest.clearAllMocks();
@@ -557,6 +567,23 @@ describe('Examination Library Routes', () => {
 				where: { caseId, categoryCode: 'APP' },
 				data: { publishedStatus: 'published' }
 			});
+			expect(eventClient.sendEvents).toHaveBeenCalledWith(
+				EXAMINATION_LIBRARY_PUBLISH,
+				[
+					{
+						caseReference: 'EN010001',
+						examinationDocuments: [
+							{
+								documentGuid: validDocGuid,
+								documentExaminationReference: 'APP-001',
+								categoryCode: 'APP',
+								categoryName: 'Application form'
+							}
+						]
+					}
+				],
+				EventType.Publish
+			);
 		});
 
 		it('should return 400 when publish request body is empty', async () => {
@@ -566,6 +593,7 @@ describe('Examination Library Routes', () => {
 
 			expect(response.status).toBe(400);
 			expect(response.body.errors).toBeDefined();
+			expect(eventClient.sendEvents).not.toHaveBeenCalled();
 		});
 
 		it('should return 400 when documentGuid is not a valid UUID in examinationDocuments payload', async () => {
@@ -585,6 +613,7 @@ describe('Examination Library Routes', () => {
 
 			expect(response.status).toBe(400);
 			expect(response.body.errors).toHaveProperty(['examinationDocuments[0].documentGuid']);
+			expect(eventClient.sendEvents).not.toHaveBeenCalled();
 		});
 
 		it('should return 404 when category is not found to publish', async () => {
@@ -597,6 +626,7 @@ describe('Examination Library Routes', () => {
 
 			expect(response.status).toBe(404);
 			expect(response.body).toEqual({ errors: `Case ${caseId} not found` });
+			expect(eventClient.sendEvents).not.toHaveBeenCalled();
 		});
 	});
 
@@ -624,6 +654,16 @@ describe('Examination Library Routes', () => {
 				where: { caseId, categoryCode: { in: ['APP'] } },
 				data: { publishedStatus: 'unpublished' }
 			});
+			expect(eventClient.sendEvents).toHaveBeenCalledWith(
+				EXAMINATION_LIBRARY_UNPUBLISH,
+				[
+					{
+						caseReference: 'EN010001',
+						categories: ['APP']
+					}
+				],
+				EventType.Unpublish
+			);
 		});
 
 		it('should unpublish multiple examination library categories given categories array payload', async () => {
@@ -649,6 +689,16 @@ describe('Examination Library Routes', () => {
 				where: { caseId, categoryCode: { in: ['APP', 'PLN'] } },
 				data: { publishedStatus: 'unpublished' }
 			});
+			expect(eventClient.sendEvents).toHaveBeenCalledWith(
+				EXAMINATION_LIBRARY_UNPUBLISH,
+				[
+					{
+						caseReference: 'EN010001',
+						categories: ['APP', 'PLN']
+					}
+				],
+				EventType.Unpublish
+			);
 		});
 
 		it('should return 400 when unpublish request body is empty', async () => {
@@ -658,6 +708,7 @@ describe('Examination Library Routes', () => {
 
 			expect(response.status).toBe(400);
 			expect(response.body.errors).toBeDefined();
+			expect(eventClient.sendEvents).not.toHaveBeenCalled();
 		});
 
 		it('should return 400 when categories array is empty', async () => {
@@ -667,6 +718,7 @@ describe('Examination Library Routes', () => {
 
 			expect(response.status).toBe(400);
 			expect(response.body.errors).toBeDefined();
+			expect(eventClient.sendEvents).not.toHaveBeenCalled();
 		});
 
 		it('should return 404 when category is not found to unpublish', async () => {
@@ -678,6 +730,7 @@ describe('Examination Library Routes', () => {
 
 			expect(response.status).toBe(404);
 			expect(response.body).toEqual({ errors: `Case ${caseId} not found` });
+			expect(eventClient.sendEvents).not.toHaveBeenCalled();
 		});
 	});
 });

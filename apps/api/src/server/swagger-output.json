@@ -2580,17 +2580,24 @@
 				}
 			}
 		},
-		"/applications/{id}/examination-library": {
+		"/applications/{caseId}/examination-library": {
 			"get": {
 				"tags": ["Applications"],
 				"description": "Gets all examination library categories for an application, optionally filtered by category id or code",
 				"parameters": [
 					{
+						"name": "caseId",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application ID"
+					},
+					{
 						"name": "id",
 						"in": "query",
+						"description": "Filter by category ID",
 						"required": false,
-						"type": "integer",
-						"description": "Filter by category ID"
+						"type": "integer"
 					},
 					{
 						"name": "categoryCode",
@@ -2680,7 +2687,7 @@
 				"description": "Creates one or multiple examination library categories for an application",
 				"parameters": [
 					{
-						"name": "id",
+						"name": "caseId",
 						"in": "path",
 						"required": true,
 						"type": "integer",
@@ -2782,13 +2789,13 @@
 				}
 			}
 		},
-		"/applications/{id}/examination-library/documents": {
+		"/applications/{caseId}/examination-library/documents": {
 			"get": {
 				"tags": ["Applications"],
 				"description": "Gets documents for an application that have an examination library category assigned",
 				"parameters": [
 					{
-						"name": "id",
+						"name": "caseId",
 						"in": "path",
 						"required": true,
 						"type": "integer",
@@ -2897,6 +2904,285 @@
 											"example": "Must be an existing application"
 										}
 									}
+								}
+							},
+							"xml": {
+								"name": "main"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/applications/{caseId}/examination-library/documents/{documentGuid}/draft-reference": {
+			"get": {
+				"tags": ["Applications"],
+				"description": "Gets the draft examination library reference for a document",
+				"parameters": [
+					{
+						"name": "caseId",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application ID"
+					},
+					{
+						"name": "documentGuid",
+						"in": "path",
+						"required": true,
+						"type": "string",
+						"description": "Document GUID"
+					},
+					{
+						"name": "x-service-name",
+						"in": "header",
+						"type": "string",
+						"description": "Service name header",
+						"default": "swagger"
+					},
+					{
+						"name": "x-api-key",
+						"in": "header",
+						"type": "string",
+						"description": "API key header",
+						"default": "123"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Draft examination library reference for the document",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"draftExaminationLibraryReference": {
+									"type": "string",
+									"example": "APP-001"
+								}
+							},
+							"xml": {
+								"name": "main"
+							}
+						}
+					},
+					"404": {
+						"description": "Application or document not found"
+					}
+				}
+			}
+		},
+		"/applications/{caseId}/examination-library/publish": {
+			"post": {
+				"tags": ["Applications"],
+				"description": "Publishes an examination library category and locks document reference numbers",
+				"parameters": [
+					{
+						"name": "caseId",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application ID"
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Category code to publish or full category payload",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"categoryCode": {
+									"type": "string",
+									"example": "APP"
+								}
+							}
+						}
+					},
+					{
+						"name": "x-service-name",
+						"in": "header",
+						"type": "string",
+						"description": "Service name header",
+						"default": "swagger"
+					},
+					{
+						"name": "x-api-key",
+						"in": "header",
+						"type": "string",
+						"description": "API key header",
+						"default": "123"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Published examination library category details",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"caseReference": {
+									"type": "string",
+									"example": "EN010001"
+								},
+								"examinationDocuments": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"documentGuid": {
+												"type": "string",
+												"example": "123e4567-e89b-12d3-a456-426614174000"
+											},
+											"documentExaminationReference": {
+												"type": "string",
+												"example": "APP-001"
+											},
+											"categoryCode": {
+												"type": "string",
+												"example": "APP"
+											},
+											"categoryName": {
+												"type": "string",
+												"example": "Application form"
+											}
+										}
+									}
+								}
+							},
+							"xml": {
+								"name": "main"
+							}
+						}
+					},
+					"400": {
+						"description": "Validation error",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"errors": {
+									"type": "object",
+									"properties": {
+										"categoryCode": {
+											"type": "string",
+											"example": "Category code is required and must be a string"
+										}
+									}
+								}
+							},
+							"xml": {
+								"name": "main"
+							}
+						}
+					},
+					"404": {
+						"description": "Application or category not found",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"errors": {
+									"type": "string",
+									"example": "Case 1 not found"
+								}
+							},
+							"xml": {
+								"name": "main"
+							}
+						}
+					}
+				}
+			}
+		},
+		"/applications/{caseId}/examination-library/unpublish": {
+			"post": {
+				"tags": ["Applications"],
+				"description": "Unpublishes one or more examination library categories",
+				"parameters": [
+					{
+						"name": "caseId",
+						"in": "path",
+						"required": true,
+						"type": "integer",
+						"description": "Application ID"
+					},
+					{
+						"name": "body",
+						"in": "body",
+						"description": "Category code or array of categories to unpublish",
+						"required": true,
+						"schema": {
+							"type": "object",
+							"properties": {
+								"categoryCode": {
+									"type": "string",
+									"example": "APP"
+								}
+							}
+						}
+					},
+					{
+						"name": "x-service-name",
+						"in": "header",
+						"type": "string",
+						"description": "Service name header",
+						"default": "swagger"
+					},
+					{
+						"name": "x-api-key",
+						"in": "header",
+						"type": "string",
+						"description": "API key header",
+						"default": "123"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Unpublished examination library category details",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"caseReference": {
+									"type": "string",
+									"example": "EN010001"
+								},
+								"categories": {
+									"type": "array",
+									"example": ["APP"],
+									"items": {
+										"type": "string"
+									}
+								}
+							},
+							"xml": {
+								"name": "main"
+							}
+						}
+					},
+					"400": {
+						"description": "Validation error",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"errors": {
+									"type": "object",
+									"properties": {
+										"categoryCode": {
+											"type": "string",
+											"example": "Category code is required and must be a string"
+										}
+									}
+								}
+							},
+							"xml": {
+								"name": "main"
+							}
+						}
+					},
+					"404": {
+						"description": "Application or category not found",
+						"schema": {
+							"type": "object",
+							"properties": {
+								"errors": {
+									"type": "string",
+									"example": "Case 1 not found"
 								}
 							},
 							"xml": {
