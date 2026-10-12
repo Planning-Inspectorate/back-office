@@ -596,23 +596,17 @@ describe('Examination Library Routes', () => {
 			expect(eventClient.sendEvents).not.toHaveBeenCalled();
 		});
 
-		it('should return 400 when documentGuid is not a valid UUID in examinationDocuments payload', async () => {
+		it('should return 400 when categoryCode is missing or invalid', async () => {
 			const response = await request
 				.post(`/applications/${caseId}/examination-library/publish`)
-				.send({
-					caseReference: 'EN010001',
-					examinationDocuments: [
-						{
-							documentGuid: 'invalid-guid',
-							documentExaminationReference: 'APP-001',
-							categoryCode: 'APP',
-							categoryName: 'Application form'
-						}
-					]
-				});
+				.send({ categoryCode: 123 });
 
 			expect(response.status).toBe(400);
-			expect(response.body.errors).toHaveProperty(['examinationDocuments[0].documentGuid']);
+			expect(response.body).toEqual({
+				errors: {
+					categoryCode: 'Category code is required and must be a string'
+				}
+			});
 			expect(eventClient.sendEvents).not.toHaveBeenCalled();
 		});
 

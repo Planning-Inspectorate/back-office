@@ -165,25 +165,23 @@ export const publishCategory = async (caseId, categoryCode, documents = []) => {
 			data: { publishedStatus: 'published' }
 		});
 
-		await Promise.all(
-			documents.map(async (document) => {
-				const documentReference = document.latestDocumentVersion?.draftExaminationLibraryReference;
-				if (!documentReference) return;
+		for (const document of documents) {
+			const documentReference = document.latestDocumentVersion?.draftExaminationLibraryReference;
+			if (!documentReference) continue;
 
-				await tx.documentVersion.update({
-					where: {
-						documentGuid_version: {
-							documentGuid: document.guid,
-							version: document.latestDocumentVersion.version
-						}
-					},
-					data: {
-						examinationLibraryReferenceLocked: true,
-						examinationLibraryIndex: documentReference
+			await tx.documentVersion.update({
+				where: {
+					documentGuid_version: {
+						documentGuid: document.guid,
+						version: document.latestDocumentVersion.version
 					}
-				});
-			})
-		);
+				},
+				data: {
+					examinationLibraryReferenceLocked: true,
+					examinationLibraryIndex: documentReference
+				}
+			});
+		}
 
 		const caseData = await tx.case.findUnique({
 			where: { id: caseId },

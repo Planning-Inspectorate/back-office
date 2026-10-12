@@ -134,12 +134,12 @@ const handleNotFoundOrThrow = (error, caseId) => {
  */
 export const publishExaminationLibraryCategoryHandler = async (req, res) => {
 	const caseId = Number(req.params.id);
-	const payload = req.body;
+	const { categoryCode } = req.body;
 
 	let publishedCategory;
 
 	try {
-		publishedCategory = await publishExaminationLibraryCategory(caseId, payload);
+		publishedCategory = await publishExaminationLibraryCategory(caseId, categoryCode);
 	} catch (error) {
 		handleNotFoundOrThrow(error, caseId);
 	}
@@ -149,7 +149,6 @@ export const publishExaminationLibraryCategoryHandler = async (req, res) => {
 		!Object.keys(publishedCategory).length ||
 		!publishedCategory.examinationDocuments?.length
 	) {
-		const categoryCode = payload?.categoryCode;
 		throw new BackOfficeAppError(
 			`Error publishing category${categoryCode ? ` with code ${categoryCode}` : ''}`,
 			500

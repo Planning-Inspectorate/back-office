@@ -148,7 +148,10 @@ export const publishExaminationLibraryCategory = async (caseId, categoryData) =>
 		return {
 			documentGuid: document?.guid || '',
 			documentExaminationReference: document?.latestDocumentVersion?.examinationLibraryIndex || '',
-			categoryCode: categoryCode || '',
+			categoryCode:
+				document?.latestDocumentVersion?.ExaminationLibraryCategory?.categoryCode ||
+				categoryCode ||
+				'',
 			categoryName: document?.latestDocumentVersion?.ExaminationLibraryCategory?.categoryName || ''
 		};
 	});
