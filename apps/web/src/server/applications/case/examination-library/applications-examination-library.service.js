@@ -1,4 +1,4 @@
-import { get } from '../../../lib/request.js';
+import { get, post } from '../../../lib/request.js';
 
 /**
  * @typedef {import('@pins/applications/lib/status-utils.js').ApplicationStatus} ApplicationStatus
@@ -44,4 +44,15 @@ export async function getExaminationLibraryDocumentsByTimetableItem(
 	return get(
 		`applications/${caseId}/examination-library/documents?examinationTimetableItemId=${examinationTimetableItemId}&${queryString}`
 	);
+}
+
+/**
+ * Publishes documents for an examination library category.
+ *
+ * @param {string | number} caseId
+ * @param {{ categoryCode?: string, examinationDocuments?: any[] }} payload
+ * @returns {Promise<any>}
+ */
+export async function publishExaminationLibraryCategory(caseId, payload) {
+	return post(`applications/${caseId}/examination-library/publish`, { json: payload });
 }

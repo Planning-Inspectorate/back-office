@@ -6,6 +6,8 @@ import { createTestEnvironment } from '../../../../../../testing/index.js';
 import { fixtureExaminationLibraryIndex } from '../../../../../../testing/applications/fixtures/examination-library.js';
 import { placeholderSectionStatuses } from '../examination-library.constants.js';
 import staticFlags from '@pins/feature-flags/src/static-feature-flags.js';
+import { publishExaminationLibraryCategory } from '../applications-examination-library.service.js';
+import { url } from '../../../../lib/nunjucks-filters/index.js';
 
 const { app, installMockApi, teardown } = createTestEnvironment();
 const request = supertest(app);
@@ -310,6 +312,43 @@ describe('Examination Library', () => {
 			sortBy: 'description',
 			pageSize: '50',
 			page: '2'
+		});
+	});
+
+	describe('Publish route stubs and helpers', () => {
+		it('should generate correct examination-library-publish URL', () => {
+			const publishUrl = url('examination-library-publish', {
+				caseId: 123,
+				slug: 'application-documents'
+			});
+			expect(publishUrl).toBe(
+				'/applications-service/case/123/examination-library/category/application-documents/publish'
+			);
+		});
+
+		it('should mount GET /category/:slug/publish route', async () => {
+			const flags = staticFlags;
+			flags['idas-607-examination-library'] = true;
+
+			const response = await request.get(`${baseUrl}/category/application-documents/publish`);
+			expect(response.status).toBe(501);
+		});
+
+		it('should mount POST /category/:slug/publish route', async () => {
+			const flags = staticFlags;
+			flags['idas-607-examination-library'] = true;
+
+			const response = await request.post(`${baseUrl}/category/application-documents/publish`);
+			expect(response.status).toBe(501);
+		});
+
+		it('should call API publish endpoint in publishExaminationLibraryCategory', async () => {
+			nock('http://test/')
+				.post('/applications/123/examination-library/publish', { categoryCode: 'APP' })
+				.reply(200, { success: true });
+
+			const result = await publishExaminationLibraryCategory(123, { categoryCode: 'APP' });
+			expect(result).toEqual({ success: true });
 		});
 	});
 });
