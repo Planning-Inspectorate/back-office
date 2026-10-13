@@ -221,28 +221,26 @@ export const publishCategory = async (caseId, categoryCode, documents = []) => {
  * Returns category data for broadcast
  *
  * @param {number} caseId
- * @param {string | string[]} categoryCode
+ * @param {string} categoryCode
  * @returns {Promise<{caseReference: string, categories: string[]}>}
  */
 export const unpublishCategory = async (caseId, categoryCode) => {
-	const categoryCodes = Array.isArray(categoryCode) ? categoryCode : [categoryCode];
-
 	return databaseConnector.$transaction(async (tx) => {
 		const category = await tx.examinationLibraryCategory.findFirst({
 			where: {
 				caseId,
-				categoryCode: { in: categoryCodes }
+				categoryCode
 			}
 		});
 
 		if (!category) {
-			throw new Error(`Category not found for case ${caseId} and code ${categoryCodes.join(', ')}`);
+			throw new Error(`Category not found for case ${caseId} and code ${categoryCode}`);
 		}
 
 		await tx.examinationLibraryCategory.updateMany({
 			where: {
 				caseId,
-				categoryCode: { in: categoryCodes }
+				categoryCode
 			},
 			data: {
 				publishedStatus: 'unpublished'
@@ -260,7 +258,7 @@ export const unpublishCategory = async (caseId, categoryCode) => {
 
 		return {
 			caseReference: caseData.reference,
-			categories: categoryCodes
+			categories: [categoryCode]
 		};
 	});
 };

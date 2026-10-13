@@ -165,12 +165,12 @@ export const publishExaminationLibraryCategoryHandler = async (req, res) => {
  */
 export const unpublishExaminationLibraryCategoryHandler = async (req, res) => {
 	const caseId = Number(req.params.id);
-	const payload = req.body;
+	const { categoryCode } = req.body;
 
 	let unpublishedCategory;
 
 	try {
-		unpublishedCategory = await unpublishExaminationLibraryCategory(caseId, payload);
+		unpublishedCategory = await unpublishExaminationLibraryCategory(caseId, categoryCode);
 	} catch (error) {
 		handleNotFoundOrThrow(error, caseId);
 	}
@@ -180,7 +180,6 @@ export const unpublishExaminationLibraryCategoryHandler = async (req, res) => {
 		!Object.keys(unpublishedCategory).length ||
 		!unpublishedCategory.categories?.length
 	) {
-		const categoryCode = payload?.categoryCode;
 		throw new BackOfficeAppError(
 			`Error unpublishing category${categoryCode ? ` with code ${categoryCode}` : ''}`,
 			404

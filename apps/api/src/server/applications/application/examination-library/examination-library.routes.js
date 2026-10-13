@@ -295,7 +295,7 @@ router.post(
 	/*
 		#swagger.tags = ['Applications']
 		#swagger.path = '/applications/{caseId}/examination-library/unpublish'
-		#swagger.description = 'Unpublishes one or more examination library categories'
+		#swagger.description = 'Unpublishes an examination library category'
 		#swagger.parameters['caseId'] = {
 			in: 'path',
 			description: 'Application ID',
@@ -304,7 +304,7 @@ router.post(
 		}
 		#swagger.parameters['body'] = {
 			in: 'body',
-			description: 'Category code or array of categories to unpublish',
+			description: 'Category code to unpublish',
 			required: true,
 			schema: { categoryCode: 'APP' }
 		}

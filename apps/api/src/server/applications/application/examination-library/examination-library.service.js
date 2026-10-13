@@ -170,17 +170,14 @@ export const publishExaminationLibraryCategory = async (caseId, categoryData) =>
  * Unpublishes an Examination Library category
  *
  * @param {number} caseId
- * @param {string | { categoryCode?: string, categories?: string[] }} [categoryData]
+ * @param {string | { categoryCode?: string }} [categoryData]
  * @returns {Promise<any>}
  */
 export const unpublishExaminationLibraryCategory = async (caseId, categoryData) => {
-	const categoryCodes =
-		typeof categoryData === 'string'
-			? categoryData
-			: (categoryData?.categories ?? categoryData?.categoryCode);
+	const categoryCode = typeof categoryData === 'string' ? categoryData : categoryData?.categoryCode;
 	const unpublishedCategory = await examinationLibraryRepository.unpublishCategory(
 		caseId,
-		/** @type {string | string[]} */ (categoryCodes)
+		/** @type {string} */ (categoryCode)
 	);
 
 	await eventClient.sendEvents(

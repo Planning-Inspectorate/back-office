@@ -642,10 +642,10 @@ describe('Examination Library Routes', () => {
 				categories: ['APP']
 			});
 			expect(databaseConnector.examinationLibraryCategory.findFirst).toHaveBeenCalledWith({
-				where: { caseId, categoryCode: { in: ['APP'] } }
+				where: { caseId, categoryCode: 'APP' }
 			});
 			expect(databaseConnector.examinationLibraryCategory.updateMany).toHaveBeenCalledWith({
-				where: { caseId, categoryCode: { in: ['APP'] } },
+				where: { caseId, categoryCode: 'APP' },
 				data: { publishedStatus: 'unpublished' }
 			});
 			expect(eventClient.sendEvents).toHaveBeenCalledWith(
@@ -654,41 +654,6 @@ describe('Examination Library Routes', () => {
 					{
 						caseReference: 'EN010001',
 						categories: ['APP']
-					}
-				],
-				EventType.Unpublish
-			);
-		});
-
-		it('should unpublish multiple examination library categories given categories array payload', async () => {
-			const mockCategory = { id: 10, categoryCode: 'APP', categoryName: 'Application form' };
-
-			databaseConnector.examinationLibraryCategory.findFirst.mockResolvedValue(mockCategory);
-			databaseConnector.examinationLibraryCategory.updateMany.mockResolvedValue({ count: 2 });
-			databaseConnector.case.findUnique.mockResolvedValue({ reference: 'EN010001' });
-
-			const response = await request
-				.post(`/applications/${caseId}/examination-library/unpublish`)
-				.send({ caseReference: 'EN010001', categories: ['APP', 'PLN'] });
-
-			expect(response.status).toBe(200);
-			expect(response.body).toEqual({
-				caseReference: 'EN010001',
-				categories: ['APP', 'PLN']
-			});
-			expect(databaseConnector.examinationLibraryCategory.findFirst).toHaveBeenCalledWith({
-				where: { caseId, categoryCode: { in: ['APP', 'PLN'] } }
-			});
-			expect(databaseConnector.examinationLibraryCategory.updateMany).toHaveBeenCalledWith({
-				where: { caseId, categoryCode: { in: ['APP', 'PLN'] } },
-				data: { publishedStatus: 'unpublished' }
-			});
-			expect(eventClient.sendEvents).toHaveBeenCalledWith(
-				EXAMINATION_LIBRARY_UNPUBLISH,
-				[
-					{
-						caseReference: 'EN010001',
-						categories: ['APP', 'PLN']
 					}
 				],
 				EventType.Unpublish
@@ -705,13 +670,17 @@ describe('Examination Library Routes', () => {
 			expect(eventClient.sendEvents).not.toHaveBeenCalled();
 		});
 
-		it('should return 400 when categories array is empty', async () => {
+		it('should return 400 when categoryCode is missing or invalid', async () => {
 			const response = await request
 				.post(`/applications/${caseId}/examination-library/unpublish`)
-				.send({ caseReference: 'EN010001', categories: [] });
+				.send({ categoryCode: 123 });
 
 			expect(response.status).toBe(400);
-			expect(response.body.errors).toBeDefined();
+			expect(response.body).toEqual({
+				errors: {
+					categoryCode: 'Category code is required and must be a string'
+				}
+			});
 			expect(eventClient.sendEvents).not.toHaveBeenCalled();
 		});
 
