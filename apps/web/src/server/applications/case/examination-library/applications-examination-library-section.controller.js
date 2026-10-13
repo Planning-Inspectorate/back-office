@@ -79,12 +79,14 @@ export async function getExaminationLibrarySection(request, response) {
 	/** @type {ExaminationLibraryDocumentVersion[]} */
 	const sectionDocuments = documentsResponse.items ?? [];
 
+	const isPublishedQuery = request.query.published === 'true';
 	const sectionStatus =
 		/** @type {import('@pins/applications/lib/status-utils.js').ApplicationStatus} */ (
-			placeholderSectionStatus
+			isPublishedQuery ? 'published' : placeholderSectionStatus
 		);
 
 	const sectionUrl = url('examination-library-section', { caseId: caseIdNumber, slug: itemSlug });
+	const publishUrl = url('examination-library-publish', { caseId: caseIdNumber, slug: itemSlug });
 
 	const sectionViewModel = getExaminationLibrarySectionViewModel({
 		dynamicSections,
@@ -103,6 +105,8 @@ export async function getExaminationLibrarySection(request, response) {
 		...sectionViewModel,
 		caseId,
 		projectName,
+		publishUrl,
+		showSuccessBanner: isPublishedQuery,
 		pagination: getExaminationLibraryPagination(request.query, documentsResponse, sectionUrl)
 	});
 }

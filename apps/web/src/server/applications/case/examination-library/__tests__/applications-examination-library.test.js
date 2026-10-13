@@ -257,6 +257,29 @@ describe('Examination Library', () => {
 			});
 		});
 
+		it('should display publish button on unpublished category subpage', async () => {
+			const response = await request.get(`${baseUrl}/category/application-documents`);
+			const element = parseHtml(response.text);
+
+			expect(response.status).toBe(200);
+			expect(element.innerHTML).toContain('Preview and publish category to library');
+			expect(element.innerHTML).toContain(
+				'/applications-service/case/123/examination-library/category/application-documents/publish'
+			);
+		});
+
+		it('should display success banner and published tag when published query parameter is present', async () => {
+			const response = await request.get(
+				`${baseUrl}/category/application-documents?published=true`
+			);
+			const element = parseHtml(response.text);
+
+			expect(response.status).toBe(200);
+			expect(element.innerHTML).toContain('Examination library category published');
+			expect(element.innerHTML).toContain('Published');
+			expect(element.innerHTML).not.toContain('Preview and publish category to library');
+		});
+
 		it('should return 404 for an invalid section code', async () => {
 			const response = await request.get(`${baseUrl}/category/invalid-section`);
 
