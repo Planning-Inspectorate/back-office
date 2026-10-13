@@ -49,6 +49,7 @@ const nocks = ({ includeDocuments = true } = {}) => {
 
 	if (includeDocuments) {
 		nock('http://test/')
+			.persist()
 			.get('/applications/123/examination-library/documents')
 			.query((query) => {
 				documentsQuery = query;
@@ -326,20 +327,33 @@ describe('Examination Library', () => {
 			);
 		});
 
-		it('should mount GET /category/:slug/publish route', async () => {
+		it('should render GET /category/:slug/publish page with correct layout', async () => {
 			const flags = staticFlags;
 			flags['idas-607-examination-library'] = true;
 
 			const response = await request.get(`${baseUrl}/category/application-documents/publish`);
-			expect(response.status).toBe(501);
+			expect(response.status).toBe(200);
+
+			const element = parseHtml(response.text);
+			expect(element.innerHTML).toContain(
+				'Check details and publish Application documents to the examination library'
+			);
+			expect(element.innerHTML).toContain('Publish to examination library');
 		});
 
-		it('should mount POST /category/:slug/publish route', async () => {
+		it('should handle POST /category/:slug/publish route and redirect with published=true', async () => {
 			const flags = staticFlags;
 			flags['idas-607-examination-library'] = true;
 
+			nock('http://test/')
+				.post('/applications/123/examination-library/publish', { categoryCode: 'APP' })
+				.reply(200, { success: true });
+
 			const response = await request.post(`${baseUrl}/category/application-documents/publish`);
-			expect(response.status).toBe(501);
+			expect(response.status).toBe(302);
+			expect(response.header.location).toBe(
+				'/applications-service/case/123/examination-library/category/application-documents?published=true'
+			);
 		});
 
 		it('should call API publish endpoint in publishExaminationLibraryCategory', async () => {
