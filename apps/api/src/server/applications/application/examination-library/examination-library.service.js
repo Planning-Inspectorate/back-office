@@ -132,9 +132,7 @@ export const publishExaminationLibraryCategory = async (caseId, categoryData) =>
 		categoryCode
 	});
 
-	const sortedDocuments = sortExaminationLibraryDocuments(categoryDocuments);
-
-	const documentsWithDraftReferences = generateDraftExaminationLibraryReferences(sortedDocuments);
+	const documentsWithDraftReferences = addDraftExaminationLibraryReferences(categoryDocuments);
 
 	const publishedCategory = /** @type {*} */ (
 		await examinationLibraryRepository.publishCategory(
@@ -170,14 +168,13 @@ export const publishExaminationLibraryCategory = async (caseId, categoryData) =>
  * Unpublishes an Examination Library category
  *
  * @param {number} caseId
- * @param {string | { categoryCode?: string }} [categoryData]
+ * @param {string} categoryCode
  * @returns {Promise<any>}
  */
-export const unpublishExaminationLibraryCategory = async (caseId, categoryData) => {
-	const categoryCode = typeof categoryData === 'string' ? categoryData : categoryData?.categoryCode;
+export const unpublishExaminationLibraryCategory = async (caseId, categoryCode) => {
 	const unpublishedCategory = await examinationLibraryRepository.unpublishCategory(
 		caseId,
-		/** @type {string} */ (categoryCode)
+		categoryCode
 	);
 
 	await eventClient.sendEvents(

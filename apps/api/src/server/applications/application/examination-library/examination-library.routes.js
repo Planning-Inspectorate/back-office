@@ -14,8 +14,7 @@ import {
 	validateGetCategories,
 	validateCreateCategories,
 	validateGetDocuments,
-	validatePublishCategory,
-	validateUnpublishCategory
+	validateCategoryCode
 } from './examination-library.validators.js';
 
 const router = createRouter({ mergeParams: true });
@@ -286,7 +285,7 @@ router.post(
 		}
 	*/
 	validateApplicationId,
-	validatePublishCategory,
+	validateCategoryCode,
 	asyncHandler(publishExaminationLibraryCategoryHandler)
 );
 
@@ -337,7 +336,7 @@ router.post(
 		}
 	*/
 	validateApplicationId,
-	validateUnpublishCategory,
+	validateCategoryCode,
 	asyncHandler(unpublishExaminationLibraryCategoryHandler)
 );
 

@@ -642,10 +642,10 @@ describe('Examination Library Routes', () => {
 				categories: ['APP']
 			});
 			expect(databaseConnector.examinationLibraryCategory.findFirst).toHaveBeenCalledWith({
-				where: { caseId, categoryCode: 'APP' }
+				where: { caseId, categoryCode: { in: ['APP'] } }
 			});
 			expect(databaseConnector.examinationLibraryCategory.updateMany).toHaveBeenCalledWith({
-				where: { caseId, categoryCode: 'APP' },
+				where: { caseId, categoryCode: { in: ['APP'] } },
 				data: { publishedStatus: 'unpublished' }
 			});
 			expect(eventClient.sendEvents).toHaveBeenCalledWith(
@@ -658,16 +658,6 @@ describe('Examination Library Routes', () => {
 				],
 				EventType.Unpublish
 			);
-		});
-
-		it('should return 400 when unpublish request body is empty', async () => {
-			const response = await request
-				.post(`/applications/${caseId}/examination-library/unpublish`)
-				.send({});
-
-			expect(response.status).toBe(400);
-			expect(response.body.errors).toBeDefined();
-			expect(eventClient.sendEvents).not.toHaveBeenCalled();
 		});
 
 		it('should return 400 when categoryCode is missing or invalid', async () => {
