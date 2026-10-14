@@ -157,17 +157,12 @@ export async function postExaminationLibraryPublish(request, response) {
 	}
 
 	const sectionCategoryCode = getCategoryCode(section, categoryCodes);
-	const sectionItem = section.items.find((item) => item.href === itemSlug);
 
-	if (!sectionItem) {
+	if (!sectionCategoryCode) {
 		return response.status(404).render('app/404');
 	}
 
-	const payload = sectionCategoryCode
-		? { categoryCode: sectionCategoryCode }
-		: { examinationTimetableItemId: sectionItem.examinationTimetableItemId };
-
-	await publishExaminationLibraryCategory(caseId, payload);
+	await publishExaminationLibraryCategory(caseId, { categoryCode: sectionCategoryCode });
 
 	const redirectUrl = `${url('examination-library-section', {
 		caseId: caseIdNumber,

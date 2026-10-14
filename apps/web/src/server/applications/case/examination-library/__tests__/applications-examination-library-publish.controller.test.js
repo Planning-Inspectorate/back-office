@@ -173,20 +173,13 @@ describe('applications examination library publish controller', () => {
 			);
 		});
 
-		it('should publish dynamic timetable category and redirect with published=true', async () => {
+		it('should return 404 if section does not have a category code to publish', async () => {
 			req.params.slug = 'deadline-1';
-
-			nock('http://test/')
-				.post('/applications/123/examination-library/publish', {
-					examinationTimetableItemId: 58
-				})
-				.reply(200, { success: true });
 
 			await postExaminationLibraryPublish(req, res);
 
-			expect(res.redirect).toHaveBeenCalledWith(
-				'/applications-service/case/123/examination-library/category/deadline-1?published=true'
-			);
+			expect(res.status).toHaveBeenCalledWith(404);
+			expect(res.render).toHaveBeenCalledWith('app/404');
 		});
 	});
 });

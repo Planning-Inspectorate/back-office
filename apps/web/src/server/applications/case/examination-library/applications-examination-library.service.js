@@ -50,7 +50,7 @@ export async function getExaminationLibraryDocumentsByTimetableItem(
  * Publishes documents for an examination library category.
  *
  * @param {string | number} caseId
- * @param {{ categoryCode?: string, examinationDocuments?: any[] }} payload
+ * @param {{ categoryCode: string }} payload
  * @returns {Promise<any>}
  */
 export async function publishExaminationLibraryCategory(caseId, payload) {
