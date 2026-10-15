@@ -147,6 +147,9 @@ export const buildPayloadEventsForSchema = (topic, events = {}) => {
 	const eventsArray = Array.isArray(events) ? events : [events];
 	const schemaName = getSchemaNameFromTopic(topic);
 	const schema = schemas[schemaName];
+	if (!schema?.required) {
+		return eventsArray.map((event) => removeUndefined(event));
+	}
 	const basePayload = schema.required.reduce(payloadReducer, {});
 	return eventsArray.map((event) => ({ ...basePayload, ...removeUndefined(event) }));
 };

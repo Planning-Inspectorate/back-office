@@ -4,6 +4,11 @@ import {
 	addDraftExaminationLibraryReferences
 } from './examination-library.utils.js';
 import { NO_EXAMINATION_LIBRARY_CATEGORY_CODE } from './examination-library.constants.js';
+import { EventType } from '@pins/event-client';
+import {
+	broadcastExaminationLibraryPublishEvent,
+	broadcastExaminationLibraryUnpublishEvent
+} from '#infrastructure/event-broadcasters.js';
 
 /**
  * @typedef {import('#database-client').ExaminationLibraryCategory} ExaminationLibraryCategory
@@ -110,4 +115,49 @@ export const isExaminationLibraryReferenceLocked = async (
 	);
 
 	return document !== null && document.guid !== documentGuid;
+};
+
+/**
+ * Publishes an Examination Library category
+ * Maps Examination Library category document data for broadcast
+ *
+ * @param {number} caseId
+ * @param {string | { categoryCode?: string }} [categoryData]
+ * @returns {Promise<any>}
+ */
+export const publishExaminationLibraryCategory = async (caseId, categoryData) => {
+	const categoryCode = typeof categoryData === 'string' ? categoryData : categoryData?.categoryCode;
+	const categoryDocuments = await examinationLibraryRepository.getDocuments(caseId, {
+		categoryCode
+	});
+
+	const documentsWithDraftReferences = addDraftExaminationLibraryReferences(categoryDocuments);
+
+	const publishedCategory = await examinationLibraryRepository.publishCategory(
+		caseId,
+		/** @type {string} */ (categoryCode),
+		documentsWithDraftReferences
+	);
+
+	if (!publishedCategory?.documents?.length) {
+		return null;
+	}
+
+	return broadcastExaminationLibraryPublishEvent(publishedCategory, EventType.Publish);
+};
+
+/**
+ * Unpublishes an Examination Library category
+ *
+ * @param {number} caseId
+ * @param {string} categoryCode
+ * @returns {Promise<any>}
+ */
+export const unpublishExaminationLibraryCategory = async (caseId, categoryCode) => {
+	const unpublishedCategory = await examinationLibraryRepository.unpublishCategory(
+		caseId,
+		categoryCode
+	);
+
+	return broadcastExaminationLibraryUnpublishEvent(unpublishedCategory, EventType.Unpublish);
 };
