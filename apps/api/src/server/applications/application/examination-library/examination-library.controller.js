@@ -147,7 +147,7 @@ export const publishExaminationLibraryCategoryHandler = async (req, res) => {
 	if (
 		!publishedCategory ||
 		!Object.keys(publishedCategory).length ||
-		!publishedCategory.examinationDocuments
+		!publishedCategory.examinationDocuments?.length
 	) {
 		throw new BackOfficeAppError(
 			`Error publishing category${categoryCode ? ` with code ${categoryCode}` : ''}`,

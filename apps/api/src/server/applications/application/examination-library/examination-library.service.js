@@ -4,12 +4,11 @@ import {
 	addDraftExaminationLibraryReferences
 } from './examination-library.utils.js';
 import { NO_EXAMINATION_LIBRARY_CATEGORY_CODE } from './examination-library.constants.js';
-import { eventClient } from '#infrastructure/event-client.js';
 import { EventType } from '@pins/event-client';
 import {
-	EXAMINATION_LIBRARY_PUBLISH,
-	EXAMINATION_LIBRARY_UNPUBLISH
-} from '#infrastructure/topics.js';
+	broadcastExaminationLibraryPublishEvent,
+	broadcastExaminationLibraryUnpublishEvent
+} from '#infrastructure/event-broadcasters.js';
 
 /**
  * @typedef {import('#database-client').ExaminationLibraryCategory} ExaminationLibraryCategory
@@ -134,34 +133,17 @@ export const publishExaminationLibraryCategory = async (caseId, categoryData) =>
 
 	const documentsWithDraftReferences = addDraftExaminationLibraryReferences(categoryDocuments);
 
-	const publishedCategory = /** @type {*} */ (
-		await examinationLibraryRepository.publishCategory(
-			caseId,
-			/** @type {string} */ (categoryCode),
-			documentsWithDraftReferences
-		)
+	const publishedCategory = await examinationLibraryRepository.publishCategory(
+		caseId,
+		/** @type {string} */ (categoryCode),
+		documentsWithDraftReferences
 	);
 
-	const mappedDocuments = publishedCategory.documents.map((/** @type {*} */ document) => {
-		return {
-			documentGuid: document?.guid || '',
-			documentExaminationReference: document?.latestDocumentVersion?.examinationLibraryIndex || '',
-			categoryCode:
-				document?.latestDocumentVersion?.ExaminationLibraryCategory?.categoryCode ||
-				categoryCode ||
-				'',
-			categoryName: document?.latestDocumentVersion?.ExaminationLibraryCategory?.categoryName || ''
-		};
-	});
+	if (!publishedCategory?.documents?.length) {
+		return null;
+	}
 
-	const publishPayload = {
-		caseReference: publishedCategory?.caseReference || '',
-		examinationDocuments: mappedDocuments
-	};
-
-	await eventClient.sendEvents(EXAMINATION_LIBRARY_PUBLISH, [publishPayload], EventType.Publish);
-
-	return publishPayload;
+	return broadcastExaminationLibraryPublishEvent(publishedCategory, EventType.Publish);
 };
 
 /**
@@ -177,11 +159,5 @@ export const unpublishExaminationLibraryCategory = async (caseId, categoryCode) 
 		categoryCode
 	);
 
-	await eventClient.sendEvents(
-		EXAMINATION_LIBRARY_UNPUBLISH,
-		[unpublishedCategory],
-		EventType.Unpublish
-	);
-
-	return unpublishedCategory;
+	return broadcastExaminationLibraryUnpublishEvent(unpublishedCategory, EventType.Unpublish);
 };

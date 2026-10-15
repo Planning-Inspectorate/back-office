@@ -157,6 +157,13 @@ export const publishCategory = async (caseId, categoryCode, documents = []) => {
 			throw new Error(`Category not found for case ${caseId} and code ${categoryCode}`);
 		}
 
+		if (!documents || documents.length === 0) {
+			return {
+				caseReference: '',
+				documents: []
+			};
+		}
+
 		await tx.examinationLibraryCategory.updateMany({
 			where: {
 				caseId,
@@ -178,7 +185,7 @@ export const publishCategory = async (caseId, categoryCode, documents = []) => {
 				},
 				data: {
 					examinationLibraryReferenceLocked: true,
-					examinationLibraryIndex: documentReference
+					examinationRefNo: documentReference
 				}
 			});
 		}
@@ -210,6 +217,7 @@ export const publishCategory = async (caseId, categoryCode, documents = []) => {
 		});
 
 		return {
+			caseId,
 			caseReference: caseData.reference,
 			documents: publishedCategoryDocuments
 		};
@@ -259,6 +267,7 @@ export const unpublishCategory = async (caseId, categoryCode) => {
 		}
 
 		return {
+			caseId,
 			caseReference: caseData.reference,
 			categories: categoryCodes
 		};

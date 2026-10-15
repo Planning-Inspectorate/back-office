@@ -528,8 +528,9 @@ describe('Examination Library Routes', () => {
 					guid: validDocGuid,
 					latestDocumentVersion: {
 						version: 1,
-						examinationLibraryIndex: 'APP-001',
+						examinationRefNo: 'APP-001',
 						ExaminationLibraryCategory: {
+							categoryCode: 'APP',
 							categoryName: 'Application form'
 						}
 					}
@@ -620,6 +621,22 @@ describe('Examination Library Routes', () => {
 
 			expect(response.status).toBe(404);
 			expect(response.body).toEqual({ errors: `Case ${caseId} not found` });
+			expect(eventClient.sendEvents).not.toHaveBeenCalled();
+		});
+
+		it('should return 500 when category has no documents to publish', async () => {
+			const mockCategory = { id: 10, categoryCode: 'APP', categoryName: 'Application form' };
+			databaseConnector.examinationLibraryCategory.findFirst.mockResolvedValue(mockCategory);
+			databaseConnector.document.findMany.mockResolvedValue([]);
+
+			const response = await request
+				.post(`/applications/${caseId}/examination-library/publish`)
+				.send({ categoryCode: 'APP' });
+
+			expect(response.status).toBe(500);
+			expect(response.body).toEqual({
+				errors: 'Error publishing category with code APP'
+			});
 			expect(eventClient.sendEvents).not.toHaveBeenCalled();
 		});
 	});
