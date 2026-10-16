@@ -36,6 +36,7 @@ export const getExaminationLibraryPublishViewModel = ({
 	projectName = '',
 	publishUrl
 }) => {
+	// TODO: Return null or handle empty datasets when sectionDocuments is empty. The view model should not prepare publication data for zero items.
 	const resolvedSection =
 		section || getSectionByItemSlug(examinationLibrarySections, dynamicSections, itemSlug);
 

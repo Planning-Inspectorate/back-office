@@ -52,6 +52,7 @@
 		iconFallbackText: "Warning"
 	}) }}
 
+	{# TODO: Disable or remove this submission form when there are no documents to publish. Users must not publish an empty category. #}
 	<form method="post" action="{{ publishUrl }}">
 		{{ govukButton({
 			text: "Publish to examination library",

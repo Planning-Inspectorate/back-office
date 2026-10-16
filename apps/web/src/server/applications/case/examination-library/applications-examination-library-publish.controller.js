@@ -109,6 +109,7 @@ export async function getExaminationLibraryPublish(request, response) {
 		slug: itemSlug
 	});
 
+	// TODO: Add a guard to redirect or reject requests when totalPublishedCount is zero. Do not render the publish review screen for an empty category.
 	const viewModel = getExaminationLibraryPublishViewModel({
 		section,
 		sectionDocuments,
@@ -144,6 +145,7 @@ export async function getExaminationLibraryPublish(request, response) {
  * @returns {Promise<void>}
  */
 export async function postExaminationLibraryPublish(request, response) {
+	// TODO: Validate that the category contains documents before publishing. Reject publication if the document list is empty.
 	const { caseId, slug: itemSlug } = request.params;
 	const caseIdNumber = Number(caseId);
 

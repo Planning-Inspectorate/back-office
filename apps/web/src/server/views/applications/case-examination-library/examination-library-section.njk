@@ -41,6 +41,7 @@
 		Once an examination library category has been published, the examination library references are final and cannot be changed.
 	</p>
 
+	{# TODO: Hide this action when the category contains zero documents. Users must not access the publish workflow for an empty category. #}
 	{% if sectionStatus != 'Published' and sectionStatus != 'published' %}
 		<div class="govuk-!-margin-bottom-6">
 			{{ govukButton({

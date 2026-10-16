@@ -101,6 +101,7 @@ export async function getExaminationLibrarySection(request, response) {
 		return response.status(404).render('app/404');
 	}
 
+	// TODO: Prevent access to the publish route when the category has zero documents. Omit publishUrl or block navigation for empty categories.
 	return response.render('applications/case-examination-library/examination-library-section.njk', {
 		...sectionViewModel,
 		caseId,
