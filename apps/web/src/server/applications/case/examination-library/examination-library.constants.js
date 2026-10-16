@@ -42,6 +42,7 @@ export const dynamicSectionSlugByTemplateType = {
  */
 export const NO_EXAMINATION_LIBRARY_CATEGORY_CODE = 'NELC';
 
+// TODO: Rename the "Status" column header to "Document status" to prevent confusion with category status, pending confirmation from the interaction designer.
 /**
  * Table headers for Examination Library category subpages where document author is displayed
  *
