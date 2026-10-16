@@ -119,3 +119,13 @@ const formatUtcDateTimeToLocal24h = (utcDateString) => {
 	});
 	return localTimeString.substring(0, 5);
 };
+
+/**
+ * @param {string} name
+ * @returns {string}
+ */
+export const normaliseDeadlineName = (name) => {
+	const match = name.match(/^Deadline (\d{1,2}[a-z]?)$/i);
+
+	return match ? `Deadline ${match[1].toLowerCase()}` : name;
+};
