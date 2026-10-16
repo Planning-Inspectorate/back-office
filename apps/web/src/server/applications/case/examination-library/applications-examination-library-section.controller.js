@@ -1,12 +1,13 @@
 import {
 	getExaminationLibraryDocumentsByCategory,
-	getExaminationLibraryDocumentsByTimetableItem
+	getExaminationLibraryDocumentsByTimetableItem,
+	getExaminationLibraryCategories
 } from './applications-examination-library.service.js';
 import { getExaminationLibrarySectionViewModel } from './applications-examination-library-section.view-model.js';
 import {
 	categoryCodes,
 	examinationLibrarySections,
-	placeholderSectionStatus
+	DEFAULT_SECTION_STATUS
 } from './examination-library.constants.js';
 import {
 	getSectionByItemSlug,
@@ -62,28 +63,42 @@ export async function getExaminationLibrarySection(request, response) {
 		items: []
 	};
 
+	/** @type {Array<any>} */
+	let categoriesResponse = [];
+
 	if (sectionCategoryCode) {
-		documentsResponse = await getExaminationLibraryDocumentsByCategory(
-			caseId,
-			sectionCategoryCode,
-			queryString
-		);
+		[documentsResponse, categoriesResponse] = await Promise.all([
+			getExaminationLibraryDocumentsByCategory(caseId, sectionCategoryCode, queryString),
+			getExaminationLibraryCategories(caseId, { categoryCode: sectionCategoryCode }).catch(() => [])
+		]);
 	} else if (sectionItem?.examinationTimetableItemId) {
-		documentsResponse = await getExaminationLibraryDocumentsByTimetableItem(
-			caseId,
-			sectionItem.examinationTimetableItemId,
-			queryString
-		);
+		[documentsResponse, categoriesResponse] = await Promise.all([
+			getExaminationLibraryDocumentsByTimetableItem(
+				caseId,
+				sectionItem.examinationTimetableItemId,
+				queryString
+			),
+			getExaminationLibraryCategories(caseId).catch(() => [])
+		]);
 	}
 
 	/** @type {ExaminationLibraryDocumentVersion[]} */
 	const sectionDocuments = documentsResponse.items ?? [];
 
+	const currentCategory = sectionCategoryCode
+		? categoriesResponse?.[0]
+		: categoriesResponse?.find(
+				(cat) => cat.examinationTimetableItemId === sectionItem?.examinationTimetableItemId
+			);
+
 	const isPublishedQuery = request.query.published === 'true';
-	const sectionStatus =
-		/** @type {import('@pins/applications/lib/status-utils.js').ApplicationStatus} */ (
-			isPublishedQuery ? 'published' : placeholderSectionStatus
-		);
+	const liveStatus = currentCategory?.publishedStatus
+		? /** @type {import('@pins/applications/lib/status-utils.js').ApplicationStatus} */ (
+				currentCategory.publishedStatus.toLowerCase().replace(/\s+/g, '-')
+			)
+		: DEFAULT_SECTION_STATUS;
+
+	const sectionStatus = isPublishedQuery ? 'published' : liveStatus;
 
 	const sectionUrl = url('examination-library-section', { caseId: caseIdNumber, slug: itemSlug });
 	const publishUrl = url('examination-library-publish', { caseId: caseIdNumber, slug: itemSlug });

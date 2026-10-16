@@ -4,7 +4,6 @@ import nock from 'nock';
 import supertest from 'supertest';
 import { createTestEnvironment } from '../../../../../../testing/index.js';
 import { fixtureExaminationLibraryIndex } from '../../../../../../testing/applications/fixtures/examination-library.js';
-import { placeholderSectionStatuses } from '../examination-library.constants.js';
 import staticFlags from '@pins/feature-flags/src/static-feature-flags.js';
 import { publishExaminationLibraryCategory } from '../applications-examination-library.service.js';
 import { url } from '../../../../lib/nunjucks-filters/index.js';
@@ -37,15 +36,17 @@ const timetableItems = [
 
 let documentsQuery;
 
-const nocks = ({ includeDocuments = true } = {}) => {
+const nocks = ({ includeDocuments = true, categories = [] } = {}) => {
 	nock('http://test/').get('/applications').reply(200, []);
 	nock('http://test/').get('/applications/123').reply(200, fixtureExaminationLibraryIndex.caseData);
 	nock('http://test/')
 		.get('/applications/examination-timetable-items/case/123')
 		.reply(200, { items: timetableItems });
 	nock('http://test/')
-		.get('/applications/123/examination-library/section-statuses')
-		.reply(200, placeholderSectionStatuses);
+		.persist()
+		.get('/applications/123/examination-library')
+		.query(true)
+		.reply(200, categories);
 
 	if (includeDocuments) {
 		nock('http://test/')
@@ -122,7 +123,7 @@ describe('Examination Library', () => {
 			expect(element.innerHTML).toContain('Other documents');
 		});
 
-		it('should display published static statuses and in-progress dynamic statuses', async () => {
+		it('should display in-progress status tags by default when no category statuses returned', async () => {
 			const response = await request.get(`${baseUrl}`);
 			const element = parseHtml(response.text);
 
@@ -131,18 +132,7 @@ describe('Examination Library', () => {
 			const tags = element.querySelectorAll('.govuk-task-list .govuk-tag');
 			expect(tags.length).toBe(9);
 
-			const publishedTags = tags.filter((tag) => tag.textContent.trim() === 'Published');
-			const inProgressTags = tags.filter((tag) => tag.textContent.trim() === 'In progress');
-
-			expect(publishedTags.length).toBe(6);
-			expect(inProgressTags.length).toBe(3);
-
-			publishedTags.forEach((tag) => {
-				expect(tag.textContent.trim()).toBe('Published');
-				expect(tag.classList.contains('govuk-tag--green')).toBe(true);
-			});
-
-			inProgressTags.forEach((tag) => {
+			tags.forEach((tag) => {
 				expect(tag.textContent.trim()).toBe('In progress');
 				expect(tag.classList.contains('govuk-tag--blue')).toBe(true);
 			});
@@ -214,6 +204,27 @@ describe('Examination Library', () => {
 			expect(taskLinks.length).toBe(9);
 		});
 
+		it('should display live category statuses when returned by the API', async () => {
+			nock.cleanAll();
+			nocks({
+				categories: [
+					{ categoryCode: 'APP', publishedStatus: 'published' },
+					{ categoryCode: 'AoC', publishedStatus: 'in progress' }
+				]
+			});
+
+			const response = await request.get(`${baseUrl}`);
+			const element = parseHtml(response.text);
+
+			expect(response.status).toBe(200);
+			const tags = element.querySelectorAll('.govuk-task-list .govuk-tag');
+			expect(tags.length).toBe(9);
+
+			const publishedTags = tags.filter((tag) => tag.textContent.trim() === 'Published');
+			expect(publishedTags.length).toBe(1);
+			expect(publishedTags[0].textContent.trim()).toBe('Published');
+		});
+
 		it('should NOT render the page when feature flag is OFF', async () => {
 			const flags = staticFlags;
 			flags['idas-607-examination-library'] = false;
@@ -276,6 +287,20 @@ describe('Examination Library', () => {
 
 			expect(response.status).toBe(200);
 			expect(element.innerHTML).toContain('Examination library category published');
+			expect(element.innerHTML).toContain('Published');
+			expect(element.innerHTML).not.toContain('Preview and publish category to library');
+		});
+
+		it('should display live category published status and hide publish button when category is already published via API', async () => {
+			nock.cleanAll();
+			nocks({
+				categories: [{ categoryCode: 'APP', publishedStatus: 'published' }]
+			});
+
+			const response = await request.get(`${baseUrl}/category/application-documents`);
+			const element = parseHtml(response.text);
+
+			expect(response.status).toBe(200);
 			expect(element.innerHTML).toContain('Published');
 			expect(element.innerHTML).not.toContain('Preview and publish category to library');
 		});

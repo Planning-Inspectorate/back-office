@@ -1,17 +1,15 @@
 import { get, post } from '../../../lib/request.js';
 
 /**
- * @typedef {import('@pins/applications/lib/status-utils.js').ApplicationStatus} ApplicationStatus
- */
-
-/**
- * Get examination library section statuses for a case
+ * Get examination library categories for a case
  *
- * @param {number} caseId
- * @returns {Promise<Array<{slug: string, status: ApplicationStatus}>>}
+ * @param {string | number} caseId
+ * @param {{ categoryCode?: string }} [filters]
+ * @returns {Promise<Array<{ id: number, categoryCode: string, categoryName: string, publishedStatus: string, examinationTimetableItemId?: number | null }>>}
  */
-export async function getExaminationLibrarySectionStatuses(caseId) {
-	return get(`applications/${caseId}/examination-library/section-statuses`);
+export async function getExaminationLibraryCategories(caseId, filters = {}) {
+	const query = filters.categoryCode ? `?categoryCode=${filters.categoryCode}` : '';
+	return get(`applications/${caseId}/examination-library${query}`);
 }
 
 /**
