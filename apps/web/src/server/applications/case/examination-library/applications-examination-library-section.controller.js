@@ -1,12 +1,13 @@
 import {
 	getExaminationLibraryDocumentsByCategory,
-	getExaminationLibraryDocumentsByTimetableItem
+	getExaminationLibraryDocumentsByTimetableItem,
+	getExaminationLibraryCategories
 } from './applications-examination-library.service.js';
 import { getExaminationLibrarySectionViewModel } from './applications-examination-library-section.view-model.js';
 import {
 	categoryCodes,
 	examinationLibrarySections,
-	placeholderSectionStatus
+	DEFAULT_SECTION_STATUS
 } from './examination-library.constants.js';
 import {
 	getSectionByItemSlug,
@@ -62,29 +63,45 @@ export async function getExaminationLibrarySection(request, response) {
 		items: []
 	};
 
+	/** @type {Array<any>} */
+	let categoriesResponse = [];
+
 	if (sectionCategoryCode) {
-		documentsResponse = await getExaminationLibraryDocumentsByCategory(
-			caseId,
-			sectionCategoryCode,
-			queryString
-		);
+		[documentsResponse, categoriesResponse] = await Promise.all([
+			getExaminationLibraryDocumentsByCategory(caseId, sectionCategoryCode, queryString),
+			getExaminationLibraryCategories(caseId, { categoryCode: sectionCategoryCode }).catch(() => [])
+		]);
 	} else if (sectionItem?.examinationTimetableItemId) {
-		documentsResponse = await getExaminationLibraryDocumentsByTimetableItem(
-			caseId,
-			sectionItem.examinationTimetableItemId,
-			queryString
-		);
+		[documentsResponse, categoriesResponse] = await Promise.all([
+			getExaminationLibraryDocumentsByTimetableItem(
+				caseId,
+				sectionItem.examinationTimetableItemId,
+				queryString
+			),
+			getExaminationLibraryCategories(caseId).catch(() => [])
+		]);
 	}
 
 	/** @type {ExaminationLibraryDocumentVersion[]} */
 	const sectionDocuments = documentsResponse.items ?? [];
 
-	const sectionStatus =
-		/** @type {import('@pins/applications/lib/status-utils.js').ApplicationStatus} */ (
-			placeholderSectionStatus
-		);
+	const currentCategory = sectionCategoryCode
+		? categoriesResponse?.[0]
+		: categoriesResponse?.find(
+				(cat) => cat.examinationTimetableItemId === sectionItem?.examinationTimetableItemId
+			);
+
+	const isPublishedQuery = request.query.published === 'true';
+	const liveStatus = currentCategory?.publishedStatus
+		? /** @type {import('@pins/applications/lib/status-utils.js').ApplicationStatus} */ (
+				currentCategory.publishedStatus.toLowerCase().replace(/\s+/g, '-')
+			)
+		: DEFAULT_SECTION_STATUS;
+
+	const sectionStatus = isPublishedQuery ? 'published' : liveStatus;
 
 	const sectionUrl = url('examination-library-section', { caseId: caseIdNumber, slug: itemSlug });
+	const publishUrl = url('examination-library-publish', { caseId: caseIdNumber, slug: itemSlug });
 
 	const sectionViewModel = getExaminationLibrarySectionViewModel({
 		dynamicSections,
@@ -99,10 +116,13 @@ export async function getExaminationLibrarySection(request, response) {
 		return response.status(404).render('app/404');
 	}
 
+	// TODO: Prevent access to the publish route when the category has zero documents. Omit publishUrl or block navigation for empty categories.
 	return response.render('applications/case-examination-library/examination-library-section.njk', {
 		...sectionViewModel,
 		caseId,
 		projectName,
+		publishUrl,
+		showSuccessBanner: isPublishedQuery,
 		pagination: getExaminationLibraryPagination(request.query, documentsResponse, sectionUrl)
 	});
 }

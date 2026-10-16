@@ -1,8 +1,9 @@
 {% extends "../layouts/applications.layout.njk" %}
+{% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "../components/status-tag.component.njk" import statusTag %}
 {% from "applications/components/pagination/results-per-page.component.njk" import uiPageSizeInformation, uiPaginationLinks %}
 {% from "applications/case-examination-library/components/table/examination-library-table.component.njk" import examinationLibraryTable %}
-
 
 {% set pageTitle = sectionHeading + " - " + projectName + " - NSIP applications" %}
 
@@ -18,6 +19,16 @@
 {% endblock %}
 
 {% block pageHeading %}
+	{% if showSuccessBanner %}
+		{% set successBannerHtml %}
+			<p class="govuk-notification-banner__heading">Examination library category published</p>
+		{% endset %}
+		{{ govukNotificationBanner({
+			type: 'success',
+			html: successBannerHtml
+		}) }}
+	{% endif %}
+
 	<span class="govuk-caption-l">Examination library</span>
 	<div class="examination-library-heading-row">
 		<h1 class="govuk-heading-l">{{ sectionHeading }}</h1>
@@ -29,6 +40,16 @@
 	<p class="govuk-body">
 		Once an examination library category has been published, the examination library references are final and cannot be changed.
 	</p>
+
+	{# TODO: Hide this action when the category contains zero documents. Users must not access the publish workflow for an empty category. #}
+	{% if sectionStatus != 'Published' and sectionStatus != 'published' %}
+		<div class="govuk-!-margin-bottom-6">
+			{{ govukButton({
+				text: "Preview and publish category to library",
+				href: publishUrl
+			}) }}
+		</div>
+	{% endif %}
 
 	{{ uiPageSizeInformation(pagination) }}
 

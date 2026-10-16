@@ -4,8 +4,9 @@ import nock from 'nock';
 import supertest from 'supertest';
 import { createTestEnvironment } from '../../../../../../testing/index.js';
 import { fixtureExaminationLibraryIndex } from '../../../../../../testing/applications/fixtures/examination-library.js';
-import { placeholderSectionStatuses } from '../examination-library.constants.js';
 import staticFlags from '@pins/feature-flags/src/static-feature-flags.js';
+import { publishExaminationLibraryCategory } from '../applications-examination-library.service.js';
+import { url } from '../../../../lib/nunjucks-filters/index.js';
 
 const { app, installMockApi, teardown } = createTestEnvironment();
 const request = supertest(app);
@@ -35,18 +36,21 @@ const timetableItems = [
 
 let documentsQuery;
 
-const nocks = ({ includeDocuments = true } = {}) => {
+const nocks = ({ includeDocuments = true, categories = [] } = {}) => {
 	nock('http://test/').get('/applications').reply(200, []);
 	nock('http://test/').get('/applications/123').reply(200, fixtureExaminationLibraryIndex.caseData);
 	nock('http://test/')
 		.get('/applications/examination-timetable-items/case/123')
 		.reply(200, { items: timetableItems });
 	nock('http://test/')
-		.get('/applications/123/examination-library/section-statuses')
-		.reply(200, placeholderSectionStatuses);
+		.persist()
+		.get('/applications/123/examination-library')
+		.query(true)
+		.reply(200, categories);
 
 	if (includeDocuments) {
 		nock('http://test/')
+			.persist()
 			.get('/applications/123/examination-library/documents')
 			.query((query) => {
 				documentsQuery = query;
@@ -119,7 +123,7 @@ describe('Examination Library', () => {
 			expect(element.innerHTML).toContain('Other documents');
 		});
 
-		it('should display published static statuses and in-progress dynamic statuses', async () => {
+		it('should display in-progress status tags by default when no category statuses returned', async () => {
 			const response = await request.get(`${baseUrl}`);
 			const element = parseHtml(response.text);
 
@@ -128,18 +132,7 @@ describe('Examination Library', () => {
 			const tags = element.querySelectorAll('.govuk-task-list .govuk-tag');
 			expect(tags.length).toBe(9);
 
-			const publishedTags = tags.filter((tag) => tag.textContent.trim() === 'Published');
-			const inProgressTags = tags.filter((tag) => tag.textContent.trim() === 'In progress');
-
-			expect(publishedTags.length).toBe(6);
-			expect(inProgressTags.length).toBe(3);
-
-			publishedTags.forEach((tag) => {
-				expect(tag.textContent.trim()).toBe('Published');
-				expect(tag.classList.contains('govuk-tag--green')).toBe(true);
-			});
-
-			inProgressTags.forEach((tag) => {
+			tags.forEach((tag) => {
 				expect(tag.textContent.trim()).toBe('In progress');
 				expect(tag.classList.contains('govuk-tag--blue')).toBe(true);
 			});
@@ -211,6 +204,27 @@ describe('Examination Library', () => {
 			expect(taskLinks.length).toBe(9);
 		});
 
+		it('should display live category statuses when returned by the API', async () => {
+			nock.cleanAll();
+			nocks({
+				categories: [
+					{ categoryCode: 'APP', publishedStatus: 'published' },
+					{ categoryCode: 'AoC', publishedStatus: 'in progress' }
+				]
+			});
+
+			const response = await request.get(`${baseUrl}`);
+			const element = parseHtml(response.text);
+
+			expect(response.status).toBe(200);
+			const tags = element.querySelectorAll('.govuk-task-list .govuk-tag');
+			expect(tags.length).toBe(9);
+
+			const publishedTags = tags.filter((tag) => tag.textContent.trim() === 'Published');
+			expect(publishedTags.length).toBe(1);
+			expect(publishedTags[0].textContent.trim()).toBe('Published');
+		});
+
 		it('should NOT render the page when feature flag is OFF', async () => {
 			const flags = staticFlags;
 			flags['idas-607-examination-library'] = false;
@@ -252,6 +266,43 @@ describe('Examination Library', () => {
 				pageSize: '25',
 				page: '1'
 			});
+		});
+
+		it('should display publish button on unpublished category subpage', async () => {
+			const response = await request.get(`${baseUrl}/category/application-documents`);
+			const element = parseHtml(response.text);
+
+			expect(response.status).toBe(200);
+			expect(element.innerHTML).toContain('Preview and publish category to library');
+			expect(element.innerHTML).toContain(
+				'/applications-service/case/123/examination-library/category/application-documents/publish'
+			);
+		});
+
+		it('should display success banner and published tag when published query parameter is present', async () => {
+			const response = await request.get(
+				`${baseUrl}/category/application-documents?published=true`
+			);
+			const element = parseHtml(response.text);
+
+			expect(response.status).toBe(200);
+			expect(element.innerHTML).toContain('Examination library category published');
+			expect(element.innerHTML).toContain('Published');
+			expect(element.innerHTML).not.toContain('Preview and publish category to library');
+		});
+
+		it('should display live category published status and hide publish button when category is already published via API', async () => {
+			nock.cleanAll();
+			nocks({
+				categories: [{ categoryCode: 'APP', publishedStatus: 'published' }]
+			});
+
+			const response = await request.get(`${baseUrl}/category/application-documents`);
+			const element = parseHtml(response.text);
+
+			expect(response.status).toBe(200);
+			expect(element.innerHTML).toContain('Published');
+			expect(element.innerHTML).not.toContain('Preview and publish category to library');
 		});
 
 		it('should return 404 for an invalid section code', async () => {
@@ -310,6 +361,56 @@ describe('Examination Library', () => {
 			sortBy: 'description',
 			pageSize: '50',
 			page: '2'
+		});
+	});
+
+	describe('Publish route stubs and helpers', () => {
+		it('should generate correct examination-library-publish URL', () => {
+			const publishUrl = url('examination-library-publish', {
+				caseId: 123,
+				slug: 'application-documents'
+			});
+			expect(publishUrl).toBe(
+				'/applications-service/case/123/examination-library/category/application-documents/publish'
+			);
+		});
+
+		it('should render GET /category/:slug/publish page with correct layout', async () => {
+			const flags = staticFlags;
+			flags['idas-607-examination-library'] = true;
+
+			const response = await request.get(`${baseUrl}/category/application-documents/publish`);
+			expect(response.status).toBe(200);
+
+			const element = parseHtml(response.text);
+			expect(element.innerHTML).toContain(
+				'Check details and publish Application documents to the examination library'
+			);
+			expect(element.innerHTML).toContain('Publish to examination library');
+		});
+
+		it('should handle POST /category/:slug/publish route and redirect with published=true', async () => {
+			const flags = staticFlags;
+			flags['idas-607-examination-library'] = true;
+
+			nock('http://test/')
+				.post('/applications/123/examination-library/publish', { categoryCode: 'APP' })
+				.reply(200, { success: true });
+
+			const response = await request.post(`${baseUrl}/category/application-documents/publish`);
+			expect(response.status).toBe(302);
+			expect(response.header.location).toBe(
+				'/applications-service/case/123/examination-library/category/application-documents?published=true'
+			);
+		});
+
+		it('should call API publish endpoint in publishExaminationLibraryCategory', async () => {
+			nock('http://test/')
+				.post('/applications/123/examination-library/publish', { categoryCode: 'APP' })
+				.reply(200, { success: true });
+
+			const result = await publishExaminationLibraryCategory(123, { categoryCode: 'APP' });
+			expect(result).toEqual({ success: true });
 		});
 	});
 });

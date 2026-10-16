@@ -42,6 +42,7 @@ export const dynamicSectionSlugByTemplateType = {
  */
 export const NO_EXAMINATION_LIBRARY_CATEGORY_CODE = 'NELC';
 
+// TODO: Rename the "Status" column header to "Document status" to prevent confusion with category status, pending confirmation from the interaction designer.
 /**
  * Table headers for Examination Library category subpages where document author is displayed
  *
@@ -169,29 +170,8 @@ export const examinationLibrarySections = [
 ];
 
 /**
- * Placeholder section statuses for the Examination Library.
+ * Default section status for Examination Library categories
  *
- * These are temporary static values used until the service layer
- * is implemented to fetch statuses from the database.
+ * @type {import('@pins/applications/lib/status-utils.js').ApplicationStatus}
  */
-/** @type {Array<{slug: string, status: import('@pins/applications/lib/status-utils.js').ApplicationStatus}>} */
-export const placeholderSectionStatuses = [
-	{ slug: 'application-documents', status: 'published' },
-	{ slug: 'adequacy-of-consultation-responses', status: 'published' },
-	{ slug: 'relevant-representations', status: 'published' },
-	{ slug: 'procedural-decisions', status: 'published' },
-	{ slug: 'additional-submissions', status: 'published' },
-	{ slug: 'other-documents', status: 'published' },
-	{ slug: 'events-and-hearings', status: 'in-progress' },
-	{ slug: 'procedural-deadlines', status: 'in-progress' },
-	{ slug: 'deadlines', status: 'in-progress' }
-];
-
-/**
- * Placeholder section status for Examination Library category subpages
- *
- * This is a temporary static value in use until the status can be fetched from the database
- *
- * @type {string}
- */
-export const placeholderSectionStatus = 'in-progress';
+export const DEFAULT_SECTION_STATUS = 'in-progress';
