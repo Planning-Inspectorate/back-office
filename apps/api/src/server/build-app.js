@@ -62,6 +62,8 @@ const buildApp = (
 		bodyParser.raw({ type: 'application/octet-stream', limit: '100mb' })
 	);
 	app.use('/migration', bodyParser.json({ limit: '100mb' }));
+	// Hotfix (IDAS-831): Allow large document submission payload for DCO Portal ingestion
+	app.post('/applications/:id/documents', bodyParser.json({ limit: '256kb' }));
 	app.use(bodyParser.json());
 
 	app.use(compression());
