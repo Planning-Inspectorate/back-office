@@ -2,7 +2,7 @@ import api from './back-office-api-client.js';
 import { buildDocumentsPayload } from './utils/build-documents-payload.js';
 import { chunk } from 'lodash-es';
 
-export const BATCH_SIZE = Number(process.env.DOCUMENTS_BATCH_SIZE) || 50;
+const BATCH_SIZE = Number(process.env.DOCUMENTS_BATCH_SIZE) || 50;
 
 /**
  *
