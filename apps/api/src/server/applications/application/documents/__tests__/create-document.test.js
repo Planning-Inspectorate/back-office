@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { request } from '#app-test';
 import config from '#config/config.js';
 const { databaseConnector } = await import('#utils/database-connector.js');
@@ -410,5 +411,47 @@ describe('Create documents', () => {
 				id: 'Must be an existing application'
 			}
 		});
+	});
+
+	test('accepts payload between 100kb and 256kb without PayloadTooLargeError (IDAS-831)', async () => {
+		// GIVEN
+		databaseConnector.case.findUnique.mockResolvedValue(application);
+		databaseConnector.folder.findUnique.mockResolvedValue({ id: 1, caseId: 1 });
+
+		// WHEN: Payload with ~150 KB size (exceeds default 100 KB body-parser limit)
+		const response = await request.post('/applications/1/documents').send([
+			{
+				documentName: 'large-submission.pdf',
+				documentType: 'application/pdf',
+				documentSize: 1024,
+				folderId: 1,
+				description: 'A'.repeat(150 * 1024)
+			}
+		]);
+
+		// THEN: Should not be rejected by body-parser with HTTP 500/413 PayloadTooLargeError
+		expect(response.status).not.toEqual(500);
+		expect(response.body).not.toEqual({ errors: 'request entity too large' });
+	});
+
+	test('rejects payload exceeding 256kb with PayloadTooLargeError (IDAS-831)', async () => {
+		// GIVEN
+		databaseConnector.case.findUnique.mockResolvedValue(application);
+		databaseConnector.folder.findUnique.mockResolvedValue({ id: 1, caseId: 1 });
+
+		// WHEN: Payload with ~280 KB size (exceeds 256 KB limit)
+		const response = await request.post('/applications/1/documents').send([
+			{
+				documentName: 'oversized-submission.pdf',
+				documentType: 'application/pdf',
+				documentSize: 1024,
+				folderId: 1,
+				description: 'A'.repeat(280 * 1024)
+			}
+		]);
+
+		// THEN: Should be rejected by body-parser with request entity too large
+		expect(response.status).toEqual(500);
+		expect(response.body).toEqual({ errors: 'request entity too large' });
 	});
 });
