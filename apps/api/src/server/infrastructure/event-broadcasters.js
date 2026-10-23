@@ -8,6 +8,15 @@ import {
 	NSIP_REPRESENTATION,
 	NSIP_DOCUMENT
 } from './topics.js';
+import {
+	EXAMINATION_LIBRARY_PUBLISH_QUEUE,
+	EXAMINATION_LIBRARY_UNPUBLISH_QUEUE
+} from './queues.js';
+import { sendToQueue } from './service-bus-queue-client.js';
+import {
+	buildExaminationLibraryPublishPayload,
+	buildExaminationLibraryUnpublishPayload
+} from '#infrastructure/payload-builders/examination-library.js';
 import { verifyNotTraining } from '../applications/application/application.validators.js';
 import { EventType } from '@pins/event-client';
 import * as folderRepository from '#repositories/folder.repository.js';
@@ -298,4 +307,60 @@ export const broadcastNsipRepresentationUnpublishEventBatch = async (
 		caseId,
 		buildNsipRepresentationPayloadForUnpublish
 	);
+};
+
+/**
+ * Dispatches an Examination Library category publish event to the Service Bus queue (not a topic).
+ *
+ * @param {{ caseId?: number, caseReference: string, documents: Array<any>, categoryCode?: string }} publishedCategory
+ * @returns {Promise<any>}
+ */
+export const broadcastExaminationLibraryPublishEvent = async (publishedCategory) => {
+	if (publishedCategory?.caseId) {
+		try {
+			await verifyNotTraining(publishedCategory.caseId);
+		} catch (/** @type {*} */ err) {
+			logger.error(
+				{ error: err.message },
+				'Aborted broadcasting event for examination library publish'
+			);
+			return buildExaminationLibraryPublishPayload(publishedCategory);
+		}
+	}
+
+	const payload = buildExaminationLibraryPublishPayload(publishedCategory);
+	try {
+		await sendToQueue(EXAMINATION_LIBRARY_PUBLISH_QUEUE, payload);
+	} catch (/** @type {*} */ err) {
+		logger.error({ error: err.message }, 'Blocked sending event for examination library publish');
+	}
+	return payload;
+};
+
+/**
+ * Dispatches an Examination Library category unpublish event to the Service Bus queue (not a topic).
+ *
+ * @param {{ caseId?: number, caseReference: string, categories: string[] }} unpublishedCategory
+ * @returns {Promise<any>}
+ */
+export const broadcastExaminationLibraryUnpublishEvent = async (unpublishedCategory) => {
+	if (unpublishedCategory?.caseId) {
+		try {
+			await verifyNotTraining(unpublishedCategory.caseId);
+		} catch (/** @type {*} */ err) {
+			logger.error(
+				{ error: err.message },
+				'Aborted broadcasting event for examination library unpublish'
+			);
+			return buildExaminationLibraryUnpublishPayload(unpublishedCategory);
+		}
+	}
+
+	const payload = buildExaminationLibraryUnpublishPayload(unpublishedCategory);
+	try {
+		await sendToQueue(EXAMINATION_LIBRARY_UNPUBLISH_QUEUE, payload);
+	} catch (/** @type {*} */ err) {
+		logger.error({ error: err.message }, 'Blocked sending event for examination library unpublish');
+	}
+	return payload;
 };
