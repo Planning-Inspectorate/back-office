@@ -39,7 +39,7 @@ export const createExaminationLibraryCategories = async (caseId, categoriesData)
  * Documents are sorted before pagination is applied.
  *
  * @param {number} caseId
- * @param {{categoryCode?: string, examinationTimetableItemId?: number, publishedStatus?: string}} filters
+ * @param {{categoryCode?: string, publishedStatus?: string}} filters
  * @param {{page: number, pageSize: number}} pagination
  * @param {Object<string, string>[] | undefined} sort
  * @returns {Promise<{

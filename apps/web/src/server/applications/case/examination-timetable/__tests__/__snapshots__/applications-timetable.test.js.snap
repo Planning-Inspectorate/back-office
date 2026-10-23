@@ -146,7 +146,7 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
                 </div>
                 <div class="govuk-form-group govuk-form-group--error govuk-grid-column-one-half">
                     <label class="govuk-label font-weight--700 govuk-!-margin-bottom-4" for="name">Item name</label>
-                    <div id="name-hint" class="govuk-hint">There is a limit of 200 characters</div>
+                    <div id="name-hint" class="govuk-hint">For example, Deadline 1</div>
                     <p id="name-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> You must enter the item
                         name</p>
                     <input class="govuk-input govuk-input--error" id="name" name="name"
@@ -298,7 +298,7 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
                 </div>
                 <div class="govuk-form-group govuk-form-group--error govuk-grid-column-one-half">
                     <label class="govuk-label font-weight--700 govuk-!-margin-bottom-4" for="name">Item name</label>
-                    <div id="name-hint" class="govuk-hint">There is a limit of 200 characters</div>
+                    <div id="name-hint" class="govuk-hint">For example, Deadline 1</div>
                     <p id="name-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> You must enter the item
                         name</p>
                     <input class="govuk-input govuk-input--error" id="name" name="name"
@@ -452,7 +452,7 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
                 </div>
                 <div class="govuk-form-group govuk-form-group--error govuk-grid-column-one-half">
                     <label class="govuk-label font-weight--700 govuk-!-margin-bottom-4" for="name">Item name</label>
-                    <div id="name-hint" class="govuk-hint">There is a limit of 200 characters</div>
+                    <div id="name-hint" class="govuk-hint">For example, Deadline 1</div>
                     <p id="name-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> You must enter the item
                         name</p>
                     <input class="govuk-input govuk-input--error" id="name" name="name"
@@ -612,7 +612,7 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
                 </div>
                 <div class="govuk-form-group govuk-form-group--error govuk-grid-column-one-half">
                     <label class="govuk-label font-weight--700 govuk-!-margin-bottom-4" for="name">Item name</label>
-                    <div id="name-hint" class="govuk-hint">There is a limit of 200 characters</div>
+                    <div id="name-hint" class="govuk-hint">For example, Deadline 1</div>
                     <p id="name-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> You must enter the item
                         name</p>
                     <input class="govuk-input govuk-input--error" id="name" name="name"
@@ -1371,7 +1371,7 @@ exports[`Create examination timetable page POST /case/123/examination-timetable/
                 </div>
                 <div class="govuk-form-group govuk-form-group--error govuk-grid-column-one-half">
                     <label class="govuk-label font-weight--700 govuk-!-margin-bottom-4" for="name">Item name</label>
-                    <div id="name-hint" class="govuk-hint">There is a limit of 200 characters</div>
+                    <div id="name-hint" class="govuk-hint">For example, Deadline 1</div>
                     <p id="name-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> You must enter the item
                         name</p>
                     <input class="govuk-input govuk-input--error" id="name" name="name"
@@ -2870,8 +2870,6 @@ exports[`Create examination timetable page should display errors if start date a
                     <h2 class="govuk-error-summary__title"> There is a problem</h2>
                     <div class="govuk-error-summary__body">
                         <ul class="govuk-list govuk-error-summary__list">
-                            <li><a href="#name">You must enter the item name</a>
-                            </li>
                             <li><a href="#startDate">The item end date must be after the item start date</a>
                             </li>
                         </ul>
@@ -2900,13 +2898,11 @@ exports[`Create examination timetable page should display errors if start date a
                     <input class="govuk-input" value='' id="timetableId" name="timetableId"
                     type="hidden">
                 </div>
-                <div class="govuk-form-group govuk-form-group--error govuk-grid-column-one-half">
+                <div class="govuk-form-group govuk-grid-column-one-half">
                     <label class="govuk-label font-weight--700 govuk-!-margin-bottom-4" for="name">Item name</label>
-                    <div id="name-hint" class="govuk-hint">There is a limit of 200 characters</div>
-                    <p id="name-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> You must enter the item
-                        name</p>
-                    <input class="govuk-input govuk-input--error" id="name" name="name"
-                    type="text" value="" aria-describedby="name-hint name-error">
+                    <div id="name-hint" class="govuk-hint">For example, Deadline 1</div>
+                    <input class="govuk-input" id="name" name="name"
+                    type="text" value="deadline 1" aria-describedby="name-hint">
                 </div>
                 <div class="govuk-form-group govuk-grid-column-full govuk-form-group--error">
                     <fieldset class="govuk-fieldset">
@@ -3032,8 +3028,6 @@ exports[`Create examination timetable page should display errors if start time a
                     <h2 class="govuk-error-summary__title"> There is a problem</h2>
                     <div class="govuk-error-summary__body">
                         <ul class="govuk-list govuk-error-summary__list">
-                            <li><a href="#name">You must enter the item name</a>
-                            </li>
                             <li><a href="#startTime">The item end time must be after the item start time</a>
                             </li>
                         </ul>
@@ -3062,13 +3056,11 @@ exports[`Create examination timetable page should display errors if start time a
                     <input class="govuk-input" value='' id="timetableId" name="timetableId"
                     type="hidden">
                 </div>
-                <div class="govuk-form-group govuk-form-group--error govuk-grid-column-one-half">
+                <div class="govuk-form-group govuk-grid-column-one-half">
                     <label class="govuk-label font-weight--700 govuk-!-margin-bottom-4" for="name">Item name</label>
-                    <div id="name-hint" class="govuk-hint">There is a limit of 200 characters</div>
-                    <p id="name-error" class="govuk-error-message"><span class="govuk-visually-hidden">Error:</span> You must enter the item
-                        name</p>
-                    <input class="govuk-input govuk-input--error" id="name" name="name"
-                    type="text" value="" aria-describedby="name-hint name-error">
+                    <div id="name-hint" class="govuk-hint">For example, Deadline 1</div>
+                    <input class="govuk-input" id="name" name="name"
+                    type="text" value="deadline 1" aria-describedby="name-hint">
                 </div>
                 <div class="govuk-form-group govuk-grid-column-full ">
                     <fieldset class="govuk-fieldset">
@@ -3327,9 +3319,9 @@ exports[`Edit examination timetable GET /case/123/examination-timetable/item/1/e
                 </div>
                 <div class="govuk-form-group govuk-grid-column-one-half">
                     <label class="govuk-label font-weight--700 govuk-!-margin-bottom-4" for="name">Item name</label>
-                    <div id="name-hint" class="govuk-hint">There is a limit of 200 characters</div>
-                    <input class="govuk-input" id="name"
-                    name="name" type="text" value="Test" aria-describedby="name-hint">
+                    <div id="name-hint" class="govuk-hint">For example, Deadline 1</div>
+                    <input class="govuk-input" id="name" name="name"
+                    type="text" value="Test" aria-describedby="name-hint">
                 </div>
                 <div class="govuk-form-group govuk-grid-column-full ">
                     <fieldset class="govuk-fieldset">

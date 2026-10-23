@@ -23,20 +23,6 @@ export const categoryCodes = {
 	OD: 'other-documents'
 };
 
-/** @type {Record<string, string>} */
-export const dynamicSectionSlugByTemplateType = {
-	'accompanied-site-inspection': 'events-and-hearings',
-	'compulsory-acquisition-hearing': 'events-and-hearings',
-	'issue-specific-hearing': 'events-and-hearings',
-	'open-floor-hearing': 'events-and-hearings',
-	'other-meeting': 'events-and-hearings',
-	'preliminary-meeting': 'events-and-hearings',
-	'unaccompanied-site-inspection': 'events-and-hearings',
-	'procedural-deadline': 'procedural-deadlines',
-	deadline: 'deadlines',
-	'deadline-for-close-of-examination': 'deadlines'
-};
-
 /**
  * @type {string}
  */
@@ -175,3 +161,97 @@ export const examinationLibrarySections = [
  * @type {import('@pins/applications/lib/status-utils.js').ApplicationStatus}
  */
 export const DEFAULT_SECTION_STATUS = 'in-progress';
+
+/**
+ * Mapping of examination timetable template types to dynamic section slugs
+ *
+ * @type {Record<string, string>}
+ */
+export const dynamicSectionSlugByTemplateType = {
+	'open-floor-hearing': 'events-and-hearings',
+	'issue-specific-hearing': 'events-and-hearings',
+	'compulsory-acquisition-hearing': 'events-and-hearings',
+	'procedural-deadline': 'procedural-deadlines',
+	deadline: 'deadlines'
+};
+
+/** @type {Array<{slug: string, status: import('@pins/applications/lib/status-utils.js').ApplicationStatus}>} */
+export const placeholderSectionStatuses = [
+	{ slug: 'application-documents', status: 'published' },
+	{ slug: 'adequacy-of-consultation-responses', status: 'published' },
+	{ slug: 'relevant-representations', status: 'published' },
+	{ slug: 'procedural-decisions', status: 'published' },
+	{ slug: 'additional-submissions', status: 'published' },
+	{ slug: 'other-documents', status: 'published' }
+];
+
+/**
+ * Placeholder section status for Examination Library category subpages
+ *
+ * This is a temporary static value in use until the status can be fetched from the database
+ *
+ * @type {string}
+ */
+export const placeholderSectionStatus = 'Draft';
+
+/**
+ * Placeholder data for dynamic Examination Library categories
+ *
+ * This temporary static data is in use until dynamic category data can be fetched from the database
+ *
+ * @type {ExaminationLibraryDynamicSection[]}
+ */
+export const placeHolderDynamicSections = [
+	{
+		slug: 'change-requests',
+		items: [
+			{
+				title: 'Change request 1',
+				href: 'change-request-1'
+			},
+			{
+				title: 'Change request 2',
+				href: 'change-request-2'
+			}
+		]
+	},
+	{
+		slug: 'events-and-hearings',
+		items: [
+			{
+				title: 'Events and hearings 1',
+				href: 'events-and-hearings-1'
+			},
+			{
+				title: 'Events and hearings 2',
+				href: 'events-and-hearings-2'
+			}
+		]
+	},
+	{
+		slug: 'procedural-deadlines',
+		items: [
+			{
+				title: 'Procedural deadlines 1',
+				href: 'procedural-deadlines-1'
+			},
+			{
+				title: 'Procedural deadlines 2',
+				href: 'procedural-deadlines-2'
+			}
+		]
+	},
+	{
+		slug: 'deadlines',
+		items: [
+			{
+				title: 'Deadlines 1',
+				href: 'deadlines-1'
+			},
+			{
+				title: 'Deadlines 2',
+				href: 'deadlines-2'
+			}
+		]
+	}
+];

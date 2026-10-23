@@ -15,7 +15,18 @@ import staticFlags from '@pins/feature-flags/src/static-feature-flags.js';
 const { app } = createTestEnvironment();
 const request = supertest(app);
 
-const nocks = () => {
+/**
+ * @param {{
+ *   onSave?: (body: { name: string }) => void,
+ *   timetableTypes?: Array<{
+ *     id?: number,
+ *     name: string,
+ *     templateType: string,
+ *     displayNameEn: string
+ *   }>
+ * }} [options]
+ */
+const nocks = ({ onSave, timetableTypes = fixtureTimetableTypes } = {}) => {
 	nock('http://test/').get('/applications').times(2).reply(200, {});
 	nock('http://test/').get('/applications/123').times(2).reply(200, fixtureCases[3]);
 	nock('http://test/')
@@ -30,7 +41,7 @@ const nocks = () => {
 	nock('http://test/')
 		.get('/applications/examination-timetable-type')
 		.times(2)
-		.reply(200, fixtureTimetableTypes);
+		.reply(200, timetableTypes);
 	nock('http://test/')
 		.get('/applications/examination-timetable-items/case/123')
 		.times(3)
@@ -38,7 +49,14 @@ const nocks = () => {
 	nock('http://test/')
 		.get('/applications/examination-timetable-items/case/1234')
 		.reply(200, fixtureTimetableWelshCase);
-	nock('http://test/').post('/applications/examination-timetable-items').reply(200, []);
+	nock('http://test/')
+		.post('/applications/examination-timetable-items')
+		.reply(200, (uri, body) => {
+			if (typeof body === 'object' && body !== null && 'name' in body) {
+				onSave?.({ name: String(body.name) });
+			}
+			return [];
+		});
 	nock('http://test/')
 		.get('/applications/examination-timetable-items/1')
 		.times(2)
@@ -303,6 +321,7 @@ describe('Create examination timetable page', () => {
 			.send({
 				templateType: 'deadline',
 				itemTypeName: 'deadline',
+				name: 'deadline 1',
 				'startDate.day': '01',
 				'startDate.month': '02',
 				'startDate.year': '2001',
@@ -327,6 +346,7 @@ describe('Create examination timetable page', () => {
 			.send({
 				templateType: 'deadline',
 				itemTypeName: 'deadline',
+				name: 'deadline 1',
 				'startDate.day': '01',
 				'startDate.month': '02',
 				'startDate.year': '2001',
@@ -360,6 +380,50 @@ describe('Create examination timetable page', () => {
 			});
 
 		expect(response?.headers?.location).toContain('check-your-answers');
+	});
+
+	describe('Deadline item name validation', () => {
+		it.each([
+			'Deadline',
+			'Deadline 123',
+			'Deadline 2ab',
+			'Deadline2',
+			'Deadline 2 a',
+			'Deadline A'
+		])('should reject invalid deadline name: %s', async (name) => {
+			const response = await request
+				.post('/applications-service/case/123/examination-timetable/item/validate')
+				.send({
+					templateType: 'deadline',
+					itemTypeName: 'deadline',
+					name
+				});
+
+			const element = parseHtml(response.text);
+
+			expect(element.innerHTML).toContain('Enter the deadline item name in the correct format');
+		});
+
+		it.each(['Deadline 1', 'Deadline 2a', 'Deadline 10', 'deadline 12', 'DEADLINE 2A'])(
+			'should accept valid deadline name: %s',
+			async (name) => {
+				const response = await request
+					.post('/applications-service/case/123/examination-timetable/item/validate')
+					.send({
+						templateType: 'deadline',
+						itemTypeName: 'deadline',
+						name,
+						'endDate.day': '01',
+						'endDate.month': '02',
+						'endDate.year': '2026',
+						'endTime.hours': '12',
+						'endTime.minutes': '00',
+						description: 'Some text with \n * one point'
+					});
+
+				expect(response.headers.location).toContain('check-your-answers');
+			}
+		);
 	});
 });
 
@@ -595,11 +659,12 @@ describe('POST /case/123/examination-timetable/item/check-your-answers', () => {
 });
 
 describe('POST /case/123/examination-timetable/item/save', () => {
-	beforeEach(async () => {
-		nocks();
+	afterEach(async () => {
+		nock.cleanAll();
 	});
-
 	it('should go to success page', async () => {
+		nocks();
+
 		const response = await request
 			.post(`/applications-service/case/123/examination-timetable/item/save`)
 			.send({
@@ -614,6 +679,42 @@ describe('POST /case/123/examination-timetable/item/save', () => {
 			});
 
 		expect(response?.headers?.location).toEqual('../../created/success');
+	});
+
+	it('should normalise deadline item names before saving', async () => {
+		/** @type {{ name: string } | undefined} */
+		let savedPayload;
+
+		nocks({
+			timetableTypes: [
+				{
+					id: 2,
+					templateType: 'deadline',
+					name: 'Deadline',
+					displayNameEn: 'Deadline'
+				}
+			],
+			onSave: (body) => {
+				savedPayload = body;
+			}
+		});
+
+		const response = await request
+			.post('/applications-service/case/123/examination-timetable/item/save')
+			.send({
+				'timetable-type': 'Deadline',
+				timetableTypeId: '2',
+				name: 'DEADLINE 2A',
+				description: 'Some text with \n * one point',
+				'endDate.day': '01',
+				'endDate.month': '02',
+				'endDate.year': '2026',
+				'endTime.hours': '12',
+				'endTime.minutes': '00'
+			});
+
+		expect(response.headers.location).toEqual('../../created/success');
+		expect(savedPayload?.name).toBe('Deadline 2a');
 	});
 });
 

@@ -14,7 +14,7 @@ import { dynamicSectionSlugByTemplateType } from './examination-library.constant
 /**
  * Group qualifying examination timetable items into Examination Library sections.
  *
- * @param {ApplicationExaminationTimetableItem[]} timetableItems
+ * @param {ApplicationExaminationTimetableItem[]} [timetableItems]
  * @returns {ExaminationLibraryDynamicSection[]}
  */
 export const getDynamicSectionsFromTimetable = (timetableItems = []) => {

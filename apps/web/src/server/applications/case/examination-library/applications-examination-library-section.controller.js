@@ -1,23 +1,18 @@
-import {
-	getExaminationLibraryDocumentsByCategory,
-	getExaminationLibraryDocumentsByTimetableItem,
-	getExaminationLibraryCategories
-} from './applications-examination-library.service.js';
+import { getExaminationLibraryDocumentsByCategory } from './applications-examination-library.service.js';
 import { getExaminationLibrarySectionViewModel } from './applications-examination-library-section.view-model.js';
 import {
 	categoryCodes,
 	examinationLibrarySections,
-	DEFAULT_SECTION_STATUS
+	placeHolderDynamicSections,
+	placeholderSectionStatus
 } from './examination-library.constants.js';
 import {
 	getSectionByItemSlug,
 	getCategoryCode,
-	getExaminationLibraryPagination,
-	getDynamicSectionsFromTimetable
+	getExaminationLibraryPagination
 } from './applications-examination-library-utils.js';
 import { buildQueryString } from '../../common/components/build-query-string.js';
 import { url } from '../../../lib/nunjucks-filters/index.js';
-import { getCaseTimetableItems } from '../examination-timetable/applications-timetable.service.js';
 
 /**
  * @typedef {import('./applications-examination-library-utils.js').ExaminationLibraryDocumentVersion} ExaminationLibraryDocumentVersion
@@ -38,8 +33,7 @@ export async function getExaminationLibrarySection(request, response) {
 	const pageSizeNumber = Number(pageSize) || 25;
 
 	const projectName = response.locals.case.title;
-	const timetable = await getCaseTimetableItems(caseIdNumber);
-	const dynamicSections = getDynamicSectionsFromTimetable(timetable?.items);
+	const dynamicSections = placeHolderDynamicSections;
 
 	const section = getSectionByItemSlug(examinationLibrarySections, dynamicSections, itemSlug);
 
@@ -48,13 +42,9 @@ export async function getExaminationLibrarySection(request, response) {
 	}
 
 	const sectionCategoryCode = getCategoryCode(section, categoryCodes);
-	const sectionItem = section.items.find((item) => item.href === itemSlug);
-	const queryString = buildQueryString({
-		sortBy,
-		pageSize,
-		page
-	});
 
+	/** @type {ExaminationLibraryDocumentVersion[]} */
+	let sectionDocuments = [];
 	let documentsResponse = {
 		page: pageNumber,
 		pageSize: pageSizeNumber,
@@ -63,42 +53,27 @@ export async function getExaminationLibrarySection(request, response) {
 		items: []
 	};
 
-	/** @type {Array<any>} */
-	let categoriesResponse = [];
-
 	if (sectionCategoryCode) {
-		[documentsResponse, categoriesResponse] = await Promise.all([
-			getExaminationLibraryDocumentsByCategory(caseId, sectionCategoryCode, queryString),
-			getExaminationLibraryCategories(caseId, { categoryCode: sectionCategoryCode }).catch(() => [])
-		]);
-	} else if (sectionItem?.examinationTimetableItemId) {
-		[documentsResponse, categoriesResponse] = await Promise.all([
-			getExaminationLibraryDocumentsByTimetableItem(
-				caseId,
-				sectionItem.examinationTimetableItemId,
-				queryString
-			),
-			getExaminationLibraryCategories(caseId).catch(() => [])
-		]);
+		const queryString = buildQueryString({
+			sortBy,
+			pageSize,
+			page
+		});
+
+		documentsResponse = await getExaminationLibraryDocumentsByCategory(
+			caseId,
+			sectionCategoryCode,
+			queryString
+		);
+
+		sectionDocuments = documentsResponse.items;
 	}
 
-	/** @type {ExaminationLibraryDocumentVersion[]} */
-	const sectionDocuments = documentsResponse.items ?? [];
-
-	const currentCategory = sectionCategoryCode
-		? categoriesResponse?.[0]
-		: categoriesResponse?.find(
-				(cat) => cat.examinationTimetableItemId === sectionItem?.examinationTimetableItemId
-			);
-
 	const isPublishedQuery = request.query.published === 'true';
-	const liveStatus = currentCategory?.publishedStatus
-		? /** @type {import('@pins/applications/lib/status-utils.js').ApplicationStatus} */ (
-				currentCategory.publishedStatus.toLowerCase().replace(/\s+/g, '-')
-			)
-		: DEFAULT_SECTION_STATUS;
-
-	const sectionStatus = isPublishedQuery ? 'published' : liveStatus;
+	const sectionStatus =
+		/** @type {import('@pins/applications/lib/status-utils.js').ApplicationStatus} */ (
+			isPublishedQuery ? 'published' : placeholderSectionStatus
+		);
 
 	const sectionUrl = url('examination-library-section', { caseId: caseIdNumber, slug: itemSlug });
 	const publishUrl = url('examination-library-publish', { caseId: caseIdNumber, slug: itemSlug });
