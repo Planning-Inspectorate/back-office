@@ -61,7 +61,7 @@ export const createCategories = (caseId, categoriesData) => {
  * Optionally filter by categoryCode and/or publishedStatus.
  *
  * @param {number} caseId
- * @param {{categoryCode?: string, examinationTimetableItemId?: number, publishedStatus?: string}} [filters]
+ * @param {{categoryCode?: string, publishedStatus?: string}} [filters]
  * @returns {import('#database-client').PrismaPromise<import('#database-client').Document[]>}
  */
 export const getDocuments = (caseId, filters = {}) => {
@@ -74,15 +74,10 @@ export const getDocuments = (caseId, filters = {}) => {
 		examinationLibraryCategoryId: { not: null }
 	};
 
-	if (filters.categoryCode || filters.examinationTimetableItemId) {
-		versionWhere.ExaminationLibraryCategory = {};
-		if (filters.categoryCode) {
-			versionWhere.ExaminationLibraryCategory.categoryCode = filters.categoryCode;
-		}
-		if (filters.examinationTimetableItemId) {
-			versionWhere.ExaminationLibraryCategory.examinationTimetableItemId =
-				filters.examinationTimetableItemId;
-		}
+	if (filters.categoryCode) {
+		versionWhere.ExaminationLibraryCategory = {
+			categoryCode: filters.categoryCode
+		};
 	}
 
 	if (filters.publishedStatus) {

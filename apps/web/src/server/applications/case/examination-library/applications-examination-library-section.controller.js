@@ -1,22 +1,18 @@
-import {
-	getExaminationLibraryDocumentsByCategory,
-	getExaminationLibraryDocumentsByTimetableItem
-} from './applications-examination-library.service.js';
+import { getExaminationLibraryDocumentsByCategory } from './applications-examination-library.service.js';
 import { getExaminationLibrarySectionViewModel } from './applications-examination-library-section.view-model.js';
 import {
 	categoryCodes,
 	examinationLibrarySections,
+	placeHolderDynamicSections,
 	placeholderSectionStatus
 } from './examination-library.constants.js';
 import {
 	getSectionByItemSlug,
 	getCategoryCode,
-	getExaminationLibraryPagination,
-	getDynamicSectionsFromTimetable
+	getExaminationLibraryPagination
 } from './applications-examination-library-utils.js';
 import { buildQueryString } from '../../common/components/build-query-string.js';
 import { url } from '../../../lib/nunjucks-filters/index.js';
-import { getCaseTimetableItems } from '../examination-timetable/applications-timetable.service.js';
 
 /**
  * @typedef {import('./applications-examination-library-utils.js').ExaminationLibraryDocumentVersion} ExaminationLibraryDocumentVersion
@@ -37,8 +33,7 @@ export async function getExaminationLibrarySection(request, response) {
 	const pageSizeNumber = Number(pageSize) || 25;
 
 	const projectName = response.locals.case.title;
-	const timetable = await getCaseTimetableItems(caseIdNumber);
-	const dynamicSections = getDynamicSectionsFromTimetable(timetable?.items);
+	const dynamicSections = placeHolderDynamicSections;
 
 	const section = getSectionByItemSlug(examinationLibrarySections, dynamicSections, itemSlug);
 
@@ -47,13 +42,9 @@ export async function getExaminationLibrarySection(request, response) {
 	}
 
 	const sectionCategoryCode = getCategoryCode(section, categoryCodes);
-	const sectionItem = section.items.find((item) => item.href === itemSlug);
-	const queryString = buildQueryString({
-		sortBy,
-		pageSize,
-		page
-	});
 
+	/** @type {ExaminationLibraryDocumentVersion[]} */
+	let sectionDocuments = [];
 	let documentsResponse = {
 		page: pageNumber,
 		pageSize: pageSizeNumber,
@@ -63,21 +54,20 @@ export async function getExaminationLibrarySection(request, response) {
 	};
 
 	if (sectionCategoryCode) {
+		const queryString = buildQueryString({
+			sortBy,
+			pageSize,
+			page
+		});
+
 		documentsResponse = await getExaminationLibraryDocumentsByCategory(
 			caseId,
 			sectionCategoryCode,
 			queryString
 		);
-	} else if (sectionItem?.examinationTimetableItemId) {
-		documentsResponse = await getExaminationLibraryDocumentsByTimetableItem(
-			caseId,
-			sectionItem.examinationTimetableItemId,
-			queryString
-		);
-	}
 
-	/** @type {ExaminationLibraryDocumentVersion[]} */
-	const sectionDocuments = documentsResponse.items ?? [];
+		sectionDocuments = documentsResponse.items;
+	}
 
 	const sectionStatus =
 		/** @type {import('@pins/applications/lib/status-utils.js').ApplicationStatus} */ (
