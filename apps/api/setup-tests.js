@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { jest } from '@jest/globals';
+import { jest, expect } from '@jest/globals';
 import { mockSendEvents as sendEvents } from '#utils/schema-test-utils.js';
 
 const mockCaseFindUnique = jest.fn().mockResolvedValue({});
@@ -126,12 +126,18 @@ const mockInvoiceDelete = jest.fn().mockResolvedValue({});
 
 const mockExaminationLibraryCategoryFindMany = jest.fn().mockResolvedValue([]);
 const mockExaminationLibraryCategoryCreateMany = jest.fn().mockResolvedValue({});
+const mockExaminationLibraryCategoryFindFirst = jest.fn().mockResolvedValue({});
+const mockExaminationLibraryCategoryUpdate = jest.fn().mockResolvedValue({});
+const mockExaminationLibraryCategoryUpdateMany = jest.fn().mockResolvedValue({});
 
 class MockPrismaClient {
 	get examinationLibraryCategory() {
 		return {
 			findMany: mockExaminationLibraryCategoryFindMany,
-			createMany: mockExaminationLibraryCategoryCreateMany
+			createMany: mockExaminationLibraryCategoryCreateMany,
+			findFirst: mockExaminationLibraryCategoryFindFirst,
+			update: mockExaminationLibraryCategoryUpdate,
+			updateMany: mockExaminationLibraryCategoryUpdateMany
 		};
 	}
 
@@ -448,6 +454,16 @@ jest.unstable_mockModule('./src/server/infrastructure/event-client.js', () => ({
 jest.unstable_mockModule('./src/server/infrastructure/event-batch-broadcaster.js', () => ({
 	batchSendEvents: jest.fn()
 }));
+
+const mockSendToQueue = jest.fn();
+
+const testPath = expect.getState?.()?.testPath || '';
+if (!testPath.includes('service-bus-queue-client.test.js')) {
+	jest.unstable_mockModule('./src/server/infrastructure/service-bus-queue-client.js', () => ({
+		sendToQueue: mockSendToQueue,
+		queueClient: { sendToQueue: mockSendToQueue }
+	}));
+}
 
 jest.unstable_mockModule('jsonwebtoken', () => ({
 	default: {
