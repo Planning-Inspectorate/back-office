@@ -69,12 +69,14 @@ export async function getExaminationLibrarySection(request, response) {
 		sectionDocuments = documentsResponse.items;
 	}
 
+	const isPublishedQuery = request.query.published === 'true';
 	const sectionStatus =
 		/** @type {import('@pins/applications/lib/status-utils.js').ApplicationStatus} */ (
-			placeholderSectionStatus
+			isPublishedQuery ? 'published' : placeholderSectionStatus
 		);
 
 	const sectionUrl = url('examination-library-section', { caseId: caseIdNumber, slug: itemSlug });
+	const publishUrl = url('examination-library-publish', { caseId: caseIdNumber, slug: itemSlug });
 
 	const sectionViewModel = getExaminationLibrarySectionViewModel({
 		dynamicSections,
@@ -89,10 +91,13 @@ export async function getExaminationLibrarySection(request, response) {
 		return response.status(404).render('app/404');
 	}
 
+	// TODO: Prevent access to the publish route when the category has zero documents. Omit publishUrl or block navigation for empty categories.
 	return response.render('applications/case-examination-library/examination-library-section.njk', {
 		...sectionViewModel,
 		caseId,
 		projectName,
+		publishUrl,
+		showSuccessBanner: isPublishedQuery,
 		pagination: getExaminationLibraryPagination(request.query, documentsResponse, sectionUrl)
 	});
 }

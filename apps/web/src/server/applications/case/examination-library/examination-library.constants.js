@@ -28,6 +28,7 @@ export const categoryCodes = {
  */
 export const NO_EXAMINATION_LIBRARY_CATEGORY_CODE = 'NELC';
 
+// TODO: Rename the "Status" column header to "Document status" to prevent confusion with category status, pending confirmation from the interaction designer.
 /**
  * Table headers for Examination Library category subpages where document author is displayed
  *
@@ -155,11 +156,25 @@ export const examinationLibrarySections = [
 ];
 
 /**
- * Placeholder section statuses for the Examination Library.
+ * Default section status for Examination Library categories
  *
- * These are temporary static values used until the service layer
- * is implemented to fetch statuses from the database.
+ * @type {import('@pins/applications/lib/status-utils.js').ApplicationStatus}
  */
+export const DEFAULT_SECTION_STATUS = 'in-progress';
+
+/**
+ * Mapping of examination timetable template types to dynamic section slugs
+ *
+ * @type {Record<string, string>}
+ */
+export const dynamicSectionSlugByTemplateType = {
+	'open-floor-hearing': 'events-and-hearings',
+	'issue-specific-hearing': 'events-and-hearings',
+	'compulsory-acquisition-hearing': 'events-and-hearings',
+	'procedural-deadline': 'procedural-deadlines',
+	deadline: 'deadlines'
+};
+
 /** @type {Array<{slug: string, status: import('@pins/applications/lib/status-utils.js').ApplicationStatus}>} */
 export const placeholderSectionStatuses = [
 	{ slug: 'application-documents', status: 'published' },
