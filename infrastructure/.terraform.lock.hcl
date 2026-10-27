@@ -2,21 +2,21 @@
 # Manual edits may be lost in future updates.
 
 provider "registry.terraform.io/hashicorp/azurerm" {
-  version     = "5.4.0"
+  version     = "5.11.0"
   constraints = "> 4.0.0"
   hashes = [
-    "h1:UJfP9Tnc7JLSgX3LCbCPhl/I3Ek8Nj7r7XsPpEDEjYM=",
-    "zh:1431e051c79579fdbdc819c70ff11d6855ab637bdd9c92a410a625e547af3bb5",
-    "zh:1f5defa1b83399d21926166136f93f80a74d2e50306768ede56ff52b1b8c86a5",
-    "zh:2c45bb9075898d72661df8528a5f903e61d8edcd5eba45168aec51165c59c379",
-    "zh:3a3b79e4f1f4dd5a21adb89ef167cc9befe1b7cd5ff731d70ddc44b0a41bb192",
-    "zh:5368b90892dd189582c657a258e9d6317d85a615501d827d472404e5b18e07e8",
-    "zh:624c2aba13bd78870b7ada52b847b448dc57f78b7b591c3d4bf9631fea165e4a",
+    "h1:BNenr7M3gkRwRNw4fJ9cSGgjrbC4K4Mi3TTRDOvG5no=",
+    "zh:2345a6104bb485141afb8f0047a48a5f27c3bb4e6eeb360c7955f381227d88dd",
+    "zh:34e86c5ceeba746fed119775cd37d7314ea8b7c2196ed8b8da8d8d71e10b96df",
+    "zh:358f30581df0670719fc8511066ef9d05eb2612934c147bfe1b1b1d67712d2f0",
+    "zh:3edb6681e17535f16ad1f2b7588325d86d7af57df9eed82fa4a607fc03e8afc7",
+    "zh:6a5b9d6dd86a759f8bfd81e15e7e688531c85ee9660bd5923f99e993a1f15c62",
     "zh:78d5eefdd9e494defcb3c68d282b8f96630502cac21d1ea161f53cfe9bb483b3",
-    "zh:a5e9aca4d2b57bed7352dcfbeb4de1516ad39970e6436bc39db23d2eb52c8817",
-    "zh:baabcc85b6021a83650f161d502266dd54b2c89b1666ceb8f31f2b59b7685ed3",
-    "zh:cfd8dc464235dbf0d9c85e4fc0274cfaa8ca2c63288c9438fec51692c54e981a",
-    "zh:d0a3ba8b1d0afa472c59f3ae87cb079bd6f1afcafedb87600babda32c3936b61",
-    "zh:ddc00be0c8ca2ec365e53c0ae3de3f21f34e175eaf8c0e853152ae6b958fee93",
+    "zh:a470dc95f15dcded2e06dd45c44c3b50a22a45b87c9ba7bd19dc6b25022660b7",
+    "zh:b179f04830c1d8d7ec15ae4be4434042d87679bb23b7d60d7ebd751420bf646c",
+    "zh:b183835acbcf39047d195f933caebd1902065d2437df17e964ceb4a358441f41",
+    "zh:b3d3555ac1f16a59baaab894fe9e839baedc809aef05a6d8e6c0cdaba9c92749",
+    "zh:cc29f59113d468757e9f1a3db774c73d8827f8359816216b7b82ddef5ff02d66",
+    "zh:e37d3649320c50110675156174f476b3b12ca5c1f267f1cadb56ad26e7f3553e",
   ]
 }
