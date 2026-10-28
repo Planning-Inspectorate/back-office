@@ -1,23 +1,26 @@
-import { get } from '../../../lib/request.js';
+import { get, post } from '../../../lib/request.js';
+import { buildQueryString } from '../../common/components/build-query-string.js';
 
 /**
- * @typedef {import('@pins/applications/lib/status-utils.js').ApplicationStatus} ApplicationStatus
+ * @typedef {import('./examination-library.constants.js').ExaminationLibraryCategoryStatus} ExaminationLibraryCategoryStatus
  */
 
 /**
- * Get examination library section statuses for a case
+ * Get examination library categories for a case
  *
- * @param {number} caseId
- * @returns {Promise<Array<{slug: string, status: ApplicationStatus}>>}
+ * @param {string | number} caseId
+ * @param {{ categoryCode?: string }} [filters]
+ * @returns {Promise<Array<{ id: number, caseId: number, categoryCode: string, categoryName: string, publishedStatus: string, examinationTimetableItemId?: number | null }>>}
  */
-export async function getExaminationLibrarySectionStatuses(caseId) {
-	return get(`applications/${caseId}/examination-library/section-statuses`);
+export async function getExaminationLibraryCategories(caseId, filters = {}) {
+	const queryString = buildQueryString(filters);
+	return get(`applications/${caseId}/examination-library${queryString ? `?${queryString}` : ''}`);
 }
 
 /**
  * Get documents for a given case and examination library category code
  *
- * @param { string} caseId
+ * @param {string | number} caseId
  * @param {string} categoryCode
  * @param {string} queryString
  * @returns {Promise<any>}
@@ -26,4 +29,15 @@ export async function getExaminationLibraryDocumentsByCategory(caseId, categoryC
 	return get(
 		`applications/${caseId}/examination-library/documents?categoryCode=${categoryCode}&${queryString}`
 	);
+}
+
+/**
+ * Publishes documents for an examination library category.
+ *
+ * @param {string | number} caseId
+ * @param {{ categoryCode: string }} payload
+ * @returns {Promise<any>}
+ */
+export async function publishExaminationLibraryCategory(caseId, payload) {
+	return post(`applications/${caseId}/examination-library/publish`, { json: payload });
 }

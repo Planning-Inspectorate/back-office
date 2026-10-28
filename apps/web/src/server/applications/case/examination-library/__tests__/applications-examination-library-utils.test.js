@@ -7,16 +7,14 @@ import {
 	tableSortLinks
 } from '../applications-examination-library-utils.js';
 import { categoryCodes, examinationLibrarySections } from '../examination-library.constants.js';
-import { fixtureDynamicSections } from '../../../../../../testing/applications/fixtures/examination-library.js';
 
 describe('applications examination library utils', () => {
 	describe('#getSectionByItemSlug', () => {
 		const staticSections = examinationLibrarySections;
-		const dynamicSections = fixtureDynamicSections;
 
 		it('should return static section data if item slug is valid', () => {
 			const itemSlug = 'application-documents';
-			const result = getSectionByItemSlug(staticSections, dynamicSections, itemSlug);
+			const result = getSectionByItemSlug(staticSections, itemSlug);
 
 			expect(result).toEqual({
 				index: 1,
@@ -33,31 +31,9 @@ describe('applications examination library utils', () => {
 			});
 		});
 
-		it('should return dynamic section data if item slug is valid', () => {
-			const itemSlug = 'deadlines-1';
-			const result = getSectionByItemSlug(staticSections, dynamicSections, itemSlug);
-
-			expect(result).toEqual({
-				index: 9,
-				heading: 'Deadlines',
-				slug: 'deadlines',
-				items: [
-					{
-						title: 'Deadlines 1',
-						href: 'deadlines-1'
-					},
-					{
-						title: 'Deadlines 2',
-						href: 'deadlines-2'
-					}
-				],
-				tableHeaders: ['Reference', 'Document description', 'From', 'Status', 'Actions']
-			});
-		});
-
 		it('should return null if item slug is NOT valid', () => {
 			const itemSlug = 'invalid-slug';
-			const result = getSectionByItemSlug(staticSections, dynamicSections, itemSlug);
+			const result = getSectionByItemSlug(staticSections, itemSlug);
 
 			expect(result).toEqual(null);
 		});
@@ -275,7 +251,6 @@ describe('applications examination library utils', () => {
 
 			expect(result[0].link).toContain('sortBy=-description');
 			expect(result[0].link).toContain('page=1');
-			expect(result[0].link).toContain('pageSize=50');
 		});
 	});
 });

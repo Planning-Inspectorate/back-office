@@ -1,10 +1,13 @@
 {% extends "../layouts/applications.layout.njk" %}
+{% from "govuk/components/notification-banner/macro.njk" import govukNotificationBanner %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "../components/status-tag.component.njk" import statusTag %}
 {% from "applications/components/pagination/results-per-page.component.njk" import uiPageSizeInformation, uiPaginationLinks %}
 {% from "applications/case-examination-library/components/table/examination-library-table.component.njk" import examinationLibraryTable %}
 
+{% set pageTitle = sectionHeading + " - " + case.title + " - NSIP applications" %}
 
-{% set pageTitle = sectionHeading + " - " + projectName %}
+{% block pageTitle %}{{ pageTitle }}{% endblock %}
 
 {% block beforeContent %}
 	<aside>
@@ -16,10 +19,20 @@
 {% endblock %}
 
 {% block pageHeading %}
+	{% if showSuccessBanner %}
+		{% set successBannerHtml %}
+			<p class="govuk-notification-banner__heading">Examination library category published</p>
+		{% endset %}
+		{{ govukNotificationBanner({
+			type: 'success',
+			html: successBannerHtml
+		}) }}
+	{% endif %}
+
 	<span class="govuk-caption-l">Examination library</span>
 	<div class="examination-library-heading-row">
 		<h1 class="govuk-heading-l">{{ sectionHeading }}</h1>
-		<span class="govuk-!-padding-left-5 govuk-!-padding-top-1">{{ statusTag(sectionStatus) }}</span>
+		<span class="govuk-!-padding-left-5 govuk-!-padding-top-1">{{ statusTag(sectionStatus, 'single-line') }}</span>
 	</div>
 {% endblock %}
 
@@ -28,8 +41,18 @@
 		Once an examination library category has been published, the examination library references are final and cannot be changed.
 	</p>
 
+	{% if sectionStatus | lower != 'published' %}
+		<div class="govuk-!-margin-bottom-6">
+			{{ govukButton({
+				text: "Preview and publish category to library",
+				href: publishUrl
+			}) }}
+		</div>
+	{% endif %}
+
 	{{ uiPageSizeInformation(pagination) }}
 
+	{# TODO: Table column header "Status" should be renamed to "Document status" #}
 	{{ examinationLibraryTable(sectionTable, sortLinks) }}
 
 	{{ uiPaginationLinks(pagination) }}

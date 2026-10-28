@@ -1,11 +1,9 @@
 //@ts-nocheck
 import { getExaminationLibrarySectionViewModel } from '../applications-examination-library-section.view-model.js';
-import { fixtureDynamicSections } from '../../../../../../testing/applications/fixtures/examination-library.js';
 
 describe('applications examination library section view model', () => {
 	describe('#getExaminationLibrarySectionViewModel', () => {
-		const dynamicSections = fixtureDynamicSections;
-		const draftSectionStatus = 'draft';
+		const inProgressSectionStatus = 'in progress';
 		const publishedSectionStatus = 'published';
 		const baseDocument = {
 			caseId: 123,
@@ -31,9 +29,8 @@ describe('applications examination library section view model', () => {
 			const itemSlug = 'application-documents';
 
 			const result = getExaminationLibrarySectionViewModel({
-				dynamicSections,
 				sectionDocuments,
-				sectionStatus: draftSectionStatus,
+				sectionStatus: inProgressSectionStatus,
 				itemSlug,
 				query,
 				sectionUrl
@@ -43,7 +40,7 @@ describe('applications examination library section view model', () => {
 				expect.objectContaining({
 					selectedPageType: 'examination-library',
 					sectionHeading: 'Application documents',
-					sectionStatus: 'Draft',
+					sectionStatus: 'In progress',
 					sectionTable: {
 						firstCellIsHeader: false,
 						rows: [
@@ -52,7 +49,8 @@ describe('applications examination library section view model', () => {
 								{ html: 'test document description' },
 								{ text: 'Not checked' },
 								{
-									html: `<a href="/applications-service/case/123/project-documentation/1/document/test-guid/properties" class="govuk-link">Review</a>`
+									text: 'Review',
+									href: '/applications-service/case/123/project-documentation/1/document/test-guid/properties'
 								}
 							]
 						],
@@ -74,9 +72,8 @@ describe('applications examination library section view model', () => {
 			const itemSlug = 'additional-submissions';
 
 			const result = getExaminationLibrarySectionViewModel({
-				dynamicSections,
 				sectionDocuments,
-				sectionStatus: draftSectionStatus,
+				sectionStatus: inProgressSectionStatus,
 				itemSlug,
 				query,
 				sectionUrl
@@ -86,7 +83,7 @@ describe('applications examination library section view model', () => {
 				expect.objectContaining({
 					selectedPageType: 'examination-library',
 					sectionHeading: 'Additional submissions',
-					sectionStatus: 'Draft',
+					sectionStatus: 'In progress',
 					sectionTable: {
 						firstCellIsHeader: false,
 						rows: [
@@ -96,7 +93,8 @@ describe('applications examination library section view model', () => {
 								{ text: 'Test Person' },
 								{ text: 'Not checked' },
 								{
-									html: `<a href="/applications-service/case/123/project-documentation/1/document/test-guid/properties" class="govuk-link">Review</a>`
+									text: 'Review',
+									href: '/applications-service/case/123/project-documentation/1/document/test-guid/properties'
 								}
 							]
 						],
@@ -124,7 +122,6 @@ describe('applications examination library section view model', () => {
 			const itemSlug = 'additional-submissions';
 
 			const result = getExaminationLibrarySectionViewModel({
-				dynamicSections,
 				sectionDocuments,
 				sectionStatus: publishedSectionStatus,
 				itemSlug,
@@ -141,7 +138,7 @@ describe('applications examination library section view model', () => {
 						firstCellIsHeader: false,
 						rows: [
 							[
-								{ text: '' },
+								{ text: 'APP-001' },
 								{ text: 'Document has been deleted' },
 								{ text: '' },
 								{ text: '' },
@@ -172,7 +169,6 @@ describe('applications examination library section view model', () => {
 			const itemSlug = 'additional-submissions';
 
 			const result = getExaminationLibrarySectionViewModel({
-				dynamicSections,
 				sectionDocuments,
 				sectionStatus: publishedSectionStatus,
 				itemSlug,
@@ -207,9 +203,8 @@ describe('applications examination library section view model', () => {
 			const itemSlug = 'invalid-slug';
 
 			const result = getExaminationLibrarySectionViewModel({
-				dynamicSections,
 				sectionDocuments,
-				sectionStatus: draftSectionStatus,
+				sectionStatus: inProgressSectionStatus,
 				itemSlug
 			});
 
@@ -218,9 +213,8 @@ describe('applications examination library section view model', () => {
 
 		it('should include the active sort in the view model', () => {
 			const result = getExaminationLibrarySectionViewModel({
-				dynamicSections,
 				sectionDocuments: [baseDocument],
-				sectionStatus: draftSectionStatus,
+				sectionStatus: inProgressSectionStatus,
 				itemSlug: 'application-documents',
 				query: {
 					sortBy: 'description'
@@ -246,7 +240,6 @@ describe('applications examination library section view model', () => {
 
 		it('should display Reference heading when the section is published', () => {
 			const result = getExaminationLibrarySectionViewModel({
-				dynamicSections,
 				sectionDocuments: [baseDocument],
 				sectionStatus: publishedSectionStatus,
 				itemSlug: 'application-documents',
@@ -261,9 +254,8 @@ describe('applications examination library section view model', () => {
 
 		it('should display Draft reference heading when the section is in progress', () => {
 			const result = getExaminationLibrarySectionViewModel({
-				dynamicSections,
 				sectionDocuments: [baseDocument],
-				sectionStatus: draftSectionStatus,
+				sectionStatus: inProgressSectionStatus,
 				itemSlug: 'application-documents',
 				query,
 				sectionUrl
@@ -287,9 +279,8 @@ describe('applications examination library section view model', () => {
 			];
 
 			const result = getExaminationLibrarySectionViewModel({
-				dynamicSections,
 				sectionDocuments,
-				sectionStatus: draftSectionStatus,
+				sectionStatus: inProgressSectionStatus,
 				itemSlug: 'application-documents',
 				query,
 				sectionUrl

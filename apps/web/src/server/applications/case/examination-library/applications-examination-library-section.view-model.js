@@ -1,5 +1,7 @@
-import { examinationLibrarySections } from './examination-library.constants.js';
-import { getStatusDisplayName } from '@pins/applications/lib/status-utils.js';
+import {
+	examinationLibrarySections,
+	getCategoryStatusDisplayName
+} from './examination-library.constants.js';
 import { buildTable } from '../../../lib/table-mapper.js';
 import { statusName } from '../../../lib/nunjucks-filters/status-name.js';
 import { url } from '../../../lib/nunjucks-filters/index.js';
@@ -18,41 +20,38 @@ import { tableSortLinks } from './applications-examination-library-utils.js';
  */
 
 /**
- * @typedef {import('./applications-examination-library-index.view-model.js').ExaminationLibraryDynamicSection} ExaminationLibraryDynamicSection
- */
-
-/**
  * Get Examination Library section detail view model.
  *
  * @param {{
- *   dynamicSections?: ExaminationLibraryDynamicSection[],
  *   sectionDocuments: Array<any>,
- *   sectionStatus: import('@pins/applications/lib/status-utils.js').ApplicationStatus,
- *   itemSlug: string
- *   query: object
+ *   sectionStatus: string,
+ *   itemSlug: string,
+ *   query: object,
  *   sectionUrl: string
  * }} params
  * @returns {{ selectedPageType: string, sectionHeading: string, sectionStatus: string, sectionTable: object, sortLinks: object } | null}
  */
 export const getExaminationLibrarySectionViewModel = ({
-	dynamicSections = [],
 	sectionDocuments,
 	sectionStatus,
 	itemSlug,
 	query,
 	sectionUrl
 }) => {
-	const section = getSectionByItemSlug(examinationLibrarySections, dynamicSections, itemSlug);
+	const section = getSectionByItemSlug(examinationLibrarySections, itemSlug);
 
 	if (!section) {
 		return null;
 	}
 
+	const isPublished = sectionStatus === 'published';
+
+	// TODO: Table header "Status" should be renamed to "Document status" to distinguish from category status
 	const tableHeaders = section.tableHeaders.map((header) =>
-		header === 'Reference' && sectionStatus !== 'published' ? 'Draft reference' : header
+		header === 'Reference' && !isPublished ? 'Draft reference' : header
 	);
 
-	const sortLinks = tableSortLinks(query, tableHeaders, sectionUrl, sectionStatus === 'published');
+	const sortLinks = tableSortLinks(query, tableHeaders, sectionUrl, isPublished);
 
 	const item = section.items.find((item) => item.href === itemSlug);
 
@@ -73,6 +72,19 @@ export const getExaminationLibrarySectionViewModel = ({
 			const includeAuthor = tableHeaders.includes('From');
 			const documentIsDeleted = sectionDocument.isDeleted;
 
+			const documentReference =
+				sectionDocument.latestDocumentVersion.examinationRefNo ??
+				sectionDocument.latestDocumentVersion.draftExaminationLibraryReference ??
+				'';
+
+			if (documentIsDeleted) {
+				return [
+					{ text: documentReference },
+					{ text: 'Document has been deleted' },
+					...Array(tableHeaders.length - 2).fill({ text: '' })
+				];
+			}
+
 			const documentPropertiesURL = url('document', {
 				caseId: sectionDocument.caseId,
 				folderId: sectionDocument.folderId,
@@ -81,24 +93,12 @@ export const getExaminationLibrarySectionViewModel = ({
 			});
 
 			const tableRow = [
-				{
-					text:
-						sectionDocument.latestDocumentVersion.examinationRefNo ??
-						sectionDocument.latestDocumentVersion.draftExaminationLibraryReference
-				},
+				{ text: documentReference },
 				{ html: getDocumentDescriptionHTML(sectionDocument) },
 				...(includeAuthor ? [{ text: sectionDocument.latestDocumentVersion.author }] : []),
 				{ text: statusName(sectionDocument.latestDocumentVersion.publishedStatus) },
-				{ html: `<a href="${documentPropertiesURL}" class="govuk-link">Review</a>` }
+				{ text: 'Review', href: documentPropertiesURL }
 			];
-
-			if (documentIsDeleted) {
-				return [
-					{ text: '' },
-					{ text: 'Document has been deleted' },
-					...Array(tableHeaders.length - 2).fill({ text: '' })
-				];
-			}
 
 			return tableRow;
 		}),
@@ -113,7 +113,7 @@ export const getExaminationLibrarySectionViewModel = ({
 	return {
 		selectedPageType: 'examination-library',
 		sectionHeading: item.title,
-		sectionStatus: getStatusDisplayName(sectionStatus),
+		sectionStatus: getCategoryStatusDisplayName(sectionStatus),
 		sectionTable: sectionTable,
 		sortLinks: sortLinks
 	};

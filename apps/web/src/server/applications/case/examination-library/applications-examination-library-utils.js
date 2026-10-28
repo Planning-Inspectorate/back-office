@@ -1,4 +1,3 @@
-import { mergeSections } from './applications-examination-library-index.view-model.js';
 import { url } from '../../../lib/nunjucks-filters/index.js';
 import {
 	getResultsPerPage,
@@ -16,19 +15,13 @@ import { tableSortingHeaderLinks } from '../../common/components/table/table-sor
  */
 
 /**
- * @typedef {import('./applications-examination-library-index.view-model.js').ExaminationLibraryDynamicSection} ExaminationLibraryDynamicSection
- */
-
-/**
  * Get Examination Library section data from section item slug
  *
- * @param {ExaminationLibrarySection[]} staticSections
- * @param {ExaminationLibraryDynamicSection[]} dynamicSections
+ * @param {ExaminationLibrarySection[]} sections
  * @param {string} itemSlug
  * @returns {ExaminationLibrarySection|null}
  */
-export const getSectionByItemSlug = (staticSections, dynamicSections, itemSlug) => {
-	const sections = mergeSections(staticSections, dynamicSections);
+export const getSectionByItemSlug = (sections, itemSlug) => {
 	const section = sections.find((section) => section.items.some((item) => item.href === itemSlug));
 	return section ? section : null;
 };

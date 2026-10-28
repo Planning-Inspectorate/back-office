@@ -27,7 +27,10 @@ export function buildTable({ headers = [], rows, caption = '', firstCellIsHeader
 			(row) =>
 				row.map(
 					/** @param {{ text?: string, html?: string }} cell */
-					(cell) => (cell.html ? { html: cell.html } : { text: cell.text || '' })
+					(cell) => ({
+						...cell,
+						...(cell.html ? { html: cell.html } : { text: cell.text || '' })
+					})
 				)
 		)
 	};
