@@ -1,6 +1,6 @@
 {# Project status tag macro #}
 
-{% macro statusTag(status) %}
+{% macro statusTag(status, extraClasses = '') %}
 	{% set statusTagColor = '' %}
 	{% set statusLabel = status %}
 
@@ -29,5 +29,5 @@
 			{% set statusTagColor = 'blue' %}
 	{% endswitch %}
 
-	<strong class="govuk-tag govuk-tag--{{statusTagColor}} pins-tag--no-max-width">{{ statusLabel }}</strong>
+	<strong class="govuk-tag govuk-tag--{{statusTagColor}} pins-tag--no-max-width{% if extraClasses %} {{ extraClasses }}{% endif %}">{{ statusLabel }}</strong>
 {% endmacro %}

@@ -4,9 +4,7 @@ import nock from 'nock';
 import supertest from 'supertest';
 import { createTestEnvironment } from '../../../../../../testing/index.js';
 import { fixtureExaminationLibraryIndex } from '../../../../../../testing/applications/fixtures/examination-library.js';
-import { placeholderSectionStatuses } from '../examination-library.constants.js';
 import staticFlags from '@pins/feature-flags/src/static-feature-flags.js';
-
 const { app, installMockApi, teardown } = createTestEnvironment();
 const request = supertest(app);
 
@@ -14,8 +12,50 @@ const nocks = ({ includeDocuments = true } = {}) => {
 	nock('http://test/').get('/applications').reply(200, []);
 	nock('http://test/').get('/applications/123').reply(200, fixtureExaminationLibraryIndex.caseData);
 	nock('http://test/')
-		.get('/applications/123/examination-library/section-statuses')
-		.reply(200, placeholderSectionStatuses);
+		.get('/applications/123/examination-library')
+		.query({ categoryCode: 'APP' })
+		.reply(200, [
+			{
+				categoryCode: 'APP',
+				categoryName: 'Application form',
+				publishedStatus: 'in progress'
+			}
+		]);
+	nock('http://test/')
+		.get('/applications/123/examination-library')
+		.query(true)
+		.reply(200, [
+			{
+				categoryCode: 'APP',
+				categoryName: 'Application form',
+				publishedStatus: 'published'
+			},
+			{
+				categoryCode: 'AoC',
+				categoryName: 'Adequacy of consultation responses',
+				publishedStatus: 'published'
+			},
+			{
+				categoryCode: 'PD',
+				categoryName: 'Procedural decisions and notifications from Examining Authority',
+				publishedStatus: 'published'
+			},
+			{
+				categoryCode: 'AS',
+				categoryName: 'Additional submissions',
+				publishedStatus: 'published'
+			},
+			{
+				categoryCode: 'OD',
+				categoryName: 'Other documents',
+				publishedStatus: 'published'
+			},
+			{
+				categoryCode: 'RR',
+				categoryName: 'Relevant representations',
+				publishedStatus: 'published'
+			}
+		]);
 
 	if (includeDocuments) {
 		nock('http://test/')
@@ -64,14 +104,14 @@ describe('Examination Library', () => {
 			);
 		});
 
-		it('should render 10 static and dynamic sections as separate task lists with headings', async () => {
+		it('should render 6 static sections as separate task lists with headings', async () => {
 			const response = await request.get(`${baseUrl}`);
 			const element = parseHtml(response.text);
 
 			expect(response.status).toBe(200);
 
 			const taskLists = element.querySelectorAll('.govuk-task-list');
-			expect(taskLists.length).toBe(10);
+			expect(taskLists.length).toBe(6);
 
 			expect(element.innerHTML).toContain('Application documents');
 			expect(element.innerHTML).toContain('Adequacy of consultation responses');
@@ -80,10 +120,6 @@ describe('Examination Library', () => {
 				'Procedural decisions and notifications from Examining Authority'
 			);
 			expect(element.innerHTML).toContain('Additional submissions');
-			expect(element.innerHTML).toContain('Change requests');
-			expect(element.innerHTML).toContain('Events and hearings');
-			expect(element.innerHTML).toContain('Procedural deadlines');
-			expect(element.innerHTML).toContain('Deadlines');
 			expect(element.innerHTML).toContain('Other documents');
 		});
 
@@ -148,7 +184,7 @@ describe('Examination Library', () => {
 
 			expect(response.status).toBe(200);
 			const taskLinks = element.querySelectorAll('.govuk-task-list__link');
-			expect(taskLinks.length).toBe(14);
+			expect(taskLinks.length).toBe(6);
 		});
 
 		it('should NOT render the page when feature flag is OFF', async () => {
@@ -173,15 +209,6 @@ describe('Examination Library', () => {
 
 			expect(response.status).toBe(200);
 			expect(element.innerHTML).toContain('Application documents');
-			expect(element.innerHTML).toContain('Items in the examination library');
-		});
-
-		it('should display dynamic category subpages', async () => {
-			const response = await request.get(`${baseUrl}/category/procedural-deadlines-1`);
-			const element = parseHtml(response.text);
-
-			expect(response.status).toBe(200);
-			expect(element.innerHTML).toContain('Procedural deadlines 1');
 			expect(element.innerHTML).toContain('Items in the examination library');
 		});
 

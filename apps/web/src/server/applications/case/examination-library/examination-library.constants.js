@@ -7,20 +7,41 @@
  */
 
 /**
- * @typedef {import('./applications-examination-library-index.view-model.js').ExaminationLibraryDynamicSection} ExaminationLibraryDynamicSection
+ * @typedef {'in progress' | 'published' | 'unpublished'} ExaminationLibraryCategoryStatus
  */
+
+/** @type {Record<string, { label: string, tagClass: string }>} */
+export const CATEGORY_STATUS = {
+	'in progress': { label: 'In progress', tagClass: 'govuk-tag--blue' },
+	published: { label: 'Published', tagClass: 'govuk-tag--green' },
+	unpublished: { label: 'Unpublished', tagClass: 'govuk-tag--grey' }
+};
+
+/**
+ * Default section status for Examination Library categories
+ *
+ * @type {ExaminationLibraryCategoryStatus}
+ */
+export const DEFAULT_SECTION_STATUS = 'in progress';
+
+export const getCategoryStatusTagClass = (/** @type {string} */ status) =>
+	CATEGORY_STATUS[status]?.tagClass || 'govuk-tag--grey';
+
+export const getCategoryStatusDisplayName = (/** @type {string} */ status) =>
+	CATEGORY_STATUS[status]?.label || status || '';
 
 /**
  * Examination Library category codes for documents
  *
- * @type {{APP: string, AoC: string, PD: string, AS: string, OD: string}}
+ * @type {{APP: string, AoC: string, PD: string, AS: string, OD: string, RR: string}}
  */
 export const categoryCodes = {
 	APP: 'application-documents',
 	AoC: 'adequacy-of-consultation-responses',
 	PD: 'procedural-decisions',
 	AS: 'additional-submissions',
-	OD: 'other-documents'
+	OD: 'other-documents',
+	RR: 'relevant-representations'
 };
 
 /**
@@ -33,6 +54,7 @@ export const NO_EXAMINATION_LIBRARY_CATEGORY_CODE = 'NELC';
  *
  * @type {string[]}
  */
+// TODO: Column header "Status" should be renamed to "Document status" to distinguish from category status
 const tableHeadersWithAuthor = ['Reference', 'Document description', 'From', 'Status', 'Actions'];
 
 /**
@@ -151,92 +173,5 @@ export const examinationLibrarySections = [
 			}
 		],
 		tableHeaders: tableHeadersWithAuthor
-	}
-];
-
-/**
- * Placeholder section statuses for the Examination Library.
- *
- * These are temporary static values used until the service layer
- * is implemented to fetch statuses from the database.
- */
-/** @type {Array<{slug: string, status: import('@pins/applications/lib/status-utils.js').ApplicationStatus}>} */
-export const placeholderSectionStatuses = [
-	{ slug: 'application-documents', status: 'published' },
-	{ slug: 'adequacy-of-consultation-responses', status: 'published' },
-	{ slug: 'relevant-representations', status: 'published' },
-	{ slug: 'procedural-decisions', status: 'published' },
-	{ slug: 'additional-submissions', status: 'published' },
-	{ slug: 'other-documents', status: 'published' }
-];
-
-/**
- * Placeholder section status for Examination Library category subpages
- *
- * This is a temporary static value in use until the status can be fetched from the database
- *
- * @type {string}
- */
-export const placeholderSectionStatus = 'Draft';
-
-/**
- * Placeholder data for dynamic Examination Library categories
- *
- * This temporary static data is in use until dynamic category data can be fetched from the database
- *
- * @type {ExaminationLibraryDynamicSection[]}
- */
-export const placeHolderDynamicSections = [
-	{
-		slug: 'change-requests',
-		items: [
-			{
-				title: 'Change request 1',
-				href: 'change-request-1'
-			},
-			{
-				title: 'Change request 2',
-				href: 'change-request-2'
-			}
-		]
-	},
-	{
-		slug: 'events-and-hearings',
-		items: [
-			{
-				title: 'Events and hearings 1',
-				href: 'events-and-hearings-1'
-			},
-			{
-				title: 'Events and hearings 2',
-				href: 'events-and-hearings-2'
-			}
-		]
-	},
-	{
-		slug: 'procedural-deadlines',
-		items: [
-			{
-				title: 'Procedural deadlines 1',
-				href: 'procedural-deadlines-1'
-			},
-			{
-				title: 'Procedural deadlines 2',
-				href: 'procedural-deadlines-2'
-			}
-		]
-	},
-	{
-		slug: 'deadlines',
-		items: [
-			{
-				title: 'Deadlines 1',
-				href: 'deadlines-1'
-			},
-			{
-				title: 'Deadlines 2',
-				href: 'deadlines-2'
-			}
-		]
 	}
 ];
