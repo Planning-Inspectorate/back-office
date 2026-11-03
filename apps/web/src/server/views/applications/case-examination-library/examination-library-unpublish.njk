@@ -1,9 +1,9 @@
 {% extends "../layouts/applications.layout.njk" %}
 {% from "govuk/components/back-link/macro.njk" import govukBackLink %}
 {% from "applications/components/pagination/results-per-page.component.njk" import uiPageSizeInformation, uiPaginationLinks %}
-{% from "govuk/components/button/macro.njk" import govukButton %}
 {% from "govuk/components/table/macro.njk" import govukTable %}
 {% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
 
 {% set pageTitle = "Unpublish category " + sectionHeading + " from the examination library - " + case.title + " - NSIP applications" %}
 
@@ -30,8 +30,6 @@
 	</p>
 
 	{{ uiPageSizeInformation(pagination) }}
-
-	<h2>{{ sectionHeading }}</h2>
 
 	{{ govukTable(unpublishTable) }}
 
