@@ -175,6 +175,8 @@ export const url = (key, filterArguments = {}) => {
 			return `${domainUrl}/case/${caseId}/examination-library/category/${slug}`;
 		case 'examination-library-publish':
 			return `${domainUrl}/case/${caseId}/examination-library/category/${slug}/publish`;
+		case 'examination-library-unpublish':
+			return `${domainUrl}/case/${caseId}/examination-library/category/${slug}/unpublish`;
 		default:
 			return 'app/404';
 	}

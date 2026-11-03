@@ -48,6 +48,13 @@
 				href: publishUrl
 			}) }}
 		</div>
+	{% elif sectionStatus | lower == 'published' %}
+		<div>
+			{{ govukButton({
+				text: "Unpublish from library",
+				href: unpublishUrl
+			}) }}
+		</div>
 	{% endif %}
 
 	{{ uiPageSizeInformation(pagination) }}
