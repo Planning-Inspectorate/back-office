@@ -25,16 +25,17 @@ export const getExaminationLibraryUnpublishViewModel = ({
 	const sectionHeading = item?.title || '';
 	const backLink = url('examination-library-section', { caseId, slug: itemSlug });
 
-	const tableHeaders = ['Reference', 'Document'];
 	const unpublishTableData = buildTable({
-		headers: tableHeaders,
+		headers: ['Reference', 'Document'],
 		rows: categoryDocuments.map((document) => {
 			if (!document?.latestDocumentVersion || !Object.keys(document.latestDocumentVersion).length) {
 				return [];
 			}
 
-			const documentReference = document.latestDocumentVersion.examinationRefNo;
-			const documentDescription = document.latestDocumentVersion.description;
+			const documentReference = document?.latestDocumentVersion?.examinationRefNo || '';
+			const documentDescription =
+				document?.latestDocumentVersion?.description || 'Missing property';
+
 			const documentPropertiesURL = url('document', {
 				caseId: document.caseId,
 				folderId: document.folderId,
