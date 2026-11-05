@@ -63,6 +63,7 @@ export async function getExaminationLibrarySection(request, response) {
 
 	const sectionUrl = url('examination-library-section', { caseId, slug: itemSlug });
 	const publishUrl = url('examination-library-publish', { caseId, slug: itemSlug });
+	const unpublishUrl = url('examination-library-unpublish', { caseId, slug: itemSlug });
 
 	const sectionViewModel = getExaminationLibrarySectionViewModel({
 		sectionDocuments,
@@ -80,6 +81,7 @@ export async function getExaminationLibrarySection(request, response) {
 		...sectionViewModel,
 		caseId,
 		publishUrl,
+		unpublishUrl,
 		showSuccessBanner: isPublishedQuery,
 		pagination: getExaminationLibraryPagination(request.query, documentsResponse, sectionUrl)
 	});
