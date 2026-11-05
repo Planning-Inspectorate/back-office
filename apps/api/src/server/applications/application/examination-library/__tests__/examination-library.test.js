@@ -478,6 +478,7 @@ describe('Examination Library Routes', () => {
 						typeOfParty: 'Applicant',
 						author: 'Applicant',
 						description: 'Application document',
+						publishedStatus: 'published',
 						examinationLibraryCategoryId: 10,
 						ExaminationLibraryCategory: mockCategory
 					}
@@ -579,7 +580,7 @@ describe('Examination Library Routes', () => {
 			expect(sendToQueue).not.toHaveBeenCalled();
 		});
 
-		it('should return 500 when category has no documents to publish', async () => {
+		it('should return 400 when category has no published documents to publish', async () => {
 			const mockCategory = { id: 10, categoryCode: 'APP', categoryName: 'Application form' };
 			databaseConnector.examinationLibraryCategory.findMany.mockResolvedValue([mockCategory]);
 			databaseConnector.document.findMany.mockResolvedValue([]);
@@ -588,11 +589,106 @@ describe('Examination Library Routes', () => {
 				.post(`/applications/${caseId}/examination-library/publish`)
 				.send({ categoryCode: 'APP' });
 
-			expect(response.status).toBe(500);
+			expect(response.status).toBe(400);
 			expect(response.body).toEqual({
-				errors: 'Error publishing category with code APP'
+				errors: 'You cannot publish an examination library category with no published documents'
 			});
 			expect(sendToQueue).not.toHaveBeenCalled();
+		});
+
+		it('should exclude unpublished and deleted documents from receiving EL references', async () => {
+			const mockCategory = { id: 10, categoryCode: 'APP', categoryName: 'Application form' };
+			const publishedDocGuid = '3e9b11df-5527-4a0b-9df0-7d0891d4d812';
+			const unpublishedDocGuid = '4e9b11df-5527-4a0b-9df0-7d0891d4d813';
+			const deletedDocGuid = '5e9b11df-5527-4a0b-9df0-7d0891d4d814';
+
+			const mockCategoryDocs = [
+				{
+					guid: publishedDocGuid,
+					isDeleted: false,
+					latestDocumentVersion: {
+						version: 1,
+						typeOfParty: 'Applicant',
+						author: 'Applicant',
+						description: 'Published document',
+						publishedStatus: 'published',
+						isDeleted: false,
+						examinationLibraryCategoryId: 10,
+						ExaminationLibraryCategory: mockCategory
+					}
+				},
+				{
+					guid: unpublishedDocGuid,
+					isDeleted: false,
+					latestDocumentVersion: {
+						version: 1,
+						typeOfParty: 'Applicant',
+						author: 'Applicant',
+						description: 'Unpublished document',
+						publishedStatus: 'not_checked',
+						isDeleted: false,
+						examinationLibraryCategoryId: 10,
+						ExaminationLibraryCategory: mockCategory
+					}
+				},
+				{
+					guid: deletedDocGuid,
+					isDeleted: true,
+					latestDocumentVersion: {
+						version: 1,
+						typeOfParty: 'Applicant',
+						author: 'Applicant',
+						description: 'Deleted document',
+						publishedStatus: 'published',
+						isDeleted: true,
+						examinationLibraryCategoryId: 10,
+						ExaminationLibraryCategory: mockCategory
+					}
+				}
+			];
+
+			const mockPublishedDocs = [
+				{
+					guid: publishedDocGuid,
+					latestDocumentVersion: {
+						version: 1,
+						examinationRefNo: 'APP-001',
+						examinationLibraryReferenceLocked: true,
+						ExaminationLibraryCategory: {
+							categoryCode: 'APP',
+							categoryName: 'Application form'
+						}
+					}
+				}
+			];
+
+			databaseConnector.examinationLibraryCategory.findMany.mockResolvedValue([mockCategory]);
+			databaseConnector.document.findMany
+				.mockResolvedValueOnce(mockCategoryDocs)
+				.mockResolvedValueOnce(mockPublishedDocs);
+			databaseConnector.examinationLibraryCategory.updateMany.mockResolvedValue({ count: 1 });
+			databaseConnector.documentVersion.update.mockResolvedValue({});
+			databaseConnector.case.findUnique.mockResolvedValue({ reference: 'EN010001' });
+
+			const response = await request
+				.post(`/applications/${caseId}/examination-library/publish`)
+				.send({ categoryCode: 'APP' });
+
+			expect(response.status).toBe(200);
+			// Only the published, non-deleted document version was updated
+			expect(databaseConnector.documentVersion.update).toHaveBeenCalledTimes(1);
+			expect(databaseConnector.documentVersion.update).toHaveBeenCalledWith({
+				where: {
+					documentGuid_version: {
+						documentGuid: publishedDocGuid,
+						version: 1
+					}
+				},
+				data: {
+					examinationLibraryReferenceLocked: true,
+					examinationRefNo: 'APP-001'
+				}
+			});
 		});
 	});
 

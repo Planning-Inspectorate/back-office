@@ -1,3 +1,4 @@
+import BackOfficeAppError from '#utils/app-error.js';
 import * as examinationLibraryRepository from '#repositories/examination-library.repository.js';
 import {
 	sortExaminationLibraryDocuments,
@@ -144,11 +145,34 @@ export const publishExaminationLibraryCategory = async (caseId, categoryData) =>
 		categoryCode
 	});
 
-	if (!categoryDocuments.length) {
-		return null;
+	// Only documents that are currently locked or eligible for publication:
+	// - Already locked documents (retain their existing references)
+	// - Unlocked documents that are NOT deleted and have publishedStatus === 'published'
+	const eligibleDocuments = categoryDocuments.filter((document) => {
+		const version = document.latestDocumentVersion;
+		if (version?.examinationLibraryReferenceLocked) {
+			return true;
+		}
+		return !document.isDeleted && !version?.isDeleted && version?.publishedStatus === 'published';
+	});
+
+	// Guard: Cannot publish an in-progress category with no published documents
+	const hasPublishedDocuments = eligibleDocuments.some(
+		(doc) => doc.latestDocumentVersion?.publishedStatus === 'published'
+	);
+
+	const hasLockedDocuments = eligibleDocuments.some(
+		(doc) => doc.latestDocumentVersion?.examinationLibraryReferenceLocked
+	);
+
+	if (!hasPublishedDocuments && !hasLockedDocuments) {
+		throw new BackOfficeAppError(
+			'You cannot publish an examination library category with no published documents',
+			400
+		);
 	}
 
-	const documentsWithDraftReferences = addDraftExaminationLibraryReferences(categoryDocuments);
+	const documentsWithDraftReferences = addDraftExaminationLibraryReferences(eligibleDocuments);
 
 	const publishedCategory = await examinationLibraryRepository.publishCategory(
 		caseId,

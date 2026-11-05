@@ -181,6 +181,7 @@ export const publishCategory = async (caseId, categoryCode, documents = []) => {
 				caseId,
 				latestDocumentVersion: {
 					examinationLibraryCategoryId: { not: null },
+					examinationLibraryReferenceLocked: true,
 					ExaminationLibraryCategory: { categoryCode }
 				}
 			},
