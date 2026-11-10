@@ -1122,7 +1122,7 @@ export async function postReviewRedactions(request, response) {
 
 	if (validationErrors) {
 		return response.render('applications/case-documentation/review-redactions/review-redactions', {
-			document,
+			documentationFile: document,
 			reviewDecision,
 			errors: validationErrors
 		});
