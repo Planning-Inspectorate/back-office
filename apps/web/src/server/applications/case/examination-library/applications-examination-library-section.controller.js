@@ -21,16 +21,29 @@ import { url } from '../../../lib/nunjucks-filters/index.js';
  */
 
 /**
- * Get Examination Library section detail page.
+ * Get Examination Library section data.
  *
- * @param {import('express').Request<{ caseId: string, slug: string }>} request
- * @param {import('express').Response<any, { case: { title: string }, caseId?: number }>} response
- * @returns {Promise<void>}
+ * @param {number} caseId
+ * @param {string} itemSlug
+ * @param {Record<string, any>} [query={}]
+ * @param {{ categoriesResponse?: any[], documentsResponse?: any }} [prefetchedData={}]
+ * @returns {Promise<{
+ *   sectionViewModel: any,
+ *   documentsResponse: any,
+ *   sectionUrl: string,
+ *   publishUrl: string,
+ *   unpublishUrl: string,
+ *   sectionStatus: string,
+ *   isPublishedQuery: boolean
+ * } | null>}
  */
-export async function getExaminationLibrarySection(request, response) {
-	const { slug: itemSlug } = request.params;
-	const { sortBy, pageSize = 25, page = 1 } = request.query;
-	const caseId = response.locals?.caseId || Number(request.params?.caseId);
+export async function getExaminationLibrarySectionData(
+	caseId,
+	itemSlug,
+	query = {},
+	prefetchedData = {}
+) {
+	const { sortBy, pageSize = 25, page = 1 } = query;
 	const pageNumber = Number(page) || 1;
 	const pageSizeNumber = Number(pageSize) || 25;
 
@@ -38,7 +51,7 @@ export async function getExaminationLibrarySection(request, response) {
 	const sectionCategoryCode = section ? getCategoryCode(section, categoryCodes) : '';
 
 	if (!section || !sectionCategoryCode) {
-		return response.status(404).render('app/404');
+		return null;
 	}
 
 	const queryString = buildQueryString({
@@ -48,8 +61,10 @@ export async function getExaminationLibrarySection(request, response) {
 	});
 
 	const [documentsResponse, categoriesResponse] = await Promise.all([
-		getExaminationLibraryDocumentsByCategory(caseId, sectionCategoryCode, queryString),
-		getExaminationLibraryCategories(caseId, { categoryCode: sectionCategoryCode }).catch(() => [])
+		prefetchedData.documentsResponse ||
+			getExaminationLibraryDocumentsByCategory(caseId, sectionCategoryCode, queryString),
+		prefetchedData.categoriesResponse ||
+			getExaminationLibraryCategories(caseId, { categoryCode: sectionCategoryCode }).catch(() => [])
 	]);
 
 	/** @type {ExaminationLibraryDocumentVersion[]} */
@@ -57,7 +72,7 @@ export async function getExaminationLibrarySection(request, response) {
 
 	const matchingCategory = categoriesResponse?.find((c) => c.categoryCode === sectionCategoryCode);
 	const dbCategoryStatus = matchingCategory?.publishedStatus;
-	const isPublishedQuery = request.query.published === 'true';
+	const isPublishedQuery = query.published === 'true';
 
 	const sectionStatus = isPublishedQuery ? 'published' : dbCategoryStatus || DEFAULT_SECTION_STATUS;
 
@@ -69,20 +84,52 @@ export async function getExaminationLibrarySection(request, response) {
 		sectionDocuments,
 		sectionStatus,
 		itemSlug,
-		query: request.query,
+		query,
 		sectionUrl
 	});
 
 	if (!sectionViewModel) {
+		return null;
+	}
+
+	return {
+		sectionViewModel,
+		documentsResponse,
+		sectionUrl,
+		publishUrl,
+		unpublishUrl,
+		sectionStatus,
+		isPublishedQuery
+	};
+}
+
+/**
+ * Get Examination Library section detail page.
+ *
+ * @param {import('express').Request<{ caseId: string, slug: string }>} request
+ * @param {import('express').Response<any, { case: { title: string }, caseId?: number }>} response
+ * @returns {Promise<void>}
+ */
+export async function getExaminationLibrarySection(request, response) {
+	const { slug: itemSlug } = request.params;
+	const caseId = response.locals?.caseId || Number(request.params?.caseId);
+
+	const sectionData = await getExaminationLibrarySectionData(caseId, itemSlug, request.query);
+
+	if (!sectionData) {
 		return response.status(404).render('app/404');
 	}
 
 	return response.render('applications/case-examination-library/examination-library-section.njk', {
-		...sectionViewModel,
+		...sectionData.sectionViewModel,
 		caseId,
-		publishUrl,
-		unpublishUrl,
-		showSuccessBanner: isPublishedQuery,
-		pagination: getExaminationLibraryPagination(request.query, documentsResponse, sectionUrl)
+		publishUrl: sectionData.publishUrl,
+		unpublishUrl: sectionData.unpublishUrl,
+		showSuccessBanner: sectionData.isPublishedQuery,
+		pagination: getExaminationLibraryPagination(
+			request.query,
+			sectionData.documentsResponse,
+			sectionData.sectionUrl
+		)
 	});
 }

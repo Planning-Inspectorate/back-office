@@ -850,6 +850,18 @@ describe('applications documentation', () => {
 					expect(element.innerHTML).toContain('Review decision is required');
 				});
 
+				it('keeps the file details on the page when submitted with no reviewDecision', async () => {
+					const response = await request
+						.post(`${baseUrl}/project-documentation/21/document/151/review-redactions`)
+						.send({});
+					const element = parseHtml(response.text);
+					const { fileName, documentGuid } = fixtureAiSuggestionsReviewRequiredDocumentationFile;
+
+					expect(response.status).toBe(200);
+					expect(element.innerHTML).toContain(fileName);
+					expect(element.innerHTML).toContain(`/download/${documentGuid}/version/`);
+				});
+
 				it('rejects request with invalid reviewDecision value', async () => {
 					const response = await request
 						.post(`${baseUrl}/project-documentation/21/document/151/review-redactions`)

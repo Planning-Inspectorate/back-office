@@ -79,6 +79,11 @@ describe('applications examination library publish controller', () => {
 				.query((query) => !query.publishedStatus && query.categoryCode === 'APP')
 				.reply(200, mockAllDocs);
 
+			nock('http://test/')
+				.get('/applications/123/examination-library')
+				.query((query) => query.categoryCode === 'APP')
+				.reply(200, [{ categoryCode: 'APP', publishedStatus: 'in progress' }]);
+
 			await getExaminationLibraryPublish(req, res);
 
 			expect(res.render).toHaveBeenCalledWith(
@@ -93,6 +98,93 @@ describe('applications examination library publish controller', () => {
 					unpublishedInsetText:
 						'5 items are not yet published and will not be assigned an examination library reference number. The other references have been adjusted to reflect this.',
 					caseId: '123'
+				})
+			);
+		});
+
+		it('should render section page with error if unpublished category has 0 published documents or no documents', async () => {
+			const mockEmptyDocs = {
+				page: 1,
+				pageSize: 25,
+				pageCount: 0,
+				itemCount: 0,
+				items: []
+			};
+
+			nock('http://test/')
+				.get('/applications/123/examination-library/documents')
+				.query((query) => query.publishedStatus === 'published' && query.categoryCode === 'APP')
+				.reply(200, mockEmptyDocs);
+
+			nock('http://test/')
+				.get('/applications/123/examination-library/documents')
+				.query((query) => !query.publishedStatus && query.categoryCode === 'APP')
+				.reply(200, mockEmptyDocs);
+
+			nock('http://test/')
+				.get('/applications/123/examination-library')
+				.query((query) => query.categoryCode === 'APP')
+				.reply(200, [{ categoryCode: 'APP', publishedStatus: 'unpublished' }]);
+
+			nock('http://test/')
+				.get('/applications/123/examination-library/documents')
+				.query((query) => query.categoryCode === 'APP' && !query.publishedStatus)
+				.reply(200, mockEmptyDocs);
+
+			await getExaminationLibraryPublish(req, res);
+
+			expect(res.render).toHaveBeenCalledWith(
+				'applications/case-examination-library/examination-library-section.njk',
+				expect.objectContaining({
+					errors: 'Examination library category does not contain any new published documents'
+				})
+			);
+		});
+
+		it('should render section page with error if category is already published', async () => {
+			const mockPublishedDocs = {
+				page: 1,
+				pageSize: 25,
+				pageCount: 1,
+				itemCount: 1,
+				items: [{ guid: 'doc-1' }]
+			};
+
+			const mockAllDocs = {
+				page: 1,
+				pageSize: 1,
+				pageCount: 1,
+				itemCount: 1,
+				items: [{ guid: 'doc-1' }]
+			};
+
+			nock('http://test/')
+				.get('/applications/123/examination-library/documents')
+				.query((query) => query.publishedStatus === 'published' && query.categoryCode === 'APP')
+				.reply(200, mockPublishedDocs);
+
+			nock('http://test/')
+				.get('/applications/123/examination-library/documents')
+				.query((query) => !query.publishedStatus && query.categoryCode === 'APP')
+				.reply(200, mockAllDocs);
+
+			nock('http://test/')
+				.get('/applications/123/examination-library')
+				.query((query) => query.categoryCode === 'APP')
+				.reply(200, [{ categoryCode: 'APP', publishedStatus: 'published' }]);
+
+			// Subsequent call from getExaminationLibrarySectionData (categoriesResponse is reused)
+			nock('http://test/')
+				.get('/applications/123/examination-library/documents')
+				.query((query) => query.categoryCode === 'APP' && !query.publishedStatus)
+				.reply(200, mockAllDocs);
+
+			await getExaminationLibraryPublish(req, res);
+
+			expect(res.render).toHaveBeenCalledWith(
+				'applications/case-examination-library/examination-library-section.njk',
+				expect.objectContaining({
+					errors: 'Examination library category does not contain any new published documents'
 				})
 			);
 		});
@@ -126,6 +218,33 @@ describe('applications examination library publish controller', () => {
 
 			expect(res.redirect).toHaveBeenCalledWith(
 				'/applications-service/case/123/examination-library/category/application-documents?published=true'
+			);
+		});
+
+		it('should render section page with error when API returns 400 on publish', async () => {
+			nock('http://test/')
+				.post('/applications/123/examination-library/publish', { categoryCode: 'APP' })
+				.reply(400, {
+					errors: 'Examination library category does not contain any new published documents'
+				});
+
+			nock('http://test/')
+				.get('/applications/123/examination-library/documents')
+				.query((query) => query.categoryCode === 'APP')
+				.reply(200, { page: 1, pageSize: 25, pageCount: 0, itemCount: 0, items: [] });
+
+			nock('http://test/')
+				.get('/applications/123/examination-library')
+				.query((query) => query.categoryCode === 'APP')
+				.reply(200, [{ categoryCode: 'APP', publishedStatus: 'in progress' }]);
+
+			await postExaminationLibraryPublish(req, res);
+
+			expect(res.render).toHaveBeenCalledWith(
+				'applications/case-examination-library/examination-library-section.njk',
+				expect.objectContaining({
+					errors: 'Examination library category does not contain any new published documents'
+				})
 			);
 		});
 
