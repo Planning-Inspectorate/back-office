@@ -1,3 +1,4 @@
+import BackOfficeAppError from '#utils/app-error.js';
 import * as examinationLibraryRepository from '#repositories/examination-library.repository.js';
 import {
 	sortExaminationLibraryDocuments,
@@ -98,10 +99,12 @@ export const getExaminationLibraryDocumentDraftReference = async (
 };
 
 /**
+ * Check if an Examination Library reference number is already locked by another document.
  *
  * @param {number} caseId
  * @param {string} documentGuid
  * @param {string} examinationRefNo
+ * @returns {Promise<boolean>}
  */
 export const isExaminationLibraryReferenceLocked = async (
 	caseId,
@@ -114,6 +117,24 @@ export const isExaminationLibraryReferenceLocked = async (
 	);
 
 	return document !== null && document.guid !== documentGuid;
+};
+
+/**
+ * Check if a document is eligible to be included when publishing an Examination Library category.
+ * Eligible documents are either already locked, or active (non-deleted) with published status.
+ *
+ * @param {import('#database-client').Document} document
+ * @returns {boolean}
+ */
+const isDocumentEligibleForCategoryPublication = (document) => {
+	const version = document.latestDocumentVersion;
+
+	if (version?.examinationLibraryReferenceLocked) {
+		return true;
+	}
+
+	const isDeleted = document.isDeleted || version?.isDeleted;
+	return !isDeleted && version?.publishedStatus === 'published';
 };
 
 /**
@@ -140,15 +161,28 @@ export const publishExaminationLibraryCategory = async (caseId, categoryData) =>
 		throw new Error(`Category not found for case ${caseId} and code ${categoryCode}`);
 	}
 
+	// Cannot publish an already published category
+	if (category.publishedStatus?.toLowerCase() === 'published') {
+		throw new BackOfficeAppError(
+			'Examination library category does not contain any new published documents',
+			400
+		);
+	}
+
 	const categoryDocuments = await examinationLibraryRepository.getDocuments(caseId, {
 		categoryCode
 	});
 
-	if (!categoryDocuments.length) {
-		return null;
+	const eligibleDocuments = categoryDocuments.filter(isDocumentEligibleForCategoryPublication);
+
+	if (!eligibleDocuments.length) {
+		throw new BackOfficeAppError(
+			'Examination library category does not contain any new published documents',
+			400
+		);
 	}
 
-	const documentsWithDraftReferences = addDraftExaminationLibraryReferences(categoryDocuments);
+	const documentsWithDraftReferences = addDraftExaminationLibraryReferences(eligibleDocuments);
 
 	const publishedCategory = await examinationLibraryRepository.publishCategory(
 		caseId,
