@@ -8,7 +8,7 @@ import staticFlags from '@pins/feature-flags/src/static-feature-flags.js';
 const { app, installMockApi, teardown } = createTestEnvironment();
 const request = supertest(app);
 
-const nocks = ({ includeDocuments = true } = {}) => {
+const nocks = ({ includeDocuments = true, appCategoryStatus = 'in progress' } = {}) => {
 	nock('http://test/').get('/applications').reply(200, []);
 	nock('http://test/').get('/applications/123').reply(200, fixtureExaminationLibraryIndex.caseData);
 	nock('http://test/')
@@ -18,7 +18,7 @@ const nocks = ({ includeDocuments = true } = {}) => {
 			{
 				categoryCode: 'APP',
 				categoryName: 'Application form',
-				publishedStatus: 'in progress'
+				publishedStatus: appCategoryStatus
 			}
 		]);
 	nock('http://test/')
@@ -255,6 +255,70 @@ describe('Examination Library', () => {
 
 			expect(descriptionSortLink.getAttribute('href')).toContain('sortBy=-description');
 		});
+
+		it('should display "Preview and publish category to library" button when category is in progress', async () => {
+			const response = await request.get(`${baseUrl}/category/application-documents`);
+			const element = parseHtml(response.text);
+
+			expect(response.status).toBe(200);
+			expect(element.innerHTML).toContain('Preview and publish category to library');
+		});
+
+		it('should NOT display publish button when category is published', async () => {
+			nock.cleanAll();
+			nocks({ appCategoryStatus: 'published', includeDocuments: false });
+
+			nock('http://test/')
+				.get('/applications/123/examination-library/documents')
+				.query(true)
+				.reply(200, {
+					page: 1,
+					pageSize: 25,
+					pageCount: 1,
+					itemCount: 1,
+					items: [
+						{
+							caseId: 123,
+							folderId: 1,
+							isDeleted: false,
+							latestDocumentVersion: {
+								documentGuid: 'doc-1',
+								fileName: 'test.pdf',
+								examinationLibraryReferenceLocked: false
+							}
+						}
+					]
+				});
+
+			const response = await request.get(`${baseUrl}/category/application-documents`);
+			const element = parseHtml(response.text);
+
+			expect(response.status).toBe(200);
+			expect(element.innerHTML).not.toContain('Publish updates');
+			expect(element.innerHTML).not.toContain('Preview and publish category to library');
+		});
+
+		it('should display "Preview and publish category to library" button when category is unpublished', async () => {
+			nock.cleanAll();
+			nocks({ appCategoryStatus: 'unpublished', includeDocuments: false });
+
+			nock('http://test/')
+				.get('/applications/123/examination-library/documents')
+				.query(true)
+				.reply(200, {
+					page: 1,
+					pageSize: 25,
+					pageCount: 1,
+					itemCount: 0,
+					items: []
+				});
+
+			const response = await request.get(`${baseUrl}/category/application-documents`);
+			const element = parseHtml(response.text);
+
+			expect(response.status).toBe(200);
+			expect(element.innerHTML).toContain('Preview and publish category to library');
+		});
 	});
 
 	it('should pass sorting and pagination query parameters to the documents API', async () => {
@@ -279,5 +343,41 @@ describe('Examination Library', () => {
 		);
 
 		expect(response.status).toBe(200);
+	});
+
+	describe('GET /category/:slug/publish', () => {
+		beforeEach(() => {
+			const flags = staticFlags;
+			flags['idas-607-examination-library'] = true;
+		});
+
+		it('should render section page with error summary when category has 0 published documents', async () => {
+			nock.cleanAll();
+			nocks({ appCategoryStatus: 'in progress', includeDocuments: false });
+
+			nock('http://test/')
+				.get('/applications/123/examination-library/documents')
+				.query((query) => query.publishedStatus === 'published' && query.categoryCode === 'APP')
+				.reply(200, { page: 1, pageSize: 25, pageCount: 0, itemCount: 0, items: [] });
+
+			nock('http://test/')
+				.get('/applications/123/examination-library/documents')
+				.query((query) => !query.publishedStatus && query.categoryCode === 'APP')
+				.reply(200, { page: 1, pageSize: 1, pageCount: 1, itemCount: 2, items: [] });
+
+			nock('http://test/')
+				.get('/applications/123/examination-library/documents')
+				.query((query) => query.categoryCode === 'APP')
+				.reply(200, { page: 1, pageSize: 25, pageCount: 1, itemCount: 2, items: [] });
+
+			const response = await request.get(`${baseUrl}/category/application-documents/publish`);
+			const element = parseHtml(response.text);
+
+			expect(response.status).toBe(200);
+			expect(element.innerHTML).toContain('There is a problem');
+			expect(element.innerHTML).toContain(
+				'Examination library category does not contain any new published documents'
+			);
+		});
 	});
 });

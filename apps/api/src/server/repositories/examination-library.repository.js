@@ -150,6 +150,10 @@ export const publishCategory = async (caseId, categoryCode, documents = []) => {
 		});
 
 		for (const document of documents) {
+			if (document.latestDocumentVersion?.examinationLibraryReferenceLocked) {
+				continue;
+			}
+
 			const examinationRefNo = document.latestDocumentVersion?.draftExaminationLibraryReference;
 			if (!examinationRefNo) continue;
 
@@ -181,6 +185,7 @@ export const publishCategory = async (caseId, categoryCode, documents = []) => {
 				caseId,
 				latestDocumentVersion: {
 					examinationLibraryCategoryId: { not: null },
+					examinationLibraryReferenceLocked: true,
 					ExaminationLibraryCategory: { categoryCode }
 				}
 			},
