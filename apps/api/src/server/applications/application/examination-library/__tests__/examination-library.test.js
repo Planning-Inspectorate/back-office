@@ -682,7 +682,7 @@ describe('Examination Library Routes', () => {
 			expect(sendToQueue).not.toHaveBeenCalled();
 		});
 
-		it('should return 400 when category is already published', async () => {
+		it('should return 400 when category is already published and has no new unlocked published documents', async () => {
 			const mockCategory = {
 				id: 10,
 				categoryCode: 'APP',
@@ -690,6 +690,18 @@ describe('Examination Library Routes', () => {
 				publishedStatus: 'published'
 			};
 			databaseConnector.examinationLibraryCategory.findMany.mockResolvedValue([mockCategory]);
+			databaseConnector.document.findMany.mockResolvedValue([
+				{
+					guid: '1e9b11df-5527-4a0b-9df0-7d0891d4d810',
+					isDeleted: false,
+					latestDocumentVersion: {
+						version: 1,
+						publishedStatus: 'published',
+						examinationRefNo: 'APP-001',
+						examinationLibraryReferenceLocked: true
+					}
+				}
+			]);
 
 			const response = await request
 				.post(`/applications/${caseId}/examination-library/publish`)
@@ -700,6 +712,89 @@ describe('Examination Library Routes', () => {
 				errors: 'Examination library category does not contain any new published documents'
 			});
 			expect(sendToQueue).not.toHaveBeenCalled();
+		});
+
+		it('should return 200 and publish new unlocked documents when category is already published', async () => {
+			const mockCategory = {
+				id: 10,
+				categoryCode: 'APP',
+				categoryName: 'Application form',
+				publishedStatus: 'published'
+			};
+			const lockedDocGuid = '1e9b11df-5527-4a0b-9df0-7d0891d4d810';
+			const newDocGuid = '2e9b11df-5527-4a0b-9df0-7d0891d4d811';
+
+			const mockCategoryDocs = [
+				{
+					guid: lockedDocGuid,
+					isDeleted: false,
+					latestDocumentVersion: {
+						version: 1,
+						publishedStatus: 'published',
+						examinationRefNo: 'APP-001',
+						examinationLibraryReferenceLocked: true,
+						ExaminationLibraryCategory: mockCategory
+					}
+				},
+				{
+					guid: newDocGuid,
+					isDeleted: false,
+					latestDocumentVersion: {
+						version: 1,
+						publishedStatus: 'published',
+						examinationRefNo: null,
+						examinationLibraryReferenceLocked: false,
+						ExaminationLibraryCategory: mockCategory
+					}
+				}
+			];
+
+			const mockPublishedDocs = [
+				{
+					guid: lockedDocGuid,
+					latestDocumentVersion: {
+						version: 1,
+						examinationRefNo: 'APP-001',
+						ExaminationLibraryCategory: mockCategory
+					}
+				},
+				{
+					guid: newDocGuid,
+					latestDocumentVersion: {
+						version: 1,
+						examinationRefNo: 'APP-002',
+						ExaminationLibraryCategory: mockCategory
+					}
+				}
+			];
+
+			databaseConnector.examinationLibraryCategory.findMany.mockResolvedValue([mockCategory]);
+			databaseConnector.document.findMany
+				.mockResolvedValueOnce(mockCategoryDocs)
+				.mockResolvedValueOnce(mockPublishedDocs);
+			databaseConnector.examinationLibraryCategory.updateMany.mockResolvedValue({ count: 1 });
+			databaseConnector.documentVersion.update.mockResolvedValue({});
+			databaseConnector.case.findUnique.mockResolvedValue({ reference: 'EN010001' });
+
+			const response = await request
+				.post(`/applications/${caseId}/examination-library/publish`)
+				.send({ categoryCode: 'APP' });
+
+			expect(response.status).toBe(200);
+			expect(databaseConnector.documentVersion.update).toHaveBeenCalledTimes(1);
+			expect(databaseConnector.documentVersion.update).toHaveBeenCalledWith({
+				where: {
+					documentGuid_version: {
+						documentGuid: newDocGuid,
+						version: 1
+					}
+				},
+				data: {
+					examinationLibraryReferenceLocked: true,
+					examinationRefNo: 'APP-002'
+				}
+			});
+			expect(sendToQueue).toHaveBeenCalledTimes(1);
 		});
 
 		it('should exclude unpublished and deleted documents from receiving EL references', async () => {

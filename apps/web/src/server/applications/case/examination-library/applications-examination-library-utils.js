@@ -52,11 +52,13 @@ export const getCategoryCode = (section, categoryCodes) => {
  * @property {string} fileName
  * @property {string} description
  * @property {string} author
+ * @property {boolean} [examinationLibraryReferenceLocked]
  */
 
 /**
  * @typedef {object} ExaminationLibrarySectionDocument
  * @property {number} caseId
+ * @property {boolean} [isDeleted]
  * @property {ExaminationLibraryDocumentVersion} latestDocumentVersion
  */
 

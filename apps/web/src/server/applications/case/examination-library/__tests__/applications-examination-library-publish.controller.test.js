@@ -3,7 +3,9 @@ import { jest } from '@jest/globals';
 import nock from 'nock';
 import {
 	getExaminationLibraryPublish,
-	postExaminationLibraryPublish
+	postExaminationLibraryPublish,
+	getExaminationLibraryUpdate,
+	postExaminationLibraryUpdate
 } from '../applications-examination-library-publish.controller.js';
 
 describe('applications examination library publish controller', () => {
@@ -255,6 +257,189 @@ describe('applications examination library publish controller', () => {
 
 			expect(res.status).toHaveBeenCalledWith(404);
 			expect(res.render).toHaveBeenCalledWith('app/404');
+		});
+	});
+
+	describe('getExaminationLibraryUpdate', () => {
+		it('should render update view when category is published and has unlocked published documents', async () => {
+			const mockPublishedDocs = {
+				page: 1,
+				pageSize: 25,
+				pageCount: 1,
+				itemCount: 2,
+				items: [
+					{
+						caseId: 123,
+						folderId: 10,
+						isDeleted: false,
+						latestDocumentVersion: {
+							documentGuid: 'doc-1',
+							fileName: 'app-form.pdf',
+							description: 'Locked Form',
+							author: 'Applicant',
+							examinationRefNo: 'APP-001',
+							examinationLibraryReferenceLocked: true
+						}
+					},
+					{
+						caseId: 123,
+						folderId: 10,
+						isDeleted: false,
+						latestDocumentVersion: {
+							documentGuid: 'doc-2',
+							fileName: 'new-form.pdf',
+							description: 'New Form',
+							author: 'Applicant',
+							draftExaminationLibraryReference: 'APP-002',
+							examinationLibraryReferenceLocked: false
+						}
+					}
+				]
+			};
+
+			nock('http://test/')
+				.get('/applications/123/examination-library/documents')
+				.query((query) => query.publishedStatus === 'published' && query.categoryCode === 'APP')
+				.reply(200, mockPublishedDocs);
+
+			nock('http://test/')
+				.get('/applications/123/examination-library/documents')
+				.query((query) => !query.publishedStatus && query.categoryCode === 'APP')
+				.reply(200, { page: 1, pageSize: 1, pageCount: 2, itemCount: 2, items: [] });
+
+			nock('http://test/')
+				.get('/applications/123/examination-library')
+				.query((query) => query.categoryCode === 'APP')
+				.reply(200, [{ categoryCode: 'APP', publishedStatus: 'published' }]);
+
+			await getExaminationLibraryUpdate(req, res);
+
+			expect(res.render).toHaveBeenCalledWith(
+				'applications/case-examination-library/examination-library-publish.njk',
+				expect.objectContaining({
+					isUpdate: true,
+					sectionHeading: 'Application documents',
+					additionalCount: 1,
+					hasAdditionalItems: true,
+					additionalItemsText: '1 items on this page will be added to the library.',
+					publishUrl:
+						'/applications-service/case/123/examination-library/category/application-documents/update'
+				})
+			);
+		});
+
+		it('should render section page with error when published category has no unlocked published documents', async () => {
+			const mockLockedDocs = {
+				page: 1,
+				pageSize: 25,
+				pageCount: 1,
+				itemCount: 1,
+				items: [
+					{
+						caseId: 123,
+						folderId: 10,
+						isDeleted: false,
+						latestDocumentVersion: {
+							documentGuid: 'doc-1',
+							examinationRefNo: 'APP-001',
+							examinationLibraryReferenceLocked: true
+						}
+					}
+				]
+			};
+
+			nock('http://test/')
+				.get('/applications/123/examination-library/documents')
+				.query((query) => query.publishedStatus === 'published' && query.categoryCode === 'APP')
+				.reply(200, mockLockedDocs);
+
+			nock('http://test/')
+				.get('/applications/123/examination-library/documents')
+				.query((query) => !query.publishedStatus && query.categoryCode === 'APP')
+				.reply(200, mockLockedDocs);
+
+			nock('http://test/')
+				.get('/applications/123/examination-library')
+				.query((query) => query.categoryCode === 'APP')
+				.reply(200, [{ categoryCode: 'APP', publishedStatus: 'published' }]);
+
+			nock('http://test/')
+				.get('/applications/123/examination-library/documents')
+				.query((query) => query.categoryCode === 'APP' && !query.publishedStatus)
+				.reply(200, mockLockedDocs);
+
+			await getExaminationLibraryUpdate(req, res);
+
+			expect(res.render).toHaveBeenCalledWith(
+				'applications/case-examination-library/examination-library-section.njk',
+				expect.objectContaining({
+					errors: 'Examination library category does not contain any new published documents'
+				})
+			);
+		});
+
+		it('should render section page with error when category is not published', async () => {
+			const mockUnlockedDocs = {
+				page: 1,
+				pageSize: 25,
+				pageCount: 1,
+				itemCount: 1,
+				items: [
+					{
+						caseId: 123,
+						folderId: 10,
+						isDeleted: false,
+						latestDocumentVersion: {
+							documentGuid: 'doc-1',
+							draftExaminationLibraryReference: 'APP-001',
+							examinationLibraryReferenceLocked: false
+						}
+					}
+				]
+			};
+
+			nock('http://test/')
+				.get('/applications/123/examination-library/documents')
+				.query((query) => query.publishedStatus === 'published' && query.categoryCode === 'APP')
+				.reply(200, mockUnlockedDocs);
+
+			nock('http://test/')
+				.get('/applications/123/examination-library/documents')
+				.query((query) => !query.publishedStatus && query.categoryCode === 'APP')
+				.reply(200, mockUnlockedDocs);
+
+			nock('http://test/')
+				.get('/applications/123/examination-library')
+				.query((query) => query.categoryCode === 'APP')
+				.reply(200, [{ categoryCode: 'APP', publishedStatus: 'in progress' }]);
+
+			nock('http://test/')
+				.get('/applications/123/examination-library/documents')
+				.query((query) => query.categoryCode === 'APP' && !query.publishedStatus)
+				.reply(200, mockUnlockedDocs);
+
+			await getExaminationLibraryUpdate(req, res);
+
+			expect(res.render).toHaveBeenCalledWith(
+				'applications/case-examination-library/examination-library-section.njk',
+				expect.objectContaining({
+					errors: 'Examination library category does not contain any new published documents'
+				})
+			);
+		});
+	});
+
+	describe('postExaminationLibraryUpdate', () => {
+		it('should publish updates and redirect with published=true', async () => {
+			nock('http://test/')
+				.post('/applications/123/examination-library/publish', { categoryCode: 'APP' })
+				.reply(200, { success: true });
+
+			await postExaminationLibraryUpdate(req, res);
+
+			expect(res.redirect).toHaveBeenCalledWith(
+				'/applications-service/case/123/examination-library/category/application-documents?published=true'
+			);
 		});
 	});
 });

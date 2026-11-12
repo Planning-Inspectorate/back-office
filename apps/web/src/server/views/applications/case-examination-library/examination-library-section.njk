@@ -48,6 +48,13 @@
 				href: publishUrl
 			}) }}
 		</div>
+	{% elseif hasUpdatesToPublish %}
+		<div class="govuk-!-margin-bottom-6">
+			{{ govukButton({
+				text: "Preview and publish updates to library",
+				href: updateUrl
+			}) }}
+		</div>
 	{% endif %}
 
 	{{ uiPageSizeInformation(pagination) }}

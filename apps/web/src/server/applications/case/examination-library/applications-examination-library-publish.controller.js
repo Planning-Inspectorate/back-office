@@ -32,6 +32,8 @@ function renderSectionPageWithError(response, sectionData, caseId, query, errors
 		...sectionData.sectionViewModel,
 		caseId,
 		publishUrl: sectionData.publishUrl,
+		updateUrl: sectionData.updateUrl,
+		hasUpdatesToPublish: sectionData.hasUpdatesToPublish,
 		pagination: getExaminationLibraryPagination(
 			query,
 			sectionData.documentsResponse,
@@ -42,17 +44,18 @@ function renderSectionPageWithError(response, sectionData, caseId, query, errors
 }
 
 /**
- * @typedef {import('./applications-examination-library-utils.js').ExaminationLibraryDocumentVersion} ExaminationLibraryDocumentVersion
+ * @typedef {import('./applications-examination-library-utils.js').ExaminationLibrarySectionDocument} ExaminationLibrarySectionDocument
  */
 
 /**
- * Get Examination Library category check details and publish page.
+ * Render check details and publish/update page for an Examination Library category.
  *
  * @param {import('express').Request<{ caseId: string, slug: string }>} request
  * @param {import('express').Response<any, { case: { title: string }, caseId?: number }>} response
+ * @param {{ isUpdate: boolean }} options
  * @returns {Promise<void>}
  */
-export async function getExaminationLibraryPublish(request, response) {
+async function renderCheckDetailsPage(request, response, { isUpdate }) {
 	const { caseId: paramCaseId, slug: itemSlug } = request.params;
 	const { sortBy, pageSize = 25, page = 1 } = request.query;
 	const caseId = response.locals?.caseId || Number(paramCaseId);
@@ -84,7 +87,7 @@ export async function getExaminationLibraryPublish(request, response) {
 		getExaminationLibraryCategories(caseId, { categoryCode: sectionCategoryCode }).catch(() => [])
 	]);
 
-	/** @type {ExaminationLibraryDocumentVersion[]} */
+	/** @type {ExaminationLibrarySectionDocument[]} */
 	const sectionDocuments = publishedDocumentsResponse?.items ?? [];
 	const totalPublishedCount = publishedDocumentsResponse?.itemCount ?? 0;
 	const totalAllCount = allDocumentsResponse?.itemCount ?? 0;
@@ -93,8 +96,31 @@ export async function getExaminationLibraryPublish(request, response) {
 	const matchingCategory = categoriesResponse?.find((c) => c.categoryCode === sectionCategoryCode);
 	const categoryStatus = matchingCategory?.publishedStatus?.toLowerCase();
 
-	// category cannot be published if it is already published, or has no published documents
-	if (categoryStatus === 'published' || totalPublishedCount === 0) {
+	/** @param {ExaminationLibrarySectionDocument} doc */
+	const isUnlockedPublishedDoc = (doc) =>
+		!doc?.isDeleted && !doc?.latestDocumentVersion?.examinationLibraryReferenceLocked;
+
+	let additionalCount = 0;
+	let isInvalidState;
+
+	if (isUpdate) {
+		let hasNewPublishedDocuments = sectionDocuments.some(isUnlockedPublishedDoc);
+		if (!hasNewPublishedDocuments && (publishedDocumentsResponse?.pageCount ?? 1) > 1) {
+			const allPublishedResponse = await getExaminationLibraryDocumentsByCategory(
+				caseId,
+				sectionCategoryCode,
+				buildQueryString({ publishedStatus: 'published', pageSize: 1000, page: 1 })
+			).catch(() => null);
+			hasNewPublishedDocuments = Boolean(allPublishedResponse?.items?.some(isUnlockedPublishedDoc));
+		}
+		isInvalidState = categoryStatus !== 'published' || !hasNewPublishedDocuments;
+		additionalCount = sectionDocuments.filter(isUnlockedPublishedDoc).length;
+	} else {
+		// category cannot be published if it is already published, or has no published documents
+		isInvalidState = categoryStatus === 'published' || totalPublishedCount === 0;
+	}
+
+	if (isInvalidState) {
 		const sectionData = await getExaminationLibrarySectionData(caseId, itemSlug, request.query, {
 			categoriesResponse
 		});
@@ -111,7 +137,7 @@ export async function getExaminationLibraryPublish(request, response) {
 		);
 	}
 
-	const publishUrl = url('examination-library-publish', {
+	const actionUrl = url(isUpdate ? 'examination-library-update' : 'examination-library-publish', {
 		caseId,
 		slug: itemSlug
 	});
@@ -123,7 +149,9 @@ export async function getExaminationLibraryPublish(request, response) {
 		unpublishedCount,
 		itemSlug,
 		caseId,
-		publishUrl
+		publishUrl: actionUrl,
+		isUpdate,
+		additionalCount
 	});
 
 	if (!viewModel) {
@@ -136,9 +164,31 @@ export async function getExaminationLibraryPublish(request, response) {
 		pagination: getExaminationLibraryPagination(
 			request.query,
 			publishedDocumentsResponse,
-			publishUrl
+			actionUrl
 		)
 	});
+}
+
+/**
+ * Get Examination Library category check details and publish page.
+ *
+ * @param {import('express').Request<{ caseId: string, slug: string }>} request
+ * @param {import('express').Response<any, { case: { title: string }, caseId?: number }>} response
+ * @returns {Promise<void>}
+ */
+export async function getExaminationLibraryPublish(request, response) {
+	return renderCheckDetailsPage(request, response, { isUpdate: false });
+}
+
+/**
+ * Get Examination Library category check details and update page.
+ *
+ * @param {import('express').Request<{ caseId: string, slug: string }>} request
+ * @param {import('express').Response<any, { case: { title: string }, caseId?: number }>} response
+ * @returns {Promise<void>}
+ */
+export async function getExaminationLibraryUpdate(request, response) {
+	return renderCheckDetailsPage(request, response, { isUpdate: true });
 }
 
 /**
@@ -181,3 +231,8 @@ export async function postExaminationLibraryPublish(request, response) {
 		`${url('examination-library-section', { caseId, slug: itemSlug })}?published=true`
 	);
 }
+
+/**
+ * Handle updating a published Examination Library category with additional documents.
+ */
+export const postExaminationLibraryUpdate = postExaminationLibraryPublish;

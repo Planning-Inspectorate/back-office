@@ -14,5 +14,9 @@ applicationsExamLibraryRouter
 	.route('/category/:slug/publish')
 	.get(asyncHandler(publishController.getExaminationLibraryPublish))
 	.post(asyncHandler(publishController.postExaminationLibraryPublish));
+applicationsExamLibraryRouter
+	.route('/category/:slug/update')
+	.get(asyncHandler(publishController.getExaminationLibraryUpdate))
+	.post(asyncHandler(publishController.postExaminationLibraryUpdate));
 
 export default applicationsExamLibraryRouter;
