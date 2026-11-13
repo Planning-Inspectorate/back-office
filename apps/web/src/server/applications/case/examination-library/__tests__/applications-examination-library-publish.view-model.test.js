@@ -44,6 +44,7 @@ describe('applications examination library publish view model', () => {
 
 			expect(result).toEqual({
 				selectedPageType: 'examination-library',
+				isUpdate: false,
 				sectionHeading: 'Application documents',
 				backLink:
 					'/applications-service/case/123/examination-library/category/application-documents',
@@ -52,11 +53,14 @@ describe('applications examination library publish view model', () => {
 				categoryCode: 'APP',
 				totalPublishedCount: 67,
 				unpublishedCount: 5,
+				additionalCount: 0,
 				totalItemsText:
 					'The Application documents category for the examination library will contain references for 67 items.',
 				hasUnpublishedItems: true,
 				unpublishedInsetText:
 					'5 items are not yet published and will not be assigned an examination library reference number. The other references have been adjusted to reflect this.',
+				hasAdditionalItems: false,
+				additionalItemsText: '0 items on this page will be added to the library.',
 				warningText:
 					'Once an examination library category has been published, the examination library references are final and cannot be changed.',
 				sectionTable: {
@@ -90,6 +94,26 @@ describe('applications examination library publish view model', () => {
 			expect(result.hasUnpublishedItems).toBe(false);
 			expect(result.totalPublishedCount).toBe(10);
 			expect(result.unpublishedCount).toBe(0);
+		});
+
+		it('should map update view model with additional items count and update URL', () => {
+			const result = getExaminationLibraryPublishViewModel({
+				sectionDocuments: [baseDocument],
+				totalPublishedCount: 10,
+				unpublishedCount: 1,
+				itemSlug: 'application-documents',
+				caseId: 123,
+				isUpdate: true,
+				additionalCount: 2
+			});
+
+			expect(result.isUpdate).toBe(true);
+			expect(result.publishUrl).toBe(
+				'/applications-service/case/123/examination-library/category/application-documents/update'
+			);
+			expect(result.additionalCount).toBe(2);
+			expect(result.hasAdditionalItems).toBe(true);
+			expect(result.additionalItemsText).toBe('2 items on this page will be added to the library.');
 		});
 
 		it('should map deleted documents to empty cells with deleted text', () => {

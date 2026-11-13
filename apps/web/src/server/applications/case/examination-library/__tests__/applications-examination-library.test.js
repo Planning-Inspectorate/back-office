@@ -264,6 +264,41 @@ describe('Examination Library', () => {
 			expect(element.innerHTML).toContain('Preview and publish category to library');
 		});
 
+		it('should display "Preview and publish updates to library" button when category is published and has new published documents', async () => {
+			nock.cleanAll();
+			nocks({ appCategoryStatus: 'published', includeDocuments: false });
+
+			nock('http://test/')
+				.get('/applications/123/examination-library/documents')
+				.query(true)
+				.reply(200, {
+					page: 1,
+					pageSize: 25,
+					pageCount: 1,
+					itemCount: 1,
+					items: [
+						{
+							caseId: 123,
+							folderId: 1,
+							isDeleted: false,
+							latestDocumentVersion: {
+								documentGuid: 'doc-1',
+								fileName: 'test.pdf',
+								publishedStatus: 'published',
+								examinationLibraryReferenceLocked: false
+							}
+						}
+					]
+				});
+
+			const response = await request.get(`${baseUrl}/category/application-documents`);
+			const element = parseHtml(response.text);
+
+			expect(response.status).toBe(200);
+			expect(element.innerHTML).toContain('Preview and publish updates to library');
+			expect(element.innerHTML).toContain('/category/application-documents/update');
+		});
+
 		it('should NOT display publish button when category is published', async () => {
 			nock.cleanAll();
 			nocks({ appCategoryStatus: 'published', includeDocuments: false });
@@ -318,6 +353,41 @@ describe('Examination Library', () => {
 
 			expect(response.status).toBe(200);
 			expect(element.innerHTML).toContain('Preview and publish category to library');
+		});
+
+		it('should display "Preview and publish updates to library" button when category is published and has new published documents', async () => {
+			nock.cleanAll();
+			nocks({ appCategoryStatus: 'published', includeDocuments: false });
+
+			nock('http://test/')
+				.get('/applications/123/examination-library/documents')
+				.query(true)
+				.reply(200, {
+					page: 1,
+					pageSize: 25,
+					pageCount: 1,
+					itemCount: 1,
+					items: [
+						{
+							caseId: 123,
+							folderId: 1,
+							isDeleted: false,
+							latestDocumentVersion: {
+								documentGuid: 'doc-1',
+								fileName: 'test.pdf',
+								publishedStatus: 'published',
+								examinationLibraryReferenceLocked: false
+							}
+						}
+					]
+				});
+
+			const response = await request.get(`${baseUrl}/category/application-documents`);
+			const element = parseHtml(response.text);
+
+			expect(response.status).toBe(200);
+			expect(element.innerHTML).toContain('Preview and publish updates to library');
+			expect(element.innerHTML).toContain('/category/application-documents/update');
 		});
 	});
 
@@ -378,6 +448,73 @@ describe('Examination Library', () => {
 			expect(element.innerHTML).toContain(
 				'Examination library category does not contain any new published documents'
 			);
+		});
+	});
+
+	describe('GET /category/:slug/update', () => {
+		beforeEach(() => {
+			const flags = staticFlags;
+			flags['idas-607-examination-library'] = true;
+		});
+
+		it('should render check details and update page with heading, inset text, and update form action', async () => {
+			nock.cleanAll();
+			nocks({ appCategoryStatus: 'published', includeDocuments: false });
+
+			nock('http://test/')
+				.get('/applications/123/examination-library/documents')
+				.query((query) => query.publishedStatus === 'published' && query.categoryCode === 'APP')
+				.reply(200, {
+					page: 1,
+					pageSize: 25,
+					pageCount: 1,
+					itemCount: 2,
+					items: [
+						{
+							caseId: 123,
+							folderId: 1,
+							isDeleted: false,
+							latestDocumentVersion: {
+								documentGuid: 'doc-1',
+								fileName: 'locked.pdf',
+								description: 'Locked doc',
+								author: 'Applicant',
+								examinationRefNo: 'APP-001',
+								examinationLibraryReferenceLocked: true
+							}
+						},
+						{
+							caseId: 123,
+							folderId: 1,
+							isDeleted: false,
+							latestDocumentVersion: {
+								documentGuid: 'doc-2',
+								fileName: 'new.pdf',
+								description: 'New doc',
+								author: 'Applicant',
+								draftExaminationLibraryReference: 'APP-002',
+								examinationLibraryReferenceLocked: false
+							}
+						}
+					]
+				});
+
+			nock('http://test/')
+				.get('/applications/123/examination-library/documents')
+				.query((query) => !query.publishedStatus && query.categoryCode === 'APP')
+				.reply(200, { page: 1, pageSize: 1, pageCount: 1, itemCount: 2, items: [] });
+
+			const response = await request.get(`${baseUrl}/category/application-documents/update`);
+			const element = parseHtml(response.text);
+
+			expect(response.status).toBe(200);
+			expect(element.innerHTML).toContain(
+				'Check details and update Application documents to the examination library'
+			);
+			expect(element.innerHTML).toContain('1 items on this page will be added to the library.');
+			expect(element.innerHTML).toContain('/category/application-documents/update');
+			expect(element.innerHTML).toContain('APP-001');
+			expect(element.innerHTML).toContain('APP-002');
 		});
 	});
 });

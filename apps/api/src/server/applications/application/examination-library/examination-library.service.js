@@ -161,21 +161,17 @@ export const publishExaminationLibraryCategory = async (caseId, categoryData) =>
 		throw new Error(`Category not found for case ${caseId} and code ${categoryCode}`);
 	}
 
-	// Cannot publish an already published category
-	if (category.publishedStatus?.toLowerCase() === 'published') {
-		throw new BackOfficeAppError(
-			'Examination library category does not contain any new published documents',
-			400
-		);
-	}
-
 	const categoryDocuments = await examinationLibraryRepository.getDocuments(caseId, {
 		categoryCode
 	});
 
 	const eligibleDocuments = categoryDocuments.filter(isDocumentEligibleForCategoryPublication);
+	const isAlreadyPublished = category.publishedStatus?.toLowerCase() === 'published';
+	const hasNewDocumentsToPublish = eligibleDocuments.some(
+		(doc) => !doc.latestDocumentVersion?.examinationLibraryReferenceLocked
+	);
 
-	if (!eligibleDocuments.length) {
+	if (!eligibleDocuments.length || (isAlreadyPublished && !hasNewDocumentsToPublish)) {
 		throw new BackOfficeAppError(
 			'Examination library category does not contain any new published documents',
 			400

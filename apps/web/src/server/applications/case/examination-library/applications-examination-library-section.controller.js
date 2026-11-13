@@ -17,7 +17,7 @@ import { buildQueryString } from '../../common/components/build-query-string.js'
 import { url } from '../../../lib/nunjucks-filters/index.js';
 
 /**
- * @typedef {import('./applications-examination-library-utils.js').ExaminationLibraryDocumentVersion} ExaminationLibraryDocumentVersion
+ * @typedef {import('./applications-examination-library-utils.js').ExaminationLibrarySectionDocument} ExaminationLibrarySectionDocument
  */
 
 /**
@@ -32,6 +32,8 @@ import { url } from '../../../lib/nunjucks-filters/index.js';
  *   documentsResponse: any,
  *   sectionUrl: string,
  *   publishUrl: string,
+ *   updateUrl: string,
+ *   hasUpdatesToPublish: boolean,
  *   sectionStatus: string,
  *   isPublishedQuery: boolean
  * } | null>}
@@ -66,7 +68,7 @@ export async function getExaminationLibrarySectionData(
 			getExaminationLibraryCategories(caseId, { categoryCode: sectionCategoryCode }).catch(() => [])
 	]);
 
-	/** @type {ExaminationLibraryDocumentVersion[]} */
+	/** @type {ExaminationLibrarySectionDocument[]} */
 	const sectionDocuments = documentsResponse?.items ?? [];
 
 	const matchingCategory = categoriesResponse?.find((c) => c.categoryCode === sectionCategoryCode);
@@ -77,6 +79,29 @@ export async function getExaminationLibrarySectionData(
 
 	const sectionUrl = url('examination-library-section', { caseId, slug: itemSlug });
 	const publishUrl = url('examination-library-publish', { caseId, slug: itemSlug });
+	const updateUrl = url('examination-library-update', { caseId, slug: itemSlug });
+
+	/** @param {ExaminationLibrarySectionDocument} doc */
+	const isNewPublishedDocument = (doc) =>
+		!doc?.isDeleted &&
+		doc?.latestDocumentVersion?.publishedStatus?.toLowerCase() === 'published' &&
+		!doc?.latestDocumentVersion?.examinationLibraryReferenceLocked;
+
+	const isPublishedSection = sectionStatus.toLowerCase() === 'published';
+	let hasUpdatesToPublish = false;
+
+	if (isPublishedSection) {
+		hasUpdatesToPublish = sectionDocuments.some(isNewPublishedDocument);
+
+		if (!hasUpdatesToPublish && (documentsResponse?.pageCount ?? 1) > 1) {
+			const publishedDocsResponse = await getExaminationLibraryDocumentsByCategory(
+				caseId,
+				sectionCategoryCode,
+				buildQueryString({ publishedStatus: 'published', pageSize: 1000, page: 1 })
+			).catch(() => null);
+			hasUpdatesToPublish = Boolean(publishedDocsResponse?.items?.some(isNewPublishedDocument));
+		}
+	}
 
 	const sectionViewModel = getExaminationLibrarySectionViewModel({
 		sectionDocuments,
@@ -95,6 +120,8 @@ export async function getExaminationLibrarySectionData(
 		documentsResponse,
 		sectionUrl,
 		publishUrl,
+		updateUrl,
+		hasUpdatesToPublish,
 		sectionStatus,
 		isPublishedQuery
 	};
@@ -121,6 +148,8 @@ export async function getExaminationLibrarySection(request, response) {
 		...sectionData.sectionViewModel,
 		caseId,
 		publishUrl: sectionData.publishUrl,
+		updateUrl: sectionData.updateUrl,
+		hasUpdatesToPublish: sectionData.hasUpdatesToPublish,
 		showSuccessBanner: sectionData.isPublishedQuery,
 		pagination: getExaminationLibraryPagination(
 			request.query,
