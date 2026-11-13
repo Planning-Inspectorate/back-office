@@ -37,11 +37,11 @@ describe('applications examination library unpublish view model', () => {
 		const itemSlug = 'application-documents';
 
 		it('should return data mapped to the examination library unpublish view model', () => {
-			const categoryDocuments = [baseDocument];
+			const filteredDocuments = [baseDocument];
 
 			const result = getExaminationLibraryUnpublishViewModel({
 				caseId,
-				categoryDocuments,
+				filteredDocuments,
 				itemSlug,
 				section
 			});
@@ -68,26 +68,8 @@ describe('applications examination library unpublish view model', () => {
 			});
 		});
 
-		it('should NOT populate a row for a document with missing data', () => {
-			const categoryDocuments = [
-				{
-					...baseDocument,
-					latestDocumentVersion: {}
-				}
-			];
-
-			const result = getExaminationLibraryUnpublishViewModel({
-				caseId,
-				categoryDocuments,
-				itemSlug,
-				section
-			});
-
-			expect(result.unpublishTable.rows[0]).toEqual([]);
-		});
-
 		it('should display correct copy if there is no examination reference number', () => {
-			const categoryDocuments = [
+			const filteredDocuments = [
 				{
 					...baseDocument,
 					latestDocumentVersion: {
@@ -99,7 +81,7 @@ describe('applications examination library unpublish view model', () => {
 
 			const result = getExaminationLibraryUnpublishViewModel({
 				caseId,
-				categoryDocuments,
+				filteredDocuments,
 				itemSlug,
 				section
 			});
@@ -113,7 +95,7 @@ describe('applications examination library unpublish view model', () => {
 		});
 
 		it('should display correct copy if there is no document description', () => {
-			const categoryDocuments = [
+			const filteredDocuments = [
 				{
 					...baseDocument,
 					latestDocumentVersion: {
@@ -125,7 +107,7 @@ describe('applications examination library unpublish view model', () => {
 
 			const result = getExaminationLibraryUnpublishViewModel({
 				caseId,
-				categoryDocuments,
+				filteredDocuments,
 				itemSlug,
 				section
 			});
@@ -139,7 +121,7 @@ describe('applications examination library unpublish view model', () => {
 		});
 
 		it('should display correct copy if document is deleted', () => {
-			const categoryDocuments = [
+			const filteredDocuments = [
 				{
 					...baseDocument,
 					isDeleted: true
@@ -148,7 +130,7 @@ describe('applications examination library unpublish view model', () => {
 
 			const result = getExaminationLibraryUnpublishViewModel({
 				caseId,
-				categoryDocuments,
+				filteredDocuments,
 				itemSlug,
 				section
 			});

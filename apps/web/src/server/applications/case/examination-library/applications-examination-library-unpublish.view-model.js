@@ -9,7 +9,7 @@ import { url } from '../../../lib/nunjucks-filters/index.js';
  *
  * @param {{
  *   caseId: number,
- *   categoryDocuments: Array<any>,
+ *   filteredDocuments: Array<any>,
  *   itemSlug: string,
  *   section: ExaminationLibrarySection
  * }} params
@@ -17,7 +17,7 @@ import { url } from '../../../lib/nunjucks-filters/index.js';
  */
 export const getExaminationLibraryUnpublishViewModel = ({
 	caseId,
-	categoryDocuments,
+	filteredDocuments,
 	itemSlug,
 	section
 }) => {
@@ -27,11 +27,7 @@ export const getExaminationLibraryUnpublishViewModel = ({
 
 	const unpublishTableData = buildTable({
 		headers: ['Reference', 'Document'],
-		rows: categoryDocuments.map((document) => {
-			if (!document?.latestDocumentVersion || !Object.keys(document.latestDocumentVersion).length) {
-				return [];
-			}
-
+		rows: filteredDocuments.map((document) => {
 			const documentReference = document?.latestDocumentVersion?.examinationRefNo || '';
 			const documentDescription =
 				document?.latestDocumentVersion?.description || 'Missing property';

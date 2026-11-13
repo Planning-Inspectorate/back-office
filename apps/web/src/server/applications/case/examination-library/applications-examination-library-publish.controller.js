@@ -27,7 +27,7 @@ const EMPTY_CATEGORY_ERROR =
  * @param {string} errors
  * @returns {void}
  */
-function renderSectionPageWithError(response, sectionData, caseId, query, errors) {
+export function renderSectionPageWithError(response, sectionData, caseId, query, errors) {
 	return response.render('applications/case-examination-library/examination-library-section.njk', {
 		...sectionData.sectionViewModel,
 		caseId,
