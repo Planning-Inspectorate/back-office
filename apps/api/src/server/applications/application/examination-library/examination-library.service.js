@@ -219,6 +219,13 @@ export const unpublishExaminationLibraryCategory = async (caseId, categoryCode) 
 		throw new Error(`Category not found for case ${caseId} and code ${categoryCode}`);
 	}
 
+	if (category.publishedStatus?.toLowerCase() !== 'published') {
+		throw new BackOfficeAppError(
+			'This examination library category is not published, so cannot be unpublished',
+			400
+		);
+	}
+
 	const unpublishedCategory = await examinationLibraryRepository.unpublishCategory(
 		caseId,
 		categoryCode

@@ -32,6 +32,7 @@ import { url } from '../../../lib/nunjucks-filters/index.js';
  *   documentsResponse: any,
  *   sectionUrl: string,
  *   publishUrl: string,
+ *   unpublishUrl: string,
  *   sectionStatus: string,
  *   isPublishedQuery: boolean
  * } | null>}
@@ -77,6 +78,7 @@ export async function getExaminationLibrarySectionData(
 
 	const sectionUrl = url('examination-library-section', { caseId, slug: itemSlug });
 	const publishUrl = url('examination-library-publish', { caseId, slug: itemSlug });
+	const unpublishUrl = url('examination-library-unpublish', { caseId, slug: itemSlug });
 
 	const sectionViewModel = getExaminationLibrarySectionViewModel({
 		sectionDocuments,
@@ -95,6 +97,7 @@ export async function getExaminationLibrarySectionData(
 		documentsResponse,
 		sectionUrl,
 		publishUrl,
+		unpublishUrl,
 		sectionStatus,
 		isPublishedQuery
 	};
@@ -121,6 +124,7 @@ export async function getExaminationLibrarySection(request, response) {
 		...sectionData.sectionViewModel,
 		caseId,
 		publishUrl: sectionData.publishUrl,
+		unpublishUrl: sectionData.unpublishUrl,
 		showSuccessBanner: sectionData.isPublishedQuery,
 		pagination: getExaminationLibraryPagination(
 			request.query,

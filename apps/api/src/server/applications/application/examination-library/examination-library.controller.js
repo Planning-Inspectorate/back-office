@@ -52,7 +52,14 @@ export const createExaminationLibraryCategoriesHandler = async (req, res) => {
  */
 export const getExaminationLibraryDocumentsHandler = async (req, res) => {
 	const caseId = Number(req.params.id);
-	const { categoryCode, publishedStatus, page = '1', pageSize = '25', sortBy } = req.query;
+	const {
+		categoryCode,
+		examinationRefNo,
+		publishedStatus,
+		page = '1',
+		pageSize = '25',
+		sortBy
+	} = req.query;
 
 	const filters = {};
 
@@ -62,6 +69,10 @@ export const getExaminationLibraryDocumentsHandler = async (req, res) => {
 
 	if (publishedStatus) {
 		filters.publishedStatus = String(publishedStatus);
+	}
+
+	if (examinationRefNo) {
+		filters.examinationRefNo = String(examinationRefNo);
 	}
 
 	const pagination = {
