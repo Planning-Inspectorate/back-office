@@ -800,7 +800,12 @@ describe('Examination Library Routes', () => {
 
 	describe('POST /applications/:id/examination-library/unpublish', () => {
 		it('should unpublish examination library category successfully given categoryCode', async () => {
-			const mockCategory = { id: 10, categoryCode: 'APP', categoryName: 'Application form' };
+			const mockCategory = {
+				id: 10,
+				categoryCode: 'APP',
+				categoryName: 'Application form',
+				publishedStatus: 'published'
+			};
 
 			databaseConnector.examinationLibraryCategory.findMany.mockResolvedValue([mockCategory]);
 			databaseConnector.examinationLibraryCategory.updateMany.mockResolvedValue({ count: 1 });
@@ -852,6 +857,26 @@ describe('Examination Library Routes', () => {
 
 			expect(response.status).toBe(404);
 			expect(response.body).toEqual({ errors: `Case ${caseId} not found` });
+			expect(sendToQueue).not.toHaveBeenCalled();
+		});
+
+		it('should return 400 when category is NOT published', async () => {
+			const mockCategory = {
+				id: 10,
+				categoryCode: 'APP',
+				categoryName: 'Application form',
+				publishedStatus: 'unpublished'
+			};
+			databaseConnector.examinationLibraryCategory.findMany.mockResolvedValue([mockCategory]);
+
+			const response = await request
+				.post(`/applications/${caseId}/examination-library/unpublish`)
+				.send({ categoryCode: 'APP' });
+
+			expect(response.status).toBe(400);
+			expect(response.body).toEqual({
+				errors: 'This examination library category is not published, so cannot be unpublished'
+			});
 			expect(sendToQueue).not.toHaveBeenCalled();
 		});
 	});
