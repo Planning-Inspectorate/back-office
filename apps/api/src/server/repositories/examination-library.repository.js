@@ -84,6 +84,10 @@ export const getDocuments = (caseId, filters = {}) => {
 		versionWhere.publishedStatus = filters.publishedStatus;
 	}
 
+	if (filters.examinationRefNo) {
+		versionWhere.examinationRefNo = { not: null };
+	}
+
 	return databaseConnector.document.findMany({
 		where: {
 			caseId,

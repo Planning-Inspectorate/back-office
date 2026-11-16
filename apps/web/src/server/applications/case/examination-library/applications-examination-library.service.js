@@ -32,7 +32,7 @@ export async function getExaminationLibraryDocumentsByCategory(caseId, categoryC
 }
 
 /**
- * Publishes documents for an examination library category.
+ * Publishes an examination library category.
  *
  * @param {string | number} caseId
  * @param {{ categoryCode: string }} payload
@@ -40,4 +40,15 @@ export async function getExaminationLibraryDocumentsByCategory(caseId, categoryC
  */
 export async function publishExaminationLibraryCategory(caseId, payload) {
 	return post(`applications/${caseId}/examination-library/publish`, { json: payload });
+}
+
+/**
+ * Unpublishes an examination library category.
+ *
+ * @param {string | number} caseId
+ * @param {{ categoryCode: string }} payload
+ * @returns {Promise<any>}
+ */
+export async function unpublishExaminationLibraryCategory(caseId, payload) {
+	return post(`applications/${caseId}/examination-library/unpublish`, { json: payload });
 }
