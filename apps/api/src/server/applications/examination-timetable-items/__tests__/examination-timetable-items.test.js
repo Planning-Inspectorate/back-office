@@ -299,6 +299,12 @@ const expectedFolder = buildExpectedFolder(examinationFolder);
 const expectedSubFolders = examinationSubFolders.map(buildExpectedFolder);
 
 describe('Test examination timetable items API', () => {
+	beforeEach(() => {
+		databaseConnector.$transaction.mockImplementation(async (callback) => {
+			return callback(databaseConnector);
+		});
+	});
+
 	afterEach(() => {
 		jest.resetAllMocks();
 	});
@@ -401,7 +407,10 @@ describe('Test examination timetable items API', () => {
 		databaseConnector.case.findUnique.mockResolvedValue(project);
 		databaseConnector.folder.findFirst.mockResolvedValue(examinationFolder);
 		databaseConnector.folder.create.mockResolvedValue(examinationSubFolders[0]);
-		databaseConnector.examinationTimetableType.findUnique.mockResolvedValue({ name: 'NODeadline' });
+		databaseConnector.examinationTimetableType.findUnique.mockResolvedValue({
+			name: 'Other meeting',
+			templateType: 'other-meeting'
+		});
 		databaseConnector.examinationTimetableItem.create.mockResolvedValue(
 			examinationTimetableItemDeadline
 		);
@@ -412,6 +421,8 @@ describe('Test examination timetable items API', () => {
 			.send(examinationTimetableItemDeadline);
 		expect(resp.status).toEqual(200);
 		expect(databaseConnector.examinationTimetableItem.create).toHaveBeenCalledTimes(1);
+		expect(databaseConnector.examinationLibraryCategory.findFirst).not.toHaveBeenCalled();
+		expect(databaseConnector.examinationLibraryCategory.create).not.toHaveBeenCalled();
 		expect(databaseConnector.folder.create).toHaveBeenCalledTimes(1);
 		expect(databaseConnector.folder.create).toHaveBeenCalledWith({
 			data: {
@@ -443,6 +454,7 @@ describe('Test examination timetable items API', () => {
 		);
 		databaseConnector.examinationTimetable.findUnique.mockResolvedValue(null);
 		databaseConnector.examinationTimetable.create.mockResolvedValue(examinationTimetableData);
+		databaseConnector.examinationLibraryCategory.findFirst.mockResolvedValue(null);
 		const resp = await request
 			.post('/applications/examination-timetable-items')
 			.send(examinationTimetableItemDeadline);
@@ -464,6 +476,7 @@ describe('Test examination timetable items API', () => {
 		expect(databaseConnector.examinationTimetableType.findUnique).toHaveBeenCalledWith({
 			where: { id: 3 }
 		});
+		expect(databaseConnector.examinationLibraryCategory.create).not.toHaveBeenCalled();
 	});
 
 	test('creates examination timetable throws an error when examination folder does not exist for the case', async () => {
@@ -572,6 +585,145 @@ describe('Test examination timetable items API', () => {
 			expectedSubFolders,
 			EventType.Create
 		);
+	});
+
+	test('creates an examination library category for an eligible timetable event', async () => {
+		const eventName = 'Compulsory Acquisition Hearing 1';
+		databaseConnector.case.findUnique.mockResolvedValue(project);
+		databaseConnector.examinationTimetable.findUnique.mockResolvedValue(examinationTimetableData);
+		databaseConnector.folder.findFirst.mockResolvedValue(examinationFolder);
+		databaseConnector.folder.create.mockResolvedValue(examinationSubFolders[0]);
+		databaseConnector.examinationTimetableType.findUnique.mockResolvedValue({
+			id: 2,
+			name: 'Compulsory Acquisition Hearing',
+			templateType: 'compulsory-acquisition-hearing'
+		});
+		databaseConnector.examinationTimetableItem.create.mockResolvedValue({
+			...examinationTimetableItem,
+			name: eventName
+		});
+		databaseConnector.examinationLibraryCategory.findFirst.mockResolvedValue({
+			id: 1
+		});
+		databaseConnector.examinationLibraryCategory.findMany.mockResolvedValue([
+			{ categoryCode: 'EV1' },
+			{ categoryCode: 'EV2' }
+		]);
+		const resp = await request.post('/applications/examination-timetable-items').send({
+			...examinationTimetableItem,
+			caseId: 1,
+			name: eventName
+		});
+		expect(resp.status).toEqual(200);
+		expect(databaseConnector.examinationLibraryCategory.create).toHaveBeenCalledWith({
+			data: {
+				caseId: 1,
+				categoryCode: 'EV3',
+				categoryName: eventName,
+				examinationTimetableItemId: 1,
+				source: 'TIMETABLE'
+			}
+		});
+	});
+
+	test('creates an examination library category for a procedural deadline', async () => {
+		const deadlineName = 'Procedural Deadline 3';
+		databaseConnector.case.findUnique.mockResolvedValue(project);
+		databaseConnector.examinationTimetable.findUnique.mockResolvedValue(examinationTimetableData);
+		databaseConnector.folder.findFirst.mockResolvedValue(examinationFolder);
+		databaseConnector.folder.create.mockResolvedValue(examinationSubFolders[0]);
+		databaseConnector.examinationTimetableType.findUnique.mockResolvedValue({
+			id: 3,
+			name: 'Procedural Deadline',
+			templateType: 'procedural-deadline'
+		});
+		databaseConnector.examinationTimetableItem.create.mockResolvedValue({
+			...examinationTimetableItemDeadline,
+			name: deadlineName
+		});
+		databaseConnector.examinationLibraryCategory.findFirst.mockResolvedValue({
+			id: 1
+		});
+		databaseConnector.examinationLibraryCategory.findMany.mockResolvedValue([
+			{ categoryCode: 'PDA' },
+			{ categoryCode: 'PDB' }
+		]);
+		const resp = await request.post('/applications/examination-timetable-items').send({
+			...examinationTimetableItemDeadline,
+			name: deadlineName
+		});
+		expect(resp.status).toEqual(200);
+		expect(databaseConnector.examinationLibraryCategory.create).toHaveBeenCalledWith({
+			data: {
+				caseId: 1,
+				categoryCode: 'PDC',
+				categoryName: deadlineName,
+				examinationTimetableItemId: 1,
+				source: 'TIMETABLE'
+			}
+		});
+	});
+
+	test('creates an examination library category for a deadline', async () => {
+		const deadlineName = 'Deadline 1a';
+		databaseConnector.case.findUnique.mockResolvedValue(project);
+		databaseConnector.examinationTimetable.findUnique.mockResolvedValue(examinationTimetableData);
+		databaseConnector.folder.findFirst.mockResolvedValue(examinationFolder);
+		databaseConnector.folder.create.mockResolvedValue(examinationSubFolders[0]);
+		databaseConnector.examinationTimetableType.findUnique.mockResolvedValue({
+			id: 3,
+			name: 'Deadline',
+			templateType: 'deadline'
+		});
+		databaseConnector.examinationTimetableItem.create.mockResolvedValue({
+			...examinationTimetableItemDeadline,
+			name: deadlineName
+		});
+		databaseConnector.examinationLibraryCategory.findFirst.mockResolvedValue({
+			id: 1
+		});
+		const resp = await request.post('/applications/examination-timetable-items').send({
+			...examinationTimetableItemDeadline,
+			name: deadlineName
+		});
+		expect(resp.status).toEqual(200);
+		expect(databaseConnector.examinationLibraryCategory.findMany).not.toHaveBeenCalled();
+		expect(databaseConnector.examinationLibraryCategory.create).toHaveBeenCalledWith({
+			data: {
+				caseId: 1,
+				categoryCode: 'REP1a',
+				categoryName: deadlineName,
+				examinationTimetableItemId: 1,
+				source: 'TIMETABLE'
+			}
+		});
+	});
+
+	test('returns an error if examination library category creation fails', async () => {
+		databaseConnector.case.findUnique.mockResolvedValue(project);
+		databaseConnector.examinationTimetable.findUnique.mockResolvedValue(examinationTimetableData);
+		databaseConnector.folder.findFirst.mockResolvedValue(examinationFolder);
+		databaseConnector.folder.create.mockResolvedValue(examinationSubFolders[0]);
+		databaseConnector.examinationTimetableType.findUnique.mockResolvedValue({
+			id: 2,
+			name: 'Compulsory Acquisition Hearing',
+			templateType: 'compulsory-acquisition-hearing'
+		});
+		databaseConnector.examinationTimetableItem.create.mockResolvedValue(examinationTimetableItem);
+		databaseConnector.examinationLibraryCategory.findFirst.mockResolvedValue({
+			id: 1
+		});
+		databaseConnector.examinationLibraryCategory.findMany.mockResolvedValue([]);
+		databaseConnector.examinationLibraryCategory.create.mockRejectedValue(
+			new Error('Failed to create examination library category')
+		);
+		const resp = await request
+			.post('/applications/examination-timetable-items')
+			.send(examinationTimetableItem);
+		expect(resp.status).toBeGreaterThanOrEqual(500);
+		expect(databaseConnector.$transaction).toHaveBeenCalled();
+		expect(databaseConnector.examinationTimetableItem.create).toHaveBeenCalledTimes(1);
+		expect(databaseConnector.examinationLibraryCategory.create).toHaveBeenCalledTimes(1);
 	});
 
 	test('publish examination timetable item returns 404 when invalid case is not exists', async () => {
