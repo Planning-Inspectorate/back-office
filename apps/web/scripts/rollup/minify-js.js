@@ -41,7 +41,7 @@ async function minifySource(generated, directory) {
 				await fs.writeFile(`${target}.map`, result.map, 'utf8');
 			}
 		} catch (error) {
-			throw new Error(`could not minify ${fileName}: ${error}`);
+			throw new Error(`could not minify ${fileName}: ${error}`, { cause: error });
 		}
 	}
 

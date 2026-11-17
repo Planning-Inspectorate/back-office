@@ -1,0 +1,100 @@
+{% extends "../layouts/applications.layout.njk" %}
+
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/input/macro.njk" import govukInput %}
+
+{% block pageHeading %}{% endblock %}
+
+{% block beforeContent %}
+	<aside>
+		{{ govukBackLink({
+			classes: 'govuk-!-margin-top-3',
+			text: "Back",
+			href: layout.backLink
+		}) }}
+	</aside>
+{% endblock %}
+
+{% block pageContent %}
+	<div class="govuk-grid-row">
+		<div class="govuk-grid-column-two-thirds">
+
+			<form method="post" action="" novalidate="novalidate">
+				{% include 'app/includes/csrf.njk' %}
+
+				{% set automaticReferenceHtml %}
+					<p class="govuk-body govuk-!-margin-bottom-1">
+						<strong>Predicted reference</strong>
+					</p>
+					<p class="govuk-body">
+						{{ layout.predictedReference }}
+					</p>
+				{% endset %}
+
+				{% set manualReferenceHtml %}
+					{{ govukInput({
+						id: "examinationRefNo",
+						name: "examinationRefNo",
+						value: layout.manualReference,
+						classes: "govuk-input--width-5",
+						label: {
+							text: "Unique reference",
+							classes: "govuk-label--s"
+						},
+						prefix: {
+							text: layout.referencePrefix
+						},
+						errorMessage: {
+							text: errors.examinationRefNo.msg
+						} if errors.examinationRefNo
+					}) }}
+				{% endset %}
+
+				{{ govukRadios({
+					idPrefix: "examinationLibraryReferenceType",
+					name: "examinationLibraryReferenceType",
+					fieldset: {
+						legend: {
+							text: layout.pageTitle,
+							isPageHeading: true,
+							classes: "govuk-fieldset__legend--l"
+						}
+					},
+					hint: {
+						text: "A unique reference number is given to each published document assigned to an examination library category"
+					},
+					items: [
+						{
+							value: "automatic",
+							text: "Automatic reference",
+							hint: {
+							text: "Automatically assign reference according to order hierarchy"
+						},
+							checked: not layout.manualReference,
+							conditional: {
+							html: automaticReferenceHtml
+						}
+						},
+						{
+							value: "manual",
+							text: "Set reference",
+							hint: {
+							text: "For exceptional documents and late submissions only"
+						},
+							checked: layout.manualReference,
+							conditional: {
+							html: manualReferenceHtml
+						}
+						}
+					]
+				}) }}
+
+				{{ govukButton({
+					text: "Save and return"
+				}) }}
+			</form>
+
+		</div>
+	</div>
+{% endblock %}

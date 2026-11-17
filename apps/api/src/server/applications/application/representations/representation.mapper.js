@@ -45,7 +45,8 @@ export const mapCreateOrUpdateRepRequestToRepository = (
 		'redacted',
 		'received',
 		'type',
-		'representedType'
+		'representedType',
+		'useOfAI'
 	]);
 
 	if (method === 'POST') {
@@ -59,7 +60,8 @@ export const mapCreateOrUpdateRepRequestToRepository = (
 			redacted: representation.redacted || false,
 			received: representation.received,
 			representedType: representation.representedType,
-			type: representation.type
+			type: representation.type,
+			useOfAI: representation.useOfAI || null
 		};
 	}
 

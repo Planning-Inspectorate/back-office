@@ -1,4 +1,5 @@
 import { mapExaminationTimetableItemDateTime } from './map-examination-timetable-item-datetime';
+import { examTimetableItemTypes } from './constants.js';
 
 describe('mapExaminationTimetableItemDateTime', () => {
 	describe('When event type is not supported', () => {
@@ -17,11 +18,12 @@ describe('mapExaminationTimetableItemDateTime', () => {
 		});
 	});
 	describe.each([
-		'Accompanied Site Inspection',
-		'Compulsory Acquisition Hearing',
-		'Issue Specific Hearing',
-		'Open Floor Hearing',
-		'Other Meeting'
+		examTimetableItemTypes.ACCOMPANIED_SITE_INSPECTION,
+		examTimetableItemTypes.COMPULSORY_ACQUISITION_HEARING,
+		examTimetableItemTypes.ISSUE_SPECIFIC_HEARING,
+		examTimetableItemTypes.OPEN_FLOOR_HEARING,
+		examTimetableItemTypes.OTHER_MEETING,
+		examTimetableItemTypes.UNACCOMPANIED_SITE_INSPECTION
 	])('When event type is "%s"', (timetableType) => {
 		test.each([
 			[

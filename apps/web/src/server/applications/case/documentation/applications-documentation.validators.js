@@ -101,3 +101,13 @@ export const validateDocumentsToMoveToCorrespondenceNotPublished = createValidat
 		return true;
 	})
 );
+
+const reviewDecisions = ['upload-new', 'ready', 'not-needed'];
+export const validateReviewRedactionDecision = createValidator(
+	body('reviewDecision')
+		.trim()
+		.notEmpty()
+		.withMessage('Review decision is required')
+		.isIn(reviewDecisions)
+		.withMessage(`Review decision must be one of: ${reviewDecisions.join(', ')}`)
+);

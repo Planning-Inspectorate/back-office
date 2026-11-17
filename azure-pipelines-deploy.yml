@@ -119,7 +119,9 @@ extends:
                   - ${{ if eq(parameters.schemaMigration, true) }}:
                         - name: Database Migration
                           steps:
-                              - checkout: self
+                              - bash: |
+                                  git clone --depth=1 --no-tags --revision="$(resources.pipeline.build.sourceCommit)" $(Build.Repository.Uri) .
+                                displayName: Checkout Build-Commit
                               - template: ../steps/azure_get_secrets.yml
                                 parameters:
                                     secrets:

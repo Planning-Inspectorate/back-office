@@ -254,14 +254,17 @@ exports[`S51 Advice Key dates page GET /case/123/key-dates/ should render the pa
                             </div>
                             <div class="govuk-summary-card__content">
                                 <dl class="govuk-summary-list">
-                                    <div class="govuk-summary-list__row pins-key-dates-summary-list__row"><dt class="govuk-summary-list__key pins-key-dates-summary-list__key"> Deadline for submission of Recommendation</dt>
+                                    <div class="govuk-summary-list__row pins-key-dates-summary-list__row"><dt class="govuk-summary-list__key pins-key-dates-summary-list__key"> Examining Authority anticipated Recommendation date</dt>
                                         <dd                                         class="govuk-summary-list__value">19 Aug 2023</dd>
                                     </div>
-                                    <div class="govuk-summary-list__row pins-key-dates-summary-list__row"><dt class="govuk-summary-list__key pins-key-dates-summary-list__key"> Date of Recommendation submitted to SoS</dt>
+                                    <div class="govuk-summary-list__row pins-key-dates-summary-list__row"><dt class="govuk-summary-list__key pins-key-dates-summary-list__key"> Statutory deadline for Recommendation</dt>
                                         <dd                                         class="govuk-summary-list__value">07 Mar 2023</dd>
                                     </div>
-                                    <div class="govuk-summary-list__row pins-key-dates-summary-list__row"><dt class="govuk-summary-list__key pins-key-dates-summary-list__key"> Extension to Recommendation deadline</dt>
+                                    <div class="govuk-summary-list__row pins-key-dates-summary-list__row"><dt class="govuk-summary-list__key pins-key-dates-summary-list__key"> Date of Recommendation submitted to SoS</dt>
                                         <dd                                         class="govuk-summary-list__value">21 Aug 2023</dd>
+                                    </div>
+                                    <div class="govuk-summary-list__row pins-key-dates-summary-list__row"><dt class="govuk-summary-list__key pins-key-dates-summary-list__key"> Extension to Recommendation deadline</dt>
+                                        <dd                                         class="govuk-summary-list__value">14 Jun 2023</dd>
                                     </div>
                                 </dl>
                             </div>
@@ -283,13 +286,13 @@ exports[`S51 Advice Key dates page GET /case/123/key-dates/ should render the pa
                             <div class="govuk-summary-card__content">
                                 <dl class="govuk-summary-list">
                                     <div class="govuk-summary-list__row pins-key-dates-summary-list__row"><dt class="govuk-summary-list__key pins-key-dates-summary-list__key"> Deadline for Decision</dt>
-                                        <dd                                         class="govuk-summary-list__value">14 Jun 2023</dd>
-                                    </div>
-                                    <div class="govuk-summary-list__row pins-key-dates-summary-list__row"><dt class="govuk-summary-list__key pins-key-dates-summary-list__key"> Date of Decision</dt>
                                         <dd                                         class="govuk-summary-list__value">12 May 2023</dd>
                                     </div>
-                                    <div class="govuk-summary-list__row pins-key-dates-summary-list__row"><dt class="govuk-summary-list__key pins-key-dates-summary-list__key"> Extension to Decision deadline</dt>
+                                    <div class="govuk-summary-list__row pins-key-dates-summary-list__row"><dt class="govuk-summary-list__key pins-key-dates-summary-list__key"> Date of Decision</dt>
                                         <dd                                         class="govuk-summary-list__value">15 Jun 2023</dd>
+                                    </div>
+                                    <div class="govuk-summary-list__row pins-key-dates-summary-list__row"><dt class="govuk-summary-list__key pins-key-dates-summary-list__key"> Extension to Decision deadline</dt>
+                                        <dd                                         class="govuk-summary-list__value">21 Aug 2023</dd>
                                     </div>
                                 </dl>
                             </div>
@@ -311,7 +314,7 @@ exports[`S51 Advice Key dates page GET /case/123/key-dates/ should render the pa
                             <div class="govuk-summary-card__content">
                                 <dl class="govuk-summary-list">
                                     <div class="govuk-summary-list__row pins-key-dates-summary-list__row"><dt class="govuk-summary-list__key pins-key-dates-summary-list__key"> Judicial review period end date</dt>
-                                        <dd                                         class="govuk-summary-list__value">21 Aug 2023</dd>
+                                        <dd                                         class="govuk-summary-list__value">07 Mar 2023</dd>
                                     </div>
                                 </dl>
                             </div>
@@ -333,7 +336,7 @@ exports[`S51 Advice Key dates page GET /case/123/key-dates/ should render the pa
                             <div class="govuk-summary-card__content">
                                 <dl class="govuk-summary-list">
                                     <div class="govuk-summary-list__row pins-key-dates-summary-list__row"><dt class="govuk-summary-list__key pins-key-dates-summary-list__key"> Date project withdrawn</dt>
-                                        <dd                                         class="govuk-summary-list__value">07 Mar 2023</dd>
+                                        <dd                                         class="govuk-summary-list__value">23 Sep 2023</dd>
                                     </div>
                                 </dl>
                             </div>
@@ -1088,21 +1091,44 @@ exports[`S51 Advice Key dates page Sections GET /case/123/key-dates/:sectionName
     <form method="post" action="" novalidate="novalidate" class="pins-applications-create govuk-grid-row govuk-!-margin-top-8">
         <div class="govuk-form-group govuk-grid-column-full ">
             <fieldset class="govuk-fieldset">
-                <legend class="govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4">Deadline for submission of Recommendation</legend>
+                <legend class="govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4">Examining Authority anticipated Recommendation date</legend>
+                <div class="govuk-grid-column-one-third">
+                    <div class="govuk-grid-row pins-date-form-group">
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="exAAnticipatedRecommendationDate.day">Day</label>
+                            <input class="govuk-input" id="exAAnticipatedRecommendationDate.day"
+                            name="exAAnticipatedRecommendationDate.day" type="text" value="19">
+                        </div>
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="exAAnticipatedRecommendationDate.month">Month</label>
+                            <input class="govuk-input" id="exAAnticipatedRecommendationDate.month"
+                            name="exAAnticipatedRecommendationDate.month" type="text" value="08">
+                        </div>
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="exAAnticipatedRecommendationDate.year">Year</label>
+                            <input class="govuk-input" id="exAAnticipatedRecommendationDate.year"
+                            name="exAAnticipatedRecommendationDate.year" type="text" value="2023">
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <div class="govuk-form-group govuk-grid-column-full ">
+            <fieldset class="govuk-fieldset">
+                <legend class="govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4">Statutory deadline for Recommendation</legend>
                 <div id="deadlineForSubmissionOfRecommendation-hint"
-                class="govuk-hint">Deadline for submission of Recommendation report to the Secretary of State
-                    (SoS).</div>
+                class="govuk-hint">This will be within 3 months of the examination end date.</div>
                 <div class="govuk-grid-column-one-third">
                     <div class="govuk-grid-row pins-date-form-group">
                         <div class="govuk-form-group">
                             <label class="govuk-label govuk-hint" for="deadlineForSubmissionOfRecommendation.day">Day</label>
                             <input class="govuk-input" id="deadlineForSubmissionOfRecommendation.day"
-                            name="deadlineForSubmissionOfRecommendation.day" type="text" value="19">
+                            name="deadlineForSubmissionOfRecommendation.day" type="text" value="07">
                         </div>
                         <div class="govuk-form-group">
                             <label class="govuk-label govuk-hint" for="deadlineForSubmissionOfRecommendation.month">Month</label>
                             <input class="govuk-input" id="deadlineForSubmissionOfRecommendation.month"
-                            name="deadlineForSubmissionOfRecommendation.month" type="text" value="08">
+                            name="deadlineForSubmissionOfRecommendation.month" type="text" value="03">
                         </div>
                         <div class="govuk-form-group">
                             <label class="govuk-label govuk-hint" for="deadlineForSubmissionOfRecommendation.year">Year</label>
@@ -1124,12 +1150,12 @@ exports[`S51 Advice Key dates page Sections GET /case/123/key-dates/:sectionName
                         <div class="govuk-form-group">
                             <label class="govuk-label govuk-hint" for="dateOfRecommendations.day">Day</label>
                             <input class="govuk-input" id="dateOfRecommendations.day" name="dateOfRecommendations.day"
-                            type="text" value="07">
+                            type="text" value="21">
                         </div>
                         <div class="govuk-form-group">
                             <label class="govuk-label govuk-hint" for="dateOfRecommendations.month">Month</label>
                             <input class="govuk-input" id="dateOfRecommendations.month"
-                            name="dateOfRecommendations.month" type="text" value="03">
+                            name="dateOfRecommendations.month" type="text" value="08">
                         </div>
                         <div class="govuk-form-group">
                             <label class="govuk-label govuk-hint" for="dateOfRecommendations.year">Year</label>
@@ -1150,12 +1176,12 @@ exports[`S51 Advice Key dates page Sections GET /case/123/key-dates/:sectionName
                         <div class="govuk-form-group">
                             <label class="govuk-label govuk-hint" for="stage5ExtensionToRecommendationDeadline.day">Day</label>
                             <input class="govuk-input" id="stage5ExtensionToRecommendationDeadline.day"
-                            name="stage5ExtensionToRecommendationDeadline.day" type="text" value="21">
+                            name="stage5ExtensionToRecommendationDeadline.day" type="text" value="14">
                         </div>
                         <div class="govuk-form-group">
                             <label class="govuk-label govuk-hint" for="stage5ExtensionToRecommendationDeadline.month">Month</label>
                             <input class="govuk-input" id="stage5ExtensionToRecommendationDeadline.month"
-                            name="stage5ExtensionToRecommendationDeadline.month" type="text" value="08">
+                            name="stage5ExtensionToRecommendationDeadline.month" type="text" value="06">
                         </div>
                         <div class="govuk-form-group">
                             <label class="govuk-label govuk-hint" for="stage5ExtensionToRecommendationDeadline.year">Year</label>
@@ -1186,12 +1212,12 @@ exports[`S51 Advice Key dates page Sections GET /case/123/key-dates/:sectionName
                         <div class="govuk-form-group">
                             <label class="govuk-label govuk-hint" for="deadlineForDecision.day">Day</label>
                             <input class="govuk-input" id="deadlineForDecision.day" name="deadlineForDecision.day"
-                            type="text" value="14">
+                            type="text" value="12">
                         </div>
                         <div class="govuk-form-group">
                             <label class="govuk-label govuk-hint" for="deadlineForDecision.month">Month</label>
                             <input class="govuk-input" id="deadlineForDecision.month"
-                            name="deadlineForDecision.month" type="text" value="06">
+                            name="deadlineForDecision.month" type="text" value="05">
                         </div>
                         <div class="govuk-form-group">
                             <label class="govuk-label govuk-hint" for="deadlineForDecision.year">Year</label>
@@ -1212,12 +1238,12 @@ exports[`S51 Advice Key dates page Sections GET /case/123/key-dates/:sectionName
                         <div class="govuk-form-group">
                             <label class="govuk-label govuk-hint" for="confirmedDateOfDecision.day">Day</label>
                             <input class="govuk-input" id="confirmedDateOfDecision.day"
-                            name="confirmedDateOfDecision.day" type="text" value="12">
+                            name="confirmedDateOfDecision.day" type="text" value="15">
                         </div>
                         <div class="govuk-form-group">
                             <label class="govuk-label govuk-hint" for="confirmedDateOfDecision.month">Month</label>
                             <input class="govuk-input" id="confirmedDateOfDecision.month"
-                            name="confirmedDateOfDecision.month" type="text" value="05">
+                            name="confirmedDateOfDecision.month" type="text" value="06">
                         </div>
                         <div class="govuk-form-group">
                             <label class="govuk-label govuk-hint" for="confirmedDateOfDecision.year">Year</label>
@@ -1238,12 +1264,12 @@ exports[`S51 Advice Key dates page Sections GET /case/123/key-dates/:sectionName
                         <div class="govuk-form-group">
                             <label class="govuk-label govuk-hint" for="stage5ExtensionToDecisionDeadline.day">Day</label>
                             <input class="govuk-input" id="stage5ExtensionToDecisionDeadline.day"
-                            name="stage5ExtensionToDecisionDeadline.day" type="text" value="15">
+                            name="stage5ExtensionToDecisionDeadline.day" type="text" value="21">
                         </div>
                         <div class="govuk-form-group">
                             <label class="govuk-label govuk-hint" for="stage5ExtensionToDecisionDeadline.month">Month</label>
                             <input class="govuk-input" id="stage5ExtensionToDecisionDeadline.month"
-                            name="stage5ExtensionToDecisionDeadline.month" type="text" value="06">
+                            name="stage5ExtensionToDecisionDeadline.month" type="text" value="08">
                         </div>
                         <div class="govuk-form-group">
                             <label class="govuk-label govuk-hint" for="stage5ExtensionToDecisionDeadline.year">Year</label>
@@ -1279,12 +1305,12 @@ exports[`S51 Advice Key dates page Sections GET /case/123/key-dates/:sectionName
                         <div class="govuk-form-group">
                             <label class="govuk-label govuk-hint" for="jRPeriodEndDate.day">Day</label>
                             <input class="govuk-input" id="jRPeriodEndDate.day" name="jRPeriodEndDate.day"
-                            type="text" value="21">
+                            type="text" value="07">
                         </div>
                         <div class="govuk-form-group">
                             <label class="govuk-label govuk-hint" for="jRPeriodEndDate.month">Month</label>
                             <input class="govuk-input" id="jRPeriodEndDate.month" name="jRPeriodEndDate.month"
-                            type="text" value="08">
+                            type="text" value="03">
                         </div>
                         <div class="govuk-form-group">
                             <label class="govuk-label govuk-hint" for="jRPeriodEndDate.year">Year</label>
@@ -2358,26 +2384,49 @@ exports[`S51 Advice Key dates page Sections POST /case/123/key-dates/:sectionNam
     <form method="post" action="" novalidate="novalidate" class="pins-applications-create govuk-grid-row govuk-!-margin-top-8">
         <div class="govuk-form-group govuk-grid-column-full ">
             <fieldset class="govuk-fieldset">
-                <legend class="govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4">Deadline for submission of Recommendation</legend>
+                <legend class="govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4">Examining Authority anticipated Recommendation date</legend>
+                <div class="govuk-grid-column-one-third">
+                    <div class="govuk-grid-row pins-date-form-group">
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="exAAnticipatedRecommendationDate.day">Day</label>
+                            <input class="govuk-input" id="exAAnticipatedRecommendationDate.day"
+                            name="exAAnticipatedRecommendationDate.day" type="text" value="01">
+                        </div>
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="exAAnticipatedRecommendationDate.month">Month</label>
+                            <input class="govuk-input" id="exAAnticipatedRecommendationDate.month"
+                            name="exAAnticipatedRecommendationDate.month" type="text" value="02">
+                        </div>
+                        <div class="govuk-form-group">
+                            <label class="govuk-label govuk-hint" for="exAAnticipatedRecommendationDate.year">Year</label>
+                            <input class="govuk-input" id="exAAnticipatedRecommendationDate.year"
+                            name="exAAnticipatedRecommendationDate.year" type="text" value="2000">
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        <div class="govuk-form-group govuk-grid-column-full ">
+            <fieldset class="govuk-fieldset">
+                <legend class="govuk-fieldset__legend govuk-label font-weight--700 govuk-!-margin-bottom-4">Statutory deadline for Recommendation</legend>
                 <div id="deadlineForSubmissionOfRecommendation-hint"
-                class="govuk-hint">Deadline for submission of Recommendation report to the Secretary of State
-                    (SoS).</div>
+                class="govuk-hint">This will be within 3 months of the examination end date.</div>
                 <div class="govuk-grid-column-one-third">
                     <div class="govuk-grid-row pins-date-form-group">
                         <div class="govuk-form-group">
                             <label class="govuk-label govuk-hint" for="deadlineForSubmissionOfRecommendation.day">Day</label>
                             <input class="govuk-input" id="deadlineForSubmissionOfRecommendation.day"
-                            name="deadlineForSubmissionOfRecommendation.day" type="text" value="01">
+                            name="deadlineForSubmissionOfRecommendation.day" type="text" value="07">
                         </div>
                         <div class="govuk-form-group">
                             <label class="govuk-label govuk-hint" for="deadlineForSubmissionOfRecommendation.month">Month</label>
                             <input class="govuk-input" id="deadlineForSubmissionOfRecommendation.month"
-                            name="deadlineForSubmissionOfRecommendation.month" type="text" value="02">
+                            name="deadlineForSubmissionOfRecommendation.month" type="text" value="03">
                         </div>
                         <div class="govuk-form-group">
                             <label class="govuk-label govuk-hint" for="deadlineForSubmissionOfRecommendation.year">Year</label>
                             <input class="govuk-input" id="deadlineForSubmissionOfRecommendation.year"
-                            name="deadlineForSubmissionOfRecommendation.year" type="text" value="2000">
+                            name="deadlineForSubmissionOfRecommendation.year" type="text" value="2023">
                         </div>
                     </div>
                 </div>
@@ -2394,12 +2443,12 @@ exports[`S51 Advice Key dates page Sections POST /case/123/key-dates/:sectionNam
                         <div class="govuk-form-group">
                             <label class="govuk-label govuk-hint" for="dateOfRecommendations.day">Day</label>
                             <input class="govuk-input" id="dateOfRecommendations.day" name="dateOfRecommendations.day"
-                            type="text" value="07">
+                            type="text" value="21">
                         </div>
                         <div class="govuk-form-group">
                             <label class="govuk-label govuk-hint" for="dateOfRecommendations.month">Month</label>
                             <input class="govuk-input" id="dateOfRecommendations.month"
-                            name="dateOfRecommendations.month" type="text" value="03">
+                            name="dateOfRecommendations.month" type="text" value="08">
                         </div>
                         <div class="govuk-form-group">
                             <label class="govuk-label govuk-hint" for="dateOfRecommendations.year">Year</label>
@@ -2420,12 +2469,12 @@ exports[`S51 Advice Key dates page Sections POST /case/123/key-dates/:sectionNam
                         <div class="govuk-form-group">
                             <label class="govuk-label govuk-hint" for="stage5ExtensionToRecommendationDeadline.day">Day</label>
                             <input class="govuk-input" id="stage5ExtensionToRecommendationDeadline.day"
-                            name="stage5ExtensionToRecommendationDeadline.day" type="text" value="21">
+                            name="stage5ExtensionToRecommendationDeadline.day" type="text" value="14">
                         </div>
                         <div class="govuk-form-group">
                             <label class="govuk-label govuk-hint" for="stage5ExtensionToRecommendationDeadline.month">Month</label>
                             <input class="govuk-input" id="stage5ExtensionToRecommendationDeadline.month"
-                            name="stage5ExtensionToRecommendationDeadline.month" type="text" value="08">
+                            name="stage5ExtensionToRecommendationDeadline.month" type="text" value="06">
                         </div>
                         <div class="govuk-form-group">
                             <label class="govuk-label govuk-hint" for="stage5ExtensionToRecommendationDeadline.year">Year</label>
@@ -2547,12 +2596,12 @@ exports[`S51 Advice Key dates page Sections POST /case/123/key-dates/:sectionNam
                         <div class="govuk-form-group">
                             <label class="govuk-label govuk-hint" for="confirmedDateOfDecision.day">Day</label>
                             <input class="govuk-input" id="confirmedDateOfDecision.day"
-                            name="confirmedDateOfDecision.day" type="text" value="12">
+                            name="confirmedDateOfDecision.day" type="text" value="15">
                         </div>
                         <div class="govuk-form-group">
                             <label class="govuk-label govuk-hint" for="confirmedDateOfDecision.month">Month</label>
                             <input class="govuk-input" id="confirmedDateOfDecision.month"
-                            name="confirmedDateOfDecision.month" type="text" value="05">
+                            name="confirmedDateOfDecision.month" type="text" value="06">
                         </div>
                         <div class="govuk-form-group">
                             <label class="govuk-label govuk-hint" for="confirmedDateOfDecision.year">Year</label>
@@ -2573,12 +2622,12 @@ exports[`S51 Advice Key dates page Sections POST /case/123/key-dates/:sectionNam
                         <div class="govuk-form-group">
                             <label class="govuk-label govuk-hint" for="stage5ExtensionToDecisionDeadline.day">Day</label>
                             <input class="govuk-input" id="stage5ExtensionToDecisionDeadline.day"
-                            name="stage5ExtensionToDecisionDeadline.day" type="text" value="15">
+                            name="stage5ExtensionToDecisionDeadline.day" type="text" value="21">
                         </div>
                         <div class="govuk-form-group">
                             <label class="govuk-label govuk-hint" for="stage5ExtensionToDecisionDeadline.month">Month</label>
                             <input class="govuk-input" id="stage5ExtensionToDecisionDeadline.month"
-                            name="stage5ExtensionToDecisionDeadline.month" type="text" value="06">
+                            name="stage5ExtensionToDecisionDeadline.month" type="text" value="08">
                         </div>
                         <div class="govuk-form-group">
                             <label class="govuk-label govuk-hint" for="stage5ExtensionToDecisionDeadline.year">Year</label>

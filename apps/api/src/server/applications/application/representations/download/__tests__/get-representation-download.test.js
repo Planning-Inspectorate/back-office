@@ -60,8 +60,8 @@ describe('Get Application Representation Download', () => {
 		);
 		expect(response.headers['content-type']).toEqual('text/csv; charset=utf-8');
 		expect(response.text).toEqual(
-			'Name,Postcode,Attachments,IP number,Status,Action Date,Representation\n' +
-				'James Bond,BS48 1PN,Yes,BC0110001-36,VALID,2020-01-01T12:00:00.000Z,Edited comment for valid rep\n'
+			'Name,Postcode,Attachments,AI declaration,IP number,Status,Action Date,Representation\n' +
+				'James Bond,BS48 1PN,Yes,Unknown,BC0110001-36,VALID,2020-01-01T12:00:00.000Z,Edited comment for valid rep\n'
 		);
 	});
 

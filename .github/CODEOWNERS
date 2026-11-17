@@ -11,7 +11,7 @@ azure-pipelines-* @Planning-Inspectorate/pins-devops
 **/jest.config.js @Planning-Inspectorate/pins-developer-leads
 
 # ESLint configuration
-.eslintrc.cjs @Planning-Inspectorate/pins-developer-leads
+eslint.config.js @Planning-Inspectorate/pins-developer-leads
 
 # Commit lint configuration
-commitlint.config.cjs  @Planning-Inspectorate/pins-developer-leads
+commitlint.config.js  @Planning-Inspectorate/pins-developer-leads

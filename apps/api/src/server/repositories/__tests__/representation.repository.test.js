@@ -299,6 +299,7 @@ describe('Representation repository', () => {
 			originalRepresentation: true,
 			editedRepresentation: true,
 			editNotes: true,
+			useOfAI: true,
 			redactedRepresentation: true,
 			type: true,
 			user: {
@@ -544,9 +545,8 @@ describe('Representation repository', () => {
 			databaseConnector.representation.update.mockResolvedValue(updatedRepresentation);
 
 			// WHEN
-			const representation = await representationRepository.createApplicationRepresentation(
-				mappedData
-			);
+			const representation =
+				await representationRepository.createApplicationRepresentation(mappedData);
 
 			// THEN
 			expect(representation).toEqual({
@@ -637,9 +637,8 @@ describe('Representation repository', () => {
 			databaseConnector.representation.create.mockResolvedValue(createdRepresentationWithReference);
 
 			// WHEN
-			const representation = await representationRepository.createApplicationRepresentation(
-				mappedData
-			);
+			const representation =
+				await representationRepository.createApplicationRepresentation(mappedData);
 
 			// THEN
 			expect(representation).toEqual({
@@ -766,61 +765,8 @@ describe('Representation repository', () => {
 			jest.useRealTimers();
 		});
 
-		it('should unpublish only PUBLISHED representations', async () => {
-			const representations = [
-				{ id: 1, status: 'PUBLISHED' },
-				{ id: 2, status: 'VALID' },
-				{ id: 3, status: 'PUBLISHED' },
-				{ id: 4, status: 'DRAFT' }
-			];
-
-			databaseConnector.$transaction.mockImplementation(async (transactionCallback) =>
-				transactionCallback(databaseConnector)
-			);
-
-			await representationRepository.setRepresentationsAsUnpublished(representations, mockActionBy);
-
-			expect(databaseConnector.$transaction).toHaveBeenCalledTimes(1);
-			expect(databaseConnector.representation.updateMany).toHaveBeenCalledWith({
-				where: { id: { in: [1, 3] } },
-				data: { status: 'UNPUBLISHED' }
-			});
-			expect(databaseConnector.representationAction.createMany).toHaveBeenCalledWith({
-				data: [
-					{
-						representationId: 1,
-						previousStatus: 'PUBLISHED',
-						type: 'STATUS',
-						status: 'UNPUBLISHED',
-						actionBy: mockActionBy,
-						actionDate: mockDate
-					},
-					{
-						representationId: 3,
-						previousStatus: 'PUBLISHED',
-						type: 'STATUS',
-						status: 'UNPUBLISHED',
-						actionBy: mockActionBy,
-						actionDate: mockDate
-					}
-				]
-			});
-		});
-
 		it('should handle empty representations array', async () => {
 			await representationRepository.setRepresentationsAsUnpublished([], mockActionBy);
-
-			expect(databaseConnector.$transaction).not.toHaveBeenCalled();
-		});
-
-		it('should handle representations with no PUBLISHED status', async () => {
-			const representations = [
-				{ id: 1, status: 'VALID' },
-				{ id: 2, status: 'DRAFT' },
-				{ id: 3, status: 'INVALID' }
-			];
-
-			await representationRepository.setRepresentationsAsUnpublished(representations, mockActionBy);
 
 			expect(databaseConnector.$transaction).not.toHaveBeenCalled();
 		});

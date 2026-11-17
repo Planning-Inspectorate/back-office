@@ -29,7 +29,8 @@ export const mapExaminationTimetableItemDateTime = (examinationTimetableItem, ti
 		[examTimetableItemTypes.PRELIMINARY_MEETING]: mapMandatoryDateAndStartTimeAndOptionalEndTime,
 		[examTimetableItemTypes.PROCEDURAL_DEADLINE]: mapMandatoryEndDateTimesAndOptionalStartDateTimes,
 		[examTimetableItemTypes.PROCEDURAL_DECISION]: mapMandatoryDateAndOptionalTimes,
-		[examTimetableItemTypes.PUBLICATION_OF]: mapMandatoryDateOnly
+		[examTimetableItemTypes.PUBLICATION_OF]: mapMandatoryDateOnly,
+		[examTimetableItemTypes.UNACCOMPANIED_SITE_INSPECTION]: mapMandatoryDateAndOptionalTimes
 	};
 
 	const allowedKeys = Object.keys(timetableTypeMapping);

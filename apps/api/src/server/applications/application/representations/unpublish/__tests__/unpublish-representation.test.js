@@ -6,7 +6,7 @@ import { buildPayloadEventsForSchema } from '#utils/schema-test-utils.js';
 
 const { databaseConnector } = await import('#utils/database-connector.js');
 
-const representations = [
+const representationsFixture = [
 	{
 		id: 6409,
 		reference: 'BC0110001-55',
@@ -30,13 +30,7 @@ const representations = [
 			}
 		],
 		case: {
-			id: 151,
-			reference: 'BC0110001',
-			modifiedAt: '2023-08-11T10:53:00.660Z',
-			createdAt: '2023-08-11T10:53:02.081Z',
-			description: 'A description of test case 1 which is a case of subsector type Office Use',
-			publishedAt: null,
-			title: 'Office Use Test Application 1'
+			reference: 'BC0110001'
 		},
 		representedType: 'ORGANISATION',
 		represented: {
@@ -94,13 +88,7 @@ const representations = [
 		user: null,
 		attachments: [],
 		case: {
-			id: 151,
-			reference: 'BC0110001',
-			modifiedAt: '2023-08-11T10:53:00.660Z',
-			createdAt: '2023-08-11T10:53:02.081Z',
-			description: 'A description of test case 1 which is a case of subsector type Office Use',
-			publishedAt: null,
-			title: 'Office Use Test Application 1'
+			reference: 'BC0110001'
 		},
 		representedType: 'AGENT',
 		represented: {
@@ -170,6 +158,7 @@ const expectedNsipRepresentationPayload = buildPayloadEventsForSchema(NSIP_REPRE
 		referenceId: 'BC0110001-55',
 		representedId: '10105',
 		status: 'unpublished',
+		useOfAI: null,
 		registerFor: null,
 		representationFrom: 'ORGANISATION',
 		representationType: 'Members of the Public/Businesses'
@@ -189,6 +178,7 @@ const expectedNsipRepresentationPayload = buildPayloadEventsForSchema(NSIP_REPRE
 		representativeId: '10382',
 		representedId: '10381',
 		status: 'unpublished',
+		useOfAI: null,
 		registerFor: null,
 		representationFrom: 'AGENT',
 		representationType: 'Members of the Public/Businesses'
@@ -256,17 +246,17 @@ describe('Unpublish Representations', () => {
 
 	afterEach(() => jest.clearAllMocks());
 
-	it('unpublishes representations with given ids', async () => {
-		databaseConnector.representation.findMany.mockResolvedValue(representations);
+	it('unpublishes representations for a case', async () => {
+		databaseConnector.representation.count.mockResolvedValue(representationsFixture.length);
+		databaseConnector.representation.findMany.mockResolvedValue(representationsFixture);
 		databaseConnector.case.findUnique.mockResolvedValue({ id: 1, reference: 'BC0110001' });
 
 		const response = await request.patch('/applications/1/representations/unpublish').send({
-			representationIds: [6409, 6579],
 			actionBy: 'Joe Bloggs'
 		});
 
 		expect(response.status).toEqual(200);
-		expect(response.body).toEqual({ unpublishedRepIds: [6409, 6579] });
+		expect(response.body).toEqual({ count: representationsFixture.length });
 
 		expect(batchSendEvents).toHaveBeenNthCalledWith(
 			1,
@@ -319,7 +309,6 @@ describe('Unpublish Representations', () => {
 		databaseConnector.representation.findMany.mockResolvedValue([]);
 
 		const response = await request.patch('/applications/1/representations/unpublish').send({
-			representationIds: [6409, 6579],
 			actionBy: 'Joe Bloggs'
 		});
 
@@ -331,33 +320,10 @@ describe('Unpublish Representations', () => {
 		expect(databaseConnector.representationAction.create).not.toHaveBeenCalled();
 	});
 
-	it.each([
-		{
-			name: 'missing representationIds property',
-			requestBody: { actionBy: 'foo' },
-			expectedError: { representationIds: 'at least 1 id must be provided' }
-		},
-		{
-			name: 'empty representationIds',
-			requestBody: { representationIds: [], actionBy: 'foo' },
-			expectedError: { representationIds: 'at least 1 id must be provided' }
-		},
-		{
-			name: 'representationIds not numbers',
-			requestBody: { representationIds: ['a'], actionBy: 'foo' },
-			expectedError: { representationIds: 'Must be an array of numbers' }
-		},
-		{
-			name: 'missing actionBy',
-			requestBody: { representationIds: [1] },
-			expectedError: { actionBy: 'is a mandatory field' }
-		}
-	])('$name', async ({ requestBody, expectedError }) => {
-		const response = await request
-			.patch('/applications/1/representations/unpublish')
-			.send(requestBody);
+	it('returns 400 response if actionBy is missing', async () => {
+		const response = await request.patch('/applications/1/representations/unpublish').send({});
 
 		expect(response.status).toEqual(400);
-		expect(response.body.errors).toEqual(expectedError);
+		expect(response.body.errors).toEqual({ actionBy: 'is a mandatory field' });
 	});
 });

@@ -23,9 +23,6 @@ const expectedNsipProjectPayload = buildPayloadEventsForSchema(NSIP_PROJECT, {
 	publishStatus: 'unpublished',
 	caseReference: 'BC01234',
 	applicantId: '1',
-	nsipOfficerIds: [],
-	nsipAdministrationOfficerIds: [],
-	inspectorIds: [],
 	anticipatedDateOfSubmission: '2022-07-22T10:38:33.000Z',
 	anticipatedSubmissionDateNonSpecific: 'Q1 2023',
 	sector: 'BC - Business and Commercial',
@@ -39,7 +36,16 @@ const expectedNsipProjectPayload = buildPayloadEventsForSchema(NSIP_PROJECT, {
 	welshLanguage: false,
 	estimatedPrelimMeetingDate: null,
 	meetings: [],
-	invoices: []
+	invoices: [],
+	caseManagerIds: [],
+	environmentalServicesOfficerIds: [],
+	leadInspectorIds: [],
+	legalOfficerIds: [],
+	operationsLeadIds: [],
+	operationsManagerIds: [],
+	nsipOfficerIds: [],
+	nsipAdministrationOfficerIds: [],
+	inspectorIds: []
 });
 
 const expectedApplicantPayload = buildPayloadEventsForSchema(SERVICE_USER, {

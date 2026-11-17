@@ -160,6 +160,7 @@ router.get(
 							originalRepresentation: '',
 							editedRepresentation: '',
 							editNotes: '',
+							useOfAI: 'YES',
 							redactedRepresentation: '',
 							redactedBy: {},
 							represented: {},
@@ -195,6 +196,7 @@ router.post(
 							originalRepresentation: 'This is the representation text',
 							editedRepresentation: 'This is the edited representation text',
 							editNotes: 'These are the edit notes',
+							useOfAI: 'YES',
 							reference: 'BC0110001-2',
 							type: 'Members of the public/businesses',
 							representedType: 'PERSON',
@@ -267,6 +269,7 @@ router.patch(
 							originalRepresentation: 'This is the representation text',
 							editedRepresentation: 'This is the edited representation text',
 							editNotes: 'These are the edit notes',
+							useOfAI: 'YES',
 							representedType: 'PERSON',
 							represented: {
 									firstName: 'Peter',

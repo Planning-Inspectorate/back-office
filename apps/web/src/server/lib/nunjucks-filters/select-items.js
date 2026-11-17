@@ -6,6 +6,7 @@
  * @property {boolean} selected
  * @property {boolean=} disabled
  * @property {object=} attributes
+ * @property {{text: string}=} hint
  */
 
 /**
@@ -38,11 +39,14 @@ export function selectItems(source, options) {
 			isChecked = true;
 		}
 
+		const hint = typeof sourceItem === 'object' ? sourceItem.hint : undefined;
+
 		return {
 			value,
 			text,
 			checked: checked,
-			selected: checked
+			selected: checked,
+			...(hint && { hint })
 		};
 	});
 

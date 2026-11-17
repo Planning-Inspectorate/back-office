@@ -21,7 +21,7 @@ function createPrismaClient() {
 				const environment = loadEnvironment(process.env.NODE_ENV);
 				databaseUrl = environment.DATABASE_URL;
 			} catch (error) {
-				console.warn('Failed to load environment, using process.env.DATABASE_URL');
+				console.warn('Failed to load environment, using process.env.DATABASE_URL', error);
 			}
 		}
 

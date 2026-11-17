@@ -159,6 +159,13 @@ exports[`/applications-service/case/1/relevant-representations/1/representation-
                 </p>
             </dd>
         </div>
+        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> AI declaration</dt>
+            <dd class="govuk-summary-list__value">
+                <p class="govuk-body">Unknown</p>
+            </dd>
+            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="representation-details/ai-declaration"> Change<span class="govuk-visually-hidden"> AI declaration</span></a>
+            </dd>
+        </div>
         <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"
         id="redacted-representation-section"><dt class="govuk-summary-list__key"> Redacted representation</dt>
             <dd class="govuk-summary-list__value">
@@ -416,6 +423,13 @@ exports[`/applications-service/case/1/relevant-representations/1/representation-
                 </p>
                 <p class="govuk-body govuk-!-margin-bottom-4"><a href="#" hidden class="section-text-toggle govuk-link govuk-link--no-visited-state">Show full representation</a>
                 </p>
+            </dd>
+        </div>
+        <div class="govuk-summary-list__row"><dt class="govuk-summary-list__key"> AI declaration</dt>
+            <dd class="govuk-summary-list__value">
+                <p class="govuk-body">Unknown</p>
+            </dd>
+            <dd class="govuk-summary-list__actions"><a class="govuk-link" href="representation-details/ai-declaration"> Change<span class="govuk-visually-hidden"> AI declaration</span></a>
             </dd>
         </div>
         <div class="govuk-summary-list__row govuk-summary-list__row--no-actions"

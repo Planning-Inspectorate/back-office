@@ -27,7 +27,7 @@ const getBankHolidays = async (division = 'england-and-wales') => {
 
 		return bankHolidaysResponse[division].events;
 	} catch (/** @type {*} */ error) {
-		throw new Error(`Unable to retrieve bank holidays`);
+		throw new Error(`Unable to retrieve bank holidays`, { cause: error });
 	}
 };
 
@@ -53,9 +53,7 @@ const getNumberOfBankHolidaysBetweenDates = (dateFrom, dateWithBusinessDaysAdded
 const getDateWithBusinessDaysAdded = (dateFrom, businessDaysToAdd, bankHolidays) => {
 	let dateWithBusinessDaysAdded = addBusinessDays(dateFrom, businessDaysToAdd);
 
-	let bankHolidayCount = 0;
-
-	bankHolidayCount = getNumberOfBankHolidaysBetweenDates(
+	let bankHolidayCount = getNumberOfBankHolidaysBetweenDates(
 		dateFrom,
 		dateWithBusinessDaysAdded,
 		bankHolidays

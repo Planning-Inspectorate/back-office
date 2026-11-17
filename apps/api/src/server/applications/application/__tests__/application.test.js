@@ -123,7 +123,13 @@ describe('Application', () => {
 			nsipAdministrationOfficerIds: [],
 			inspectorIds: [],
 			meetings: [],
-			invoices: []
+			invoices: [],
+			caseManagerIds: [],
+			environmentalServicesOfficerIds: [],
+			leadInspectorIds: [],
+			legalOfficerIds: [],
+			operationsLeadIds: [],
+			operationsManagerIds: []
 		})[0];
 
 		// Expect payload:
@@ -198,11 +204,17 @@ describe('Application', () => {
 			projectType: 'BC01 - Office Use',
 			estimatedPrelimMeetingDate: null,
 			applicantId: '1',
+			meetings: [],
+			invoices: [],
+			caseManagerIds: [],
+			environmentalServicesOfficerIds: [],
+			leadInspectorIds: [],
+			legalOfficerIds: [],
+			operationsLeadIds: [],
+			operationsManagerIds: [],
 			nsipOfficerIds: [],
 			nsipAdministrationOfficerIds: [],
-			inspectorIds: [],
-			meetings: [],
-			invoices: []
+			inspectorIds: []
 		})[0];
 
 		// expect payload

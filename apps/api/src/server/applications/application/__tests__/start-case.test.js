@@ -234,6 +234,31 @@ describe('Start case', () => {
 			}
 		});
 
+		const expectedCategories = expect.arrayContaining([
+			expect.objectContaining({
+				categoryCode: 'APP',
+				categoryName: 'Application form',
+				source: 'STATIC',
+				caseId: 1
+			}),
+			expect.objectContaining({
+				categoryCode: 'RR',
+				categoryName: 'Relevant representations',
+				source: 'STATIC',
+				caseId: 1
+			}),
+			expect.objectContaining({
+				categoryCode: 'NELC',
+				categoryName: 'No examination library category',
+				source: 'STATIC',
+				caseId: 1
+			})
+		]);
+
+		expect(databaseConnector.examinationLibraryCategory.createMany).toHaveBeenCalledWith({
+			data: expectedCategories
+		});
+
 		const expectedProjectEventPayload = buildPayloadEventsForSchema(NSIP_PROJECT, {
 			caseId: 1,
 			caseReference: 'EN01-1',
@@ -254,12 +279,18 @@ describe('Start case', () => {
 			sector: 'BC - Business and Commercial',
 			projectType: 'BC01 - Office Use',
 			estimatedPrelimMeetingDate: null,
-			nsipOfficerIds: [],
-			nsipAdministrationOfficerIds: [],
-			inspectorIds: [],
 			applicantId: '1',
 			meetings: [],
-			invoices: []
+			invoices: [],
+			caseManagerIds: [],
+			environmentalServicesOfficerIds: [],
+			leadInspectorIds: [],
+			legalOfficerIds: [],
+			operationsLeadIds: [],
+			operationsManagerIds: [],
+			nsipOfficerIds: [],
+			nsipAdministrationOfficerIds: [],
+			inspectorIds: []
 		});
 
 		const expectedApplicantEventPayload = [

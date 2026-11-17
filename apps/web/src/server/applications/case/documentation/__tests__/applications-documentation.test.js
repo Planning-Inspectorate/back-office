@@ -24,6 +24,7 @@ import {
 } from '../../../../../../testing/applications/fixtures/options-item.js';
 import { createTestEnvironment } from '../../../../../../testing/index.js';
 import { featureFlagClient } from '../../../../../common/feature-flags.js';
+import staticFlags from '@pins/feature-flags/src/static-feature-flags.js';
 
 const { app, installMockApi, teardown } = createTestEnvironment();
 const request = supertest(app);
@@ -130,6 +131,10 @@ const nocks = () => {
 		.times(2)
 		.reply(200, { isDeleted: true });
 };
+
+// Disable examination library flag so associated fields are not visible in HTML for document properties page
+const flags = staticFlags;
+flags['idas-607-examination-library'] = false;
 
 const mockDate = new Date('2023-11-01T00:00:00Z');
 
@@ -425,6 +430,101 @@ describe('applications documentation', () => {
 
 			expect(element.innerHTML).toMatchSnapshot();
 			expect(element.innerHTML).not.toContain('/edit/redaction');
+		});
+
+		describe('Examination library reference', () => {
+			it('should request a draft examination library reference when the document has an examination library category', async () => {
+				const documentationFile = {
+					...fixturePublishedDocumentationFile,
+					examinationLibraryCategoryCode: 'APP',
+					examinationLibraryCategoryName: 'Application',
+					examinationRefNo: null
+				};
+
+				nock('http://test/')
+					.get('/applications/123/documents/200/properties')
+					.reply(200, documentationFile);
+
+				nock('http://test/')
+					.get('/applications/document/200/versions')
+					.reply(200, fixtureDocumentFileVersions);
+
+				const draftReferenceRequest = nock('http://test/')
+					.get('/applications/123/examination-library/documents/200/draft-reference')
+					.query({ categoryCode: 'APP' })
+					.reply(200, {
+						draftExaminationLibraryReference: 'APP-001'
+					});
+
+				const response = await request.get(
+					`${baseUrl}/project-documentation/21/document/200/properties`
+				);
+
+				expect(response.status).toBe(200);
+				expect(draftReferenceRequest.isDone()).toBe(true);
+			});
+
+			it('should not request a draft examination library reference when the category is NELC', async () => {
+				const documentationFile = {
+					...fixturePublishedDocumentationFile,
+					examinationLibraryCategoryCode: 'NELC',
+					examinationLibraryCategoryName: 'No examination library category',
+					examinationRefNo: null
+				};
+
+				nock('http://test/')
+					.get('/applications/123/documents/201/properties')
+					.reply(200, documentationFile);
+
+				nock('http://test/')
+					.get('/applications/document/201/versions')
+					.reply(200, fixtureDocumentFileVersions);
+
+				const draftReferenceRequest = nock('http://test/')
+					.get('/applications/123/examination-library/documents/201/draft-reference')
+					.query({ categoryCode: 'NELC' })
+					.reply(200, {
+						draftExaminationLibraryReference: null
+					});
+
+				const response = await request.get(
+					`${baseUrl}/project-documentation/21/document/201/properties`
+				);
+
+				expect(response.status).toBe(200);
+				expect(draftReferenceRequest.isDone()).toBe(false);
+			});
+
+			it('should not request a draft examination library reference when the document has a persisted reference', async () => {
+				const documentationFile = {
+					...fixturePublishedDocumentationFile,
+					examinationLibraryCategoryCode: 'APP',
+					examinationLibraryCategoryName: 'Application',
+					examinationRefNo: 'APP-001'
+				};
+
+				nock('http://test/')
+					.get('/applications/123/documents/202/properties')
+					.reply(200, documentationFile);
+
+				nock('http://test/')
+					.get('/applications/document/202/versions')
+					.reply(200, fixtureDocumentFileVersions);
+
+				const draftReferenceRequest = nock('http://test/')
+					.get('/applications/123/examination-library/documents/202/draft-reference')
+					.query({ categoryCode: 'APP' })
+					.reply(200, {
+						draftExaminationLibraryReference: 'APP-001'
+					});
+
+				const response = await request.get(
+					`${baseUrl}/project-documentation/21/document/202/properties`
+				);
+
+				expect(response.status).toBe(200);
+				expect(draftReferenceRequest.isDone()).toBe(false);
+			});
 		});
 	});
 
@@ -723,6 +823,91 @@ describe('applications documentation', () => {
 
 				expect(response.status).toBe(302);
 				expect(response.headers.location).toContain('/properties');
+			});
+		});
+
+		describe('Review redactions', () => {
+			it('renders the review page with the new not-needed option', async () => {
+				const response = await request.get(
+					`${baseUrl}/project-documentation/21/document/151/review-redactions`
+				);
+				const element = parseHtml(response.text);
+
+				expect(element.textContent).toContain("Review the document's redaction suggestions");
+				expect(element.innerHTML).toContain('Redaction not needed, remove suggestions');
+				expect(element.innerHTML).toContain('divider');
+				expect(element.innerHTML).toContain('or');
+			});
+
+			describe('POST /review-redactions', () => {
+				it('rejects request with missing reviewDecision', async () => {
+					const response = await request
+						.post(`${baseUrl}/project-documentation/21/document/151/review-redactions`)
+						.send({});
+					const element = parseHtml(response.text);
+
+					expect(response.status).toBe(200);
+					expect(element.innerHTML).toContain('Review decision is required');
+				});
+
+				it('keeps the file details on the page when submitted with no reviewDecision', async () => {
+					const response = await request
+						.post(`${baseUrl}/project-documentation/21/document/151/review-redactions`)
+						.send({});
+					const element = parseHtml(response.text);
+					const { fileName, documentGuid } = fixtureAiSuggestionsReviewRequiredDocumentationFile;
+
+					expect(response.status).toBe(200);
+					expect(element.innerHTML).toContain(fileName);
+					expect(element.innerHTML).toContain(`/download/${documentGuid}/version/`);
+				});
+
+				it('rejects request with invalid reviewDecision value', async () => {
+					const response = await request
+						.post(`${baseUrl}/project-documentation/21/document/151/review-redactions`)
+						.send({
+							reviewDecision: 'invalid-value'
+						});
+					const element = parseHtml(response.text);
+
+					expect(response.status).toBe(200);
+					expect(element.innerHTML).toContain(
+						'Review decision must be one of: upload-new, ready, not-needed'
+					);
+				});
+
+				it('redirects to upload-amends page when reviewDecision is upload-new', async () => {
+					const response = await request
+						.post(`${baseUrl}/project-documentation/21/document/151/review-redactions`)
+						.send({
+							reviewDecision: 'upload-new'
+						});
+
+					expect(response.status).toBe(302);
+					expect(response.headers.location).toContain('/upload-amends');
+				});
+
+				it('sends the document to sanitise when redactions are not needed', async () => {
+					const response = await request
+						.post(`${baseUrl}/project-documentation/21/document/151/review-redactions`)
+						.send({
+							reviewDecision: 'not-needed'
+						});
+
+					expect(response.status).toBe(302);
+					expect(response.headers.location).toContain('/properties');
+				});
+
+				it('accepts reviewDecision value "ready"', async () => {
+					const response = await request
+						.post(`${baseUrl}/project-documentation/21/document/151/review-redactions`)
+						.send({
+							reviewDecision: 'ready'
+						});
+
+					expect(response.status).toBe(302);
+					expect(response.headers.location).toContain('/properties');
+				});
 			});
 		});
 	});

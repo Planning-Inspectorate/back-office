@@ -1,0 +1,100 @@
+{% extends "../layouts/applications.layout.njk" %}
+
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+{% from "govuk/components/radios/macro.njk" import govukRadios %}
+{% from "govuk/components/select/macro.njk" import govukSelect %}
+
+{% block pageHeading %}{% endblock %}
+
+{% block beforeContent %}
+	<aside>
+		{{ govukBackLink({
+			classes: 'govuk-!-margin-top-3',
+			text: "Back",
+			href: layout.backLink
+		}) }}
+	</aside>
+{% endblock %}
+
+{% block pageContent %}
+	<div class="govuk-grid-row">
+		<div class="govuk-grid-column-two-thirds">
+
+			<form method="post" action="" novalidate="novalidate">
+				{% include 'app/includes/csrf.njk' %}
+
+				{% set radioItems = [] %}
+
+				{% for item in layout.items %}
+
+					{% if item.children %}
+
+						{% set selectHtml %}
+							{{ govukSelect({
+								id: item.categoryCode + "-category",
+								name: "examinationLibraryCategoryChild",
+								label: {
+									text: "Select " + item.text
+								},
+								items: item.children
+							}) }}
+						{% endset %}
+
+						{% set radioItem = {
+							value: item.value,
+							text: item.text,
+							checked: item.checked,
+							conditional: {
+								html: selectHtml
+							}
+						} %}
+
+					{% else %}
+
+						{% set radioItem = {
+							value: item.value,
+							text: item.text,
+							checked: item.checked
+						} %}
+
+					{% endif %}
+
+					{% set radioItems = radioItems.concat([radioItem]) %}
+
+				{% endfor %}
+
+				{{ govukRadios({
+					idPrefix: layout.metaDataName,
+					name: layout.metaDataName,
+					fieldset: {
+						legend: {
+							text: layout.pageTitle,
+							isPageHeading: true,
+							classes: "govuk-fieldset__legend--l"
+						}
+					},
+					hint: {
+						text: "Deadlines, events and hearings created in the examination timetable will appear as sub categories"
+					},
+					errorMessage: errors[layout.metaDataName] | errorMessage,
+					items: radioItems
+				}) }}
+
+				{{ govukInsetText({
+					text: "Updating the category will change the draft examination library reference."
+				}) }}
+
+				<div class="govuk-grid-row">
+					<div class="govuk-button-group pins-button-group govuk-grid-column-one-half">
+						{{ govukButton({
+							text: "Save and return"
+						}) }}
+					</div>
+				</div>
+
+			</form>
+
+		</div>
+	</div>
+{% endblock %}

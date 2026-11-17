@@ -19,6 +19,7 @@ export type Representation = {
 	redactedNotesExcerpt: string;
 	redactedBy: string;
 	type: string;
+	useOfAI: string | null;
 	attachments: array;
 	representationActions: RepresentationAction[];
 };

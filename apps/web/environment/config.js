@@ -49,6 +49,7 @@ export function loadConfig() {
 		AZURE_AI_DOC_REDACTION_STORAGE_NAME,
 		AZURE_AI_DOC_REDACTION_REDACT_KEY,
 		AZURE_AI_DOC_REDACTION_APPLY_KEY,
+		AZURE_AI_DOC_REDACTION_SANITISE_KEY,
 		AZURE_BLOB_STORE_HOST,
 		CACHE_CONTROL_MAX_AGE,
 		STATIC_FEATURE_FLAGS_ENABLED,
@@ -87,6 +88,7 @@ export function loadConfig() {
 		azureAiDocRedactionBlobStorageName: AZURE_AI_DOC_REDACTION_STORAGE_NAME,
 		azureAiDocRedactionRedactKey: AZURE_AI_DOC_REDACTION_REDACT_KEY,
 		azureAiDocRedactionApplyKey: AZURE_AI_DOC_REDACTION_APPLY_KEY,
+		azureAiDocRedactionSanitiseKey: AZURE_AI_DOC_REDACTION_SANITISE_KEY,
 		azureKeyVaultEnabled: environment.KEY_VAULT_ENABLED && environment.KEY_VAULT_ENABLED === 'true',
 		blobStorageUrl: AZURE_BLOB_STORE_HOST,
 		cacheControl: {

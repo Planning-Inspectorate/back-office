@@ -122,7 +122,7 @@ const getCaseMigrationStatuses = async (logger, caseReferences) => {
 				migrationStatuses.areMigrated = true;
 				migrationStatuses.error = migrationStatuses.error + caseReference + ', ';
 			}
-		} catch (error) {
+		} catch {
 			logger.info(
 				`Case with caseReference ${caseReference} not found in CBOS. Continuing with migration`
 			);

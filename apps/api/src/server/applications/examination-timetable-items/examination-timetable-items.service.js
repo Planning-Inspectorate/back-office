@@ -72,9 +72,8 @@ function extractDescriptionAndLineItems(examinationTimetableItem) {
  * @returns { Promise<NSIPExamTimetable | null> }
  */
 async function buildExamTimetableItemsPayload(examinationTimetableId) {
-	const examinationTimetable = await examinationTimetableRepository.getWithItems(
-		examinationTimetableId
-	);
+	const examinationTimetable =
+		await examinationTimetableRepository.getWithItems(examinationTimetableId);
 	if (!examinationTimetable) {
 		return null;
 	}

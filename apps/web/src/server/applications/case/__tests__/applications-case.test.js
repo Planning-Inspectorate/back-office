@@ -19,9 +19,10 @@ const nocks = () => {
 const baseUrl = '/applications-service/case/123';
 const overviewUrl = `${baseUrl}/overview`;
 
-// Disable fees and forecasting flag so the page link does not display in the nav menu HTML for other pages
+// Disable fees and forecasting flag and examination library flag so the page links do not display in the nav menu HTML for other pages
 const flags = staticFlags;
 flags['applics-1845-fees-forecasting'] = false;
+flags['idas-607-examination-library'] = false;
 
 describe('Applications case pages', () => {
 	beforeEach(installMockApi);

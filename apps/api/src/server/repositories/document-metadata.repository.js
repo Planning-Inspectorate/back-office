@@ -65,7 +65,7 @@ const includeClauseDocVersionFullWithSector = {
  * @returns {import('#database-client').PrismaPromise<DocumentVersionWithDocumentAndFolder>}
  */
 export const upsert = (
-	{ documentGuid, version = 1, transcriptGuid, ...metadata },
+	{ documentGuid, version = 1, transcriptGuid, examinationLibraryCategoryId, ...metadata },
 	tx = databaseConnector
 ) => {
 	return tx.documentVersion.upsert({
@@ -73,6 +73,9 @@ export const upsert = (
 			...metadata,
 			version,
 			...(transcriptGuid ? { transcript: { connect: { guid: transcriptGuid } } } : {}),
+			...(examinationLibraryCategoryId
+				? { ExaminationLibraryCategory: { connect: { id: examinationLibraryCategoryId } } }
+				: {}),
 			Document: { connect: { guid: documentGuid } }
 		},
 
@@ -81,6 +84,7 @@ export const upsert = (
 		update: {
 			...metadata,
 			transcriptGuid,
+			examinationLibraryCategoryId,
 			version
 		},
 
@@ -148,6 +152,40 @@ export const getById = (documentGuid, version = 1) => {
 			transcript: {
 				select: {
 					documentReference: true
+				}
+			}
+		}
+	});
+};
+
+/**
+
+ * Get a document metadata by documentGuid
+ *
+ * @param {string} documentGuid
+ * @param {number} version
+ * @returns {import('#database-client').PrismaPromise<DocumentVersion |null>}
+ */
+export const getByIdForProperties = (documentGuid, version = 1) => {
+	return databaseConnector.documentVersion.findUnique({
+		where: { documentGuid_version: { documentGuid, version } },
+
+		include: {
+			...includeClauseDocVersionFull,
+			DocumentActivityLog: {
+				orderBy: {
+					createdAt: 'desc'
+				}
+			},
+			transcript: {
+				select: {
+					documentReference: true
+				}
+			},
+			ExaminationLibraryCategory: {
+				select: {
+					categoryCode: true,
+					categoryName: true
 				}
 			}
 		}
@@ -342,4 +380,30 @@ export const unpublishMany = async (documentVersionIds) => {
 	}
 
 	return results;
+};
+
+/**
+ * Get the original published date for a document
+ *
+ * @param {string} documentGuid
+ * @returns {Promise<Date | null>}
+ */
+export const getOriginalPublishedDate = async (documentGuid) => {
+	const result = await databaseConnector.documentVersion.findFirst({
+		where: {
+			documentGuid,
+			datePublished: {
+				not: null
+			},
+			isDeleted: false
+		},
+		orderBy: {
+			datePublished: 'asc'
+		},
+		select: {
+			datePublished: true
+		}
+	});
+
+	return result?.datePublished ?? null;
 };

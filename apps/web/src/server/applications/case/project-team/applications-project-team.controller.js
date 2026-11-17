@@ -21,13 +21,13 @@ export const allRoles = [
 	{ value: 'case_manager', text: 'Case Manager', unique: false },
 	{ value: 'environmental_services', text: 'Environmental Services', unique: false },
 	{ value: 'inspector', text: 'Inspector', unique: false },
-	{ value: 'lead_inspector', text: 'Lead Inspector', unique: true },
-	{ value: 'legal_officer', text: 'Legal Officer', unique: true },
+	{ value: 'lead_inspector', text: 'Lead Inspector', unique: false },
+	{ value: 'legal_officer', text: 'Legal Officer', unique: false },
 	{ value: 'NSIP_administration_officer', text: 'NSIP Administration Officer', unique: false },
 	{ value: 'NSIP_officer', text: 'NSIP Officer', unique: false },
 	{ value: 'officer', text: 'Officer', unique: false },
-	{ value: 'operations_lead', text: 'Operations Lead', unique: true },
-	{ value: 'operations_manager', text: 'Operations Manager', unique: true }
+	{ value: 'operations_lead', text: 'Operations Lead', unique: false },
+	{ value: 'operations_manager', text: 'Operations Manager', unique: false }
 ];
 
 /**

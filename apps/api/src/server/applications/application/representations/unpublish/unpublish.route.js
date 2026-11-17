@@ -81,10 +81,9 @@ router.patch(
 		}
 		#swagger.parameters['body'] = {
 			in: 'body',
-			description: 'Representation IDs to unpublish, and user performing action',
+			description: 'User performing the action',
 			required: true,
 			schema: {
-					representationIds: [123, 124, 125],
 					actionBy: "Joe Bloggs"
 			}
 		}

@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AI declaration page GET /applications-service/case/1/relevant-representations/1/representation-details/ai-declaration should render the page 1`] = `
+"<main class="govuk-main-wrapper" id="main-content">
+    <h1 class="govuk-heading-l govuk-!-margin-bottom-2">AI declaration</h1>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-one-half">
+            <form method="post" novalidate>
+                <div class="govuk-form-group">
+                    <fieldset class="govuk-fieldset">
+                        <div class="govuk-radios" data-module="govuk-radios">
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="useOfAI" name="useOfAI" type="radio"
+                                value="NO">
+                                <label class="govuk-label govuk-radios__label" for="useOfAI">AI not used</label>
+                            </div>
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="useOfAI-2" name="useOfAI" type="radio"
+                                value="YES">
+                                <label class="govuk-label govuk-radios__label" for="useOfAI-2">AI used</label>
+                            </div>
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="useOfAI-3" name="useOfAI" type="radio"
+                                value="UNKNOWN">
+                                <label class="govuk-label govuk-radios__label" for="useOfAI-3">Unknown</label>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <button type="submit" class="govuk-button govuk-!-margin-top-3" data-module="govuk-button">Save and return</button>
+            </form>
+        </div>
+    </div>
+</main>"
+`;

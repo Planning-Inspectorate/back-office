@@ -24,6 +24,12 @@ describe('buildAiRedactionPayload', () => {
 		expect(payload.writeDetails.properties.storageName).toBe('test-storage');
 	});
 
+	it('preserves tryApplyProvisionalRedactions when disabled', () => {
+		const payload = buildAiRedactionPayload(baseDoc, 'CASE1', false);
+
+		expect(payload.tryApplyProvisionalRedactions).toBe(false);
+	});
+
 	it('throws if required blob info is missing', () => {
 		expect(() =>
 			buildAiRedactionPayload({ ...baseDoc, privateBlobPath: undefined }, 'CASE1')

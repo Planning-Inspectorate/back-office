@@ -13,39 +13,7 @@ const mockCaseData = {
 };
 
 const unpublishableRepresentationsFixture = {
-	itemCount: 3,
-	items: [
-		{
-			id: 1,
-			reference: 'mock-reference-1',
-			status: 'PUBLISHED',
-			redacted: true,
-			received: '2023-10-10T10:47:21.846Z',
-			firstName: 'mock name',
-			lastName: 'mock last name',
-			organisationName: 'mock org'
-		},
-		{
-			id: 2,
-			reference: 'mock-reference-2',
-			status: 'PUBLISHED',
-			redacted: true,
-			received: '2023-10-10T10:47:21.846Z',
-			firstName: 'mock name',
-			lastName: 'mock last name',
-			organisationName: 'mock org'
-		},
-		{
-			id: 3,
-			reference: 'mock-reference-3',
-			status: 'PUBLISHED',
-			redacted: true,
-			received: '2023-10-10T10:47:21.846Z',
-			firstName: 'mock name',
-			lastName: 'mock last name',
-			organisationName: 'mock org'
-		}
-	]
+	count: 3
 };
 
 describe('unpublish-representations', () => {
@@ -80,7 +48,7 @@ describe('unpublish-representations', () => {
 				nock('http://test/').get('/applications/1').reply(200, mockCaseData);
 				nock('http://test/')
 					.get('/applications/1/representations/unpublish')
-					.reply(200, { itemCount: 0, items: [] });
+					.reply(200, { count: 0 });
 			};
 			nocks();
 
@@ -98,9 +66,6 @@ describe('unpublish-representations', () => {
 		describe('unsuccessful', () => {
 			const nocks = () => {
 				nock('http://test/').get('/applications/1').reply(200, mockCaseData);
-				nock('http://test/')
-					.get('/applications/1/representations/unpublish')
-					.reply(200, unpublishableRepresentationsFixture);
 				nock('http://test/')
 					.patch('/applications/1/representations/unpublish')
 					.reply(500, { error: 'Internal server error' });
@@ -121,11 +86,8 @@ describe('unpublish-representations', () => {
 			const nocks = () => {
 				nock('http://test/').get('/applications/1').reply(200, mockCaseData);
 				nock('http://test/')
-					.get('/applications/1/representations/unpublish')
-					.reply(200, unpublishableRepresentationsFixture);
-				nock('http://test/')
 					.patch('/applications/1/representations/unpublish')
-					.reply(200, { unpublishedRepIds: [1, 2, 3] });
+					.reply(200, { count: 3 });
 			};
 
 			beforeEach(async () => {
@@ -137,27 +99,6 @@ describe('unpublish-representations', () => {
 
 				expect(response?.headers?.location).toContain(
 					'/applications-service/case/1/relevant-representations?unpublished=3'
-				);
-			});
-		});
-
-		describe('when no representations to unpublish', () => {
-			const nocks = () => {
-				nock('http://test/').get('/applications/1').reply(200, mockCaseData);
-				nock('http://test/')
-					.get('/applications/1/representations/unpublish')
-					.reply(200, { itemCount: 0, items: [] });
-			};
-
-			beforeEach(async () => {
-				nocks();
-			});
-
-			it('should redirect to relevant representations page', async () => {
-				const response = await request.post(baseUrl);
-
-				expect(response?.headers?.location).toContain(
-					'/applications-service/case/1/relevant-representations'
 				);
 			});
 		});

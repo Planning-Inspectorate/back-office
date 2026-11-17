@@ -61,6 +61,7 @@ const rep1CreateMsgPayload = buildPayloadEventsForSchema(NSIP_REPRESENTATION, {
 	caseRef: 'BC0110001',
 	caseId: 1,
 	status: 'draft',
+	useOfAI: null,
 	redacted: false,
 	originalRepresentation: 'the original representation',
 	editedRepresentation: null,
@@ -151,6 +152,7 @@ describe('Create Representation', () => {
 				editNotes: '',
 				redacted: false,
 				received: '2023-05-11T09:57:06.139Z',
+				useOfAI: null,
 				represented: {
 					create: {
 						firstName: 'Joe',
@@ -231,6 +233,7 @@ describe('Create Representation', () => {
 				editNotes: '',
 				redacted: false,
 				received: '2023-05-11T09:57:06.139Z',
+				useOfAI: null,
 				represented: {
 					create: {
 						firstName: 'Jim',

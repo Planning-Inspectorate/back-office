@@ -810,11 +810,22 @@ export const markDocumentVersionAsPublished = async ({
 	publishedBlobContainer,
 	publishedDate
 }) => {
+	/** @type {DocumentVersion} */
+	const currentVersion = await documentVersionRepository.getById(guid, version);
+
+	let documentDatePublished = currentVersion?.datePublished;
+
+	if (!documentDatePublished) {
+		const originalPublishedDate = await documentVersionRepository.getOriginalPublishedDate(guid);
+
+		documentDatePublished = originalPublishedDate ?? publishedDate;
+	}
+
 	const publishedDocument = await documentVersionRepository.update(guid, {
 		version,
 		publishedBlobPath,
 		publishedBlobContainer,
-		datePublished: publishedDate,
+		datePublished: documentDatePublished,
 		publishedStatus: 'published',
 		publishedStatusPrev: 'publishing'
 	});
@@ -930,9 +941,8 @@ export const handleUpdateDocuments = async (guids, publishedStatus, redactedStat
 
 		// TODO: Let's refactor this so that the front-end provides the explicitly verson numbers
 		// @ts-ignore
-		const { latestDocumentVersion: documentVersion } = await documentRepository.getByDocumentGUID(
-			guid
-		);
+		const { latestDocumentVersion: documentVersion } =
+			await documentRepository.getByDocumentGUID(guid);
 
 		if (publishedStatus && documentVersion.publishedStatus === 'published') {
 			errors.push({

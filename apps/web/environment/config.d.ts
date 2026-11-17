@@ -37,6 +37,7 @@ export interface EnvironmentConfig extends BaseEnvironmentConfig {
 	azureAiDocRedactionBlobStorageName: string;
 	azureAiDocRedactionRedactKey: string;
 	azureAiDocRedactionApplyKey: string;
+	azureAiDocRedactionSanitiseKey: string;
 	azureKeyVaultEnabled: boolean;
 	blobStorageUrl: string;
 	cacheControl: {

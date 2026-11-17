@@ -52,14 +52,20 @@ const projectInDatabase = {
 
 const teamMembers = {
 	operationsLeadId: null,
+	operationsLeadIds: [],
 	operationsManagerId: null,
+	operationsManagerIds: [],
 	caseManagerId: null,
+	caseManagerIds: [],
 	nsipOfficerIds: [],
 	nsipAdministrationOfficerIds: [],
 	leadInspectorId: null,
+	leadInspectorIds: [],
 	inspectorIds: [],
 	environmentalServicesOfficerId: null,
+	environmentalServicesOfficerIds: [],
 	legalOfficerId: null,
+	legalOfficerIds: [],
 	migrationStatus: null
 };
 

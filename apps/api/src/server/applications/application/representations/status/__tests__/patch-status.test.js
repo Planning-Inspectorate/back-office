@@ -85,6 +85,7 @@ const expectedRepresentationUpdatePayload = buildPayloadEventsForSchema(NSIP_REP
 	caseRef: 'BC0110001',
 	caseId: 200,
 	status: 'valid',
+	useOfAI: null,
 	redacted: true,
 	originalRepresentation: 'the original representation',
 	editedRepresentation: null,

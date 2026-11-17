@@ -47,10 +47,17 @@ const mapPublishedToCSV = (arrayToMap) =>
 		...mapContactDetails(representation)
 	}));
 
+const mapUseOfAI = (useOfAI) => {
+	if (useOfAI === 'YES') return 'Yes';
+	if (useOfAI === 'NO') return 'No';
+	return 'Unknown';
+};
+
 const mapValidToCSV = (arrayToMap) => {
 	const mapped = arrayToMap.map((representation) => ({
 		...mapShortenedContactDetails(representation),
 		Attachments: representation._count.attachments > 0 ? 'Yes' : 'No',
+		'AI declaration': mapUseOfAI(representation.useOfAI),
 		'IP number': representation.reference,
 		Status: representation.status,
 		'Action Date': (() => {

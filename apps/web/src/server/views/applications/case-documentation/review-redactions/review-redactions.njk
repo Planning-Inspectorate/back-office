@@ -73,8 +73,17 @@
 						{
 							value: "upload-new",
 							text: "No, I've edited the redactions and need to upload a new version"
+						},
+						{
+							divider: "or"
+						},
+						{
+							value: "not-needed",
+							text: "Redaction not needed, remove suggestions"
 						}
-					]
+					],
+					value: reviewDecision,
+					errorMessage: errors.reviewDecision | errorMessage
 				}) }}
 
 				{{ govukButton({
