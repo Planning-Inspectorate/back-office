@@ -16,6 +16,10 @@ applicationsExamLibraryRouter
 	.get(asyncHandler(publishController.getExaminationLibraryPublish))
 	.post(asyncHandler(publishController.postExaminationLibraryPublish));
 applicationsExamLibraryRouter
+	.route('/category/:slug/update')
+	.get(asyncHandler(publishController.getExaminationLibraryUpdate))
+	.post(asyncHandler(publishController.postExaminationLibraryUpdate));
+applicationsExamLibraryRouter
 	.route('/category/:slug/unpublish')
 	.get(asyncHandler(unpublishController.getExaminationLibraryUnpublish))
 	.post(asyncHandler(unpublishController.postExaminationLibraryUnpublish));
