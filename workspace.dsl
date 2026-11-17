@@ -217,9 +217,8 @@ workspace "Applications service" {
 			description "Shows the function apps within the Applications Back-Office system CBOS - these are responsible for consuming messages from the Service Bus and updating the Azure SQL database."
 		}
 
-		# Azure icons only, latest version
-		theme default
-		theme https://static.structurizr.com/themes/microsoft-azure-2023.01.24/icons.json
+		# Theme source is injected by CI into a temporary DSL file:
+		# Microsoft Azure icons from GitHub first, local vendored fallback if unreachable.
 
 		styles {
 
