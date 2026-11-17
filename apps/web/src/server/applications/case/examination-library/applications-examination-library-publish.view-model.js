@@ -18,7 +18,9 @@ import { getSectionByItemSlug, getCategoryCode } from './applications-examinatio
  *   unpublishedCount: number,
  *   itemSlug: string,
  *   caseId: number,
- *   publishUrl?: string
+ *   publishUrl?: string,
+ *   isUpdate?: boolean,
+ *   additionalCount?: number
  * }} params
  * @returns {object | null}
  */
@@ -29,7 +31,9 @@ export const getExaminationLibraryPublishViewModel = ({
 	unpublishedCount = 0,
 	itemSlug,
 	caseId,
-	publishUrl
+	publishUrl,
+	isUpdate = false,
+	additionalCount = 0
 }) => {
 	const resolvedSection = section || getSectionByItemSlug(examinationLibrarySections, itemSlug);
 
@@ -47,7 +51,11 @@ export const getExaminationLibraryPublishViewModel = ({
 	const tableHeaders = ['Reference', 'Document', 'From'];
 	const backLink = url('examination-library-section', { caseId, slug: itemSlug });
 	const formPublishUrl =
-		publishUrl || url('examination-library-publish', { caseId, slug: itemSlug });
+		publishUrl ||
+		url(isUpdate ? 'examination-library-update' : 'examination-library-publish', {
+			caseId,
+			slug: itemSlug
+		});
 
 	const tableRows = sectionDocuments.map((sectionDocument) => {
 		if (
@@ -106,15 +114,19 @@ export const getExaminationLibraryPublishViewModel = ({
 
 	return {
 		selectedPageType: 'examination-library',
+		isUpdate,
 		sectionHeading,
 		backLink,
 		publishUrl: formPublishUrl,
 		categoryCode: sectionCategoryCode,
 		totalPublishedCount,
 		unpublishedCount,
+		additionalCount,
 		totalItemsText: `The ${sectionHeading} category for the examination library will contain references for ${totalPublishedCount} items.`,
 		hasUnpublishedItems: unpublishedCount > 0,
 		unpublishedInsetText: `${unpublishedCount} items are not yet published and will not be assigned an examination library reference number. The other references have been adjusted to reflect this.`,
+		hasAdditionalItems: additionalCount > 0,
+		additionalItemsText: `${additionalCount} items on this page will be added to the library.`,
 		warningText:
 			'Once an examination library category has been published, the examination library references are final and cannot be changed.',
 		sectionTable

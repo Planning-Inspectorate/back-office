@@ -42,7 +42,13 @@
 	</p>
 
 	{% if sectionStatus | lower == 'published' %}
-		<div>
+		<div class="govuk-button-group govuk-!-margin-bottom-6">
+			{% if hasUpdatesToPublish %}
+				{{ govukButton({
+					text: "Preview and publish updates to library",
+					href: updateUrl
+				}) }}
+			{% endif %}
 			{{ govukButton({
 				text: "Unpublish from library",
 				href: unpublishUrl,

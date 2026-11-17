@@ -6,7 +6,8 @@
 {% from "govuk/components/table/macro.njk" import govukTable %}
 {% from "applications/components/pagination/results-per-page.component.njk" import uiPageSizeInformation, uiPaginationLinks %}
 
-{% set pageTitle = "Check details and publish " + sectionHeading + " to the examination library - " + case.title + " - NSIP applications" %}
+{% set pageHeading = "Check details and " + ("update" if isUpdate else "publish") + " " + sectionHeading + " to the examination library" %}
+{% set pageTitle = pageHeading + " - " + case.title + " - NSIP applications" %}
 
 {% block pageTitle %}{{ pageTitle }}{% endblock %}
 
@@ -21,7 +22,7 @@
 
 {% block pageHeading %}
 	<h1 class="govuk-heading-l">
-		Check details and publish {{ sectionHeading }} to the examination library
+		{{ pageHeading }}
 	</h1>
 {% endblock %}
 
@@ -30,7 +31,13 @@
 		{{ totalItemsText }}
 	</p>
 
-	{% if hasUnpublishedItems %}
+	{% if isUpdate %}
+		{% if hasAdditionalItems %}
+			{{ govukInsetText({
+				text: additionalItemsText
+			}) }}
+		{% endif %}
+	{% elseif hasUnpublishedItems %}
 		{{ govukInsetText({
 			text: unpublishedInsetText
 		}) }}
