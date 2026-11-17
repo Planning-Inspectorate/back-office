@@ -7,5 +7,4 @@ export interface ApplicationsCreateKeyDatesBody extends Record<string, string | 
 	submissionInternalMonth?: string;
 	submissionInternalYear?: string;
 }
-export interface ApplicationsCreateKeyDatesProps
-	extends CaseCreateProps<ApplicationsCreateKeyDatesBody> {}
+export interface ApplicationsCreateKeyDatesProps extends CaseCreateProps<ApplicationsCreateKeyDatesBody> {}

@@ -12,6 +12,99 @@ import { fixtureCases } from '../../../../../../testing/applications/fixtures/ca
 const { app, installMockApi, teardown } = createTestEnvironment();
 const request = supertest(app);
 
+const examinationLibraryCategories = [
+	{
+		id: 3,
+		caseId: 123,
+		categoryCode: 'APP',
+		categoryName: 'Application form',
+		publishedStatus: 'in progress',
+		source: 'STATIC',
+		examinationTimetableItemId: null
+	},
+	{
+		id: 4,
+		caseId: 123,
+		categoryCode: 'APP',
+		categoryName: 'Plans',
+		publishedStatus: 'in progress',
+		source: 'STATIC',
+		examinationTimetableItemId: null
+	},
+	{
+		id: 7,
+		caseId: 123,
+		categoryCode: 'APP',
+		categoryName: 'Reports',
+		publishedStatus: 'in progress',
+		source: 'STATIC',
+		examinationTimetableItemId: null
+	},
+	{
+		id: 10,
+		caseId: 123,
+		categoryCode: 'AoC',
+		categoryName: 'Adequacy of consultation responses',
+		publishedStatus: 'in progress',
+		source: 'STATIC',
+		examinationTimetableItemId: null
+	},
+	{
+		id: 11,
+		caseId: 123,
+		categoryCode: 'PD',
+		categoryName: 'Procedural decisions and notifications from Examining Authority',
+		publishedStatus: 'in progress',
+		source: 'STATIC',
+		examinationTimetableItemId: null
+	},
+	{
+		id: 12,
+		caseId: 123,
+		categoryCode: 'AS',
+		categoryName: 'Additional submissions',
+		publishedStatus: 'in progress',
+		source: 'STATIC',
+		examinationTimetableItemId: null
+	},
+	{
+		id: 13,
+		caseId: 123,
+		categoryCode: 'OD',
+		categoryName: 'Other documents',
+		publishedStatus: 'in progress',
+		source: 'STATIC',
+		examinationTimetableItemId: null
+	},
+	{
+		id: 14,
+		caseId: 123,
+		categoryCode: 'RR',
+		categoryName: 'Relevant representations',
+		publishedStatus: 'in progress',
+		source: 'STATIC',
+		examinationTimetableItemId: null
+	},
+	{
+		id: 15,
+		caseId: 123,
+		categoryCode: 'NELC',
+		categoryName: 'No examination library category',
+		publishedStatus: 'in progress',
+		source: 'STATIC',
+		examinationTimetableItemId: null
+	},
+	{
+		id: 20,
+		caseId: 123,
+		categoryCode: 'REPX',
+		categoryName: 'Deadline 1',
+		publishedStatus: 'in progress',
+		source: 'TIMETABLE',
+		examinationTimetableItemId: 1
+	}
+];
+
 const nocks = () => {
 	nock('http://test/').get('/applications').reply(200, {});
 	nock('http://test/').get('/applications/123').reply(200, fixtureCases[3]);
@@ -27,6 +120,30 @@ const nocks = () => {
 	nock('http://test/').post('/applications/123/documents/456/metadata').reply(200, {});
 	nock('http://test/').post('/applications/123/documents/90/metadata').reply(200, {});
 	nock('http://test/').post('/applications/123/documents/110/metadata').reply(200, {});
+	nock('http://test/')
+		.get('/applications/123/examination-library')
+		.reply(200, examinationLibraryCategories);
+	nock('http://test/')
+		.get('/applications/123/documents/457/properties')
+		.reply(200, {
+			...fixturePublishedDocumentationFile,
+			guid: '457',
+			examinationLibraryCategoryCode: 'APP'
+		});
+	nock('http://test/')
+		.get('/applications/123/examination-library/documents/457/draft-reference')
+		.query({ categoryCode: 'APP' })
+		.reply(200, {
+			draftExaminationLibraryReference: 'APP-013'
+		});
+	nock('http://test/')
+		.post('/applications/123/documents/457/metadata')
+		.reply(400, {
+			errors: {
+				examinationRefNo:
+					'This reference is already published, create a unique reference by adding a letter, like REP1-001a'
+			}
+		});
 };
 
 describe('Edit applications documentation metadata', () => {
@@ -48,6 +165,8 @@ describe('Edit applications documentation metadata', () => {
 		'/applications-service/case/123/project-documentation/18/document/90/edit';
 	const baseUrlNotChecked =
 		'/applications-service/case/123/project-documentation/18/document/110/edit';
+	const baseUrlDuplicateReference =
+		'/applications-service/case/123/project-documentation/18/document/457/edit';
 
 	describe('Edit name', () => {
 		describe('GET /case/123/project-documentation/18/document/456/edit/name', () => {
@@ -444,6 +563,117 @@ describe('Edit applications documentation metadata', () => {
 				});
 
 				expect(response?.headers?.location).toEqual('../properties');
+			});
+		});
+	});
+
+	describe('Edit examination library category', () => {
+		describe('GET /case/123/project-documentation/18/document/456/edit/examination-library-category', () => {
+			it('should render the examination library category options', async () => {
+				const response = await request.get(`${baseUrl}/examination-library-category`);
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+
+				expect(element.innerHTML).toContain('Examination library category');
+
+				expect(element.innerHTML).toContain('No examination library category');
+				expect(element.innerHTML).toContain('Application documents (APP)');
+				expect(element.innerHTML).toContain('Adequacy of consultation responses (AoC)');
+				expect(element.innerHTML).toContain(
+					'Procedural decisions and notifications from Examining Authority (PD)'
+				);
+				expect(element.innerHTML).toContain('Additional submissions (AS)');
+				expect(element.innerHTML).toContain('Other documents (OD)');
+
+				expect(element.innerHTML).toContain(
+					'Updating the category will change the draft examination library reference.'
+				);
+			});
+
+			it('should render APP categories in the select', async () => {
+				const response = await request.get(`${baseUrl}/examination-library-category`);
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toContain('Application form');
+				expect(element.innerHTML).toContain('Plans');
+				expect(element.innerHTML).toContain('Reports');
+			});
+
+			it('should not render relevant representations or timetable categories', async () => {
+				const response = await request.get(`${baseUrl}/examination-library-category`);
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).not.toContain('Relevant representations');
+				expect(element.innerHTML).not.toContain('Deadline 1');
+			});
+		});
+
+		describe('POST /case/123/project-documentation/18/document/456/edit/examination-library-category', () => {
+			it('should return an error if no category is selected', async () => {
+				const response = await request.post(`${baseUrl}/examination-library-category`);
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toMatchSnapshot();
+				expect(element.innerHTML).toContain('There is a problem');
+				expect(element.innerHTML).toContain('Select an examination library category');
+			});
+
+			it('should redirect to document properties page when a standard category is selected', async () => {
+				const response = await request.post(`${baseUrl}/examination-library-category`).send({
+					examinationLibraryCategoryId: '10'
+				});
+
+				expect(response.headers.location).toEqual('../properties');
+			});
+
+			it('should redirect to document properties page when an application document sub-category is selected', async () => {
+				const response = await request.post(`${baseUrl}/examination-library-category`).send({
+					examinationLibraryCategoryId: 'APP',
+					examinationLibraryCategoryChild: '7'
+				});
+
+				expect(response.headers.location).toEqual('../properties');
+			});
+		});
+	});
+
+	describe('Edit examination library reference', () => {
+		beforeEach(() => {
+			nock('http://test/')
+				.get('/applications/123/documents/456/draft-reference')
+				.query({ categoryCode: 'APP' })
+				.reply(200, {
+					draftExaminationLibraryReference: 'APP-013'
+				});
+		});
+
+		describe('POST /case/123/project-documentation/18/document/:documentGuid/edit/examination-library-reference', () => {
+			it('should redirect to document properties page when a manual reference is valid', async () => {
+				const response = await request.post(`${baseUrl}/examination-library-reference`).send({
+					examinationLibraryReferenceType: 'manual',
+					examinationRefNo: '004a'
+				});
+
+				expect(response.headers.location).toEqual('../properties');
+			});
+
+			it('should display the API error and preserve the manual reference when the reference is already published', async () => {
+				const response = await request
+					.post(`${baseUrlDuplicateReference}/examination-library-reference`)
+					.send({
+						examinationLibraryReferenceType: 'manual',
+						examinationRefNo: '004a'
+					});
+
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toContain(
+					'This reference is already published, create a unique reference by adding a letter, like REP1-001a'
+				);
+
+				expect(element.innerHTML).toContain('value="manual" checked');
+				expect(element.innerHTML).toContain('value="004a"');
 			});
 		});
 	});

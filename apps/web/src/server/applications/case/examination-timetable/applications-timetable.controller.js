@@ -3,7 +3,8 @@ import { sanitize } from '../../../lib/nunjucks-filters/sanitize.js';
 import {
 	convertExamDescriptionToInputText,
 	mapUtcTimeToLocal24hTimeString,
-	mapExaminationTimetableToFormBody
+	mapExaminationTimetableToFormBody,
+	normaliseDeadlineName
 } from './applications-timetable.mappers.js';
 import {
 	createCaseTimetableItem,
@@ -116,6 +117,13 @@ export const timetableTemplatesSchema = {
 	'publication-of': {
 		name: true,
 		date: true,
+		description: false
+	},
+	'unaccompanied-site-inspection': {
+		name: true,
+		date: true,
+		startTime: false,
+		endTime: false,
 		description: false
 	}
 };
@@ -421,11 +429,15 @@ export async function postApplicationsCaseTimetableSave({ body }, response) {
 		body['timetable-type'] || ''
 	);
 
+	const examinationTypeId = Number.parseInt(body['timetableTypeId'], 10);
+	const selectedItemType = await getCaseTimetableItemTypeById(examinationTypeId);
+
 	/** @type {ApplicationsTimetablePayload} */
 	const payload = {
 		caseId: response.locals.caseId,
-		examinationTypeId: Number.parseInt(body['timetableTypeId'], 10),
-		name: body.name,
+		examinationTypeId,
+		name:
+			selectedItemType.templateType === 'deadline' ? normaliseDeadlineName(body.name) : body.name,
 		description: prepareDescriptionPayload(body.description),
 		date,
 		startDate,
@@ -538,9 +550,8 @@ export async function postApplicationsCaseTimetableItemNameWelsh(
  */
 export async function viewApplicationsCaseTimetableItemDescriptionWelsh({ params }, response) {
 	const timetableId = parseInt(params.timetableId);
-	const { description, descriptionWelsh, submissions } = await getCaseTimetableItemById(
-		timetableId
-	);
+	const { description, descriptionWelsh, submissions } =
+		await getCaseTimetableItemById(timetableId);
 
 	// if there are submissions against timetable item, we shouldn't edit it
 	if (submissions) {
@@ -565,9 +576,8 @@ export async function postApplicationsCaseTimetableItemDescriptionWelsh(
 	response
 ) {
 	const timetableId = parseInt(params.timetableId);
-	const { description, submissions, ExaminationTimetableType } = await getCaseTimetableItemById(
-		timetableId
-	);
+	const { description, submissions, ExaminationTimetableType } =
+		await getCaseTimetableItemById(timetableId);
 
 	const timetableItemType = ExaminationTimetableType.templateType;
 
@@ -703,7 +713,10 @@ const getCheckYourAnswersRows = async (body, caseId) => {
 	/** @type {{key: string, text?: string, html?: string}[]} */
 	const rowsItems = [
 		{ key: 'Item type', text: itemTypeName },
-		{ key: 'Item name', text: name },
+		{
+			key: 'Item name',
+			text: templateType === 'deadline' ? normaliseDeadlineName(name) : name
+		},
 		...(caseIsWelsh ? [{ key: 'Item name in Welsh', text: timetableItem?.nameWelsh ?? '' }] : []),
 		...(shouldShowField('date') ? [{ key: 'Date', text: date || '' }] : []),
 		...(shouldShowField('startDate') ? [{ key: 'Start date', text: startDate || '' }] : []),
@@ -722,7 +735,7 @@ const getCheckYourAnswersRows = async (body, caseId) => {
 						key: 'Timetable item description in Welsh',
 						html: descriptionWelshHtml ?? ''
 					}
-			  ]
+				]
 			: [])
 	];
 

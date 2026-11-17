@@ -14,9 +14,9 @@ import { NOTES_CHARACTER_LIMIT } from './representation-status-notes.constants.j
  * @returns {{pageHeading: String, radioItems: Object[]}} page heading and title
  */
 const getPageContentByStatus = (newStatus) => {
-	let pageHeading = 'Notes (optional)';
+	let pageHeading;
 	/** @type {Object[]} */
-	let radioItems = [];
+	let radioItems;
 
 	const radioItemsForReferredStatus = [
 		{

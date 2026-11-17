@@ -10,7 +10,8 @@ import logger from '#utils/logger.js';
 import { mapDateStringToUnixTimestamp } from '#utils/mapping/map-date-string-to-unix-timestamp.js';
 import {
 	mapDocumentVersionDetails,
-	mapSingleDocumentDetailsFromVersion
+	mapSingleDocumentDetailsFromVersion,
+	mapExaminationLibraryDetails
 } from '#utils/mapping/map-document-details.js';
 import {
 	getDocumentsInCase,
@@ -33,6 +34,7 @@ import {
 	attachMetadataToDocuments,
 	getPublishedGisBoundaryDocuments as getPublishedGisBoundaryDocumentsService
 } from './document.service.js';
+import { isExaminationLibraryReferenceLocked } from '../examination-library/examination-library.service.js';
 import { validateDocumentVersionMetadataBody } from './document.validators.js';
 
 /**
@@ -199,9 +201,8 @@ export const moveDocumentsToAnotherFolder = async ({ body }, response) => {
 	const { documents, destinationFolderId, destinationFolderStage } = body;
 
 	const documentNamesToMove = documents.map((document) => document.fileName);
-	const destinationFolderDocuments = await documentRepository.getDocumentsInFolder(
-		destinationFolderId
-	);
+	const destinationFolderDocuments =
+		await documentRepository.getDocumentsInFolder(destinationFolderId);
 	const duplicateDocuments = documentNamesToMove.filter((documentToMoveName) =>
 		destinationFolderDocuments.some(
 			(destinationFolderDocument) =>
@@ -308,7 +309,7 @@ export const getDocumentProperties = async ({ params: { guid } }, response) => {
 		throw new BackOfficeAppError(`Unknown document guid ${guid}`, 404);
 	}
 
-	const documentVersion = await documentVersionRepository.getById(
+	const documentVersion = await documentVersionRepository.getByIdForProperties(
 		document.guid,
 		document.latestVersionId ?? 1
 	);
@@ -319,7 +320,10 @@ export const getDocumentProperties = async ({ params: { guid } }, response) => {
 
 	const documentDetails = mapSingleDocumentDetailsFromVersion(documentVersion);
 
-	response.status(200).send(documentDetails);
+	response.status(200).send({
+		...documentDetails,
+		...mapExaminationLibraryDetails(documentVersion)
+	});
 };
 
 /**
@@ -377,7 +381,7 @@ export const getManyDocumentsProperties = async ({ query: { guids, published } }
 	const filteredDocuments = onlyPublished
 		? documents.filter((doc) =>
 				doc.documentVersion.some((version) => version.publishedStatus === 'published')
-		  )
+			)
 		: documents;
 
 	const results = filteredDocuments.map((doc) =>
@@ -523,6 +527,25 @@ export const storeDocumentVersion = async (request, response) => {
 	const document = await documentRepository.getById(guid);
 	if (!document) {
 		throw new BackOfficeAppError(`Document not found: guid ${guid}`, 404);
+	}
+
+	if (documentVersion.examinationRefNo !== undefined && documentVersion.examinationRefNo !== null) {
+		const referenceAlreadyPublished = await isExaminationLibraryReferenceLocked(
+			Number(caseId),
+			guid,
+			documentVersion.examinationRefNo
+		);
+
+		if (referenceAlreadyPublished) {
+			response.status(400).send({
+				errors: {
+					examinationRefNo:
+						'This reference is already published, create a unique reference by adding a letter, like REP1-001a'
+				}
+			});
+
+			return;
+		}
 	}
 
 	if (transcriptReference === '') {

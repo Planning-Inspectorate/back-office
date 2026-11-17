@@ -7,7 +7,8 @@
 	padding: govuk-spacing(6) govuk-spacing(4);
 
 	margin-bottom: govuk-spacing(7);
-	box-shadow: 0 2px 0 govuk-colours-applied.$govuk-border-colour,
+	box-shadow:
+		0 2px 0 govuk-colours-applied.$govuk-border-colour,
 		inset 2px 0 0 govuk-colours-applied.$govuk-border-colour,
 		inset -2px 0 0 govuk-colours-applied.$govuk-border-colour,
 		inset 0 4px 0 govuk-colours-applied.$govuk-brand-colour;
