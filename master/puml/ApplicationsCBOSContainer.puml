@@ -1,8 +1,15 @@
 @startuml
-set separator none
-title Applications Back-Office Container
+title <size:24>Applications Back-Office Container</size>\n<size:24>Shows the containers within the Applications Front-Office system. Go to the next view to see the rest.</size>
 
+set separator none
 left to right direction
+
+<style>
+  root {
+    BackgroundColor: #ffffff
+    FontColor: #444444
+  }
+</style>
 
 !include <C4/C4>
 !include <C4/C4_Context>
@@ -54,4 +61,5 @@ Rel(CBOSCaseworkBackOfficeSystem.MigrationFunctionApp, OperationalDataWarehouseO
 Rel(CBOSCaseworkBackOfficeSystem.MigrationFunctionApp, CBOSCaseworkBackOfficeSystem.WebCBOSAPI, "Writes records", $techn="", $tags="", $link="")
 
 SHOW_LEGEND(true)
+hide stereotypes
 @enduml

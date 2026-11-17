@@ -1,23 +1,32 @@
 @startuml
-set separator none
-title Function App - Command Handler
+title <size:24>Function App - Command Handler</size>
 
+set separator none
 left to right direction
+
+<style>
+  root {
+    BackgroundColor: #ffffff
+    FontColor: #444444
+  }
+</style>
 
 !include <C4/C4>
 !include <C4/C4_Context>
 !include <C4/C4_Container>
 !include <C4/C4_Component>
 
-Container(CBOSCaseworkBackOfficeSystem.CBOSFilestorage, "CBOS File storage", $techn="", $descr="(application-service-uploads) - Azure Blob Storage Container that contains all documents and document versions in CBOS", $tags="", $link="")
-Container(CBOSCaseworkBackOfficeSystem.FrontOfficeSubmissionsFilestorage, "Front Office Submissions File storage", $techn="", $descr="(application-submission-documents) - Azure Blob Storage Container that contains documents submitted from Front Office, also accessible by CBOS", $tags="", $link="")
-Container(CBOSCaseworkBackOfficeSystem.WebCBOSAPI, "Web CBOS API", $techn="Node.js, Azure Web App", $descr="CBOS API to perform CRUD operations on NSIP cases, documents, S51 Advice, Relevant Representations, Exam Timetables etc, on the database, and broadcast events to the Azure Service Bus", $tags="", $link="")
+System_Boundary("CBOSCaseworkBackOfficeSystem_boundary", "CBOS - Casework Back-Office System", $tags="") {
+  Container_Boundary("CBOSCaseworkBackOfficeSystem.CommandHandlerFunctionApp_boundary", "Command Handler Function App", $tags="") {
+    Component(CBOSCaseworkBackOfficeSystem.CommandHandlerFunctionApp.ProcessFrontOfficeDeadineSubmissions, "Process Front Office Deadine Submissions", $techn="Function App, JavaScript", $descr="Process written submissions from the Front Office", $tags="", $link="")
+    Component(CBOSCaseworkBackOfficeSystem.CommandHandlerFunctionApp.ForceTestaDeadineSubmission, "Force Test a Deadine Submission", $techn="Function App, JavaScript", $descr="Process written submissions from the Front Office", $tags="", $link="")
+    Component(CBOSCaseworkBackOfficeSystem.CommandHandlerFunctionApp.ProcessFrontOfficeSubscriptions, "Process Front Office Subscriptions", $techn="Function App, JavaScript", $descr="Process Email Subscription Updates from Front Office", $tags="", $link="")
+    Component(CBOSCaseworkBackOfficeSystem.CommandHandlerFunctionApp.ProcessRelevantRepresentations, "Process Relevant Representations", $techn="Function App, JavaScript", $descr="Process Relevant Representatios from Front Office", $tags="", $link="")
+  }
 
-Container_Boundary("CBOSCaseworkBackOfficeSystem.CommandHandlerFunctionApp_boundary", "Command Handler Function App", $tags="") {
-  Component(CBOSCaseworkBackOfficeSystem.CommandHandlerFunctionApp.ProcessFrontOfficeDeadineSubmissions, "Process Front Office Deadine Submissions", $techn="Function App, JavaScript", $descr="Process written submissions from the Front Office", $tags="", $link="")
-  Component(CBOSCaseworkBackOfficeSystem.CommandHandlerFunctionApp.ForceTestaDeadineSubmission, "Force Test a Deadine Submission", $techn="Function App, JavaScript", $descr="Process written submissions from the Front Office", $tags="", $link="")
-  Component(CBOSCaseworkBackOfficeSystem.CommandHandlerFunctionApp.ProcessFrontOfficeSubscriptions, "Process Front Office Subscriptions", $techn="Function App, JavaScript", $descr="Process Email Subscription Updates from Front Office", $tags="", $link="")
-  Component(CBOSCaseworkBackOfficeSystem.CommandHandlerFunctionApp.ProcessRelevantRepresentations, "Process Relevant Representations", $techn="Function App, JavaScript", $descr="Process Relevant Representatios from Front Office", $tags="", $link="")
+  Container(CBOSCaseworkBackOfficeSystem.WebCBOSAPI, "Web CBOS API", $techn="Node.js, Azure Web App", $descr="CBOS API to perform CRUD operations on NSIP cases, documents, S51 Advice, Relevant Representations, Exam Timetables etc, on the database, and broadcast events to the Azure Service Bus", $tags="", $link="")
+  Container(CBOSCaseworkBackOfficeSystem.CBOSFilestorage, "CBOS File storage", $techn="", $descr="(application-service-uploads) - Azure Blob Storage Container that contains all documents and document versions in CBOS", $tags="", $link="")
+  Container(CBOSCaseworkBackOfficeSystem.FrontOfficeSubmissionsFilestorage, "Front Office Submissions File storage", $techn="", $descr="(application-submission-documents) - Azure Blob Storage Container that contains documents submitted from Front Office, also accessible by CBOS", $tags="", $link="")
 }
 
 Rel(CBOSCaseworkBackOfficeSystem.WebCBOSAPI, CBOSCaseworkBackOfficeSystem.CBOSFilestorage, "Reads and writes applications documents to", $techn="", $tags="", $link="")
@@ -30,4 +39,5 @@ Rel(CBOSCaseworkBackOfficeSystem.CommandHandlerFunctionApp.ForceTestaDeadineSubm
 Rel(CBOSCaseworkBackOfficeSystem.CommandHandlerFunctionApp.ForceTestaDeadineSubmission, CBOSCaseworkBackOfficeSystem.CommandHandlerFunctionApp.ProcessFrontOfficeDeadineSubmissions, "Broadcast a test Deadline Submission message", $techn="Azure Service Bus Topic deadline-submission-topic", $tags="", $link="")
 
 SHOW_LEGEND(true)
+hide stereotypes
 @enduml

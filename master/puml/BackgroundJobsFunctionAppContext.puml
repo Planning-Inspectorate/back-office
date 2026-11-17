@@ -1,24 +1,34 @@
 @startuml
-set separator none
-title Function App - Background Jobs
+title <size:24>Function App - Background Jobs</size>
 
+set separator none
 left to right direction
+
+<style>
+  root {
+    BackgroundColor: #ffffff
+    FontColor: #444444
+  }
+</style>
 
 !include <C4/C4>
 !include <C4/C4_Context>
 !include <C4/C4_Container>
 !include <C4/C4_Component>
 
-Container(CBOSCaseworkBackOfficeSystem.CBOSFilestorage, "CBOS File storage", $techn="", $descr="(application-service-uploads) - Azure Blob Storage Container that contains all documents and document versions in CBOS", $tags="", $link="")
-Container(CBOSCaseworkBackOfficeSystem.PublishedFilestorage, "Published File storage", $techn="", $descr="(published-documents) - Azure Blob Storage Container that contains all Published documents, also accessible by Front Office", $tags="", $link="")
-Container(CBOSCaseworkBackOfficeSystem.WebCBOSAPI, "Web CBOS API", $techn="Node.js, Azure Web App", $descr="CBOS API to perform CRUD operations on NSIP cases, documents, S51 Advice, Relevant Representations, Exam Timetables etc, on the database, and broadcast events to the Azure Service Bus", $tags="", $link="")
 System(GOVNotify, "GOV Notify", $descr="UK government messaging platform for sending emails, text and letters to users", $tags="", $link="")
 
-Container_Boundary("CBOSCaseworkBackOfficeSystem.BackgroundJobsFunctionApp_boundary", "Background Jobs Function App", $tags="") {
-  Component(CBOSCaseworkBackOfficeSystem.BackgroundJobsFunctionApp.PublishDocument, "Publish Document", $techn="Function App, JavaScript", $descr="Publish a document to Front Office", $tags="", $link="")
-  Component(CBOSCaseworkBackOfficeSystem.BackgroundJobsFunctionApp.UnpublishDocument, "Unpublish Document", $techn="Function App, JavaScript", $descr="Unpublish a document from Front Office", $tags="", $link="")
-  Component(CBOSCaseworkBackOfficeSystem.BackgroundJobsFunctionApp.SendEmailtoSubscribers, "Send Email to Subscribers", $techn="Function App, JavaScript", $descr="Send an Email to Subscribers via Gov Notify", $tags="", $link="")
-  Component(CBOSCaseworkBackOfficeSystem.BackgroundJobsFunctionApp.UpdatesdocumentMalwareScanStatus, "Updates document Malware Scan Status", $techn="Function App, JavaScript", $descr="Updates Malware status of documents to CBOS", $tags="", $link="")
+System_Boundary("CBOSCaseworkBackOfficeSystem_boundary", "CBOS - Casework Back-Office System", $tags="") {
+  Container_Boundary("CBOSCaseworkBackOfficeSystem.BackgroundJobsFunctionApp_boundary", "Background Jobs Function App", $tags="") {
+    Component(CBOSCaseworkBackOfficeSystem.BackgroundJobsFunctionApp.PublishDocument, "Publish Document", $techn="Function App, JavaScript", $descr="Publish a document to Front Office", $tags="", $link="")
+    Component(CBOSCaseworkBackOfficeSystem.BackgroundJobsFunctionApp.UnpublishDocument, "Unpublish Document", $techn="Function App, JavaScript", $descr="Unpublish a document from Front Office", $tags="", $link="")
+    Component(CBOSCaseworkBackOfficeSystem.BackgroundJobsFunctionApp.SendEmailtoSubscribers, "Send Email to Subscribers", $techn="Function App, JavaScript", $descr="Send an Email to Subscribers via Gov Notify", $tags="", $link="")
+    Component(CBOSCaseworkBackOfficeSystem.BackgroundJobsFunctionApp.UpdatesdocumentMalwareScanStatus, "Updates document Malware Scan Status", $techn="Function App, JavaScript", $descr="Updates Malware status of documents to CBOS", $tags="", $link="")
+  }
+
+  Container(CBOSCaseworkBackOfficeSystem.WebCBOSAPI, "Web CBOS API", $techn="Node.js, Azure Web App", $descr="CBOS API to perform CRUD operations on NSIP cases, documents, S51 Advice, Relevant Representations, Exam Timetables etc, on the database, and broadcast events to the Azure Service Bus", $tags="", $link="")
+  Container(CBOSCaseworkBackOfficeSystem.CBOSFilestorage, "CBOS File storage", $techn="", $descr="(application-service-uploads) - Azure Blob Storage Container that contains all documents and document versions in CBOS", $tags="", $link="")
+  Container(CBOSCaseworkBackOfficeSystem.PublishedFilestorage, "Published File storage", $techn="", $descr="(published-documents) - Azure Blob Storage Container that contains all Published documents, also accessible by Front Office", $tags="", $link="")
 }
 
 Rel(CBOSCaseworkBackOfficeSystem.WebCBOSAPI, CBOSCaseworkBackOfficeSystem.CBOSFilestorage, "Reads and writes applications documents to", $techn="", $tags="", $link="")
@@ -34,4 +44,5 @@ Rel(CBOSCaseworkBackOfficeSystem.CBOSFilestorage, CBOSCaseworkBackOfficeSystem.B
 Rel(CBOSCaseworkBackOfficeSystem.BackgroundJobsFunctionApp.UpdatesdocumentMalwareScanStatus, CBOSCaseworkBackOfficeSystem.WebCBOSAPI, "Updates applications documents records malware check status", $techn="", $tags="", $link="")
 
 SHOW_LEGEND(true)
+hide stereotypes
 @enduml

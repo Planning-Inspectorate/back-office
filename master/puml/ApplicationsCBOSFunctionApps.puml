@@ -1,8 +1,15 @@
 @startuml
-set separator none
-title Applications Back-Office Function Apps
+title <size:24>Applications Back-Office Function Apps</size>\n<size:24>Shows the function apps within the Applications Back-Office system CBOS - these are responsible for consuming messages from the Service Bus and updating the Azure SQL database.</size>
 
+set separator none
 top to bottom direction
+
+<style>
+  root {
+    BackgroundColor: #ffffff
+    FontColor: #444444
+  }
+</style>
 
 !include <C4/C4>
 !include <C4/C4_Context>
@@ -33,4 +40,5 @@ Rel(CBOSCaseworkBackOfficeSystem.CBOSFilestorage, CBOSCaseworkBackOfficeSystem.B
 Rel(CBOSCaseworkBackOfficeSystem.MigrationFunctionApp, CBOSCaseworkBackOfficeSystem.WebCBOSAPI, "Writes records", $techn="", $tags="", $link="")
 
 SHOW_LEGEND(true)
+hide stereotypes
 @enduml
