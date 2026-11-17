@@ -1,11 +1,10 @@
 //@ts-nocheck
 import { getExaminationLibrarySectionViewModel } from '../applications-examination-library-section.view-model.js';
-import { fixtureDynamicSections } from '../../../../../../testing/applications/fixtures/examination-library.js';
 
 describe('applications examination library section view model', () => {
 	describe('#getExaminationLibrarySectionViewModel', () => {
-		const dynamicSections = fixtureDynamicSections;
-		const sectionStatus = 'published';
+		const inProgressSectionStatus = 'in progress';
+		const publishedSectionStatus = 'published';
 		const baseDocument = {
 			caseId: 123,
 			folderId: 1,
@@ -17,7 +16,8 @@ describe('applications examination library section view model', () => {
 				version: 1,
 				mime: 'document',
 				publishedStatus: 'not_checked',
-				author: 'Test Person'
+				author: 'Test Person',
+				draftExaminationLibraryReference: 'APP-001'
 			}
 		};
 		const query = {};
@@ -29,9 +29,8 @@ describe('applications examination library section view model', () => {
 			const itemSlug = 'application-documents';
 
 			const result = getExaminationLibrarySectionViewModel({
-				dynamicSections,
 				sectionDocuments,
-				sectionStatus,
+				sectionStatus: inProgressSectionStatus,
 				itemSlug,
 				query,
 				sectionUrl
@@ -41,21 +40,22 @@ describe('applications examination library section view model', () => {
 				expect.objectContaining({
 					selectedPageType: 'examination-library',
 					sectionHeading: 'Application documents',
-					sectionStatus: 'Published',
+					sectionStatus: 'In progress',
 					sectionTable: {
 						firstCellIsHeader: false,
 						rows: [
 							[
-								{ text: '' },
+								{ text: 'APP-001' },
 								{ html: 'test document description' },
 								{ text: 'Not checked' },
 								{
-									html: `<a href="/applications-service/case/123/project-documentation/1/document/test-guid/properties" class="govuk-link">Review</a>`
+									text: 'Review',
+									href: '/applications-service/case/123/project-documentation/1/document/test-guid/properties'
 								}
 							]
 						],
 						head: [
-							{ text: 'Reference' },
+							{ text: 'Draft reference' },
 							{ text: 'Document description' },
 							{ text: 'Status' },
 							{ text: 'Actions' }
@@ -72,9 +72,8 @@ describe('applications examination library section view model', () => {
 			const itemSlug = 'additional-submissions';
 
 			const result = getExaminationLibrarySectionViewModel({
-				dynamicSections,
 				sectionDocuments,
-				sectionStatus,
+				sectionStatus: inProgressSectionStatus,
 				itemSlug,
 				query,
 				sectionUrl
@@ -84,22 +83,23 @@ describe('applications examination library section view model', () => {
 				expect.objectContaining({
 					selectedPageType: 'examination-library',
 					sectionHeading: 'Additional submissions',
-					sectionStatus: 'Published',
+					sectionStatus: 'In progress',
 					sectionTable: {
 						firstCellIsHeader: false,
 						rows: [
 							[
-								{ text: '' },
+								{ text: 'APP-001' },
 								{ html: 'test document description' },
 								{ text: 'Test Person' },
 								{ text: 'Not checked' },
 								{
-									html: `<a href="/applications-service/case/123/project-documentation/1/document/test-guid/properties" class="govuk-link">Review</a>`
+									text: 'Review',
+									href: '/applications-service/case/123/project-documentation/1/document/test-guid/properties'
 								}
 							]
 						],
 						head: [
-							{ text: 'Reference' },
+							{ text: 'Draft reference' },
 							{ text: 'Document description' },
 							{ text: 'From' },
 							{ text: 'Status' },
@@ -122,9 +122,8 @@ describe('applications examination library section view model', () => {
 			const itemSlug = 'additional-submissions';
 
 			const result = getExaminationLibrarySectionViewModel({
-				dynamicSections,
 				sectionDocuments,
-				sectionStatus,
+				sectionStatus: publishedSectionStatus,
 				itemSlug,
 				query,
 				sectionUrl
@@ -139,7 +138,7 @@ describe('applications examination library section view model', () => {
 						firstCellIsHeader: false,
 						rows: [
 							[
-								{ text: '' },
+								{ text: 'APP-001' },
 								{ text: 'Document has been deleted' },
 								{ text: '' },
 								{ text: '' },
@@ -170,9 +169,8 @@ describe('applications examination library section view model', () => {
 			const itemSlug = 'additional-submissions';
 
 			const result = getExaminationLibrarySectionViewModel({
-				dynamicSections,
 				sectionDocuments,
-				sectionStatus,
+				sectionStatus: publishedSectionStatus,
 				itemSlug,
 				query,
 				sectionUrl
@@ -205,9 +203,8 @@ describe('applications examination library section view model', () => {
 			const itemSlug = 'invalid-slug';
 
 			const result = getExaminationLibrarySectionViewModel({
-				dynamicSections,
 				sectionDocuments,
-				sectionStatus,
+				sectionStatus: inProgressSectionStatus,
 				itemSlug
 			});
 
@@ -216,9 +213,8 @@ describe('applications examination library section view model', () => {
 
 		it('should include the active sort in the view model', () => {
 			const result = getExaminationLibrarySectionViewModel({
-				dynamicSections,
 				sectionDocuments: [baseDocument],
-				sectionStatus,
+				sectionStatus: inProgressSectionStatus,
 				itemSlug: 'application-documents',
 				query: {
 					sortBy: 'description'
@@ -240,6 +236,59 @@ describe('applications examination library section view model', () => {
 			);
 
 			expect(descriptionSort.link).toContain('sortBy=-description');
+		});
+
+		it('should display Reference heading when the section is published', () => {
+			const result = getExaminationLibrarySectionViewModel({
+				sectionDocuments: [baseDocument],
+				sectionStatus: publishedSectionStatus,
+				itemSlug: 'application-documents',
+				query,
+				sectionUrl
+			});
+
+			expect(result?.sectionTable.head[0]).toEqual({
+				text: 'Reference'
+			});
+		});
+
+		it('should display Draft reference heading when the section is in progress', () => {
+			const result = getExaminationLibrarySectionViewModel({
+				sectionDocuments: [baseDocument],
+				sectionStatus: inProgressSectionStatus,
+				itemSlug: 'application-documents',
+				query,
+				sectionUrl
+			});
+
+			expect(result?.sectionTable.head[0]).toEqual({
+				text: 'Draft reference'
+			});
+		});
+
+		it('should display the persisted examination library reference when one exists', () => {
+			const sectionDocuments = [
+				{
+					...baseDocument,
+					latestDocumentVersion: {
+						...baseDocument.latestDocumentVersion,
+						draftExaminationLibraryReference: undefined,
+						examinationRefNo: 'APP-001a'
+					}
+				}
+			];
+
+			const result = getExaminationLibrarySectionViewModel({
+				sectionDocuments,
+				sectionStatus: inProgressSectionStatus,
+				itemSlug: 'application-documents',
+				query,
+				sectionUrl
+			});
+
+			expect(result?.sectionTable.rows[0][0]).toEqual({
+				text: 'APP-001a'
+			});
 		});
 	});
 });

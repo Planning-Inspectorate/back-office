@@ -158,3 +158,87 @@ export const sortExaminationLibraryDocuments = (documents, sort = null) => {
 		return compareBySelectedSort(firstDocument, secondDocument, validSort);
 	});
 };
+
+/**
+ * Generate draft Examination Library references for documents.
+ *
+ * @param {ExaminationLibraryDocument[]} documents
+ * @param {number} [startingReferenceNumber]
+ * @returns {ExaminationLibraryDocument[]}
+ */
+export const generateDraftExaminationLibraryReferences = (
+	documents,
+	startingReferenceNumber = 1
+) => {
+	let draftReferenceIndex = startingReferenceNumber;
+
+	return documents.map((document) => {
+		const latestDocumentVersion = document.latestDocumentVersion;
+
+		if (latestDocumentVersion?.examinationRefNo) {
+			return document;
+		}
+
+		const categoryCode = latestDocumentVersion?.ExaminationLibraryCategory?.categoryCode;
+
+		const draftExaminationLibraryReference = `${categoryCode}-${String(draftReferenceIndex).padStart(3, '0')}`;
+
+		draftReferenceIndex++;
+
+		return {
+			...document,
+			latestDocumentVersion: {
+				...latestDocumentVersion,
+				draftExaminationLibraryReference
+			}
+		};
+	});
+};
+
+/**
+ *
+ * @param {ExaminationLibraryDocument[]} documents
+ * @returns {ExaminationLibraryDocument[]}}
+ */
+export const addDraftExaminationLibraryReferences = (documents) => {
+	const lockedDocuments = documents.filter(
+		(document) => document.latestDocumentVersion?.examinationLibraryReferenceLocked
+	);
+
+	const unlockedDocuments = documents.filter(
+		(document) => !document.latestDocumentVersion?.examinationLibraryReferenceLocked
+	);
+
+	const sortedLockedDocuments = sortExaminationLibraryDocuments(lockedDocuments);
+
+	const sortedUnlockedDocuments = sortExaminationLibraryDocuments(unlockedDocuments);
+
+	const nextReferenceNumber = getNextExaminationLibraryReferenceNumber(lockedDocuments);
+
+	const documentsWithDraftReferences = generateDraftExaminationLibraryReferences(
+		sortedUnlockedDocuments,
+		nextReferenceNumber
+	);
+
+	return [...sortedLockedDocuments, ...documentsWithDraftReferences];
+};
+
+/**
+ * Get the next available Examination Library reference number
+ * after the existing locked references.
+ *
+ * @param {ExaminationLibraryDocument[]} documents
+ * @returns {number}
+ */
+const getNextExaminationLibraryReferenceNumber = (documents) => {
+	const referenceNumbers = documents
+		.map((document) => document.latestDocumentVersion?.examinationRefNo)
+		.filter(Boolean)
+		.map((reference) => {
+			const match = reference.match(/-(\d+)/);
+
+			return match ? Number(match[1]) : 0;
+		});
+
+	return referenceNumbers.length ? Math.max(...referenceNumbers) + 1 : 1;
+};

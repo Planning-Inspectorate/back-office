@@ -1,0 +1,81 @@
+{% extends "../layouts/applications.layout.njk" %}
+{% from "govuk/components/back-link/macro.njk" import govukBackLink %}
+{% from "govuk/components/button/macro.njk" import govukButton %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+{% from "govuk/components/warning-text/macro.njk" import govukWarningText %}
+{% from "govuk/components/table/macro.njk" import govukTable %}
+{% from "applications/components/pagination/results-per-page.component.njk" import uiPageSizeInformation, uiPaginationLinks %}
+
+{% set pageTitle = "Check details and publish " + sectionHeading + " to the examination library - " + case.title + " - NSIP applications" %}
+
+{% block pageTitle %}{{ pageTitle }}{% endblock %}
+
+{% block beforeContent %}
+	<aside>
+		{{ govukBackLink({
+			text: "Back",
+			href: backLink
+		}) }}
+	</aside>
+{% endblock %}
+
+{% block pageHeading %}
+	<h1 class="govuk-heading-l">
+		Check details and publish {{ sectionHeading }} to the examination library
+	</h1>
+{% endblock %}
+
+{% block pageContent %}
+	<p class="govuk-body">
+		{{ totalItemsText }}
+	</p>
+
+	{% if hasUnpublishedItems %}
+		{{ govukInsetText({
+			text: unpublishedInsetText
+		}) }}
+	{% endif %}
+
+	<h2 class="govuk-heading-m">{{ sectionHeading }}</h2>
+
+	{{ uiPageSizeInformation(pagination) }}
+
+	{% set tableRows = [] %}
+	{% for row in sectionTable.rows %}
+		{% set docCell = row[1] %}
+		{% set docHtml %}
+			{% if docCell.href %}
+				<a href="{{ docCell.href }}" class="govuk-link">{{ docCell.text }}</a>
+			{% else %}
+				{{ docCell.text }}
+			{% endif %}
+		{% endset %}
+		{% set tableRows = tableRows | concat([[
+			row[0],
+			{ html: docHtml | trim },
+			row[2]
+		]]) %}
+	{% endfor %}
+
+	{{ govukTable({
+		caption: sectionHeading,
+		captionClasses: sectionTable.captionClasses,
+		firstCellIsHeader: sectionTable.firstCellIsHeader,
+		head: sectionTable.head,
+		rows: tableRows
+	}) }}
+
+	{{ uiPaginationLinks(pagination) }}
+
+	{{ govukWarningText({
+		text: warningText,
+		iconFallbackText: "Warning"
+	}) }}
+
+	<form method="post" action="{{ publishUrl }}">
+		{{ govukButton({
+			text: "Publish to examination library",
+			type: "submit"
+		}) }}
+	</form>
+{% endblock %}
