@@ -1,6 +1,6 @@
 // @ts-nocheck
 import fs from 'node:fs/promises';
-import json from '../../../apps/api/src/server/swagger-output.json' assert { type: 'json' };
+import json from '../../../apps/api/src/server/swagger-output.json' with { type: 'json' };
 
 const extractSwaggerInfo = (swaggerDoc) => {
 	const extractedData = [];

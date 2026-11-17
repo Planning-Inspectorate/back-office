@@ -44,6 +44,7 @@ export const getCategories = (caseId, filters = {}) => {
 export const createCategories = (caseId, categoriesData) => {
 	const dataToInsert = categoriesData.map((category) => ({
 		...category,
+		source: category.source ?? 'STATIC',
 		caseId
 	}));
 
@@ -66,11 +67,11 @@ export const createCategories = (caseId, categoriesData) => {
 export const getDocuments = (caseId, filters = {}) => {
 	// The frontend requires documents linked to a category for this case.
 	// Since documents are linked to categories via their latestDocumentVersion
+	// Deleted files are included as they need to be displayed on category subpages
 
 	/** @type {Record<string, any>} */
 	const versionWhere = {
-		examinationLibraryCategoryId: { not: null },
-		isDeleted: false
+		examinationLibraryCategoryId: { not: null }
 	};
 
 	if (filters.categoryCode) {
@@ -83,10 +84,13 @@ export const getDocuments = (caseId, filters = {}) => {
 		versionWhere.publishedStatus = filters.publishedStatus;
 	}
 
+	if (filters.examinationRefNo) {
+		versionWhere.examinationRefNo = { not: null };
+	}
+
 	return databaseConnector.document.findMany({
 		where: {
 			caseId,
-			isDeleted: false,
 			latestDocumentVersion: versionWhere
 		},
 		include: {
@@ -95,9 +99,6 @@ export const getDocuments = (caseId, filters = {}) => {
 					ExaminationLibraryCategory: true
 				}
 			}
-		},
-		orderBy: {
-			createdAt: 'desc' // initial sort order to be confirmed
 		}
 	});
 };
@@ -110,4 +111,140 @@ export const getDocuments = (caseId, filters = {}) => {
  */
 export const createStaticCategories = (caseId) => {
 	return createCategories(caseId, EXAM_LIBRARY_STATIC_CATEGORIES);
+};
+
+/**
+ * Get a document in a case whose latest version has the given
+ * published Examination Library reference.
+ *
+ * @param {number} caseId
+ * @param {string} examinationRefNo
+ * @returns {import('#database-client').PrismaPromise<import('#database-client').Document | null>}
+ */
+export const getLockedDocumentByExaminationReference = (caseId, examinationRefNo) => {
+	return databaseConnector.document.findFirst({
+		where: {
+			caseId,
+			latestDocumentVersion: {
+				examinationRefNo,
+				examinationLibraryReferenceLocked: true
+			}
+		}
+	});
+};
+
+/**
+ * Marks the Examination Library category as published
+ * Sets the Examination Library reference for each category document
+ * Returns the updated Examination Library category document data for broadcast
+ *
+ * @param {number} caseId
+ * @param {string} categoryCode
+ * @param {Array} [documents]
+ * @returns {Promise<{caseReference: string, documents: any[]}>}
+ */
+export const publishCategory = async (caseId, categoryCode, documents = []) => {
+	return databaseConnector.$transaction(async (tx) => {
+		await tx.examinationLibraryCategory.updateMany({
+			where: {
+				caseId,
+				categoryCode
+			},
+			data: { publishedStatus: 'published' }
+		});
+
+		for (const document of documents) {
+			if (document.latestDocumentVersion?.examinationLibraryReferenceLocked) {
+				continue;
+			}
+
+			const examinationRefNo = document.latestDocumentVersion?.draftExaminationLibraryReference;
+			if (!examinationRefNo) continue;
+
+			await tx.documentVersion.update({
+				where: {
+					documentGuid_version: {
+						documentGuid: document.guid,
+						version: document.latestDocumentVersion.version
+					}
+				},
+				data: {
+					examinationLibraryReferenceLocked: true,
+					examinationRefNo
+				}
+			});
+		}
+
+		const caseData = await tx.case.findUnique({
+			where: { id: caseId },
+			select: { reference: true }
+		});
+
+		if (!caseData) {
+			throw new Error(`Case reference not found for case ${caseId}`);
+		}
+
+		const publishedCategoryDocuments = await tx.document.findMany({
+			where: {
+				caseId,
+				latestDocumentVersion: {
+					examinationLibraryCategoryId: { not: null },
+					examinationLibraryReferenceLocked: true,
+					ExaminationLibraryCategory: { categoryCode }
+				}
+			},
+			include: {
+				latestDocumentVersion: {
+					include: {
+						ExaminationLibraryCategory: true
+					}
+				}
+			}
+		});
+
+		return {
+			caseId,
+			caseReference: caseData.reference,
+			documents: publishedCategoryDocuments
+		};
+	});
+};
+
+/**
+ * Marks the Examination Library category as unpublished
+ * Returns category data for broadcast
+ *
+ * @param {number} caseId
+ * @param {string | string[]} categoryCode
+ * @returns {Promise<{caseReference: string, categories: string[]}>}
+ */
+export const unpublishCategory = async (caseId, categoryCode) => {
+	const categoryCodes = Array.isArray(categoryCode) ? categoryCode : [categoryCode];
+
+	return databaseConnector.$transaction(async (tx) => {
+		await tx.examinationLibraryCategory.updateMany({
+			where: {
+				caseId,
+				categoryCode: { in: categoryCodes }
+			},
+			data: {
+				publishedStatus: 'unpublished'
+			}
+		});
+
+		const caseData = await tx.case.findUnique({
+			where: { id: caseId },
+			select: { reference: true }
+		});
+
+		if (!caseData) {
+			throw new Error(`Case reference not found for case ${caseId}`);
+		}
+
+		return {
+			caseId,
+			caseReference: caseData.reference,
+			categories: categoryCodes
+		};
+	});
 };

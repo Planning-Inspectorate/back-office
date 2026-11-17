@@ -5,6 +5,14 @@ import { mapDateToUnixTimestamp } from './map-date-to-unix-timestamp.js';
  * @typedef {import('#database-client').Document} Document
  * @typedef {import('@pins/applications.api').Schema.DocumentDetails} DocumentDetails
  * @typedef {import('@pins/applications.api').Schema.DocumentVersionWithDocumentAndActivityLog} DocumentVersionWithDocumentAndActivityLog
+ * @typedef {DocumentVersionWithDocumentAndActivityLog & {
+ *   examinationLibraryCategoryId: number | null,
+ *   examinationLibraryReferenceLocked: boolean | null,
+ *   ExaminationLibraryCategory: {
+ *     categoryCode: string | null,
+ *     categoryName: string | null
+ *   } | null
+ * }} DocumentVersionWithExaminationLibraryDetails
  */
 
 /**
@@ -70,6 +78,22 @@ export const mapSingleDocumentDetailsFromVersion = ({
 		transcript: documentVersion?.transcript?.documentReference ?? ''
 	};
 };
+
+/**
+ *
+ * @param {DocumentVersionWithExaminationLibraryDetails} documentVersion
+ * @returns {{
+ * 	examinationLibraryCategoryId: number | null,
+ * 	examinationLibraryCategoryCode: string | null,
+ * 	examinationLibraryCategoryName: string | null
+ * }}
+ */
+export const mapExaminationLibraryDetails = (documentVersion) => ({
+	examinationLibraryCategoryId: documentVersion.examinationLibraryCategoryId ?? null,
+	examinationLibraryCategoryCode: documentVersion.ExaminationLibraryCategory?.categoryCode ?? null,
+	examinationLibraryCategoryName: documentVersion.ExaminationLibraryCategory?.categoryName ?? null,
+	examinationLibraryReferenceLocked: documentVersion.examinationLibraryReferenceLocked ?? null
+});
 
 /**
  *

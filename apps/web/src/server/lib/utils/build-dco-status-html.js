@@ -13,6 +13,6 @@ export const buildDcoStatusHtml = (caseItem) => {
 	return dcoStatusKey
 		? `<strong class="govuk-tag ${getDcoStatusTagClasses(dcoStatusKey)}">${getDcoStatusDisplayName(
 				dcoStatusKey
-		  )}</strong>`
+			)}</strong>`
 		: '';
 };

@@ -15,6 +15,8 @@ import slugify from 'slugify';
   * @property {string=} query
   * @property {number=} feeId
   * @property {number=} meetingId
+  * @property {number=} version
+  * @property {boolean=} isPreviewActive
   * @property {Partial<DocumentationCategory>=} documentationCategory
  *  @property {string=} slug
   */
@@ -170,7 +172,11 @@ export const url = (key, filterArguments = {}) => {
 		case 'examination-library':
 			return `${domainUrl}/case/${caseId}/examination-library`;
 		case 'examination-library-section':
-			return `${domainUrl}/case/${caseId}/examination-library/${slug}`;
+			return `${domainUrl}/case/${caseId}/examination-library/category/${slug}`;
+		case 'examination-library-publish':
+			return `${domainUrl}/case/${caseId}/examination-library/category/${slug}/publish`;
+		case 'examination-library-unpublish':
+			return `${domainUrl}/case/${caseId}/examination-library/category/${slug}/unpublish`;
 		default:
 			return 'app/404';
 	}

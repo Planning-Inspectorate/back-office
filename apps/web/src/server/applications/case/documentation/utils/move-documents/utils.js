@@ -130,7 +130,7 @@ const getBackLinkUrlFromBreadcrumbs = (breadcrumbItems, caseId, folderId, folder
 	let backLink = '';
 
 	if (!breadcrumbItems || breadcrumbItems.length === 0) {
-		return (backLink = `${baseURL}move-documents`);
+		return `${baseURL}move-documents`;
 	}
 
 	if (breadcrumbItems.length > 1) {

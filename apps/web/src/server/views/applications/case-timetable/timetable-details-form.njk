@@ -69,7 +69,8 @@
 							errorMessage: errors.name | errorMessage,
 							value: values.name,
 							hint: {
-								text: "There is a limit of 200 characters"
+								text: "For example, Deadline 1" if selectedItemType.templateType == "deadline"
+									else "There is a limit of 200 characters"
 							}
 					}) }}
 				{% endif %}
@@ -142,6 +143,12 @@
 				{% if selectedItemType.templateType == 'deadline' %}
 					{{ govukInsetText({
 						text: "The portal for this deadline will open when the previous one closes or on your chosen start and end dates."
+					}) }}
+				{% endif %}
+
+				{% if selectedItemType.templateType == 'unaccompanied-site-inspection' %}
+					{{ govukInsetText({
+						text: "You should only add an unaccompanied site inspection to the examination timetable after the event has taken place."
 					}) }}
 				{% endif %}
 

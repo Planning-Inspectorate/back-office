@@ -1,5 +1,5 @@
 // @ts-nocheck
-import data from '../../schemas/applications-zoom-level-get.json' assert { type: 'json' };
+import data from '../../schemas/applications-zoom-level-get.json' with { type: 'json' };
 import { TestService } from '../../services/test-service.js';
 
 const schema = data.responses[200].schema;

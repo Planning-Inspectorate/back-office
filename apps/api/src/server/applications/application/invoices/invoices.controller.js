@@ -18,6 +18,7 @@ const additionalProjectEntities = {
 	zoomLevel: true,
 	regions: true,
 	caseStatus: true,
+	casePublishedState: true,
 	projectTeam: true,
 	gridReference: true,
 	invoice: true,

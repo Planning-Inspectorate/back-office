@@ -1,8 +1,9 @@
-import { post, patch } from '../../../lib/request.js';
+import { get, post, patch } from '../../../lib/request.js';
 import pino from '../../../lib/logger.js';
 
 /** @typedef {import('../../applications.types.js').DocumentationFile} DocumentationFile */
 /** @typedef {import('@pins/express').ValidationErrors} ValidationErrors */
+/** @typedef {import('../../applications.types.js').ExaminationLibraryCategory} ExaminationLibraryCategory */
 
 /**
  * Save new / updated metadata for the document
@@ -24,11 +25,25 @@ export const updateDocumentMetaData = async (caseId, documentGuid, newMetaData) 
 			json: newMetaData
 		});
 	} catch (/** @type {*} */ error) {
-		const errorMessage = {
-			[Object.keys(newMetaData)[0]]: !error?.response?.body?.errors.transcript
-				? 'An error occurred, please try again later'
-				: 'Please enter a valid document reference number.'
-		};
+		const apiErrors = error?.response?.body?.errors;
+
+		let errorMessage;
+
+		if (apiErrors?.examinationRefNo) {
+			errorMessage = {
+				examinationRefNo: apiErrors.examinationRefNo
+			};
+		} else if (apiErrors?.transcript) {
+			errorMessage = {
+				[Object.keys(newMetaData)[0]]: 'Please enter a valid document reference number.'
+			};
+		} else {
+			errorMessage = {
+				[Object.keys(newMetaData)[0]]: 'An error occurred, please try again later'
+			};
+		}
+
+		pino.error(`[API] ${apiErrors?.transcript || apiErrors || 'Unknown error'}`);
 
 		pino.error(
 			`[API] ${
@@ -82,4 +97,21 @@ export const updatePublishedStatusMetadata = async (newStatus, documentGuid, cas
 	}
 
 	return response;
+};
+
+/**
+ * @param {number} caseId
+ * @returns {Promise<ExaminationLibraryCategory[]>}
+ */
+export const getExaminationLibraryCategories = async (caseId) => {
+	try {
+		return await get(`applications/${caseId}/examination-library`);
+	} catch (/** @type {*} */ error) {
+		pino.error(
+			{ err: error, caseId },
+			`[API] Failed to get examination library categories for caseId: ${caseId}`
+		);
+
+		throw error;
+	}
 };

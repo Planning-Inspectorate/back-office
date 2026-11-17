@@ -95,4 +95,4 @@ const mapStatus = (status) =>
 		donotpublish: 'donotpublish',
 		'do not publish': 'donotpublish',
 		depublished: 'unchecked'
-	}[status]);
+	})[status];

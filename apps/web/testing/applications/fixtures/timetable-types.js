@@ -10,7 +10,8 @@ export const fixtureTimetableTypes = [
 	'preliminary-meeting',
 	'procedural-deadline',
 	'procedural-decision',
-	'publication-of'
+	'publication-of',
+	'unaccompanied-site-inspection'
 ].map((name) => ({
 	name,
 	templateType: name,

@@ -493,6 +493,12 @@ export const examinationTimetableTypes = [
 		templateType: 'publication-of',
 		displayNameEn: 'Publication of',
 		displayNameCy: 'Publication of'
+	},
+	{
+		name: 'Unaccompanied Site Inspection',
+		templateType: 'unaccompanied-site-inspection',
+		displayNameEn: 'Unaccompanied site inspection',
+		displayNameCy: 'Unaccompanied site inspection'
 	}
 ];
 
