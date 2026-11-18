@@ -1,4 +1,3 @@
-import { mergeSections } from './applications-examination-library-index.view-model.js';
 import { url } from '../../../lib/nunjucks-filters/index.js';
 import {
 	getResultsPerPage,
@@ -16,19 +15,13 @@ import { tableSortingHeaderLinks } from '../../common/components/table/table-sor
  */
 
 /**
- * @typedef {import('./applications-examination-library-index.view-model.js').ExaminationLibraryDynamicSection} ExaminationLibraryDynamicSection
- */
-
-/**
  * Get Examination Library section data from section item slug
  *
- * @param {ExaminationLibrarySection[]} staticSections
- * @param {ExaminationLibraryDynamicSection[]} dynamicSections
+ * @param {ExaminationLibrarySection[]} sections
  * @param {string} itemSlug
  * @returns {ExaminationLibrarySection|null}
  */
-export const getSectionByItemSlug = (staticSections, dynamicSections, itemSlug) => {
-	const sections = mergeSections(staticSections, dynamicSections);
+export const getSectionByItemSlug = (sections, itemSlug) => {
 	const section = sections.find((section) => section.items.some((item) => item.href === itemSlug));
 	return section ? section : null;
 };
@@ -58,11 +51,14 @@ export const getCategoryCode = (section, categoryCodes) => {
  * @property {number} version
  * @property {string} fileName
  * @property {string} description
+ * @property {string} author
+ * @property {boolean} [examinationLibraryReferenceLocked]
  */
 
 /**
  * @typedef {object} ExaminationLibrarySectionDocument
  * @property {number} caseId
+ * @property {boolean} [isDeleted]
  * @property {ExaminationLibraryDocumentVersion} latestDocumentVersion
  */
 
@@ -81,33 +77,33 @@ export const getDocumentDescriptionHTML = (sectionDocument) => {
 		return '';
 	}
 
+	const { publishedStatus, mime, documentGuid, version, description, author } =
+		sectionDocument.latestDocumentVersion;
+
+	if (!description || !author) {
+		return 'Missing property';
+	}
+
 	const isNotDisabled =
-		sectionDocument.latestDocumentVersion.publishedStatus !== 'awaiting_upload' &&
-		sectionDocument.latestDocumentVersion.publishedStatus !== 'awaiting_virus_check' &&
-		sectionDocument.latestDocumentVersion.publishedStatus !== 'failed_virus_check';
+		publishedStatus !== 'awaiting_upload' &&
+		publishedStatus !== 'awaiting_virus_check' &&
+		publishedStatus !== 'failed_virus_check';
 
 	const isPreviewActive =
-		isNotDisabled &&
-		(sectionDocument.latestDocumentVersion.mime === 'application/pdf' ||
-			sectionDocument.latestDocumentVersion.mime === 'image/jpeg' ||
-			sectionDocument.latestDocumentVersion.mime === 'image/png');
+		isNotDisabled && (mime === 'application/pdf' || mime === 'image/jpeg' || mime === 'image/png');
+
+	if (!isPreviewActive) {
+		return description;
+	}
 
 	const documentPreviewURL = url('document-download', {
 		caseId: sectionDocument.caseId,
-		documentGuid: sectionDocument.latestDocumentVersion.documentGuid,
-		version: sectionDocument.latestDocumentVersion.version,
-		isPreviewActive: isPreviewActive
+		documentGuid,
+		version,
+		isPreviewActive
 	});
 
-	let documentDescriptionHTML;
-
-	if (isPreviewActive) {
-		documentDescriptionHTML = `<a href="${documentPreviewURL}" class="govuk-link">${sectionDocument.latestDocumentVersion.description}</a>`;
-	} else {
-		documentDescriptionHTML = sectionDocument.latestDocumentVersion.description;
-	}
-
-	return documentDescriptionHTML;
+	return `<a href="${documentPreviewURL}" class="govuk-link">${description}</a>`;
 };
 
 /**
@@ -141,6 +137,7 @@ export const tableSortLinks = (query, headers, sectionUrl, isPublished) =>
 	headers.map((header) => {
 		switch (header) {
 			case 'Reference':
+			case 'Draft reference':
 				return tableSortingHeaderLinks(
 					query,
 					header,

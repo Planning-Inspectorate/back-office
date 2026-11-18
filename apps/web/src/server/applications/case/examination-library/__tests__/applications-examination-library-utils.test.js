@@ -7,16 +7,14 @@ import {
 	tableSortLinks
 } from '../applications-examination-library-utils.js';
 import { categoryCodes, examinationLibrarySections } from '../examination-library.constants.js';
-import { fixtureDynamicSections } from '../../../../../../testing/applications/fixtures/examination-library.js';
 
 describe('applications examination library utils', () => {
 	describe('#getSectionByItemSlug', () => {
 		const staticSections = examinationLibrarySections;
-		const dynamicSections = fixtureDynamicSections;
 
 		it('should return static section data if item slug is valid', () => {
 			const itemSlug = 'application-documents';
-			const result = getSectionByItemSlug(staticSections, dynamicSections, itemSlug);
+			const result = getSectionByItemSlug(staticSections, itemSlug);
 
 			expect(result).toEqual({
 				index: 1,
@@ -33,31 +31,9 @@ describe('applications examination library utils', () => {
 			});
 		});
 
-		it('should return dynamic section data if item slug is valid', () => {
-			const itemSlug = 'deadlines-1';
-			const result = getSectionByItemSlug(staticSections, dynamicSections, itemSlug);
-
-			expect(result).toEqual({
-				index: 9,
-				heading: 'Deadlines',
-				slug: 'deadlines',
-				items: [
-					{
-						title: 'Deadlines 1',
-						href: 'deadlines-1'
-					},
-					{
-						title: 'Deadlines 2',
-						href: 'deadlines-2'
-					}
-				],
-				tableHeaders: ['Reference', 'Document description', 'From', 'Status', 'Actions']
-			});
-		});
-
 		it('should return null if item slug is NOT valid', () => {
 			const itemSlug = 'invalid-slug';
-			const result = getSectionByItemSlug(staticSections, dynamicSections, itemSlug);
+			const result = getSectionByItemSlug(staticSections, itemSlug);
 
 			expect(result).toEqual(null);
 		});
@@ -87,7 +63,8 @@ describe('applications examination library utils', () => {
 				documentGuid: 'test-guid',
 				fileName: 'doc-1',
 				description: 'doc-1',
-				version: 1
+				version: 1,
+				author: 'John Doe'
 			}
 		};
 
@@ -157,6 +134,42 @@ describe('applications examination library utils', () => {
 
 				expect(result).toEqual('doc-1');
 			});
+		});
+
+		it('should return "Missing property" if the document description is missing', () => {
+			const document = {
+				caseId: 123,
+				latestDocumentVersion: {
+					documentGuid: 'test-guid',
+					version: 1,
+					description: null,
+					author: 'Test author',
+					mime: 'application/pdf',
+					publishedStatus: 'published'
+				}
+			};
+
+			const result = getDocumentDescriptionHTML(document);
+
+			expect(result).toEqual('Missing property');
+		});
+
+		it('should return "Missing property" if the document author is missing', () => {
+			const document = {
+				caseId: 123,
+				latestDocumentVersion: {
+					documentGuid: 'test-guid',
+					version: 1,
+					description: 'doc-1',
+					author: null,
+					mime: 'application/pdf',
+					publishedStatus: 'published'
+				}
+			};
+
+			const result = getDocumentDescriptionHTML(document);
+
+			expect(result).toEqual('Missing property');
 		});
 	});
 
@@ -238,7 +251,6 @@ describe('applications examination library utils', () => {
 
 			expect(result[0].link).toContain('sortBy=-description');
 			expect(result[0].link).toContain('page=1');
-			expect(result[0].link).toContain('pageSize=50');
 		});
 	});
 });

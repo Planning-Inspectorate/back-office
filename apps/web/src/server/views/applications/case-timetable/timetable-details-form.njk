@@ -69,7 +69,8 @@
 							errorMessage: errors.name | errorMessage,
 							value: values.name,
 							hint: {
-								text: "There is a limit of 200 characters"
+								text: "For example, Deadline 1" if selectedItemType.templateType == "deadline"
+									else "There is a limit of 200 characters"
 							}
 					}) }}
 				{% endif %}

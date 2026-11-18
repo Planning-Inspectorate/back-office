@@ -3,7 +3,7 @@ import { setSessionBanner } from '../../common/services/session.service.js';
 import { getMetadataViewModel, viewModels } from './documentation-metadata.view-model.js';
 import { mapMetadataFormToApi } from './documentation-metadata.mappers.js';
 
-/** @typedef {"name" | "description" | "descriptionWelsh" | "published-date" | "receipt-date"| "redaction" | "published-status" | "type"|"webfilter" | "webfilterWelsh" | "agent"| "author" | "authorWelsh" | "transcript" | "interestedPartyNumber" | "party-type"|"examination-library-category"} MetaDataNames */
+/** @typedef {"name" | "description" | "descriptionWelsh" | "published-date" | "receipt-date"| "redaction" | "published-status" | "type"|"webfilter" | "webfilterWelsh" | "agent"| "author" | "authorWelsh" | "transcript" | "interestedPartyNumber" | "party-type" | "examination-library-category" | "examination-library-reference" } MetaDataNames */
 /** @typedef {{documentGuid: string, metaDataName: MetaDataNames}} RequestParams */
 /** @typedef {import('../../applications.types').DocumentationFile} DocumentationFile */
 /** @typedef {{case: {isMaterialChange: boolean}, caseId: number, folderId: number, documentMetaData: DocumentationFile, documentGuid: string}} ResponseLocals */
@@ -44,7 +44,7 @@ export async function updateDocumentationMetaData(request, response) {
 	const { caseId, documentGuid } = response.locals;
 	const { metaDataName } = params;
 
-	let newMetaData = mapMetadataFormToApi(metaDataName, body);
+	let newMetaData = mapMetadataFormToApi(metaDataName, body, response.locals.documentMetaData);
 
 	if (metaDataName === 'published-date' || metaDataName === 'receipt-date') {
 		const fieldName = viewModels[metaDataName].metaDataName;
@@ -70,6 +70,12 @@ export async function updateDocumentationMetaData(request, response) {
 
 	if (validationErrors || apiErrors) {
 		const viewModel = await getMetadataViewModel(params, response.locals);
+
+		if (viewModel && metaDataName === 'examination-library-reference') {
+			viewModel.examinationLibraryReferenceType = body.examinationLibraryReferenceType;
+
+			viewModel.manualReference = body.examinationRefNo;
+		}
 
 		// @ts-ignore
 		const errors = Object.entries(validationErrors || apiErrors).reduce((result, [key, value]) => {

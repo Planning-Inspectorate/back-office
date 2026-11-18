@@ -23,8 +23,31 @@ jobs:
               run: chmod -R 777 build/site
             - name: Pull Structurizr Site Generator Docker image
               run: docker pull ghcr.io/avisi-cloud/structurizr-site-generatr
+            - name: Prepare theme source (GitHub first, local fallback)
+              run: |
+                  set -euo pipefail
+                  GITHUB_THEME_URL="https://raw.githubusercontent.com/structurizr/themes/master/microsoft-azure-2023.01.24/icons.json"
+                  LOCAL_THEME_PATH="architecture/themes/microsoft-azure-2023.01.24-icons-url.json"
+                  FETCHED_THEME_PATH="build/site/microsoft-azure-2023.01.24-icons-url.json"
+
+                  if curl -fsSL "$GITHUB_THEME_URL" -o /tmp/microsoft-azure-icons.json; then
+                    sed 's#"icon"[[:space:]]*:[[:space:]]*"#"icon" : "https://raw.githubusercontent.com/structurizr/themes/master/microsoft-azure-2023.01.24/#g' /tmp/microsoft-azure-icons.json > "$FETCHED_THEME_PATH"
+                    echo "Using fetched Microsoft Azure icons theme via local file: $FETCHED_THEME_PATH"
+                    THEME_REF="$FETCHED_THEME_PATH"
+                  else
+                    echo "GitHub theme unavailable, using local Microsoft Azure fallback: $LOCAL_THEME_PATH"
+                    THEME_REF="$LOCAL_THEME_PATH"
+                  fi
+
+                  awk -v theme="$THEME_REF" '
+                    /styles[[:space:]]*\{/ && !done {
+                      print "\t\ttheme " theme
+                      done=1
+                    }
+                    { print }
+                  ' workspace.dsl > workspace.c4.dsl
             - name: Generate C4 Diagrams Site
-              run:  docker run --rm -v ./:/var/model ghcr.io/avisi-cloud/structurizr-site-generatr generate-site -w workspace.dsl
+              run: docker run --rm -v ./:/var/model ghcr.io/avisi-cloud/structurizr-site-generatr generate-site -w workspace.c4.dsl
             - name: Deploy to GitHub Pages
               uses: JamesIves/github-pages-deploy-action@v4
               with:

@@ -25,13 +25,21 @@ import { timetableTemplatesSchema } from './applications-timetable.controller.js
 
 /** Validators */
 
-const nameValidationChain = [
+/**
+ * @param {Record<string, string>} data
+ * @returns {ValidationChain[]}
+ */
+const nameValidationChain = (data) => [
 	body('name')
 		.trim()
 		.isLength({ min: 1 })
 		.withMessage('You must enter the item name')
 		.isLength({ max: 200 })
 		.withMessage('The item name must be 200 characters or fewer')
+		.bail()
+		.if(() => data.templateType === 'deadline')
+		.matches(/^Deadline [0-9]{1,2}[a-z]?$/i)
+		.withMessage('Enter the deadline item name in the correct format')
 ];
 
 /**
@@ -87,7 +95,7 @@ const descriptionValidationChain = (data, isMandatory) =>
 
 /** @type {Record<string, ValidationChainsCallback>} */
 const fieldValidationsCreators = {
-	name: () => nameValidationChain,
+	name: nameValidationChain,
 	date: dateValidationChains({ fieldName: 'date', extendedFieldName: 'item date' }),
 	startDate: dateValidationChains({ fieldName: 'startDate', extendedFieldName: 'item start date' }),
 	endDate: dateValidationChains({ fieldName: 'endDate', extendedFieldName: 'item end date' }),
