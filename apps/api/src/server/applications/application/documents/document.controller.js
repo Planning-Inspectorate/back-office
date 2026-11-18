@@ -34,6 +34,7 @@ import {
 	attachMetadataToDocuments,
 	getPublishedGisBoundaryDocuments as getPublishedGisBoundaryDocumentsService
 } from './document.service.js';
+import { isExaminationLibraryReferenceLocked } from '../examination-library/examination-library.service.js';
 import { validateDocumentVersionMetadataBody } from './document.validators.js';
 
 /**
@@ -526,6 +527,25 @@ export const storeDocumentVersion = async (request, response) => {
 	const document = await documentRepository.getById(guid);
 	if (!document) {
 		throw new BackOfficeAppError(`Document not found: guid ${guid}`, 404);
+	}
+
+	if (documentVersion.examinationRefNo !== undefined && documentVersion.examinationRefNo !== null) {
+		const referenceAlreadyPublished = await isExaminationLibraryReferenceLocked(
+			Number(caseId),
+			guid,
+			documentVersion.examinationRefNo
+		);
+
+		if (referenceAlreadyPublished) {
+			response.status(400).send({
+				errors: {
+					examinationRefNo:
+						'This reference is already published, create a unique reference by adding a letter, like REP1-001a'
+				}
+			});
+
+			return;
+		}
 	}
 
 	if (transcriptReference === '') {

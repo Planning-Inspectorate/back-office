@@ -1,4 +1,8 @@
-import { sortExaminationLibraryDocuments } from '../examination-library.utils.js';
+import {
+	generateDraftExaminationLibraryReferences,
+	addDraftExaminationLibraryReferences,
+	sortExaminationLibraryDocuments
+} from '../examination-library.utils.js';
 
 const createDocument = ({
 	guid,
@@ -6,7 +10,9 @@ const createDocument = ({
 	author = null,
 	description = null,
 	publishedStatus = 'in progress',
-	examinationRefNo = null
+	examinationRefNo = null,
+	examinationLibraryReferenceLocked = false,
+	categoryCode = 'APP'
 }) => ({
 	guid,
 	latestDocumentVersion: {
@@ -14,7 +20,11 @@ const createDocument = ({
 		author,
 		description,
 		publishedStatus,
-		examinationRefNo
+		examinationRefNo,
+		examinationLibraryReferenceLocked,
+		ExaminationLibraryCategory: {
+			categoryCode
+		}
 	}
 });
 
@@ -336,5 +346,205 @@ describe('user-selected sort', () => {
 		const result = sortExaminationLibraryDocuments(documents, [{ description: 'desc' }]);
 
 		expect(result.map(({ guid }) => guid)).toEqual(['charlie', 'bravo', 'alpha']);
+	});
+});
+
+describe('generateDraftExaminationLibraryReferences', () => {
+	it('should generate draft examination library references in document order', () => {
+		const documents = [
+			{
+				guid: 'doc-1',
+				latestDocumentVersion: {
+					ExaminationLibraryCategory: {
+						categoryCode: 'REP2'
+					}
+				}
+			},
+			{
+				guid: 'doc-2',
+				latestDocumentVersion: {
+					ExaminationLibraryCategory: {
+						categoryCode: 'REP2'
+					}
+				}
+			},
+			{
+				guid: 'doc-3',
+				latestDocumentVersion: {
+					ExaminationLibraryCategory: {
+						categoryCode: 'REP2'
+					}
+				}
+			}
+		];
+
+		const result = generateDraftExaminationLibraryReferences(documents);
+
+		expect(
+			result.map((document) => document.latestDocumentVersion.draftExaminationLibraryReference)
+		).toEqual(['REP2-001', 'REP2-002', 'REP2-003']);
+	});
+
+	it('should pad reference numbers to three digits', () => {
+		const documents = Array.from({ length: 10 }, (_, index) => ({
+			guid: `doc-${index + 1}`,
+			latestDocumentVersion: {
+				ExaminationLibraryCategory: {
+					categoryCode: 'APP'
+				}
+			}
+		}));
+
+		const result = generateDraftExaminationLibraryReferences(documents);
+
+		expect(result[0].latestDocumentVersion.draftExaminationLibraryReference).toBe('APP-001');
+
+		expect(result[9].latestDocumentVersion.draftExaminationLibraryReference).toBe('APP-010');
+	});
+
+	it('should generate draft references from the supplied starting reference number', () => {
+		const documents = [
+			createDocument({ guid: 'doc-1', categoryCode: 'APP' }),
+			createDocument({ guid: 'doc-2', categoryCode: 'APP' })
+		];
+
+		const result = generateDraftExaminationLibraryReferences(documents, 13);
+
+		expect(
+			result.map((document) => document.latestDocumentVersion.draftExaminationLibraryReference)
+		).toEqual(['APP-013', 'APP-014']);
+	});
+
+	it('should not generate a draft reference when a document has an examination reference', () => {
+		const documents = [
+			createDocument({
+				guid: 'doc-1',
+				examinationRefNo: 'APP-001a'
+			})
+		];
+
+		const result = generateDraftExaminationLibraryReferences(documents);
+
+		expect(result[0].latestDocumentVersion.draftExaminationLibraryReference).toBeUndefined();
+
+		expect(result[0].latestDocumentVersion.examinationRefNo).toBe('APP-001a');
+	});
+
+	it('should not increment the draft reference index for a document with an examination reference', () => {
+		const documents = [
+			createDocument({
+				guid: 'manual',
+				examinationRefNo: 'APP-001a'
+			}),
+			createDocument({
+				guid: 'automatic-1'
+			}),
+			createDocument({
+				guid: 'automatic-2'
+			})
+		];
+
+		const result = generateDraftExaminationLibraryReferences(documents);
+
+		expect(
+			result.map((document) => document.latestDocumentVersion.draftExaminationLibraryReference)
+		).toEqual([undefined, 'APP-001', 'APP-002']);
+	});
+});
+
+describe('addDraftExaminationLibraryReferences', () => {
+	it('should generate draft references after the highest locked reference', () => {
+		const documents = [
+			createDocument({
+				guid: 'locked-1',
+				examinationRefNo: 'APP-001',
+				examinationLibraryReferenceLocked: true
+			}),
+			createDocument({
+				guid: 'locked-2',
+				examinationRefNo: 'APP-002',
+				examinationLibraryReferenceLocked: true
+			}),
+			createDocument({
+				guid: 'locked-3',
+				examinationRefNo: 'APP-003',
+				examinationLibraryReferenceLocked: true
+			}),
+			createDocument({
+				guid: 'new-1',
+				typeOfParty: 'Applicant',
+				author: 'Alpha'
+			}),
+			createDocument({
+				guid: 'new-2',
+				typeOfParty: 'Local authority',
+				author: 'Bravo'
+			})
+		];
+
+		const result = addDraftExaminationLibraryReferences(documents);
+
+		const newDocuments = result.filter(
+			(document) => !document.latestDocumentVersion.examinationLibraryReferenceLocked
+		);
+
+		expect(
+			newDocuments.map(
+				(document) => document.latestDocumentVersion.draftExaminationLibraryReference
+			)
+		).toEqual(['APP-004', 'APP-005']);
+	});
+
+	it('should use the highest locked reference number when determining the next draft reference', () => {
+		const documents = [
+			createDocument({
+				guid: 'locked-1',
+				examinationRefNo: 'APP-003',
+				examinationLibraryReferenceLocked: true
+			}),
+			createDocument({
+				guid: 'locked-2',
+				examinationRefNo: 'APP-012',
+				examinationLibraryReferenceLocked: true
+			}),
+			createDocument({
+				guid: 'locked-3',
+				examinationRefNo: 'APP-007',
+				examinationLibraryReferenceLocked: true
+			}),
+			createDocument({
+				guid: 'new'
+			})
+		];
+
+		const result = addDraftExaminationLibraryReferences(documents);
+
+		const newDocument = result.find((document) => document.guid === 'new');
+
+		expect(newDocument.latestDocumentVersion.draftExaminationLibraryReference).toBe('APP-013');
+	});
+
+	it('should ignore reference suffixes when determining the next draft reference number', () => {
+		const documents = [
+			createDocument({
+				guid: 'locked-1',
+				examinationRefNo: 'APP-004',
+				examinationLibraryReferenceLocked: true
+			}),
+			createDocument({
+				guid: 'locked-2',
+				examinationRefNo: 'APP-004a',
+				examinationLibraryReferenceLocked: true
+			}),
+			createDocument({
+				guid: 'new'
+			})
+		];
+
+		const result = addDraftExaminationLibraryReferences(documents);
+
+		const newDocument = result.find((document) => document.guid === 'new');
+
+		expect(newDocument.latestDocumentVersion.draftExaminationLibraryReference).toBe('APP-005');
 	});
 });

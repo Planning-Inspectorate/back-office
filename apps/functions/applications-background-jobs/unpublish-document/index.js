@@ -16,47 +16,54 @@ export const index = async (
 	context,
 	{ caseId, documentId, version, publishedDocumentURI, sourceSystem }
 ) => {
-	// If a document was migrated from Horizon without a published blob, it will have no publishedDocumentURI.
-	// We can skip unpublishing because there is no physical file to delete, avoiding a crash when trying to parse the URI.
-	if (
-		!publishedDocumentURI &&
-		(typeof sourceSystem !== 'string' ||
-			sourceSystem.trim() === '' ||
-			sourceSystem.toLowerCase() === 'horizon')
-	) {
-		context.log(
-			`Skipping unpublish execution: Document originating from source "${
-				!sourceSystem || sourceSystem.trim() === '' ? 'unknown source' : sourceSystem
-			}" lacks a publishedDocumentURI.`
-		);
-		return;
-	}
-
 	context.log(`Unpublishing document ID ${documentId} at URI ${publishedDocumentURI}`);
 
-	if (!caseId || !documentId || !version || !publishedDocumentURI) {
+	if (!caseId || !documentId || !version) {
 		const message = 'Unpublish execution aborted: One or more required properties are missing.';
 		context.log.error(message, { documentId, caseId, version, publishedDocumentURI });
 		throw new Error(message);
 	}
 
-	// replace PINs domain with primary blob domain to ensure copy operation works
-	publishedDocumentURI = replaceCustomDomainWithBlobDomain(publishedDocumentURI);
+	// Handle missing `publishedDocumentURI`
+	if (!publishedDocumentURI) {
+		if (
+			typeof sourceSystem !== 'string' ||
+			sourceSystem.trim() === '' ||
+			sourceSystem.toLowerCase() === 'horizon'
+		) {
+			// If a document was migrated from Horizon, it was not published via the blob pipeline and has no publishedDocumentURI.
+			// We skip the blob deletion step as there is no physical file to delete (avoiding URI parse and storage errors),
+			// but proceed to mark the document as unpublished so it does not get stuck in the 'unpublishing' state.
+			context.log(
+				`No published blob URI for document ID ${documentId} originating from source "${
+					!sourceSystem || sourceSystem.trim() === '' ? 'unknown/blank' : sourceSystem
+				}"; skipping blob deletion.`
+			);
+		} else {
+			// Non-Horizon documents missing a `publishedDocumentURI` are invalid - this is an unexpected error
+			const message = `Unpublish execution aborted: Missing publishedDocumentURI for non-Horizon document (sourceSystem: "${sourceSystem}").`;
+			context.log.error(message, { documentId, caseId, version, sourceSystem });
+			throw new Error(message);
+		}
+	} else {
+		// Non-Horizon documents must have a `publishedDocumentURI` to delete from the published container
 
-	validateStorageAccount(publishedDocumentURI);
+		publishedDocumentURI = replaceCustomDomainWithBlobDomain(publishedDocumentURI);
 
-	// extract the published file name
-	const publishedBlobName = extractPublishedBlobName(publishedDocumentURI);
+		validateStorageAccount(publishedDocumentURI);
 
-	try {
-		context.log(
-			`deleting blob (if exists) in container "${config.BLOB_PUBLISH_CONTAINER}" with name "${publishedBlobName}" for caseId ${caseId}`
-		);
-		await blobClient.deleteBlobIfExists(config.BLOB_PUBLISH_CONTAINER, publishedBlobName);
-	} catch (err) {
-		const errMsg = `encountered error while unpublishing document ID ${documentId} for caseId ${caseId}: ${err}`;
-		context.log.error(errMsg, { err, documentId, caseId, version, publishedBlobName });
-		throw new Error(errMsg, { cause: err });
+		const publishedBlobName = extractPublishedBlobName(publishedDocumentURI);
+
+		try {
+			context.log(
+				`deleting blob (if exists) in container "${config.BLOB_PUBLISH_CONTAINER}" with name "${publishedBlobName}" for caseId ${caseId}`
+			);
+			await blobClient.deleteBlobIfExists(config.BLOB_PUBLISH_CONTAINER, publishedBlobName);
+		} catch (err) {
+			const errMsg = `encountered error while unpublishing document ID ${documentId} for caseId ${caseId}: ${err}`;
+			context.log.error(errMsg, { err, documentId, caseId, version, publishedBlobName });
+			throw new Error(errMsg, { cause: err });
+		}
 	}
 
 	const requestUri = `https://${config.API_HOST}/applications/${caseId}/documents/${documentId}/version/${version}/mark-as-unpublished`;

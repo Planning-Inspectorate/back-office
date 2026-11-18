@@ -31,7 +31,9 @@
 			<tr class="govuk-table__row">
 				{% for cell in row %}
 					<td class="govuk-table__cell">
-						{% if cell.html %}
+						{% if cell.href %}
+							<a href="{{ cell.href }}" class="govuk-link">{{ cell.text }}</a>
+						{% elif cell.html %}
 							{{ cell.html | safe }}
 						{% else %}
 							{{ cell.text }}

@@ -123,6 +123,27 @@ const nocks = () => {
 	nock('http://test/')
 		.get('/applications/123/examination-library')
 		.reply(200, examinationLibraryCategories);
+	nock('http://test/')
+		.get('/applications/123/documents/457/properties')
+		.reply(200, {
+			...fixturePublishedDocumentationFile,
+			guid: '457',
+			examinationLibraryCategoryCode: 'APP'
+		});
+	nock('http://test/')
+		.get('/applications/123/examination-library/documents/457/draft-reference')
+		.query({ categoryCode: 'APP' })
+		.reply(200, {
+			draftExaminationLibraryReference: 'APP-013'
+		});
+	nock('http://test/')
+		.post('/applications/123/documents/457/metadata')
+		.reply(400, {
+			errors: {
+				examinationRefNo:
+					'This reference is already published, create a unique reference by adding a letter, like REP1-001a'
+			}
+		});
 };
 
 describe('Edit applications documentation metadata', () => {
@@ -144,6 +165,8 @@ describe('Edit applications documentation metadata', () => {
 		'/applications-service/case/123/project-documentation/18/document/90/edit';
 	const baseUrlNotChecked =
 		'/applications-service/case/123/project-documentation/18/document/110/edit';
+	const baseUrlDuplicateReference =
+		'/applications-service/case/123/project-documentation/18/document/457/edit';
 
 	describe('Edit name', () => {
 		describe('GET /case/123/project-documentation/18/document/456/edit/name', () => {
@@ -611,6 +634,46 @@ describe('Edit applications documentation metadata', () => {
 				});
 
 				expect(response.headers.location).toEqual('../properties');
+			});
+		});
+	});
+
+	describe('Edit examination library reference', () => {
+		beforeEach(() => {
+			nock('http://test/')
+				.get('/applications/123/documents/456/draft-reference')
+				.query({ categoryCode: 'APP' })
+				.reply(200, {
+					draftExaminationLibraryReference: 'APP-013'
+				});
+		});
+
+		describe('POST /case/123/project-documentation/18/document/:documentGuid/edit/examination-library-reference', () => {
+			it('should redirect to document properties page when a manual reference is valid', async () => {
+				const response = await request.post(`${baseUrl}/examination-library-reference`).send({
+					examinationLibraryReferenceType: 'manual',
+					examinationRefNo: '004a'
+				});
+
+				expect(response.headers.location).toEqual('../properties');
+			});
+
+			it('should display the API error and preserve the manual reference when the reference is already published', async () => {
+				const response = await request
+					.post(`${baseUrlDuplicateReference}/examination-library-reference`)
+					.send({
+						examinationLibraryReferenceType: 'manual',
+						examinationRefNo: '004a'
+					});
+
+				const element = parseHtml(response.text);
+
+				expect(element.innerHTML).toContain(
+					'This reference is already published, create a unique reference by adding a letter, like REP1-001a'
+				);
+
+				expect(element.innerHTML).toContain('value="manual" checked');
+				expect(element.innerHTML).toContain('value="004a"');
 			});
 		});
 	});
