@@ -4,7 +4,10 @@ import {
 	getSectionByItemSlug,
 	getCategoryCode,
 	getDocumentDescriptionHTML,
-	tableSortLinks
+	tableSortLinks,
+	getDynamicSectionSlug,
+	getCategorySlug,
+	resolveExaminationLibraryCategory
 } from '../applications-examination-library-utils.js';
 import { categoryCodes, examinationLibrarySections } from '../examination-library.constants.js';
 
@@ -52,6 +55,121 @@ describe('applications examination library utils', () => {
 			const result = getCategoryCode(section, categoryCodes);
 
 			expect(result).toEqual('');
+		});
+	});
+
+	describe('#getDynamicSectionSlug', () => {
+		it.each([
+			['EV1', 'events-and-hearings'],
+			['EV12', 'events-and-hearings'],
+			['PDA', 'procedural-deadlines'],
+			['PDZ', 'procedural-deadlines'],
+			['REP1', 'deadlines'],
+			['REP1a', 'deadlines']
+		])('should return the correct section slug for category code %s', (categoryCode, expected) => {
+			expect(getDynamicSectionSlug(categoryCode)).toEqual(expected);
+		});
+		it('should return null for an unsupported category code', () => {
+			expect(getDynamicSectionSlug('APP')).toEqual(null);
+		});
+	});
+	describe('#getCategorySlug', () => {
+		it('should convert a category name into a URL slug', () => {
+			expect(getCategorySlug('Open Floor Hearing 1')).toEqual('open-floor-hearing-1');
+		});
+		it('should trim whitespace and replace multiple spaces with a single hyphen', () => {
+			expect(getCategorySlug('  Open   Floor Hearing 1  ')).toEqual('open-floor-hearing-1');
+		});
+	});
+	describe('#resolveExaminationLibraryCategory', () => {
+		const categories = [
+			{
+				categoryCode: 'APP',
+				categoryName: 'Application documents',
+				source: 'STATIC'
+			},
+			{
+				categoryCode: 'EV1',
+				categoryName: 'Open Floor Hearing 1',
+				source: 'TIMETABLE'
+			},
+			{
+				categoryCode: 'PDA',
+				categoryName: 'Procedural Deadline 1',
+				source: 'TIMETABLE'
+			},
+			{
+				categoryCode: 'REP1',
+				categoryName: 'Deadline 1',
+				source: 'TIMETABLE'
+			}
+		];
+		it('should resolve a static category', () => {
+			const result = resolveExaminationLibraryCategory(
+				'application-documents',
+				undefined,
+				categories
+			);
+			expect(result).toEqual({
+				section: examinationLibrarySections[0],
+				categoryCode: 'APP'
+			});
+		});
+		it.each([
+			['open-floor-hearing-1', 'events-and-hearings', 'EV1', 'Open Floor Hearing 1'],
+			['procedural-deadline-1', 'procedural-deadlines', 'PDA', 'Procedural Deadline 1'],
+			['deadline-1', 'deadlines', 'REP1', 'Deadline 1']
+		])(
+			'should resolve dynamic category %s under %s',
+			(itemSlug, sectionSlug, categoryCode, categoryName) => {
+				const result = resolveExaminationLibraryCategory(itemSlug, sectionSlug, categories);
+				expect(result).toEqual({
+					section: {
+						...examinationLibrarySections.find((section) => section.slug === sectionSlug),
+						items: [
+							{
+								title: categoryName,
+								href: itemSlug
+							}
+						]
+					},
+					categoryCode
+				});
+			}
+		);
+		it('should return null if the dynamic category does not exist', () => {
+			const result = resolveExaminationLibraryCategory(
+				'unknown-hearing',
+				'events-and-hearings',
+				categories
+			);
+			expect(result).toEqual(null);
+		});
+		it('should return null if the category belongs to a different section', () => {
+			const result = resolveExaminationLibraryCategory(
+				'open-floor-hearing-1',
+				'deadlines',
+				categories
+			);
+			expect(result).toEqual(null);
+		});
+		it('should return null if the category is not sourced from the timetable', () => {
+			const result = resolveExaminationLibraryCategory(
+				'open-floor-hearing-1',
+				'events-and-hearings',
+				[
+					{
+						categoryCode: 'EV1',
+						categoryName: 'Open Floor Hearing 1',
+						source: 'STATIC'
+					}
+				]
+			);
+			expect(result).toEqual(null);
+		});
+		it('should return null if the static category slug is invalid', () => {
+			const result = resolveExaminationLibraryCategory('invalid-slug', undefined, categories);
+			expect(result).toEqual(null);
 		});
 	});
 

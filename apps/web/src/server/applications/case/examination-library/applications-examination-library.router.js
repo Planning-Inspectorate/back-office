@@ -23,5 +23,8 @@ applicationsExamLibraryRouter
 	.route('/category/:slug/unpublish')
 	.get(asyncHandler(unpublishController.getExaminationLibraryUnpublish))
 	.post(asyncHandler(unpublishController.postExaminationLibraryUnpublish));
+applicationsExamLibraryRouter
+	.route('/category/:sectionSlug/:slug')
+	.get(asyncHandler(sectionController.getExaminationLibrarySection));
 
 export default applicationsExamLibraryRouter;

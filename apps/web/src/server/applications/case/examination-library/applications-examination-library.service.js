@@ -10,7 +10,7 @@ import { buildQueryString } from '../../common/components/build-query-string.js'
  *
  * @param {string | number} caseId
  * @param {{ categoryCode?: string }} [filters]
- * @returns {Promise<Array<{ id: number, caseId: number, categoryCode: string, categoryName: string, publishedStatus: string, examinationTimetableItemId?: number | null }>>}
+ * @returns {Promise<Array<{ id: number, caseId: number, categoryCode: string, categoryName: string, publishedStatus: string, examinationTimetableItemId?: number | null, source: string }>>}
  */
 export async function getExaminationLibraryCategories(caseId, filters = {}) {
 	const queryString = buildQueryString(filters);
