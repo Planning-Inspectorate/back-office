@@ -35,6 +35,10 @@ describe('applications examination library publish controller', () => {
 		it('should return 404 if section does not exist', async () => {
 			req.params.slug = 'unknown-slug';
 
+			nock('http://test/')
+				.get('/applications/123/examination-library')
+				.reply(200, [{ categoryCode: 'APP', publishedStatus: 'in progress' }]);
+
 			await getExaminationLibraryPublish(req, res);
 
 			expect(res.status).toHaveBeenCalledWith(404);
@@ -83,7 +87,6 @@ describe('applications examination library publish controller', () => {
 
 			nock('http://test/')
 				.get('/applications/123/examination-library')
-				.query((query) => query.categoryCode === 'APP')
 				.reply(200, [{ categoryCode: 'APP', publishedStatus: 'in progress' }]);
 
 			await getExaminationLibraryPublish(req, res);
@@ -125,7 +128,6 @@ describe('applications examination library publish controller', () => {
 
 			nock('http://test/')
 				.get('/applications/123/examination-library')
-				.query((query) => query.categoryCode === 'APP')
 				.reply(200, [{ categoryCode: 'APP', publishedStatus: 'unpublished' }]);
 
 			nock('http://test/')
@@ -172,7 +174,6 @@ describe('applications examination library publish controller', () => {
 
 			nock('http://test/')
 				.get('/applications/123/examination-library')
-				.query((query) => query.categoryCode === 'APP')
 				.reply(200, [{ categoryCode: 'APP', publishedStatus: 'published' }]);
 
 			// Subsequent call from getExaminationLibrarySectionData (categoriesResponse is reused)
@@ -194,16 +195,84 @@ describe('applications examination library publish controller', () => {
 		it('should return 404 if section does not have a category code to publish', async () => {
 			req.params.slug = 'deadlines-1';
 
+			nock('http://test/')
+				.get('/applications/123/examination-library')
+				.reply(200, [{ categoryCode: 'APP', publishedStatus: 'in progress' }]);
+
 			await getExaminationLibraryPublish(req, res);
 
 			expect(res.status).toHaveBeenCalledWith(404);
 			expect(res.render).toHaveBeenCalledWith('app/404');
+		});
+
+		it('should render publish view for a dynamic category', async () => {
+			req.params.sectionSlug = 'events-and-hearings';
+			req.params.slug = 'open-floor-hearing-1';
+
+			nock('http://test/')
+				.get('/applications/123/examination-library')
+				.reply(200, [
+					{
+						categoryCode: 'EV1',
+						categoryName: 'Open Floor Hearing 1',
+						publishedStatus: 'in progress',
+						source: 'TIMETABLE'
+					}
+				]);
+
+			const documents = {
+				page: 1,
+				pageSize: 25,
+				pageCount: 1,
+				itemCount: 1,
+				items: [
+					{
+						caseId: 123,
+						folderId: 10,
+						isDeleted: false,
+						latestDocumentVersion: {
+							documentGuid: 'doc-1',
+							description: 'Hearing document',
+							draftExaminationLibraryReference: 'EV1-001',
+							author: 'Applicant'
+						}
+					}
+				]
+			};
+
+			nock('http://test/')
+				.get('/applications/123/examination-library/documents')
+				.query((query) => query.categoryCode === 'EV1' && query.publishedStatus === 'published')
+				.reply(200, documents);
+
+			nock('http://test/')
+				.get('/applications/123/examination-library/documents')
+				.query((query) => query.categoryCode === 'EV1' && !query.publishedStatus)
+				.reply(200, documents);
+
+			await getExaminationLibraryPublish(req, res);
+
+			expect(res.render).toHaveBeenCalledWith(
+				'applications/case-examination-library/examination-library-publish.njk',
+				expect.objectContaining({
+					sectionHeading: 'Open Floor Hearing 1',
+					categoryCode: 'EV1',
+					publishUrl:
+						'/applications-service/case/123/examination-library/category/events-and-hearings/open-floor-hearing-1/publish',
+					backLink:
+						'/applications-service/case/123/examination-library/category/events-and-hearings/open-floor-hearing-1'
+				})
+			);
 		});
 	});
 
 	describe('postExaminationLibraryPublish', () => {
 		it('should return 404 if section does not exist', async () => {
 			req.params.slug = 'unknown-slug';
+
+			nock('http://test/')
+				.get('/applications/123/examination-library')
+				.reply(200, [{ categoryCode: 'APP', publishedStatus: 'in progress' }]);
 
 			await postExaminationLibraryPublish(req, res);
 
@@ -212,6 +281,10 @@ describe('applications examination library publish controller', () => {
 		});
 
 		it('should publish static category and redirect with published=true', async () => {
+			nock('http://test/')
+				.get('/applications/123/examination-library')
+				.reply(200, [{ categoryCode: 'APP', publishedStatus: 'in progress' }]);
+
 			nock('http://test/')
 				.post('/applications/123/examination-library/publish', { categoryCode: 'APP' })
 				.reply(200, { success: true });
@@ -225,6 +298,10 @@ describe('applications examination library publish controller', () => {
 
 		it('should render section page with error when API returns 400 on publish', async () => {
 			nock('http://test/')
+				.get('/applications/123/examination-library')
+				.reply(200, [{ categoryCode: 'APP', publishedStatus: 'in progress' }]);
+
+			nock('http://test/')
 				.post('/applications/123/examination-library/publish', { categoryCode: 'APP' })
 				.reply(400, {
 					errors: 'Examination library category does not contain any new published documents'
@@ -234,11 +311,6 @@ describe('applications examination library publish controller', () => {
 				.get('/applications/123/examination-library/documents')
 				.query((query) => query.categoryCode === 'APP')
 				.reply(200, { page: 1, pageSize: 25, pageCount: 0, itemCount: 0, items: [] });
-
-			nock('http://test/')
-				.get('/applications/123/examination-library')
-				.query((query) => query.categoryCode === 'APP')
-				.reply(200, [{ categoryCode: 'APP', publishedStatus: 'in progress' }]);
 
 			await postExaminationLibraryPublish(req, res);
 
@@ -253,10 +325,40 @@ describe('applications examination library publish controller', () => {
 		it('should return 404 if section does not have a category code to publish', async () => {
 			req.params.slug = 'deadlines-1';
 
+			nock('http://test/')
+				.get('/applications/123/examination-library')
+				.reply(200, [{ categoryCode: 'APP', publishedStatus: 'in progress' }]);
+
 			await postExaminationLibraryPublish(req, res);
 
 			expect(res.status).toHaveBeenCalledWith(404);
 			expect(res.render).toHaveBeenCalledWith('app/404');
+		});
+
+		it('should publish a dynamic category and redirect to its section', async () => {
+			req.params.sectionSlug = 'events-and-hearings';
+			req.params.slug = 'open-floor-hearing-1';
+
+			nock('http://test/')
+				.get('/applications/123/examination-library')
+				.reply(200, [
+					{
+						categoryCode: 'EV1',
+						categoryName: 'Open Floor Hearing 1',
+						publishedStatus: 'in progress',
+						source: 'TIMETABLE'
+					}
+				]);
+
+			nock('http://test/')
+				.post('/applications/123/examination-library/publish', { categoryCode: 'EV1' })
+				.reply(200, { success: true });
+
+			await postExaminationLibraryPublish(req, res);
+
+			expect(res.redirect).toHaveBeenCalledWith(
+				'/applications-service/case/123/examination-library/category/events-and-hearings/open-floor-hearing-1?published=true'
+			);
 		});
 	});
 
@@ -309,7 +411,6 @@ describe('applications examination library publish controller', () => {
 
 			nock('http://test/')
 				.get('/applications/123/examination-library')
-				.query((query) => query.categoryCode === 'APP')
 				.reply(200, [{ categoryCode: 'APP', publishedStatus: 'published' }]);
 
 			nock('http://test/')
@@ -370,7 +471,6 @@ describe('applications examination library publish controller', () => {
 
 			nock('http://test/')
 				.get('/applications/123/examination-library')
-				.query((query) => query.categoryCode === 'APP')
 				.reply(200, [{ categoryCode: 'APP', publishedStatus: 'published' }]);
 
 			nock('http://test/')
@@ -430,7 +530,6 @@ describe('applications examination library publish controller', () => {
 
 			nock('http://test/')
 				.get('/applications/123/examination-library')
-				.query((query) => query.categoryCode === 'APP')
 				.reply(200, [{ categoryCode: 'APP', publishedStatus: 'in progress' }]);
 
 			nock('http://test/')
@@ -490,7 +589,6 @@ describe('applications examination library publish controller', () => {
 
 			nock('http://test/')
 				.get('/applications/123/examination-library')
-				.query((query) => query.categoryCode === 'APP')
 				.reply(200, [{ categoryCode: 'APP', publishedStatus: 'published' }]);
 
 			nock('http://test/')
@@ -505,10 +603,89 @@ describe('applications examination library publish controller', () => {
 
 			await expect(getExaminationLibraryUpdate(req, res)).rejects.toThrow();
 		});
+
+		it('should render update view for a dynamic category', async () => {
+			req.params.sectionSlug = 'events-and-hearings';
+			req.params.slug = 'open-floor-hearing-1';
+
+			nock('http://test/')
+				.get('/applications/123/examination-library')
+				.reply(200, [
+					{
+						categoryCode: 'EV1',
+						categoryName: 'Open Floor Hearing 1',
+						publishedStatus: 'published',
+						source: 'TIMETABLE'
+					}
+				]);
+
+			const documents = {
+				page: 1,
+				pageSize: 25,
+				pageCount: 1,
+				itemCount: 1,
+				items: [
+					{
+						caseId: 123,
+						folderId: 10,
+						isDeleted: false,
+						latestDocumentVersion: {
+							documentGuid: 'doc-1',
+							description: 'Hearing document',
+							draftExaminationLibraryReference: 'EV1-001',
+							author: 'Applicant'
+						}
+					}
+				]
+			};
+
+			nock('http://test/')
+				.get('/applications/123/examination-library/documents')
+				.query(
+					(query) =>
+						query.categoryCode === 'EV1' &&
+						query.publishedStatus === 'published' &&
+						!query.examinationRefNo
+				)
+				.reply(200, documents);
+
+			nock('http://test/')
+				.get('/applications/123/examination-library/documents')
+				.query((query) => query.categoryCode === 'EV1' && !query.publishedStatus)
+				.reply(200, { page: 1, pageSize: 1, pageCount: 1, itemCount: 1, items: [] });
+
+			nock('http://test/')
+				.get('/applications/123/examination-library/documents')
+				.query(
+					(query) =>
+						query.categoryCode === 'EV1' &&
+						query.publishedStatus === 'published' &&
+						query.examinationRefNo === 'true'
+				)
+				.reply(200, { page: 1, pageSize: 1, pageCount: 0, itemCount: 0, items: [] });
+
+			await getExaminationLibraryUpdate(req, res);
+
+			expect(res.render).toHaveBeenCalledWith(
+				'applications/case-examination-library/examination-library-publish.njk',
+				expect.objectContaining({
+					isUpdate: true,
+					categoryCode: 'EV1',
+					publishUrl:
+						'/applications-service/case/123/examination-library/category/events-and-hearings/open-floor-hearing-1/update',
+					backLink:
+						'/applications-service/case/123/examination-library/category/events-and-hearings/open-floor-hearing-1'
+				})
+			);
+		});
 	});
 
 	describe('postExaminationLibraryUpdate', () => {
 		it('should publish updates and redirect with published=true', async () => {
+			nock('http://test/')
+				.get('/applications/123/examination-library')
+				.reply(200, [{ categoryCode: 'APP', publishedStatus: 'published' }]);
+
 			nock('http://test/')
 				.post('/applications/123/examination-library/publish', { categoryCode: 'APP' })
 				.reply(200, { success: true });

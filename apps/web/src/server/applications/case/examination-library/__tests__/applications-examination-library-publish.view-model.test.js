@@ -136,5 +136,30 @@ describe('applications examination library publish view model', () => {
 				{ text: '' }
 			]);
 		});
+
+		it('should generate the correct category code and URLs for a dynamic category', () => {
+			const result = getExaminationLibraryPublishViewModel({
+				section: {
+					slug: 'events-and-hearings',
+					heading: 'Events and hearings',
+					items: [{ title: 'Open Floor Hearing 1', href: 'open-floor-hearing-1' }]
+				},
+				sectionDocuments: [baseDocument],
+				itemSlug: 'open-floor-hearing-1',
+				sectionSlug: 'events-and-hearings',
+				categoryCode: 'EV1',
+				caseId: 123
+			});
+			expect(result).toEqual(
+				expect.objectContaining({
+					sectionHeading: 'Open Floor Hearing 1',
+					categoryCode: 'EV1',
+					backLink:
+						'/applications-service/case/123/examination-library/category/events-and-hearings/open-floor-hearing-1',
+					publishUrl:
+						'/applications-service/case/123/examination-library/category/events-and-hearings/open-floor-hearing-1/publish'
+				})
+			);
+		});
 	});
 });

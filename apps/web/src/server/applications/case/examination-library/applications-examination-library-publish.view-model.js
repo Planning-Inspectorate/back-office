@@ -20,7 +20,9 @@ import { getSectionByItemSlug, getCategoryCode } from './applications-examinatio
  *   caseId: number,
  *   publishUrl?: string,
  *   isUpdate?: boolean,
- *   additionalCount?: number
+ *   additionalCount?: number,
+ *   categoryCode?: string,
+ *   sectionSlug?: string
  * }} params
  * @returns {object | null}
  */
@@ -33,7 +35,9 @@ export const getExaminationLibraryPublishViewModel = ({
 	caseId,
 	publishUrl,
 	isUpdate = false,
-	additionalCount = 0
+	additionalCount = 0,
+	categoryCode,
+	sectionSlug
 }) => {
 	const resolvedSection = section || getSectionByItemSlug(examinationLibrarySections, itemSlug);
 
@@ -47,14 +51,16 @@ export const getExaminationLibraryPublishViewModel = ({
 		return null;
 	}
 
+	const categorySlug = sectionSlug ? `${sectionSlug}/${itemSlug}` : itemSlug;
+
 	const sectionHeading = item.title;
 	const tableHeaders = ['Reference', 'Document', 'From'];
-	const backLink = url('examination-library-section', { caseId, slug: itemSlug });
+	const backLink = url('examination-library-section', { caseId, slug: categorySlug });
 	const formPublishUrl =
 		publishUrl ||
 		url(isUpdate ? 'examination-library-update' : 'examination-library-publish', {
 			caseId,
-			slug: itemSlug
+			slug: categorySlug
 		});
 
 	const tableRows = sectionDocuments.map((sectionDocument) => {
@@ -110,7 +116,7 @@ export const getExaminationLibraryPublishViewModel = ({
 		captionClasses: 'govuk-visually-hidden'
 	};
 
-	const sectionCategoryCode = getCategoryCode(resolvedSection, categoryCodes);
+	const sectionCategoryCode = categoryCode || getCategoryCode(resolvedSection, categoryCodes);
 
 	return {
 		selectedPageType: 'examination-library',

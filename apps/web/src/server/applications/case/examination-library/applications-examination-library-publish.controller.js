@@ -5,10 +5,8 @@ import {
 } from './applications-examination-library.service.js';
 import { getExaminationLibraryPublishViewModel } from './applications-examination-library-publish.view-model.js';
 import { getExaminationLibrarySectionData } from './applications-examination-library-section.controller.js';
-import { categoryCodes, examinationLibrarySections } from './examination-library.constants.js';
 import {
-	getSectionByItemSlug,
-	getCategoryCode,
+	resolveExaminationLibraryCategory,
 	getExaminationLibraryPagination
 } from './applications-examination-library-utils.js';
 import { buildQueryString } from '../../common/components/build-query-string.js';
@@ -50,24 +48,24 @@ export function renderSectionPageWithError(response, sectionData, caseId, query,
 /**
  * Render check details and publish/update page for an Examination Library category.
  *
- * @param {import('express').Request<{ caseId: string, slug: string }>} request
+ * @param {import('express').Request<{ caseId: string, slug: string, sectionSlug?: string }>} request
  * @param {import('express').Response<any, { case: { title: string }, caseId?: number }>} response
  * @param {{ isUpdate: boolean }} options
  * @returns {Promise<void>}
  */
 async function renderCheckDetailsPage(request, response, { isUpdate }) {
-	const { caseId: paramCaseId, slug: itemSlug } = request.params;
+	const { caseId: paramCaseId, slug: itemSlug, sectionSlug } = request.params;
 	const { sortBy, pageSize = 25, page = 1 } = request.query;
 	const caseId = response.locals?.caseId || Number(paramCaseId);
 	const pageNumber = Number(page) || 1;
 	const pageSizeNumber = Number(pageSize) || 25;
 
-	const section = getSectionByItemSlug(examinationLibrarySections, itemSlug);
-	const sectionCategoryCode = section ? getCategoryCode(section, categoryCodes) : '';
-
-	if (!section || !sectionCategoryCode) {
+	const categories = await getExaminationLibraryCategories(caseId);
+	const resolvedCategory = resolveExaminationLibraryCategory(itemSlug, sectionSlug, categories);
+	if (!resolvedCategory) {
 		return response.status(404).render('app/404');
 	}
+	const { section, categoryCode: sectionCategoryCode } = resolvedCategory;
 
 	const publishedQueryString = buildQueryString({
 		sortBy,
@@ -88,19 +86,14 @@ async function renderCheckDetailsPage(request, response, { isUpdate }) {
 		examinationRefNo: 'true'
 	});
 
-	const [
-		publishedDocumentsResponse,
-		allDocumentsResponse,
-		categoriesResponse,
-		lockedDocumentsResponse
-	] = await Promise.all([
-		getExaminationLibraryDocumentsByCategory(caseId, sectionCategoryCode, publishedQueryString),
-		getExaminationLibraryDocumentsByCategory(caseId, sectionCategoryCode, allQueryString),
-		getExaminationLibraryCategories(caseId, { categoryCode: sectionCategoryCode }).catch(() => []),
-		isUpdate
-			? getExaminationLibraryDocumentsByCategory(caseId, sectionCategoryCode, lockedQueryString)
-			: null
-	]);
+	const [publishedDocumentsResponse, allDocumentsResponse, lockedDocumentsResponse] =
+		await Promise.all([
+			getExaminationLibraryDocumentsByCategory(caseId, sectionCategoryCode, publishedQueryString),
+			getExaminationLibraryDocumentsByCategory(caseId, sectionCategoryCode, allQueryString),
+			isUpdate
+				? getExaminationLibraryDocumentsByCategory(caseId, sectionCategoryCode, lockedQueryString)
+				: null
+		]);
 
 	/** @type {ExaminationLibrarySectionDocument[]} */
 	const sectionDocuments = publishedDocumentsResponse?.items ?? [];
@@ -108,7 +101,7 @@ async function renderCheckDetailsPage(request, response, { isUpdate }) {
 	const totalAllCount = allDocumentsResponse?.itemCount ?? 0;
 	const unpublishedCount = Math.max(0, totalAllCount - totalPublishedCount);
 
-	const matchingCategory = categoriesResponse?.find((c) => c.categoryCode === sectionCategoryCode);
+	const matchingCategory = categories.find((c) => c.categoryCode === sectionCategoryCode);
 	const categoryStatus = matchingCategory?.publishedStatus?.toLowerCase();
 
 	const lockedPublishedCount = lockedDocumentsResponse?.itemCount ?? 0;
@@ -127,7 +120,8 @@ async function renderCheckDetailsPage(request, response, { isUpdate }) {
 
 	if (isInvalidState) {
 		const sectionData = await getExaminationLibrarySectionData(caseId, itemSlug, request.query, {
-			categoriesResponse
+			categoriesResponse: categories,
+			sectionSlug
 		});
 		if (!sectionData) {
 			return response.status(404).render('app/404');
@@ -142,9 +136,11 @@ async function renderCheckDetailsPage(request, response, { isUpdate }) {
 		);
 	}
 
+	const categorySlug = sectionSlug ? `${sectionSlug}/${itemSlug}` : itemSlug;
+
 	const actionUrl = url(isUpdate ? 'examination-library-update' : 'examination-library-publish', {
 		caseId,
-		slug: itemSlug
+		slug: categorySlug
 	});
 
 	const viewModel = getExaminationLibraryPublishViewModel({
@@ -156,7 +152,9 @@ async function renderCheckDetailsPage(request, response, { isUpdate }) {
 		caseId,
 		publishUrl: actionUrl,
 		isUpdate,
-		additionalCount
+		additionalCount,
+		categoryCode: sectionCategoryCode,
+		sectionSlug
 	});
 
 	if (!viewModel) {
@@ -199,27 +197,33 @@ export async function getExaminationLibraryUpdate(request, response) {
 /**
  * Handle publishing Examination Library category.
  *
- * @param {import('express').Request<{ caseId: string, slug: string }>} request
+ * @param {import('express').Request<{ caseId: string, slug: string, sectionSlug?: string }>} request
  * @param {import('express').Response<any, { caseId?: number }>} response
  * @returns {Promise<void>}
  */
 export async function postExaminationLibraryPublish(request, response) {
-	const { slug: itemSlug } = request.params;
+	const { slug: itemSlug, sectionSlug } = request.params;
 	const caseId = response.locals?.caseId || Number(request.params?.caseId);
 
-	const section = getSectionByItemSlug(examinationLibrarySections, itemSlug);
-	const sectionCategoryCode = section ? getCategoryCode(section, categoryCodes) : '';
+	const categories = await getExaminationLibraryCategories(caseId);
+	const resolvedCategory = resolveExaminationLibraryCategory(itemSlug, sectionSlug, categories);
 
-	if (!section || !sectionCategoryCode) {
+	if (!resolvedCategory) {
 		return response.status(404).render('app/404');
 	}
+
+	const { categoryCode: sectionCategoryCode } = resolvedCategory;
+	const categorySlug = sectionSlug ? `${sectionSlug}/${itemSlug}` : itemSlug;
 
 	try {
 		await publishExaminationLibraryCategory(caseId, { categoryCode: sectionCategoryCode });
 	} catch (error) {
 		const apiError = /** @type {any} */ (error);
 		if (apiError?.response?.statusCode === 400 || apiError?.statusCode === 400) {
-			const sectionData = await getExaminationLibrarySectionData(caseId, itemSlug, request.query);
+			const sectionData = await getExaminationLibrarySectionData(caseId, itemSlug, request.query, {
+				categoriesResponse: categories,
+				sectionSlug
+			});
 			if (!sectionData) {
 				return response.status(404).render('app/404');
 			}
@@ -233,7 +237,7 @@ export async function postExaminationLibraryPublish(request, response) {
 	}
 
 	return response.redirect(
-		`${url('examination-library-section', { caseId, slug: itemSlug })}?published=true`
+		`${url('examination-library-section', { caseId, slug: categorySlug })}?published=true`
 	);
 }
 

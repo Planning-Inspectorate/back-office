@@ -1,9 +1,7 @@
 import {
-	getCategoryCode,
 	getExaminationLibraryPagination,
-	getSectionByItemSlug
+	resolveExaminationLibraryCategory
 } from './applications-examination-library-utils.js';
-import { categoryCodes, examinationLibrarySections } from './examination-library.constants.js';
 import { buildQueryString } from '../../common/components/build-query-string.js';
 import {
 	getExaminationLibraryCategories,
@@ -25,23 +23,24 @@ const UNPUBLISH_CATEGORY_ERROR =
 /**
  * Get Examination Library category unpublish page.
  *
- * @param {import('express').Request<{ caseId: string, slug: string }>} req
+ * @param {import('express').Request<{ caseId: string, slug: string, sectionSlug?: string }>} req
  * @param {import('express').Response<any, { caseId?: number }>} res
  * @returns {Promise<void>}
  */
 export async function getExaminationLibraryUnpublish(req, res) {
-	const { slug: itemSlug } = req.params;
+	const { slug: itemSlug, sectionSlug } = req.params;
 	const { sortBy, pageSize = 25, page = 1 } = req.query;
 	const caseId = res.locals?.caseId || Number(req.params?.caseId);
 	const pageNumber = Number(page) || 1;
 	const pageSizeNumber = Number(pageSize) || 25;
 
-	const section = getSectionByItemSlug(examinationLibrarySections, itemSlug);
-	const sectionCategoryCode = section ? getCategoryCode(section, categoryCodes) : '';
-
-	if (!section || !sectionCategoryCode) {
+	const categories = await getExaminationLibraryCategories(caseId);
+	const resolvedCategory = resolveExaminationLibraryCategory(itemSlug, sectionSlug, categories);
+	if (!resolvedCategory) {
 		return res.status(404).render('app/404');
 	}
+	const { section, categoryCode: sectionCategoryCode } = resolvedCategory;
+	const categorySlug = sectionSlug ? `${sectionSlug}/${itemSlug}` : itemSlug;
 
 	const queryString = buildQueryString({
 		sortBy,
@@ -50,10 +49,11 @@ export async function getExaminationLibraryUnpublish(req, res) {
 		examinationRefNo: true
 	});
 
-	const [categoryDocumentsResponse, categoriesResponse] = await Promise.all([
-		getExaminationLibraryDocumentsByCategory(caseId, sectionCategoryCode, queryString),
-		getExaminationLibraryCategories(caseId, { categoryCode: sectionCategoryCode }).catch(() => [])
-	]);
+	const categoryDocumentsResponse = await getExaminationLibraryDocumentsByCategory(
+		caseId,
+		sectionCategoryCode,
+		queryString
+	);
 
 	const categoryDocuments = categoryDocumentsResponse?.items ?? [];
 	const filteredDocuments = categoryDocuments.filter(
@@ -61,12 +61,13 @@ export async function getExaminationLibraryUnpublish(req, res) {
 			Object.keys(document.latestDocumentVersion ?? {}).length
 	);
 
-	const matchingCategory = categoriesResponse?.find((c) => c.categoryCode === sectionCategoryCode);
+	const matchingCategory = categories?.find((c) => c.categoryCode === sectionCategoryCode);
 	const categoryStatus = matchingCategory?.publishedStatus?.toLowerCase();
 
 	if (categoryStatus !== 'published') {
 		const sectionData = await getExaminationLibrarySectionData(caseId, itemSlug, req.query, {
-			categoriesResponse
+			categoriesResponse: categories,
+			sectionSlug
 		});
 
 		if (!sectionData) {
@@ -86,14 +87,15 @@ export async function getExaminationLibraryUnpublish(req, res) {
 		caseId,
 		filteredDocuments,
 		itemSlug,
-		section
+		section,
+		sectionSlug
 	});
 
 	if (!unpublishViewModel) {
 		return res.status(404).render('app/404');
 	}
 
-	const unpublishUrl = url('examination-library-unpublish', { caseId, slug: itemSlug });
+	const unpublishUrl = url('examination-library-unpublish', { caseId, slug: categorySlug });
 
 	return res.render('applications/case-examination-library/examination-library-unpublish.njk', {
 		...unpublishViewModel,
@@ -104,27 +106,32 @@ export async function getExaminationLibraryUnpublish(req, res) {
 /**
  * Handle unpublishing Examination Library category.
  *
- * @param {import('express').Request<{ caseId: string, slug: string }>} req
+ * @param {import('express').Request<{ caseId: string, slug: string, sectionSlug?: string }>} req
  * @param {import('express').Response<any, { caseId?: number }>} res
  * @returns {Promise<void>}
  */
 export async function postExaminationLibraryUnpublish(req, res) {
-	const { slug: itemSlug } = req.params;
+	const { slug: itemSlug, sectionSlug } = req.params;
 	const caseId = res.locals?.caseId || Number(req.params?.caseId);
 
-	const section = getSectionByItemSlug(examinationLibrarySections, itemSlug);
-	const sectionCategoryCode = section ? getCategoryCode(section, categoryCodes) : '';
+	const categories = await getExaminationLibraryCategories(caseId);
+	const resolvedCategory = resolveExaminationLibraryCategory(itemSlug, sectionSlug, categories);
 
-	if (!section || !sectionCategoryCode) {
+	if (!resolvedCategory) {
 		return res.status(404).render('app/404');
 	}
+	const { categoryCode: sectionCategoryCode } = resolvedCategory;
+	const categorySlug = sectionSlug ? `${sectionSlug}/${itemSlug}` : itemSlug;
 
 	try {
 		await unpublishExaminationLibraryCategory(caseId, { categoryCode: sectionCategoryCode });
 	} catch (error) {
 		const apiError = /** @type {any} */ (error);
 		if (apiError?.response?.statusCode === 400 || apiError?.statusCode === 400) {
-			const sectionData = await getExaminationLibrarySectionData(caseId, itemSlug, req.query);
+			const sectionData = await getExaminationLibrarySectionData(caseId, itemSlug, req.query, {
+				categoriesResponse: categories,
+				sectionSlug
+			});
 			if (!sectionData) {
 				return res.status(404).render('app/404');
 			}
@@ -137,5 +144,5 @@ export async function postExaminationLibraryUnpublish(req, res) {
 		throw error;
 	}
 
-	return res.redirect(`${url('examination-library-section', { caseId, slug: itemSlug })}`);
+	return res.redirect(`${url('examination-library-section', { caseId, slug: categorySlug })}`);
 }

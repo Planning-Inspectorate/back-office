@@ -82,9 +82,9 @@ export async function getExaminationLibrarySectionData(
 		slug: categorySlug
 	});
 
-	const publishUrl = url('examination-library-publish', { caseId, slug: itemSlug });
-	const updateUrl = url('examination-library-update', { caseId, slug: itemSlug });
-	const unpublishUrl = url('examination-library-unpublish', { caseId, slug: itemSlug });
+	const publishUrl = url('examination-library-publish', { caseId, slug: categorySlug });
+	const updateUrl = url('examination-library-update', { caseId, slug: categorySlug });
+	const unpublishUrl = url('examination-library-unpublish', { caseId, slug: categorySlug });
 
 	/** @param {ExaminationLibrarySectionDocument} doc */
 	const isAwaitingELPublication = (doc) =>

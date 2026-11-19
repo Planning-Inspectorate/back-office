@@ -140,5 +140,24 @@ describe('applications examination library unpublish view model', () => {
 				{ text: 'Document has been deleted' }
 			]);
 		});
+
+		it('should generate the correct heading and backlink for a dynamic category', () => {
+			const result = getExaminationLibraryUnpublishViewModel({
+				caseId: 123,
+				filteredDocuments: [baseDocument],
+				itemSlug: 'open-floor-hearing-1',
+				sectionSlug: 'events-and-hearings',
+				section: {
+					...section,
+					slug: 'events-and-hearings',
+					items: [{ title: 'Open Floor Hearing 1', href: 'open-floor-hearing-1' }]
+				}
+			});
+
+			expect(result.sectionHeading).toBe('Open Floor Hearing 1');
+			expect(result.backLink).toBe(
+				'/applications-service/case/123/examination-library/category/events-and-hearings/open-floor-hearing-1'
+			);
+		});
 	});
 });
