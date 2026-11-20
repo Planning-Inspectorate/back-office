@@ -84,10 +84,11 @@ export const getByExaminationTimetableIdAndItemName = (
 /**
  *
  * @param {import('@pins/applications.api').Schema.ExaminationTimetableItem} examinationTimetableItem
+ * @param {import('#database-client').Prisma.TransactionClient} [db]
  * @returns {Promise<import('@pins/applications.api').Schema.ExaminationTimetableItem>}
  */
-export const create = (examinationTimetableItem) => {
-	return databaseConnector.examinationTimetableItem.create({ data: examinationTimetableItem });
+export const create = (examinationTimetableItem, db = databaseConnector) => {
+	return db.examinationTimetableItem.create({ data: examinationTimetableItem });
 };
 
 /**
@@ -113,4 +114,15 @@ export const deleteById = (id) => {
 	return databaseConnector.examinationTimetableItem.delete({
 		where: { id }
 	});
+};
+
+/**
+ * Executes database operations within a transaction.
+ *
+ * @template T
+ * @param {(tx: import('#database-client').Prisma.TransactionClient) => Promise<T>} cb
+ * @returns {Promise<T>}
+ */
+export const executeInTransaction = (cb) => {
+	return databaseConnector.$transaction(cb);
 };

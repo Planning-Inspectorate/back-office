@@ -34,6 +34,69 @@ describe('Examination Library Routes', () => {
 				orderBy: { id: 'asc' }
 			});
 		});
+
+		it('should include examination timetable dates when requested', async () => {
+			const mockCategories = [
+				{
+					id: 1,
+					categoryCode: 'EV1',
+					categoryName: 'Open Floor Hearing 1',
+					source: 'TIMETABLE',
+					ExaminationTimetableItem: {
+						date: '2026-11-23T00:00:00.000Z',
+						startDate: '2026-11-22T00:00:00.000Z'
+					}
+				}
+			];
+			databaseConnector.examinationLibraryCategory.findMany.mockResolvedValue(mockCategories);
+			const response = await request.get(
+				`/applications/${caseId}/examination-library?includeTimetableDates=true`
+			);
+			expect(response.status).toBe(200);
+			expect(response.body).toEqual(mockCategories);
+			expect(databaseConnector.examinationLibraryCategory.findMany).toHaveBeenCalledWith({
+				where: { caseId },
+				include: {
+					ExaminationTimetableItem: {
+						select: {
+							date: true,
+							startDate: true
+						}
+					}
+				},
+				orderBy: { id: 'asc' }
+			});
+		});
+		it('should not include examination timetable dates when not requested', async () => {
+			const mockCategories = [
+				{
+					id: 1,
+					categoryCode: 'EV1',
+					categoryName: 'Open Floor Hearing 1',
+					source: 'TIMETABLE'
+				}
+			];
+			databaseConnector.examinationLibraryCategory.findMany.mockResolvedValue(mockCategories);
+			const response = await request.get(`/applications/${caseId}/examination-library`);
+			expect(response.status).toBe(200);
+			expect(response.body).toEqual(mockCategories);
+			expect(databaseConnector.examinationLibraryCategory.findMany).toHaveBeenCalledWith({
+				where: { caseId },
+				orderBy: { id: 'asc' }
+			});
+		});
+		it('should return 400 when includeTimetableDates is invalid', async () => {
+			const response = await request.get(
+				`/applications/${caseId}/examination-library?includeTimetableDates=invalid`
+			);
+			expect(response.status).toBe(400);
+			expect(response.body).toEqual({
+				errors: {
+					includeTimetableDates: 'Include timetable dates must be a boolean'
+				}
+			});
+			expect(databaseConnector.examinationLibraryCategory.findMany).not.toHaveBeenCalled();
+		});
 	});
 
 	describe('POST /applications/:id/examination-library', () => {

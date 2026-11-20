@@ -101,11 +101,14 @@ export const updatePublishedStatusMetadata = async (newStatus, documentGuid, cas
 
 /**
  * @param {number} caseId
+ * @param {{id?: number, categoryCode?: string, includeTimetableDates?: boolean}} [options]
  * @returns {Promise<ExaminationLibraryCategory[]>}
  */
-export const getExaminationLibraryCategories = async (caseId) => {
+export const getExaminationLibraryCategories = async (caseId, options = {}) => {
 	try {
-		return await get(`applications/${caseId}/examination-library`);
+		const query = options.includeTimetableDates ? '?includeTimetableDates=true' : '';
+
+		return await get(`applications/${caseId}/examination-library${query}`);
 	} catch (/** @type {*} */ error) {
 		pino.error(
 			{ err: error, caseId },

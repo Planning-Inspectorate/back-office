@@ -9,7 +9,7 @@ export default {
 	'applics-1845-fees-forecasting': false,
 	[AZURE_AI_LANGUAGE_REDACTION]: false,
 	'idas-340-redaction-service': false,
-	'idas-607-examination-library': false
+	'idas-607-examination-library': true
 };
 
 export const flagsByReference = {

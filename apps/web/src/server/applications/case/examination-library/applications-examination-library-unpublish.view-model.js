@@ -11,7 +11,8 @@ import { url } from '../../../lib/nunjucks-filters/index.js';
  *   caseId: number,
  *   filteredDocuments: Array<any>,
  *   itemSlug: string,
- *   section: ExaminationLibrarySection
+ *   section: ExaminationLibrarySection,
+ *   sectionSlug?: string
  * }} params
  * @returns {object}
  */
@@ -19,11 +20,14 @@ export const getExaminationLibraryUnpublishViewModel = ({
 	caseId,
 	filteredDocuments,
 	itemSlug,
-	section
+	section,
+	sectionSlug
 }) => {
 	const item = section.items.find((item) => item.href === itemSlug);
 	const sectionHeading = item?.title || '';
-	const backLink = url('examination-library-section', { caseId, slug: itemSlug });
+
+	const categorySlug = sectionSlug ? `${sectionSlug}/${itemSlug}` : itemSlug;
+	const backLink = url('examination-library-section', { caseId, slug: categorySlug });
 
 	const unpublishTableData = buildTable({
 		headers: ['Reference', 'Document'],

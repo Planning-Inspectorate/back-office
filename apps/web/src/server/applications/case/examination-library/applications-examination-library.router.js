@@ -8,20 +8,43 @@ import * as unpublishController from './applications-examination-library-unpubli
 const applicationsExamLibraryRouter = createRouter({ mergeParams: true });
 
 applicationsExamLibraryRouter.route('/').get(asyncHandler(controller.getExaminationLibraryIndex));
+
 applicationsExamLibraryRouter
 	.route('/category/:slug')
 	.get(asyncHandler(sectionController.getExaminationLibrarySection));
+
 applicationsExamLibraryRouter
 	.route('/category/:slug/publish')
 	.get(asyncHandler(publishController.getExaminationLibraryPublish))
 	.post(asyncHandler(publishController.postExaminationLibraryPublish));
+
 applicationsExamLibraryRouter
 	.route('/category/:slug/update')
 	.get(asyncHandler(publishController.getExaminationLibraryUpdate))
 	.post(asyncHandler(publishController.postExaminationLibraryUpdate));
+
 applicationsExamLibraryRouter
 	.route('/category/:slug/unpublish')
 	.get(asyncHandler(unpublishController.getExaminationLibraryUnpublish))
 	.post(asyncHandler(unpublishController.postExaminationLibraryUnpublish));
+
+applicationsExamLibraryRouter
+	.route('/category/:sectionSlug/:slug/publish')
+	.get(asyncHandler(publishController.getExaminationLibraryPublish))
+	.post(asyncHandler(publishController.postExaminationLibraryPublish));
+
+applicationsExamLibraryRouter
+	.route('/category/:sectionSlug/:slug/update')
+	.get(asyncHandler(publishController.getExaminationLibraryUpdate))
+	.post(asyncHandler(publishController.postExaminationLibraryUpdate));
+
+applicationsExamLibraryRouter
+	.route('/category/:sectionSlug/:slug/unpublish')
+	.get(asyncHandler(unpublishController.getExaminationLibraryUnpublish))
+	.post(asyncHandler(unpublishController.postExaminationLibraryUnpublish));
+
+applicationsExamLibraryRouter
+	.route('/category/:sectionSlug/:slug')
+	.get(asyncHandler(sectionController.getExaminationLibrarySection));
 
 export default applicationsExamLibraryRouter;

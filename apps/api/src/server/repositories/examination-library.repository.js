@@ -12,7 +12,7 @@ import { EXAM_LIBRARY_STATIC_CATEGORIES } from '../applications/constants.js';
  * Optionally filter by id or categoryCode.
  *
  * @param {number} caseId
- * @param {{id?: number, categoryCode?: string}} [filters]
+ * @param {{id?: number, categoryCode?: string, includeTimetableDates?: string}} [filters]
  * @returns {import('#database-client').PrismaPromise<ExaminationLibraryCategory[]>}
  */
 export const getCategories = (caseId, filters = {}) => {
@@ -28,6 +28,16 @@ export const getCategories = (caseId, filters = {}) => {
 
 	return databaseConnector.examinationLibraryCategory.findMany({
 		where,
+		...(filters.includeTimetableDates && {
+			include: {
+				ExaminationTimetableItem: {
+					select: {
+						date: true,
+						startDate: true
+					}
+				}
+			}
+		}),
 		orderBy: {
 			id: 'asc'
 		}
@@ -246,5 +256,56 @@ export const unpublishCategory = async (caseId, categoryCode) => {
 			caseReference: caseData.reference,
 			categories: categoryCodes
 		};
+	});
+};
+
+/**
+ * Checks whether a case has any static examination library categories.
+ *
+ * @param {number} caseId
+ * @param {import('#database-client').Prisma.TransactionClient} [db]
+ * @returns {Promise<boolean>}
+ */
+export const hasStaticCategories = async (caseId, db = databaseConnector) => {
+	const category = await db.examinationLibraryCategory.findFirst({
+		where: {
+			caseId,
+			source: 'STATIC'
+		},
+		select: {
+			id: true
+		}
+	});
+	return category !== null;
+};
+/**
+ * Gets existing examination library category codes created from timetable items.
+ *
+ * @param {number} caseId
+ * @param {import('#database-client').Prisma.TransactionClient} [db]
+ * @returns {Promise<string[]>}
+ */
+export const getTimetableCategoryCodes = async (caseId, db = databaseConnector) => {
+	const categories = await db.examinationLibraryCategory.findMany({
+		where: {
+			caseId,
+			source: 'TIMETABLE'
+		},
+		select: {
+			categoryCode: true
+		}
+	});
+	return categories.map(({ categoryCode }) => categoryCode);
+};
+/**
+ * Creates an examination library category.
+ *
+ * @param {import('#database-client').Prisma.ExaminationLibraryCategoryUncheckedCreateInput} category
+ * @param {import('#database-client').Prisma.TransactionClient} [db]
+ * @returns {Promise<import('#database-client').ExaminationLibraryCategory>}
+ */
+export const createCategory = (category, db = databaseConnector) => {
+	return db.examinationLibraryCategory.create({
+		data: category
 	});
 };

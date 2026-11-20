@@ -3,15 +3,10 @@ import {
 	getExaminationLibraryDocumentsByCategory
 } from './applications-examination-library.service.js';
 import { getExaminationLibrarySectionViewModel } from './applications-examination-library-section.view-model.js';
+import { DEFAULT_SECTION_STATUS } from './examination-library.constants.js';
 import {
-	categoryCodes,
-	DEFAULT_SECTION_STATUS,
-	examinationLibrarySections
-} from './examination-library.constants.js';
-import {
-	getSectionByItemSlug,
-	getCategoryCode,
-	getExaminationLibraryPagination
+	getExaminationLibraryPagination,
+	resolveExaminationLibraryCategory
 } from './applications-examination-library-utils.js';
 import { buildQueryString } from '../../common/components/build-query-string.js';
 import { url } from '../../../lib/nunjucks-filters/index.js';
@@ -26,7 +21,7 @@ import { url } from '../../../lib/nunjucks-filters/index.js';
  * @param {number} caseId
  * @param {string} itemSlug
  * @param {Record<string, any>} [query={}]
- * @param {{ categoriesResponse?: any[], documentsResponse?: any }} [prefetchedData={}]
+ * @param {{ categoriesResponse?: any[], documentsResponse?: any, sectionSlug?: string }} [prefetchedData={}]
  * @returns {Promise<{
  *   sectionViewModel: any,
  *   documentsResponse: any,
@@ -49,12 +44,18 @@ export async function getExaminationLibrarySectionData(
 	const pageNumber = Number(page) || 1;
 	const pageSizeNumber = Number(pageSize) || 25;
 
-	const section = getSectionByItemSlug(examinationLibrarySections, itemSlug);
-	const sectionCategoryCode = section ? getCategoryCode(section, categoryCodes) : '';
-
-	if (!section || !sectionCategoryCode) {
+	const { sectionSlug } = prefetchedData;
+	const categoriesResponse =
+		prefetchedData.categoriesResponse || (await getExaminationLibraryCategories(caseId));
+	const resolvedCategory = resolveExaminationLibraryCategory(
+		itemSlug,
+		sectionSlug,
+		categoriesResponse
+	);
+	if (!resolvedCategory) {
 		return null;
 	}
+	const { section, categoryCode: sectionCategoryCode } = resolvedCategory;
 
 	const queryString = buildQueryString({
 		sortBy,
@@ -62,12 +63,9 @@ export async function getExaminationLibrarySectionData(
 		page: pageNumber
 	});
 
-	const [documentsResponse, categoriesResponse] = await Promise.all([
+	const documentsResponse =
 		prefetchedData.documentsResponse ||
-			getExaminationLibraryDocumentsByCategory(caseId, sectionCategoryCode, queryString),
-		prefetchedData.categoriesResponse ||
-			getExaminationLibraryCategories(caseId, { categoryCode: sectionCategoryCode }).catch(() => [])
-	]);
+		(await getExaminationLibraryDocumentsByCategory(caseId, sectionCategoryCode, queryString));
 
 	/** @type {ExaminationLibrarySectionDocument[]} */
 	const sectionDocuments = documentsResponse?.items ?? [];
@@ -78,10 +76,15 @@ export async function getExaminationLibrarySectionData(
 
 	const sectionStatus = isPublishedQuery ? 'published' : dbCategoryStatus || DEFAULT_SECTION_STATUS;
 
-	const sectionUrl = url('examination-library-section', { caseId, slug: itemSlug });
-	const publishUrl = url('examination-library-publish', { caseId, slug: itemSlug });
-	const updateUrl = url('examination-library-update', { caseId, slug: itemSlug });
-	const unpublishUrl = url('examination-library-unpublish', { caseId, slug: itemSlug });
+	const categorySlug = sectionSlug ? `${sectionSlug}/${itemSlug}` : itemSlug;
+	const sectionUrl = url('examination-library-section', {
+		caseId,
+		slug: categorySlug
+	});
+
+	const publishUrl = url('examination-library-publish', { caseId, slug: categorySlug });
+	const updateUrl = url('examination-library-update', { caseId, slug: categorySlug });
+	const unpublishUrl = url('examination-library-unpublish', { caseId, slug: categorySlug });
 
 	/** @param {ExaminationLibrarySectionDocument} doc */
 	const isAwaitingELPublication = (doc) =>
@@ -121,6 +124,7 @@ export async function getExaminationLibrarySectionData(
 	}
 
 	const sectionViewModel = getExaminationLibrarySectionViewModel({
+		section,
 		sectionDocuments,
 		sectionStatus,
 		itemSlug,
@@ -148,15 +152,17 @@ export async function getExaminationLibrarySectionData(
 /**
  * Get Examination Library section detail page.
  *
- * @param {import('express').Request<{ caseId: string, slug: string }>} request
+ * @param {import('express').Request<{ caseId: string, slug: string, sectionSlug?: string }>} request
  * @param {import('express').Response<any, { case: { title: string }, caseId?: number }>} response
  * @returns {Promise<void>}
  */
 export async function getExaminationLibrarySection(request, response) {
-	const { slug: itemSlug } = request.params;
+	const { slug: itemSlug, sectionSlug } = request.params;
 	const caseId = response.locals?.caseId || Number(request.params?.caseId);
 
-	const sectionData = await getExaminationLibrarySectionData(caseId, itemSlug, request.query);
+	const sectionData = await getExaminationLibrarySectionData(caseId, itemSlug, request.query, {
+		sectionSlug
+	});
 
 	if (!sectionData) {
 		return response.status(404).render('app/404');

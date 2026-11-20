@@ -44,6 +44,12 @@ router.get(
 			required: false,
 			type: 'string'
 		}
+		#swagger.parameters['includeTimetableDates'] = {
+			in: 'query',
+			description: 'Include timetable dates in the response',
+			required: false,
+			type: 'boolean'
+		}
 		#swagger.parameters['x-service-name'] = {
 			in: 'header',
 			type: 'string',

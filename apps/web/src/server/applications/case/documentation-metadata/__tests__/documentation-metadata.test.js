@@ -97,11 +97,41 @@ const examinationLibraryCategories = [
 	{
 		id: 20,
 		caseId: 123,
-		categoryCode: 'REPX',
+		categoryCode: 'REP1',
 		categoryName: 'Deadline 1',
 		publishedStatus: 'in progress',
 		source: 'TIMETABLE',
-		examinationTimetableItemId: 1
+		examinationTimetableItemId: 1,
+		ExaminationTimetableItem: {
+			date: '2026-11-30T23:59:00.000Z',
+			startDate: null
+		}
+	},
+	{
+		id: 21,
+		caseId: 123,
+		categoryCode: 'EV1',
+		categoryName: 'Open Floor Hearing 1',
+		publishedStatus: 'in progress',
+		source: 'TIMETABLE',
+		examinationTimetableItemId: 2,
+		ExaminationTimetableItem: {
+			date: '2026-12-21T00:00:00.000Z',
+			startDate: null
+		}
+	},
+	{
+		id: 22,
+		caseId: 123,
+		categoryCode: 'PDA',
+		categoryName: 'Procedural deadline A',
+		publishedStatus: 'in progress',
+		source: 'TIMETABLE',
+		examinationTimetableItemId: 3,
+		ExaminationTimetableItem: {
+			date: '2026-12-06T23:59:00.000Z',
+			startDate: null
+		}
 	}
 ];
 
@@ -122,6 +152,7 @@ const nocks = () => {
 	nock('http://test/').post('/applications/123/documents/110/metadata').reply(200, {});
 	nock('http://test/')
 		.get('/applications/123/examination-library')
+		.query({ includeTimetableDates: true })
 		.reply(200, examinationLibraryCategories);
 	nock('http://test/')
 		.get('/applications/123/documents/457/properties')
@@ -600,12 +631,18 @@ describe('Edit applications documentation metadata', () => {
 				expect(element.innerHTML).toContain('Reports');
 			});
 
-			it('should not render relevant representations or timetable categories', async () => {
+			it('should render dynamic examination library category groups and their dropdown options', async () => {
 				const response = await request.get(`${baseUrl}/examination-library-category`);
+
 				const element = parseHtml(response.text);
 
-				expect(element.innerHTML).not.toContain('Relevant representations');
-				expect(element.innerHTML).not.toContain('Deadline 1');
+				expect(element.innerHTML).toContain('Events and hearings (EVX)');
+				expect(element.innerHTML).toContain('Procedural deadlines (PDX)');
+				expect(element.innerHTML).toContain('Deadlines (REPX)');
+
+				expect(element.innerHTML).toContain('21 Dec 2026 - Open Floor Hearing 1 (EV1)');
+				expect(element.innerHTML).toContain('6 Dec 2026 - Procedural deadline A (PDA)');
+				expect(element.innerHTML).toContain('30 Nov 2026 - Deadline 1 (REP1)');
 			});
 		});
 
@@ -630,9 +667,20 @@ describe('Edit applications documentation metadata', () => {
 			it('should redirect to document properties page when an application document sub-category is selected', async () => {
 				const response = await request.post(`${baseUrl}/examination-library-category`).send({
 					examinationLibraryCategoryId: 'APP',
-					examinationLibraryCategoryChild: '7'
+					examinationLibraryCategoryChildAPP: '7'
 				});
 
+				expect(response.headers.location).toEqual('../properties');
+			});
+
+			it('should save the selected dynamic examination library category', async () => {
+				const response = await request.post(`${baseUrl}/examination-library-category`).send({
+					examinationLibraryCategoryId: 'EVX',
+					examinationLibraryCategoryChildAPP: '7',
+					examinationLibraryCategoryChildEVX: '21',
+					examinationLibraryCategoryChildPDX: '22',
+					examinationLibraryCategoryChildREPX: '20'
+				});
 				expect(response.headers.location).toEqual('../properties');
 			});
 		});

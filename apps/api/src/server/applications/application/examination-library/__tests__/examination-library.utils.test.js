@@ -1,7 +1,9 @@
 import {
 	generateDraftExaminationLibraryReferences,
 	addDraftExaminationLibraryReferences,
-	sortExaminationLibraryDocuments
+	sortExaminationLibraryDocuments,
+	generateExaminationLibraryCategoryCode,
+	isExaminationLibraryTimetableType
 } from '../examination-library.utils.js';
 
 const createDocument = ({
@@ -546,5 +548,141 @@ describe('addDraftExaminationLibraryReferences', () => {
 		const newDocument = result.find((document) => document.guid === 'new');
 
 		expect(newDocument.latestDocumentVersion.draftExaminationLibraryReference).toBe('APP-005');
+	});
+});
+
+describe('isExaminationLibraryTimetableType', () => {
+	it.each([
+		'preliminary-meeting',
+		'open-floor-hearing',
+		'issue-specific-hearing',
+		'accompanied-site-inspection',
+		'compulsory-acquisition-hearing',
+		'unaccompanied-site-inspection',
+		'procedural-deadline',
+		'deadline'
+	])('returns true for eligible type %s', (templateType) => {
+		expect(isExaminationLibraryTimetableType(templateType)).toBe(true);
+	});
+	it.each([
+		'deadline-for-close-of-examination',
+		'issued-by',
+		'publication-of',
+		'other-meeting',
+		'procedural-decision'
+	])('returns false for ineligible type %s', (templateType) => {
+		expect(isExaminationLibraryTimetableType(templateType)).toBe(false);
+	});
+});
+
+describe('generateExaminationLibraryCategoryCode', () => {
+	describe('events and hearings', () => {
+		it.each([
+			'preliminary-meeting',
+			'open-floor-hearing',
+			'issue-specific-hearing',
+			'accompanied-site-inspection',
+			'compulsory-acquisition-hearing',
+			'unaccompanied-site-inspection'
+		])('generates EV1 for the first %s', (templateType) => {
+			expect(generateExaminationLibraryCategoryCode(templateType, 'Event', [])).toBe('EV1');
+		});
+
+		it('increments across different event types', () => {
+			expect(
+				generateExaminationLibraryCategoryCode('open-floor-hearing', 'Open Floor Hearing', [
+					'EV1',
+					'EV2',
+					'REP1',
+					'PDA'
+				])
+			).toBe('EV3');
+		});
+
+		it('uses the highest existing EV number', () => {
+			expect(
+				generateExaminationLibraryCategoryCode('preliminary-meeting', 'Preliminary Meeting', [
+					'EV1',
+					'EV3'
+				])
+			).toBe('EV4');
+		});
+
+		it('ignores unrelated category codes', () => {
+			expect(
+				generateExaminationLibraryCategoryCode('issue-specific-hearing', 'Issue Specific Hearing', [
+					'APP',
+					'RR',
+					'PDA',
+					'REP1'
+				])
+			).toBe('EV1');
+		});
+	});
+
+	describe('procedural deadlines', () => {
+		it('generates PDA for the first procedural deadline', () => {
+			expect(
+				generateExaminationLibraryCategoryCode('procedural-deadline', 'Procedural Deadline', [])
+			).toBe('PDA');
+		});
+
+		it('generates the next letter', () => {
+			expect(
+				generateExaminationLibraryCategoryCode('procedural-deadline', 'Procedural Deadline', [
+					'PDA',
+					'PDB',
+					'EV1'
+				])
+			).toBe('PDC');
+		});
+
+		it('uses the highest existing letter', () => {
+			expect(
+				generateExaminationLibraryCategoryCode('procedural-deadline', 'Procedural Deadline', [
+					'PDA',
+					'PDB',
+					'PDC'
+				])
+			).toBe('PDD');
+		});
+
+		it('throws when the code would exceed PDZ', () => {
+			expect(() =>
+				generateExaminationLibraryCategoryCode('procedural-deadline', 'Procedural Deadline', [
+					'PDZ'
+				])
+			).toThrow('Procedural deadline category code limit reached');
+		});
+	});
+
+	describe('deadlines', () => {
+		it.each([
+			['Deadline 1', 'REP1'],
+			['Deadline 1a', 'REP1a'],
+			['Deadline 2', 'REP2'],
+			['Deadline 2b', 'REP2b'],
+			['Deadline 12a', 'REP12a']
+		])('generates %s as %s', (name, expected) => {
+			expect(generateExaminationLibraryCategoryCode('deadline', name, [])).toBe(expected);
+		});
+
+		it('throws for an invalid deadline name', () => {
+			expect(() => generateExaminationLibraryCategoryCode('deadline', 'Deadline One', [])).toThrow(
+				'Invalid deadline name: Deadline One'
+			);
+		});
+	});
+
+	describe('ineligible types', () => {
+		it.each([
+			'deadline-for-close-of-examination',
+			'issued-by',
+			'publication-of',
+			'other-meeting',
+			'procedural-decision'
+		])('returns null for %s', (templateType) => {
+			expect(generateExaminationLibraryCategoryCode(templateType, 'Other', [])).toBeNull();
+		});
 	});
 });
