@@ -22,7 +22,12 @@ import { getExaminationLibraryDocumentDraftReference } from '../documentation/ap
 
 /**
  * @typedef {Pick<ExaminationLibraryCategory,
- * 'id' | 'categoryCode' | 'categoryName' | 'source'>} ExaminationLibraryCategoryForView
+ * 'id' | 'categoryCode' | 'categoryName' | 'source'> & {
+ *   ExaminationTimetableItem?: {
+ *     date: string | null,
+ *     startDate: string | null
+ *   } | null
+ * }} ExaminationLibraryCategoryForView
  */
 
 /** @type {Record<MetaDataNames, MetaDataLayoutParams>} */
@@ -255,7 +260,9 @@ export const getMetadataViewModel = async (requestParameters, responseLocals) =>
 
 	switch (requestParameters.metaDataName) {
 		case 'examination-library-category': {
-			const categories = await getExaminationLibraryCategories(responseLocals.caseId);
+			const categories = await getExaminationLibraryCategories(responseLocals.caseId, {
+				includeTimetableDates: true
+			});
 
 			return {
 				...viewModel,
@@ -295,12 +302,47 @@ export const getMetadataViewModel = async (requestParameters, responseLocals) =>
 	}
 };
 
-const categoryOrder = ['NELC', 'APP', 'AoC', 'PD', 'AS', 'OD'];
+/**
+ *@param {string | null | undefined} dateString
+ * @returns {string | null}
+ */
+const formatTimetableDate = (dateString) => {
+	if (!dateString) {
+		return null;
+	}
+
+	return new Intl.DateTimeFormat('en-GB', {
+		day: 'numeric',
+		month: 'short',
+		year: 'numeric',
+		timeZone: 'Europe/London'
+	}).format(new Date(dateString));
+};
+
+const categoryOrder = ['NELC', 'APP', 'AoC', 'PD', 'CRX', 'AS', 'EVX', 'PDX', 'REPX', 'OD'];
 
 /** @type {Record<string, string>} */
 const groupedCategoryLabels = {
 	APP: 'Application documents'
 };
+
+const dynamicCategoryGroups = [
+	{
+		categoryCode: 'EVX',
+		label: 'Events and hearings (EVX)',
+		matches: (/** @type {string} */ code) => /^EV\d+$/.test(code)
+	},
+	{
+		categoryCode: 'PDX',
+		label: 'Procedural deadlines (PDX)',
+		matches: (/** @type {string} */ code) => /^PD[A-Z]+$/.test(code)
+	},
+	{
+		categoryCode: 'REPX',
+		label: 'Deadlines (REPX)',
+		matches: (/** @type {string} */ code) => /^REP\d+[a-z]?$/.test(code)
+	}
+];
 
 /**
  * Map Examination Library categories returned from the API into
@@ -315,11 +357,42 @@ const groupedCategoryLabels = {
  */
 export const mapExaminationLibraryCategories = (categories, selectedCategoryId) => {
 	const staticCategories = categories.filter((category) => category.source === 'STATIC');
+	const dynamicCategories = categories.filter((category) => category.source === 'TIMETABLE');
 
 	/** @type {ExaminationLibraryCategoryItem[]} */
 	const items = [];
 
 	for (const categoryCode of categoryOrder) {
+		const dynamicGroup = dynamicCategoryGroups.find((group) => group.categoryCode === categoryCode);
+
+		if (dynamicGroup) {
+			const matchingCategories = dynamicCategories.filter((category) =>
+				dynamicGroup.matches(category.categoryCode)
+			);
+
+			if (matchingCategories.length === 0) {
+				continue;
+			}
+
+			items.push({
+				value: dynamicGroup.categoryCode,
+				text: dynamicGroup.label,
+				categoryCode: dynamicGroup.categoryCode,
+				checked: matchingCategories.some((category) => category.id === selectedCategoryId),
+				children: matchingCategories.map((category) => {
+					const date = formatTimetableDate(category?.ExaminationTimetableItem?.date);
+
+					return {
+						value: category.id,
+						text: `${date} - ${category.categoryName} (${category.categoryCode})`,
+						selected: category.id === selectedCategoryId
+					};
+				})
+			});
+
+			continue;
+		}
+
 		const matchingCategories = staticCategories.filter(
 			(category) => category.categoryCode === categoryCode
 		);
@@ -346,15 +419,11 @@ export const mapExaminationLibraryCategories = (categories, selectedCategoryId) 
 
 		const label = groupedCategoryLabels[categoryCode];
 
-		const hasSelectedChild = matchingCategories.some(
-			(category) => category.id === selectedCategoryId
-		);
-
 		items.push({
 			value: categoryCode,
 			text: `${label} (${categoryCode})`,
 			categoryCode,
-			checked: hasSelectedChild,
+			checked: matchingCategories.some((category) => category.id === selectedCategoryId),
 			children: matchingCategories.map((category) => ({
 				value: category.id,
 				text: category.categoryName,

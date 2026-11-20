@@ -12,7 +12,7 @@ import { EXAM_LIBRARY_STATIC_CATEGORIES } from '../applications/constants.js';
  * Optionally filter by id or categoryCode.
  *
  * @param {number} caseId
- * @param {{id?: number, categoryCode?: string}} [filters]
+ * @param {{id?: number, categoryCode?: string, includeTimetableDates?: string}} [filters]
  * @returns {import('#database-client').PrismaPromise<ExaminationLibraryCategory[]>}
  */
 export const getCategories = (caseId, filters = {}) => {
@@ -28,6 +28,16 @@ export const getCategories = (caseId, filters = {}) => {
 
 	return databaseConnector.examinationLibraryCategory.findMany({
 		where,
+		...(filters.includeTimetableDates && {
+			include: {
+				ExaminationTimetableItem: {
+					select: {
+						date: true,
+						startDate: true
+					}
+				}
+			}
+		}),
 		orderBy: {
 			id: 'asc'
 		}

@@ -13,7 +13,7 @@ const nocks = ({ includeDocuments = true, appCategoryStatus = 'in progress' } = 
 	nock('http://test/').get('/applications/123').reply(200, fixtureExaminationLibraryIndex.caseData);
 	nock('http://test/')
 		.get('/applications/123/examination-library')
-		.query({ categoryCode: 'APP' })
+		.query((query) => query.categoryCode === 'APP')
 		.reply(200, [
 			{
 				categoryCode: 'APP',
@@ -23,12 +23,12 @@ const nocks = ({ includeDocuments = true, appCategoryStatus = 'in progress' } = 
 		]);
 	nock('http://test/')
 		.get('/applications/123/examination-library')
-		.query(true)
+		.query((query) => !query.categoryCode)
 		.reply(200, [
 			{
 				categoryCode: 'APP',
 				categoryName: 'Application form',
-				publishedStatus: 'published'
+				publishedStatus: appCategoryStatus
 			},
 			{
 				categoryCode: 'AoC',
@@ -124,6 +124,9 @@ describe('Examination Library', () => {
 		});
 
 		it('should display status tags from the API with correct colour classes for static sections', async () => {
+			nock.cleanAll();
+			nocks({ appCategoryStatus: 'published' });
+
 			const response = await request.get(`${baseUrl}`);
 			const element = parseHtml(response.text);
 

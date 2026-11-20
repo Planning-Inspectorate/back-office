@@ -1,18 +1,18 @@
+const groupedCategoryCodes = ['APP', 'EVX', 'PDX', 'REPX'];
 /**
  * Map submitted metadata form values to the shape expected by the API.
  *
  * @param {string} metaDataName
  * @param {Record<string, any>} body
- * @param {import('../../applications.types.d.ts').DocumentationFile} [documentMetaData]
+ * @param {Record<string, any>} [documentMetaData]
  * @returns {Record<string, any>}
  */
 export const mapMetadataFormToApi = (metaDataName, body, documentMetaData) => {
 	if (metaDataName === 'examination-library-category') {
-		const selectedCategoryId =
-			body.examinationLibraryCategoryId === 'APP'
-				? body.examinationLibraryCategoryChild
-				: body.examinationLibraryCategoryId;
-
+		const selectedCategory = body.examinationLibraryCategoryId;
+		const selectedCategoryId = groupedCategoryCodes.includes(selectedCategory)
+			? body[`examinationLibraryCategoryChild${selectedCategory}`]
+			: selectedCategory;
 		return {
 			examinationLibraryCategoryId: Number(selectedCategoryId)
 		};
@@ -24,11 +24,11 @@ export const mapMetadataFormToApi = (metaDataName, body, documentMetaData) => {
 				examinationRefNo: null
 			};
 		}
-
-		return {
-			examinationRefNo: `${documentMetaData?.examinationLibraryCategoryCode}-${body.examinationRefNo}`
-		};
+		if (body.examinationLibraryReferenceType === 'manual') {
+			return {
+				examinationRefNo: `${documentMetaData?.examinationLibraryCategoryCode}-${body.examinationRefNo}`
+			};
+		}
 	}
-
 	return body;
 };
