@@ -137,5 +137,7 @@ export async function postExaminationLibraryUnpublish(req, res) {
 		throw error;
 	}
 
-	return res.redirect(`${url('examination-library-section', { caseId, slug: itemSlug })}`);
+	return res.redirect(
+		`${url('examination-library-section', { caseId, slug: itemSlug })}?unpublished=true`
+	);
 }

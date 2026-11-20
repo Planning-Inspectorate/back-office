@@ -389,6 +389,64 @@ describe('Examination Library', () => {
 			expect(element.innerHTML).toContain('Preview and publish updates to library');
 			expect(element.innerHTML).toContain('/category/application-documents/update');
 		});
+
+		it('should display success banner, published status tag, and page title when ?published=true', async () => {
+			nock.cleanAll();
+			nocks({ appCategoryStatus: 'published', includeDocuments: false });
+
+			nock('http://test/')
+				.get('/applications/123/examination-library/documents')
+				.query(true)
+				.reply(200, {
+					page: 1,
+					pageSize: 25,
+					pageCount: 1,
+					itemCount: 0,
+					items: []
+				});
+
+			const response = await request.get(
+				`${baseUrl}/category/application-documents?published=true`
+			);
+			const element = parseHtml(response.text);
+
+			expect(response.status).toBe(200);
+			expect(element.innerHTML).toContain('Examination library category published');
+			expect(element.innerHTML).toContain('govuk-tag--green');
+			expect(element.innerHTML).toContain('Published');
+			expect(response.text).toContain(
+				'<title>Examination library category published - Title CASE/123 - NSIP applications</title>'
+			);
+		});
+
+		it('should display success banner, unpublished status tag, and page title when ?unpublished=true', async () => {
+			nock.cleanAll();
+			nocks({ appCategoryStatus: 'unpublished', includeDocuments: false });
+
+			nock('http://test/')
+				.get('/applications/123/examination-library/documents')
+				.query(true)
+				.reply(200, {
+					page: 1,
+					pageSize: 25,
+					pageCount: 1,
+					itemCount: 0,
+					items: []
+				});
+
+			const response = await request.get(
+				`${baseUrl}/category/application-documents?unpublished=true`
+			);
+			const element = parseHtml(response.text);
+
+			expect(response.status).toBe(200);
+			expect(element.innerHTML).toContain('Examination library category unpublished');
+			expect(element.innerHTML).toContain('govuk-tag--grey');
+			expect(element.innerHTML).toContain('Unpublished');
+			expect(response.text).toContain(
+				'<title>Examination library category unpublished - Title CASE/123 - NSIP applications</title>'
+			);
+		});
 	});
 
 	it('should pass sorting and pagination query parameters to the documents API', async () => {
@@ -655,7 +713,7 @@ describe('Examination Library', () => {
 				.post(`${baseUrl}/category/${slug}/unpublish`)
 				.send({ categoryCode: 'APP' });
 
-			expect(response?.headers?.location).toEqual(`${baseUrl}/category/${slug}`);
+			expect(response?.headers?.location).toEqual(`${baseUrl}/category/${slug}?unpublished=true`);
 		});
 
 		it('should render category page with error summary if API returns 400 on unpublish', async () => {
