@@ -31,6 +31,16 @@ export const getCategoryStatusDisplayName = (/** @type {string} */ status) =>
 	CATEGORY_STATUS[status]?.label || status || '';
 
 /**
+ * Headings for Examination Library category success notification banners
+ *
+ * @type {Record<string, string>}
+ */
+export const SUCCESS_BANNER_HEADINGS = {
+	published: 'Examination library category published',
+	unpublished: 'Examination library category unpublished'
+};
+
+/**
  * Examination Library category codes for documents
  *
  * @type {{APP: string, AoC: string, PD: string, AS: string, OD: string, RR: string}}

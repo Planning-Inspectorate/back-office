@@ -1,6 +1,7 @@
 import {
 	examinationLibrarySections,
-	getCategoryStatusDisplayName
+	getCategoryStatusDisplayName,
+	SUCCESS_BANNER_HEADINGS
 } from './examination-library.constants.js';
 import { buildTable } from '../../../lib/table-mapper.js';
 import { statusName } from '../../../lib/nunjucks-filters/status-name.js';
@@ -26,23 +27,56 @@ import { tableSortLinks } from './applications-examination-library-utils.js';
  *   sectionDocuments: Array<any>,
  *   sectionStatus: string,
  *   itemSlug: string,
- *   query: object,
- *   sectionUrl: string
+ *   query: Record<string, any>,
+ *   sectionUrl: string,
+ *   caseTitle?: string
  * }} params
- * @returns {{ selectedPageType: string, sectionHeading: string, sectionStatus: string, sectionTable: object, sortLinks: object } | null}
+ * @returns {{
+ *   selectedPageType: string,
+ *   pageTitle: string,
+ *   sectionHeading: string,
+ *   sectionStatus: string,
+ *   showSuccessBanner: boolean,
+ *   successBannerHeading: string,
+ *   sectionTable: object,
+ *   sortLinks: object
+ * } | null}
  */
 export const getExaminationLibrarySectionViewModel = ({
 	sectionDocuments,
 	sectionStatus,
 	itemSlug,
 	query,
-	sectionUrl
+	sectionUrl,
+	caseTitle = ''
 }) => {
 	const section = getSectionByItemSlug(examinationLibrarySections, itemSlug);
 
 	if (!section) {
 		return null;
 	}
+
+	const item = section.items.find((item) => item.href === itemSlug);
+
+	if (!item) {
+		return null;
+	}
+
+	const isPublishedQuery = query?.published === 'true';
+	const isUnpublishedQuery = query?.unpublished === 'true';
+
+	let successBannerHeading = '';
+	if (isPublishedQuery) {
+		successBannerHeading = SUCCESS_BANNER_HEADINGS.published;
+	} else if (isUnpublishedQuery) {
+		successBannerHeading = SUCCESS_BANNER_HEADINGS.unpublished;
+	}
+
+	const showSuccessBanner = Boolean(successBannerHeading);
+
+	const pageTitle = showSuccessBanner
+		? `${successBannerHeading}${caseTitle ? ` - ${caseTitle}` : ''} - NSIP applications`
+		: `${item.title}${caseTitle ? ` - ${caseTitle}` : ''} - NSIP applications`;
 
 	const isPublished = sectionStatus === 'published';
 
@@ -52,12 +86,6 @@ export const getExaminationLibrarySectionViewModel = ({
 	);
 
 	const sortLinks = tableSortLinks(query, tableHeaders, sectionUrl, isPublished);
-
-	const item = section.items.find((item) => item.href === itemSlug);
-
-	if (!item) {
-		return null;
-	}
 
 	const sectionTableData = buildTable({
 		headers: tableHeaders,
@@ -112,8 +140,11 @@ export const getExaminationLibrarySectionViewModel = ({
 
 	return {
 		selectedPageType: 'examination-library',
+		pageTitle,
 		sectionHeading: item.title,
 		sectionStatus: getCategoryStatusDisplayName(sectionStatus),
+		showSuccessBanner,
+		successBannerHeading,
 		sectionTable: sectionTable,
 		sortLinks: sortLinks
 	};

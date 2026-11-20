@@ -290,5 +290,54 @@ describe('applications examination library section view model', () => {
 				text: 'APP-001a'
 			});
 		});
+
+		it('should configure success banner and page title when published query param is present', () => {
+			const result = getExaminationLibrarySectionViewModel({
+				sectionDocuments: [baseDocument],
+				sectionStatus: publishedSectionStatus,
+				itemSlug: 'application-documents',
+				query: { published: 'true' },
+				sectionUrl,
+				caseTitle: 'Test Project'
+			});
+
+			expect(result?.showSuccessBanner).toBe(true);
+			expect(result?.successBannerHeading).toBe('Examination library category published');
+			expect(result?.pageTitle).toBe(
+				'Examination library category published - Test Project - NSIP applications'
+			);
+		});
+
+		it('should configure success banner and page title when unpublished query param is present', () => {
+			const result = getExaminationLibrarySectionViewModel({
+				sectionDocuments: [baseDocument],
+				sectionStatus: 'unpublished',
+				itemSlug: 'application-documents',
+				query: { unpublished: 'true' },
+				sectionUrl,
+				caseTitle: 'Test Project'
+			});
+
+			expect(result?.showSuccessBanner).toBe(true);
+			expect(result?.successBannerHeading).toBe('Examination library category unpublished');
+			expect(result?.pageTitle).toBe(
+				'Examination library category unpublished - Test Project - NSIP applications'
+			);
+		});
+
+		it('should not configure success banner when query params are not present', () => {
+			const result = getExaminationLibrarySectionViewModel({
+				sectionDocuments: [baseDocument],
+				sectionStatus: inProgressSectionStatus,
+				itemSlug: 'application-documents',
+				query: {},
+				sectionUrl,
+				caseTitle: 'Test Project'
+			});
+
+			expect(result?.showSuccessBanner).toBe(false);
+			expect(result?.successBannerHeading).toBe('');
+			expect(result?.pageTitle).toBe('Application documents - Test Project - NSIP applications');
+		});
 	});
 });
