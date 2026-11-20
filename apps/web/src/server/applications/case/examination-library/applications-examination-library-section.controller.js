@@ -27,6 +27,7 @@ import { url } from '../../../lib/nunjucks-filters/index.js';
  * @param {string} itemSlug
  * @param {Record<string, any>} [query={}]
  * @param {{ categoriesResponse?: any[], documentsResponse?: any }} [prefetchedData={}]
+ * @param {string} [caseTitle='']
  * @returns {Promise<{
  *   sectionViewModel: any,
  *   documentsResponse: any,
@@ -36,14 +37,18 @@ import { url } from '../../../lib/nunjucks-filters/index.js';
  *   hasUpdatesToPublish: boolean,
  *   unpublishUrl: string,
  *   sectionStatus: string,
- *   isPublishedQuery: boolean
+ *   isPublishedQuery: boolean,
+ *   isUnpublishedQuery: boolean,
+ *   showSuccessBanner: boolean,
+ *   successBannerHeading: string
  * } | null>}
  */
 export async function getExaminationLibrarySectionData(
 	caseId,
 	itemSlug,
 	query = {},
-	prefetchedData = {}
+	prefetchedData = {},
+	caseTitle = ''
 ) {
 	const { sortBy, pageSize = 25, page = 1 } = query;
 	const pageNumber = Number(page) || 1;
@@ -75,8 +80,14 @@ export async function getExaminationLibrarySectionData(
 	const matchingCategory = categoriesResponse?.find((c) => c.categoryCode === sectionCategoryCode);
 	const dbCategoryStatus = matchingCategory?.publishedStatus;
 	const isPublishedQuery = query.published === 'true';
+	const isUnpublishedQuery = query.unpublished === 'true';
 
-	const sectionStatus = isPublishedQuery ? 'published' : dbCategoryStatus || DEFAULT_SECTION_STATUS;
+	let sectionStatus = dbCategoryStatus || DEFAULT_SECTION_STATUS;
+	if (isPublishedQuery) {
+		sectionStatus = 'published';
+	} else if (isUnpublishedQuery) {
+		sectionStatus = 'unpublished';
+	}
 
 	const sectionUrl = url('examination-library-section', { caseId, slug: itemSlug });
 	const publishUrl = url('examination-library-publish', { caseId, slug: itemSlug });
@@ -125,7 +136,8 @@ export async function getExaminationLibrarySectionData(
 		sectionStatus,
 		itemSlug,
 		query,
-		sectionUrl
+		sectionUrl,
+		caseTitle
 	});
 
 	if (!sectionViewModel) {
@@ -141,7 +153,10 @@ export async function getExaminationLibrarySectionData(
 		hasUpdatesToPublish,
 		unpublishUrl,
 		sectionStatus,
-		isPublishedQuery
+		isPublishedQuery,
+		isUnpublishedQuery,
+		showSuccessBanner: sectionViewModel.showSuccessBanner,
+		successBannerHeading: sectionViewModel.successBannerHeading
 	};
 }
 
@@ -155,8 +170,15 @@ export async function getExaminationLibrarySectionData(
 export async function getExaminationLibrarySection(request, response) {
 	const { slug: itemSlug } = request.params;
 	const caseId = response.locals?.caseId || Number(request.params?.caseId);
+	const caseTitle = response.locals?.case?.title || '';
 
-	const sectionData = await getExaminationLibrarySectionData(caseId, itemSlug, request.query);
+	const sectionData = await getExaminationLibrarySectionData(
+		caseId,
+		itemSlug,
+		request.query,
+		{},
+		caseTitle
+	);
 
 	if (!sectionData) {
 		return response.status(404).render('app/404');
@@ -169,7 +191,6 @@ export async function getExaminationLibrarySection(request, response) {
 		updateUrl: sectionData.updateUrl,
 		hasUpdatesToPublish: sectionData.hasUpdatesToPublish,
 		unpublishUrl: sectionData.unpublishUrl,
-		showSuccessBanner: sectionData.isPublishedQuery,
 		pagination: getExaminationLibraryPagination(
 			request.query,
 			sectionData.documentsResponse,
