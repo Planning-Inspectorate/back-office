@@ -499,7 +499,7 @@ exports[`Edit applications documentation metadata Edit examination library categ
                                 <div class="govuk-form-group">
                                     <label class="govuk-label" for="APP-category">Select Application documents (APP)</label>
                                     <select class="govuk-select"
-                                    id="APP-category" name="examinationLibraryCategoryChild">
+                                    id="APP-category" name="examinationLibraryCategoryChildAPP">
                                         <option value="3">Application form</option>
                                         <option value="4">Plans</option>
                                         <option value="7">Reports</option>
@@ -523,8 +523,53 @@ exports[`Edit applications documentation metadata Edit examination library categ
                             </div>
                             <div class="govuk-radios__item">
                                 <input class="govuk-radios__input" id="examinationLibraryCategoryId-6"
+                                name="examinationLibraryCategoryId" type="radio" value="EVX" data-aria-controls="conditional-examinationLibraryCategoryId-6">
+                                <label class="govuk-label govuk-radios__label" for="examinationLibraryCategoryId-6">Events and hearings (EVX)</label>
+                            </div>
+                            <div class="govuk-radios__conditional govuk-radios__conditional--hidden"
+                            id="conditional-examinationLibraryCategoryId-6">
+                                <div class="govuk-form-group">
+                                    <label class="govuk-label" for="EVX-category">Select Events and hearings (EVX)</label>
+                                    <select class="govuk-select" id="EVX-category"
+                                    name="examinationLibraryCategoryChildEVX">
+                                        <option value="21">21 Dec 2026 - Open Floor Hearing 1 (EV1)</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="examinationLibraryCategoryId-7"
+                                name="examinationLibraryCategoryId" type="radio" value="PDX" data-aria-controls="conditional-examinationLibraryCategoryId-7">
+                                <label class="govuk-label govuk-radios__label" for="examinationLibraryCategoryId-7">Procedural deadlines (PDX)</label>
+                            </div>
+                            <div class="govuk-radios__conditional govuk-radios__conditional--hidden"
+                            id="conditional-examinationLibraryCategoryId-7">
+                                <div class="govuk-form-group">
+                                    <label class="govuk-label" for="PDX-category">Select Procedural deadlines (PDX)</label>
+                                    <select class="govuk-select"
+                                    id="PDX-category" name="examinationLibraryCategoryChildPDX">
+                                        <option value="22">6 Dec 2026 - Procedural deadline A (PDA)</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="examinationLibraryCategoryId-8"
+                                name="examinationLibraryCategoryId" type="radio" value="REPX" data-aria-controls="conditional-examinationLibraryCategoryId-8">
+                                <label class="govuk-label govuk-radios__label" for="examinationLibraryCategoryId-8">Deadlines (REPX)</label>
+                            </div>
+                            <div class="govuk-radios__conditional govuk-radios__conditional--hidden"
+                            id="conditional-examinationLibraryCategoryId-8">
+                                <div class="govuk-form-group">
+                                    <label class="govuk-label" for="REPX-category">Select Deadlines (REPX)</label>
+                                    <select class="govuk-select" id="REPX-category"
+                                    name="examinationLibraryCategoryChildREPX">
+                                        <option value="20">30 Nov 2026 - Deadline 1 (REP1)</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="examinationLibraryCategoryId-9"
                                 name="examinationLibraryCategoryId" type="radio" value="13">
-                                <label class="govuk-label govuk-radios__label" for="examinationLibraryCategoryId-6">Other documents (OD)</label>
+                                <label class="govuk-label govuk-radios__label" for="examinationLibraryCategoryId-9">Other documents (OD)</label>
                             </div>
                         </div>
                     </fieldset>
@@ -587,7 +632,7 @@ exports[`Edit applications documentation metadata Edit examination library categ
                                 <div class="govuk-form-group">
                                     <label class="govuk-label" for="APP-category">Select Application documents (APP)</label>
                                     <select class="govuk-select"
-                                    id="APP-category" name="examinationLibraryCategoryChild">
+                                    id="APP-category" name="examinationLibraryCategoryChildAPP">
                                         <option value="3">Application form</option>
                                         <option value="4">Plans</option>
                                         <option value="7">Reports</option>
@@ -611,8 +656,53 @@ exports[`Edit applications documentation metadata Edit examination library categ
                             </div>
                             <div class="govuk-radios__item">
                                 <input class="govuk-radios__input" id="examinationLibraryCategoryId-6"
+                                name="examinationLibraryCategoryId" type="radio" value="EVX" data-aria-controls="conditional-examinationLibraryCategoryId-6">
+                                <label class="govuk-label govuk-radios__label" for="examinationLibraryCategoryId-6">Events and hearings (EVX)</label>
+                            </div>
+                            <div class="govuk-radios__conditional govuk-radios__conditional--hidden"
+                            id="conditional-examinationLibraryCategoryId-6">
+                                <div class="govuk-form-group">
+                                    <label class="govuk-label" for="EVX-category">Select Events and hearings (EVX)</label>
+                                    <select class="govuk-select" id="EVX-category"
+                                    name="examinationLibraryCategoryChildEVX">
+                                        <option value="21">21 Dec 2026 - Open Floor Hearing 1 (EV1)</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="examinationLibraryCategoryId-7"
+                                name="examinationLibraryCategoryId" type="radio" value="PDX" data-aria-controls="conditional-examinationLibraryCategoryId-7">
+                                <label class="govuk-label govuk-radios__label" for="examinationLibraryCategoryId-7">Procedural deadlines (PDX)</label>
+                            </div>
+                            <div class="govuk-radios__conditional govuk-radios__conditional--hidden"
+                            id="conditional-examinationLibraryCategoryId-7">
+                                <div class="govuk-form-group">
+                                    <label class="govuk-label" for="PDX-category">Select Procedural deadlines (PDX)</label>
+                                    <select class="govuk-select"
+                                    id="PDX-category" name="examinationLibraryCategoryChildPDX">
+                                        <option value="22">6 Dec 2026 - Procedural deadline A (PDA)</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="examinationLibraryCategoryId-8"
+                                name="examinationLibraryCategoryId" type="radio" value="REPX" data-aria-controls="conditional-examinationLibraryCategoryId-8">
+                                <label class="govuk-label govuk-radios__label" for="examinationLibraryCategoryId-8">Deadlines (REPX)</label>
+                            </div>
+                            <div class="govuk-radios__conditional govuk-radios__conditional--hidden"
+                            id="conditional-examinationLibraryCategoryId-8">
+                                <div class="govuk-form-group">
+                                    <label class="govuk-label" for="REPX-category">Select Deadlines (REPX)</label>
+                                    <select class="govuk-select" id="REPX-category"
+                                    name="examinationLibraryCategoryChildREPX">
+                                        <option value="20">30 Nov 2026 - Deadline 1 (REP1)</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" id="examinationLibraryCategoryId-9"
                                 name="examinationLibraryCategoryId" type="radio" value="13">
-                                <label class="govuk-label govuk-radios__label" for="examinationLibraryCategoryId-6">Other documents (OD)</label>
+                                <label class="govuk-label govuk-radios__label" for="examinationLibraryCategoryId-9">Other documents (OD)</label>
                             </div>
                         </div>
                     </fieldset>

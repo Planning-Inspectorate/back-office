@@ -14,13 +14,15 @@ import { sortByFromQuery } from '#utils/query/sort-by.js';
  */
 export const getExaminationLibraryCategoriesHandler = async (req, res) => {
 	const caseId = Number(req.params.id);
-	const { id, categoryCode } = req.query;
-
+	const { id, categoryCode, includeTimetableDates } = req.query;
 	const filters = {};
+
 	if (id !== undefined && id !== null && id !== '') {
 		filters.id = Number(id);
 	}
 	if (categoryCode) filters.categoryCode = String(categoryCode);
+
+	if (includeTimetableDates === 'true') filters.includeTimetableDates = true;
 
 	const categories = await getExaminationLibraryCategories(caseId, filters);
 	res.send(categories);

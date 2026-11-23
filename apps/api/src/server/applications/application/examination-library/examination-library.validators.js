@@ -16,6 +16,10 @@ export const validateApplicationId = composeMiddleware(
 export const validateGetCategories = composeMiddleware(
 	query('id').optional().isInt().withMessage('Category id must be a valid numerical value').toInt(),
 	query('categoryCode').optional().isString().withMessage('Category code must be a string'),
+	query('includeTimetableDates')
+		.optional()
+		.isBoolean()
+		.withMessage('Include timetable dates must be a boolean'),
 	validationErrorHandler
 );
 

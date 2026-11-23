@@ -2,6 +2,8 @@ import { eventClient } from '#infrastructure/event-client.js';
 import { NSIP_EXAM_TIMETABLE, FOLDER } from '#infrastructure/topics.js';
 import * as examinationTimetableRepository from '#repositories/examination-timetable.repository.js';
 import * as examinationTimetableTypesRepository from '#repositories/examination-timetable-types.repository.js';
+import * as examinationTimetableItemsRepository from '#repositories/examination-timetable-items.repository.js';
+import * as examinationLibraryRepository from '#repositories/examination-library.repository.js';
 import * as documentRepository from '#repositories/document.repository.js';
 import * as folderRepository from '#repositories/folder.repository.js';
 import * as caseRepository from '#repositories/case.repository.js';
@@ -11,6 +13,10 @@ import { EventType } from '@pins/event-client';
 import { verifyNotTrainingExamTimetable } from './examination-timetable-items.validators.js';
 import { buildFoldersPayload } from '#infrastructure/payload-builders/folder.js';
 import { verifyNotTraining } from '../application/application.validators.js';
+import {
+	generateExaminationLibraryCategoryCode,
+	isExaminationLibraryTimetableType
+} from '../application/examination-library/examination-library.utils.js';
 
 /**
  * @typedef {import('@planning-inspectorate/data-model').Schemas.Event} NSIPExamTimetableItem
@@ -352,4 +358,51 @@ export const validateSubmissions = async (timetableItem, caseId) => {
 
 	logger.info(`Document not found for parent folder ${timetableItem.folderId}`);
 	return false;
+};
+
+/**
+ * Creates an examination timetable item and, where applicable,
+ * its associated examination library category within a transaction.
+ *
+ * @param {import('@pins/applications.api').Schema.ExaminationTimetableItem} itemData
+ * @param {number} caseId
+ * @param {import('@pins/applications.api').Schema.ExaminationTimetableType} examinationTimetableType
+ * @returns {Promise<import('@pins/applications.api').Schema.ExaminationTimetableItem>}
+ */
+export const createTimetableItemWithCategory = async (
+	itemData,
+	caseId,
+	examinationTimetableType
+) => {
+	return examinationTimetableItemsRepository.executeInTransaction(async (tx) => {
+		const timetableItem = await examinationTimetableItemsRepository.create(itemData, tx);
+		const templateType = examinationTimetableType.templateType;
+		if (!isExaminationLibraryTimetableType(templateType)) {
+			return timetableItem;
+		}
+		const hasStaticCategories = await examinationLibraryRepository.hasStaticCategories(caseId, tx);
+		if (!hasStaticCategories) {
+			return timetableItem;
+		}
+		const existingCodes =
+			templateType === 'deadline'
+				? []
+				: await examinationLibraryRepository.getTimetableCategoryCodes(caseId, tx);
+		const categoryCode = generateExaminationLibraryCategoryCode(
+			templateType,
+			timetableItem.name,
+			existingCodes
+		);
+		await examinationLibraryRepository.createCategory(
+			{
+				caseId,
+				categoryCode,
+				categoryName: timetableItem.name,
+				examinationTimetableItemId: timetableItem.id,
+				source: 'TIMETABLE'
+			},
+			tx
+		);
+		return timetableItem;
+	});
 };

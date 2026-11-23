@@ -5,6 +5,7 @@ import {
 } from '../../common/components/pagination/pagination-results-per-page.js';
 import { getPaginationLinks } from '../../common/components/pagination/pagination-links.js';
 import { tableSortingHeaderLinks } from '../../common/components/table/table-sorting-header-links.js';
+import { examinationLibrarySections, categoryCodes } from './examination-library.constants.js';
 
 /**
  * @typedef {import('./applications-examination-library-index.view-model.js').ExaminationLibraryItem} ExaminationLibraryItem
@@ -158,3 +159,55 @@ export const tableSortLinks = (query, headers, sectionUrl, isPublished) =>
 				return tableSortingHeaderLinks(query, header, '', sectionUrl);
 		}
 	});
+
+/**
+ * @param {string} categoryName
+ * @returns {string}
+ */
+export const getCategorySlug = (categoryName) =>
+	categoryName.toLowerCase().trim().replace(/\s+/g, '-');
+
+/**
+ *
+ * @param {string} categoryCode
+ * @returns {string | null}
+ */
+export const getDynamicSectionSlug = (categoryCode) => {
+	if (/^EV\d+$/.test(categoryCode)) return 'events-and-hearings';
+	if (/^PD[A-Z]+$/.test(categoryCode)) return 'procedural-deadlines';
+	if (/^REP\d+[a-z]?$/.test(categoryCode)) return 'deadlines';
+	return null;
+};
+
+/**
+ * Resolve an Examination Library section and category code.
+ *
+ * @param {string} itemSlug
+ * @param {string | undefined} sectionSlug
+ * @param {Array<{ categoryCode: string, categoryName: string, source: string }>} categories
+ * @returns {{ section: import('./applications-examination-library-index.view-model.js').ExaminationLibrarySection, categoryCode: string } | null}
+ */
+export const resolveExaminationLibraryCategory = (itemSlug, sectionSlug, categories) => {
+	if (!sectionSlug) {
+		const section = getSectionByItemSlug(examinationLibrarySections, itemSlug);
+		const categoryCode = section ? getCategoryCode(section, categoryCodes) : '';
+		return section && categoryCode ? { section, categoryCode } : null;
+	}
+	const section = examinationLibrarySections.find((section) => section.slug === sectionSlug);
+	if (!section) return null;
+	const category = categories.find(
+		(category) =>
+			category.source === 'TIMETABLE' &&
+			getDynamicSectionSlug(category.categoryCode) === sectionSlug &&
+			getCategorySlug(category.categoryName) === itemSlug
+	);
+	if (!category) return null;
+
+	return {
+		section: {
+			...section,
+			items: [{ title: category.categoryName, href: itemSlug }]
+		},
+		categoryCode: category.categoryCode
+	};
+};

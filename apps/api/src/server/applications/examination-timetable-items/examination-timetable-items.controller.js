@@ -207,7 +207,12 @@ export const createExaminationTimetableItem = async ({ body }, response) => {
 	delete body.published;
 	delete body.startTime;
 	delete body.endTime;
-	const examinationTimetableItem = await examinationTimetableItemsRepository.create(body);
+
+	const examinationTimetableItem = await service.createTimetableItemWithCategory(
+		body,
+		examinationTimetable.caseId,
+		examinationTimetableType
+	);
 
 	await service.createDeadlineSubFolders(
 		examinationTimetableItem,

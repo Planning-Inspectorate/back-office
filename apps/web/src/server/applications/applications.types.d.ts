@@ -243,4 +243,8 @@ export interface ExaminationLibraryCategory {
 	examinationTimetableId: number | null;
 	createdAt: number;
 	updatedAt: number;
+	ExaminationTimetableItem?: {
+		date: string;
+		startDate: string;
+	} | null;
 }

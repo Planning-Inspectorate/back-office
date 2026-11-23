@@ -242,3 +242,90 @@ const getNextExaminationLibraryReferenceNumber = (documents) => {
 
 	return referenceNumbers.length ? Math.max(...referenceNumbers) + 1 : 1;
 };
+
+const EL_EVENT_TYPES = new Set([
+	'preliminary-meeting',
+	'open-floor-hearing',
+	'issue-specific-hearing',
+	'accompanied-site-inspection',
+	'compulsory-acquisition-hearing',
+	'unaccompanied-site-inspection'
+]);
+
+/**
+ * Checks whether a timetable type requires an examination library category.
+ *
+ * @param {string} templateType
+ * @returns {boolean}
+ */
+export const isExaminationLibraryTimetableType = (templateType) =>
+	EL_EVENT_TYPES.has(templateType) ||
+	templateType === 'procedural-deadline' ||
+	templateType === 'deadline';
+
+/**
+ * Returns the next sequential event category code.
+ *
+ * @param {string[]} existingCodes
+ * @returns {string}
+ */
+const getNextEventCode = (existingCodes) => {
+	const highestNumber = existingCodes.reduce((highest, code) => {
+		const match = /^EV(\d+)$/.exec(code);
+
+		return match ? Math.max(highest, Number(match[1])) : highest;
+	}, 0);
+
+	return `EV${highestNumber + 1}`;
+};
+
+/**
+ * Returns the next sequential procedural deadline category code.
+ *
+ * @param {string[]} existingCodes
+ * @returns {string}
+ */
+const getNextProceduralDeadlineCode = (existingCodes) => {
+	const highestIndex = existingCodes.reduce((highest, code) => {
+		const match = /^PD([A-Z])$/.exec(code);
+
+		return match ? Math.max(highest, match[1].charCodeAt(0) - 64) : highest;
+	}, 0);
+
+	if (highestIndex >= 26) {
+		throw new Error('Procedural deadline category code limit reached');
+	}
+
+	return `PD${String.fromCharCode(65 + highestIndex)}`;
+};
+
+/**
+ * Generates a category code for an eligible timetable item.
+ * Returns null for ineligible types.
+ *
+ * @param {string} templateType
+ * @param {string} name
+ * @param {string[]} existingCodes
+ * @returns {string | null}
+ */
+export const generateExaminationLibraryCategoryCode = (templateType, name, existingCodes) => {
+	if (EL_EVENT_TYPES.has(templateType)) {
+		return getNextEventCode(existingCodes);
+	}
+
+	if (templateType === 'procedural-deadline') {
+		return getNextProceduralDeadlineCode(existingCodes);
+	}
+
+	if (templateType === 'deadline') {
+		const match = /^Deadline (\d+[a-z]?)$/.exec(name);
+
+		if (!match) {
+			throw new Error(`Invalid deadline name: ${name}`);
+		}
+
+		return `REP${match[1]}`;
+	}
+
+	return null;
+};

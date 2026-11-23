@@ -16,11 +16,49 @@ describe('mapMetadataFormToApi', () => {
 		it('maps the selected APP child to the examination library category id', () => {
 			const body = {
 				examinationLibraryCategoryId: 'APP',
-				examinationLibraryCategoryChild: '7'
+				examinationLibraryCategoryChildAPP: '7'
 			};
 
 			expect(mapMetadataFormToApi('examination-library-category', body)).toEqual({
 				examinationLibraryCategoryId: 7
+			});
+		});
+
+		it.each([
+			['EVX', 'examinationLibraryCategoryChildEVX', '2327'],
+			['PDX', 'examinationLibraryCategoryChildPDX', '2332'],
+			['REPX', 'examinationLibraryCategoryChildREPX', '2330']
+		])('maps the selected %s child to the examination library category id', (group, field, id) => {
+			const body = {
+				examinationLibraryCategoryId: group,
+				[field]: id
+			};
+			expect(mapMetadataFormToApi('examination-library-category', body)).toEqual({
+				examinationLibraryCategoryId: Number(id)
+			});
+		});
+		it('only maps the child belonging to the selected category group', () => {
+			const body = {
+				examinationLibraryCategoryId: 'EVX',
+				examinationLibraryCategoryChildAPP: '7',
+				examinationLibraryCategoryChildEVX: '2327',
+				examinationLibraryCategoryChildPDX: '2332',
+				examinationLibraryCategoryChildREPX: '2330'
+			};
+			expect(mapMetadataFormToApi('examination-library-category', body)).toEqual({
+				examinationLibraryCategoryId: 2327
+			});
+		});
+		it('ignores dropdown values when a standard category is selected', () => {
+			const body = {
+				examinationLibraryCategoryId: '10',
+				examinationLibraryCategoryChildAPP: '7',
+				examinationLibraryCategoryChildEVX: '2327',
+				examinationLibraryCategoryChildPDX: '2332',
+				examinationLibraryCategoryChildREPX: '2330'
+			};
+			expect(mapMetadataFormToApi('examination-library-category', body)).toEqual({
+				examinationLibraryCategoryId: 10
 			});
 		});
 	});

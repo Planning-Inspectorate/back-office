@@ -1,14 +1,8 @@
-import {
-	examinationLibrarySections,
-	getCategoryStatusDisplayName
-} from './examination-library.constants.js';
+import { getCategoryStatusDisplayName } from './examination-library.constants.js';
 import { buildTable } from '../../../lib/table-mapper.js';
 import { statusName } from '../../../lib/nunjucks-filters/status-name.js';
 import { url } from '../../../lib/nunjucks-filters/index.js';
-import {
-	getDocumentDescriptionHTML,
-	getSectionByItemSlug
-} from './applications-examination-library-utils.js';
+import { getDocumentDescriptionHTML } from './applications-examination-library-utils.js';
 import { tableSortLinks } from './applications-examination-library-utils.js';
 
 /**
@@ -23,6 +17,7 @@ import { tableSortLinks } from './applications-examination-library-utils.js';
  * Get Examination Library section detail view model.
  *
  * @param {{
+ * 	section: ExaminationLibrarySection
  *   sectionDocuments: Array<any>,
  *   sectionStatus: string,
  *   itemSlug: string,
@@ -32,14 +27,13 @@ import { tableSortLinks } from './applications-examination-library-utils.js';
  * @returns {{ selectedPageType: string, sectionHeading: string, sectionStatus: string, sectionTable: object, sortLinks: object } | null}
  */
 export const getExaminationLibrarySectionViewModel = ({
+	section,
 	sectionDocuments,
 	sectionStatus,
 	itemSlug,
 	query,
 	sectionUrl
 }) => {
-	const section = getSectionByItemSlug(examinationLibrarySections, itemSlug);
-
 	if (!section) {
 		return null;
 	}

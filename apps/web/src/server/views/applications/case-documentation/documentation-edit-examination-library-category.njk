@@ -33,7 +33,7 @@
 						{% set selectHtml %}
 							{{ govukSelect({
 								id: item.categoryCode + "-category",
-								name: "examinationLibraryCategoryChild",
+								name: "examinationLibraryCategoryChild" + item.categoryCode,
 								label: {
 									text: "Select " + item.text
 								},

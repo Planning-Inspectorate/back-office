@@ -41,4 +41,32 @@ describe('getExaminationLibraryCategoryDisplay', () => {
 			href: null
 		});
 	});
+
+	it('maps an events and hearings category to its dynamic examination library page', () => {
+		expect(getExaminationLibraryCategoryDisplay('EV1', 'open floor hearing 1', caseId)).toEqual({
+			name: 'open floor hearing 1 (EV1)',
+			href: `/applications-service/case/${caseId}/examination-library/category/events-and-hearings/open-floor-hearing-1`
+		});
+	});
+
+	it('maps a procedural deadline category to its dynamic examination library page', () => {
+		expect(getExaminationLibraryCategoryDisplay('PDA', 'Procedural deadline A', caseId)).toEqual({
+			name: 'Procedural deadline A (PDA)',
+			href: `/applications-service/case/${caseId}/examination-library/category/procedural-deadlines/procedural-deadline-a`
+		});
+	});
+
+	it('maps a deadline category to its dynamic examination library page', () => {
+		expect(getExaminationLibraryCategoryDisplay('REP1', 'Deadline 1', caseId)).toEqual({
+			name: 'Deadline 1 (REP1)',
+			href: `/applications-service/case/${caseId}/examination-library/category/deadlines/deadline-1`
+		});
+	});
+
+	it('maps a deadline with a letter suffix to its dynamic examination library page', () => {
+		expect(getExaminationLibraryCategoryDisplay('REP1a', 'Deadline 1a', caseId)).toEqual({
+			name: 'Deadline 1a (REP1a)',
+			href: `/applications-service/case/${caseId}/examination-library/category/deadlines/deadline-1a`
+		});
+	});
 });

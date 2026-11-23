@@ -25,6 +25,27 @@ const examinationLibraryCategoryDisplay = {
 };
 
 /**
+ * Get the dynamic section slug based on the category code.
+ *
+ * @param {string} categoryCode
+ * @returns {string|null}
+ */
+const getDynamicSectionSlug = (categoryCode) => {
+	if (/^EV\d+$/.test(categoryCode)) return 'events-and-hearings';
+	if (/^PD[A-Z]+$/.test(categoryCode)) return 'procedural-deadlines';
+	if (/^REP\d+[a-z]?$/.test(categoryCode)) return 'deadlines';
+
+	return null;
+};
+
+/**
+ *
+ * @param {string} categoryName
+ * @return {string}
+ */
+const getCategorySlug = (categoryName) => categoryName.toLowerCase().trim().replace(/\s+/g, '-');
+
+/**
  *
  * @param {string|null|undefined} categoryCode
  * @param {string|null|undefined} categoryName
@@ -46,6 +67,19 @@ export const getExaminationLibraryCategoryDisplay = (categoryCode, categoryName,
 		};
 	}
 
+	const dynamicSectionSlug = getDynamicSectionSlug(categoryCode);
+
+	if (dynamicSectionSlug && categoryName) {
+		const categorySlug = getCategorySlug(categoryName);
+
+		return {
+			name: `${categoryName} (${categoryCode})`,
+			href: url('examination-library-section', {
+				caseId,
+				slug: `${dynamicSectionSlug}/${categorySlug}`
+			})
+		};
+	}
 	const category = examinationLibraryCategoryDisplay[categoryCode];
 
 	if (!category) {

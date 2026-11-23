@@ -1,5 +1,6 @@
 //@ts-nocheck
 import { getExaminationLibrarySectionViewModel } from '../applications-examination-library-section.view-model.js';
+import { examinationLibrarySections } from '../examination-library.constants.js';
 
 describe('applications examination library section view model', () => {
 	describe('#getExaminationLibrarySectionViewModel', () => {
@@ -24,11 +25,17 @@ describe('applications examination library section view model', () => {
 		const sectionUrl =
 			'/applications-service/case/123/examination-library/category/application-documents';
 
+		const getSection = (itemSlug) =>
+			examinationLibrarySections.find((section) =>
+				section.items.some((item) => item.href === itemSlug)
+			);
+
 		it('should return data mapped to the examination library section view model', () => {
 			const sectionDocuments = [baseDocument];
 			const itemSlug = 'application-documents';
 
 			const result = getExaminationLibrarySectionViewModel({
+				section: getSection(itemSlug),
 				sectionDocuments,
 				sectionStatus: inProgressSectionStatus,
 				itemSlug,
@@ -72,6 +79,7 @@ describe('applications examination library section view model', () => {
 			const itemSlug = 'additional-submissions';
 
 			const result = getExaminationLibrarySectionViewModel({
+				section: getSection(itemSlug),
 				sectionDocuments,
 				sectionStatus: inProgressSectionStatus,
 				itemSlug,
@@ -122,6 +130,7 @@ describe('applications examination library section view model', () => {
 			const itemSlug = 'additional-submissions';
 
 			const result = getExaminationLibrarySectionViewModel({
+				section: getSection(itemSlug),
 				sectionDocuments,
 				sectionStatus: publishedSectionStatus,
 				itemSlug,
@@ -169,6 +178,7 @@ describe('applications examination library section view model', () => {
 			const itemSlug = 'additional-submissions';
 
 			const result = getExaminationLibrarySectionViewModel({
+				section: getSection(itemSlug),
 				sectionDocuments,
 				sectionStatus: publishedSectionStatus,
 				itemSlug,
@@ -203,6 +213,7 @@ describe('applications examination library section view model', () => {
 			const itemSlug = 'invalid-slug';
 
 			const result = getExaminationLibrarySectionViewModel({
+				section: getSection(itemSlug),
 				sectionDocuments,
 				sectionStatus: inProgressSectionStatus,
 				itemSlug
@@ -213,6 +224,7 @@ describe('applications examination library section view model', () => {
 
 		it('should include the active sort in the view model', () => {
 			const result = getExaminationLibrarySectionViewModel({
+				section: getSection('application-documents'),
 				sectionDocuments: [baseDocument],
 				sectionStatus: inProgressSectionStatus,
 				itemSlug: 'application-documents',
@@ -240,6 +252,7 @@ describe('applications examination library section view model', () => {
 
 		it('should display Reference heading when the section is published', () => {
 			const result = getExaminationLibrarySectionViewModel({
+				section: getSection('application-documents'),
 				sectionDocuments: [baseDocument],
 				sectionStatus: publishedSectionStatus,
 				itemSlug: 'application-documents',
@@ -254,6 +267,7 @@ describe('applications examination library section view model', () => {
 
 		it('should display Draft reference heading when the section is in progress', () => {
 			const result = getExaminationLibrarySectionViewModel({
+				section: getSection('application-documents'),
 				sectionDocuments: [baseDocument],
 				sectionStatus: inProgressSectionStatus,
 				itemSlug: 'application-documents',
@@ -279,6 +293,7 @@ describe('applications examination library section view model', () => {
 			];
 
 			const result = getExaminationLibrarySectionViewModel({
+				section: getSection('application-documents'),
 				sectionDocuments,
 				sectionStatus: inProgressSectionStatus,
 				itemSlug: 'application-documents',
@@ -289,6 +304,105 @@ describe('applications examination library section view model', () => {
 			expect(result?.sectionTable.rows[0][0]).toEqual({
 				text: 'APP-001a'
 			});
+		});
+
+		describe('dynamic categories', () => {
+			const itemSlug = 'open-floor-hearing-1';
+			const sectionUrl =
+				'/applications-service/case/123/examination-library/category/events-and-hearings/open-floor-hearing-1';
+			const section = {
+				...examinationLibrarySections.find((section) => section.slug === 'events-and-hearings'),
+				items: [
+					{
+						title: 'Open Floor Hearing 1',
+						href: itemSlug
+					}
+				]
+			};
+			it('should display the dynamic category heading and status', () => {
+				const result = getExaminationLibrarySectionViewModel({
+					section,
+					sectionDocuments: [],
+					sectionStatus: inProgressSectionStatus,
+					itemSlug,
+					query,
+					sectionUrl
+				});
+				expect(result).toEqual(
+					expect.objectContaining({
+						selectedPageType: 'examination-library',
+						sectionHeading: 'Open Floor Hearing 1',
+						sectionStatus: 'In progress'
+					})
+				);
+			});
+			it('should use the parent section table headers', () => {
+				const result = getExaminationLibrarySectionViewModel({
+					section,
+					sectionDocuments: [baseDocument],
+					sectionStatus: inProgressSectionStatus,
+					itemSlug,
+					query,
+					sectionUrl
+				});
+				expect(result.sectionTable.head).toEqual([
+					{ text: 'Draft reference' },
+					{ text: 'Document description' },
+					{ text: 'Status' },
+					{ text: 'Actions' }
+				]);
+			});
+			it('should display Reference instead of Draft reference when published', () => {
+				const result = getExaminationLibrarySectionViewModel({
+					section,
+					sectionDocuments: [],
+					sectionStatus: publishedSectionStatus,
+					itemSlug,
+					query,
+					sectionUrl
+				});
+				expect(result.sectionTable.head[0]).toEqual({
+					text: 'Reference'
+				});
+				expect(result.sectionStatus).toEqual('Published');
+			});
+			it('should return null if the item slug does not match the resolved section', () => {
+				const result = getExaminationLibrarySectionViewModel({
+					section,
+					sectionDocuments: [],
+					sectionStatus: inProgressSectionStatus,
+					itemSlug: 'unknown-hearing',
+					query,
+					sectionUrl
+				});
+				expect(result).toEqual(null);
+			});
+
+			it.each([
+				['events-and-hearings', 'Open Floor Hearing 1', 'open-floor-hearing-1', false],
+				['procedural-deadlines', 'Procedural Deadline 1', 'procedural-deadline-1', true],
+				['deadlines', 'Deadline 1', 'deadline-1', true]
+			])(
+				'should use the configured table headers for %s',
+				(sectionSlug, title, itemSlug, hasAuthor) => {
+					const parentSection = examinationLibrarySections.find(
+						(section) => section.slug === sectionSlug
+					);
+					const section = {
+						...parentSection,
+						items: [{ title, href: itemSlug }]
+					};
+					const result = getExaminationLibrarySectionViewModel({
+						section,
+						sectionDocuments: [],
+						sectionStatus: inProgressSectionStatus,
+						itemSlug,
+						query,
+						sectionUrl
+					});
+					expect(result.sectionTable.head.some((header) => header.text === 'From')).toBe(hasAuthor);
+				}
+			);
 		});
 	});
 });
